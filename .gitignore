@@ -1,0 +1,33 @@
+﻿# Node & Frontend
+node_modules/
+frontend/node_modules/
+*.log
+npm-debug.log*
+
+# Python & Backend
+__pycache__/
+*.py[cod]
+*.class
+.pytest_cache/
+.venv/
+venv/
+env/
+
+# Scratch & Unrelated Backups
+.agents/
+AI에이전트_유튜브_이관_전체백업/
+관심종목_백업_20261030/data/
+관심종목_백업_20261030/data_stocks/
+관심종목_백업_20261030/*.txt
+관심종목_백업_20261030/*.bat
+
+# Environment & Secrets
+.env
+.env.local
+.env.*.local
+
+# OS & Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

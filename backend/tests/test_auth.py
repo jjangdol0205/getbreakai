@@ -85,3 +85,28 @@ def test_api_auth_validate_missing_field_returns_422(api_client):
     """POST /api/auth/validate with missing required license_key returns 422."""
     res = api_client.post("/api/auth/validate", json={})
     assert res.status_code == 422
+
+
+def test_license_service_rsa_live_and_ltd_keys(api_client):
+    """Validates self-issued RSA-PRO-2026-XXXX and RSA-LTD-2026-XXXX keys."""
+    r_pro = api_client.post("/api/auth/validate", json={"license_key": "RSA-PRO-2026-LIVE"})
+    assert r_pro.status_code == 200
+    assert r_pro.json()["valid"] is True
+    assert r_pro.json()["tier"] == "pro"
+
+    r_ltd = api_client.post("/api/auth/validate", json={"license_key": "RSA-LTD-2026-PASS"})
+    assert r_ltd.status_code == 200
+    assert r_ltd.json()["valid"] is True
+    assert r_ltd.json()["tier"] == "pro_lifetime"
+
+
+def test_lemonsqueezy_webhook_registration(api_client):
+    """POST /api/auth/webhook/lemonsqueezy registers license key for subsequent auth."""
+    webhook_payload = {
+        "meta": {"event_name": "license_key_created"},
+        "data": {"attributes": {"key": "LS-WEBHOOK-TEST-2026"}},
+    }
+    res = api_client.post("/api/auth/webhook/lemonsqueezy", json=webhook_payload)
+    assert res.status_code == 200
+    assert res.json()["registered"] is True
+    assert license_service.is_valid_pro_key("LS-WEBHOOK-TEST-2026") is True

@@ -10,7 +10,7 @@ services:
         destination: /static_api/health.json
       - type: rewrite
         source: /api/stocks
-        destination: /static_api/stocks_pro.json
+        destination: /static_api/stocks_free.json
       - type: rewrite
         source: /api/backtest
         destination: /static_api/backtest.json
@@ -24,11 +24,11 @@ services:
         source: /api/semi/overview
         destination: /static_api/semi_overview.json
       - type: rewrite
-        source: /api/semi/history
-        destination: /static_api/semi_history_1Y.json
-      - type: rewrite
         source: /api/semi/download-csv
         destination: /static_api/smh_xlv_fear_greed_history.csv
+      - type: rewrite
+        source: /api/telegram/status
+        destination: /static_api/telegram_status.json
       - type: rewrite
         source: /*
         destination: /index.html

@@ -1,3 +1,5 @@
+import os
+os.environ.setdefault('DEFAULT_VIEW', 'rightside')
 #!/usr/bin/env python
 """
 run_server.py - RightSideAlpha Unified Production Server Runner

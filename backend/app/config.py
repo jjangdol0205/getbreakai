@@ -28,9 +28,17 @@ class Settings:
         "http://127.0.0.1:5173",
         "http://localhost:8000",
         "http://127.0.0.1:8000",
+        "https://getbreakai.com",
+        "https://www.getbreakai.com",
+        "https://truthofmarket.com",
+        "https://www.truthofmarket.com",
+        "https://jjangdol0205.github.io",
     ]
-    # Regex allowing any localhost or 127.0.0.1 port with credentials
-    CORS_ORIGIN_REGEX: str = r"^https?://(localhost|127\.0\.0\.1)(:\d+)?$"
+    # Regex allowing any localhost/127.0.0.1 port, production domains, and *.onrender.com
+    CORS_ORIGIN_REGEX: str = (
+        r"^https?://(localhost|127\.0\.0\.1)(:\d+)?$"
+        r"|^https://([a-z0-9-]+\.)?(getbreakai\.com|truthofmarket\.com|onrender\.com|github\.io)$"
+    )
 
     # Data Source File Paths
     # Points to workspace datasets in 관심종목_백업_20261030
@@ -52,11 +60,18 @@ class Settings:
     DEMO_LICENSE_KEY: str = "PRO-DEMO-2026"
     LEMON_SQUEEZY_API_KEY: str = os.getenv("LEMON_SQUEEZY_API_KEY", "")
     LEMON_SQUEEZY_STORE_ID: str = os.getenv("LEMON_SQUEEZY_STORE_ID", "")
+    LEMON_SQUEEZY_WEBHOOK_SECRET: str = os.getenv("LEMON_SQUEEZY_WEBHOOK_SECRET", "")
 
     # Referral Defaults (for M3)
     DEFAULT_TRADINGVIEW_AFF_ID: str = os.getenv("TRADINGVIEW_AFF_ID", "rightsidealpha")
     DEFAULT_SEEKINGALPHA_SOURCE: str = os.getenv("SEEKINGALPHA_SOURCE", "affiliate_rightside")
     DEFAULT_TRENDSPIDER_AFF_ID: str = os.getenv("TRENDSPIDER_AFF_ID", "rightside")
+
+    # Telegram Bot & Alert Configuration
+    TELEGRAM_BOT_TOKEN: str = os.getenv("TELEGRAM_BOT_TOKEN", "")
+    TELEGRAM_CHAT_ID: str = os.getenv("TELEGRAM_CHAT_ID", "")
+    TELEGRAM_CHANNEL_URL: str = os.getenv("TELEGRAM_CHANNEL_URL", "https://t.me/RightSideAlphaBot")
+    TELEGRAM_CONFIG_PATH: Path = BASE_DIR / "data" / "telegram_config.json"
 
 
 settings = Settings()

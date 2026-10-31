@@ -59,7 +59,8 @@ def post_semi_lump_sum(payload: LumpSumRequest):
     return semi_engine.calculate_lump_sum(payload)
 
 
-@router.get("/pro/csv")
+@router.api_route("/pro/csv", methods=["GET", "HEAD"])
+@router.api_route("/download-csv", methods=["GET", "HEAD"], include_in_schema=False)
 def download_semi_pro_csv(_: bool = Depends(require_pro)):
     """
     Delivers full 26-year (2000-2026) daily Semiconductor Fear & Greed Index CSV dataset to Pro subscribers.

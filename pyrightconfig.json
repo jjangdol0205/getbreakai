@@ -1,0 +1,21 @@
+{
+  "exclude": [
+    "**/node_modules",
+    "**/dist",
+    "**/dist-global",
+    "**/static_api",
+    "**/assets",
+    "**/data",
+    "**/data_stocks",
+    "**/ai_shorts_output",
+    "**/.git",
+    "**/.venv",
+    "**/venv",
+    "**/__pycache__",
+    "**/.pytest_cache",
+    "**/.flow-browser-profile",
+    "**/.naver-browser-profile"
+  ],
+  "typeCheckingMode": "off",
+  "reportMissingImports": false
+}

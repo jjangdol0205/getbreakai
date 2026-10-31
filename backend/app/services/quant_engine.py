@@ -433,8 +433,8 @@ class QuantEngine:
                 score = float(stock.score)
                 # Synchronize stale snapshot prices inside markdown executive summary to latest close
                 content = re.sub(
-                    r"\|\s*\*\*현재가\s*\(Current Price\)\*\*\s*\|\s*\*\*\$[0-9.]+\*\*\s*\|[^|\n]+\|",
-                    f"| **현재가 (Current Price · {as_of_date} 최신 종가)** | **${c_price:.2f}** | 52주 신저가 대비 +{stock.prox_low52_pct:.1f}% 바닥권 안착 |",
+                    r"\|\s*\*\*현재가\s*\(Current Price[^)]*\)\*\*\s*\|\s*\*\*\$[0-9.]+\*\*\s*\|[^|\n]+\|",
+                    f"| **현재가 (Current Price · {as_of_date} 최신 종가)** | **${c_price:.2f}** | 52주 신저가(${stock.low52:.2f}) 대비 +{stock.prox_low52_pct:.1f}% 바닥권 안착 |",
                     content,
                 )
                 content = re.sub(
@@ -443,13 +443,18 @@ class QuantEngine:
                     content,
                 )
                 content = re.sub(
-                    r"\|\s*\*\*핵심 지지선\s*\(Support Floor\)\*\*\s*\|[^|\n]+\|[^|\n]+\|",
-                    f"| **-9% 손절 기준가 (Hard Stop Floor)** | ${s_price:.2f} | 하방 리스크 -9.0% 엄격 제한 안전마진 |",
+                    r"\|\s*\*\*(?:핵심 지지선|-9% 손절 기준가)\s*\([^)]+\)\*\*\s*\|[^|\n]+\|[^|\n]+\|",
+                    f"| **-9% 손절 기준가 (Hard Stop Floor)** | ${s_price:.2f} | 진입가(${c_price:.2f}) 대비 -9.0% 기계적 칼손절 안전마진 |",
                     content,
                 )
                 content = re.sub(
-                    r"\|\s*\*\*TP1 1차 목표가\s*\(원금 100% 회수\)\*\*\s*\|[^|\n]+\|[^|\n]+\|",
+                    r"\|\s*\*\*TP1 1차 목표가\s*\([^)]+\)\*\*\s*\|[^|\n]+\|[^|\n]+\|",
                     f"| **TP1 1차 목표가 (원금 100% 회수 · 2x)** | **${t_price:.2f}** | **기대 수익률 +100.0% (50% 매도로 투자원금 100% 무위험화)** |",
+                    content,
+                )
+                content = re.sub(
+                    r"\|\s*\*\*비대칭 기대 손익비\s*\(RRR\)\*\*\s*\|[^|\n]+\|[^|\n]+\|",
+                    "| **비대칭 기대 손익비 (RRR)** | **1 : 11.1** | 비대칭 손익비 (하방 -9.0% vs 상방 +100.0%) |",
                     content,
                 )
             else:

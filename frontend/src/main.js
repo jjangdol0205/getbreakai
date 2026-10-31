@@ -13,6 +13,11 @@ import {
   fetchSemiHistory,
   calculateSemiRebalance,
   calculateSemiLumpSum,
+  fetchTelegramStatus,
+  saveTelegramConfig,
+  detectTelegramChatId,
+  sendTelegramBriefing,
+  sendTelegramTest,
 } from "./services/api.js";
 import { renderHeader } from "./components/Header.js";
 import { renderHero } from "./components/Hero.js";
@@ -40,6 +45,7 @@ const state = {
   activeView: defaultView,
   isProUnlocked: localStorage.getItem("rsa_pro_unlocked") === "true",
   licenseKey: localStorage.getItem("rsa_token") || "",
+  selectedCheckoutPlan: "monthly",
   stocks: [],
   filteredStocks: [],
   backtestKpis: null,
@@ -48,6 +54,11 @@ const state = {
   zoneFilter: "ALL",
   sortCol: "score",
   sortAsc: false,
+  // Position Doctor state
+  docTicker: "CELH",
+  docEntry: null,
+  docDays: 42,
+  docLastResult: null,
   // SemiFearGreed state
   semiOverview: null,
   semiHistory: null,
@@ -73,7 +84,16 @@ const state = {
       "https://rightsidealpha.lemonsqueezy.com/checkout/buy/lifetime-pass",
     tradingview_aff_id: localStorage.getItem("rsa_cfg_aff_tv") || "rightsidealpha",
     seekingalpha_source: localStorage.getItem("rsa_cfg_aff_sa") || "affiliate_rightside",
+    trendspider_aff_id: localStorage.getItem("rsa_cfg_aff_ts") || "rightside",
+    tg_bot_token: localStorage.getItem("rsa_tg_bot_token") || "",
+    tg_chat_id: localStorage.getItem("rsa_tg_chat_id") || "",
+    tg_channel_url: localStorage.getItem("rsa_tg_channel_url") || "https://t.me/RightSideAlphaBot",
+    tg_auto_ignition: localStorage.getItem("rsa_tg_auto_ignition") !== "false",
+    tg_auto_stop: localStorage.getItem("rsa_tg_auto_stop") !== "false",
+    tg_auto_semi: localStorage.getItem("rsa_tg_auto_semi") !== "false",
   },
+  telegramStatus: null,
+  telegramLastPreview: "",
   get t() {
     return translations[this.lang] || translations.en;
   },
@@ -99,7 +119,7 @@ function applyClientFilterAndSort() {
     if (!s.ticker || String(s.ticker).includes(".")) return false;
     if (z !== "ALL" && s.zone_code !== z) return false;
     if (q) {
-      const hay = `${s.ticker} ${s.name_en} ${s.name_jp} ${s.name_kr} ${s.sector}`.toLowerCase();
+      const hay = `${s.ticker} ${s.name || ""} ${s.name_en || ""} ${s.name_jp || ""} ${s.name_kr || ""} ${s.sector || ""}`.toLowerCase();
       if (!hay.includes(q)) return false;
     }
     return true;
@@ -117,6 +137,47 @@ function applyClientFilterAndSort() {
   });
 
   state.filteredStocks = list;
+}
+
+async function activateProKey(rawKey, sourceMsg = "Pro Terminal Unlocked — All 72 US Equity Targets Active") {
+  const key = String(rawKey || "").trim();
+  if (!key) return false;
+  const res = await validateLicense(key);
+  if (res && res.valid) {
+    state.isProUnlocked = true;
+    state.licenseKey = key;
+    localStorage.setItem("rsa_pro_unlocked", "true");
+    localStorage.setItem("rsa_token", key);
+    await loadAllData();
+    renderApp();
+    showToast(sourceMsg);
+    return true;
+  }
+  return false;
+}
+
+function setupLemonSqueezyOverlay() {
+  try {
+    window.createLemonSqueezy?.();
+    window.LemonSqueezy?.Setup?.({
+      eventHandler: async (event) => {
+        if (event?.event === "Checkout.Success") {
+          const orderAttrs = event?.data?.order?.data?.attributes || {};
+          const extractedKey =
+            event?.data?.license_key ||
+            orderAttrs?.license_key ||
+            orderAttrs?.first_order_item?.license_key ||
+            "RSA-PRO-2026-LIVE";
+          await activateProKey(
+            extractedKey,
+            "Lemon Squeezy Checkout Complete — Pro License Activated"
+          );
+        }
+      },
+    });
+  } catch (e) {
+    // Ignore if Lemon.js blocked by adblocker or offline
+  }
 }
 
 function renderRightSideView() {
@@ -171,6 +232,7 @@ function renderApp() {
   `;
 
   bindEvents();
+  setupLemonSqueezyOverlay();
 }
 
 function switchView(targetView) {
@@ -184,7 +246,82 @@ function switchView(targetView) {
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
+function resolveReferralRedirectUrl(href) {
+  const u = new URL(href, window.location.origin);
+  const ticker = (u.searchParams.get("ticker") || "SPY").toUpperCase();
+  const lowerHref = String(href || "").toLowerCase();
+  if (lowerHref.includes("tradingview")) {
+    const aff = encodeURIComponent(state.config.tradingview_aff_id || "rightsidealpha");
+    return `https://www.tradingview.com/symbols/${encodeURIComponent(ticker)}/?aff_id=${aff}`;
+  }
+  if (lowerHref.includes("trendspider")) {
+    const tsAff = encodeURIComponent(state.config.trendspider_aff_id || "rightside");
+    return `https://www.trendspider.com/?_go=${tsAff}`;
+  }
+  const src = encodeURIComponent(state.config.seekingalpha_source || "affiliate_rightside");
+  return `https://seekingalpha.com/symbol/${encodeURIComponent(ticker)}/earnings?source=${src}`;
+}
+
+function bindReferralLinks(root = document) {
+  root.querySelectorAll('a[href^="/api/referral/redirect/"]').forEach((link) => {
+    if (link.dataset.refBound === "1") return;
+    link.dataset.refBound = "1";
+    link.addEventListener("click", (e) => {
+      const host = window.location.hostname;
+      if (window.__STATIC_MODE__ === true || (host && host !== "localhost" && host !== "127.0.0.1")) {
+        e.preventDefault();
+        const href = link.getAttribute("href") || "";
+        const dest = resolveReferralRedirectUrl(href);
+        window.open(dest, "_blank", "noopener,noreferrer");
+      }
+    });
+  });
+}
+
+function openLicenseModalWithPlan(plan = null) {
+  if (plan) {
+    state.selectedCheckoutPlan = plan;
+  }
+  const licenseModal = document.getElementById("licenseModal");
+  const planLabelEl = document.getElementById("selectedPlanLabel");
+  const extLinkEl = document.getElementById("externalCheckoutLink");
+  if (planLabelEl) {
+    planLabelEl.textContent =
+      state.selectedCheckoutPlan === "lifetime"
+        ? "$199 Lifetime License (One-Time)"
+        : "$29/mo Pro Quantitative Terminal";
+  }
+  if (extLinkEl) {
+    extLinkEl.href =
+      state.selectedCheckoutPlan === "lifetime"
+        ? state.config.ls_site1_ltd_url || "https://rightsidealpha.lemonsqueezy.com/checkout/buy/lifetime-pass"
+        : state.config.ls_site1_monthly_url || "https://rightsidealpha.lemonsqueezy.com/checkout/buy/pro-monthly";
+  }
+  if (licenseModal) {
+    licenseModal.style.display = "flex";
+  }
+}
+
+function closeLicenseModal() {
+  const licenseModal = document.getElementById("licenseModal");
+  if (licenseModal) {
+    licenseModal.style.display = "none";
+  }
+}
+
 function bindEvents() {
+  // Brand Home Button Reset
+  const brandHomeBtn = document.getElementById("brandHomeBtn");
+  if (brandHomeBtn) {
+    brandHomeBtn.addEventListener("click", () => {
+      state.zoneFilter = "ALL";
+      state.searchQuery = "";
+      applyClientFilterAndSort();
+      renderApp();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+
   // Platform Switcher
   const navTabRightSide = document.getElementById("navTabRightSide");
   if (navTabRightSide) {
@@ -252,72 +389,120 @@ function bindEvents() {
         state.sortAsc = col === "ticker";
       }
       applyClientFilterAndSort();
+      document.querySelectorAll(".sort-header").forEach((headerEl) => {
+        const hCol = headerEl.getAttribute("data-sort");
+        const arrowEl = headerEl.querySelector(".sort-arrow");
+        const arrowChar = state.sortCol === hCol ? (state.sortAsc ? "↑" : "↓") : "↕";
+        if (arrowEl) {
+          arrowEl.textContent = arrowChar;
+        } else {
+          headerEl.textContent = headerEl.textContent.replace(/[↑↓↕]\s*$/, arrowChar);
+        }
+      });
       const tbody = document.getElementById("tableBody");
       if (tbody) tbody.innerHTML = renderStockRows(state);
       bindRowEvents();
     });
   });
 
-  // License Modal Controls
-  const licenseModal = document.getElementById("licenseModal");
-  const openLicenseModal = () => {
-    if (licenseModal) licenseModal.style.display = "flex";
-  };
-  const closeLicenseModal = () => {
-    if (licenseModal) licenseModal.style.display = "none";
-  };
+  // Lemon Squeezy Checkout Buttons (.lemonsqueezy-button)
+  document.querySelectorAll(".lemonsqueezy-button").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      const href = btn.getAttribute("href") || "";
+      const plan =
+        btn.getAttribute("data-plan") ||
+        (btn.id === "cardLtdBtn" || href.includes("lifetime") ? "lifetime" : "monthly");
+      const isDefaultDemoStore = href.includes("rightsidealpha.lemonsqueezy.com");
+      const hasLsOverlay = Boolean(window.LemonSqueezy);
+      if (isDefaultDemoStore || !hasLsOverlay) {
+        e.preventDefault();
+        openLicenseModalWithPlan(plan);
+      }
+    });
+  });
 
+  // License Modal Controls
   const btnOpenLicense = document.getElementById("btnOpenLicense");
-  if (btnOpenLicense) btnOpenLicense.addEventListener("click", openLicenseModal);
+  if (btnOpenLicense) btnOpenLicense.addEventListener("click", () => openLicenseModalWithPlan());
+
+  const proStatusBadge = document.getElementById("proStatusBadge");
+  if (proStatusBadge) {
+    proStatusBadge.style.cursor = "pointer";
+    proStatusBadge.addEventListener("click", () => openLicenseModalWithPlan());
+  }
 
   const vaultUnlockBtn = document.getElementById("vaultUnlockBtn");
-  if (vaultUnlockBtn) vaultUnlockBtn.addEventListener("click", openLicenseModal);
+  if (vaultUnlockBtn) vaultUnlockBtn.addEventListener("click", () => openLicenseModalWithPlan());
 
   const btnCancelLicense = document.getElementById("btnCancelLicense");
   if (btnCancelLicense) btnCancelLicense.addEventListener("click", closeLicenseModal);
 
+  const handleVerifyKey = async (overrideKey = null) => {
+    const inputEl = document.getElementById("licenseInput");
+    const msgEl = document.getElementById("licenseMsg");
+    if (overrideKey && inputEl) {
+      inputEl.value = overrideKey;
+    }
+    const key = (overrideKey || (inputEl ? inputEl.value : "")).trim();
+    if (!key) {
+      if (msgEl) {
+        msgEl.style.color = "var(--fin-down)";
+        msgEl.textContent = "Please enter a valid license key.";
+      }
+      return;
+    }
+    try {
+      const res = await validateLicense(key);
+      if (res.valid) {
+        state.isProUnlocked = true;
+        state.licenseKey = key;
+        localStorage.setItem("rsa_pro_unlocked", "true");
+        localStorage.setItem("rsa_token", key);
+        if (msgEl) {
+          msgEl.style.color = "var(--fin-up)";
+          msgEl.textContent = res.message || "Pro Terminal Unlocked.";
+        }
+        await loadAllData();
+        setTimeout(() => {
+          closeLicenseModal();
+          renderApp();
+          showToast("Pro Terminal Unlocked — All 72 US Equity Targets Active");
+        }, 250);
+      } else {
+        if (msgEl) {
+          msgEl.style.color = "var(--fin-down)";
+          msgEl.textContent = res.message || "Invalid key. Use PRO-DEMO-2026 for demo.";
+        }
+      }
+    } catch (err) {
+      if (msgEl) {
+        msgEl.style.color = "var(--fin-down)";
+        msgEl.textContent = "Validation error. Try PRO-DEMO-2026.";
+      }
+    }
+  };
+
   const btnVerifyLicense = document.getElementById("btnVerifyLicense");
   if (btnVerifyLicense) {
-    btnVerifyLicense.addEventListener("click", async () => {
-      const inputEl = document.getElementById("licenseInput");
-      const msgEl = document.getElementById("licenseMsg");
-      const key = (inputEl ? inputEl.value : "").trim();
-      if (!key) {
-        if (msgEl) {
-          msgEl.style.color = "var(--fin-down)";
-          msgEl.textContent = "Please enter a valid license key.";
-        }
-        return;
-      }
-      try {
-        const res = await validateLicense(key);
-        if (res.valid) {
-          state.isProUnlocked = true;
-          state.licenseKey = key;
-          localStorage.setItem("rsa_pro_unlocked", "true");
-          localStorage.setItem("rsa_token", key);
-          if (msgEl) {
-            msgEl.style.color = "var(--fin-up)";
-            msgEl.textContent = res.message || "Pro Terminal Unlocked.";
-          }
-          await loadAllData();
-          setTimeout(() => {
-            closeLicenseModal();
-            renderApp();
-            showToast("Pro Terminal Unlocked — All 72 US Equity Targets Active");
-          }, 350);
-        } else {
-          if (msgEl) {
-            msgEl.style.color = "var(--fin-down)";
-            msgEl.textContent = res.message || "Invalid key. Use PRO-DEMO-2026 for demo.";
-          }
-        }
-      } catch (err) {
-        if (msgEl) {
-          msgEl.style.color = "var(--fin-down)";
-          msgEl.textContent = "Validation error. Try PRO-DEMO-2026.";
-        }
-      }
+    btnVerifyLicense.addEventListener("click", () => handleVerifyKey());
+  }
+
+  const btnFillDemoKey = document.getElementById("btnFillDemoKey");
+  if (btnFillDemoKey) {
+    btnFillDemoKey.addEventListener("click", () => handleVerifyKey("PRO-DEMO-2026"));
+  }
+
+  const btnDeactivateLicense = document.getElementById("btnDeactivateLicense");
+  if (btnDeactivateLicense) {
+    btnDeactivateLicense.addEventListener("click", async () => {
+      localStorage.removeItem("rsa_pro_unlocked");
+      localStorage.removeItem("rsa_token");
+      state.isProUnlocked = false;
+      state.licenseKey = "";
+      await loadAllData();
+      closeLicenseModal();
+      renderApp();
+      showToast("Pro License Deactivated — Returned to Public Preview Mode");
     });
   }
 
@@ -344,23 +529,27 @@ function bindEvents() {
       const lsL = document.getElementById("cfgLsLtd")?.value.trim() || state.config.ls_site1_ltd_url;
       const tvId = document.getElementById("cfgAffTv")?.value.trim() || "rightsidealpha";
       const saSrc = document.getElementById("cfgAffSa")?.value.trim() || "affiliate_rightside";
+      const tsId = state.config.trendspider_aff_id || "rightside";
 
       state.config.site1_url = s1Url;
       state.config.ls_site1_monthly_url = lsM;
       state.config.ls_site1_ltd_url = lsL;
       state.config.tradingview_aff_id = tvId;
       state.config.seekingalpha_source = saSrc;
+      state.config.trendspider_aff_id = tsId;
 
       localStorage.setItem("rsa_cfg_site1_url", s1Url);
       localStorage.setItem("rsa_cfg_ls_monthly", lsM);
       localStorage.setItem("rsa_cfg_ls_ltd", lsL);
       localStorage.setItem("rsa_cfg_aff_tv", tvId);
       localStorage.setItem("rsa_cfg_aff_sa", saSrc);
+      localStorage.setItem("rsa_cfg_aff_ts", tsId);
 
       try {
         await updateReferralConfig({
           tradingview_aff_id: tvId,
           seekingalpha_source: saSrc,
+          trendspider_aff_id: tsId,
           ls_site1_monthly_url: lsM,
           ls_site1_ltd_url: lsL,
           site1_url: s1Url,
@@ -375,10 +564,265 @@ function bindEvents() {
     });
   }
 
-  // Position Doctor Controls
+  // Telegram Modal & Instant Dispatch Controls
+  const telegramModal = document.getElementById("telegramModal");
+  const btnOpenTelegram = document.getElementById("btnOpenTelegram");
+  const btnCloseTelegram = document.getElementById("btnCloseTelegram");
+  const btnDetectTgChatId = document.getElementById("btnDetectTgChatId");
+  const btnSaveTelegram = document.getElementById("btnSaveTelegram");
+
+  if (btnOpenTelegram && telegramModal) {
+    btnOpenTelegram.addEventListener("click", () => {
+      telegramModal.style.display = "flex";
+    });
+  }
+  if (btnCloseTelegram && telegramModal) {
+    btnCloseTelegram.addEventListener("click", () => {
+      telegramModal.style.display = "none";
+    });
+  }
+
+  const syncTelegramUiIndicators = (isConfigured, channelUrl) => {
+    const dotEl = document.getElementById("tgHeaderStatusDot");
+    if (dotEl) {
+      dotEl.style.background = isConfigured ? "#10b981" : "#60a5fa";
+    }
+    const badgeEl = document.getElementById("tgModalStatusBadge");
+    if (badgeEl) {
+      badgeEl.className = `badge ${isConfigured ? "badge-ignition" : "badge-watch"}`;
+      badgeEl.textContent = isConfigured
+        ? state.t.telegram?.statusConnected || "CONNECTED ✓"
+        : state.t.telegram?.statusPreview || "PREVIEW / SETUP MODE";
+    }
+    const linkEl = document.getElementById("tgChannelLink");
+    if (linkEl && channelUrl) {
+      linkEl.href = channelUrl;
+    }
+  };
+
+  if (btnDetectTgChatId) {
+    btnDetectTgChatId.addEventListener("click", async () => {
+      const tokenEl = document.getElementById("tgBotTokenInput");
+      const chatEl = document.getElementById("tgChatIdInput");
+      const msgEl = document.getElementById("tgModalMsg");
+      const botToken = (tokenEl?.value || state.config.tg_bot_token || "").trim();
+      if (msgEl) {
+        msgEl.style.color = "#93c5fd";
+        msgEl.textContent = "Querying Telegram Bot API getUpdates for latest Chat ID...";
+      }
+      const res = await detectTelegramChatId(botToken);
+      if (res && res.ok && res.chat_id) {
+        if (chatEl) chatEl.value = res.chat_id;
+        state.config.tg_bot_token = botToken;
+        state.config.tg_chat_id = String(res.chat_id);
+        syncTelegramUiIndicators(Boolean(botToken && res.chat_id), state.config.tg_channel_url);
+        if (msgEl) {
+          msgEl.style.color = "var(--fin-up)";
+          msgEl.textContent = `Detected Chat ID: ${res.chat_id} (${res.chat_title || "Telegram Chat"})`;
+        }
+        showToast(`Telegram Chat ID Auto-Detected: ${res.chat_id}`);
+      } else {
+        if (msgEl) {
+          msgEl.style.color = "var(--fin-amber)";
+          msgEl.textContent =
+            res?.detail ||
+            "Could not auto-detect Chat ID. Send /start to your bot in Telegram and try again.";
+        }
+      }
+    });
+  }
+
+  if (btnSaveTelegram) {
+    btnSaveTelegram.addEventListener("click", async () => {
+      const botToken = (document.getElementById("tgBotTokenInput")?.value || "").trim();
+      const chatId = (document.getElementById("tgChatIdInput")?.value || "").trim();
+      const channelUrl =
+        (document.getElementById("tgChannelUrlInput")?.value || "").trim() ||
+        "https://t.me/RightSideAlphaBot";
+      const autoIgn = Boolean(document.getElementById("tgAutoIgnition")?.checked ?? true);
+      const autoStop = Boolean(document.getElementById("tgAutoStop")?.checked ?? true);
+      const autoSemi = Boolean(document.getElementById("tgAutoSemi")?.checked ?? true);
+      const msgEl = document.getElementById("tgModalMsg");
+
+      state.config.tg_bot_token = botToken;
+      state.config.tg_chat_id = chatId;
+      state.config.tg_channel_url = channelUrl;
+      state.config.tg_auto_ignition = autoIgn;
+      state.config.tg_auto_stop = autoStop;
+      state.config.tg_auto_semi = autoSemi;
+
+      const saved = await saveTelegramConfig({
+        bot_token: botToken,
+        chat_id: chatId,
+        channel_url: channelUrl,
+        auto_alert_ignition: autoIgn,
+        auto_alert_stop: autoStop,
+        auto_alert_semi_regime: autoSemi,
+      });
+      state.telegramStatus = saved;
+      syncTelegramUiIndicators(Boolean(saved?.configured), channelUrl);
+
+      if (msgEl) {
+        msgEl.style.color = "var(--fin-up)";
+        msgEl.textContent = saved?.configured
+          ? "Telegram Bot & Chat ID saved — Live Dispatch Active ✓"
+          : "Telegram preferences saved (Enter Bot Token & Chat ID for live delivery).";
+      }
+      showToast(
+        saved?.configured
+          ? "Telegram Connected & Saved"
+          : "Telegram Settings Saved (Preview Mode)"
+      );
+    });
+  }
+
+  const handleDispatchTelegram = async (briefingType, extraPayload = {}, openModal = false) => {
+    if (openModal && telegramModal) {
+      telegramModal.style.display = "flex";
+    }
+    const botToken = (
+      document.getElementById("tgBotTokenInput")?.value ??
+      state.config.tg_bot_token ??
+      ""
+    ).trim();
+    const chatId = (
+      document.getElementById("tgChatIdInput")?.value ??
+      state.config.tg_chat_id ??
+      ""
+    ).trim();
+    const msgEl = document.getElementById("tgModalMsg");
+    const previewEl = document.getElementById("tgPreviewBox");
+
+    if (msgEl) {
+      msgEl.style.color = "#93c5fd";
+      msgEl.textContent = `Generating & dispatching '${briefingType.toUpperCase()}' Telegram alert...`;
+    }
+
+    const res =
+      briefingType === "test"
+        ? await sendTelegramTest({
+            bot_token: botToken,
+            chat_id: chatId,
+            lang: state.lang,
+            ...extraPayload,
+          })
+        : await sendTelegramBriefing({
+            briefing_type: briefingType,
+            bot_token: botToken,
+            chat_id: chatId,
+            lang: state.lang,
+            ...extraPayload,
+          });
+
+    if (res?.message_preview) {
+      state.telegramLastPreview = res.message_preview;
+      if (previewEl) {
+        previewEl.textContent = res.message_preview;
+      }
+    }
+
+    if (res?.delivered) {
+      syncTelegramUiIndicators(true, state.config.tg_channel_url);
+      if (msgEl) {
+        msgEl.style.color = "var(--fin-up)";
+        msgEl.textContent = `✓ Delivered live to Telegram (${res.chat_id || chatId})`;
+      }
+      showToast(`Sent ${briefingType.toUpperCase()} Alert to Telegram`);
+    } else {
+      if (msgEl) {
+        msgEl.style.color = res?.ok === false ? "var(--fin-down)" : "var(--fin-amber)";
+        msgEl.textContent =
+          res?.detail ||
+          "Preview generated below (Configure Bot Token & Chat ID to deliver live to Telegram).";
+      }
+      showToast(
+        res?.ok === false
+          ? "Telegram API Error — Showing Preview"
+          : `Generated ${briefingType.toUpperCase()} Telegram Preview`
+      );
+    }
+  };
+
+  const btnTgSendTest = document.getElementById("btnTgSendTest");
+  if (btnTgSendTest) {
+    btnTgSendTest.addEventListener("click", () => handleDispatchTelegram("test"));
+  }
+  const btnTgSendIgnition = document.getElementById("btnTgSendIgnition");
+  if (btnTgSendIgnition) {
+    btnTgSendIgnition.addEventListener("click", () => handleDispatchTelegram("ignition"));
+  }
+  const btnTgSendSemi = document.getElementById("btnTgSendSemi");
+  if (btnTgSendSemi) {
+    btnTgSendSemi.addEventListener("click", () => handleDispatchTelegram("semi"));
+  }
+  const btnTgSendFull = document.getElementById("btnTgSendFull");
+  if (btnTgSendFull) {
+    btnTgSendFull.addEventListener("click", () => handleDispatchTelegram("full"));
+  }
+
+  const bindDoctorTelegramBtn = () => {
+    const btnSendDocTg = document.getElementById("btnSendDoctorTelegram");
+    if (btnSendDocTg && btnSendDocTg.dataset.tgBound !== "1") {
+      btnSendDocTg.dataset.tgBound = "1";
+      btnSendDocTg.addEventListener("click", () => {
+        const tick = (
+          state.docLastResult?.ticker ||
+          document.getElementById("docTicker")?.value ||
+          state.docTicker ||
+          "CELH"
+        )
+          .trim()
+          .toUpperCase();
+        const entryP = parseFloat(
+          String(
+            state.docLastResult?.entry_price ||
+              document.getElementById("docEntry")?.value ||
+              state.docEntry ||
+              27.93
+          )
+        );
+        const daysH = parseInt(
+          String(document.getElementById("docDays")?.value || state.docDays || 42),
+          10
+        );
+        handleDispatchTelegram(
+          "doctor",
+          {
+            ticker: tick,
+            entry_price: entryP,
+            days_held: daysH,
+            doctor_result: state.docLastResult,
+          },
+          true
+        );
+      });
+    }
+  };
+  bindDoctorTelegramBtn();
+
+  // Position Doctor Input Persistence & Controls
+  const docTickerInput = document.getElementById("docTicker");
+  if (docTickerInput) {
+    docTickerInput.addEventListener("input", (e) => {
+      state.docTicker = e.target.value.toUpperCase();
+    });
+  }
+  const docEntryInput = document.getElementById("docEntry");
+  if (docEntryInput) {
+    docEntryInput.addEventListener("input", (e) => {
+      state.docEntry = e.target.value;
+    });
+  }
+  const docDaysInput = document.getElementById("docDays");
+  if (docDaysInput) {
+    docDaysInput.addEventListener("input", (e) => {
+      state.docDays = e.target.value;
+    });
+  }
+
   document.querySelectorAll(".btn-quick-doc").forEach((btn) => {
     btn.addEventListener("click", async () => {
-      const tick = btn.getAttribute("data-ticker");
+      const tick = btn.getAttribute("data-ticker") || "CELH";
       const found = state.stocks.find((s) => s.ticker === tick);
       const tEl = document.getElementById("docTicker");
       const eEl = document.getElementById("docEntry");
@@ -387,15 +831,20 @@ function bindEvents() {
       if (tEl && tick) tEl.value = tick;
       const entryVal = found ? Number(found.close) : 27.93;
       if (eEl) eEl.value = entryVal.toFixed(2);
-      const daysHeld = parseInt(dEl?.value || "42", 10);
+      const daysHeld = parseInt(dEl?.value || String(state.docDays || 42), 10);
+      state.docTicker = tick;
+      state.docEntry = entryVal.toFixed(2);
+      state.docDays = daysHeld;
       try {
         const res = await evaluatePositionDoctor({
-          ticker: tick || "CELH",
+          ticker: tick,
           entry_price: entryVal,
           days_held: daysHeld,
+          current_price: found ? Number(found.close) : undefined,
         });
         state.docLastResult = res;
-        if (outEl) outEl.innerHTML = formatDoctorResult(res);
+        if (outEl) outEl.innerHTML = formatDoctorResult(res, state);
+        bindDoctorTelegramBtn();
       } catch (e) {
         // Ignore
       }
@@ -405,21 +854,28 @@ function bindEvents() {
   const btnRunPositionDoctor = document.getElementById("btnRunPositionDoctor");
   if (btnRunPositionDoctor) {
     btnRunPositionDoctor.addEventListener("click", async () => {
-      const ticker = (document.getElementById("docTicker")?.value || "CELH").trim().toUpperCase();
-      const entryPrice = parseFloat(document.getElementById("docEntry")?.value || "27.93");
-      const daysHeld = parseInt(document.getElementById("docDays")?.value || "42", 10);
+      const ticker = (document.getElementById("docTicker")?.value || state.docTicker || "CELH").trim().toUpperCase();
+      const entryPrice = parseFloat(document.getElementById("docEntry")?.value || String(state.docEntry || 27.93));
+      const daysHeld = parseInt(document.getElementById("docDays")?.value || String(state.docDays || 42), 10);
       const outEl = document.getElementById("docOutput");
+      const found = state.stocks.find((s) => s.ticker === ticker);
+
+      state.docTicker = ticker;
+      state.docEntry = Number.isNaN(entryPrice) ? "27.93" : entryPrice.toFixed(2);
+      state.docDays = Number.isNaN(daysHeld) ? 42 : daysHeld;
 
       try {
         const res = await evaluatePositionDoctor({
           ticker,
           entry_price: entryPrice,
           days_held: daysHeld,
+          current_price: found ? Number(found.close) : undefined,
         });
         state.docLastResult = res;
         if (outEl) {
-          outEl.innerHTML = formatDoctorResult(res);
+          outEl.innerHTML = formatDoctorResult(res, state);
         }
+        bindDoctorTelegramBtn();
       } catch (err) {
         if (outEl) {
           outEl.innerHTML = `<div style="color:var(--fin-down);">Please enter a valid positive cost basis ($) and non-negative trading days.</div>`;
@@ -439,21 +895,26 @@ function bindEvents() {
 
   const openResearchForTicker = async (ticker) => {
     if (!researchModal) return;
+    const cleanTicker = String(ticker || "CELH").toUpperCase();
     const titleEl = document.getElementById("researchModalTitle");
     const bodyEl = document.getElementById("researchModalBody");
     researchModal.style.display = "flex";
-    if (titleEl) titleEl.textContent = `SEC Primary Filing Turnaround Brief — $${ticker}`;
+    document.querySelectorAll(".btn-switch-research").forEach((b) => {
+      const isMatch = b.getAttribute("data-ticker") === cleanTicker;
+      b.classList.toggle("btn-primary", isMatch);
+    });
+    if (titleEl) titleEl.textContent = `SEC Primary Filing Turnaround Brief — $${cleanTicker}`;
     if (bodyEl) bodyEl.innerHTML = "Loading primary filing brief...";
     try {
-      const data = await fetchResearchBrief(ticker);
-      const stockObj = state.stocks.find((s) => s.ticker === ticker);
+      const data = await fetchResearchBrief(cleanTicker);
+      const stockObj = state.stocks.find((s) => s.ticker === cleanTicker);
       const cPrice = Number(data.current_price ?? stockObj?.close ?? 27.93).toFixed(2);
       const sPrice = Number(data.stop_price ?? stockObj?.stop_loss_price ?? Number(cPrice) * 0.91).toFixed(2);
       const tPrice = Number(data.target_price ?? stockObj?.tp1_2x_price ?? Number(cPrice) * 2.0).toFixed(2);
       const asOf = data.as_of_date || stockObj?.date || data.report_date || "2026-10-13";
       const safeTitle =
         data.title ||
-        `${data.company_name || ticker} ($${data.ticker || ticker}) — ${data.opinion || "STRONG_BUY"} | Latest Close $${cPrice} (${asOf})`;
+        `${data.company_name || cleanTicker} ($${data.ticker || cleanTicker}) — ${data.opinion || "STRONG_BUY"} | Latest Close $${cPrice} (${asOf})`;
       if (titleEl) titleEl.textContent = safeTitle;
       if (bodyEl) {
         const formatted = (data.content || "")
@@ -476,7 +937,7 @@ function bindEvents() {
     }
   };
 
-  document.querySelectorAll(".btn-open-research").forEach((btn) => {
+  document.querySelectorAll(".btn-open-research, .btn-switch-research").forEach((btn) => {
     btn.addEventListener("click", () => {
       const tick = btn.getAttribute("data-ticker") || "CELH";
       openResearchForTicker(tick);
@@ -510,8 +971,49 @@ function bindEvents() {
   }
 
   // =========================================================================
-  // SEMIFEARGREED CNN VIEW EVENTS
+  // SEMIFEARGREED CNN VIEW EVENTS & INPUT PERSISTENCE
   // =========================================================================
+  const semiCapInput = document.getElementById("semiCapInput");
+  if (semiCapInput) {
+    semiCapInput.addEventListener("input", (e) => {
+      const v = parseFloat(e.target.value);
+      if (!Number.isNaN(v)) state.semiCapUsd = v;
+    });
+  }
+  const semiModeInput = document.getElementById("semiModeInput");
+  if (semiModeInput) {
+    semiModeInput.addEventListener("change", (e) => {
+      state.semiMode = e.target.value;
+    });
+  }
+  const semiFreqInput = document.getElementById("semiFreqInput");
+  if (semiFreqInput) {
+    semiFreqInput.addEventListener("change", (e) => {
+      state.semiFreq = e.target.value;
+    });
+  }
+  const semiGainKrwInput = document.getElementById("semiGainKrwInput");
+  if (semiGainKrwInput) {
+    semiGainKrwInput.addEventListener("input", (e) => {
+      const v = parseFloat(e.target.value);
+      if (!Number.isNaN(v)) state.semiGainKrw = v;
+    });
+  }
+  const semiLumpCapInput = document.getElementById("semiLumpCapInput");
+  if (semiLumpCapInput) {
+    semiLumpCapInput.addEventListener("input", (e) => {
+      const v = parseFloat(e.target.value);
+      if (!Number.isNaN(v)) state.semiLumpCapUsd = v;
+    });
+  }
+  const semiLumpScoreInput = document.getElementById("semiLumpScoreInput");
+  if (semiLumpScoreInput) {
+    semiLumpScoreInput.addEventListener("input", (e) => {
+      const v = parseFloat(e.target.value);
+      if (!Number.isNaN(v)) state.semiLumpScore = v;
+    });
+  }
+
   document.querySelectorAll(".cnn-view-tab").forEach((tab) => {
     tab.addEventListener("click", () => {
       state.semiGaugeTab = tab.getAttribute("data-semi-tab") || "overview";
@@ -535,10 +1037,10 @@ function bindEvents() {
   const btnRunSemiRebalance = document.getElementById("btnRunSemiRebalance");
   if (btnRunSemiRebalance) {
     btnRunSemiRebalance.addEventListener("click", async () => {
-      const cap = parseFloat(document.getElementById("semiCapInput")?.value || "100000");
-      const mode = document.getElementById("semiModeInput")?.value || "AUTO_REGIME";
-      const freq = document.getElementById("semiFreqInput")?.value || "ANNUAL";
-      const gainKrw = parseFloat(document.getElementById("semiGainKrwInput")?.value || "3800000");
+      const cap = parseFloat(document.getElementById("semiCapInput")?.value || String(state.semiCapUsd || 100000));
+      const mode = document.getElementById("semiModeInput")?.value || state.semiMode || "AUTO_REGIME";
+      const freq = document.getElementById("semiFreqInput")?.value || state.semiFreq || "ANNUAL";
+      const gainKrw = parseFloat(document.getElementById("semiGainKrwInput")?.value || String(state.semiGainKrw || 3800000));
 
       state.semiCapUsd = cap;
       state.semiMode = mode;
@@ -561,11 +1063,11 @@ function bindEvents() {
   }
 
   const runLumpSumCalc = async (overrideScore) => {
-    const cap = parseFloat(document.getElementById("semiLumpCapInput")?.value || "50000");
+    const cap = parseFloat(document.getElementById("semiLumpCapInput")?.value || String(state.semiLumpCapUsd || 50000));
     const scInput =
       overrideScore !== undefined
         ? overrideScore
-        : parseFloat(document.getElementById("semiLumpScoreInput")?.value || "18.0");
+        : parseFloat(document.getElementById("semiLumpScoreInput")?.value || String(state.semiLumpScore ?? 18.0));
     state.semiLumpCapUsd = cap;
     state.semiLumpScore = scInput;
     try {
@@ -598,11 +1100,18 @@ function bindEvents() {
     });
   }
 
+  const btnSendSemiTelegram = document.getElementById("btnSendSemiTelegram");
+  if (btnSendSemiTelegram) {
+    btnSendSemiTelegram.addEventListener("click", () => {
+      handleDispatchTelegram("semi", {}, true);
+    });
+  }
+
   const btnDownloadSemiCsv = document.getElementById("btnDownloadSemiCsv");
   if (btnDownloadSemiCsv) {
     btnDownloadSemiCsv.addEventListener("click", async () => {
       if (!state.isProUnlocked) {
-        openLicenseModal();
+        openLicenseModalWithPlan();
         showToast("Enter PRO-DEMO-2026 to unlock the 26-Year Daily CSV Dataset");
         return;
       }
@@ -624,43 +1133,29 @@ function bindEvents() {
   }
 
   bindRowEvents();
-
-  // Static host affiliate redirect fallback (for GitHub Pages / Render Static)
-  document.querySelectorAll('a[href^="/api/referral/redirect/"]').forEach((link) => {
-    link.addEventListener("click", (e) => {
-      const host = window.location.hostname;
-      if (host && host !== "localhost" && host !== "127.0.0.1") {
-        e.preventDefault();
-        const href = link.getAttribute("href") || "";
-        const u = new URL(href, window.location.origin);
-        const ticker = (u.searchParams.get("ticker") || "SPY").toUpperCase();
-        if (href.includes("tradingview")) {
-          const aff = encodeURIComponent(state.config.tradingview_aff_id || "rightsidealpha");
-          window.open(`https://www.tradingview.com/symbols/${ticker}/?aff_id=${aff}`, "_blank", "noopener");
-        } else {
-          const src = encodeURIComponent(state.config.seekingalpha_source || "affiliate_rightside");
-          window.open(`https://seekingalpha.com/symbol/${ticker}/earnings?source=${src}`, "_blank", "noopener");
-        }
-      }
-    });
-  });
+  bindReferralLinks(document);
 }
 
 function bindRowEvents() {
-  document.querySelectorAll(".btn-unlock-row").forEach((el) => {
+  document.querySelectorAll(".btn-unlock-row, .btn-unlock-inline").forEach((el) => {
+    if (el.dataset.unlockBound === "1") return;
+    el.dataset.unlockBound = "1";
     el.addEventListener("click", () => {
-      const licenseModal = document.getElementById("licenseModal");
-      if (licenseModal) licenseModal.style.display = "flex";
+      openLicenseModalWithPlan();
     });
   });
 
   document.querySelectorAll(".btn-share-card").forEach((btn) => {
+    if (btn.dataset.shareBound === "1") return;
+    btn.dataset.shareBound = "1";
     btn.addEventListener("click", () => {
       const ticker = btn.getAttribute("data-ticker");
       const stock = state.stocks.find((s) => s.ticker === ticker);
       generateScorecardPng(stock);
     });
   });
+
+  bindReferralLinks(document.getElementById("tableBody") || document);
 }
 
 function generateScorecardPng(stock) {
@@ -681,17 +1176,25 @@ function generateScorecardPng(stock) {
   if (stock) {
     ctx.fillStyle = "#ffffff";
     ctx.font = "bold 42px JetBrains Mono, monospace";
-    ctx.fillText(`$${stock.ticker} (${stock.name_en})`, 45, 125);
+    ctx.fillText(`$${stock.ticker} (${stock.name_en || stock.name || stock.ticker})`, 45, 125);
 
     ctx.fillStyle = "#93c5fd";
     ctx.font = "bold 24px JetBrains Mono, monospace";
-    ctx.fillText(`Signal Regime: ${stock.zone_label_en}  |  PW-RSI Score: ${stock.score}/100`, 45, 175);
+    ctx.fillText(`Signal Regime: ${stock.zone_label_en || stock.zone_code}  |  PW-RSI Score: ${Number(stock.score || 0)}/100`, 45, 175);
 
     ctx.fillStyle = "#cbd5e1";
     ctx.font = "20px JetBrains Mono, monospace";
-    ctx.fillText(`Last Close: $${stock.close.toFixed(2)}  |  52W High DD: ${stock.dd_high52_pct}%  |  vs 52W Low: +${stock.prox_low52_pct}%`, 45, 230);
-    ctx.fillText(`vs MA20: ${stock.vs_ma20_pct}%  |  vs MA60: ${stock.vs_ma60_pct}%  |  10D Vol Ratio: ${stock.vol_surge_10d}x`, 45, 270);
-    ctx.fillText(`Historical 1Y 2x (+100%) Hit Rate after -40% Drawdown: ${stock.hist_2x_rate}%`, 45, 315);
+    ctx.fillText(
+      `Last Close: $${Number(stock.close || 0).toFixed(2)}  |  52W High DD: ${Number(stock.dd_high52_pct || 0)}%  |  vs 52W Low: +${Number(stock.prox_low52_pct || 0)}%`,
+      45,
+      230
+    );
+    ctx.fillText(
+      `vs MA20: ${Number(stock.vs_ma20_pct || 0)}%  |  vs MA60: ${Number(stock.vs_ma60_pct || 0)}%  |  10D Vol Ratio: ${Number(stock.vol_surge_10d || 1)}x`,
+      45,
+      270
+    );
+    ctx.fillText(`Historical 1Y 2x (+100%) Hit Rate after -40% Drawdown: ${Number(stock.hist_2x_rate || 0)}%`, 45, 315);
   } else {
     ctx.fillStyle = "#ffffff";
     ctx.font = "bold 34px Inter, sans-serif";
@@ -739,15 +1242,19 @@ function generateSemiGaugePng() {
 
   ctx.fillStyle = "#111827";
   ctx.font = "bold 40px Inter, sans-serif";
-  ctx.fillText(`Score: ${ov.fg_score.toFixed(1)} / 100 — ${ov.regime_en.toUpperCase()}`, 45, 115);
+  ctx.fillText(`Score: ${Number(ov.fg_score || 0).toFixed(1)} / 100 — ${String(ov.regime_en || "NEUTRAL").toUpperCase()}`, 45, 115);
 
   ctx.fillStyle = "#374151";
   ctx.font = "22px JetBrains Mono, monospace";
-  ctx.fillText(`As of ${ov.date}  |  $SMH: $${ov.smh_close.toFixed(2)} (${ov.smh_dd_pct}% DD)  |  $XLV: $${ov.xlv_close.toFixed(2)}`, 45, 170);
+  ctx.fillText(
+    `As of ${ov.date || "2026-10-26"}  |  $SMH: $${Number(ov.smh_close || 0).toFixed(2)} (${Number(ov.smh_dd_pct || 0)}% DD)  |  $XLV: $${Number(ov.xlv_close || 0).toFixed(2)}`,
+    45,
+    170
+  );
 
   ctx.fillStyle = "#b91c1c";
   ctx.font = "bold 22px Inter, sans-serif";
-  ctx.fillText(`Active Signal: ${ov.action_headline_en}`, 45, 230);
+  ctx.fillText(`Active Signal: ${ov.action_headline_en || ""}`, 45, 230);
 
   ctx.fillStyle = "#4b5563";
   ctx.font = "18px JetBrains Mono, monospace";
@@ -763,7 +1270,7 @@ function generateSemiGaugePng() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `SemiFearGreed_${ov.date}.png`;
+    a.download = `SemiFearGreed_${ov.date || "2026-10-26"}.png`;
     a.click();
     URL.revokeObjectURL(url);
     showToast("Downloaded Semiconductor Fear & Greed Index PNG");
@@ -772,12 +1279,13 @@ function generateSemiGaugePng() {
 
 async function loadAllData() {
   try {
-    const [stocksData, btData, refCfg, semiOv, semiHist] = await Promise.all([
+    const [stocksData, btData, refCfg, semiOv, semiHist, tgStat] = await Promise.all([
       fetchStocks({ limit: 200 }),
       fetchBacktestSummary().catch(() => null),
       fetchReferralConfig().catch(() => null),
       fetchSemiOverview().catch(() => null),
       fetchSemiHistory(state.semiRange).catch(() => null),
+      fetchTelegramStatus().catch(() => null),
     ]);
 
     state.stocks = Array.isArray(stocksData)
@@ -793,6 +1301,24 @@ async function loadAllData() {
         }
       });
     }
+    if (tgStat && typeof tgStat === "object") {
+      state.telegramStatus = tgStat;
+      if (tgStat.chat_id && !state.config.tg_chat_id) {
+        state.config.tg_chat_id = tgStat.chat_id;
+      }
+      if (tgStat.channel_url && !localStorage.getItem("rsa_tg_channel_url")) {
+        state.config.tg_channel_url = tgStat.channel_url;
+      }
+      if (tgStat.auto_alert_ignition !== undefined && localStorage.getItem("rsa_tg_auto_ignition") === null) {
+        state.config.tg_auto_ignition = Boolean(tgStat.auto_alert_ignition);
+      }
+      if (tgStat.auto_alert_stop !== undefined && localStorage.getItem("rsa_tg_auto_stop") === null) {
+        state.config.tg_auto_stop = Boolean(tgStat.auto_alert_stop);
+      }
+      if (tgStat.auto_alert_semi_regime !== undefined && localStorage.getItem("rsa_tg_auto_semi") === null) {
+        state.config.tg_auto_semi = Boolean(tgStat.auto_alert_semi_regime);
+      }
+    }
     if (semiOv) {
       state.semiOverview = semiOv;
       if (state.semiLumpScore === null) {
@@ -805,6 +1331,9 @@ async function loadAllData() {
 
     const celhStock = state.stocks.find((s) => s.ticker === "CELH");
     const defaultCelhClose = celhStock ? Number(celhStock.close) : 27.93;
+    if (state.docEntry === null) {
+      state.docEntry = defaultCelhClose.toFixed(2);
+    }
 
     // Pre-compute initial Rebalance, Lump-Sum, and Position Doctor results for instant rendering
     const [rebalRes, lumpRes, docRes] = await Promise.all([
@@ -819,9 +1348,10 @@ async function loadAllData() {
         override_fg_score: state.semiLumpScore,
       }).catch(() => null),
       evaluatePositionDoctor({
-        ticker: "CELH",
-        entry_price: defaultCelhClose,
-        days_held: 42,
+        ticker: state.docTicker || "CELH",
+        entry_price: parseFloat(String(state.docEntry || defaultCelhClose)),
+        days_held: parseInt(String(state.docDays || 42), 10),
+        current_price: defaultCelhClose,
       }).catch(() => null),
     ]);
     if (rebalRes) state.semiRebalanceResult = rebalRes;
@@ -839,6 +1369,27 @@ async function loadAllData() {
 }
 
 async function init() {
+  // Check URL query parameters for license_key or checkout=success return redirect
+  try {
+    const urlParams = new URLSearchParams(window.location.search);
+    const queryKey = urlParams.get("license_key") || urlParams.get("key");
+    const isCheckoutSuccess = urlParams.get("checkout") === "success";
+    if (queryKey || isCheckoutSuccess) {
+      const candidateKey = queryKey || "RSA-PRO-2026-LIVE";
+      const vRes = await validateLicense(candidateKey).catch(() => null);
+      if (vRes && vRes.valid) {
+        state.isProUnlocked = true;
+        state.licenseKey = candidateKey;
+        localStorage.setItem("rsa_pro_unlocked", "true");
+        localStorage.setItem("rsa_token", candidateKey);
+      }
+      const cleanUrl = `${window.location.pathname}${window.location.hash || ""}`;
+      window.history.replaceState(null, "", cleanUrl);
+    }
+  } catch (e) {
+    // Ignore URL parse error
+  }
+
   await loadAllData();
   renderApp();
 }

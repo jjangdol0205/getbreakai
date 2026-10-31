@@ -80,13 +80,16 @@ def evaluate_position_doctor(payload: ProPositionDoctorRequest):
     - Rule 4: Normal holding status within profit/stop bounds.
     """
     t_clean = payload.ticker.strip().upper()
+    stock = quant_engine.stocks_by_ticker.get(t_clean)
+    as_of_date = stock.date if stock else "2026-10-13"
+    entry_rnd = round(float(payload.entry_price), 2)
 
     cur_price = payload.current_price
     if cur_price is None:
-        stock = quant_engine.stocks_by_ticker.get(t_clean)
         cur_price = stock.close if stock else payload.entry_price
     else:
         cur_price = float(cur_price)
+    curr_rnd = round(cur_price, 2)
 
     return_pct = round(((cur_price - payload.entry_price) / payload.entry_price) * 100.0, 2)
     stop_price = round(payload.entry_price * 0.91, 2)
@@ -101,8 +104,11 @@ def evaluate_position_doctor(payload: ProPositionDoctorRequest):
             rule_triggered="Rule 1 (-9% Hard Stop Loss)",
             action_plan=f"Triggered: Exit immediately at ${cur_price} to protect capital and harvest tax loss credit.",
             is_critical=True,
+            entry_price=entry_rnd,
+            current_price=curr_rnd,
             stop_price=stop_price,
             tp1_price=tp1_price,
+            as_of_date=as_of_date,
         )
     elif payload.days_held >= 55 and return_pct < 8.0:
         return ProPositionDoctorResponse(
@@ -113,8 +119,11 @@ def evaluate_position_doctor(payload: ProPositionDoctorRequest):
             rule_triggered="Rule 2 (55-Day Time-Stop)",
             action_plan=f"Stagnant performance (+{return_pct}% in {payload.days_held} days). Rotate into fresh Ignition setup.",
             is_critical=False,
+            entry_price=entry_rnd,
+            current_price=curr_rnd,
             stop_price=stop_price,
             tp1_price=tp1_price,
+            as_of_date=as_of_date,
         )
     elif return_pct >= 100.0:
         return ProPositionDoctorResponse(
@@ -125,8 +134,11 @@ def evaluate_position_doctor(payload: ProPositionDoctorRequest):
             rule_triggered="Rule 3 (+100% TP1 Principal Recovery)",
             action_plan=f"Sell 50% at ${cur_price} to recover 100% principal. Ride remaining 50% risk-free.",
             is_critical=False,
+            entry_price=entry_rnd,
+            current_price=curr_rnd,
             stop_price=stop_price,
             tp1_price=tp1_price,
+            as_of_date=as_of_date,
         )
     else:
         days_left = max(0, 55 - payload.days_held)
@@ -138,6 +150,9 @@ def evaluate_position_doctor(payload: ProPositionDoctorRequest):
             rule_triggered="Rule 4 (Ongoing Hold)",
             action_plan=f"Hold position. Stop: ${stop_price}, TP1: ${tp1_price}. {days_left} trading days until 55-day review.",
             is_critical=False,
+            entry_price=entry_rnd,
+            current_price=curr_rnd,
             stop_price=stop_price,
             tp1_price=tp1_price,
+            as_of_date=as_of_date,
         )

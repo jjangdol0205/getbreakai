@@ -1,7 +1,14 @@
-function getAuthHeader() {
+export function isProUnlocked() {
+  if (typeof localStorage === "undefined") return false;
   const token =
     localStorage.getItem("rsa_token") ||
     (localStorage.getItem("rsa_pro_unlocked") === "true" ? "PRO-DEMO-2026" : "");
+  return Boolean(token) && localStorage.getItem("rsa_pro_unlocked") === "true";
+}
+
+function getAuthHeader() {
+  if (!isProUnlocked()) return {};
+  const token = localStorage.getItem("rsa_token") || "PRO-DEMO-2026";
   if (token) {
     return { Authorization: `Bearer ${token}` };
   }
@@ -9,18 +16,12 @@ function getAuthHeader() {
 }
 
 function isProActive() {
-  const token =
-    localStorage.getItem("rsa_token") ||
-    (localStorage.getItem("rsa_pro_unlocked") === "true" ? "PRO-DEMO-2026" : "");
-  return Boolean(token);
+  return isProUnlocked();
 }
 
 function isStaticHost() {
   if (typeof window === "undefined") return false;
-  if (window.__STATIC_MODE__ === true) return true;
-  const h = window.location.hostname || "";
-  if (!h || h === "localhost" || h === "127.0.0.1") return false;
-  return true;
+  return window.__STATIC_MODE__ === true;
 }
 
 async function fetchJsonWithFallback(apiUrl, options, fallbackFn) {
@@ -79,20 +80,24 @@ export async function fetchStocks(params = {}) {
       },
     },
     async () => {
-      const file = isProActive() ? "./static_api/stocks_pro.json" : "./static_api/stocks_free.json";
+      const file = isProUnlocked() ? "./static_api/stocks_pro.json" : "./static_api/stocks_free.json";
       const r = await fetch(file);
       let list = await r.json();
       if (params.search) {
         const q = String(params.search).trim().toLowerCase();
-        list = list.filter(
-          (s) =>
+        list = list.filter((s) => {
+          const nameVal = (s.name || s.name_en || s.name_kr || s.name_jp || "").toLowerCase();
+          const allNames = `${s.name || ""} ${s.name_en || ""} ${s.name_kr || ""} ${s.name_jp || ""}`.toLowerCase();
+          return (
             (s.ticker && s.ticker.toLowerCase().includes(q)) ||
-            (s.name && s.name.toLowerCase().includes(q)) ||
+            nameVal.includes(q) ||
+            allNames.includes(q) ||
             (s.sector && s.sector.toLowerCase().includes(q))
-        );
+          );
+        });
       }
       if (params.zone && params.zone !== "ALL") {
-        list = list.filter((s) => s.zone === params.zone);
+        list = list.filter((s) => s.zone_code === params.zone);
       }
       if (params.sort_by) {
         const key = params.sort_by;
@@ -170,6 +175,16 @@ export async function fetchResearchBrief(ticker) {
   );
 }
 
+export function isValidLicenseKeyFormat(rawKey) {
+  const key = String(rawKey || "").trim();
+  if (!key) return false;
+  return (
+    key.toUpperCase() === "PRO-DEMO-2026" ||
+    /^RSA-(PRO|LTD)-2026-[A-Z0-9]{4,12}$/i.test(key) ||
+    /^[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}$/i.test(key)
+  );
+}
+
 export async function validateLicense(licenseKey) {
   return fetchJsonWithFallback(
     "/api/auth/license/validate",
@@ -183,11 +198,10 @@ export async function validateLicense(licenseKey) {
     },
     async () => {
       const key = String(licenseKey || "").trim();
-      const valid =
-        key.toUpperCase() === "PRO-DEMO-2026" ||
-        (key.length >= 10 && key.includes("-"));
+      const valid = isValidLicenseKeyFormat(key);
       return {
         valid,
+        license_key: valid ? key.toUpperCase() : key,
         tier: valid ? "pro" : "free",
         message: valid
           ? "Pro Terminal License Verified."
@@ -230,7 +244,11 @@ export async function fetchPineScript() {
 }
 
 export async function evaluatePositionDoctor(data) {
-  return fetchJsonWithFallback(
+  const tClean = String(data.ticker || "CELH").trim().toUpperCase();
+  const entry = Math.max(0.01, Number(data.entry_price || 27.93));
+  const days = Number(data.days_held || 0);
+
+  const res = await fetchJsonWithFallback(
     "/api/pro/position-doctor",
     {
       method: "POST",
@@ -243,10 +261,7 @@ export async function evaluatePositionDoctor(data) {
     },
     async () => {
       const all = await getStaticProStocks();
-      const tClean = String(data.ticker || "CELH").trim().toUpperCase();
       const stock = all.find((s) => s.ticker === tClean);
-      const entry = Math.max(0.01, Number(data.entry_price || 27.93));
-      const days = Number(data.days_held || 0);
       const curr = stock ? Number(stock.close) : entry;
       const asOf = stock && stock.date ? stock.date : "2026-10-13";
       const retPct = Number((((curr / entry) - 1.0) * 100.0).toFixed(2));
@@ -316,6 +331,33 @@ export async function evaluatePositionDoctor(data) {
       }
     }
   );
+
+  if (res && typeof res === "object") {
+    if (res.entry_price === undefined || res.entry_price === null || !(res.entry_price > 0)) {
+      res.entry_price = Number(entry.toFixed(2));
+    }
+    if (res.current_price === undefined || res.current_price === null || !(res.current_price > 0)) {
+      let fallbackCurr = data.current_price ? Number(data.current_price) : null;
+      if (!fallbackCurr && cachedProStocks) {
+        const st = cachedProStocks.find((s) => s.ticker === tClean);
+        if (st) fallbackCurr = Number(st.close);
+      }
+      if (!fallbackCurr && res.return_pct !== undefined) {
+        fallbackCurr = Number((res.entry_price * (1.0 + Number(res.return_pct) / 100.0)).toFixed(2));
+      }
+      res.current_price = fallbackCurr || res.entry_price;
+    }
+    if (res.stop_price === undefined || res.stop_price === null) {
+      res.stop_price = Number((res.entry_price * 0.91).toFixed(2));
+    }
+    if (res.tp1_price === undefined || res.tp1_price === null) {
+      res.tp1_price = Number((res.entry_price * 2.0).toFixed(2));
+    }
+    if (!res.as_of_date) {
+      res.as_of_date = "2026-10-13";
+    }
+  }
+  return res;
 }
 
 export async function fetchReferralConfig() {
@@ -360,14 +402,23 @@ export async function fetchSemiHistory(rangeCode = "1Y") {
   const rc = String(rangeCode || "1Y").trim().toUpperCase();
   const validRanges = ["3M", "6M", "1Y", "3Y", "5Y", "10Y", "ALL"];
   const safeRange = validRanges.includes(rc) ? rc : "1Y";
-  return fetchJsonWithFallback(
+  const loadStaticRange = async () => {
+    const r = await fetch(`./static_api/semi_history_${safeRange}.json`);
+    return r.json();
+  };
+  const data = await fetchJsonWithFallback(
     `/api/semi/history?range=${encodeURIComponent(safeRange)}`,
     { headers: { Accept: "application/json" } },
-    async () => {
-      const r = await fetch(`./static_api/semi_history_${safeRange}.json`);
-      return r.json();
-    }
+    loadStaticRange
   );
+  if (data && data.range_code && String(data.range_code).toUpperCase() !== safeRange) {
+    try {
+      return await loadStaticRange();
+    } catch (e) {
+      return data;
+    }
+  }
+  return data;
 }
 
 export async function calculateSemiRebalance(data) {
@@ -437,7 +488,7 @@ export async function calculateSemiRebalance(data) {
       const investedUsd = targetSmhShares * smhPrice + targetXlvShares * xlvPrice;
       const residualUsd = Number(Math.max(0, capUsd - investedUsd).toFixed(2));
 
-      const natW = Number(ov.natural_smh_weight_pct ?? 64.9) / 100.0;
+      const natW = Number(ov.natural_smh_weight_pct ?? 66.5) / 100.0;
       const currSmhUsd = Number((capUsd * natW).toFixed(2));
       const currXlvUsd = Number((capUsd * (1.0 - natW)).toFixed(2));
       const deltaSmhUsd = Number((targetSmhUsd - currSmhUsd).toFixed(2));
@@ -694,4 +745,483 @@ export async function calculateSemiLumpSum(data) {
       }
     }
   );
+}
+
+// ============================================================================
+// TELEGRAM BOT API CLIENT & DIRECT BROWSER STATIC FALLBACK
+// ============================================================================
+
+const DEFAULT_TG_BOT_TOKEN = "9245553889:AAGCiCKCDeHZGNfY85iHxm6azY72bmad6gU";
+const DEFAULT_TG_CHANNEL_URL = "https://t.me/RigjtsideAlphabot";
+
+function getLocalTelegramConfig() {
+  if (typeof localStorage === "undefined") {
+    return {
+      bot_token: DEFAULT_TG_BOT_TOKEN,
+      chat_id: "",
+      channel_url: DEFAULT_TG_CHANNEL_URL,
+      auto_alert_ignition: true,
+      auto_alert_stop: true,
+      auto_alert_semi_regime: true,
+      has_local_ignition: false,
+      has_local_stop: false,
+      has_local_semi: false,
+    };
+  }
+  const rawIgn = localStorage.getItem("rsa_tg_auto_ignition");
+  const rawStop = localStorage.getItem("rsa_tg_auto_stop");
+  const rawSemi = localStorage.getItem("rsa_tg_auto_semi");
+  const storedTok = (localStorage.getItem("rsa_tg_bot_token") || "").trim();
+  const cleanTok = storedTok && !storedTok.includes("...") ? storedTok : DEFAULT_TG_BOT_TOKEN;
+  return {
+    bot_token: cleanTok,
+    chat_id: (localStorage.getItem("rsa_tg_chat_id") || "").trim(),
+    channel_url: (localStorage.getItem("rsa_tg_channel_url") || DEFAULT_TG_CHANNEL_URL).trim(),
+    auto_alert_ignition: rawIgn !== null ? rawIgn !== "false" : true,
+    auto_alert_stop: rawStop !== null ? rawStop !== "false" : true,
+    auto_alert_semi_regime: rawSemi !== null ? rawSemi !== "false" : true,
+    has_local_ignition: rawIgn !== null,
+    has_local_stop: rawStop !== null,
+    has_local_semi: rawSemi !== null,
+  };
+}
+
+export async function fetchTelegramStatus() {
+  const localCfg = getLocalTelegramConfig();
+  const apiStatus = await fetchJsonWithFallback(
+    "/api/telegram/status",
+    { headers: { Accept: "application/json" } },
+    async () => {
+      try {
+        const r = await fetch("./static_api/telegram_status.json");
+        if (r.ok) return await r.json();
+      } catch (e) {
+        // Fallback if static_api/telegram_status.json does not exist yet
+      }
+      return {};
+    }
+  );
+
+  const hasLocalCreds = Boolean(localCfg.bot_token && localCfg.chat_id);
+  const configured = Boolean(apiStatus?.configured || hasLocalCreds);
+  const maskedToken = localCfg.bot_token
+    ? `${localCfg.bot_token.slice(0, 6)}...${localCfg.bot_token.slice(-4)}`
+    : apiStatus?.bot_token_masked || "";
+
+  return {
+    ...apiStatus,
+    configured,
+    has_bot_token: Boolean(apiStatus?.has_bot_token || localCfg.bot_token),
+    has_chat_id: Boolean(apiStatus?.has_chat_id || localCfg.chat_id),
+    bot_token_masked: maskedToken,
+    chat_id: localCfg.chat_id || apiStatus?.chat_id || "",
+    channel_url: localCfg.channel_url || apiStatus?.channel_url || "https://t.me/RightSideAlphaBot",
+    auto_alert_ignition: localCfg.has_local_ignition
+      ? localCfg.auto_alert_ignition
+      : (apiStatus?.auto_alert_ignition ?? true),
+    auto_alert_stop: localCfg.has_local_stop
+      ? localCfg.auto_alert_stop
+      : (apiStatus?.auto_alert_stop ?? true),
+    auto_alert_semi_regime: localCfg.has_local_semi
+      ? localCfg.auto_alert_semi_regime
+      : (apiStatus?.auto_alert_semi_regime ?? true),
+  };
+}
+
+export async function saveTelegramConfig(cfg = {}) {
+  const localCfg = getLocalTelegramConfig();
+  const rawToken = cfg.bot_token !== undefined ? String(cfg.bot_token).trim() : "";
+  const botToken = rawToken && !rawToken.includes("...") ? rawToken : localCfg.bot_token;
+  const chatId = cfg.chat_id !== undefined ? String(cfg.chat_id).trim() : localCfg.chat_id;
+  const channelUrl =
+    cfg.channel_url !== undefined
+      ? String(cfg.channel_url).trim() || DEFAULT_TG_CHANNEL_URL
+      : localCfg.channel_url || DEFAULT_TG_CHANNEL_URL;
+  const autoIgn =
+    cfg.auto_alert_ignition !== undefined ? Boolean(cfg.auto_alert_ignition) : localCfg.auto_alert_ignition;
+  const autoStop =
+    cfg.auto_alert_stop !== undefined ? Boolean(cfg.auto_alert_stop) : localCfg.auto_alert_stop;
+  const autoSemi =
+    cfg.auto_alert_semi_regime !== undefined
+      ? Boolean(cfg.auto_alert_semi_regime)
+      : localCfg.auto_alert_semi_regime;
+
+  if (typeof localStorage !== "undefined") {
+    localStorage.setItem("rsa_tg_bot_token", botToken);
+    localStorage.setItem("rsa_tg_chat_id", chatId);
+    localStorage.setItem("rsa_tg_channel_url", channelUrl);
+    localStorage.setItem("rsa_tg_auto_ignition", String(autoIgn));
+    localStorage.setItem("rsa_tg_auto_stop", String(autoStop));
+    localStorage.setItem("rsa_tg_auto_semi", String(autoSemi));
+  }
+
+  const payload = {
+    bot_token: botToken,
+    chat_id: chatId,
+    channel_url: channelUrl,
+    auto_alert_ignition: autoIgn,
+    auto_alert_stop: autoStop,
+    auto_alert_semi_regime: autoSemi,
+  };
+
+  const apiRes = await fetchJsonWithFallback(
+    "/api/telegram/config",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(payload),
+    },
+    async () => ({
+      ok: true,
+      status: "updated",
+      configured: Boolean(botToken && chatId),
+      chat_id: chatId,
+      channel_url: channelUrl,
+      auto_alert_ignition: autoIgn,
+      auto_alert_stop: autoStop,
+      auto_alert_semi_regime: autoSemi,
+    })
+  );
+
+  return {
+    ...apiRes,
+    ok: true,
+    configured: Boolean(apiRes?.configured || (botToken && chatId)),
+    has_bot_token: Boolean(botToken || apiRes?.has_bot_token),
+    has_chat_id: Boolean(chatId || apiRes?.has_chat_id),
+    chat_id: chatId || apiRes?.chat_id || "",
+    channel_url: channelUrl,
+    auto_alert_ignition: autoIgn,
+    auto_alert_stop: autoStop,
+    auto_alert_semi_regime: autoSemi,
+  };
+}
+
+export async function detectTelegramChatId(botToken) {
+  const localCfg = getLocalTelegramConfig();
+  const rawInput = String(botToken || "").trim();
+  const token = (rawInput && !rawInput.includes("...") ? rawInput : localCfg.bot_token).trim();
+
+  if (token && !token.includes("...") && typeof localStorage !== "undefined") {
+    localStorage.setItem("rsa_tg_bot_token", token);
+  }
+
+  if (!isStaticHost()) {
+    try {
+      const resp = await fetch("/api/telegram/detect-chat-id", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({ bot_token: token || undefined }),
+      });
+      if (resp.ok) {
+        const data = await resp.json();
+        if (data && data.ok && data.chat_id && !data.simulated) {
+          if (typeof localStorage !== "undefined") {
+            localStorage.setItem("rsa_tg_chat_id", String(data.chat_id));
+          }
+          return data;
+        }
+      }
+    } catch (e) {
+      // Fallback to direct Telegram Bot API getUpdates from browser
+    }
+  }
+
+  if (!token) {
+    return {
+      ok: false,
+      chat_id: "",
+      detail: "Please enter your Telegram Bot Token from @BotFather first.",
+    };
+  }
+
+  try {
+    const tgResp = await fetch(`https://api.telegram.org/bot${token}/getUpdates?limit=25`);
+    const tgData = await tgResp.json();
+    if (!tgResp.ok || !tgData.ok) {
+      return {
+        ok: false,
+        chat_id: "",
+        detail: tgData?.description || "Telegram Bot API rejected the token. Verify your @BotFather token.",
+      };
+    }
+    const results = Array.isArray(tgData.result) ? tgData.result : [];
+    for (let i = results.length - 1; i >= 0; i--) {
+      const upd = results[i] || {};
+      const chat =
+        upd.message?.chat ||
+        upd.channel_post?.chat ||
+        upd.edited_message?.chat ||
+        upd.my_chat_member?.chat;
+      if (chat && chat.id !== undefined) {
+        const cid = String(chat.id);
+        if (typeof localStorage !== "undefined") {
+          localStorage.setItem("rsa_tg_chat_id", cid);
+        }
+        return {
+          ok: true,
+          chat_id: cid,
+          chat_title: chat.title || chat.first_name || chat.username || "Telegram Chat",
+          username: chat.username || "",
+        };
+      }
+    }
+    return {
+      ok: false,
+      chat_id: "",
+      detail: "No recent messages found. Open your bot in Telegram, send /start, and click Auto-Detect again.",
+    };
+  } catch (err) {
+    return {
+      ok: false,
+      chat_id: "",
+      detail: "Could not reach api.telegram.org. Enter your Chat ID manually or verify network access.",
+    };
+  }
+}
+
+async function buildClientTelegramMessage(payload = {}) {
+  const bType = String(payload.briefing_type || "test").trim().toLowerCase();
+  const [stocks, ov] = await Promise.all([
+    getStaticProStocks().catch(() => []),
+    getStaticSemiOverview().catch(() => null),
+  ]);
+
+  const ignStocks = [...(stocks || [])]
+    .filter((s) => s.zone_code === "IGNITION_ZONE")
+    .sort((a, b) => Number(b.score || 0) - Number(a.score || 0));
+  const topPicks = (ignStocks.length ? ignStocks : stocks || []).slice(0, 5);
+  const top1 = topPicks[0] || {
+    ticker: "CELH",
+    score: 90,
+    close: 27.93,
+    entry_trigger_price: 29.12,
+    stop_loss_price: 25.42,
+    tp1_2x_price: 55.86,
+    vol_surge_10d: 1.45,
+    date: "2026-10-13",
+  };
+
+  const fgScore = Number(ov?.fg_score ?? 18.0).toFixed(1);
+  const fgRegime = String(ov?.regime_en || "EXTREME FEAR").toUpperCase();
+  const smhClose = Number(ov?.smh_close ?? 541.62).toFixed(2);
+  const smhDd = Number(ov?.smh_dd_pct ?? -19.03).toFixed(2);
+  const xlvClose = Number(ov?.xlv_close ?? 179.28).toFixed(2);
+  const qqqClose = Number(ov?.qqq_close ?? 712.20).toFixed(2);
+  const semiDate = ov?.date || "2026-10-26";
+  const recSmh = ov?.recommended_smh_weight ?? 80;
+  const recXlv = ov?.recommended_xlv_weight ?? 20;
+
+  if (bType === "test") {
+    return [
+      `🟢 <b>RightSideAlpha × SemiFearGreed — Telegram Quant Alert Connected</b>`,
+      ``,
+      `• <b>Universe:</b> 72 Liquid NYSE & NASDAQ Equities (N = 394,371 Stock-Days)`,
+      `• <b>Top Right-Side Ignition:</b> <code>$${top1.ticker}</code> (Score ${top1.score}/100) | Close <b>$${Number(top1.close).toFixed(2)}</b>`,
+      `  ↳ TRG: <b>$${Number(top1.entry_trigger_price).toFixed(2)}</b> | STP (-9%): <b>$${Number(top1.stop_loss_price).toFixed(2)}</b> | TP1 (2x): <b>$${Number(top1.tp1_2x_price).toFixed(2)}</b>`,
+      `• <b>SemiFearGreed Index (${semiDate}):</b> <b>${fgScore} / 100 (${fgRegime})</b>`,
+      `  ↳ Active Barbell Signal: <b>${recSmh}% $SMH ($${smhClose}) : ${recXlv}% $XLV ($${xlvClose})</b>`,
+      ``,
+      `✅ Real-time Ignition Breakouts, Position Doctor -9% / 55D Stops & 80:20 Contrarian Signals are active.`,
+    ].join("\n");
+  }
+
+  if (bType === "ignition") {
+    const lines = [
+      `📊 <b>RightSideAlpha — Top 5 Right-Side Ignition Breakouts</b>`,
+      `<i>Post-Washout (1.40x+ Vol) + MA20/MA60 Simultaneous Reclaim (${top1.date || "2026-10-13"})</i>`,
+      ``,
+    ];
+    topPicks.forEach((s, idx) => {
+      const cls = Number(s.close || 0).toFixed(2);
+      const trg = Number(s.entry_trigger_price ?? s.close ?? 0).toFixed(2);
+      const stp = Number(s.stop_loss_price ?? Number(cls) * 0.91).toFixed(2);
+      const tp1 = Number(s.tp1_2x_price ?? Number(cls) * 2.0).toFixed(2);
+      const vol = Number(s.vol_surge_10d ?? 1.4).toFixed(2);
+      lines.push(
+        `<b>${idx + 1}. $${s.ticker}</b> (${s.name_en || s.name || s.ticker}) — Score <b>${s.score}/100</b>`,
+        `   Close: <b>$${cls}</b> | TRG: <b>$${trg}</b> | STP (-9%): <b>$${stp}</b> | TP1 (2x): <b>$${tp1}</b> | Vol: ${vol}x`
+      );
+    });
+    lines.push(
+      ``,
+      `📌 <b>Execution Rule:</b> Hard Stop at -9.0% below entry; 55-Day Time-Stop if gain &lt; +8.0%.`
+    );
+    return lines.join("\n");
+  }
+
+  if (bType === "semi") {
+    return [
+      `🧭 <b>SemiFearGreed — CNN-Style 7-Factor Index &amp; 80:20 Barbell Signal</b>`,
+      `<i>As of Latest Close (${semiDate}) · 26-Year Verified Barbell Engine</i>`,
+      ``,
+      `• <b>Fear &amp; Greed Score:</b> <b>${fgScore} / 100 (${fgRegime})</b>`,
+      `• <b>$SMH (AI Semiconductor):</b> <b>$${smhClose}</b> (${smhDd}% off 52W High) → Target <b>${recSmh}%</b>`,
+      `• <b>$XLV (Healthcare Defense):</b> <b>$${xlvClose}</b> → Target <b>${recXlv}%</b>`,
+      `• <b>$QQQ (Nasdaq-100 Bench):</b> <b>$${qqqClose}</b>`,
+      ``,
+      `⚡ <b>Active Directive:</b> ${ov?.action_headline_en || "80% $SMH : 20% $XLV Contrarian Accumulation Triggered"}`,
+      `📈 <b>26Y Track Record:</b> +10.60% CAGR (14.22x) vs $QQQ +8.79% (9.21x) | 10Y AI Era: +28.63% CAGR.`,
+    ].join("\n");
+  }
+
+  if (bType === "doctor") {
+    const docRes =
+      payload.doctor_result ||
+      (await evaluatePositionDoctor({
+        ticker: payload.ticker || "CELH",
+        entry_price: payload.entry_price || 27.93,
+        days_held: payload.days_held ?? 42,
+      }));
+    const retVal = Number(docRes?.return_pct ?? 0);
+    const retStr = `${retVal >= 0 ? "+" : ""}${retVal.toFixed(2)}%`;
+    return [
+      `🩺 <b>RightSideAlpha — Position Doctor Risk &amp; 55-Day Time-Stop Diagnostic</b>`,
+      ``,
+      `• <b>Security:</b> <code>$${docRes.ticker || "CELH"}</code> (As of ${docRes.as_of_date || "2026-10-13"})`,
+      `• <b>Status:</b> <b>${docRes.status_label || docRes.status_code || "ACTIVE_HOLD"}</b>`,
+      `• <b>Latest Close:</b> <b>$${Number(docRes.current_price || 27.93).toFixed(2)}</b> | <b>Cost Basis:</b> <b>$${Number(docRes.entry_price || 27.93).toFixed(2)}</b> (P&amp;L: <b>${retStr}</b>)`,
+      `• <b>Rule Triggered:</b> ${docRes.rule_triggered || "Rule 4 (Healthy Trend Follow)"}`,
+      `• <b>Hard Stop (-9%):</b> <b>$${Number(docRes.stop_price || 25.42).toFixed(2)}</b> | <b>TP1 Target (2x):</b> <b>$${Number(docRes.tp1_price || 55.86).toFixed(2)}</b>`,
+      ``,
+      `📋 <b>Execution Directive:</b> ${docRes.action_plan || "Maintain position and monitor MA20/MA60 trailing support."}`,
+    ].join("\n");
+  }
+
+  // Default: "full" Morning Executive Brief
+  const topLines = topPicks
+    .slice(0, 5)
+    .map(
+      (s, idx) =>
+        `  ${idx + 1}. <b>$${s.ticker}</b> (Score ${s.score}) — Close $${Number(s.close).toFixed(2)} | TRG $${Number(s.entry_trigger_price).toFixed(2)} | STP $${Number(s.stop_loss_price).toFixed(2)} | TP1 $${Number(s.tp1_2x_price).toFixed(2)}`
+    )
+    .join("\n");
+
+  return [
+    `📑 <b>RightSideAlpha × SemiFearGreed — Institutional Morning Executive Brief</b>`,
+    `<i>US Equity Right-Side Ignition &amp; Semiconductor 80:20 Barbell Terminal</i>`,
+    ``,
+    `<b>1️⃣ TOP 5 RIGHT-SIDE IGNITION BREAKOUTS (${top1.date || "2026-10-13"})</b>`,
+    topLines,
+    ``,
+    `<b>2️⃣ SEMICONDUCTOR FEAR &amp; GREED INDEX (${semiDate})</b>`,
+    `  • Score: <b>${fgScore} / 100 (${fgRegime})</b>`,
+    `  • $SMH: <b>$${smhClose}</b> (${smhDd}% DD) | $XLV: <b>$${xlvClose}</b> | $QQQ: <b>$${qqqClose}</b>`,
+    `  • Allocation Signal: <b>${recSmh}% $SMH : ${recXlv}% $XLV</b> (${ov?.action_headline_en || "Contrarian Accumulation"})`,
+    ``,
+    `<b>3️⃣ ASYMMETRIC RISK PROTOCOL</b>`,
+    `  • Rule 1: <b>-9.0% Hard Stop Loss</b> (Zero averaging down on broken support)`,
+    `  • Rule 2: <b>55-Day Time-Stop</b> if position return &lt; +8.0%`,
+    `  • Rule 3: <b>+100% TP1 Principal Harvest</b> (Sell 50%, trail remaining 50% on MA60)`,
+  ].join("\n");
+}
+
+export async function sendTelegramBriefing(payload = {}) {
+  const localCfg = getLocalTelegramConfig();
+  const rawTok = String(payload.bot_token ?? "").trim();
+  const botToken = rawTok && !rawTok.includes("...") ? rawTok : localCfg.bot_token;
+  let chatId = String(payload.chat_id ?? localCfg.chat_id ?? "").trim();
+  const bType = String(payload.briefing_type || "test").trim().toLowerCase();
+
+  if (botToken && !chatId) {
+    const det = await detectTelegramChatId(botToken).catch(() => null);
+    if (det && det.ok && det.chat_id) {
+      chatId = String(det.chat_id);
+    }
+  }
+
+  let apiRes = null;
+  if (!isStaticHost()) {
+    try {
+      const resp = await fetch("/api/telegram/send-briefing", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          ...payload,
+          briefing_type: bType,
+          bot_token: botToken || undefined,
+          chat_id: chatId || undefined,
+        }),
+      });
+      if (resp.ok) {
+        apiRes = await resp.json();
+        if (apiRes && apiRes.delivered) {
+          return apiRes;
+        }
+      }
+    } catch (e) {
+      // Fallback to client-side message builder & direct Telegram API dispatch
+    }
+  }
+
+  const messageText = apiRes?.message_preview || (await buildClientTelegramMessage(payload));
+
+  if (botToken && chatId) {
+    try {
+      const tgResp = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: messageText,
+          parse_mode: "HTML",
+          disable_web_page_preview: true,
+        }),
+      });
+      const tgJson = await tgResp.json();
+      if (tgResp.ok && tgJson.ok) {
+        return {
+          ok: true,
+          delivered: true,
+          simulated: false,
+          briefing_type: bType,
+          chat_id: chatId,
+          message_id: tgJson.result?.message_id,
+          message_preview: messageText,
+          detail: `Delivered live to Telegram (${chatId})`,
+        };
+      }
+      return {
+        ok: false,
+        delivered: false,
+        simulated: true,
+        briefing_type: bType,
+        message_preview: messageText,
+        detail: tgJson?.description || "Telegram API rejected dispatch — showing preview below.",
+      };
+    } catch (err) {
+      return {
+        ok: true,
+        delivered: false,
+        simulated: true,
+        briefing_type: bType,
+        message_preview: messageText,
+        detail: "Preview generated (Direct Telegram API call blocked or offline)",
+      };
+    }
+  }
+
+  return {
+    ok: true,
+    delivered: false,
+    simulated: true,
+    briefing_type: bType,
+    message_preview: messageText,
+    detail:
+      apiRes?.detail ||
+      "Preview generated (Enter Bot Token & Chat ID to deliver live to Telegram)",
+  };
+}
+
+export async function sendTelegramTest(payload = {}) {
+  return sendTelegramBriefing({ ...payload, briefing_type: "test" });
 }

@@ -112,3 +112,24 @@ def test_position_doctor_negative_entry_price_returns_422(api_client):
     payload = {"ticker": "CELH", "entry_price": -10.0, "days_held": 5}
     res = api_client.post("/api/pro/position-doctor", json=payload)
     assert res.status_code == 422
+
+
+def test_position_doctor_returns_entry_and_current_price(api_client):
+    """Position Doctor returns entry_price, current_price, and as_of_date."""
+    payload = {"ticker": "CELH", "entry_price": 25.0, "days_held": 12}
+    res = api_client.post("/api/pro/position-doctor", json=payload)
+    assert res.status_code == 200
+    data = res.json()
+    assert data["entry_price"] == 25.0
+    assert data["current_price"] == 27.93
+    assert data["as_of_date"] == "2026-10-13"
+
+
+def test_semi_pro_csv_head_and_alias(api_client):
+    """HEAD and GET on /api/semi/pro/csv and /api/semi/download-csv work with X-License-Key."""
+    headers = {"X-License-Key": "PRO-DEMO-2026"}
+    for path in ["/api/semi/pro/csv", "/api/semi/download-csv"]:
+        r_head = api_client.head(path, headers=headers)
+        assert r_head.status_code == 200
+        r_get = api_client.get(path, headers=headers)
+        assert r_get.status_code == 200

@@ -1,3 +1,6 @@
+const formatLsUrl = (u) =>
+  !u ? "#" : u.includes("?") ? (u.includes("embed=1") ? u : `${u}&embed=1`) : `${u}?embed=1`;
+
 export function renderHeader(state) {
   const t = state.t;
   const lang = state.lang;
@@ -5,7 +8,14 @@ export function renderHeader(state) {
   const activeView = state.activeView || "rightside";
   const ov = state.semiOverview;
   const semiScore = ov && ov.fg_score !== undefined ? Number(ov.fg_score).toFixed(1) : "18.0";
-  const semiRegime = ov && ov.regime_en ? String(ov.regime_en).toUpperCase() : "EXTREME FEAR";
+  const rawRegime = ov
+    ? state.lang === "kr"
+      ? ov.regime_kr || ov.regime_en
+      : state.lang === "jp"
+        ? ov.regime_jp || ov.regime_en
+        : ov.regime_en || "NEUTRAL"
+    : "NEUTRAL";
+  const semiRegime = String(rawRegime || "NEUTRAL").toUpperCase();
   const semiDate = ov && ov.date ? ov.date : "2026-10-26";
   const smhPrice = ov && ov.smh_close !== undefined ? Number(ov.smh_close).toFixed(2) : "541.62";
   const xlvPrice = ov && ov.xlv_close !== undefined ? Number(ov.xlv_close).toFixed(2) : "179.28";
@@ -18,7 +28,7 @@ export function renderHeader(state) {
 
   const qqq1d = qqqEtf && qqqEtf.ret_1d_pct !== undefined ? Number(qqqEtf.ret_1d_pct) : 1.11;
   const smhDd = smhEtf && smhEtf.dd_52w_pct !== undefined ? Number(smhEtf.dd_52w_pct) : (ov && ov.smh_dd_pct !== undefined ? Number(ov.smh_dd_pct) : -19.03);
-  const xlv1d = xlvEtf && xlvEtf.ret_1d_pct !== undefined ? Number(xlvEtf.ret_1d_pct) : 0.84;
+  const xlv1d = xlvEtf && xlvEtf.ret_1d_pct !== undefined ? Number(xlvEtf.ret_1d_pct) : Number(ov?.xlv_1d_pct ?? 0.0);
 
   return `
     <!-- INSTITUTIONAL MARKET TAPE RIBBON -->
@@ -102,6 +112,16 @@ export function renderHeader(state) {
             ${isPro ? t.statusPro : t.statusFree}
           </span>
 
+          <button class="btn" id="btnOpenTelegram" style="border-color:rgba(96,165,250,0.4);">
+            <span
+              id="tgHeaderStatusDot"
+              style="width:7px; height:7px; border-radius:50%; display:inline-block; background:${
+                state.telegramStatus?.configured || state.config?.tg_chat_id ? "#10b981" : "#60a5fa"
+              };"
+            ></span>
+            <span id="btnTelegramLabel">📲 ${t.telegram?.btnTelegram || "Telegram"}</span>
+          </button>
+
           <button class="btn" id="btnOpenLicense">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
@@ -121,7 +141,9 @@ export function renderHeader(state) {
           <a
             class="btn btn-primary lemonsqueezy-button"
             id="topSubscribeBtn"
-            href="${state.config.ls_site1_monthly_url}?embed=1"
+            data-plan="monthly"
+            href="${formatLsUrl(state.config?.ls_site1_monthly_url)}"
+            style="${isPro ? "display:none;" : ""}"
           >
             <span id="btnUnlockPro">${t.btnUnlockPro}</span>
           </a>

@@ -60,5 +60,8 @@ class ProPositionDoctorResponse(BaseModel):
     rule_triggered: str
     action_plan: str
     is_critical: bool
+    entry_price: float = 0.0
+    current_price: float = 0.0
     stop_price: Optional[float] = None
     tp1_price: Optional[float] = None
+    as_of_date: str = "2026-10-13"

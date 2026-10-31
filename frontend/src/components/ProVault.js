@@ -14,28 +14,46 @@ export function renderProVault(state) {
   const celhStop = celh && celh.stop_loss_price ? Number(celh.stop_loss_price).toFixed(2) : (Number(celhClose) * 0.91).toFixed(2);
   const celhScore = celh ? Number(celh.score) : 85;
 
+  const mblyStock = mbly;
   const mblyClose = mbly ? Number(mbly.close).toFixed(2) : "7.02";
   const mblyLow52 = mbly ? Number(mbly.low52).toFixed(2) : "6.47";
   const mblyMa60 = mbly && mbly.ma60_price ? Number(mbly.ma60_price).toFixed(2) : "8.17";
   const mblyTp1 = mbly && mbly.tp1_2x_price ? Number(mbly.tp1_2x_price).toFixed(2) : (Number(mblyClose) * 2).toFixed(2);
   const mblyScore = mbly ? Number(mbly.score) : 62;
+  const mblyBadgeClass =
+    mblyStock?.zone_code === "LEFT_SIDE_KNIFE"
+      ? "badge-knife"
+      : mblyStock?.zone_code === "IGNITION_ZONE"
+        ? "badge-ignition"
+        : "badge-watch";
+  const mblyRawZone =
+    state.lang === "jp"
+      ? mblyStock?.zone_label_jp
+      : state.lang === "kr"
+        ? mblyStock?.zone_label_kr
+        : mblyStock?.zone_label_en;
+  const mblyZoneText = String(
+    mblyRawZone ||
+      (mblyStock?.zone_code === "LEFT_SIDE_KNIFE" ? "LEFT-SIDE KNIFE" : "WASHOUT WATCH")
+  ).replace(/^[🟢🟡🔴⚠️\s]+/, "");
 
   const pineCode =
     state.pineCode ||
     `//@version=5
+// RightSideAlpha PW-RSI Ignition Engine (ddHigh <= -20, proxLow <= 45, volRatio >= 1.30)
 indicator("RightSideAlpha PW-RSI Ignition v2.6", overlay=true)
 ma20 = ta.sma(close, 20)
 ma60 = ta.sma(close, 60)
 low52 = ta.lowest(low, 252)
 high52 = ta.highest(high, 252)
 volRatio = volume / ta.sma(volume, 20)
-washout10d = ta.highest(volRatio, 10) >= 1.40
+washout10d = ta.highest(volRatio, 10) >= 1.30
 proxLow = (close - low52) / low52 * 100
 ddHigh = (close - high52) / high52 * 100
-ignition = ddHigh <= -35 and proxLow >= 10 and proxLow <= 40 and close > ma20 and close > ma60 and washout10d
+ignition = ddHigh <= -20 and proxLow >= 10 and proxLow <= 45 and close > ma20 and close > ma60 and washout10d
 plot(ma20, "MA20", color=color.new(color.aqua, 0), linewidth=2)
 plot(ma60, "MA60 Trigger", color=color.new(color.orange, 0), linewidth=2)
-plotshape(ignition and not ignition[1], "PW-RSI IGNITION", shape.labelup, location.belowbar, color.green, text="IGNITION", textcolor=color.white)`;
+plotshape(ignition and not ignition[1], "PW-RSI IGNITION", shape.labelup, location.belowbar, color.green, text="🟢 IGNITION", textcolor=color.white)`;
 
   return `
     <section class="proof-card" id="proVaultSection" style="border-top:2px solid var(--fin-blue); margin-bottom:22px;">
@@ -53,7 +71,7 @@ plotshape(ignition and not ignition[1], "PW-RSI IGNITION", shape.labelup, locati
         </button>
       </div>
 
-      <div id="vaultContentWrap" class="${isPro ? "" : "blur-locked"}" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(330px, 1fr)); gap:16px;">
+      <div id="vaultContentWrap" class="${isPro ? "" : "blur-locked"}" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap:16px;">
         <!-- Module 01: Position Doctor -->
         ${renderPositionDoctorForm(state)}
 
@@ -68,7 +86,7 @@ plotshape(ignition and not ignition[1], "PW-RSI IGNITION", shape.labelup, locati
 
             <div style="font-size:0.8rem; background:#05080f; padding:12px; border-radius:4px; border:1px solid var(--border); margin-bottom:12px; display:flex; flex-direction:column; gap:12px;">
               <div style="border-left:3px solid var(--fin-up); padding-left:10px;">
-                <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:4px;">
                   <b class="mono" style="color:#ffffff;">CELH · Celsius Holdings ($${celhClose})</b>
                   <span class="badge badge-ignition">SCORE ${celhScore}</span>
                 </div>
@@ -81,9 +99,9 @@ plotshape(ignition and not ignition[1], "PW-RSI IGNITION", shape.labelup, locati
               </div>
 
               <div style="border-left:3px solid var(--fin-blue); padding-left:10px;">
-                <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:4px;">
                   <b class="mono" style="color:#ffffff;">MBLY · Mobileye Global ($${mblyClose})</b>
-                  <span class="badge badge-watch">SCORE ${mblyScore}</span>
+                  <span class="badge ${mblyBadgeClass}">${mblyZoneText} · SCORE ${mblyScore}</span>
                 </div>
                 <div style="color:var(--muted); font-size:0.76rem; margin-top:4px; line-height:1.45;">
                   Tier-1 OEM ADAS inventory digestion completed; EyeQ6 design wins drive operating income inflection (-$0.39B → +$0.45B). Latest Close <b class="mono" style="color:#fff;">$${mblyClose}</b> · 52W Low $${mblyLow52} · MA60 Trigger <b class="mono" style="color:#60a5fa;">$${mblyMa60}</b> · TP1: <b class="mono" style="color:var(--fin-up);">$${mblyTp1}</b>.

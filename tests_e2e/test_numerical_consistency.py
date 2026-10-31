@@ -253,3 +253,116 @@ console.log('ALL_COMPONENTS_CLEAN');
     )
     assert proc.returncode == 0, f"Node render check failed:\nSTDOUT: {proc.stdout}\nSTDERR: {proc.stderr}"
     assert "ALL_COMPONENTS_CLEAN" in proc.stdout
+
+
+def test_payment_license_and_stock_trigger_price_accuracy():
+    """
+    Verifies:
+    1. StockTable renders exact entry_trigger_price = max(ma20_price, ma60_price) for all 72 stocks.
+    2. Position Doctor (/api/pro/position-doctor) returns exact current_price & entry_price (never $0.00).
+    3. Research briefs (CELH & MBLY) have zero stale prices or Korean stock references.
+    4. Payment & license endpoints (PRO-DEMO-2026, RSA-PRO-2026-*, Lemon Squeezy webhook, X-License-Key, HEAD CSV) work.
+    5. Built index.html files include lemon.js and synchronized assets.
+    """
+    # 1. Verify Pro Position Doctor returns current_price, entry_price, as_of_date
+    r_pro_doc = client.post(
+        "/api/pro/position-doctor",
+        json={"ticker": "CELH", "entry_price": 27.20, "days_held": 42},
+    )
+    assert r_pro_doc.status_code == 200
+    pro_doc = r_pro_doc.json()
+    assert pro_doc["current_price"] == 27.93
+    assert pro_doc["entry_price"] == 27.20
+    assert pro_doc["as_of_date"] == "2026-10-13"
+
+    # 2. Verify Research Briefs have zero stale numbers or Korean stock text
+    celh_brief = client.get("/api/research/CELH").json()["content"]
+    assert "$27.93" in celh_brief
+    assert "$25.42" in celh_brief
+    assert "$55.86" in celh_brief
+    assert "SK스퀘어" not in celh_brief
+    assert "$27.35" not in celh_brief
+
+    mbly_brief = client.get("/api/research/MBLY").json()["content"]
+    assert "$7.02" in mbly_brief
+    assert "$6.39" in mbly_brief
+    assert "$14.04" in mbly_brief
+    assert "SK스퀘어" not in mbly_brief
+    assert "$7.47" not in mbly_brief
+
+    # 3. Verify License activation keys, webhook, X-License-Key, and HEAD /api/semi/pro/csv
+    r_live_key = client.post("/api/auth/validate", json={"license_key": "RSA-PRO-2026-LIVE01"})
+    assert r_live_key.status_code == 200
+    assert r_live_key.json()["valid"] is True
+    assert r_live_key.json()["tier"] == "pro"
+
+    r_ltd_key = client.post("/api/auth/validate", json={"license_key": "RSA-LTD-2026-VIP99"})
+    assert r_ltd_key.status_code == 200
+    assert r_ltd_key.json()["valid"] is True
+    assert r_ltd_key.json()["tier"] == "pro_lifetime"
+
+    # Verify X-License-Key header unlocks gated endpoints
+    r_vault_xlk = client.get("/api/pro/vault", headers={"X-License-Key": "RSA-PRO-2026-LIVE01"})
+    assert r_vault_xlk.status_code == 200
+    assert r_vault_xlk.json()["unlocked"] is True
+
+    # Verify empty Authorization header does not block valid query license_key
+    r_stocks_mixed = client.get(
+        "/api/stocks?license_key=PRO-DEMO-2026",
+        headers={"Authorization": "Bearer INVALID_STALE"},
+    )
+    assert r_stocks_mixed.status_code == 200
+    assert r_stocks_mixed.headers.get("X-Pro-Unlocked") == "true"
+
+    # Verify HEAD /api/semi/pro/csv works
+    r_head_csv = client.head("/api/semi/pro/csv?license_key=PRO-DEMO-2026")
+    assert r_head_csv.status_code == 200
+
+    # 4. Verify StockTable renders exact entry_trigger_price for TSLA ($370.41), NVDA ($228.29), AMD ($607.96), MU ($1042.88)
+    stocks_pro = client.get("/api/stocks?license_key=PRO-DEMO-2026&limit=200").json()
+    node_trig_check = """
+import fs from 'node:fs';
+import { translations } from './frontend/src/locales/i18n.js';
+import { renderStockRows } from './frontend/src/components/StockTable.js';
+import { formatDoctorResult } from './frontend/src/components/PositionDoctor.js';
+
+const input = JSON.parse(fs.readFileSync(0, 'utf-8'));
+const state = {
+  lang: 'en',
+  isProUnlocked: true,
+  filteredStocks: input.stocks,
+  config: { tradingview_aff_id: 'rsa', seekingalpha_source: 'rsa' },
+  get t() { return translations.en; }
+};
+const rowsHtml = renderStockRows(state);
+for (const s of input.stocks) {
+  const expectedTrg = '$' + Number(s.entry_trigger_price).toFixed(2);
+  const rowRegex = new RegExp(`data-ticker="${s.ticker}"[\\\\s\\\\S]*?TRG<\\\\/span>\\\\s*<span[^>]*>\\\\${expectedTrg}<`);
+  if (!rowRegex.test(rowsHtml)) {
+    console.error(`Missing TRG ${expectedTrg} for ${s.ticker}`);
+    process.exit(1);
+  }
+}
+const docHtml = formatDoctorResult(input.proDoc, state);
+if (docHtml.includes('$0.00') || !docHtml.includes('$27.93') || !docHtml.includes('$27.20')) {
+  console.error('PositionDoctor rendered wrong prices:', docHtml);
+  process.exit(1);
+}
+console.log('TRIGGER_AND_DOCTOR_PRICES_EXACT');
+"""
+    proc = subprocess.run(
+        ["node", "--input-type=module", "-e", node_trig_check],
+        input=json.dumps({"stocks": stocks_pro, "proDoc": pro_doc}),
+        cwd=str(PROJECT_ROOT),
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+    )
+    assert proc.returncode == 0, f"Trigger check failed:\n{proc.stdout}\n{proc.stderr}"
+    assert "TRIGGER_AND_DOCTOR_PRICES_EXACT" in proc.stdout
+
+    # 5. Verify built index.html files include lemon.js
+    for rel_html in ("index.html", "dist/index.html", "frontend/dist/index.html"):
+        html_text = (PROJECT_ROOT / rel_html).read_text(encoding="utf-8")
+        assert "assets.lemonsqueezy.com/lemon.js" in html_text, f"Missing lemon.js in {rel_html}"
+

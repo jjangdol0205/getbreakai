@@ -1,0 +1,12 @@
+{
+  "configured": true,
+  "bot_token_masked": "924555...ad6gU",
+  "bot_username": "RigjtsideAlphabot",
+  "chat_id": "755033799",
+  "channel_url": "https://t.me/RigjtsideAlphabot",
+  "auto_alert_ignition": true,
+  "auto_alert_stop_loss": true,
+  "auto_alert_semi_extreme": true,
+  "last_sent_at": "2026-11-01T00:00:00+00:00",
+  "messages_sent_count": 12
+}

@@ -1,4 +1,4 @@
-﻿# Node & Frontend
+# Node & Frontend
 node_modules/
 frontend/node_modules/
 *.log
@@ -25,6 +25,9 @@ AI에이전트_유튜브_이관_전체백업/
 .env
 .env.local
 .env.*.local
+data/telegram_config.json
+data/daily_shorts_state.json
+viral_shorts_10_output/
 
 # OS & Editor
 .DS_Store

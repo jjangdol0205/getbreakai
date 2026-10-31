@@ -18,6 +18,7 @@ from backend.app.api.auth import router as auth_router
 from backend.app.api.pro import router as pro_router, evaluate_position_doctor
 from backend.app.api.referral import router as referral_router
 from backend.app.api.semi import router as semi_router
+from backend.app.api.telegram import router as telegram_router
 
 
 @asynccontextmanager
@@ -57,6 +58,7 @@ app.include_router(auth_router, prefix="/api/auth", tags=["auth"])
 app.include_router(pro_router, prefix="/api/pro", tags=["pro"])
 app.include_router(referral_router, prefix="/api/referral", tags=["referral"])
 app.include_router(semi_router, prefix="/api/semi", tags=["semi"])
+app.include_router(telegram_router, prefix="/api/telegram", tags=["telegram"])
 
 # Alias route for position doctor
 app.post("/api/position-doctor", include_in_schema=False)(evaluate_position_doctor)

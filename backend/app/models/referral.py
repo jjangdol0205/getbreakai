@@ -9,6 +9,18 @@ class ReferralConfig(BaseModel):
     tradingview_aff_id: str = Field("rightsidealpha", description="TradingView partner affiliate ID")
     seekingalpha_source: str = Field("affiliate_rightside", description="Seeking Alpha tracking source tag")
     trendspider_aff_id: str = Field("rightside", description="TrendSpider partner tracking ID")
+    ls_site1_monthly_url: str = Field(
+        default="https://rightsidealpha.lemonsqueezy.com/checkout/buy/pro-monthly",
+        description="Lemon Squeezy Pro Monthly checkout URL",
+    )
+    ls_site1_ltd_url: str = Field(
+        default="https://rightsidealpha.lemonsqueezy.com/checkout/buy/lifetime-pass",
+        description="Lemon Squeezy Lifetime Pass checkout URL",
+    )
+    site1_url: str = Field(
+        default="https://getbreakai.com",
+        description="Primary production domain URL",
+    )
 
 
 class ReferralClickStats(BaseModel):

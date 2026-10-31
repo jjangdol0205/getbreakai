@@ -9,28 +9,27 @@ from backend.app.services.license_service import license_service
 
 def get_is_pro(
     authorization: Optional[str] = Header(None),
+    x_license_key: Optional[str] = Header(default=None, alias="X-License-Key"),
     license_key: Optional[str] = Query(None),
 ) -> bool:
     """
-    Extracts license key from Authorization Bearer token or license_key query param.
+    Extracts license key from Authorization Bearer token, X-License-Key header, or license_key query param.
     Instantly unlocks Pro for verified Pro license keys (such as PRO-DEMO-2026).
     """
-    key: Optional[str] = None
-
     if authorization:
         parts = authorization.strip().split(" ", 1)
         if len(parts) == 2 and parts[0].lower() == "bearer":
-            key = parts[1].strip()
-        else:
-            # Malformed auth header (e.g. Basic ... or without Bearer)
-            return False
-    elif license_key:
-        key = license_key.strip()
+            candidate = parts[1].strip()
+            if candidate and license_service.is_valid_pro_key(candidate):
+                return True
 
-    if not key:
-        return False
+    if x_license_key and license_service.is_valid_pro_key(x_license_key):
+        return True
 
-    return license_service.is_valid_pro_key(key)
+    if license_key and license_service.is_valid_pro_key(license_key):
+        return True
+
+    return False
 
 
 def require_pro(is_pro: bool = Depends(get_is_pro)) -> bool:

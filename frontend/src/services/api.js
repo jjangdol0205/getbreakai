@@ -15,7 +15,18 @@ function isProActive() {
   return Boolean(token);
 }
 
+function isStaticHost() {
+  if (typeof window === "undefined") return false;
+  if (window.__STATIC_MODE__ === true) return true;
+  const h = window.location.hostname || "";
+  if (!h || h === "localhost" || h === "127.0.0.1") return false;
+  return true;
+}
+
 async function fetchJsonWithFallback(apiUrl, options, fallbackFn) {
+  if (isStaticHost()) {
+    return fallbackFn();
+  }
   try {
     const resp = await fetch(apiUrl, options);
     if (resp.ok) {
@@ -70,7 +81,29 @@ export async function fetchStocks(params = {}) {
     async () => {
       const file = isProActive() ? "./static_api/stocks_pro.json" : "./static_api/stocks_free.json";
       const r = await fetch(file);
-      return r.json();
+      let list = await r.json();
+      if (params.search) {
+        const q = String(params.search).trim().toLowerCase();
+        list = list.filter(
+          (s) =>
+            (s.ticker && s.ticker.toLowerCase().includes(q)) ||
+            (s.name && s.name.toLowerCase().includes(q)) ||
+            (s.sector && s.sector.toLowerCase().includes(q))
+        );
+      }
+      if (params.zone && params.zone !== "ALL") {
+        list = list.filter((s) => s.zone === params.zone);
+      }
+      if (params.sort_by) {
+        const key = params.sort_by;
+        const desc = String(params.order || "desc").toLowerCase() !== "asc";
+        list = [...list].sort((a, b) => {
+          const va = Number(a[key] ?? 0);
+          const vb = Number(b[key] ?? 0);
+          return desc ? vb - va : va - vb;
+        });
+      }
+      return list;
     }
   );
 }

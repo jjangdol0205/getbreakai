@@ -1,0 +1,9 @@
+{
+  "status": "ok",
+  "mode": "static",
+  "as_of_date": "2026-10-26",
+  "services": [
+    "RightSideAlpha",
+    "SemiFearGreed"
+  ]
+}

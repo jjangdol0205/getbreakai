@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SK Square 3x3 Scenario Fan Chart & 76-Share Position Roadmap | Standalone Chart</title>
+  <style>
+
+:root {
+  --bg-main: #0b111e;
+  --bg-card: #131c2e;
+  --bg-card-hover: #19253d;
+  --bg-input: #1a253c;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --border: #233554;
+  --border-focus: #38bdf8;
+  --primary: #38bdf8;
+  --primary-glow: rgba(56, 189, 248, 0.2);
+  --success: #10b981;
+  --success-glow: rgba(16, 185, 129, 0.2);
+  --danger: #f43f5e;
+  --danger-glow: rgba(244, 63, 94, 0.2);
+  --warning: #f59e0b;
+  --warning-glow: rgba(245, 158, 11, 0.2);
+  --purple: #a855f7;
+  --indigo: #6366f1;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --shadow: 0 4px 24px -2px rgba(0, 0, 0, 0.5);
+  --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="light"] {
+  --bg-main: #f1f5f9;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f8fafc;
+  --bg-input: #e2e8f0;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+  --border: #cbd5e1;
+  --border-focus: #0284c7;
+  --primary: #0284c7;
+  --primary-glow: rgba(2, 132, 199, 0.15);
+  --success: #059669;
+  --danger: #e11d48;
+  --warning: #d97706;
+  --purple: #9333ea;
+  --indigo: #4f46e5;
+  --shadow: 0 4px 18px -1px rgba(0, 0, 0, 0.08);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  padding: 24px;
+}
+.container { max-width: 1440px; margin: 0 auto; }
+header.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+.chart-title h1 {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.chart-title p {
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin-top: 4px;
+}
+.chart-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 600;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+}
+.badge.badge-primary { background: var(--primary-glow); border-color: var(--primary); color: var(--primary); }
+.badge.badge-success { background: var(--success-glow); border-color: var(--success); color: var(--success); }
+.badge.badge-danger { background: var(--danger-glow); border-color: var(--danger); color: var(--danger); }
+.badge.badge-warning { background: var(--warning-glow); border-color: var(--warning); color: var(--warning); }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  transition: var(--transition);
+  text-decoration: none;
+}
+.btn:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-focus);
+}
+.btn-primary {
+  background: var(--primary);
+  color: #000;
+  border-color: var(--primary);
+}
+.btn-primary:hover {
+  filter: brightness(1.1);
+}
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.kpi-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+}
+.kpi-card:hover {
+  border-color: var(--border-focus);
+  transform: translateY(-2px);
+}
+.kpi-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+}
+.kpi-value {
+  font-size: 24px;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+}
+.kpi-sub {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.chart-panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: var(--shadow);
+  margin-bottom: 24px;
+  position: relative;
+}
+.chart-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.chart-panel-title {
+  font-size: 16px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.chart-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.range-btn-group {
+  display: inline-flex;
+  background: var(--bg-input);
+  border-radius: var(--radius-sm);
+  padding: 2px;
+  border: 1px solid var(--border);
+}
+.range-btn {
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition);
+}
+.range-btn.active, .range-btn:hover {
+  background: var(--bg-card);
+  color: var(--primary);
+}
+
+.canvas-container {
+  position: relative;
+  width: 100%;
+  height: 480px;
+}
+canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.tooltip {
+  position: absolute;
+  pointer-events: none;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border-focus);
+  color: #fff;
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  font-size: 12px;
+  box-shadow: var(--shadow);
+  z-index: 100;
+  display: none;
+  min-width: 220px;
+  line-height: 1.6;
+}
+.tooltip-header {
+  font-weight: 700;
+  color: var(--primary);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding-bottom: 4px;
+  margin-bottom: 6px;
+}
+.tooltip-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+.tooltip-row span:first-child { color: var(--text-secondary); }
+.tooltip-row span:last-child { font-weight: 600; font-family: var(--font-mono); }
+
+.simulator-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow);
+}
+.sim-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 20px;
+}
+.sim-control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.sim-control-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  font-weight: 600;
+}
+.sim-slider {
+  width: 100%;
+  accent-color: var(--primary);
+  cursor: pointer;
+  height: 6px;
+  background: var(--bg-input);
+  border-radius: 3px;
+}
+.sim-result-box {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.sim-result-value {
+  font-size: 32px;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  color: var(--primary);
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  margin-top: 16px;
+}
+table.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  text-align: left;
+}
+table.custom-table th {
+  background: var(--bg-input);
+  color: var(--text-secondary);
+  font-weight: 600;
+  padding: 12px 16px;
+  border-bottom: 2px solid var(--border);
+  white-space: nowrap;
+}
+table.custom-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+  font-family: var(--font-mono);
+}
+table.custom-table tr:hover td {
+  background: var(--bg-card-hover);
+}
+
+    .gauge-container {
+      background: var(--bg-input);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin-top: 16px;
+      border: 1px solid var(--border);
+    }
+    .progress-track {
+      background: rgba(255, 255, 255, 0.08);
+      height: 16px;
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+      margin: 12px 0;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #38bdf8, #10b981);
+      border-radius: 8px;
+      transition: width 0.5s ease;
+    }
+    .trigger-item {
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .trigger-info { flex: 1; min-width: 260px; }
+    .trigger-name { font-weight: 700; font-size: 14px; color: var(--text-primary); margin-bottom: 2px; }
+    .trigger-desc { font-size: 12px; color: var(--text-secondary); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="chart-header">
+      <div class="chart-title">
+        <h1>🎯 SK Square 3x3 Scenario Fan Chart & 76-Share Roadmap</h1>
+        <p>단기·중기·장기 확률 가중 시나리오 콘(Fan Chart) 및 투자자 76주 원금 100% 무위험 회수(TP1) 로드맵</p>
+      </div>
+      <div class="chart-actions">
+        <span class="badge badge-primary">Zero-CDN Offline</span>
+        <button class="btn" onclick="toggleTheme()">🌓 테마 전환</button>
+        <a href="../dashboard.html" class="btn">📊 종합 대시보드</a>
+      </div>
+    </header>
+
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">보유 수량 및 평단가</div>
+        <div class="kpi-value" style="color: var(--primary);">76 주 @ 109만 원</div>
+        <div class="kpi-sub"><span class="badge badge-primary">원금 8,284만 원</span> 주당 109,000원 환산</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">현재 평가액 (85.7만 원 기준)</div>
+        <div class="kpi-value" style="color: var(--danger);">6,513.2 만 원</div>
+        <div class="kpi-sub"><span class="badge badge-danger">수익률 -21.38%</span> 평가손실 -1,770.8만 원</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">TP1 목표가 (원금 100% 회수선)</div>
+        <div class="kpi-value" style="color: var(--success);">218.0 만 원</div>
+        <div class="kpi-sub"><span class="badge badge-success">+100.0% 상승 목표</span> 38주 매도 시 8,284만 원 회수</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">장기 기대값 (EV 6~12M)</div>
+        <div class="kpi-value" style="color: var(--primary);">149.9 만 원</div>
+        <div class="kpi-sub"><span class="badge badge-primary">+74.9% 기대수익</span> Bull 2.18M / Base 1.32M</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">TP1 후 무위험 잔여 포지션</div>
+        <div class="kpi-value" style="color: var(--success);">38 주 (Free-Carry)</div>
+        <div class="kpi-sub"><span class="badge badge-success">투자원금 0원 상태</span> 잔여가치 8,284만 원 전액 이익</div>
+      </div>
+    </div>
+
+    <!-- Multi-Horizon Fan Chart Canvas -->
+    <div class="chart-panel">
+      <div class="chart-panel-header">
+        <div class="chart-panel-title">
+          <span>📈 3대 구간별 시나리오 콘(Fan Chart) & 기대값 궤적</span>
+          <span class="badge badge-primary">Bull / Base / Bear Bands</span>
+        </div>
+      </div>
+
+      <div class="canvas-container" style="height: 440px;" id="fan-box">
+        <canvas id="fan-canvas"></canvas>
+      </div>
+
+      <div class="tooltip" id="fan-tooltip"></div>
+    </div>
+
+    <!-- 76-Share Position Diagnostic & TP1 Progress Gauge -->
+    <div class="simulator-card">
+      <div class="chart-panel-title">
+        <span>💼 투자자 76주 포지션 진단 및 1~2년 TP1 100% 무위험 회수 게이지</span>
+        <span class="badge badge-success">Capital Protection Protocol</span>
+      </div>
+
+      <div class="gauge-container">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-weight: 700; font-size: 15px;">TP1 (218만 원 도달 시 38주 매도 원금 100% 회수) 진행률</span>
+          <span style="font-family: var(--font-mono); font-weight: 700; color: var(--primary); font-size: 16px;" id="tp1-progress-text">39.3% 달성</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="tp1-progress-bar" style="width: 39.3%;"></div>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--text-secondary);">
+          <span>현재가: 85.7만 원 (평가액 6,513만 원)</span>
+          <span>본전(평단): 109.0만 원 (원금 8,284만 원)</span>
+          <span style="color: var(--success); font-weight: 700;">TP1: 218.0만 원 (38주 매도 = 8,284만 원 원금 전액 회수)</span>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 20px;">
+        <div style="background: var(--bg-input); padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--border);">
+          <div class="kpi-label">단계 1: 원금 100% 회수 (Risk-Free 전환)</div>
+          <p style="font-size: 13px; color: var(--text-secondary); margin-top: 6px; line-height: 1.5;">
+            주가가 218만 원(주당 218,000원)에 도달할 때, <strong>보유 76주 중 정확히 절반인 38주를 매도</strong>합니다. 회수 금액은 <strong>8,284만 원</strong>으로 최초 투입 원금의 100.0%를 계좌로 온전히 현금 회수합니다.
+          </p>
+        </div>
+        <div style="background: var(--bg-input); padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--border);">
+          <div class="kpi-label">단계 2: 잔여 38주 무위험 보유 (Free Carry)</div>
+          <p style="font-size: 13px; color: var(--text-secondary); margin-top: 6px; line-height: 1.5;">
+            원금 회수 후 잔여 38주는 <strong>순투자원금이 0원인 '공짜 주식(Risk-Free Carry)'</strong> 상태가 됩니다. 향후 솔리다임 IPO 및 하이닉스 사이클 고점(TP2 300만~400만 원)까지 어떠한 시장 급락에도 심리적 흔들림 없이 편안하게 보유할 수 있습니다.
+          </p>
+        </div>
+        <div style="background: var(--bg-input); padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--border);">
+          <div class="kpi-label">단계 3: 자금 정체(Dead Money) 회피</div>
+          <p style="font-size: 13px; color: var(--text-secondary); margin-top: 6px; line-height: 1.5;">
+            막연한 물타기 대신, 8대 객관적 트리거(외인 선물 1.5만 계약, 베이시스 콘탱고, 대차잔고 -5% 감소)가 충족되기 전까지는 불필요한 현금 소진을 금지하고 최적의 반등 타이밍을 엄격히 포착합니다.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3x3 Scenario Matrix Table -->
+    <div class="chart-panel">
+      <div class="chart-panel-title">
+        <span>📊 3x3 Bull / Base / Bear 주가 시나리오 매트릭스 상세</span>
+      </div>
+      <div class="table-wrapper">
+        <table class="custom-table" id="scenario-table">
+          <thead>
+            <tr>
+              <th>시계열 구간</th>
+              <th>시나리오</th>
+              <th>확률 (%)</th>
+              <th>SK하이닉스 타겟가</th>
+              <th>목표 NAV 할인율</th>
+              <th>SK스퀘어 타겟가 (주당)</th>
+              <th>단위가 (KRW)</th>
+              <th>기대 수익률</th>
+              <th>핵심 촉매 및 발생 시나리오</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Populated via JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 8-Point Trigger Checklist Cockpit -->
+    <div class="chart-panel">
+      <div class="chart-panel-title">
+        <span>🚦 실전 대응 8대 객관적 트리거 체크리스트 (Objective Trigger Checklist)</span>
+        <span class="badge badge-danger" id="trigger-overall-badge">현재 레짐: BEARISH_STRESS (0/8)</span>
+      </div>
+      <p style="font-size: 13px; color: var(--text-secondary); margin-top: 4px; margin-bottom: 16px;">
+        매일 장 마감 후 8개 선행·동행 지표를 객관적으로 판별하여 감정을 배제한 기계적 투자 행동을 실행합니다.
+      </p>
+
+      <div id="trigger-list-container">
+        <!-- Populated via JS -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+function toggleTheme() {
+  const current = document.documentElement.getAttribute('data-theme') || 'dark';
+  const target = current === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', target);
+  localStorage.setItem('theme', target);
+}
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme) {
+  document.documentElement.setAttribute('data-theme', savedTheme);
+}
+
+
+  const scenarioData = {"as_of_date": "2026-10-13", "base_square_price_share": 85700.0, "base_square_price_unit": 857000.0, "base_hynix_price": 183300.0, "user_portfolio": {"shares": 76, "avg_cost_unit_krw": 1090000, "principal_krw": 82840000, "current_price_unit_krw": 857000.0, "current_value_krw": 65132000.0, "unrealized_pnl_krw": -17708000.0, "unrealized_return_pct": -21.38, "breakeven_unit_price_krw": 1090000, "tp1_target_unit_price_krw": 2180000, "tp1_shares_to_sell": 38, "tp1_recovered_cash_krw": 82840000, "tp1_remaining_shares": 38, "tp1_free_carry_value_krw": 82840000}, "horizons": {"short_term_1_4w": {"horizon_label": "단기 (1~4주 / 10월 27일 실적 발표 & 소각 등기 국면)", "bull": {"probability_pct": 25, "hynix_target_krw": 215000, "target_discount_pct": 61.1, "square_target_share_krw": 106000, "square_target_unit_krw": 1060000, "expected_return_pct": 23.69, "catalyst": "실적 서프라이즈 + 자사주 2,407만 주 소각 결의 공시 즉시 등기 완료 + 외인 선물 1.5만 계약 순매수"}, "base": {"probability_pct": 50, "hynix_target_krw": 188000, "target_discount_pct": 62.6, "square_target_share_krw": 91000, "square_target_unit_krw": 910000, "expected_return_pct": 6.18, "catalyst": "실적 부합 후 컨콜에서 HBM 완판 재확인, 단 레거시 D램 가격 둔화 우려로 120일선 박스권 등락"}, "bear": {"probability_pct": 25, "hynix_target_krw": 165000, "target_discount_pct": 65.2, "square_target_share_krw": 76000, "square_target_unit_krw": 760000, "expected_return_pct": -11.32, "catalyst": "실적 발표일 셀온(Sell-on) 물량 출회 및 11번가 FI 분쟁 재점화, 신용융자 1차 반대매매 투매"}, "expected_value_unit_krw": 910000, "expected_return_pct": 6.18}, "mid_term_1_3m": {"horizon_label": "중기 (1~3개월 / 연말 배당 & 할로윈 랠리 & 밸류업 지수 리밸런싱)", "bull": {"probability_pct": 30, "hynix_target_krw": 250000, "target_discount_pct": 58.1, "square_target_share_krw": 130000, "square_target_unit_krw": 1300000, "expected_return_pct": 51.69, "catalyst": "연준 추가 금리 인하 + 밸류업 ETF 패시브 자금 유입 + 솔리다임 4분기 사상 최대 eSSD 흑자 공시"}, "base": {"probability_pct": 45, "hynix_target_krw": 205000, "target_discount_pct": 59.9, "square_target_share_krw": 105000, "square_target_unit_krw": 1050000, "expected_return_pct": 22.52, "catalyst": "W자 이중바닥 완성 후 60일선/120일선 안착, 평단가(109만 원) 부근 매물 소화 과정"}, "bear": {"probability_pct": 25, "hynix_target_krw": 155000, "target_discount_pct": 64.8, "square_target_share_krw": 73000, "square_target_unit_krw": 730000, "expected_return_pct": -14.82, "catalyst": "미국 AI 빅테크 Capex 피크아웃 논쟁 격화 및 삼성전자 HBM 퀄 통과에 따른 단가 인하 압박"}, "expected_value_unit_krw": 1045000, "expected_return_pct": 21.94}, "long_term_6_12m": {"horizon_label": "장기 (6~12개월 / 2027년 HBM4 상용화 & 솔리다임 나스닥 IPO 국면)", "bull": {"probability_pct": 35, "hynix_target_krw": 320000, "target_discount_pct": 43.6, "square_target_share_krw": 218000, "square_target_unit_krw": 2180000, "expected_return_pct": 154.38, "catalyst": "솔리다임 나스닥 150조 원 초대형 IPO 성공 + SK스퀘어 자체 대규모 특별배당/자사주 소각 단행 -> TP1 달성"}, "base": {"probability_pct": 45, "hynix_target_krw": 240000, "target_discount_pct": 56.0, "square_target_share_krw": 132000, "square_target_unit_krw": 1320000, "expected_return_pct": 54.03, "catalyst": "HBM4 시장 점유율 1위 유지 및 NAV 할인율 정상 밴드(45% 내외) 안착"}, "bear": {"probability_pct": 20, "hynix_target_krw": 150000, "target_discount_pct": 64.9, "square_target_share_krw": 71000, "square_target_unit_krw": 710000, "expected_return_pct": -17.15, "catalyst": "글로벌 시클리컬 침체 도래 및 메모리 공급 과잉 재진입으로 L자형 장기 횡보"}, "expected_value_unit_krw": 1499000, "expected_return_pct": 74.91}}, "trigger_checklist": [{"trigger_id": "TRIG-01", "domain": "파생/수급", "name": "외국인 코스피200 선물 3일 누적 순매수 전환", "condition": "3일 누적 +15,000계약 이상 순매수 유입", "current_status": "3일 누적 -14,800계약 (매도 지속)", "regime": "BEARISH_ACTIVE", "action_guideline": "선물 매도세 둔화 전까지 무리한 신규 레버리지 매수 금지"}, {"trigger_id": "TRIG-02", "domain": "파생", "name": "코스피200 선·현물 베이시스 콘탱고 복귀", "condition": "베이시스 > +0.50pt 이상 3일 연속 유지", "current_status": "-0.85pt (백워데이션 지속)", "regime": "BEARISH_ACTIVE", "action_guideline": "금융투자 차익 매도 프로그램 출회 압력 지속 모니터링"}, {"trigger_id": "TRIG-03", "domain": "공매도", "name": "SK하이닉스 대차잔고 5일 연속 감소", "condition": "5일 대차잔고 증감률 <= -5.0% (숏커버링 개시)", "current_status": "-1.8% (소폭 감소 시작, 임계치 미달)", "regime": "NEUTRAL_WATCHING", "action_guideline": "-5% 돌파 시 기관 숏커버링 동반 기술적 반등 강력"}, {"trigger_id": "TRIG-04", "domain": "기술적", "name": "SK하이닉스 200일선(172,000원) 및 스퀘어 지지선 사수", "condition": "하이닉스 17.2만 원 / 스퀘어 8.2만 원(단위 82만 원) 종가 지지", "current_status": "하이닉스 183,300원 사수 / 스퀘어 85,700원 지지 중", "regime": "BULLISH_SUPPORT_HELD", "action_guideline": "대세 생명선 200일선 붕괴되지 않는 한 패닉 손절 배제"}, {"trigger_id": "TRIG-05", "domain": "펀더멘털", "name": "SK스퀘어 NAV 할인율 55% 저항선 돌파 (축소)", "condition": "할인율 <= 52.0% 수준으로 축소 (지주사 밸류업 가동)", "current_status": "64.01% (역사적 극단 저평가 구간)", "regime": "DEEP_VALUE_EXTREME", "action_guideline": "할인율 60% 이상은 하방 경직성 확보 영역, 분할 홀딩"}, {"trigger_id": "TRIG-06", "domain": "공시/법률", "name": "하이닉스 자사주 2,407만 주 소각 등기 완료 공시", "condition": "DART 지분변동 보고서 상 지분율 20.76% 확정 등기", "current_status": "이사회 소각 결의 완료, 물리적 등기 대기 중", "regime": "CATALYST_PENDING", "action_guideline": "소각 등기 완료 시 주당 NAV +3.42% 확정 반영"}, {"trigger_id": "TRIG-07", "domain": "변동성", "name": "VKOSPI 변동성 지수 18.0 이하 안정화", "condition": "VKOSPI < 18.0 안착", "current_status": "21.45 (아직 긴장 국면)", "regime": "ELEVATED_VOLATILITY", "action_guideline": "변동성 피크아웃 확인 전까지는 V자 직행 기대 자제"}, {"trigger_id": "TRIG-08", "domain": "수급", "name": "SK스퀘어 외국인·기관 쌍끌이 순매수 복귀", "condition": "일간 외인+기관 순매수 합계 > 100억 원 돌파", "current_status": "자사주 매입 종료 후 수급 공백 지속 중", "regime": "LIQUIDITY_VACUUM", "action_guideline": "쌍끌이 매수 유입일이 수급 바닥 탈출의 신호탄"}]};
+  const horizons = scenarioData.horizons;
+  const triggers = scenarioData.trigger_checklist;
+
+  function setupCanvas(canvasId, containerId) {
+    const canvas = document.getElementById(canvasId);
+    const container = document.getElementById(containerId);
+    const dpr = window.devicePixelRatio || 1;
+    const rect = container.getBoundingClientRect();
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    const ctx = canvas.getContext('2d');
+    ctx.scale(dpr, dpr);
+    return { canvas, ctx, width: rect.width, height: rect.height };
+  }
+
+  function renderFanChart() {
+    const { canvas, ctx, width, height } = setupCanvas('fan-canvas', 'fan-box');
+    const pad = { top: 30, right: 90, bottom: 40, left: 30 };
+    const cWidth = width - pad.left - pad.right;
+    const cHeight = height - pad.top - pad.bottom;
+
+    // Nodes: 0: Current, 1: Short (1~4W), 2: Mid (1~3M), 3: Long (6~12M)
+    const nodes = [
+      { label: '현재 (2026-10-13)', bull: 857000, base: 857000, bear: 857000, ev: 857000 },
+      { label: '단기 (1~4주)', bull: horizons.short_term_1_4w.bull.square_target_unit_krw, base: horizons.short_term_1_4w.base.square_target_unit_krw, bear: horizons.short_term_1_4w.bear.square_target_unit_krw, ev: horizons.short_term_1_4w.expected_value_unit_krw },
+      { label: '중기 (1~3개월)', bull: horizons.mid_term_1_3m.bull.square_target_unit_krw, base: horizons.mid_term_1_3m.base.square_target_unit_krw, bear: horizons.mid_term_1_3m.bear.square_target_unit_krw, ev: horizons.mid_term_1_3m.expected_value_unit_krw },
+      { label: '장기 (6~12개월)', bull: horizons.long_term_6_12m.bull.square_target_unit_krw, base: horizons.long_term_6_12m.base.square_target_unit_krw, bear: horizons.long_term_6_12m.bear.square_target_unit_krw, ev: horizons.long_term_6_12m.expected_value_unit_krw },
+    ];
+
+    const minPrice = 600000, maxPrice = 2400000;
+    const getX = i => pad.left + (i / (nodes.length - 1)) * cWidth;
+    const getY = p => pad.top + cHeight - ((p - minPrice) / (maxPrice - minPrice)) * cHeight;
+
+    // Breakeven reference line (1,090,000 KRW)
+    const yCost = getY(1090000);
+    ctx.strokeStyle = '#f59e0b';
+    ctx.lineWidth = 1.5;
+    ctx.setLineDash([5, 5]);
+    ctx.beginPath();
+    ctx.moveTo(pad.left, yCost);
+    ctx.lineTo(pad.left + cWidth, yCost);
+    ctx.stroke();
+    ctx.fillStyle = '#f59e0b';
+    ctx.font = '11px sans-serif';
+    ctx.fillText('본전 평단가: 109만 원', pad.left + cWidth + 6, yCost + 4);
+
+    // TP1 100% Recovery reference line (2,180,000 KRW)
+    const yTp1 = getY(2180000);
+    ctx.strokeStyle = '#10b981';
+    ctx.lineWidth = 2.0;
+    ctx.setLineDash([4, 4]);
+    ctx.beginPath();
+    ctx.moveTo(pad.left, yTp1);
+    ctx.lineTo(pad.left + cWidth, yTp1);
+    ctx.stroke();
+    ctx.fillStyle = '#10b981';
+    ctx.font = '11px sans-serif';
+    ctx.fillText('TP1 목표선: 218만 원 (원금 100% 회수)', pad.left + cWidth + 6, yTp1 + 4);
+    ctx.setLineDash([]);
+
+    // Gridlines & Ticks
+    ctx.strokeStyle = '#233554';
+    ctx.lineWidth = 1;
+    [800000, 1000000, 1200000, 1400000, 1600000, 1800000, 2000000, 2200000].forEach(p => {
+      const y = getY(p);
+      ctx.beginPath();
+      ctx.moveTo(pad.left, y);
+      ctx.lineTo(pad.left + cWidth, y);
+      ctx.stroke();
+      ctx.fillStyle = '#94a3b8';
+      ctx.fillText((p / 10000).toLocaleString() + '만', pad.left + cWidth + 6, y + 4);
+    });
+
+    // Fan Shading: Bear to Base (Red tint)
+    ctx.beginPath();
+    ctx.moveTo(getX(0), getY(nodes[0].bear));
+    for (let i = 1; i < nodes.length; i++) ctx.lineTo(getX(i), getY(nodes[i].bear));
+    for (let i = nodes.length - 1; i >= 0; i--) ctx.lineTo(getX(i), getY(nodes[i].base));
+    ctx.closePath();
+    ctx.fillStyle = 'rgba(244, 63, 94, 0.12)';
+    ctx.fill();
+
+    // Fan Shading: Base to Bull (Green tint)
+    ctx.beginPath();
+    ctx.moveTo(getX(0), getY(nodes[0].base));
+    for (let i = 1; i < nodes.length; i++) ctx.lineTo(getX(i), getY(nodes[i].bull));
+    for (let i = nodes.length - 1; i >= 0; i--) ctx.lineTo(getX(i), getY(nodes[i].base));
+    ctx.closePath();
+    ctx.fillStyle = 'rgba(16, 185, 129, 0.15)';
+    ctx.fill();
+
+    // Boundary Lines: Bull (Green)
+    ctx.beginPath();
+    ctx.strokeStyle = '#10b981';
+    ctx.lineWidth = 2.5;
+    nodes.forEach((n, i) => {
+      const x = getX(i), y = getY(n.bull);
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    });
+    ctx.stroke();
+
+    // Boundary Lines: Bear (Red)
+    ctx.beginPath();
+    ctx.strokeStyle = '#f43f5e';
+    ctx.lineWidth = 2.0;
+    nodes.forEach((n, i) => {
+      const x = getX(i), y = getY(n.bear);
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    });
+    ctx.stroke();
+
+    // Base Line (Indigo)
+    ctx.beginPath();
+    ctx.strokeStyle = '#818cf8';
+    ctx.lineWidth = 2.0;
+    nodes.forEach((n, i) => {
+      const x = getX(i), y = getY(n.base);
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    });
+    ctx.stroke();
+
+    // Expected Value Trajectory (Cyan with Circles)
+    ctx.beginPath();
+    ctx.strokeStyle = '#38bdf8';
+    ctx.lineWidth = 3.0;
+    nodes.forEach((n, i) => {
+      const x = getX(i), y = getY(n.ev);
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    });
+    ctx.stroke();
+
+    // Draw node dots
+    nodes.forEach((n, i) => {
+      const x = getX(i);
+      // EV Dot
+      ctx.beginPath();
+      ctx.arc(x, getY(n.ev), 6, 0, Math.PI * 2);
+      ctx.fillStyle = '#38bdf8';
+      ctx.fill();
+      ctx.strokeStyle = '#fff';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // Node label
+      ctx.fillStyle = '#f8fafc';
+      ctx.font = '12px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(n.label, x, pad.top + cHeight + 24);
+
+      // EV Value text
+      ctx.fillStyle = '#38bdf8';
+      ctx.font = 'bold 12px monospace';
+      ctx.fillText((n.ev / 10000).toLocaleString() + '만', x, getY(n.ev) - 12);
+    });
+    ctx.textAlign = 'left';
+  }
+
+  function renderScenarioTable() {
+    const tbody = document.querySelector('#scenario-table tbody');
+    tbody.innerHTML = '';
+
+    const list = [
+      { hName: '단기 (1~4주 / 실적 발표)', data: horizons.short_term_1_4w },
+      { hName: '중기 (1~3개월 / 연말 배당·랠리)', data: horizons.mid_term_1_3m },
+      { hName: '장기 (6~12개월 / HBM4·솔리다임 IPO)', data: horizons.long_term_6_12m },
+    ];
+
+    list.forEach(item => {
+      ['bull', 'base', 'bear'].forEach(sKey => {
+        const s = item.data[sKey];
+        const tr = document.createElement('tr');
+        const sColor = sKey === 'bull' ? 'var(--success)' : (sKey === 'base' ? 'var(--primary)' : 'var(--danger)');
+        const sLabel = sKey === 'bull' ? '강세 (Bull)' : (sKey === 'base' ? '기본 (Base)' : '약세 (Bear)');
+
+        tr.innerHTML = `
+          <td style="font-weight: 600;">${item.hName}</td>
+          <td><span class="badge" style="color: ${sColor}; border-color: ${sColor};">${sLabel}</span></td>
+          <td style="font-family: var(--font-mono); font-weight: 700;">${s.probability_pct}%</td>
+          <td>${s.hynix_target_krw.toLocaleString()} 원</td>
+          <td style="color: var(--warning);">${s.target_discount_pct.toFixed(1)}%</td>
+          <td style="font-weight: 700;">${s.square_target_share_krw.toLocaleString()} 원</td>
+          <td style="font-weight: 800; color: ${sColor};">${s.square_target_unit_krw.toLocaleString()} 원</td>
+          <td style="font-weight: 700; color: ${s.expected_return_pct >= 0 ? 'var(--success)' : 'var(--danger)'};">
+            ${s.expected_return_pct >= 0 ? '+' : ''}${s.expected_return_pct.toFixed(2)}%
+          </td>
+          <td style="font-size: 11px; max-width: 300px; white-space: normal; line-height: 1.4;">
+            ${s.catalyst}
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    });
+  }
+
+  function renderTriggerChecklist() {
+    const container = document.getElementById('trigger-list-container');
+    container.innerHTML = '';
+
+    triggers.forEach(t => {
+      const div = document.createElement('div');
+      div.className = 'trigger-item';
+
+      let regimeBadge = 'badge-danger';
+      if (t.regime.includes('BULLISH')) regimeBadge = 'badge-success';
+      else if (t.regime.includes('NEUTRAL') || t.regime.includes('DEEP_VALUE') || t.regime.includes('PENDING')) regimeBadge = 'badge-warning';
+
+      div.innerHTML = `
+        <div class="trigger-info">
+          <div class="trigger-name">
+            <span class="badge badge-primary" style="margin-right: 6px;">${t.trigger_id}</span>
+            ${t.name}
+          </div>
+          <div class="trigger-desc">
+            <strong>발동 기준:</strong> ${t.condition} &nbsp;|&nbsp;
+            <strong>행동 지침:</strong> ${t.action_guideline}
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="text-align: right;">
+            <div style="font-size: 12px; color: var(--text-secondary);">현재 상태</div>
+            <div style="font-size: 13px; font-weight: 700; color: var(--text-primary);">${t.current_status}</div>
+          </div>
+          <span class="badge ${regimeBadge}">${t.regime}</span>
+        </div>
+      `;
+      container.appendChild(div);
+    });
+  }
+
+  window.addEventListener('resize', renderFanChart);
+  window.addEventListener('DOMContentLoaded', () => {
+    renderFanChart();
+    renderScenarioTable();
+    renderTriggerChecklist();
+  });
+  </script>
+</body>
+</html>

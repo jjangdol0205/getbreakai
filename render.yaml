@@ -1,6 +1,9 @@
-﻿services:
+services:
   - type: web
-    name: getbreakai-static
-    runtime: static
-    buildCommand: ""
-    staticPublishPath: .
+    name: rightsidealpha-getbreakai
+    runtime: python
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: DEFAULT_VIEW
+        value: rightside

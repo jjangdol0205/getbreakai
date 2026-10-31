@@ -1,0 +1,23 @@
+{
+  "stage": 1,
+  "updated_at": "2026-10-27",
+  "kr_core": {
+    "ticker": "402340.KS",
+    "name": "SK스퀘어",
+    "shares": 72,
+    "avg_cost_krw": 1090000.0,
+    "target_asset_krw": 100000000.0,
+    "cash_need_krw": 10480000.0,
+    "hard_support_floor": 780000.0,
+    "last_action": "2026-10-22 생활비 목적 4주 매도 (76주 -> 72주)"
+  },
+  "etf_barbell": {
+    "smh_target_weight": 0.70,
+    "xlv_target_weight": 0.30,
+    "smh_current_weight": 0.70,
+    "band_half_width": 0.05,
+    "contrarian_tilt_weight": 0.80,
+    "last_action": "2026-10-27 미국 코어 ETF 바벨 비중 SMH 70% + XLV 30% 변경"
+  },
+  "us_alpha_positions": []
+}

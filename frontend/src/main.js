@@ -617,7 +617,7 @@ function bindEvents() {
         // Fallback to static CSV file
       }
       const a = document.createElement("a");
-      a.href = "/static_api/smh_xlv_fear_greed_history.csv";
+      a.href = "./static_api/smh_xlv_fear_greed_history.csv";
       a.download = "SemiFearGreed_SMH_XLV_2000_2026_History.csv";
       a.click();
     });

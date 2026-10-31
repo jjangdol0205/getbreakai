@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>머니핏(MoneyFit) — 생활·금융 손익분기점 & 맞춤 견적 계산기 포털</title>
+  <meta name="description" content="전기요금 누진세, 다이어트 식단 장보기 수량, 반려동물 사료 급여량, 자취 가전 풀세팅 예산, 자동차 장기렌트 vs 할부, 인터넷 위약금 vs 사은품 손익을 3초 만에 계산하세요." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="dynamic-json-ld" type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "머니핏(MoneyFit) 손익분기점 & 맞춤 견적 포털",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "All",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" }
+  }
+  </script>
+  <style>
+    @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+    body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif; }
+    .pulse-cta { animation: pulseBorder 2s infinite; }
+    @keyframes pulseBorder {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4); }
+      50% { box-shadow: 0 0 0 6px rgba(37, 99, 235, 0); }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col">
+
+  <!-- 상단 헤더 -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-40">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-2">
+        <span class="bg-blue-600 text-white font-extrabold px-2.5 py-1 rounded-lg text-sm">MoneyFit</span>
+        <h1 class="font-bold text-lg text-slate-800">머니핏 손익계산 & 맞춤 견적 스튜디오</h1>
+        <span class="text-xs bg-emerald-100 text-emerald-700 font-semibold px-2 py-0.5 rounded-full">실전 작동 검증판</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <button onclick="switchMainTab('calculators')" id="tab-btn-calculators" class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-blue-600 text-white">🧮 6대 손익 계산기</button>
+        <button onclick="switchMainTab('seo')" id="tab-btn-seo" class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200">🚀 36대 SEO & 홍보원고 자동생성</button>
+        <button onclick="switchMainTab('wizard')" id="tab-btn-wizard" class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-amber-500 text-white hover:bg-amber-600">⚙️ 10분 수익화 설정 & 시뮬레이터</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 현재 적용된 내 제휴 ID 상태 표시줄 -->
+  <div class="bg-slate-900 text-slate-200 text-xs py-2 px-4">
+    <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-2">
+      <div class="flex flex-wrap items-center gap-4">
+        <span>✅ <strong>실시간 수익 라우팅 가동 중</strong></span>
+        <span>쿠팡 파트너스 ID: <code id="status-coupang-id" class="text-amber-400 font-bold">AF1234567</code></span>
+        <span>링크프라이스 ID: <code id="status-lp-id" class="text-emerald-400 font-bold">A100123456</code></span>
+        <span>텐핑/CPA ID: <code id="status-cpa-id" class="text-sky-400 font-bold">tenping_myid</code></span>
+      </div>
+      <div>
+        <span>누적 제휴 클릭 테스트: <strong id="status-click-count" class="text-amber-300">0</strong>회</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 메인 컨테이너 -->
+  <main class="max-w-6xl mx-auto w-full px-4 py-6 flex-1">
+
+    <!-- ==================== [탭 1] 6대 고전환 손익 계산기 ==================== -->
+    <section id="view-calculators" class="space-y-6">
+      <!-- 계산기 선택 네비게이션 -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
+        <button onclick="selectCalc('electric')" id="calc-nav-electric" class="calc-nav-btn p-3 rounded-xl border text-left transition bg-blue-50 border-blue-600 text-blue-900 font-bold">
+          <div class="text-lg">⚡ 전기세·누진세</div>
+          <div class="text-xs text-slate-500 font-normal">1등급 교체 본전 계산</div>
+        </button>
+        <button onclick="selectCalc('diet')" id="calc-nav-diet" class="calc-nav-btn p-3 rounded-xl border text-left transition bg-white border-slate-200 hover:border-blue-400">
+          <div class="text-lg">🍗 식단·장보기</div>
+          <div class="text-xs text-slate-500 font-normal">탄단지 & 닭가슴살 팩수</div>
+        </button>
+        <button onclick="selectCalc('pet')" id="calc-nav-pet" class="calc-nav-btn p-3 rounded-xl border text-left transition bg-white border-slate-200 hover:border-blue-400">
+          <div class="text-lg">🐶 반려동물 사료</div>
+          <div class="text-xs text-slate-500 font-normal">급여량(g) & 소진일수</div>
+        </button>
+        <button onclick="selectCalc('room')" id="calc-nav-room" class="calc-nav-btn p-3 rounded-xl border text-left transition bg-white border-slate-200 hover:border-blue-400">
+          <div class="text-lg">🛋️ 자취·신혼 견적</div>
+          <div class="text-xs text-slate-500 font-normal">예산별 가전·가구 배분</div>
+        </button>
+        <button onclick="selectCalc('auto')" id="calc-nav-auto" class="calc-nav-btn p-3 rounded-xl border text-left transition bg-white border-slate-200 hover:border-blue-400">
+          <div class="text-lg">🚗 렌트 vs 할부</div>
+          <div class="text-xs text-slate-500 font-normal">자동차 총비용(TCO) 비교</div>
+        </button>
+        <button onclick="selectCalc('telecom')" id="calc-nav-telecom" class="calc-nav-btn p-3 rounded-xl border text-left transition bg-white border-slate-200 hover:border-blue-400">
+          <div class="text-lg">🌐 인터넷 갈아타기</div>
+          <div class="text-xs text-slate-500 font-normal">위약금 vs 사은품 47만원</div>
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- 좌측: 입력 폼 (5칼럼) -->
+        <div class="lg:col-span-5 bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+          <div class="flex items-center justify-between mb-4">
+            <h2 id="calc-form-title" class="text-lg font-bold text-slate-800">⚡ 전기요금·누진세 & 가전 교체 계산</h2>
+            <span class="text-xs bg-blue-50 text-blue-700 px-2 py-1 rounded font-medium">실시간 자동 계산</span>
+          </div>
+          <div id="calc-inputs-container" class="space-y-4"></div>
+        </div>
+
+        <!-- 우측: 결과 리포트 + 고전환 수익화 버튼 + 영수증 카드 (7칼럼) -->
+        <div class="lg:col-span-7 space-y-4">
+          <!-- 영수증 형태 충격 진단 결과 카드 -->
+          <div id="receipt-card" class="bg-gradient-to-br from-slate-900 to-slate-800 text-white rounded-2xl p-6 shadow-lg">
+            <div class="flex items-center justify-between border-b border-slate-700 pb-3 mb-4">
+              <div>
+                <span id="result-badge" class="inline-block bg-rose-500 text-white text-xs font-bold px-2.5 py-0.5 rounded-full mb-1">🚨 누진세 주의보</span>
+                <h3 id="result-headline" class="text-xl font-extrabold">계산 결과 로딩 중...</h3>
+              </div>
+              <button onclick="copyShareUrl()" class="bg-slate-700 hover:bg-slate-600 text-xs px-3 py-2 rounded-lg font-semibold flex items-center gap-1">
+                📤 단톡방/카톡 결과 공유
+              </button>
+            </div>
+            <div id="result-metrics-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-4"></div>
+            <p id="result-summary-text" class="text-sm text-slate-300 bg-slate-800/90 border border-slate-700 rounded-xl p-3"></p>
+          </div>
+
+          <!-- 수익화 트랙 1: 고단가 CPA 네이티브 액션 카드 (건당 2.5만~7.5만 원) -->
+          <div class="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl p-5 text-white shadow-md pulse-cta">
+            <div class="flex items-center justify-between mb-1">
+              <span id="cpa-badge" class="bg-amber-400 text-slate-900 text-xs font-extrabold px-2 py-0.5 rounded">고단가 CPA 제휴 슬롯</span>
+              <span id="cpa-payout-tag" class="text-xs text-blue-100">승인 시 예상 수익: 건당 45,000원</span>
+            </div>
+            <h4 id="cpa-title" class="text-lg font-extrabold mb-1">맞춤 무료 견적 조회</h4>
+            <p id="cpa-desc" class="text-xs text-blue-100 mb-3">계산된 절감 금액이 반영된 맞춤형 CPA 행동 유도 카드입니다.</p>
+            <a id="cpa-action-link" href="#" target="_blank" rel="noopener noreferrer sponsored" onclick="recordAffiliateClick('cpa', this.href)" class="block w-full text-center bg-white text-blue-700 hover:bg-blue-50 font-extrabold py-3 px-4 rounded-xl text-sm transition shadow">
+              👉 무료 견적·지원금 혜택 즉시 조회하기
+            </a>
+          </div>
+
+          <!-- 수익화 트랙 2: 쿠팡 파트너스 + 링크프라이스 맞춤 상품 자동 매칭 -->
+          <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+            <div class="flex items-center justify-between mb-3">
+              <h4 class="font-bold text-slate-800 text-sm">🛒 내 계산 결과에 딱 맞는 최저가 구매 & 제휴몰 비교</h4>
+              <span class="text-xs text-emerald-600 font-semibold">내 ID 자동 삽입됨</span>
+            </div>
+            <div id="product-recommendations" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+
+            <!-- 공정위 필수 대가성 문구 (자동 삽입) -->
+            <div role="note" aria-label="대가성 제휴 안내" id="ftc-disclosure-box" class="mt-4 bg-slate-100 text-slate-600 border border-slate-200 rounded-lg p-2.5 text-xs">
+              ℹ️ <span id="ftc-disclosure-text">이 포스팅은 쿠팡 파트너스 및 제휴마케팅 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다. (이용자 추가 부담금 없음)</span>
+            </div>
+          </div>
+
+          <!-- 수익화 트랙 3: 카카오 애드핏 비애드센스 디스플레이 배너 슬롯 -->
+          <div class="bg-slate-100 border border-dashed border-slate-300 rounded-xl p-3 text-center text-xs text-slate-500">
+            <span>📢 <strong>카카오 애드핏(Kakao AdFit) 배너 영역</strong> (단위 ID: <code id="adfit-unit-label">DAN-SAMPLE-TOP</code>) — 애드센스 없이도 즉시 노출 수익 발생</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== [탭 2] 36대 SEO 프리셋 & 홍보 원고 자동 생성기 ==================== -->
+    <section id="view-seo" class="hidden space-y-6">
+      <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+        <h2 class="text-xl font-extrabold text-slate-800 mb-2">🚀 프로그래매틱 SEO 36대 키워드 & 바이럴 홍보 원고 자동 생성기</h2>
+        <p class="text-sm text-slate-600 mb-4">
+          아래 36개 세부 키워드 중 아무거나 클릭하면 ① 해당 조건으로 계산기가 즉시 세팅되고, ② <strong>네이버 블로그 원고 / 지식iN 답변 / 스레드(Threads) 3줄 어그로 요약글 / IndexNow API 색인 전문</strong>이 0.1초 만에 자동 생성됩니다.
+        </p>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <!-- 프리셋 리스트 -->
+          <div class="lg:col-span-5 space-y-2 max-h-[520px] overflow-y-auto pr-2" id="seo-preset-list"></div>
+
+          <!-- 선택된 프리셋의 자동 생성 홍보 원고 & IndexNow 패킷 -->
+          <div class="lg:col-span-7 space-y-4">
+            <div class="bg-slate-900 text-white rounded-xl p-4">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-bold text-emerald-400">📝 네이버 블로그 & 티스토리 복붙용 원고 (자동 생성됨)</span>
+                <button onclick="copyText('generated-blog-post')" class="bg-emerald-600 hover:bg-emerald-500 text-xs px-2.5 py-1 rounded font-bold">1초 복사</button>
+              </div>
+              <pre id="generated-blog-post" class="text-xs text-slate-200 whitespace-pre-wrap font-sans leading-relaxed max-h-48 overflow-y-auto"></pre>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="bg-white border border-slate-200 rounded-xl p-4">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs font-bold text-blue-700">🧵 스레드(Threads) / 단톡방 3줄 요약</span>
+                  <button onclick="copyText('generated-threads-post')" class="bg-blue-600 text-white text-xs px-2 py-0.5 rounded font-bold">복사</button>
+                </div>
+                <pre id="generated-threads-post" class="text-xs text-slate-700 whitespace-pre-wrap font-sans leading-relaxed"></pre>
+              </div>
+              <div class="bg-white border border-slate-200 rounded-xl p-4">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs font-bold text-amber-700">💡 네이버 지식iN 맞춤 답변 템플릿</span>
+                  <button onclick="copyText('generated-jisikin-post')" class="bg-amber-500 text-white text-xs px-2 py-0.5 rounded font-bold">복사</button>
+                </div>
+                <pre id="generated-jisikin-post" class="text-xs text-slate-700 whitespace-pre-wrap font-sans leading-relaxed"></pre>
+              </div>
+            </div>
+
+            <div class="bg-slate-100 border border-slate-200 rounded-xl p-4">
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-xs font-bold text-slate-700">⚡ IndexNow 실시간 검색엔진(네이버·빙) 강제 색인 API 페이로드 미리보기</span>
+                <span class="text-xs text-emerald-700 font-semibold">규격 검증 완료 (HTTP POST)</span>
+              </div>
+              <pre id="generated-indexnow-json" class="text-[11px] text-slate-600 overflow-x-auto"></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== [탭 3] 10분 수익화 설정 마법사 & 월 100만원 시뮬레이터 ==================== -->
+    <section id="view-wizard" class="hidden space-y-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- 좌측: 내 제휴 ID 입력 (바꾸는 즉시 사이트 전체 링크 일괄 변환) -->
+        <div class="lg:col-span-6 bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
+          <h2 class="text-xl font-extrabold text-slate-800">⚙️ 10분 수익화 설정 마법사</h2>
+          <p class="text-xs text-slate-500">아래 ID를 내 것으로 수정하고 [즉시 적용]을 누르면, 코드 수정 없이 <strong>6개 계산기와 36개 SEO 페이지의 모든 버튼 URL이 내 수익 링크로 즉시 변환</strong>됩니다.</p>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">1. 내 쿠팡 파트너스 ID (AF로 시작)</label>
+            <input id="cfg-coupang-id" type="text" value="AF1234567" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">2. 내 링크프라이스 어필리에이트 ID (A100... — 입력 시 하이마트·지마켓·오늘의집 자동 변환)</label>
+            <input id="cfg-lp-id" type="text" value="A100123456" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">3. 내 리더스CPA / 텐핑 회원 ID (고단가 상담 캠페인 자동 트래킹)</label>
+            <input id="cfg-cpa-id" type="text" value="tenping_myid" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">4. 카카오 애드핏(Kakao AdFit) 광고 단위 ID</label>
+            <input id="cfg-adfit-id" type="text" value="DAN-SAMPLE-TOP" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm" />
+          </div>
+          <div class="flex gap-2 pt-2">
+            <button onclick="applyMonetizationConfig()" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded-xl text-sm">✅ 사이트 전체 링크 즉시 변환 적용</button>
+            <button onclick="exportConfigJson()" class="bg-slate-800 hover:bg-slate-700 text-white font-bold px-4 py-2.5 rounded-xl text-sm">💾 JSON 저장</button>
+          </div>
+          <div id="config-verify-box" class="bg-emerald-50 border border-emerald-200 rounded-xl p-3 text-xs text-emerald-900 space-y-1">
+            <div class="font-bold">🔗 실시간 합성된 링크 샘플 (내 ID 반영 확인):</div>
+            <div id="sample-synthesized-coupang" class="truncate"></div>
+            <div id="sample-synthesized-lp" class="truncate"></div>
+          </div>
+        </div>
+
+        <!-- 우측: 월 100만 원 수익 시뮬레이터 -->
+        <div class="lg:col-span-6 bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
+          <h2 class="text-xl font-extrabold text-slate-800">💰 애드센스 없이 월 100만 원 수익 시뮬레이터</h2>
+          <p class="text-xs text-slate-500">일일 방문자 수와 전환율 슬라이더를 조절해 월 예상 정산액을 확인해 보세요.</p>
+
+          <div>
+            <div class="flex justify-between text-xs font-bold mb-1">
+              <span>일일 순방문자 수 (36~100개 페이지 합산)</span>
+              <span id="sim-visitors-val" class="text-blue-600">900명 / 일</span>
+            </div>
+            <input id="sim-visitors" type="range" min="100" max="5000" step="50" value="900" oninput="runProfitSimulator()" class="w-full" />
+          </div>
+
+          <div>
+            <div class="flex justify-between text-xs font-bold mb-1">
+              <span>고단가 CPA 평균 승인 단가 (렌트·인터넷·보험)</span>
+              <span id="sim-cpa-payout-val" class="text-blue-600">45,000원 / 건</span>
+            </div>
+            <input id="sim-cpa-payout" type="range" min="20000" max="75000" step="5000" value="45000" oninput="runProfitSimulator()" class="w-full" />
+          </div>
+
+          <div class="bg-slate-900 text-white rounded-2xl p-5 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-slate-400">예상 월 총수익 (세전)</span>
+              <span id="sim-total-krw" class="text-2xl font-extrabold text-amber-400">1,125,000원</span>
+            </div>
+            <div class="grid grid-cols-3 gap-2 text-center text-xs border-t border-slate-700 pt-3">
+              <div>
+                <div class="text-slate-400">고단가 CPA 수익</div>
+                <div id="sim-cpa-krw" class="font-bold text-sky-300 mt-0.5">729,000원</div>
+              </div>
+              <div>
+                <div class="text-slate-400">쿠팡·링크프라이스</div>
+                <div id="sim-cps-krw" class="font-bold text-emerald-300 mt-0.5">324,000원</div>
+              </div>
+              <div>
+                <div class="text-slate-400">카카오 애드핏</div>
+                <div id="sim-adfit-krw" class="font-bold text-purple-300 mt-0.5">72,000원</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // ==================== 전역 수익화 설정 상태 ====================
+    const MONETIZATION_CONFIG = {
+      siteUrl: "https://moneyfit-portal.vercel.app",
+      coupangAfId: "AF1234567",
+      linkPriceId: "A100123456",
+      cpaMemberId: "tenping_myid",
+      adfitUnitId: "DAN-SAMPLE-TOP",
+      clickCount: 0
+    };
+
+    // ==================== 링크 자동 합성 엔진 (핵심 검증 포인트) ====================
+    function buildCoupangUrl(keyword, calcId) {
+      const encoded = encodeURIComponent(keyword);
+      const subId = `mf_${calcId}_${MONETIZATION_CONFIG.coupangAfId}`;
+      return `https://www.coupang.com/np/search?q=${encoded}&channel=user&lptag=${MONETIZATION_CONFIG.coupangAfId}&subid=${subId}`;
+    }
+
+    function buildLinkPriceDeepLink(merchantId, targetUrl) {
+      const encodedUrl = encodeURIComponent(targetUrl);
+      return `https://click.linkprice.com/click.php?m=${merchantId}&a=${MONETIZATION_CONFIG.linkPriceId}&l=9999&u=${encodedUrl}`;
+    }
+
+    function buildCpaUrl(campaignKey, dynamicValue) {
+      return `https://leaderscpa.com/merchant/${campaignKey}?member=${MONETIZATION_CONFIG.cpaMemberId}&benefit=${encodeURIComponent(dynamicValue)}`;
+    }
+
+    function recordAffiliateClick(channel, url) {
+      MONETIZATION_CONFIG.clickCount += 1;
+      document.getElementById('status-click-count').textContent = MONETIZATION_CONFIG.clickCount;
+    }
+
+    // ==================== 6대 계산기 정의 및 실제 수식 엔진 ====================
+    let currentCalc = 'electric';
+
+    const CALCULATORS = {
+      electric: {
+        title: "⚡ 전기요금·누진세 폭탄 & 1등급 교체 본전 계산기",
+        inputs: [
+          { id: "wattage", label: "가전 소비전력 (W)", type: "number", value: 1800, min: 50, max: 5000 },
+          { id: "hours", label: "하루 가동 시간 (시간/일)", type: "number", value: 10, min: 1, max: 24 },
+          { id: "baseKwh", label: "우리 집 기본 월 사용량 (kWh)", type: "number", value: 250, min: 50, max: 1000 },
+          { id: "newPrice", label: "교체할 1등급 인버터 가전 가격 (원)", type: "number", value: 850000, min: 100000, max: 5000000 }
+        ],
+        calculate: (v) => {
+          const addedKwh = Math.round((v.wattage * v.hours * 30) / 1000);
+          const totalKwh = v.baseKwh + addedKwh;
+          // 한전 주택용 누진세 계산 함수
+          const calcKepcoBill = (kwh) => {
+            let baseFee = 910, usageFee = 0;
+            if (kwh <= 200) {
+              baseFee = 910;
+              usageFee = kwh * 120.0;
+            } else if (kwh <= 400) {
+              baseFee = 1600;
+              usageFee = (200 * 120.0) + ((kwh - 200) * 214.6);
+            } else {
+              baseFee = 7300;
+              usageFee = (200 * 120.0) + (200 * 214.6) + ((kwh - 400) * 307.3);
+            }
+            const envFee = kwh * 9.0;
+            const fuelFee = kwh * 5.0;
+            const sum = baseFee + usageFee + envFee + fuelFee;
+            return Math.round(sum * 1.137); // 부가세 10% + 전력기금 3.7%
+          };
+          const beforeBill = calcKepcoBill(v.baseKwh);
+          const afterBill = calcKepcoBill(totalKwh);
+          const addedBill = afterBill - beforeBill;
+          // 1등급 인버터 교체 시 소비전력 55% 절감 가정
+          const inverterKwh = v.baseKwh + Math.round(addedKwh * 0.45);
+          const inverterBill = calcKepcoBill(inverterKwh);
+          const monthlySaving = Math.max(10000, afterBill - inverterBill);
+          const paybackMonths = (v.newPrice / monthlySaving).toFixed(1);
+
+          return {
+            badge: totalKwh > 400 ? "🚨 누진세 3단계 폭탄 경보!" : "⚡ 누진세 2단계 진입",
+            headline: `이번 달 추가 전기세 +${addedBill.toLocaleString()}원 (총 ${afterBill.toLocaleString()}원)`,
+            metrics: [
+              { label: "월 추가 전력량", val: `+${addedKwh} kWh` },
+              { label: "1등급 교체 시 월 절감", val: `-${monthlySaving.toLocaleString()}원` },
+              { label: "기기값 본전 회수", val: `${paybackMonths}개월` }
+            ],
+            summary: `현재 구형 가전(${v.wattage}W)을 하루 ${v.hours}시간 틀면 총 ${totalKwh}kWh로 전기요금이 급증합니다. 에너지 1등급 인버터 모델로 교체 시 매달 ${monthlySaving.toLocaleString()}원을 아껴 약 ${paybackMonths}개월 만에 기기값을 100% 회수합니다!`,
+            cpaTitle: `초기비용 0원! 에너지 1등급 가전 렌탈 & 정부 환급금 조회 (월 ${monthlySaving.toLocaleString()}원 절감)`,
+            cpaPayout: "35,000원",
+            cpaKey: "electric_grade1_rental",
+            cpaBenefit: `${monthlySaving}`,
+            products: [
+              { title: "쿠팡 1등급 듀얼인버터 에어컨/제습기 로켓배송", kw: "에너지소비효율 1등급 인버터 에어컨 제습기", type: "coupang" },
+              { title: "실시간 대기전력 차단 스마트 플러그 전력측정기", kw: "스마트 플러그 전력측정기", type: "coupang" },
+              { title: "하이마트 으뜸효율 1등급 가전 특별 기획전", merchant: "himart", url: "https://www.e-himart.co.kr/", type: "linkprice" },
+              { title: "지마켓 고효율 서큘레이터·절전 가전 베스트", merchant: "gmarket", url: "https://www.gmarket.co.kr/", type: "linkprice" }
+            ]
+          };
+        }
+      },
+
+      diet: {
+        title: "🍗 다이어트·벌크업 탄단지(TDEE) & 장보기 수량 계산기",
+        inputs: [
+          { id: "weight", label: "현재 체중 (kg)", type: "number", value: 78, min: 35, max: 180 },
+          { id: "height", label: "신장 (cm)", type: "number", value: 175, min: 130, max: 210 },
+          { id: "weeks", label: "식단 진행 기간 (주)", type: "number", value: 4, min: 1, max: 12 },
+          { id: "deficit", label: "일일 칼로리 조절 (감량 -500 / 증량 +300)", type: "number", value: -500, min: -1000, max: 1000 }
+        ],
+        calculate: (v) => {
+          const bmr = Math.round(10 * v.weight + 6.25 * v.height - 5 * 30 + 5);
+          const tdee = Math.round(bmr * 1.55);
+          const targetKcal = Math.max(1200, tdee + v.deficit);
+          const dailyProteinG = Math.round(v.weight * 2.0);
+          const days = v.weeks * 7;
+          const chickenPacks = Math.ceil((dailyProteinG * 0.65 * days) / 23); // 1팩 23g 단백질 기준
+          const brownRiceBowls = days * 2;
+          const proteinTubs = Math.ceil((days * 30) / 900);
+
+          return {
+            badge: `🔥 ${v.weeks}주 맞춤 식단 BOM 산출 완료`,
+            headline: `하루 ${targetKcal.toLocaleString()}kcal · 닭가슴살 총 ${chickenPacks}팩 필요!`,
+            metrics: [
+              { label: "일일 권장 단백질", val: `${dailyProteinG}g / 일` },
+              { label: `${v.weeks}주 닭가슴살(100g)`, val: `총 ${chickenPacks}팩` },
+              { label: `${v.weeks}주 즉석 현미밥`, val: `총 ${brownRiceBowls}개` }
+            ],
+            summary: `목표 달성을 위해 앞으로 ${v.weeks}주(${days}일) 동안 닭가슴살 100g ${chickenPacks}팩, 즉석 현미밥 ${brownRiceBowls}개, WPI 프로틴 파우더 ${proteinTubs}통을 구비하시면 가장 저렴하고 정확하게 식단을 완주할 수 있습니다.`,
+            cpaTitle: `혼자 빼기 힘들다면? ${v.weeks}주 책임 감량 1:1 체질 맞춤 다이어트 무료 진단`,
+            cpaPayout: "45,000원",
+            cpaKey: "diet_custom_consulting",
+            cpaBenefit: `${chickenPacks}팩`,
+            products: [
+              { title: `냉동 닭가슴살 100g 대용량 (${chickenPacks}팩 맞춤 묶음)`, kw: "냉동 닭가슴살 100g 대용량 패키지", type: "coupang" },
+              { title: `즉석 현미밥·곤약밥 (${brownRiceBowls}개입 로켓프레시)`, kw: "즉석 현미밥 대용량 박스", type: "coupang" },
+              { title: "WPI 분리유청 단백질 보충제 대용량 특가", kw: "WPI 분리유청단백질 프로틴", type: "coupang" },
+              { title: "그램(g) 정밀 계량 디지털 주방저울", kw: "디지털 주방저울", type: "coupang" }
+            ]
+          };
+        }
+      },
+
+      pet: {
+        title: "🐶 반려동물 맞춤 칼로리·사료 급여량(g) & 소진일 진단기",
+        inputs: [
+          { id: "petWeight", label: "반려동물 체중 (kg)", type: "number", value: 5.0, min: 0.5, max: 60 },
+          { id: "factor", label: "생애주기 계수 (성견 1.6 / 비만 1.4 / 퍼피 2.5 / 고양이 1.2)", type: "number", value: 1.6, min: 0.8, max: 3.5 },
+          { id: "kcalPerKg", label: "사료 1kg당 칼로리 (kcal/kg)", type: "number", value: 3650, min: 2500, max: 4800 },
+          { id: "bagKg", label: "구매할 사료 1포대 무게 (kg)", type: "number", value: 2.0, min: 0.5, max: 20 }
+        ],
+        calculate: (v) => {
+          const rer = 70 * Math.pow(v.petWeight, 0.75);
+          const der = Math.round(rer * v.factor);
+          const dailyGrams = Math.round((der / v.kcalPerKg) * 1000);
+          const daysPerBag = Math.floor((v.bagKg * 1000) / dailyGrams);
+          const cupsPerDay = (dailyGrams / 80).toFixed(1);
+
+          return {
+            badge: "🐾 수의영양학 RER/DER 정밀 계산",
+            headline: `하루 권장 급여량 ${dailyGrams}g (종이컵 ${cupsPerDay}컵) · ${daysPerBag}일 만에 소진!`,
+            metrics: [
+              { label: "일일 필요 에너지", val: `${der} kcal` },
+              { label: "하루 급여량(g)", val: `${dailyGrams}g (회당 ${Math.round(dailyGrams/2)}g)` },
+              { label: `${v.bagKg}kg 1포대 소진일`, val: `약 ${daysPerBag}일` }
+            ],
+            summary: `${v.petWeight}kg 반려동물의 하루 적정 사료량은 ${dailyGrams}g입니다. ${v.bagKg}kg 사료 구매 시 정확히 ${daysPerBag}일 뒤 떨어지므로 미리 정기배송이나 대용량 포대를 준비하시는 것이 유리합니다.`,
+            cpaTitle: `슬개골·피부병 병원비 평균 180만 원! ${v.petWeight}kg 우리 아이 펫보험 90% 보장 최저가 비교`,
+            cpaPayout: "35,000원",
+            cpaKey: "pet_insurance_compare",
+            cpaBenefit: `${dailyGrams}g`,
+            products: [
+              { title: `${v.petWeight}kg 맞춤 별점 4.8+ 가수분해 알러지 사료`, kw: "강아지 가수분해 사료 로얄캐닌", type: "coupang" },
+              { title: "반려동물 슬개골·관절·유산균 영양제 베스트", kw: "강아지 관절 영양제 유산균", type: "coupang" },
+              { title: "1g 단위 정밀 계량 펫 사료 전자저울 스쿱", kw: "강아지 사료 전자저울 스쿱", type: "coupang" },
+              { title: "대용량 고흡수 배변패드 / 고양이 벤토나이트 모래", kw: "강아지 배변패드 대용량", type: "coupang" }
+            ]
+          };
+        }
+      },
+
+      room: {
+        title: "🛋️ 자취·이사·신혼 예산별 가전/가구 풀세팅 최적 견적기",
+        inputs: [
+          { id: "budgetMan", label: "총 가용 예산 (만 원)", type: "number", value: 150, min: 50, max: 2000 },
+          { id: "roomSize", label: "평수 (원룸 6평 / 오피스텔 10평 / 신혼 24평)", type: "number", value: 7, min: 4, max: 50 }
+        ],
+        calculate: (v) => {
+          const totalWon = v.budgetMan * 10000;
+          const items = [
+            { name: "냉장고/김치냉장고", rate: 0.24 },
+            { name: "세탁기/건조기", rate: 0.22 },
+            { name: "매트리스+침대프레임", rate: 0.20 },
+            { name: "스마트TV/모니터", rate: 0.16 },
+            { name: "전자레인지+밥솥+청소기", rate: 0.18 }
+          ];
+          const top1 = Math.round((totalWon * items[0].rate) / 10000);
+          const top2 = Math.round((totalWon * items[1].rate) / 10000);
+          const top3 = Math.round((totalWon * items[2].rate) / 10000);
+
+          return {
+            badge: `🏠 ${v.roomSize}평 맞춤 예산 초과 0원 황금 배분`,
+            headline: `총 ${v.budgetMan}만 원 풀세팅 견적서 (가전 ${Math.round(v.budgetMan*0.64)}만 + 가구 ${Math.round(v.budgetMan*0.36)}만)`,
+            metrics: [
+              { label: "냉장고 적정 예산", val: `${top1}만 원` },
+              { label: "세탁기 적정 예산", val: `${top2}만 원` },
+              { label: "침대·매트리스 예산", val: `${top3}만 원` }
+            ],
+            summary: `${v.roomSize}평 공간에 총예산 ${v.budgetMan}만 원으로 입주할 때 절대 예산이 터지지 않는 황금 비율입니다. 오프라인 매장 대비 온라인 로켓설치·제휴몰 이용 시 약 ${Math.round(v.budgetMan * 0.22)}만 원을 즉시 아낄 수 있습니다.`,
+            cpaTitle: `${v.roomSize}평 맞춤 원룸·포장이사 3초 최저가 비교견적 + 입주청소 특가`,
+            cpaPayout: "30,000원",
+            cpaKey: "room_moving_quote",
+            cpaBenefit: `${v.budgetMan}만원`,
+            products: [
+              { title: `${top1}만 원대 무소음 가성비 냉장고 로켓설치`, kw: "원룸 자취방 냉장고 로켓설치", type: "coupang" },
+              { title: `${top3}만 원대 독립스프링 롤팩 매트리스·침대`, kw: "독립스프링 매트리스 침대프레임", type: "coupang" },
+              { title: "한샘몰 자취·신혼 가구 공간별 베스트 기획전", merchant: "hanssem", url: "https://mall.hanssem.com/", type: "linkprice" },
+              { title: "필수 소형가전 3종 (전자레인지·전기밥솥·무선청소기)", kw: "자취 전자레인지 무선청소기", type: "coupang" }
+            ]
+          };
+        }
+      },
+
+      auto: {
+        title: "🚗 자동차 구매(장기렌트 vs 리스 vs 할부) 총비용 손익 계산기",
+        inputs: [
+          { id: "carPriceMan", label: "차량 가격 (만 원)", type: "number", value: 3500, min: 1500, max: 15000 },
+          { id: "months", label: "계약/할부 기간 (개월)", type: "number", value: 48, min: 24, max: 60 },
+          { id: "taxRate", label: "사업자/프리랜서 종합소득세율 (%, 일반직장인은 0)", type: "number", value: 24, min: 0, max: 45 }
+        ],
+        calculate: (v) => {
+          const price = v.carPriceMan * 10000;
+          const acqTax = Math.round(price * 0.07); // 취등록세 7%
+          const insuranceTotal = Math.round(1450000 * (v.months / 12)); // 보험+자동차세
+          const installmentInterest = Math.round(price * 0.8 * 0.055 * (v.months / 24));
+          const installmentTco = price + acqTax + insuranceTotal + installmentInterest;
+
+          // 장기렌트 특판 할인 + 사업자 비용처리 절세액 반영
+          const taxSaving = v.taxRate > 0 ? Math.round(Math.min(15000000, price * 0.3) * (v.taxRate / 100) * (v.months / 12)) : 0;
+          const rentTco = Math.round(price * 0.94 + insuranceTotal * 0.65 - taxSaving);
+          const diffMan = Math.round(Math.abs(installmentTco - rentTco) / 10000);
+          const winner = rentTco < installmentTco ? "신차 장기렌트" : "신차 할부";
+
+          return {
+            badge: `🏆 ${v.months}개월 실지출 총비용(TCO) 판정 완료`,
+            headline: `[${winner}] 선택 시 총 ${diffMan.toLocaleString()}만 원 더 이득!`,
+            metrics: [
+              { label: "초기 취등록세(7%)", val: `${Math.round(acqTax/10000)}만 원` },
+              { label: "절세+보험료 절감액", val: `${Math.round((taxSaving + insuranceTotal*0.35)/10000)}만 원` },
+              { label: "최종 손익 차이", val: `${diffMan}만 원 절약` }
+            ],
+            summary: `차량가 ${v.carPriceMan.toLocaleString()}만 원 기준 취등록세(${Math.round(acqTax/10000)}만 원), ${v.months}개월 보험료·자동차세, 절세 효과를 모두 합산하면 [${winner}] 방식이 총 ${diffMan.toLocaleString()}만 원 유리합니다.`,
+            cpaTitle: `할부보다 ${diffMan}만 원 아끼는 국내 21개 렌트·리스사 무서류 1분 최저가 견적`,
+            cpaPayout: "60,000원",
+            cpaKey: "auto_longterm_rent",
+            cpaBenefit: `${diffMan}만원`,
+            products: [
+              { title: "신차 출고 필수! 2채널 QHD 아이나비/파인뷰 블랙박스", kw: "2채널 QHD 블랙박스", type: "coupang" },
+              { title: "차량용 맥세이프 고속 무선충전 거치대 베스트", kw: "차량용 맥세이프 고속충전 거치대", type: "coupang" },
+              { title: "실내 오염 방지 친환경 확장형 코일 카매트", kw: "차량용 코일매트", type: "coupang" },
+              { title: "초보운전·신차 관리 세차용품 올인원 버킷 세트", kw: "세차용품 세트", type: "coupang" }
+            ]
+          };
+        }
+      },
+
+      telecom: {
+        title: "🌐 인터넷·TV 약정 위약금 vs 현금 사은품(47만원) 갈아타기 계산기",
+        inputs: [
+          { id: "penaltyMan", label: "현재 남은 약정 위약금 (만 원)", type: "number", value: 15, min: 0, max: 60 },
+          { id: "oldFee", label: "현재 월 인터넷+TV 요금 (원)", type: "number", value: 46000, min: 15000, max: 100000 },
+          { id: "newFee", label: "신규 이동 시 결합 월 요금 (원)", type: "number", value: 38500, min: 15000, max: 100000 },
+          { id: "cashGiftMan", label: "신규 가입 현금 사은품 (만 원, 최대 47)", type: "number", value: 47, min: 10, max: 47 }
+        ],
+        calculate: (v) => {
+          const immediateNetWon = (v.cashGiftMan - v.penaltyMan) * 10000;
+          const monthlyDiff = v.oldFee - v.newFee;
+          const threeYearFeeSave = monthlyDiff * 36;
+          const totalNetBenefit = immediateNetWon + threeYearFeeSave;
+
+          return {
+            badge: totalNetBenefit > 0 ? "💰 지금 바로 갈아타기 무조건 이득!" : "⏳ 만기 후 이동 권장",
+            headline: `위약금 ${v.penaltyMan}만 원 내고도 총 +${Math.round(totalNetBenefit/10000)}만 원 순수익!`,
+            metrics: [
+              { label: "사은품 - 위약금 차액", val: `+${(v.cashGiftMan - v.penaltyMan)}만 원` },
+              { label: "3년 요금 절감액", val: `+${Math.round(threeYearFeeSave/10000)}만 원` },
+              { label: "총 순이익 합계", val: `+${totalNetBenefit.toLocaleString()}원` }
+            ],
+            summary: `현재 위약금 ${v.penaltyMan}만 원을 물더라도 신규 현금 사은품 ${v.cashGiftMan}만 원을 즉시 수령하면 당장 +${(v.cashGiftMan - v.penaltyMan)}만 원이 남고, 매달 요금까지 ${monthlyDiff.toLocaleString()}원씩 내려가 총 ${totalNetBenefit.toLocaleString()}원 이득입니다.`,
+            cpaTitle: `위약금 ${v.penaltyMan}만 원 완벽 방어 + 현금 사은품 ${v.cashGiftMan}만 원 당일 입금 무료 상담`,
+            cpaPayout: "55,000원",
+            cpaKey: "telecom_internet_switch",
+            cpaBenefit: `${totalNetBenefit}`,
+            products: [
+              { title: "방마다 빵빵한 속도! 기가 와이파이6 공유기 AX3000", kw: "와이파이6 공유기 AX3000", type: "coupang" },
+              { title: "거실 TV 뒤 지저분한 셋톱박스·공유기 무타공 정리함", kw: "셋톱박스 공유기 정리함", type: "coupang" },
+              { title: "KT샵 공식 온라인 가입 혜택 & 사은품 기획전", merchant: "ktshop", url: "https://shop.kt.com/", type: "linkprice" },
+              { title: "초고속 CAT.8 기가 랜선 케이블 로켓배송", kw: "CAT8 기가 랜선", type: "coupang" }
+            ]
+          };
+        }
+      }
+    };
+
+    // ==================== 36대 프로그래매틱 SEO 프리셋 데이터 ====================
+    const SEO_PRESETS = [
+      { id: "electric-1", calc: "electric", title: "원룸 벽걸이 에어컨 하루 10시간 한 달 전기세 계산", inputs: { wattage: 650, hours: 10, baseKwh: 150, newPrice: 550000 } },
+      { id: "electric-2", calc: "electric", title: "30평대 2in1 스탠드 에어컨 누진세 3단계 폭탄 계산", inputs: { wattage: 2200, hours: 12, baseKwh: 310, newPrice: 1850000 } },
+      { id: "electric-3", calc: "electric", title: "여름철 제습기 24시간 가동 시 전기요금 & 1등급 교체 손익", inputs: { wattage: 320, hours: 24, baseKwh: 220, newPrice: 380000 } },
+      { id: "electric-4", calc: "electric", title: "전기 의류건조기 주 4회 사용 시 한 달 전기세", inputs: { wattage: 1400, hours: 2, baseKwh: 280, newPrice: 950000 } },
+      { id: "electric-5", calc: "electric", title: "겨울철 2000W 전기온풍기 하루 8시간 난방비 폭탄 진단", inputs: { wattage: 2000, hours: 8, baseKwh: 250, newPrice: 450000 } },
+      { id: "electric-6", calc: "electric", title: "10년 된 구형 정속형 에어컨 vs 1등급 인버터 교체 회수기간", inputs: { wattage: 1800, hours: 8, baseKwh: 200, newPrice: 850000 } },
+      { id: "diet-1", calc: "diet", title: "남자 80kg 체지방 컷팅 TDEE 및 닭가슴살 4주 장보기 수량", inputs: { weight: 80, height: 178, weeks: 4, deficit: -500 } },
+      { id: "diet-2", calc: "diet", title: "여자 55kg 슬림 다이어트 일일 탄단지 & 2주 식단 리스트", inputs: { weight: 55, height: 163, weeks: 2, deficit: -400 } },
+      { id: "diet-3", calc: "diet", title: "마른 체형 65kg 벌크업 칼로리 잉여 식단 & 프로틴 섭취량", inputs: { weight: 65, height: 175, weeks: 4, deficit: 350 } },
+      { id: "diet-4", calc: "diet", title: "앉아서 일하는 사무직 직장인 TDEE 및 점심 도시락 견적", inputs: { weight: 74, height: 172, weeks: 4, deficit: -450 } },
+      { id: "diet-5", calc: "diet", title: "자취생·대학생 1주 가성비 헬스 식단 장보기 표", inputs: { weight: 70, height: 176, weeks: 1, deficit: -300 } },
+      { id: "diet-6", calc: "diet", title: "한 달 단기 3kg 감량 칼로리 적자 계산 & 필수 식단 조합", inputs: { weight: 58, height: 160, weeks: 4, deficit: -550 } },
+      { id: "pet-1", calc: "pet", title: "5kg 말티즈 중성화 성견 하루 사료 급여량(g) & 소진일수", inputs: { petWeight: 5.0, factor: 1.6, kcalPerKg: 3650, bagKg: 2.0 } },
+      { id: "pet-2", calc: "pet", title: "생후 4개월 1.5kg 포메라니안 퍼피 고단백 사료 급여량", inputs: { petWeight: 1.5, factor: 2.8, kcalPerKg: 3900, bagKg: 1.5 } },
+      { id: "pet-3", calc: "pet", title: "30kg 골든리트리버 대형견 하루 사료량 & 12kg 포대 소진일", inputs: { petWeight: 30.0, factor: 1.6, kcalPerKg: 3500, bagKg: 12.0 } },
+      { id: "pet-4", calc: "pet", title: "4.5kg 코숏 고양이 중성화 비만 방지 건사료 급여량", inputs: { petWeight: 4.5, factor: 1.2, kcalPerKg: 3800, bagKg: 2.0 } },
+      { id: "pet-5", calc: "pet", title: "10살 이상 노령묘 신장·관절 케어 사료량 및 소진 주기", inputs: { petWeight: 3.8, factor: 1.1, kcalPerKg: 3600, bagKg: 1.5 } },
+      { id: "pet-6", calc: "pet", title: "소형견 4kg 첫 입양 사료 급여량 및 월 고정비 진단", inputs: { petWeight: 4.0, factor: 1.6, kcalPerKg: 3700, bagKg: 2.0 } },
+      { id: "room-1", calc: "room", title: "원룸 자취방 100만 원 필수 가전·가구 초가성비 풀세팅", inputs: { budgetMan: 100, roomSize: 6 } },
+      { id: "room-2", calc: "room", title: "신축 오피스텔 300만 원 화이트 감성 가전·가구 최적 배분", inputs: { budgetMan: 300, roomSize: 10 } },
+      { id: "room-3", calc: "room", title: "1.5룸·투룸 500만 원 로봇청소기·침대 포함 프리미엄 견적", inputs: { budgetMan: 500, roomSize: 15 } },
+      { id: "room-4", calc: "room", title: "신혼부부 1,000만 원 가성비 신혼가전 풀세팅 패키지", inputs: { budgetMan: 1000, roomSize: 24 } },
+      { id: "room-5", calc: "room", title: "단기 거주 50만 원 미니멀 자취 필수 생존템 견적", inputs: { budgetMan: 50, roomSize: 5 } },
+      { id: "room-6", calc: "room", title: "옵션 없는 원룸 150만 원 필수 에너지 1등급 가전 조합", inputs: { budgetMan: 150, roomSize: 7 } },
+      { id: "auto-1", calc: "auto", title: "20대 사회초년생 3,000만 원 아반떼 장기렌트 vs 할부 비교", inputs: { carPriceMan: 3000, months: 60, taxRate: 0 } },
+      { id: "auto-2", calc: "auto", title: "개인/법인사업자 5,000만 원 그랜저 장기렌트 절세 손익", inputs: { carPriceMan: 5000, months: 48, taxRate: 24 } },
+      { id: "auto-3", calc: "auto", title: "3,800만 원 투싼 하이브리드 48개월 장기렌트 vs 할부 비교", inputs: { carPriceMan: 3800, months: 48, taxRate: 15 } },
+      { id: "auto-4", calc: "auto", title: "7,000만 원 제네시스 G80 법인/고소득자 36개월 렌트 손익", inputs: { carPriceMan: 7000, months: 36, taxRate: 35 } },
+      { id: "auto-5", calc: "auto", title: "1,800만 원 캐스퍼 초보운전 보험료 포함 할부 vs 렌트", inputs: { carPriceMan: 1800, months: 36, taxRate: 0 } },
+      { id: "auto-6", calc: "auto", title: "5,500만 원 아이오닉 전기차 48개월 장기렌트 손익 계산", inputs: { carPriceMan: 5500, months: 48, taxRate: 24 } },
+      { id: "telecom-1", calc: "telecom", title: "인터넷+TV 잔여 위약금 15만 원 시 타사 이동 사은품 순수익", inputs: { penaltyMan: 15, oldFee: 44000, newFee: 38500, cashGiftMan: 47 } },
+      { id: "telecom-2", calc: "telecom", title: "약정 1년 남은 통신 위약금 30만 원 vs 사은품 47만 원 손익", inputs: { penaltyMan: 30, oldFee: 51000, newFee: 41000, cashGiftMan: 47 } },
+      { id: "telecom-3", calc: "telecom", title: "인터넷 3년 약정 만기(위약금 0원) 신규 이동 시 47만 원 혜택", inputs: { penaltyMan: 0, oldFee: 45000, newFee: 36000, cashGiftMan: 47 } },
+      { id: "telecom-4", calc: "telecom", title: "자취방 인터넷 단독 위약금 8만 원 vs 지원금 25만 원 비교", inputs: { penaltyMan: 8, oldFee: 33000, newFee: 22000, cashGiftMan: 25 } },
+      { id: "telecom-5", calc: "telecom", title: "온가족 4인 인터넷+TV 통합 변경 시 최대 사은품 손익 계산", inputs: { penaltyMan: 12, oldFee: 55000, newFee: 39000, cashGiftMan: 47 } },
+      { id: "telecom-6", calc: "telecom", title: "고가 통신 요금제 → 결합 할인 이동 시 36개월 총절감액", inputs: { penaltyMan: 10, oldFee: 62000, newFee: 42000, cashGiftMan: 45 } }
+    ];
+
+    // ==================== UI 렌더링 로직 ====================
+    function selectCalc(calcKey, customInputs = null) {
+      currentCalc = calcKey;
+      const spec = CALCULATORS[calcKey];
+      document.getElementById('calc-form-title').textContent = spec.title;
+
+      document.querySelectorAll('.calc-nav-btn').forEach(btn => {
+        btn.className = "calc-nav-btn p-3 rounded-xl border text-left transition bg-white border-slate-200 hover:border-blue-400";
+      });
+      const activeBtn = document.getElementById(`calc-nav-${calcKey}`);
+      if (activeBtn) {
+        activeBtn.className = "calc-nav-btn p-3 rounded-xl border text-left transition bg-blue-50 border-blue-600 text-blue-900 font-bold";
+      }
+
+      const container = document.getElementById('calc-inputs-container');
+      container.innerHTML = spec.inputs.map(inp => {
+        const val = customInputs && customInputs[inp.id] !== undefined ? customInputs[inp.id] : inp.value;
+        return `
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">${inp.label}</label>
+            <input id="inp-${inp.id}" type="number" value="${val}" min="${inp.min}" max="${inp.max}"
+              oninput="recalculateCurrent()"
+              class="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-semibold focus:border-blue-600 focus:outline-none" />
+          </div>
+        `;
+      }).join('');
+
+      recalculateCurrent();
+    }
+
+    function recalculateCurrent() {
+      const spec = CALCULATORS[currentCalc];
+      const values = {};
+      spec.inputs.forEach(inp => {
+        const el = document.getElementById(`inp-${inp.id}`);
+        values[inp.id] = el ? parseFloat(el.value || inp.value) : inp.value;
+      });
+
+      const res = spec.calculate(values);
+      document.getElementById('result-badge').textContent = res.badge;
+      document.getElementById('result-headline').textContent = res.headline;
+      document.getElementById('result-summary-text').textContent = res.summary;
+
+      document.getElementById('result-metrics-grid').innerHTML = res.metrics.map(m => `
+        <div class="bg-slate-800/80 border border-slate-700 rounded-xl p-3">
+          <div class="text-[11px] text-slate-400">${m.label}</div>
+          <div class="text-base font-extrabold text-amber-400 mt-0.5">${m.val}</div>
+        </div>
+      `).join('');
+
+      // CPA 카드 동적 업데이트
+      document.getElementById('cpa-title').textContent = res.cpaTitle;
+      document.getElementById('cpa-payout-tag').textContent = `승인 시 예상 수익: 건당 ${res.cpaPayout}`;
+      document.getElementById('cpa-action-link').href = buildCpaUrl(res.cpaKey, res.cpaBenefit);
+
+      // 상품 추천 카드 동적 업데이트 (쿠팡 파트너스 + 링크프라이스 딥링크)
+      document.getElementById('product-recommendations').innerHTML = res.products.map(p => {
+        const href = p.type === 'coupang'
+          ? buildCoupangUrl(p.kw, currentCalc)
+          : buildLinkPriceDeepLink(p.merchant, p.url);
+        const tag = p.type === 'coupang' ? '쿠팡 로켓배송 (CPS 3%)' : `링크프라이스 제휴 (${p.merchant})`;
+        const tagColor = p.type === 'coupang' ? 'bg-rose-50 text-rose-700' : 'bg-indigo-50 text-indigo-700';
+        return `
+          <a href="${href}" target="_blank" rel="noopener noreferrer sponsored"
+             onclick="recordAffiliateClick('${p.type}', this.href)"
+             class="block border border-slate-200 hover:border-blue-500 rounded-xl p-3.5 transition bg-slate-50/60 hover:bg-blue-50/40">
+            <span class="inline-block text-[10px] font-bold px-2 py-0.5 rounded ${tagColor} mb-1">${tag}</span>
+            <div class="text-xs font-bold text-slate-800">${p.title}</div>
+            <div class="text-[11px] text-blue-600 font-semibold mt-1">최저가 확인 및 혜택 보기 →</div>
+          </a>
+        `;
+      }).join('');
+    }
+
+    function renderSeoPresetList() {
+      const listEl = document.getElementById('seo-preset-list');
+      listEl.innerHTML = SEO_PRESETS.map((p, idx) => `
+        <button onclick="selectSeoPreset(${idx})" class="w-full text-left p-3 rounded-xl border border-slate-200 hover:border-blue-500 bg-slate-50 hover:bg-blue-50 transition flex items-center justify-between">
+          <div>
+            <span class="text-[10px] font-bold text-blue-600 uppercase">[#${idx + 1} ${p.calc}]</span>
+            <div class="text-xs font-bold text-slate-800">${p.title}</div>
+          </div>
+          <span class="text-xs text-slate-400">원고 생성 →</span>
+        </button>
+      `).join('');
+      selectSeoPreset(0);
+    }
+
+    function selectSeoPreset(index) {
+      const preset = SEO_PRESETS[index];
+      const spec = CALCULATORS[preset.calc];
+      const res = spec.calculate(preset.inputs);
+      const presetUrl = `${MONETIZATION_CONFIG.siteUrl}/preset/${preset.id}`;
+
+      // 1) 네이버 블로그 복붙용 원고 생성
+      const blogPost = `[제목] ${preset.title} (2026 최신 손익분기점 총정리)\n\n` +
+        `안녕하세요! 요즘 '${preset.title}' 때문에 고민하시는 분들이 정말 많습니다.\n` +
+        `단순히 감으로 계산하면 매달 수만 원에서 수십만 원까지 손해를 볼 수 있어 정확한 수치로 시뮬레이션해 보았습니다.\n\n` +
+        `■ 핵심 진단 결과: ${res.headline}\n` +
+        `- ${res.metrics.map(m => `${m.label}: ${m.val}`).join('\n- ')}\n\n` +
+        `■ 상세 분석 요약\n${res.summary}\n\n` +
+        `👉 내 조건(평수/체중/약정기간)을 직접 넣어서 3초 만에 계산해 보시려면 아래 무료 계산기에서 바로 확인해 보세요!\n` +
+        `🔗 무료 맞춤 계산기 바로가기: ${presetUrl}\n\n` +
+        `#${preset.title.split(' ').slice(0, 4).join(' #')} #손익분기점계산기 #생활꿀팁`;
+
+      // 2) 스레드(Threads) / 단톡방 3줄 어그로 요약
+      const threadsPost = `🚨 아직도 '${preset.title}' 모르고 돈 날리는 분 계신가요?\n` +
+        `방금 계산기 돌려봤는데 ${res.headline} 나옵니다 ㄷㄷ\n` +
+        `내 조건 넣고 3초 만에 손익분기점 확인하기 👉 ${presetUrl}`;
+
+      // 3) 지식iN 맞춤 답변
+      const jisikinPost = `질문자님 조건('${preset.title}')으로 실제 수식을 돌려본 결과입니다.\n\n` +
+        `결론부터 말씀드리면 [${res.headline}] 입니다.\n` +
+        `${res.summary}\n\n` +
+        `더 정확한 본인 수치(시간/금액)별 비교표는 아래 무료 시뮬레이터에서 로그인 없이 바로 계산해 보실 수 있습니다.\n` +
+        `출처 및 계산기: ${presetUrl}`;
+
+      // 4) IndexNow 실시간 색인 페이로드
+      const indexNowPayload = {
+        host: new URL(MONETIZATION_CONFIG.siteUrl).host,
+        key: "moneyfit8f92a1b4c3d2e1f0",
+        keyLocation: `${MONETIZATION_CONFIG.siteUrl}/moneyfit8f92a1b4c3d2e1f0.txt`,
+        urlList: SEO_PRESETS.slice(0, 6).map(item => `${MONETIZATION_CONFIG.siteUrl}/preset/${item.id}`)
+      };
+
+      document.getElementById('generated-blog-post').textContent = blogPost;
+      document.getElementById('generated-threads-post').textContent = threadsPost;
+      document.getElementById('generated-jisikin-post').textContent = jisikinPost;
+      document.getElementById('generated-indexnow-json').textContent = JSON.stringify(indexNowPayload, null, 2);
+    }
+
+    function applyMonetizationConfig() {
+      MONETIZATION_CONFIG.coupangAfId = document.getElementById('cfg-coupang-id').value.trim() || "AF1234567";
+      MONETIZATION_CONFIG.linkPriceId = document.getElementById('cfg-lp-id').value.trim() || "A100123456";
+      MONETIZATION_CONFIG.cpaMemberId = document.getElementById('cfg-cpa-id').value.trim() || "tenping_myid";
+      MONETIZATION_CONFIG.adfitUnitId = document.getElementById('cfg-adfit-id').value.trim() || "DAN-SAMPLE-TOP";
+
+      document.getElementById('status-coupang-id').textContent = MONETIZATION_CONFIG.coupangAfId;
+      document.getElementById('status-lp-id').textContent = MONETIZATION_CONFIG.linkPriceId;
+      document.getElementById('status-cpa-id').textContent = MONETIZATION_CONFIG.cpaMemberId;
+      document.getElementById('adfit-unit-label').textContent = MONETIZATION_CONFIG.adfitUnitId;
+
+      document.getElementById('sample-synthesized-coupang').textContent =
+        "쿠팡 링크: " + buildCoupangUrl("에너지소비효율 1등급 인버터 에어컨", "electric");
+      document.getElementById('sample-synthesized-lp').textContent =
+        "링크프라이스: " + buildLinkPriceDeepLink("himart", "https://www.e-himart.co.kr/");
+
+      recalculateCurrent();
+    }
+
+    function runProfitSimulator() {
+      const visitors = parseInt(document.getElementById('sim-visitors').value, 10);
+      const cpaPayout = parseInt(document.getElementById('sim-cpa-payout').value, 10);
+      document.getElementById('sim-visitors-val').textContent = `${visitors.toLocaleString()}명 / 일`;
+      document.getElementById('sim-cpa-payout-val').textContent = `${cpaPayout.toLocaleString()}원 / 건`;
+
+      const monthlyVisits = visitors * 30;
+      const cpaRev = Math.round(monthlyVisits * 0.045 * 0.013 * cpaPayout);
+      const cpsRev = Math.round(monthlyVisits * 0.08 * 0.055 * 45000 * 0.03);
+      const adfitRev = Math.round(monthlyVisits * 1.8 * (1400 / 1000));
+      const total = cpaRev + cpsRev + adfitRev;
+
+      document.getElementById('sim-cpa-krw').textContent = `${cpaRev.toLocaleString()}원`;
+      document.getElementById('sim-cps-krw').textContent = `${cpsRev.toLocaleString()}원`;
+      document.getElementById('sim-adfit-krw').textContent = `${adfitRev.toLocaleString()}원`;
+      document.getElementById('sim-total-krw').textContent = `${total.toLocaleString()}원`;
+    }
+
+    function switchMainTab(tab) {
+      ['calculators', 'seo', 'wizard'].forEach(t => {
+        document.getElementById(`view-${t}`).classList.toggle('hidden', t !== tab);
+      });
+    }
+
+    function copyText(elId) {
+      const text = document.getElementById(elId).textContent;
+      navigator.clipboard?.writeText(text);
+      alert("클립보드에 복사되었습니다! 블로그·지식iN·스레드에 바로 붙여넣으세요.");
+    }
+
+    function copyShareUrl() {
+      navigator.clipboard?.writeText(window.location.href);
+      alert("내 계산 결과 공유 링크가 복사되었습니다!");
+    }
+
+    function exportConfigJson() {
+      const blob = new Blob([JSON.stringify(MONETIZATION_CONFIG, null, 2)], { type: "application/json" });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = "monetization.config.json";
+      a.click();
+    }
+
+    // 초기 부트스트랩
+    window.addEventListener('DOMContentLoaded', () => {
+      selectCalc('electric');
+      renderSeoPresetList();
+      applyMonetizationConfig();
+      runProfitSimulator();
+    });
+  </script>
+</body>
+</html>

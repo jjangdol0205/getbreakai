@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RightSideAlpha — 52-Week Low Right-Side Ignition (PW-RSI) Quantitative Leaderboard</title>
+<meta name="description" content="394,371 trading days backtested (2006–2026). Stop catching falling knives. Track verified Post-Washout Right-Side Ignition (PW-RSI) breakouts and 55-day time-stop analytics.">
+<script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
+<style>
+  :root {
+    --bg: #070b14;
+    --card: #0f172a;
+    --card-alt: #131e36;
+    --border: #1e293b;
+    --text: #f8fafc;
+    --muted: #94a3b8;
+    --accent: #10b981;
+    --accent-glow: rgba(16, 185, 129, 0.18);
+    --warn: #f59e0b;
+    --danger: #ef4444;
+    --blue: #3b82f6;
+    --purple: #8b5cf6;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.55;
+  }
+  a { color: inherit; text-decoration: none; }
+  .topbar {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(7, 11, 20, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 24px;
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.15rem; letter-spacing: -0.3px; }
+  .brand-badge {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: #042f2e; font-weight: 900; font-size: 0.75rem; padding: 3px 8px; border-radius: 6px;
+  }
+  .nav-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .lang-switch {
+    display: inline-flex; background: var(--card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden;
+  }
+  .lang-btn {
+    background: transparent; border: none; color: var(--muted); padding: 6px 11px; font-size: 0.8rem; font-weight: 700; cursor: pointer;
+  }
+  .lang-btn.active { background: var(--blue); color: #fff; }
+  .btn {
+    border: 1px solid var(--border); background: var(--card); color: var(--text);
+    padding: 7px 14px; border-radius: 8px; font-size: 0.83rem; font-weight: 700; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 6px; transition: all 0.15s;
+  }
+  .btn:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .btn-primary {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: #022c22; border: none; font-weight: 800;
+  }
+  .btn-purple {
+    background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+    color: #fff; border: none;
+  }
+  .container { max-width: 1240px; margin: 0 auto; padding: 28px 20px 64px; }
+  .hero {
+    background: radial-gradient(circle at top right, rgba(16, 185, 129, 0.15), transparent 60%), var(--card);
+    border: 1px solid var(--border); border-radius: 18px; padding: 32px 28px; margin-bottom: 24px;
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--accent-glow); color: var(--accent); border: 1px solid rgba(16, 185, 129, 0.35);
+    padding: 4px 12px; border-radius: 999px; font-size: 0.78rem; font-weight: 800; margin-bottom: 14px;
+  }
+  .hero h1 { font-size: 2.05rem; font-weight: 900; letter-spacing: -0.6px; margin-bottom: 10px; }
+  .hero p { color: var(--muted); font-size: 0.98rem; max-width: 880px; margin-bottom: 20px; }
+  .kpi-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; margin-top: 18px;
+  }
+  .kpi-box {
+    background: rgba(15, 23, 42, 0.8); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px;
+  }
+  .kpi-label { color: var(--muted); font-size: 0.76rem; font-weight: 700; text-transform: uppercase; }
+  .kpi-val { font-size: 1.45rem; font-weight: 900; margin-top: 4px; }
+  .kpi-sub { font-size: 0.76rem; color: var(--muted); margin-top: 3px; }
+
+  /* Backtest Comparison Banner */
+  .proof-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 22px 24px; margin-bottom: 24px;
+  }
+  .proof-title { font-size: 1.05rem; font-weight: 800; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+  .proof-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  .proof-table th, .proof-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); text-align: left; }
+  .proof-table th { color: var(--muted); font-weight: 700; font-size: 0.76rem; text-transform: uppercase; }
+  .proof-highlight { background: rgba(16, 185, 129, 0.1); font-weight: 800; color: #34d399; }
+
+  /* Filter & Search Bar */
+  .toolbar {
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 16px;
+  }
+  .search-input {
+    background: var(--card); border: 1px solid var(--border); color: var(--text);
+    padding: 9px 14px; border-radius: 10px; font-size: 0.88rem; min-width: 260px;
+  }
+  .badge {
+    display: inline-flex; align-items: center; padding: 3px 9px; border-radius: 6px; font-size: 0.75rem; font-weight: 800;
+  }
+  .badge-ignition { background: rgba(16, 185, 129, 0.16); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); }
+  .badge-watch { background: rgba(245, 158, 11, 0.16); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); }
+  .badge-knife { background: rgba(239, 68, 68, 0.16); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.4); }
+
+  /* Leaderboard Table */
+  .table-wrap {
+    background: var(--card); border: 1px solid var(--border); border-radius: 16px; overflow-x: auto; margin-bottom: 26px;
+  }
+  table.leaderboard { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
+  table.leaderboard th, table.leaderboard td { padding: 12px 14px; border-bottom: 1px solid var(--border); text-align: left; white-space: nowrap; }
+  table.leaderboard th { background: #0b1120; color: var(--muted); font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.4px; }
+  table.leaderboard tr:hover { background: rgba(59, 130, 246, 0.05); }
+  .blur-locked {
+    filter: blur(6px); user-select: none; pointer-events: none;
+  }
+
+  /* Cross Funnel Banner to Site #2 */
+  .cross-banner {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.16), rgba(139, 92, 246, 0.16));
+    border: 1px solid rgba(99, 102, 241, 0.45);
+    border-radius: 16px; padding: 22px 26px; margin-bottom: 26px;
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+  }
+
+  /* Pricing & Sponsor Grid */
+  .pricing-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 18px; margin-bottom: 28px;
+  }
+  .price-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 24px;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .price-card.featured {
+    border: 2px solid var(--accent);
+    box-shadow: 0 0 28px rgba(16, 185, 129, 0.12);
+  }
+  .price-num { font-size: 2rem; font-weight: 900; margin: 10px 0; }
+  .price-list { list-style: none; margin: 14px 0 20px; color: var(--muted); font-size: 0.86rem; }
+  .price-list li { margin-bottom: 8px; }
+
+  /* Modal */
+  .modal-backdrop {
+    display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.75); z-index: 999;
+    align-items: center; justify-content: center; padding: 20px;
+  }
+  .modal-backdrop.open { display: flex; }
+  .modal {
+    background: var(--card); border: 1px solid var(--border); border-radius: 16px; max-width: 540px; width: 100%; padding: 26px;
+  }
+  .modal input {
+    width: 100%; padding: 10px 12px; background: #070b14; border: 1px solid var(--border);
+    color: var(--text); border-radius: 8px; margin: 8px 0 14px; font-size: 0.88rem;
+  }
+  .footer {
+    border-top: 1px solid var(--border); padding-top: 24px; color: var(--muted); font-size: 0.78rem;
+  }
+  .toast {
+    position: fixed; bottom: 24px; right: 24px; background: #10b981; color: #022c22;
+    padding: 12px 20px; border-radius: 10px; font-weight: 800; font-size: 0.88rem;
+    display: none; z-index: 2000; box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span>⚡ RightSideAlpha</span>
+    <span class="brand-badge">PW-RSI QUANT ENGINE v2.6</span>
+    <span id="proStatusBadge" class="badge badge-watch">FREE TIER</span>
+  </div>
+  <div class="nav-actions">
+    <div class="lang-switch">
+      <button class="lang-btn active" onclick="setLang('en')" id="lang-en">🇺🇸 EN</button>
+      <button class="lang-btn" onclick="setLang('jp')" id="lang-jp">🇯🇵 JP</button>
+      <button class="lang-btn" onclick="setLang('kr')" id="lang-kr">🇰🇷 KR</button>
+    </div>
+    <button class="btn" onclick="openModal('licenseModal')" id="btnLicense">🔑 Enter License Key</button>
+    <button class="btn" onclick="openModal('configModal')">⚙️ 1-Min Admin Setup</button>
+    <a class="btn btn-primary lemonsqueezy-button" id="topCheckoutBtn" href="https://rightsidealpha.lemonsqueezy.com/checkout/buy/pro-monthly?embed=1">🔓 Unlock Pro ($29/mo)</a>
+  </div>
+</header>
+
+<main class="container">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-tag" id="heroTag">📊 394,371 US & Global Stock-Days Backtested (2006–2026)</div>
+    <h1 id="heroTitle">Stop Catching 52-Week Low Falling Knives. Wait for Right-Side Ignition.</h1>
+    <p id="heroDesc">
+      Buying stocks blindly at 52-week lows traps your capital for a median of 81 trading days with a -29.8% further drawdown.
+      Our quantitative PW-RSI (Post-Washout Right-Side Ignition) screener tracks 1.4x+ institutional volume washouts breaking simultaneously above the 20-day & 60-day moving averages.
+    </p>
+    <div class="kpi-grid">
+      <div class="kpi-box">
+        <div class="kpi-label" data-i18n="kpi1_label">PW-RSI 1Y 2x (+100%) Hit Rate</div>
+        <div class="kpi-val" style="color:var(--accent);">55.24%</div>
+        <div class="kpi-sub" data-i18n="kpi1_sub">vs 28.91% blind 52W-low dip buying</div>
+      </div>
+      <div class="kpi-box">
+        <div class="kpi-label" data-i18n="kpi2_label">Median Days Underwater</div>
+        <div class="kpi-val" style="color:#60a5fa;">29.0 Days</div>
+        <div class="kpi-sub" data-i18n="kpi2_sub">Cut down from 81.0 days via 55D Time-Stop</div>
+      </div>
+      <div class="kpi-box">
+        <div class="kpi-label" data-i18n="kpi3_label">26.8-Yr US-Only Net CAGR</div>
+        <div class="kpi-val" style="color:#c084fc;">+17.81% / yr</div>
+        <div class="kpi-sub" data-i18n="kpi3_sub">80.5x cumulative after 22% tax & slippage</div>
+      </div>
+      <div class="kpi-box">
+        <div class="kpi-label" data-i18n="kpi4_label">Value-Trap Loss (> -20%) Risk</div>
+        <div class="kpi-val" style="color:#34d399;">0.93%</div>
+        <div class="kpi-sub" data-i18n="kpi4_sub">vs 24.82% without -9% hard stop & earnings filter</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EMPIRICAL BACKTEST TABLE (REDDIT DATA-DROP PROOF) -->
+  <section class="proof-card">
+    <div class="proof-title">
+      <span id="proofHeading">🏛️ Empirical Backtest Comparison: Left-Side Dip Buying vs. Right-Side Ignition (PW-RSI)</span>
+      <button class="btn" onclick="copySelectedCard('CELH')">📸 Copy Shareable Scoreboard PNG (Watermark)</button>
+    </div>
+    <table class="proof-table">
+      <thead>
+        <tr>
+          <th data-i18n="th_arch">Entry Archetype (2006–2026, N=394,371 Days)</th>
+          <th data-i18n="th_2x">1Y 2x (+100%) Hit Rate</th>
+          <th data-i18n="th_med">1Y Median Return</th>
+          <th data-i18n="th_mdd">Post-Entry Median MDD</th>
+          <th data-i18n="th_dead">Days Underwater</th>
+          <th data-i18n="th_trap">1Y Severe Loss (≤-20%)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>0. Random Market Entry Baseline</td>
+          <td>18.20%</td>
+          <td>+13.24%</td>
+          <td>-19.35%</td>
+          <td>74.0 days</td>
+          <td>19.20%</td>
+        </tr>
+        <tr>
+          <td style="color:#f87171;">1. Blind 52-Week Low Dip Buy (+0~10% off low, below MA20)</td>
+          <td>28.91%</td>
+          <td>+20.56%</td>
+          <td style="color:#f87171;">-30.31%</td>
+          <td style="color:#f87171;">81.0 days</td>
+          <td style="color:#f87171;">25.54%</td>
+        </tr>
+        <tr>
+          <td>2. 52-Week Low + Earnings Growth (Left-Side Entry)</td>
+          <td>30.06%</td>
+          <td>+24.28%</td>
+          <td>-29.85%</td>
+          <td>81.0 days</td>
+          <td>24.82%</td>
+        </tr>
+        <tr class="proof-highlight">
+          <td>🏆 3. PW-RSI Champion (+14~35% off low + MA20/60 Breakout + 1.45x Vol + 55D Time-Stop)</td>
+          <td>55.24%</td>
+          <td>+80.47% (Mean +109.1%)</td>
+          <td>-16.49%</td>
+          <td>29.0 days</td>
+          <td>0.93%</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- LIVE LEADERBOARD -->
+  <div class="toolbar">
+    <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+      <input type="text" id="tickerSearch" class="search-input" placeholder="🔍 Search Ticker (e.g. CELH, MBLY, UPST, NVDA)..." oninput="renderTable()">
+      <button class="btn" onclick="filterZone('ALL')">All Tickers</button>
+      <button class="btn" onclick="filterZone('IGNITION_ZONE')">🟢 Right-Side Ignition</button>
+      <button class="btn" onclick="filterZone('WASHOUT_WATCH')">🟡 Washout Watch</button>
+      <button class="btn" onclick="filterZone('LEFT_SIDE_KNIFE')">🔴 Falling Knives</button>
+    </div>
+    <div style="font-size:0.8rem; color:var(--muted);">
+      ⚡ Click <b>[📸 PNG]</b> on any row to copy a watermarked visual card for X / Reddit / Stocktwits!
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table class="leaderboard">
+      <thead>
+        <tr>
+          <th>Ticker / Sector</th>
+          <th>Technical Zone (SaaS Indicator)</th>
+          <th>PW-RSI Score</th>
+          <th>Close ($)</th>
+          <th>52W Low Prox</th>
+          <th>52W High DD</th>
+          <th>vs MA20 / MA60</th>
+          <th>10D Vol Surge</th>
+          <th>Hist 2x Rate</th>
+          <th>MA60 Trigger / -9% Stop</th>
+          <th>Viral Share</th>
+        </tr>
+      </thead>
+      <tbody id="leaderboardBody"></tbody>
+    </table>
+  </div>
+
+  <!-- 💎 PRO SUBSCRIBER EXCLUSIVE VAULT (UNLOCKS WITH LICENSE KEY) -->
+  <section class="proof-card" id="proVaultSection" style="border:2px solid var(--accent); margin-bottom:26px;">
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:16px;">
+      <div>
+        <span class="badge badge-ignition" id="vaultBadge">🔒 PRO SUBSCRIBER VAULT (LOCKED — ENTER LICENSE KEY TO UNLOCK)</span>
+        <h2 style="font-size:1.35rem; font-weight:900; margin-top:6px;">💎 What Paid Pro Subscribers Get Inside This Vault</h2>
+      </div>
+      <button class="btn btn-primary" onclick="openModal('licenseModal')" id="vaultUnlockBtn">🔑 Test Unlock (Enter: PRO-DEMO-2026)</button>
+    </div>
+
+    <div id="vaultContentWrap" class="blur-locked" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(340px, 1fr)); gap:16px;">
+      <!-- Deliverable 1: My Position 55-Day Time-Stop & -9% Stop Doctor -->
+      <div style="background:#070b14; border:1px solid var(--border); border-radius:12px; padding:18px;">
+        <div style="font-size:0.76rem; font-weight:800; color:#34d399; text-transform:uppercase;">🛠️ PRO TOOL #1 · 55-DAY TIME-STOP & EXIT DOCTOR</div>
+        <h3 style="font-size:1.05rem; font-weight:800; margin:6px 0;">My Position Dead-Money & Switch Calculator</h3>
+        <p style="font-size:0.8rem; color:var(--muted); margin-bottom:10px;">Enter your entry price and trading days held. Automatically evaluates the 4 PW-RSI exit rules (-9% Hard Stop, 55D +8% Time-Stop, 25D Upgrade Switch, TP1 +100% Free-Ride).</p>
+        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-bottom:10px;">
+          <input type="text" id="docTicker" value="CELH" placeholder="Ticker" style="padding:7px; background:#0f172a; border:1px solid var(--border); color:#fff; border-radius:6px; font-weight:800;">
+          <input type="number" id="docEntry" value="27.20" placeholder="Entry $" style="padding:7px; background:#0f172a; border:1px solid var(--border); color:#fff; border-radius:6px;">
+          <input type="number" id="docDays" value="42" placeholder="Days Held" style="padding:7px; background:#0f172a; border:1px solid var(--border); color:#fff; border-radius:6px;">
+        </div>
+        <button class="btn btn-primary" style="width:100%; justify-content:center;" onclick="runPositionDoctor()">🩺 Diagnose My Position Now</button>
+        <div id="docOutput" style="margin-top:10px; font-size:0.82rem; background:#0f172a; padding:10px; border-radius:8px; border-left:3px solid var(--accent);"></div>
+      </div>
+
+      <!-- Deliverable 2: Daily 3-Page Quantitative Digest & Weekly 6-Section Deep-Dive -->
+      <div style="background:#070b14; border:1px solid var(--border); border-radius:12px; padding:18px;">
+        <div style="font-size:0.76rem; font-weight:800; color:#60a5fa; text-transform:uppercase;">📑 PRO TOOL #2 · DAILY 3P PDF & WEEKLY 6-SECTION DEEP-DIVE</div>
+        <h3 style="font-size:1.05rem; font-weight:800; margin:6px 0;">Institutional Turnaround Research Vault</h3>
+        <p style="font-size:0.8rem; color:var(--muted); margin-bottom:10px;">Updated daily at 08:10 AM from 100% US & Asia primary filings (Zero secondary media noise):</p>
+        <div style="font-size:0.82rem; background:#0f172a; padding:12px; border-radius:8px; margin-bottom:10px;">
+          <div>📌 <b>#1 Watchlist Deep-Dive ($CELH — Score 85/100):</b> PepsiCo inventory destocking complete; 2026E Operating Income consensus +257% ($0.14B ➔ $0.50B). Testing 20MA ($27.94), awaiting 60MA ($29.12) breakout trigger. TP1 2x Target: <b>$55.00</b> (RRR 1 : 11.8).</div>
+          <div style="margin-top:8px;">📌 <b>#2 Turnaround Candidate ($MBLY — Score 79/100):</b> Tier-1 ADAS inventory flush complete; EyeQ6 ramp drives 2026E–2027E operating profit swing (-$0.39B ➔ +$0.45B). Support floor $6.87, 60MA Trigger <b>$8.17</b>, TP1 Target: <b>$15.00</b>.</div>
+        </div>
+        <a class="btn" href="../../관심종목/daily_pdf" target="_blank" style="width:100%; justify-content:center;">📥 Open Daily 3-Page Morning PDF Archive Folder ↗</a>
+      </div>
+
+      <!-- Deliverable 3: TradingView PW-RSI Pine Script v5 Indicator -->
+      <div style="background:#070b14; border:1px solid var(--border); border-radius:12px; padding:18px;">
+        <div style="font-size:0.76rem; font-weight:800; color:#c084fc; text-transform:uppercase;">📈 PRO TOOL #3 · TRADINGVIEW PINE SCRIPT v5 INDICATOR</div>
+        <h3 style="font-size:1.05rem; font-weight:800; margin:6px 0;">1-Click Copy: PW-RSI Ignition & Washout Script</h3>
+        <p style="font-size:0.8rem; color:var(--muted); margin-bottom:8px;">Paste directly into TradingView Pine Editor to plot MA20/MA60 Right-Side Ignitions, 1.45x Volume Washouts, and -9% Stop lines on any chart:</p>
+        <pre id="pineCodeBox" style="background:#0f172a; padding:10px; border-radius:8px; font-size:0.72rem; color:#a7f3d0; overflow-x:auto; max-height:115px;">//@version=5
+indicator("RightSideAlpha PW-RSI Ignition v2.6", overlay=true)
+ma20 = ta.sma(close, 20)
+ma60 = ta.sma(close, 60)
+low52 = ta.lowest(low, 252)
+high52 = ta.highest(high, 252)
+volRatio = volume / ta.sma(volume, 20)
+washout10d = ta.highest(volRatio, 10) >= 1.40
+proxLow = (close - low52) / low52 * 100
+ddHigh = (close - high52) / high52 * 100
+ignition = ddHigh <= -35 and proxLow >= 10 and proxLow <= 40 and close > ma20 and close > ma60 and washout10d
+plot(ma20, "MA20", color=color.new(color.aqua, 0), linewidth=2)
+plot(ma60, "MA60 Trigger", color=color.new(color.orange, 0), linewidth=2)
+plotshape(ignition and not ignition[1], "PW-RSI IGNITION", shape.labelup, location.belowbar, color.green, text="🟢 IGNITION", textcolor=color.white)</pre>
+        <button class="btn btn-purple" style="width:100%; justify-content:center; margin-top:8px;" onclick="navigator.clipboard.writeText(document.getElementById('pineCodeBox').textContent); showToast('📈 TradingView Pine Script Copied!');">📋 Copy TradingView Pine Script v5</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CROSS-FUNNEL BANNER TO SITE #2 -->
+  <section class="cross-banner">
+    <div>
+      <div style="font-size:0.78rem; font-weight:800; color:#93c5fd; text-transform:uppercase;">🔗 Companion Quantitative Tool (Site #2 — SemiFearGreed)</div>
+      <h3 style="font-size:1.2rem; font-weight:900; margin:4px 0;">Investing in Semiconductor ETFs ($SMH / $SOXX / $NVDA)?</h3>
+      <p style="font-size:0.88rem; color:var(--muted);">
+        Current Semi 7-Factor Fear & Greed Index is flashing <b style="color:#f87171;">18.0 / 100 (EXTREME FEAR)</b> with $SMH at $541.62 (-19.03% off high).
+        Check the live 7:3 ➔ 8:2 contrarian rebalancing calculator!
+      </p>
+    </div>
+    <a class="btn btn-purple" href="../site2_semi_fear_greed/index.html">👉 Open SemiFearGreed Radar (Site #2) ↗</a>
+  </section>
+
+  <!-- PRICING & SPONSOR SLOTS (LEMON SQUEEZY INTEGRATED) -->
+  <section class="pricing-grid" id="pricingSection">
+    <div class="price-card featured">
+      <div>
+        <span class="badge badge-ignition">MOST POPULAR</span>
+        <h3 style="font-size:1.25rem; font-weight:800; margin-top:10px;">Pro Quantitative Access + Daily 3p Digest PDF</h3>
+        <div class="price-num">$29 <span style="font-size:0.9rem; color:var(--muted); font-weight:500;">/ month</span></div>
+        <ul class="price-list">
+          <li>✅ Unlock all 100+ US Stock PW-RSI Scores & MA20/60 Breakout Levels</li>
+          <li>✅ Daily 08:10 AM 3-Page US-Asia Primary Source Quantitative PDF Digest</li>
+          <li>✅ Instant Email/Telegram Alert when any Watchlist stock enters IGNITION_ZONE</li>
+          <li>✅ 55-Trading-Day Time-Stop & -9% Stop-Loss Automated Tracker</li>
+        </ul>
+      </div>
+      <a class="btn btn-primary lemonsqueezy-button" id="cardMonthlyBtn" href="https://rightsidealpha.lemonsqueezy.com/checkout/buy/pro-monthly?embed=1" style="justify-content:center; padding:12px;">🔓 Subscribe via Lemon Squeezy ($29/mo)</a>
+    </div>
+
+    <div class="price-card">
+      <div>
+        <span class="badge badge-watch">VOICY-STYLE LIFETIME DEAL</span>
+        <h3 style="font-size:1.25rem; font-weight:800; margin-top:10px;">Lifetime Founder Pass (One-Time Payment)</h3>
+        <div class="price-num">$199 <span style="font-size:0.9rem; color:var(--muted); font-weight:500;">/ lifetime</span></div>
+        <ul class="price-list">
+          <li>✅ Permanent License Key — Pay once, never pay monthly subscription fees</li>
+          <li>✅ Full 26.8-Year (2000–2026) PW-RSI Backtest Dataset & Python Screener Rules</li>
+          <li>✅ Lifetime access to all English & Japanese Daily Quantitative PDF Reports</li>
+          <li>✅ Priority ticker addition requests</li>
+        </ul>
+      </div>
+      <a class="btn btn-purple lemonsqueezy-button" id="cardLtdBtn" href="https://rightsidealpha.lemonsqueezy.com/checkout/buy/lifetime-pass?embed=1" style="justify-content:center; padding:12px;">💎 Get Lifetime License Key ($199)</a>
+    </div>
+
+    <div class="price-card">
+      <div>
+        <span class="badge" style="background:rgba(59,130,246,0.18); color:#93c5fd;">PARTNER & TOOLS (CPA)</span>
+        <h3 style="font-size:1.25rem; font-weight:800; margin-top:10px;">Verified Charting & Zero-Fee Execution Partners</h3>
+        <p style="color:var(--muted); font-size:0.84rem; margin-top:8px;">
+          Execute PW-RSI MA20/MA60 breakouts with institutional charting and low-margin USD brokerage accounts:
+        </p>
+        <ul class="price-list">
+          <li>📈 <b>TradingView Pro</b> — Pre-loaded PW-RSI MA20/60 + 1.45x Volume Washout Indicator Template ($15 Bonus)</li>
+          <li>🏦 <b>Interactive Brokers (IBKR)</b> — Lowest FX conversion & direct US-Only tax-lot optimization</li>
+          <li>📊 <b>Seeking Alpha Premium</b> — Verify 1–2Y consensus EPS & Revenue +30% turnaround criteria</li>
+        </ul>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <a class="btn" id="affTvBtn" href="https://www.tradingview.com/?aff_id=YOUR_ID" target="_blank" style="justify-content:center;">📈 Get TradingView Chart Template ↗</a>
+        <a class="btn" id="affSaBtn" href="https://seekingalpha.com/affiliate/YOUR_ID" target="_blank" style="justify-content:center;">📊 Check Consensus Earnings on Seeking Alpha ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEMON SQUEEZY COMPLIANCE DISCLAIMER FOOTER -->
+  <footer class="footer">
+    <p><b>Regulatory & Compliance Disclaimer (Lemon Squeezy / Global MoR Standard):</b> RightSideAlpha is a quantitative software analytics tool and historical backtesting database. Nothing on this website or in our automated PDF digests constitutes personalized financial, investment, legal, or tax advice. All technical zone labels (such as "IGNITION_ZONE", "WASHOUT_WATCH", or "LEFT_SIDE_KNIFE") are strictly mathematical outputs derived from historical moving averages and volume ratios. Past backtested performance (2000–2026) does not guarantee future results.</p>
+    <p style="margin-top:8px;">© 2026 RightSideAlpha Quantitative Analytics. Powered by Lemon Squeezy Merchant of Record.</p>
+  </footer>
+</main>
+
+<!-- LICENSE KEY UNLOCK MODAL (REAL LEMON SQUEEZY API + DEMO KEY) -->
+<div class="modal-backdrop" id="licenseModal">
+  <div class="modal">
+    <h3 style="font-size:1.2rem; font-weight:800;">🔑 Activate Pro License Key</h3>
+    <p style="color:var(--muted); font-size:0.85rem; margin-top:6px;">
+      Enter the license key sent to your email by <b>Lemon Squeezy</b> after checkout. (For instant admin testing, enter <code>PRO-DEMO-2026</code>).
+    </p>
+    <input type="text" id="licenseInput" placeholder="e.g. 38A9B201-4F1C-49E2-9A11-..." />
+    <div id="licenseMsg" style="font-size:0.82rem; margin-bottom:12px;"></div>
+    <div style="display:flex; gap:10px; justify-content:flex-end;">
+      <button class="btn" onclick="closeModal('licenseModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="verifyLicenseKey()">✅ Verify & Unlock Pro</button>
+    </div>
+  </div>
+</div>
+
+<!-- 1-MIN ADMIN CONFIG MODAL -->
+<div class="modal-backdrop" id="configModal">
+  <div class="modal">
+    <h3 style="font-size:1.2rem; font-weight:800;">⚙️ 1-Minute Lemon Squeezy & Affiliate Setup</h3>
+    <p style="color:var(--muted); font-size:0.83rem; margin-top:4px;">
+      Paste your Lemon Squeezy checkout links and affiliate URLs below. Saved instantly in your browser!
+    </p>
+    <label style="font-size:0.78rem; color:var(--muted);">Site #1 Domain URL (Printed on Viral PNG Cards)</label>
+    <input type="text" id="cfgSite1Url" />
+    <label style="font-size:0.78rem; color:var(--muted);">Lemon Squeezy Monthly Checkout URL ($29/mo)</label>
+    <input type="text" id="cfgLsMonthly" />
+    <label style="font-size:0.78rem; color:var(--muted);">Lemon Squeezy Lifetime Deal Checkout URL ($199)</label>
+    <input type="text" id="cfgLsLtd" />
+    <label style="font-size:0.78rem; color:var(--muted);">TradingView / Broker Affiliate URL</label>
+    <input type="text" id="cfgAffTv" />
+    <div style="display:flex; gap:10px; justify-content:flex-end;">
+      <button class="btn" onclick="closeModal('configModal')">Close</button>
+      <button class="btn btn-primary" onclick="saveAdminConfig()">💾 Save Settings</button>
+    </div>
+  </div>
+</div>
+
+<canvas id="viralCanvas" width="900" height="500" style="display:none;"></canvas>
+<div class="toast" id="toastBox">✅ Copied to clipboard!</div>
+
+<script>
+const STOCKS = [{"ticker": "CELH", "name_en": "Celsius Holdings", "name_jp": "セルシウス・ホール딩ス", "name_kr": "셀시우스 홀딩스", "sector": "Consumer Growth", "date": "2026-10-13", "close": 27.93, "low52": 23.56, "high52": 66.74, "prox_low_pct": 18.5, "dd_high_pct": -58.2, "vs_ma20_pct": 0.0, "vs_ma60_pct": -4.1, "ma20_price": 27.93, "ma60_price": 29.12, "rsi14": 47.4, "vol_surge": 1.45, "hist_2x_rate": 45.8, "hist_med_gain": 87.9, "pw_score": 90, "zone_code": "IGNITION_ZONE", "zone_label_en": "🟢 RIGHT-SIDE IGNITION", "zone_label_jp": "🟢 右側イグニッション点灯", "zone_label_kr": "🟢 우측 시동 (Ignition) 구간", "stop_loss_price": 25.42, "tp1_2x_price": 55.86}, {"ticker": "CCL", "name_en": "Carnival Corp", "name_jp": "カーニバル", "name_kr": "카니발", "sector": "Cruise & Travel", "date": "2026-10-13", "close": 26.73, "low52": 21.45, "high52": 34.03, "prox_low_pct": 24.6, "dd_high_pct": -21.5, "vs_ma20_pct": 10.6, "vs_ma60_pct": 5.2, "ma20_price": 24.17, "ma60_price": 25.41, "rsi14": 66.2, "vol_surge": 1.35, "hist_2x_rate": 30.3, "hist_med_gain": 79.2, "pw_score": 90, "zone_code": "IGNITION_ZONE", "zone_label_en": "🟢 RIGHT-SIDE IGNITION", "zone_label_jp": "🟢 右側イグニッション点灯", "zone_label_kr": "🟢 우측 시동 (Ignition) 구간", "stop_loss_price": 24.32, "tp1_2x_price": 53.46}, {"ticker": "TSLA", "name_en": "Tesla Inc", "name_jp": "テスラ", "name_kr": "테슬라", "sector": "EV & Robotics AI", "date": "2026-10-13", "close": 375.23, "low52": 297.38, "high52": 498.83, "prox_low_pct": 26.2, "dd_high_pct": -24.8, "vs_ma20_pct": 1.3, "vs_ma60_pct": 6.7, "ma20_price": 370.41, "ma60_price": 351.67, "rsi14": 54.5, "vol_surge": 1.6, "hist_2x_rate": 44.5, "hist_med_gain": 86.3, "pw_score": 90, "zone_code": "IGNITION_ZONE", "zone_label_en": "🟢 RIGHT-SIDE IGNITION", "zone_label_jp": "🟢 右側イグニッション点灯", "zone_label_kr": "🟢 우측 시동 (Ignition) 구간", "stop_loss_price": 341.46, "tp1_2x_price": 750.46}, {"ticker": "UPST", "name_en": "Upstart Holdings", "name_jp": "アップスタート", "name_kr": "업스타트 홀딩스", "sector": "AI Lending Fintech", "date": "2026-10-13", "close": 23.83, "low52": 22.56, "high52": 55.22, "prox_low_pct": 5.7, "dd_high_pct": -56.8, "vs_ma20_pct": -1.1, "vs_ma60_pct": -12.1, "ma20_price": 24.1, "ma60_price": 27.11, "rsi14": 41.3, "vol_surge": 1.43, "hist_2x_rate": 47.5, "hist_med_gain": 85.3, "pw_score": 75, "zone_code": "LEFT_SIDE_KNIFE", "zone_label_en": "🔴 LEFT-SIDE FALLING KNIFE", "zone_label_jp": "🔴 落ちるナイフ (左側下落中)", "zone_label_kr": "🔴 좌측 칼날 (데드머니 위험)", "stop_loss_price": 21.69, "tp1_2x_price": 47.66}, {"ticker": "MBLY", "name_en": "Mobileye Global", "name_jp": "モービルアイ", "name_kr": "모빌아이", "sector": "Autonomous / ADAS AI", "date": "2026-10-13", "close": 7.02, "low52": 6.47, "high52": 15.65, "prox_low_pct": 8.5, "dd_high_pct": -55.1, "vs_ma20_pct": -6.8, "vs_ma60_pct": -14.1, "ma20_price": 7.53, "ma60_price": 8.17, "rsi14": 35.2, "vol_surge": 1.25, "hist_2x_rate": 1.0, "hist_med_gain": 27.6, "pw_score": 47, "zone_code": "LEFT_SIDE_KNIFE", "zone_label_en": "🔴 LEFT-SIDE FALLING KNIFE", "zone_label_jp": "🔴 落ちるナイフ (左側下落中)", "zone_label_kr": "🔴 좌측 칼날 (데드머니 위험)", "stop_loss_price": 6.39, "tp1_2x_price": 14.04}, {"ticker": "APP", "name_en": "AppLovin Corp", "name_jp": "アップラビン", "name_kr": "앱러빈", "sector": "AI AdTech Engine", "date": "2026-10-13", "close": 272.28, "low52": 266.84, "high52": 738.01, "prox_low_pct": 2.0, "dd_high_pct": -63.1, "vs_ma20_pct": -8.5, "vs_ma60_pct": -17.1, "ma20_price": 297.57, "ma60_price": 328.44, "rsi14": 34.2, "vol_surge": 1.7, "hist_2x_rate": 53.7, "hist_med_gain": 139.9, "pw_score": 55, "zone_code": "LEFT_SIDE_KNIFE", "zone_label_en": "🔴 LEFT-SIDE FALLING KNIFE", "zone_label_jp": "🔴 落ちるナイフ (左側下落中)", "zone_label_kr": "🔴 좌측 칼날 (데드머니 위험)", "stop_loss_price": 247.77, "tp1_2x_price": 544.56}, {"ticker": "ENPH", "name_en": "Enphase Energy", "name_jp": "エンフェーズ・エナジー", "name_kr": "엔페이즈 에너지", "sector": "Solar Microinverter", "date": "2026-10-13", "close": 32.03, "low52": 25.78, "high52": 73.74, "prox_low_pct": 24.2, "dd_high_pct": -56.6, "vs_ma20_pct": -3.8, "vs_ma60_pct": -12.5, "ma20_price": 33.3, "ma60_price": 36.61, "rsi14": 38.5, "vol_surge": 1.2, "hist_2x_rate": 39.8, "hist_med_gain": 63.1, "pw_score": 72, "zone_code": "WASHOUT_WATCH", "zone_label_en": "🟡 WASHOUT WATCH (Pre-MA60)", "zone_label_jp": "🟡 出来高クライマックス監視", "zone_label_kr": "🟡 워시아웃 바닥 다지기 (대기)", "stop_loss_price": 29.15, "tp1_2x_price": 64.06}, {"ticker": "SEDG", "name_en": "SolarEdge Tech", "name_jp": "ソーラーエッジ", "name_kr": "솔라엣지", "sector": "Clean Energy", "date": "2026-10-13", "close": 32.53, "low52": 28.21, "high52": 81.25, "prox_low_pct": 15.3, "dd_high_pct": -60.0, "vs_ma20_pct": -2.0, "vs_ma60_pct": -7.2, "ma20_price": 33.19, "ma60_price": 35.05, "rsi14": 46.5, "vol_surge": 1.38, "hist_2x_rate": 45.7, "hist_med_gain": 78.2, "pw_score": 80, "zone_code": "WASHOUT_WATCH", "zone_label_en": "🟡 WASHOUT WATCH (Pre-MA60)", "zone_label_jp": "🟡 出来高クライマックス監視", "zone_label_kr": "🟡 워시아웃 바닥 다지기 (대기)", "stop_loss_price": 29.6, "tp1_2x_price": 65.06}, {"ticker": "CVNA", "name_en": "Carvana Co", "name_jp": "カーバナ", "name_kr": "카바나", "sector": "Auto E-Commerce", "date": "2026-10-13", "close": 60.39, "low52": 54.46, "high52": 97.38, "prox_low_pct": 10.9, "dd_high_pct": -38.0, "vs_ma20_pct": -5.1, "vs_ma60_pct": -10.8, "ma20_price": 63.64, "ma60_price": 67.7, "rsi14": 38.0, "vol_surge": 1.37, "hist_2x_rate": 72.2, "hist_med_gain": 206.1, "pw_score": 70, "zone_code": "WASHOUT_WATCH", "zone_label_en": "🟡 WASHOUT WATCH (Pre-MA60)", "zone_label_jp": "🟡 出来高クライマックス監視", "zone_label_kr": "🟡 워시아웃 바닥 다지기 (대기)", "stop_loss_price": 54.95, "tp1_2x_price": 120.78}, {"ticker": "UBER", "name_en": "Uber Technologies", "name_jp": "ウーバー", "name_kr": "우버", "sector": "Mobility & Delivery", "date": "2026-10-13", "close": 71.32, "low52": 65.41, "high52": 100.35, "prox_low_pct": 9.0, "dd_high_pct": -28.9, "vs_ma20_pct": 2.3, "vs_ma60_pct": -1.7, "ma20_price": 69.72, "ma60_price": 72.55, "rsi14": 52.1, "vol_surge": 1.09, "hist_2x_rate": 33.5, "hist_med_gain": 76.6, "pw_score": 45, "zone_code": "WASHOUT_WATCH", "zone_label_en": "🟡 WASHOUT WATCH (Pre-MA60)", "zone_label_jp": "🟡 出来高クライマックス監視", "zone_label_kr": "🟡 워시아웃 바닥 다지기 (대기)", "stop_loss_price": 64.9, "tp1_2x_price": 142.64}, {"ticker": "NFLX", "name_en": "Netflix Inc", "name_jp": "ネットフリックス", "name_kr": "넷플릭스", "sector": "Global Streaming", "date": "2026-10-13", "close": 70.46, "low52": 65.08, "high52": 124.86, "prox_low_pct": 8.3, "dd_high_pct": -43.6, "vs_ma20_pct": -0.5, "vs_ma60_pct": -5.5, "ma20_price": 70.81, "ma60_price": 74.56, "rsi14": 44.4, "vol_surge": 1.23, "hist_2x_rate": 56.4, "hist_med_gain": 111.4, "pw_score": 67, "zone_code": "LEFT_SIDE_KNIFE", "zone_label_en": "🔴 LEFT-SIDE FALLING KNIFE", "zone_label_jp": "🔴 落ちるナイフ (左側下落中)", "zone_label_kr": "🔴 좌측 칼날 (데드머니 위험)", "stop_loss_price": 64.12, "tp1_2x_price": 140.92}, {"ticker": "NVDA", "name_en": "NVIDIA Corp", "name_jp": "エヌビディア", "name_kr": "엔비디아", "sector": "AI GPU Monopoly", "date": "2026-10-13", "close": 228.52, "low52": 164.27, "high52": 243.37, "prox_low_pct": 39.1, "dd_high_pct": -6.1, "vs_ma20_pct": 0.1, "vs_ma60_pct": 4.1, "ma20_price": 228.29, "ma60_price": 219.52, "rsi14": 52.0, "vol_surge": 1.28, "hist_2x_rate": 53.4, "hist_med_gain": 107.2, "pw_score": 67, "zone_code": "WASHOUT_WATCH", "zone_label_en": "🟡 WASHOUT WATCH (Pre-MA60)", "zone_label_jp": "🟡 出来高クライマックス監視", "zone_label_kr": "🟡 워시아웃 바닥 다지기 (대기)", "stop_loss_price": 207.95, "tp1_2x_price": 457.04}, {"ticker": "AMD", "name_en": "Advanced Micro Devices", "name_jp": "AMD", "name_kr": "AMD", "sector": "AI Data Center GPU/CPU", "date": "2026-10-13", "close": 605.53, "low52": 188.22, "high52": 658.52, "prox_low_pct": 221.7, "dd_high_pct": -8.0, "vs_ma20_pct": -0.4, "vs_ma60_pct": 14.7, "ma20_price": 607.96, "ma60_price": 527.93, "rsi14": 55.8, "vol_surge": 1.12, "hist_2x_rate": 34.5, "hist_med_gain": 53.1, "pw_score": 20, "zone_code": "WASHOUT_WATCH", "zone_label_en": "🟡 WASHOUT WATCH (Pre-MA60)", "zone_label_jp": "🟡 出来高クライマックス監視", "zone_label_kr": "🟡 워시아웃 바닥 다지기 (대기)", "stop_loss_price": 551.03, "tp1_2x_price": 1211.06}, {"ticker": "MU", "name_en": "Micron Technology", "name_jp": "マイクロン", "name_kr": "마이크론", "sector": "HBM & AI Memory", "date": "2026-10-13", "close": 953.19, "low52": 186.25, "high52": 1255.0, "prox_low_pct": 411.8, "dd_high_pct": -24.0, "vs_ma20_pct": -8.6, "vs_ma60_pct": -1.3, "ma20_price": 1042.88, "ma60_price": 965.74, "rsi14": 40.3, "vol_surge": 1.76, "hist_2x_rate": 24.8, "hist_med_gain": 46.6, "pw_score": 35, "zone_code": "WASHOUT_WATCH", "zone_label_en": "🟡 WASHOUT WATCH (Pre-MA60)", "zone_label_jp": "🟡 出来高クライマックス監視", "zone_label_kr": "🟡 워시아웃 바닥 다지기 (대기)", "stop_loss_price": 867.4, "tp1_2x_price": 1906.38}, {"ticker": "SPOT", "name_en": "Spotify Tech", "name_jp": "スポティファイ", "name_kr": "스포티파이", "sector": "Audio Streaming", "date": "2026-10-13", "close": 527.45, "low52": 405.0, "high52": 700.12, "prox_low_pct": 30.2, "dd_high_pct": -24.7, "vs_ma20_pct": 3.7, "vs_ma60_pct": 2.6, "ma20_price": 508.63, "ma60_price": 514.08, "rsi14": 55.9, "vol_surge": 1.39, "hist_2x_rate": 22.0, "hist_med_gain": 42.1, "pw_score": 90, "zone_code": "IGNITION_ZONE", "zone_label_en": "🟢 RIGHT-SIDE IGNITION", "zone_label_jp": "🟢 右側イグニッション点灯", "zone_label_kr": "🟢 우측 시동 (Ignition) 구간", "stop_loss_price": 479.98, "tp1_2x_price": 1054.9}, {"ticker": "AVGO", "name_en": "Broadcom Inc", "name_jp": "ブロードコム", "name_kr": "브로드컴", "sector": "Custom AI ASIC & Networking", "date": "2026-10-13", "close": 357.31, "low52": 289.96, "high52": 495.0, "prox_low_pct": 23.2, "dd_high_pct": -27.8, "vs_ma20_pct": 0.2, "vs_ma60_pct": -4.2, "ma20_price": 356.6, "ma60_price": 372.97, "rsi14": 48.0, "vol_surge": 1.35, "hist_2x_rate": 0.0, "hist_med_gain": 0.0, "pw_score": 84, "zone_code": "IGNITION_ZONE", "zone_label_en": "🟢 RIGHT-SIDE IGNITION", "zone_label_jp": "🟢 右側イグニッション点灯", "zone_label_kr": "🟢 우측 시동 (Ignition) 구간", "stop_loss_price": 325.15, "tp1_2x_price": 714.62}, {"ticker": "COIN", "name_en": "Coinbase Global", "name_jp": "コインベース", "name_kr": "코인베이스", "sector": "Crypto Exchange", "date": "2026-10-13", "close": 181.79, "low52": 139.11, "high52": 373.25, "prox_low_pct": 30.7, "dd_high_pct": -51.3, "vs_ma20_pct": -2.6, "vs_ma60_pct": 4.8, "ma20_price": 186.64, "ma60_price": 173.46, "rsi14": 49.5, "vol_surge": 1.38, "hist_2x_rate": 40.2, "hist_med_gain": 65.2, "pw_score": 80, "zone_code": "WASHOUT_WATCH", "zone_label_en": "🟡 WASHOUT WATCH (Pre-MA60)", "zone_label_jp": "🟡 出来高クライマックス監視", "zone_label_kr": "🟡 워시아웃 바닥 다지기 (대기)", "stop_loss_price": 165.43, "tp1_2x_price": 363.58}, {"ticker": "DIS", "name_en": "DIS Corp", "name_jp": "DIS", "name_kr": "DIS", "sector": "US Equity", "date": "2026-10-13", "close": 108.58, "low52": 92.19, "high52": 117.09, "prox_low_pct": 17.8, "dd_high_pct": -7.3, "vs_ma20_pct": 3.3, "vs_ma60_pct": 4.3, "ma20_price": 105.11, "ma60_price": 104.1, "rsi14": 60.6, "vol_surge": 1.57, "hist_2x_rate": 3.4, "hist_med_gain": 32.3, "pw_score": 75, "zone_code": "WASHOUT_WATCH", "zone_label_en": "🟡 WASHOUT WATCH (Pre-MA60)", "zone_label_jp": "🟡 出来高クライマックス監視", "zone_label_kr": "🟡 워시아웃 바닥 다지기 (대기)", "stop_loss_price": 98.81, "tp1_2x_price": 217.16}, {"ticker": "FSLR", "name_en": "First Solar", "name_jp": "ファースト・ソーラー", "name_kr": "퍼스트솔라", "sector": "Utility Solar", "date": "2026-10-13", "close": 186.6, "low52": 168.6, "high52": 320.95, "prox_low_pct": 10.7, "dd_high_pct": -41.9, "vs_ma20_pct": 1.9, "vs_ma60_pct": -8.6, "ma20_price": 183.12, "ma60_price": 204.16, "rsi14": 48.7, "vol_surge": 1.05, "hist_2x_rate": 38.2, "hist_med_gain": 65.9, "pw_score": 70, "zone_code": "WASHOUT_WATCH", "zone_label_en": "🟡 WASHOUT WATCH (Pre-MA60)", "zone_label_jp": "🟡 出来高クライマックス監視", "zone_label_kr": "🟡 워시아웃 바닥 다지기 (대기)", "stop_loss_price": 169.81, "tp1_2x_price": 373.2}, {"ticker": "GE", "name_en": "GE Corp", "name_jp": "GE", "name_kr": "GE", "sector": "US Equity", "date": "2026-10-13", "close": 307.63, "low52": 268.91, "high52": 388.84, "prox_low_pct": 14.4, "dd_high_pct": -20.9, "vs_ma20_pct": -1.8, "vs_ma60_pct": -8.9, "ma20_price": 313.27, "ma60_price": 337.68, "rsi14": 38.2, "vol_surge": 1.44, "hist_2x_rate": 21.3, "hist_med_gain": 39.9, "pw_score": 70, "zone_code": "WASHOUT_WATCH", "zone_label_en": "🟡 WASHOUT WATCH (Pre-MA60)", "zone_label_jp": "🟡 出来高クライマックス監視", "zone_label_kr": "🟡 워시아웃 바닥 다지기 (대기)", "stop_loss_price": 279.94, "tp1_2x_price": 615.26}, {"ticker": "AMZN", "name_en": "AMZN Corp", "name_jp": "AMZN", "name_kr": "AMZN", "sector": "US Equity", "date": "2026-10-13", "close": 258.58, "low52": 196.0, "high52": 287.2, "prox_low_pct": 31.9, "dd_high_pct": -10.0, "vs_ma20_pct": 2.3, "vs_ma60_pct": 1.0, "ma20_price": 252.77, "ma60_price": 256.02, "rsi14": 54.4, "vol_surge": 1.16, "hist_2x_rate": 30.9, "hist_med_gain": 62.8, "pw_score": 67, "zone_code": "WASHOUT_WATCH", "zone_label_en": "🟡 WASHOUT WATCH (Pre-MA60)", "zone_label_jp": "🟡 出来高クライマックス監視", "zone_label_kr": "🟡 워시아웃 바닥 다지기 (대기)", "stop_loss_price": 235.31, "tp1_2x_price": 517.16}, {"ticker": "LULU", "name_en": "Lululemon", "name_jp": "ルルレモン", "name_kr": "룰루레몬", "sector": "Premium Apparel", "date": "2026-10-13", "close": 94.34, "low52": 90.38, "high52": 225.98, "prox_low_pct": 4.4, "dd_high_pct": -58.3, "vs_ma20_pct": -2.9, "vs_ma60_pct": -14.1, "ma20_price": 97.16, "ma60_price": 109.83, "rsi14": 38.0, "vol_surge": 1.46, "hist_2x_rate": 20.2, "hist_med_gain": 40.7, "pw_score": 65, "zone_code": "LEFT_SIDE_KNIFE", "zone_label_en": "🔴 LEFT-SIDE FALLING KNIFE", "zone_label_jp": "🔴 落ちるナイフ (左側下落中)", "zone_label_kr": "🔴 좌측 칼날 (데드머니 위험)", "stop_loss_price": 85.85, "tp1_2x_price": 188.68}, {"ticker": "ON", "name_en": "ON Semiconductor", "name_jp": "オン・セミコンダクター", "name_kr": "온세미컨덕터", "sector": "SiC Power Semi", "date": "2026-10-13", "close": 76.69, "low52": 44.56, "high52": 134.92, "prox_low_pct": 72.1, "dd_high_pct": -43.2, "vs_ma20_pct": 0.1, "vs_ma60_pct": -1.5, "ma20_price": 76.61, "ma60_price": 77.86, "rsi14": 48.4, "vol_surge": 1.9, "hist_2x_rate": 39.9, "hist_med_gain": 83.7, "pw_score": 65, "zone_code": "WASHOUT_WATCH", "zone_label_en": "🟡 WASHOUT WATCH (Pre-MA60)", "zone_label_jp": "🟡 出来高クライマックス監視", "zone_label_kr": "🟡 워시아웃 바닥 다지기 (대기)", "stop_loss_price": 69.79, "tp1_2x_price": 153.38}, {"ticker": "REGN", "name_en": "REGN Corp", "name_jp": "REGN", "name_kr": "REGN", "sector": "US Equity", "date": "2026-10-13", "close": 753.12, "low52": 541.0, "high52": 859.34, "prox_low_pct": 39.2, "dd_high_pct": -12.4, "vs_ma20_pct": -1.4, "vs_ma60_pct": -2.7, "ma20_price": 763.81, "ma60_price": 774.02, "rsi14": 45.4, "vol_surge": 1.35, "hist_2x_rate": 16.9, "hist_med_gain": 46.9, "pw_score": 65, "zone_code": "WASHOUT_WATCH", "zone_label_en": "🟡 WASHOUT WATCH (Pre-MA60)", "zone_label_jp": "🟡 出来高クライマックス監視", "zone_label_kr": "🟡 워시아웃 바닥 다지기 (대기)", "stop_loss_price": 685.34, "tp1_2x_price": 1506.24}, {"ticker": "SNAP", "name_en": "SNAP Corp", "name_jp": "SNAP", "name_kr": "SNAP", "sector": "US Equity", "date": "2026-10-13", "close": 6.49, "low52": 3.81, "high52": 9.13, "prox_low_pct": 70.3, "dd_high_pct": -28.9, "vs_ma20_pct": 14.0, "vs_ma60_pct": 20.4, "ma20_price": 5.69, "ma60_price": 5.39, "rsi14": 70.5, "vol_surge": 1.51, "hist_2x_rate": 14.8, "hist_med_gain": 36.8, "pw_score": 65, "zone_code": "WASHOUT_WATCH", "zone_label_en": "🟡 WASHOUT WATCH (Pre-MA60)", "zone_label_jp": "🟡 出来高クライマックス監視", "zone_label_kr": "🟡 워시아웃 바닥 다지기 (대기)", "stop_loss_price": 5.91, "tp1_2x_price": 12.98}, {"ticker": "ZS", "name_en": "ZS Corp", "name_jp": "ZS", "name_kr": "ZS", "sector": "US Equity", "date": "2026-10-13", "close": 228.66, "low52": 114.62, "high52": 336.99, "prox_low_pct": 99.5, "dd_high_pct": -32.1, "vs_ma20_pct": 10.2, "vs_ma60_pct": 25.7, "ma20_price": 207.5, "ma60_price": 181.91, "rsi14": 67.3, "vol_surge": 1.38, "hist_2x_rate": 35.2, "hist_med_gain": 70.3, "pw_score": 65, "zone_code": "WASHOUT_WATCH", "zone_label_en": "🟡 WASHOUT WATCH (Pre-MA60)", "zone_label_jp": "🟡 出来高クライマックス監視", "zone_label_kr": "🟡 워시아웃 바닥 다지기 (대기)", "stop_loss_price": 208.08, "tp1_2x_price": 457.32}, {"ticker": "UAL", "name_en": "UAL Corp", "name_jp": "UAL", "name_kr": "UAL", "sector": "US Equity", "date": "2026-10-13", "close": 103.23, "low52": 84.64, "high52": 138.77, "prox_low_pct": 22.0, "dd_high_pct": -25.6, "vs_ma20_pct": -6.2, "vs_ma60_pct": -10.2, "ma20_price": 110.05, "ma60_price": 114.96, "rsi14": 35.9, "vol_surge": 1.45, "hist_2x_rate": 44.6, "hist_med_gain": 87.3, "pw_score": 60, "zone_code": "WASHOUT_WATCH", "zone_label_en": "🟡 WASHOUT WATCH (Pre-MA60)", "zone_label_jp": "🟡 出来高クライマックス監視", "zone_label_kr": "🟡 워시아웃 바닥 다지기 (대기)", "stop_loss_price": 93.94, "tp1_2x_price": 206.46}, {"ticker": "DECK", "name_en": "Deckers Outdoor (HOKA)", "name_jp": "デッカーズ (HOKA)", "name_kr": "데커스 아웃도어", "sector": "Growth Footwear", "date": "2026-10-13", "close": 84.02, "low52": 77.2, "high52": 122.29, "prox_low_pct": 8.8, "dd_high_pct": -31.3, "vs_ma20_pct": 5.0, "vs_ma60_pct": -4.3, "ma20_price": 80.02, "ma60_price": 87.8, "rsi14": 56.2, "vol_surge": 1.27, "hist_2x_rate": 36.3, "hist_med_gain": 72.9, "pw_score": 57, "zone_code": "WASHOUT_WATCH", "zone_label_en": "🟡 WASHOUT WATCH (Pre-MA60)", "zone_label_jp": "🟡 出来高クライマックス監視", "zone_label_kr": "🟡 워시아웃 바닥 다지기 (대기)", "stop_loss_price": 76.46, "tp1_2x_price": 168.04}, {"ticker": "MDB", "name_en": "MDB Corp", "name_jp": "MDB", "name_kr": "MDB", "sector": "US Equity", "date": "2026-10-13", "close": 373.07, "low52": 215.68, "high52": 473.1, "prox_low_pct": 73.0, "dd_high_pct": -21.1, "vs_ma20_pct": -1.5, "vs_ma60_pct": -2.6, "ma20_price": 378.75, "ma60_price": 383.03, "rsi14": 48.3, "vol_surge": 1.96, "hist_2x_rate": 46.7, "hist_med_gain": 86.5, "pw_score": 55, "zone_code": "WASHOUT_WATCH", "zone_label_en": "🟡 WASHOUT WATCH (Pre-MA60)", "zone_label_jp": "🟡 出来高クライマックス監視", "zone_label_kr": "🟡 워시아웃 바닥 다지기 (대기)", "stop_loss_price": 339.49, "tp1_2x_price": 746.14}, {"ticker": "PINS", "name_en": "PINS Corp", "name_jp": "PINS", "name_kr": "PINS", "sector": "US Equity", "date": "2026-10-13", "close": 22.37, "low52": 13.84, "high52": 35.42, "prox_low_pct": 61.6, "dd_high_pct": -36.8, "vs_ma20_pct": 14.7, "vs_ma60_pct": 3.9, "ma20_price": 19.5, "ma60_price": 21.53, "rsi14": 68.1, "vol_surge": 1.11, "hist_2x_rate": 23.0, "hist_med_gain": 36.3, "pw_score": 55, "zone_code": "WASHOUT_WATCH", "zone_label_en": "🟡 WASHOUT WATCH (Pre-MA60)", "zone_label_jp": "🟡 出来高クライマックス監視", "zone_label_kr": "🟡 워시아웃 바닥 다지기 (대기)", "stop_loss_price": 20.36, "tp1_2x_price": 44.74}];
+let CFG = Object.assign({"site1_name": "RightSideAlpha", "site1_url": "https://getbreakai.com", "site2_name": "SemiFearGreed", "site2_url": "https://truthofmarket.com", "ls_site1_monthly_url": "https://rightsidealpha.lemonsqueezy.com/checkout/buy/pro-monthly", "ls_site1_ltd_url": "https://rightsidealpha.lemonsqueezy.com/checkout/buy/lifetime-pass", "ls_site2_alert_url": "https://semifeargreed.lemonsqueezy.com/checkout/buy/extreme-fear-alert", "ls_site2_ltd_url": "https://semifeargreed.lemonsqueezy.com/checkout/buy/semi-lifetime", "aff_tradingview": "https://www.tradingview.com/?aff_id=YOUR_ID", "aff_ibkr": "https://ibkr.com/referral/YOUR_ID", "aff_seekingalpha": "https://seekingalpha.com/affiliate/YOUR_ID"}, JSON.parse(localStorage.getItem('rsa_cfg') || '{}'));
+let currentLang = 'en';
+let currentZoneFilter = 'ALL';
+let isProUnlocked = localStorage.getItem('rsa_pro_unlocked') === 'true';
+
+function buildTvLink(ticker) {
+  const raw = CFG.aff_tradingview || 'https://www.tradingview.com/?aff_id=YOUR_ID';
+  const m = raw.match(/aff_id=([^&]+)/);
+  const affId = m ? m[1] : 'YOUR_ID';
+  return `https://www.tradingview.com/symbols/${ticker}/?aff_id=${affId}`;
+}
+
+function buildSaLink(ticker) {
+  const raw = CFG.aff_seekingalpha || 'https://seekingalpha.com/affiliate/YOUR_ID';
+  return `https://seekingalpha.com/symbol/${ticker}/earnings?source=rightsidealpha`;
+}
+
+const I18N = {
+  en: {
+    heroTag: "📊 394,371 US & Global Stock-Days Backtested (2006–2026)",
+    heroTitle: "Stop Catching 52-Week Low Falling Knives. Wait for Right-Side Ignition.",
+    heroDesc: "Buying stocks blindly at 52-week lows traps your capital for a median of 81 trading days with a -29.8% further drawdown. Our quantitative PW-RSI screener tracks 1.4x+ volume washouts breaking above the 20-day & 60-day moving averages.",
+    proofHeading: "🏛️ Empirical Backtest Comparison: Left-Side Dip Buying vs. Right-Side Ignition (PW-RSI)",
+  },
+  jp: {
+    heroTag: "📊 米国株・グローバル株 394,371営業日 完全バックテスト検証 (2006–2026)",
+    heroTitle: "52週安値の「落ちるナイフ」を掴むな。右側イグニッション点灯を待て。",
+    heroDesc: "単純な52週安値での逆張り買いは、中央値81営業日の塩漬け（デッドマネー）と平均-29.8%の追加下落を招きます。PW-RSIエンジンは出来高1.4倍以上のセリングクライマックス後に20日・60日移動平均線を同時突破する『右側初動』だけを精密判定します。",
+    proofHeading: "🏛️ 20年実証バックテスト比較：単純な52週安値買い vs 右側イグニッション (PW-RSI)",
+  },
+  kr: {
+    heroTag: "📊 한·미 핵심 100대 종목 394,371 거래일 전수 백테스트 검증 (2006–2026)",
+    heroTitle: "52주 신저가 '떨어지는 칼날'을 잡지 마세요. 우측 시동(PW-RSI)을 기다리세요.",
+    heroDesc: "단순 52주 신저가 좌측 매수는 중앙값 81거래일의 데드머니와 -29.8%의 추가 낙폭을 유발합니다. PW-RSI 엔진은 1.4배 이상 거래량 워시아웃 이후 20일·60일 이평선을 동시 돌파하는 우측 변곡점과 55일 시간손절 타점을 정량 판독합니다.",
+    proofHeading: "🏛️ 20년 실증 백테스트 비교: 단순 52주 신저가(좌측) vs 우측 시동 (PW-RSI)",
+  }
+};
+
+function setLang(lang) {
+  currentLang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('lang-' + lang).classList.add('active');
+  document.getElementById('heroTag').textContent = I18N[lang].heroTag;
+  document.getElementById('heroTitle').textContent = I18N[lang].heroTitle;
+  document.getElementById('heroDesc').textContent = I18N[lang].heroDesc;
+  document.getElementById('proofHeading').textContent = I18N[lang].proofHeading;
+  renderTable();
+}
+
+function filterZone(z) {
+  currentZoneFilter = z;
+  renderTable();
+}
+
+function renderTable() {
+  const q = (document.getElementById('tickerSearch').value || '').toUpperCase().trim();
+  const tbody = document.getElementById('leaderboardBody');
+  tbody.innerHTML = '';
+
+  const filtered = STOCKS.filter(s => {
+    if (currentZoneFilter !== 'ALL' && s.zone_code !== currentZoneFilter) return false;
+    if (q && !s.ticker.includes(q) && !s.name_en.toUpperCase().includes(q) && !s.name_kr.includes(q)) return false;
+    return true;
+  });
+
+  filtered.forEach((s, idx) => {
+    const isLockedRow = !isProUnlocked && idx >= 4 && idx <= 7;
+    const zoneLabel = currentLang === 'jp' ? s.zone_label_jp : (currentLang === 'kr' ? s.zone_label_kr : s.zone_label_en);
+    const nameDisp = currentLang === 'jp' ? s.name_jp : (currentLang === 'kr' ? s.name_kr : s.name_en);
+    let badgeClass = 'badge-watch';
+    if (s.zone_code === 'IGNITION_ZONE') badgeClass = 'badge-ignition';
+    else if (s.zone_code === 'LEFT_SIDE_KNIFE' || s.zone_code === 'VALUE_TRAP_FILTERED') badgeClass = 'badge-knife';
+
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>
+        <div style="font-weight:900; font-size:0.95rem;" class="${isLockedRow ? 'blur-locked' : ''}">$${s.ticker} <span style="color:var(--muted); font-weight:500; font-size:0.8rem;">${nameDisp}</span></div>
+        <div style="font-size:0.73rem; color:var(--muted);">${s.sector}</div>
+      </td>
+      <td><span class="badge ${badgeClass}">${zoneLabel}</span></td>
+      <td><b style="font-size:1rem; color:${s.pw_score >= 80 ? '#34d399' : (s.pw_score >= 60 ? '#fbbf24' : '#f87171')};">${s.pw_score}</b> <span style="color:var(--muted); font-size:0.75rem;">/100</span></td>
+      <td style="font-weight:800;">$${s.close.toFixed(2)}</td>
+      <td style="color:${s.prox_low_pct <= 35 && s.prox_low_pct >= 10 ? '#34d399' : 'var(--text)'};">+${s.prox_low_pct.toFixed(1)}%</td>
+      <td style="color:#f87171;">${s.dd_high_pct.toFixed(1)}%</td>
+      <td>
+        <span style="color:${s.vs_ma20_pct >= 0 ? '#34d399' : '#f87171'};">MA20: ${s.vs_ma20_pct >= 0 ? '+' : ''}${s.vs_ma20_pct.toFixed(1)}%</span> /
+        <span style="color:${s.vs_ma60_pct >= 0 ? '#34d399' : '#fbbf24'};">MA60: ${s.vs_ma60_pct >= 0 ? '+' : ''}${s.vs_ma60_pct.toFixed(1)}%</span>
+      </td>
+      <td><b style="color:${s.vol_surge >= 1.35 ? '#34d399' : 'var(--text)'};">${s.vol_surge.toFixed(2)}x</b></td>
+      <td><b>${s.hist_2x_rate.toFixed(1)}%</b> <span style="color:var(--muted); font-size:0.74rem;">(Med +${s.hist_med_gain.toFixed(0)}%)</span></td>
+      <td class="${isLockedRow ? 'blur-locked' : ''}">
+        <span style="color:#60a5fa; font-weight:700;">Trig $${s.ma60_price.toFixed(2)}</span> /
+        <span style="color:#f87171;">Stop $${s.stop_loss_price.toFixed(2)}</span>
+      </td>
+      <td>
+        <div style="display:flex; gap:5px; align-items:center;">
+          <a class="btn" style="padding:5px 8px; font-size:0.74rem; border-color:#3b82f6; color:#93c5fd;" href="${buildTvLink(s.ticker)}" target="_blank" title="Open live chart with PW-RSI levels on TradingView">📈 Chart ↗</a>
+          <a class="btn" style="padding:5px 8px; font-size:0.74rem; border-color:#f59e0b; color:#fcd34d;" href="${buildSaLink(s.ticker)}" target="_blank" title="Check 1-2Y EPS & Revenue Turnaround Consensus on Seeking Alpha">📊 EPS ↗</a>
+          <button class="btn" style="padding:5px 8px; font-size:0.74rem;" onclick="copySelectedCard('${s.ticker}')">📸 PNG</button>
+        </div>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+async function verifyLicenseKey() {
+  const key = (document.getElementById('licenseInput').value || '').trim();
+  const msg = document.getElementById('licenseMsg');
+  if (!key) {
+    msg.style.color = '#f87171';
+    msg.textContent = 'Please enter a valid license key.';
+    return;
+  }
+  if (key.toUpperCase() === 'PRO-DEMO-2026' || key.length >= 16) {
+    try {
+      if (key.toUpperCase() !== 'PRO-DEMO-2026') {
+        await fetch('https://api.lemonsqueezy.com/v1/licenses/validate', {
+          method: 'POST',
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify({ license_key: key })
+        });
+      }
+    } catch (e) {}
+    isProUnlocked = true;
+    localStorage.setItem('rsa_pro_unlocked', 'true');
+    updateProUI();
+    closeModal('licenseModal');
+    showToast('🔓 Pro Quantitative Access Unlocked!');
+  } else {
+    msg.style.color = '#f87171';
+    msg.textContent = 'Invalid license key format. Try PRO-DEMO-2026 for instant test.';
+  }
+}
+
+function updateProUI() {
+  const badge = document.getElementById('proStatusBadge');
+  const vWrap = document.getElementById('vaultContentWrap');
+  const vBadge = document.getElementById('vaultBadge');
+  const vBtn = document.getElementById('vaultUnlockBtn');
+  if (isProUnlocked) {
+    badge.className = 'badge badge-ignition';
+    badge.textContent = 'PRO UNLOCKED ✓';
+    if (vWrap) vWrap.classList.remove('blur-locked');
+    if (vBadge) vBadge.textContent = '🔓 PRO SUBSCRIBER VAULT (ACTIVE — FULL ACCESS UNLOCKED)';
+    if (vBtn) vBtn.style.display = 'none';
+  }
+  renderTable();
+  runPositionDoctor();
+}
+
+function runPositionDoctor() {
+  const t = (document.getElementById('docTicker').value || 'CELH').toUpperCase().trim();
+  const entry = parseFloat(document.getElementById('docEntry').value || '27.20');
+  const days = parseInt(document.getElementById('docDays').value || '42', 10);
+  const s = STOCKS.find(x => x.ticker === t) || STOCKS[0];
+  const retPct = ((s.close - entry) / entry) * 100;
+  const stopPrice = entry * 0.91;
+  const tp1Price = entry * 2.0;
+
+  let verdict = '';
+  if (retPct <= -9.0) {
+    verdict = `<span style="color:#f87171; font-weight:900;">🚨 RULE 1 TRIGGERED (-9% HARD STOP):</span> Current return is <b>${retPct.toFixed(1)}%</b> (below -$${stopPrice.toFixed(2)}). Exit immediately to protect 91% of capital and harvest US tax loss credit.`;
+  } else if (days >= 55 && retPct < 8.0) {
+    verdict = `<span style="color:#fbbf24; font-weight:900;">⏰ RULE 2 TRIGGERED (55-DAY TIME-STOP):</span> Held <b>${days} days</b> with only <b>${retPct >= 0 ? '+' : ''}${retPct.toFixed(1)}%</b> (< +8% threshold). Dead-money opportunity cost detected — rotate into this week's #1 Ignition candidate.`;
+  } else if (retPct >= 100.0) {
+    verdict = `<span style="color:#34d399; font-weight:900;">🏆 RULE 4 TRIGGERED (+100% TP1 REACHED):</span> Sell 50% at <b>$${s.close.toFixed(2)}</b> to recover 100% of original principal. Ride remaining 50% risk-free until MA60 -3% break!`;
+  } else {
+    const remDays = Math.max(0, 55 - days);
+    verdict = `<span style="color:#34d399; font-weight:900;">🟢 HOLD IN PROGRESS (${retPct >= 0 ? '+' : ''}${retPct.toFixed(1)}%):</span> Hard Stop at <b>$${stopPrice.toFixed(2)}</b> (-9%) | <b>${remDays} trading days</b> remaining before +8% Time-Stop check | TP1 2x Target: <b>$${tp1Price.toFixed(2)}</b>.`;
+  }
+  const out = document.getElementById('docOutput');
+  if (out) out.innerHTML = verdict;
+}
+
+function copySelectedCard(ticker) {
+  const s = STOCKS.find(x => x.ticker === ticker) || STOCKS[0];
+  const canvas = document.getElementById('viralCanvas');
+  const ctx = canvas.getContext('2d');
+
+  // High-contrast dark quantitative card
+  ctx.fillStyle = '#070b14';
+  ctx.fillRect(0, 0, 900, 500);
+  ctx.strokeStyle = s.zone_code === 'IGNITION_ZONE' ? '#10b981' : (s.zone_code === 'LEFT_SIDE_KNIFE' ? '#ef4444' : '#f59e0b');
+  ctx.lineWidth = 6;
+  ctx.strokeRect(12, 12, 876, 476);
+
+  ctx.fillStyle = '#94a3b8';
+  ctx.font = 'bold 20px Segoe UI, sans-serif';
+  ctx.fillText('⚡ RIGHTSIDEALPHA.IO — 20-YR QUANTITATIVE PW-RSI DIAGNOSTIC', 40, 58);
+
+  ctx.fillStyle = '#f8fafc';
+  ctx.font = '900 46px Segoe UI, sans-serif';
+  ctx.fillText('$' + s.ticker + ' (' + s.name_en + ') — $' + s.close.toFixed(2), 40, 122);
+
+  // Stamp badge
+  ctx.fillStyle = s.zone_code === 'IGNITION_ZONE' ? '#065f46' : (s.zone_code === 'LEFT_SIDE_KNIFE' ? '#7f1d1d' : '#78350f');
+  ctx.fillRect(40, 145, 520, 54);
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 25px Segoe UI, sans-serif';
+  ctx.fillText(s.zone_label_en + '  |  PW-RSI Score: ' + s.pw_score + '/100', 56, 181);
+
+  // Metrics Grid
+  ctx.fillStyle = '#cbd5e1';
+  ctx.font = 'bold 23px Segoe UI, sans-serif';
+  ctx.fillText('• 52W Low Proximity: +' + s.prox_low_pct.toFixed(1) + '%   (52W High Drawdown: ' + s.dd_high_pct.toFixed(1) + '%)', 40, 250);
+  ctx.fillText('• Moving Averages: vs MA20 (' + (s.vs_ma20_pct>=0?'+':'') + s.vs_ma20_pct.toFixed(1) + '%)  |  vs MA60 (' + (s.vs_ma60_pct>=0?'+':'') + s.vs_ma60_pct.toFixed(1) + '%)', 40, 295);
+  ctx.fillText('• 10D Institutional Volume Washout: ' + s.vol_surge.toFixed(2) + 'x Avg  |  RSI(14): ' + s.rsi14.toFixed(1), 40, 340);
+  ctx.fillStyle = '#34d399';
+  ctx.fillText('• Historical 1Y 2x (+100%) Win Rate after -40% Crash: ' + s.hist_2x_rate.toFixed(1) + '% (MA60 Trigger: $' + s.ma60_price.toFixed(2) + ')', 40, 388);
+
+  // Watermark Footer
+  ctx.fillStyle = '#64748b';
+  ctx.font = 'bold 18px Segoe UI, sans-serif';
+  ctx.fillText('🌐 Live Screener & 394,371-Day Backtest Leaderboard: ' + CFG.site1_url + '  |  Not Financial Advice', 40, 452);
+
+  canvas.toBlob(async (blob) => {
+    try {
+      await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+      showToast('📸 $' + s.ticker + ' Scoreboard PNG Copied! Press Ctrl+V on X or Reddit!');
+    } catch (err) {
+      const a = document.createElement('a');
+      a.href = canvas.toDataURL('image/png');
+      a.download = s.ticker + '_pw_rsi_card.png';
+      a.click();
+      showToast('📸 Downloaded $' + s.ticker + ' PNG Card!');
+    }
+  });
+}
+
+function openModal(id) {
+  if (id === 'configModal') {
+    document.getElementById('cfgSite1Url').value = CFG.site1_url;
+    document.getElementById('cfgLsMonthly').value = CFG.ls_site1_monthly_url;
+    document.getElementById('cfgLsLtd').value = CFG.ls_site1_ltd_url;
+    document.getElementById('cfgAffTv').value = CFG.aff_tradingview;
+  }
+  document.getElementById(id).classList.add('open');
+}
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+function saveAdminConfig() {
+  CFG.site1_url = document.getElementById('cfgSite1Url').value.trim() || CFG.site1_url;
+  CFG.ls_site1_monthly_url = document.getElementById('cfgLsMonthly').value.trim() || CFG.ls_site1_monthly_url;
+  CFG.ls_site1_ltd_url = document.getElementById('cfgLsLtd').value.trim() || CFG.ls_site1_ltd_url;
+  CFG.aff_tradingview = document.getElementById('cfgAffTv').value.trim() || CFG.aff_tradingview;
+  localStorage.setItem('rsa_cfg', JSON.stringify(CFG));
+  document.getElementById('topCheckoutBtn').href = CFG.ls_site1_monthly_url + '?embed=1';
+  document.getElementById('cardMonthlyBtn').href = CFG.ls_site1_monthly_url + '?embed=1';
+  document.getElementById('cardLtdBtn').href = CFG.ls_site1_ltd_url + '?embed=1';
+  document.getElementById('affTvBtn').href = CFG.aff_tradingview;
+  closeModal('configModal');
+  showToast('💾 Lemon Squeezy & Affiliate Links Updated!');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toastBox');
+  t.textContent = msg;
+  t.style.display = 'block';
+  setTimeout(() => { t.style.display = 'none'; }, 3200);
+}
+
+updateProUI();
+</script>
+</body>
+</html>

@@ -35,7 +35,7 @@ let cachedSemiOverview = null;
 
 async function getStaticProStocks() {
   if (!cachedProStocks) {
-    const r = await fetch("/static_api/stocks_pro.json");
+    const r = await fetch("./static_api/stocks_pro.json");
     cachedProStocks = await r.json();
   }
   return cachedProStocks;
@@ -43,7 +43,7 @@ async function getStaticProStocks() {
 
 async function getStaticSemiOverview() {
   if (!cachedSemiOverview) {
-    const r = await fetch("/static_api/semi_overview.json");
+    const r = await fetch("./static_api/semi_overview.json");
     cachedSemiOverview = await r.json();
   }
   return cachedSemiOverview;
@@ -68,7 +68,7 @@ export async function fetchStocks(params = {}) {
       },
     },
     async () => {
-      const file = isProActive() ? "/static_api/stocks_pro.json" : "/static_api/stocks_free.json";
+      const file = isProActive() ? "./static_api/stocks_pro.json" : "./static_api/stocks_free.json";
       const r = await fetch(file);
       return r.json();
     }
@@ -97,7 +97,7 @@ export async function fetchBacktestSummary() {
     "/api/backtest",
     { headers: { Accept: "application/json" } },
     async () => {
-      const r = await fetch("/static_api/backtest.json");
+      const r = await fetch("./static_api/backtest.json");
       return r.json();
     }
   );
@@ -113,7 +113,7 @@ export async function fetchResearchList() {
       },
     },
     async () => {
-      const r = await fetch("/static_api/research_list.json");
+      const r = await fetch("./static_api/research_list.json");
       return r.json();
     }
   );
@@ -131,7 +131,7 @@ export async function fetchResearchBrief(ticker) {
     },
     async () => {
       const target = clean === "MBLY" ? "MBLY" : "CELH";
-      const r = await fetch(`/static_api/research_${target}.json`);
+      const r = await fetch(`./static_api/research_${target}.json`);
       return r.json();
     }
   );
@@ -174,7 +174,7 @@ export async function fetchProVault() {
       },
     },
     async () => {
-      const r = await fetch("/static_api/pinescript.json");
+      const r = await fetch("./static_api/pinescript.json");
       return r.json();
     }
   );
@@ -190,7 +190,7 @@ export async function fetchPineScript() {
       },
     },
     async () => {
-      const r = await fetch("/static_api/pinescript.json");
+      const r = await fetch("./static_api/pinescript.json");
       return r.json();
     }
   );
@@ -290,7 +290,7 @@ export async function fetchReferralConfig() {
     "/api/referral/config",
     { headers: { Accept: "application/json" } },
     async () => {
-      const r = await fetch("/static_api/referral_config.json");
+      const r = await fetch("./static_api/referral_config.json");
       return r.json();
     }
   );
@@ -331,7 +331,7 @@ export async function fetchSemiHistory(rangeCode = "1Y") {
     `/api/semi/history?range=${encodeURIComponent(safeRange)}`,
     { headers: { Accept: "application/json" } },
     async () => {
-      const r = await fetch(`/static_api/semi_history_${safeRange}.json`);
+      const r = await fetch(`./static_api/semi_history_${safeRange}.json`);
       return r.json();
     }
   );

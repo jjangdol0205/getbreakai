@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RightSide Alpha — 유튜브 쇼츠(@rightsidealpha) & 인스타 릴스 1클릭 세팅 보드</title>
+  <style>
+    :root {
+      --bg: #0b0f17;
+      --card: #131b2e;
+      --border: #23304d;
+      --accent: #10b981;
+      --accent-blue: #3b82f6;
+      --accent-yt: #ef4444;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 32px 20px 64px;
+      font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .header {
+      background: linear-gradient(135deg, rgba(239,68,68,0.16), rgba(16,185,129,0.16), rgba(59,130,246,0.14));
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px 28px;
+      margin-bottom: 28px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(16,185,129,0.2);
+      color: #34d399;
+      margin-bottom: 10px;
+    }
+    h1 {
+      margin: 0 0 8px;
+      font-size: 24px;
+    }
+    h2 {
+      font-size: 18.5px;
+      margin: 0 0 14px;
+      color: #38bdf8;
+    }
+    .section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px 24px;
+      margin-bottom: 22px;
+    }
+    .section-yt {
+      border-color: rgba(239, 68, 68, 0.45);
+      box-shadow: 0 0 28px rgba(239, 68, 68, 0.08);
+    }
+    .asset-grid {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 18px;
+      margin: 16px 0 20px;
+    }
+    @media (max-width: 720px) {
+      .asset-grid { grid-template-columns: 1fr; }
+    }
+    .asset-card {
+      background: #080c14;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      padding: 14px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .asset-card img {
+      max-width: 100%;
+      border-radius: 8px;
+      border: 1px solid #23304d;
+      margin-bottom: 10px;
+    }
+    .dl-btn {
+      display: inline-block;
+      text-decoration: none;
+      background: #ef4444;
+      color: #fff;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 8px 14px;
+      border-radius: 8px;
+      margin-top: 6px;
+    }
+    .dl-btn:hover { filter: brightness(1.1); }
+    .studio-btn {
+      display: inline-block;
+      text-decoration: none;
+      background: var(--accent-blue);
+      color: #fff;
+      font-weight: 700;
+      font-size: 13.5px;
+      padding: 9px 16px;
+      border-radius: 8px;
+      margin-bottom: 14px;
+    }
+    .copy-box {
+      background: #080c14;
+      border: 1px solid #1e293b;
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-top: 10px;
+      margin-bottom: 16px;
+      position: relative;
+    }
+    .copy-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted);
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+    pre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: "JetBrains Mono", Consolas, monospace;
+      font-size: 13.5px;
+      color: #e2e8f0;
+    }
+    button.copy-btn {
+      background: var(--accent);
+      color: #04130d;
+      border: none;
+      border-radius: 8px;
+      padding: 6px 14px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+    button.copy-btn:hover {
+      filter: brightness(1.1);
+      transform: translateY(-1px);
+    }
+    button.copy-btn.copied {
+      background: var(--accent-blue);
+      color: #fff;
+    }
+    .checklist {
+      margin: 0 0 14px;
+      padding-left: 20px;
+      color: #cbd5e1;
+      font-size: 14px;
+    }
+    .checklist li {
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <span class="badge">US MARKET READY · YOUTUBE + INSTAGRAM + TELEGRAM</span>
+      <h1>🇺🇸 RightSide Alpha — 유튜브 쇼츠(@rightsidealpha) & 인스타 릴스 1클릭 세팅 보드</h1>
+      <p style="margin:0;color:var(--muted);font-size:14px;">
+        ✅ <strong>텔레그램 봇 (@RigjtsideAlphabot)</strong>: 유튜브 쇼츠(`@rightsidealpha`) 버튼 및 미국 타겟 영문 프로필 연동 완료!<br/>
+        ✅ <strong>유튜브 전용 프로필 로고(800×800) & 채널 배너(2560×1440)</strong>: 아래에서 바로 다운로드해 업로드하세요.
+      </p>
+    </div>
+
+    <!-- 0. YouTube Shorts Channel (@rightsidealpha) Setup -->
+    <div class="section section-yt">
+      <h2 style="color:#f87171;">🎬 1️⃣ 유튜브 쇼츠 채널 (@rightsidealpha) 프로필 이미지 & 설명 1클릭 세팅</h2>
+      <p style="margin:0 0 12px;font-size:14px;color:#cbd5e1;">
+        구글/유튜브 보안 정책상 외부에서 비밀번호 없이 남의 유튜브 스튜디오를 직접 수정할 수 없습니다.<br/>
+        대신 <strong>유튜브 공식 규격에 딱 맞춘 전용 로고·배너 이미지 2장</strong>과 <strong>미국 알고리즘 최적화 영문 세팅값</strong>을 아래에 모두 만들어 두었습니다!
+      </p>
+
+      <a class="studio-btn" href="https://studio.youtube.com" target="_blank">🚀 1단계: 여기를 눌러 [유튜브 스튜디오 (맞춤설정)] 열기 ↗</a>
+      <a class="studio-btn" style="background:#334155;margin-left:8px;" href="https://www.youtube.com/@rightsidealpha" target="_blank">▶️ 내 채널 (@rightsidealpha) 보기 ↗</a>
+
+      <div class="asset-grid">
+        <div class="asset-card">
+          <div>
+            <div style="font-size:12.5px;font-weight:700;color:#94a3b8;margin-bottom:8px;">프로필 사진 (800×800 PNG)</div>
+            <img src="assets/youtube/youtube_profile_800x800.png" alt="YouTube Profile Logo" style="max-height:160px;" />
+          </div>
+          <a class="dl-btn" href="assets/youtube/youtube_profile_800x800.png" download="RightSideAlpha_YouTube_Profile_800x800.png">💾 프로필 로고 저장</a>
+        </div>
+
+        <div class="asset-card">
+          <div>
+            <div style="font-size:12.5px;font-weight:700;color:#94a3b8;margin-bottom:8px;">채널 배너 이미지 (2560×1440 PNG — 모바일/PC 안전영역 맞춤)</div>
+            <img src="assets/youtube/youtube_banner_2560x1440.png" alt="YouTube Channel Banner" style="max-height:160px;object-fit:cover;" />
+          </div>
+          <a class="dl-btn" href="assets/youtube/youtube_banner_2560x1440.png" download="RightSideAlpha_YouTube_Banner_2560x1440.png">💾 채널 배너 이미지 저장</a>
+        </div>
+      </div>
+
+      <ul class="checklist">
+        <li><strong>유튜브 스튜디오 좌측 [맞춤설정(Customization)] 클릭</strong> → 위에서 저장한 <strong>배너 이미지</strong>와 <strong>프로필 사진</strong> 업로드 후 우측 상단 <strong>[게시(Publish)]</strong> 클릭!</li>
+        <li><strong>★미국인 노출 필수 설정</strong>: 유튜브 스튜디오 좌측 하단 <strong>[설정(Settings)] → [채널(Channel)] → [기본 정보]</strong>에서 <strong>거주 국가(Country of residence)를 반드시 `미국 (United States)`</strong>으로 선택하세요!</li>
+      </ul>
+
+      <div class="copy-box">
+        <div class="copy-label">
+          <span>유튜브 채널 이름 (Name)</span>
+          <button class="copy-btn" onclick="copyText('yt-name', this)">📋 1클릭 복사</button>
+        </div>
+        <pre id="yt-name">RightSide Alpha | US Stock Quant</pre>
+      </div>
+
+      <div class="copy-box">
+        <div class="copy-label">
+          <span>유튜브 채널 설명 (Description — 미국 트레이더 검색 & 알고리즘 최적화 영문)</span>
+          <button class="copy-btn" onclick="copyText('yt-desc', this)">📋 1클릭 복사</button>
+        </div>
+        <pre id="yt-desc">📈 Institutional Right-Side Breakout Scanner & US Stock Quant Terminal
+
+Stop guessing bottoms and getting trapped in bull traps.
+RightSide Alpha tracks 72+ US Tech, AI & Semiconductor leaders ($NVDA, $TSLA, $PLTR, $AMD, $MU, $CELH, $SMH) using a 26-year backtested Right-Side Momentum & Contrarian Barbell Engine.
+
+🔥 IGNITION ZONE: Institutional breakout confirmed above 60-day trendline (MA60) with volume surge
+🧭 SEMI FEAR & GREED: 7-Factor Semiconductor Fear & Greed Index (80% $SMH : 20% $XLV Contrarian Barbell)
+🩺 POSITION DOCTOR: Bagholding a stock? Enter your ticker & avg cost to get exact mathematical Stop-Loss (-9%) and +100% Profit Target levels in 3 seconds.
+
+👇 ACCESS LIVE US QUANT TERMINAL & FREE TELEGRAM ALERTS:
+🖥️ Live Terminal: https://getbreakai.com
+🤖 Free Telegram Bot: https://t.me/RigjtsideAlphabot
+
+*Disclaimer: Quantitative data & algorithmic research for educational purposes only. Not financial advice.</pre>
+      </div>
+
+      <div class="copy-box">
+        <div class="copy-label">
+          <span>채널 외부 링크 1 (제목: Live US Quant Terminal)</span>
+          <button class="copy-btn" onclick="copyText('yt-link1', this)">📋 1클릭 복사</button>
+        </div>
+        <pre id="yt-link1">https://getbreakai.com</pre>
+      </div>
+
+      <div class="copy-box">
+        <div class="copy-label">
+          <span>채널 외부 링크 2 (제목: Free Telegram Breakout Bot)</span>
+          <button class="copy-btn" onclick="copyText('yt-link2', this)">📋 1클릭 복사</button>
+        </div>
+        <pre id="yt-link2">https://t.me/RigjtsideAlphabot</pre>
+      </div>
+
+      <div class="copy-box">
+        <div class="copy-label">
+          <span>채널 키워드 태그 (`유튜브 스튜디오 → 설정 → 채널 → 기본 정보 → 키워드`에 붙여넣기)</span>
+          <button class="copy-btn" onclick="copyText('yt-keywords', this)">📋 1클릭 복사</button>
+        </div>
+        <pre id="yt-keywords">us stocks, stock market, swing trading, day trading, breakout stocks, quant trading, technical analysis, nvda stock, tsla stock, pltr stock, smh etf, soxx, semiconductor stocks, stock scanner, trading strategy, wall street, options trading, rightside alpha</pre>
+      </div>
+
+      <div class="copy-box">
+        <div class="copy-label">
+          <span>유튜브 쇼츠 업로드 시 고정 댓글 (Pinned Comment — 쇼츠 시청자를 홈페이지/텔레그램으로 유입)</span>
+          <button class="copy-btn" onclick="copyText('yt-pin', this)">📋 1클릭 복사</button>
+        </div>
+        <pre id="yt-pin">📌 Check live Right-Side Breakout triggers & run your stocks through Position Doctor (3s Stop-Loss & Target audit):
+🖥️ Live US Quant Terminal: https://getbreakai.com
+🤖 Free Real-Time Telegram Bot: https://t.me/RigjtsideAlphabot (Tap Channel Bio Links if not clickable!)</pre>
+      </div>
+    </div>
+
+    <!-- 1. Instagram Profile Setup -->
+    <div class="section">
+      <h2>📸 2️⃣ 인스타그램 프로필 (Bio & 링크) — 1클릭 복사</h2>
+      <ul class="checklist">
+        <li>인스타 앱: <strong>프로필 → ☰ 메뉴 → 계정 유형 및 도구 → 프로페셔널 계정으로 전환 (크리에이터)</strong></li>
+        <li>인스타 앱: <strong>☰ 메뉴 → 메시지 및 스토리 답장 → 메시지 제어 → 연결된 도구(메시지 액세스 허용) ON</strong></li>
+        <li>인스타 앱: <strong>☰ 메뉴 → 데이터 사용량 및 미디어 품질 → 최고 화질로 업로드 ON</strong></li>
+      </ul>
+
+      <div class="copy-box">
+        <div class="copy-label">
+          <span>프로필 이름 (Name)</span>
+          <button class="copy-btn" onclick="copyText('bio-name', this)">📋 1클릭 복사</button>
+        </div>
+        <pre id="bio-name">RightSide Alpha | US Stock Quant Terminal</pre>
+      </div>
+
+      <div class="copy-box">
+        <div class="copy-label">
+          <span>프로필 소개글 (Bio — 100% 미국 트레이더 타겟)</span>
+          <button class="copy-btn" onclick="copyText('bio-text', this)">📋 1클릭 복사</button>
+        </div>
+        <pre id="bio-text">📈 Institutional Right-Side Breakout Scanner
+🔥 Live Ignition Triggers on 72+ US Tech & Growth Leaders
+🩺 Bagholding a stock? Diagnose your entry in 3s (Position Doctor)
+👇 Free Live Terminal & Telegram Quant Bot</pre>
+      </div>
+
+      <div class="copy-box">
+        <div class="copy-label">
+          <span>프로필 외부 링크 1 (미국주식 실시간 퀀트 터미널)</span>
+          <button class="copy-btn" onclick="copyText('link-web', this)">📋 1클릭 복사</button>
+        </div>
+        <pre id="link-web">https://getbreakai.com</pre>
+      </div>
+
+      <div class="copy-box">
+        <div class="copy-label">
+          <span>프로필 외부 링크 2 (실시간 영문 텔레그램 봇)</span>
+          <button class="copy-btn" onclick="copyText('link-tg', this)">📋 1클릭 복사</button>
+        </div>
+        <pre id="link-tg">https://t.me/RigjtsideAlphabot</pre>
+      </div>
+    </div>
+
+    <!-- 2. ManyChat Auto-DM Setup -->
+    <div class="section">
+      <h2>🤖 3️⃣ 매니챗 (ManyChat) 인스타 자동 DM — 1클릭 복사 (<a href="https://manychat.com" target="_blank" style="color:#34d399;">manychat.com 열기 ↗</a>)</h2>
+
+      <div class="copy-box">
+        <div class="copy-label">
+          <span>① 댓글 트리거 키워드 (Keywords — 쉼표로 구분)</span>
+          <button class="copy-btn" onclick="copyText('mc-keywords', this)">📋 1클릭 복사</button>
+        </div>
+        <pre id="mc-keywords">ALPHA, SCAN, SIGNAL, DOCTOR, LINK</pre>
+      </div>
+
+      <div class="copy-box">
+        <div class="copy-label">
+          <span>② 자동 대댓글 1번 (Public Reply #1)</span>
+          <button class="copy-btn" onclick="copyText('mc-reply1', this)">📋 1클릭 복사</button>
+        </div>
+        <pre id="mc-reply1">Just sent the live terminal & Telegram bot link to your DMs! Check your message requests 🚀</pre>
+      </div>
+
+      <div class="copy-box">
+        <div class="copy-label">
+          <span>② 자동 대댓글 2번 (Public Reply #2)</span>
+          <button class="copy-btn" onclick="copyText('mc-reply2', this)">📋 1클릭 복사</button>
+        </div>
+        <pre id="mc-reply2">Sent! 📈 Check your DMs for the live Right-Side breakout levels.</pre>
+      </div>
+
+      <div class="copy-box">
+        <div class="copy-label">
+          <span>② 자동 대댓글 3번 (Public Reply #3)</span>
+          <button class="copy-btn" onclick="copyText('mc-reply3', this)">📋 1클릭 복사</button>
+        </div>
+        <pre id="mc-reply3">Boom 🔥 Link is in your DMs! Run your tickers through Position Doctor.</pre>
+      </div>
+
+      <div class="copy-box">
+        <div class="copy-label">
+          <span>③ 1차 자동 DM 본문 (댓글 달자마자 발송되는 메시지)</span>
+          <button class="copy-btn" onclick="copyText('mc-dm1', this)">📋 1클릭 복사</button>
+        </div>
+        <pre id="mc-dm1">Hey trader! 👋 Welcome to RightSide Alpha.
+
+Tap the button below to unlock instant access to our Live US Quant Terminal + Free Telegram Breakout Bot 👇</pre>
+      </div>
+
+      <div class="copy-box">
+        <div class="copy-label">
+          <span>③ 1차 자동 DM 하단 버튼 이름 (클릭 시 2차 DM으로 연결)</span>
+          <button class="copy-btn" onclick="copyText('mc-btn1', this)">📋 1클릭 복사</button>
+        </div>
+        <pre id="mc-btn1">📈 Unlock Live Terminal</pre>
+      </div>
+
+      <div class="copy-box">
+        <div class="copy-label">
+          <span>④ 2차 자동 DM 본문 (유저가 버튼 클릭 시 발송)</span>
+          <button class="copy-btn" onclick="copyText('mc-dm2', this)">📋 1클릭 복사</button>
+        </div>
+        <pre id="mc-dm2">You're in! 🚀 Choose where you want to start below:
+
+✅ Live Ignition & Trap Scanner (72+ US Momentum Stocks)
+✅ Position Doctor: Enter your avg cost for instant -9% Stop & +100% Target levels
+✅ Free Telegram Bot: Real-time /ignition, /semi & /doctor alerts</pre>
+      </div>
+
+      <div class="copy-box">
+        <div class="copy-label">
+          <span>④ 2차 DM 웹사이트 버튼 1 텍스트 (`https://getbreakai.com` 연결)</span>
+          <button class="copy-btn" onclick="copyText('mc-btn2a', this)">📋 1클릭 복사</button>
+        </div>
+        <pre id="mc-btn2a">🖥️ Open Live Terminal</pre>
+      </div>
+
+      <div class="copy-box">
+        <div class="copy-label">
+          <span>④ 2차 DM 웹사이트 버튼 2 텍스트 (`https://t.me/RigjtsideAlphabot` 연결)</span>
+          <button class="copy-btn" onclick="copyText('mc-btn2b', this)">📋 1클릭 복사</button>
+        </div>
+        <pre id="mc-btn2b">🤖 Start Telegram Bot</pre>
+      </div>
+    </div>
+
+    <!-- 3. Reels & Shorts Caption -->
+    <div class="section">
+      <h2>📝 4️⃣ 미국 타겟 쇼츠/릴스 공통 본문(Caption) & 첫 고정 댓글 — 1클릭 복사</h2>
+      <div class="copy-box">
+        <div class="copy-label">
+          <span>릴스/쇼츠 본문 설명 (Caption + 미국 금융 해시태그)</span>
+          <button class="copy-btn" onclick="copyText('reel-caption', this)">📋 1클릭 복사</button>
+        </div>
+        <pre id="reel-caption">Comment "ALPHA" and I’ll DM you instant access to the live US Quant Terminal & Telegram Alert Bot 👇
+
+Stop guessing bottoms and getting trapped in fakeouts.
+Our institutional Right-Side engine tracks 72+ US market leaders in real time:
+
+🔥 IGNITION: Institutional breakout confirmed above 60-day trendline
+⚠️ TRAP: Price below MA60 — high bull-trap risk
+🩺 POSITION DOCTOR: Stuck bagholding? Enter your ticker & avg cost to get exact mathematical Stop-Loss (-9%) and Profit Target levels in 3 seconds.
+
+🖥️ Live Terminal: https://getbreakai.com
+🤖 Free Telegram Bot: https://t.me/RigjtsideAlphabot
+
+#usstocks #stockmarket #daytrading #swingtrading #nvda #tsla #pltr #soxx #semiconductors #tradingstrategy #quanttrading #wallstreet #optionsflow #technicalanalysis</pre>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function copyText(id, btn) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const orig = btn.innerText;
+        btn.innerText = "✅ 복사 완료!";
+        btn.classList.add("copied");
+        setTimeout(() => {
+          btn.innerText = orig;
+          btn.classList.remove("copied");
+        }, 1600);
+      });
+    }
+  </script>
+</body>
+</html>

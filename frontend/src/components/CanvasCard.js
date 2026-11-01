@@ -9,7 +9,7 @@ export function renderScoreboardCard(stock, config = {}) {
   }
 
   const ctx = canvas.getContext("2d");
-  const siteUrl = config.site1_url || "https://getbreakai.com";
+  const siteUrl = config.site1_url || "https://truthofmarket.com";
 
   // Background
   ctx.fillStyle = "#070b14";

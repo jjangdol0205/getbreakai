@@ -303,14 +303,36 @@ def save_daily_state(st: Dict[str, Any]) -> None:
 
 
 def send_episode_package_to_telegram(ep_num: int, advance_state: bool = False) -> bool:
+    import os
     ep_idx = ((ep_num - 1) % 10)
     kit = EPISODE_COPY_KIT[ep_idx]
     real_num = kit["num"]
     mp4_path = VIDEOS_DIR / f"EP{real_num:02d}_US_Viral_Shorts.mp4"
 
-    token = telegram_service._resolve_token()
-    chat_id = telegram_service._resolve_chat_id() or "755033799"
+    token = os.environ.get("HQ_TELEGRAM_BOT_TOKEN") or telegram_service._resolve_token()
+    chat_id = os.environ.get("HQ_TELEGRAM_CHAT_ID") or telegram_service._resolve_chat_id() or "755033799"
     base = f"https://api.telegram.org/bot{token}"
+
+    # Normalize all copy kit URLs to truthofmarket.com & @SemifearGreedbot
+    yt_title = kit["yt_title"].replace("getbreakai.com", "truthofmarket.com")
+    yt_desc = (
+        kit["yt_desc"]
+        .replace("https://getbreakai.com", "https://truthofmarket.com")
+        .replace("getbreakai.com", "truthofmarket.com")
+        .replace("https://t.me/RigjtsideAlphabot", "https://t.me/SemifearGreedbot")
+    )
+    yt_pin = (
+        kit["yt_pin"]
+        .replace("https://getbreakai.com", "https://truthofmarket.com")
+        .replace("getbreakai.com", "truthofmarket.com")
+        .replace("https://t.me/RigjtsideAlphabot", "https://t.me/SemifearGreedbot")
+    )
+    ig_caption = (
+        kit["ig_caption"]
+        .replace("https://getbreakai.com", "https://truthofmarket.com")
+        .replace("getbreakai.com", "truthofmarket.com")
+        .replace("https://t.me/RigjtsideAlphabot", "https://t.me/SemifearGreedbot")
+    )
 
     timeout_cfg = httpx.Timeout(connect=20.0, read=240.0, write=240.0, pool=30.0)
     with httpx.Client(timeout=timeout_cfg) as client:
@@ -352,10 +374,12 @@ def send_episode_package_to_telegram(ep_num: int, advance_state: bool = False) -
 
             video_bytes = upload_path.read_bytes()
             caption = (
-                f"🎬 <b>[Day {real_num}/10 모닝 쇼츠·릴스 배달] {kit['id']} 완성본 영상</b>\n"
+                f"🇺🇸 <b>[1사업부: truthofmarket.com · 쇼츠/릴스 {real_num}/10편]</b>\n"
                 f"📌 주제: {kit['topic_kr']}\n\n"
-                "👆 <b>영상을 터치한 뒤 우측 상단 [⋮] → [갤러리에 저장(비디오 저장)]</b>을 눌러 핸드폰에 저장하세요!\n"
-                "👇 바로 아래 메시지의 파란 글씨 박스를 터치하면 유튜브 제목·설명·인스타 캡션이 1초 만에 복사됩니다."
+                "📺 업로드 유튜브: https://www.youtube.com/@rightsidealpha\n"
+                "📸 업로드 인스타: https://www.instagram.com/semifeargreed\n"
+                "🔗 공식 터미널: https://truthofmarket.com\n\n"
+                "👇 아래 4개 메시지(① 유튜브 제목 / ② 유튜브 설명글 / ③ 릴스 본문 / ④ 고정댓글·DM)의 코드박스를 터치하면 1초 만에 복사됩니다!"
             )
             try:
                 r_vid = client.post(
@@ -372,39 +396,48 @@ def send_episode_package_to_telegram(ep_num: int, advance_state: bool = False) -
             except Exception as vid_exc:
                 print(f"[DailyShorts] sendVideo warning: {vid_exc}")
 
-        # 2. Send 1-Tap Copy YouTube Title, Description, Pinned Comment & Instagram Caption
+        # 2. Send 4 separate 1-Tap Copy HTML messages (<pre>...</pre>) matching 3사업부 format
         import html
-        yt_title_esc = html.escape(kit["yt_title"])
-        yt_desc_esc = html.escape(kit["yt_desc"])
-        yt_pin_esc = html.escape(kit["yt_pin"])
-        ig_cap_esc = html.escape(kit["ig_caption"])
+        yt_title_esc = html.escape(yt_title)
+        yt_desc_esc = html.escape(yt_desc)
+        yt_pin_esc = html.escape(yt_pin)
+        ig_cap_esc = html.escape(ig_caption)
 
-        copy_msg = (
-            f"📋 <b>[{kit['id']} 업로드용 1클릭 복사 패키지] ({real_num}/10편)</b>\n"
-            "━━━━━━━━━━━━━━━━━━━━\n"
-            "💡 <i>아래 박스 글씨를 핸드폰에서 <b>한 번만 톡 터치하면</b> 자동 복사됩니다!</i>\n\n"
-            "▶️ <b>1. 유튜브 쇼츠 제목 (Title 👇)</b>\n"
-            f"<code>{yt_title_esc}</code>\n\n"
-            "📝 <b>2. 유튜브 쇼츠 설명 (Description 👇)</b>\n"
-            f"<code>{yt_desc_esc}</code>\n\n"
-            "📌 <b>3. 유튜브 쇼츠 고정 댓글 (Pinned Comment 👇)</b>\n"
-            f"<code>{yt_pin_esc}</code>\n\n"
-            "━━━━━━━━━━━━━━━━━━━━\n"
-            "📸 <b>4. 인스타그램 릴스 본문 캡션 (Reels Caption 👇)</b>\n"
-            f"<code>{ig_cap_esc}</code>\n\n"
-            "📌 <b>5. 인스타 릴스 내 고정 댓글 (Pinned Comment 👇)</b>\n"
-            '<code>📌 Comment "ALPHA" right here and my bot will instantly DM you the direct link to the Live Terminal (getbreakai.com) + our Free Telegram Alert Bot! 🚀</code>'
-        )
-        r_txt = client.post(
-            f"{base}/sendMessage",
-            json={
-                "chat_id": chat_id,
-                "text": copy_msg,
-                "parse_mode": "HTML",
-                "disable_web_page_preview": True,
-            },
-        )
-        ok = r_txt.status_code == 200 and r_txt.json().get("ok", False)
+        messages = [
+            (
+                f"🔴 <b>[1/4] 유튜브 쇼츠 제목 (@rightsidealpha)</b> — 아래 박스 터치 시 바로 복사\n"
+                f"<pre>{yt_title_esc}</pre>"
+            ),
+            (
+                f"🟠 <b>[2/4] 유튜브 쇼츠 설명글 &amp; 고정댓글 (@rightsidealpha)</b> — 아래 박스 터치 시 바로 복사\n"
+                f"<pre>{yt_desc_esc}</pre>\n"
+                f"📌 <b>유튜브 고정댓글</b>:\n<pre>{yt_pin_esc}</pre>"
+            ),
+            (
+                f"🟣 <b>[3/4] 인스타그램 릴스 전체 본문 (@semifeargreed)</b> — 아래 박스 터치 시 바로 복사\n"
+                f"<pre>{ig_cap_esc}</pre>"
+            ),
+            (
+                f"💬 <b>[4/4] 인스타 릴스 고정댓글 &amp; 자동DM 답장 ({real_num}편)</b>\n"
+                f"📌 <b>릴스 고정댓글</b> (박스 터치 시 복사):\n"
+                f'<pre>📌 Comment "ALPHA" right here and I will instantly DM you the direct link to our Live US Quant Terminal (https://truthofmarket.com) + Free Telegram Alert Bot (@SemifearGreedbot)! 🚀</pre>\n'
+                f"📩 <b>댓글 달린 분께 보내는 자동DM 답장</b> (박스 터치 시 복사):\n"
+                f"<pre>Hey! 👋 Here is your instant access to the Right-Side Alpha &amp; Semiconductor Fear &amp; Greed Terminal:\n👉 Live Terminal: https://truthofmarket.com\n🤖 Free Telegram Bot: https://t.me/SemifearGreedbot</pre>"
+            ),
+        ]
+
+        ok = True
+        for m_html in messages:
+            r_txt = client.post(
+                f"{base}/sendMessage",
+                json={
+                    "chat_id": chat_id,
+                    "text": m_html,
+                    "parse_mode": "HTML",
+                    "disable_web_page_preview": True,
+                },
+            )
+            ok = ok and (r_txt.status_code == 200 and r_txt.json().get("ok", False))
         print(f"[DailyShorts] sendMessage EP{real_num:02d}: ok={ok}")
 
     if advance_state and ok:

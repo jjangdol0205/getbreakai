@@ -34,7 +34,10 @@ export function renderHeader(state) {
   );
   const ytUrl = state.config?.youtube_url || "https://youtube.com/@rightsidealpha";
   const igUrl = state.config?.instagram_url || "https://www.instagram.com/semifeargreed";
-  const tgUrl = isPro ? (state.config?.telegram_channel_url || "https://t.me/+a6Sl2yLirbwyODQ1") : "#pro-vip-telegram";
+  const tgUrl = isPro ? (state.config?.telegram_vip_channel_url || "https://t.me/+a6Sl2yLirbwyODQ1") : "#pro-vip-telegram";
+  const isAdminMode =
+    (typeof window !== "undefined" && new URLSearchParams(window.location.search).get("admin") === "1") ||
+    Boolean(state.isAdminAuthenticated);
 
   return `
     <!-- INSTITUTIONAL MARKET TAPE RIBBON -->
@@ -174,13 +177,17 @@ export function renderHeader(state) {
             <span style="width:6px; height:6px; border-radius:50%; background:${isPro ? "var(--fin-up)" : "#f59e0b"}; display:inline-block;"></span>
           </a>
 
-          <button class="btn" id="btnOpenConfig">
+          ${
+            isAdminMode
+              ? `<button class="btn" id="btnOpenConfig">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <circle cx="12" cy="12" r="3"></circle>
               <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
             </svg>
             <span id="btnAdmin">${t.btnAdmin}</span>
-          </button>
+          </button>`
+              : ""
+          }
 
           <a
             class="btn btn-primary lemonsqueezy-button"

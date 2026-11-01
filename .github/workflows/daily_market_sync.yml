@@ -29,6 +29,7 @@ jobs:
       - name: Sync latest US stock & ETF closing prices
         run: |
           python scripts/sync_live_market_data.py
+          python scripts/build_static_bundle.py
 
       - name: Broadcast English Daily Briefing to @truthofmarketss
         env:

@@ -51,21 +51,38 @@ const defaultView =
 // Auto-migrate any stale legacy placeholder URLs stored in localStorage
 (function migrateLegacyLocalStorage() {
   try {
-    if (!localStorage.getItem("rsa_lang_v3_en")) {
-      localStorage.setItem("rsa_lang", "en");
-      localStorage.setItem("rsa_lang_v3_en", "1");
+    if (localStorage.getItem("rsa_lang_v3_en") && !localStorage.getItem("rsa_lang_v4_auto")) {
+      localStorage.removeItem("rsa_lang");
+      localStorage.removeItem("rsa_lang_v3_en");
+      localStorage.setItem("rsa_lang_v4_auto", "1");
+    }
+    const oldSite1 = localStorage.getItem("rsa_cfg_site1_url") || "";
+    if (oldSite1.includes("getbreakai.com")) {
+      localStorage.setItem("rsa_cfg_site1_url", "https://truthofmarket.com");
     }
     const oldM = localStorage.getItem("rsa_cfg_ls_monthly") || "";
-    if (oldM.includes("rightsidealpha.lemonsqueezy.com") || oldM.includes("d5e7e761")) {
+    if (
+      oldM.includes("rightsidealpha.lemonsqueezy.com") ||
+      oldM.includes("pro-monthly") ||
+      oldM.includes("d5e7e761")
+    ) {
       localStorage.removeItem("rsa_cfg_ls_monthly");
     }
     const oldL = localStorage.getItem("rsa_cfg_ls_ltd") || "";
-    if (oldL.includes("rightsidealpha.lemonsqueezy.com") || oldL.includes("667aa482")) {
+    if (
+      oldL.includes("rightsidealpha.lemonsqueezy.com") ||
+      oldL.includes("lifetime-pass") ||
+      oldL.includes("667aa482")
+    ) {
       localStorage.removeItem("rsa_cfg_ls_ltd");
     }
     const oldTv = localStorage.getItem("rsa_cfg_aff_tv") || "";
     if (oldTv === "rightsidealpha") {
       localStorage.setItem("rsa_cfg_aff_tv", "1173809");
+    }
+    const oldSa = localStorage.getItem("rsa_cfg_aff_sa") || "";
+    if (oldSa === "affiliate_rightside") {
+      localStorage.setItem("rsa_cfg_aff_sa", "better_life333");
     }
     const oldBrk = localStorage.getItem("rsa_cfg_broker_url") || "";
     if (oldBrk.includes("ibkr.com/referral/rightsidealpha") || oldBrk.includes("partner.bitget.com")) {
@@ -83,8 +100,21 @@ const defaultView =
   } catch (_) {}
 })();
 
+function detectInitialLang() {
+  try {
+    const saved = localStorage.getItem("rsa_lang");
+    if (saved && (saved === "kr" || saved === "en" || saved === "jp")) {
+      return saved;
+    }
+    const navLang = (navigator.language || navigator.userLanguage || "en").toLowerCase();
+    if (navLang.startsWith("ko")) return "kr";
+    if (navLang.startsWith("ja")) return "jp";
+  } catch (_) {}
+  return "en";
+}
+
 const state = {
-  lang: localStorage.getItem("rsa_lang") || "en",
+  lang: detectInitialLang(),
   activeView: defaultView,
   isAdminAuthenticated: sessionStorage.getItem("rsa_admin_auth") === "true",
   isProUnlocked: localStorage.getItem("rsa_pro_unlocked") === "true",
@@ -133,6 +163,7 @@ const state = {
     broker_referral_url:
       localStorage.getItem("rsa_cfg_broker_url") || "https://www.bitget.com/referral/register?clacCode=7nja",
     telegram_channel_url: localStorage.getItem("rsa_tg_channel_url") || "https://t.me/truthofmarketss",
+    telegram_vip_channel_url: localStorage.getItem("rsa_tg_vip_channel_url") || "https://t.me/+a6Sl2yLirbwyODQ1",
     telegram_chat_id: localStorage.getItem("rsa_tg_chat_id") || "@truthofmarketss",
     youtube_url: localStorage.getItem("rsa_cfg_youtube_url") || DEFAULT_YOUTUBE_URL,
     instagram_url: localStorage.getItem("rsa_cfg_instagram_url") || DEFAULT_INSTAGRAM_URL,
@@ -162,7 +193,10 @@ function applyClientFilterAndSort() {
     if (!s.ticker || String(s.ticker).includes(".")) return false;
     if (z !== "ALL" && s.zone_code !== z) return false;
     if (q) {
-      const hay = `${s.ticker} ${s.name_en} ${s.name_jp} ${s.name_kr} ${s.sector}`.toLowerCase();
+      const isLockedRow = !state.isProUnlocked && s.zone_code === "IGNITION_ZONE" && s.ticker !== "CELH";
+      const hay = isLockedRow
+        ? `vip ignition locked pro ${s.sector}`.toLowerCase()
+        : `${s.ticker} ${s.name_en} ${s.name_jp} ${s.name_kr} ${s.sector}`.toLowerCase();
       if (!hay.includes(q)) return false;
     }
     return true;
@@ -236,7 +270,7 @@ function renderApp() {
           </a>
           <span style="color:var(--border);">|</span>
           <a
-            href="${state.isProUnlocked ? (state.config.telegram_channel_url || "https://t.me/+a6Sl2yLirbwyODQ1") : "#pro-vip-telegram"}"
+            href="${state.isProUnlocked ? (state.config.telegram_vip_channel_url || "https://t.me/+a6Sl2yLirbwyODQ1") : "#pro-vip-telegram"}"
             class="${state.isProUnlocked ? "" : "btn-gated-vip-tg"}"
             ${state.isProUnlocked ? 'target="_blank" rel="noopener noreferrer"' : ""}
             style="color:#38bdf8; text-decoration:none; font-weight:600;"
@@ -360,13 +394,13 @@ function bindEvents() {
 
   // License Modal Controls
   const licenseModal = document.getElementById("licenseModal");
-  const openLicenseModal = (prefillDemo = false, customNotice = "") => {
+  const openLicenseModal = (_prefill = false, customNotice = "") => {
     if (!licenseModal) return;
     licenseModal.style.display = "flex";
     const inputEl = document.getElementById("licenseInput");
     const msgEl = document.getElementById("licenseMsg");
-    if (inputEl && prefillDemo && !inputEl.value.trim()) {
-      inputEl.value = state.licenseKey || "PRO-DEMO-2026";
+    if (inputEl && !inputEl.value.trim()) {
+      inputEl.value = state.licenseKey || "";
     }
     if (msgEl && customNotice) {
       msgEl.style.color = "#93c5fd";
@@ -383,14 +417,14 @@ function bindEvents() {
   const proStatusBadge = document.getElementById("proStatusBadge");
   if (proStatusBadge) {
     proStatusBadge.style.cursor = "pointer";
-    proStatusBadge.addEventListener("click", () => openLicenseModal(true));
+    proStatusBadge.addEventListener("click", () => openLicenseModal(false));
   }
 
   const vaultUnlockBtn = document.getElementById("vaultUnlockBtn");
-  if (vaultUnlockBtn) vaultUnlockBtn.addEventListener("click", () => openLicenseModal(true));
+  if (vaultUnlockBtn) vaultUnlockBtn.addEventListener("click", () => openLicenseModal(false));
 
   const vaultOverlayUnlock = document.getElementById("vaultOverlayUnlock");
-  if (vaultOverlayUnlock) vaultOverlayUnlock.addEventListener("click", () => openLicenseModal(true));
+  if (vaultOverlayUnlock) vaultOverlayUnlock.addEventListener("click", () => openLicenseModal(false));
 
   // Gated Pro VIP Telegram Channel buttons -> open License / Subscribe modal for Free users
   document.querySelectorAll(".btn-gated-vip-tg").forEach((el) => {
@@ -407,15 +441,6 @@ function bindEvents() {
 
   const btnCancelLicense = document.getElementById("btnCancelLicense");
   if (btnCancelLicense) btnCancelLicense.addEventListener("click", closeLicenseModal);
-
-  const btnFillDemoKey = document.getElementById("btnFillDemoKey");
-  if (btnFillDemoKey) {
-    btnFillDemoKey.addEventListener("click", () => {
-      const inputEl = document.getElementById("licenseInput");
-      if (inputEl) inputEl.value = "PRO-DEMO-2026";
-      verifyLicenseFlow();
-    });
-  }
 
   const btnLockLicense = document.getElementById("btnLockLicense");
   if (btnLockLicense) {
@@ -438,7 +463,7 @@ function bindEvents() {
     if (!key) {
       if (msgEl) {
         msgEl.style.color = "var(--fin-down)";
-        msgEl.textContent = "Please enter a valid license key.";
+        msgEl.textContent = "Please enter your Lemon Squeezy Pro license key.";
       }
       return;
     }
@@ -462,13 +487,14 @@ function bindEvents() {
       } else {
         if (msgEl) {
           msgEl.style.color = "var(--fin-down)";
-          msgEl.textContent = res.message || "Invalid key. Use PRO-DEMO-2026 for demo.";
+          msgEl.textContent =
+            res.message || "Invalid or expired license key. Please verify your Lemon Squeezy receipt or subscribe below.";
         }
       }
     } catch (err) {
       if (msgEl) {
         msgEl.style.color = "var(--fin-down)";
-        msgEl.textContent = "Validation error. Try PRO-DEMO-2026.";
+        msgEl.textContent = "Unable to verify license key. Please check your key and try again.";
       }
     }
   };
@@ -618,7 +644,7 @@ function bindEvents() {
       const ytUrl = document.getElementById("cfgYoutubeUrl")?.value.trim() || state.config.youtube_url || DEFAULT_YOUTUBE_URL;
       const igUrl = document.getElementById("cfgInstagramUrl")?.value.trim() || state.config.instagram_url || DEFAULT_INSTAGRAM_URL;
       const tvId = document.getElementById("cfgAffTv")?.value.trim() || "1173809";
-      const saSrc = document.getElementById("cfgAffSa")?.value.trim() || "affiliate_rightside";
+      const saSrc = document.getElementById("cfgAffSa")?.value.trim() || "better_life333";
       const brkName = document.getElementById("cfgBrokerName")?.value.trim() || "Bitget (7nja)";
       const brkUrl =
         document.getElementById("cfgBrokerUrl")?.value.trim() ||
@@ -1161,11 +1187,11 @@ function bindEvents() {
   if (btnDownloadSemiCsv) {
     btnDownloadSemiCsv.addEventListener("click", async () => {
       if (!state.isProUnlocked) {
-        openLicenseModal(true);
-        showToast("Enter PRO-DEMO-2026 to unlock the 26-Year Daily CSV Dataset");
+        openLicenseModal(false);
+        showToast("Unlock Pro ($29/mo or $199 Lifetime) to download the 26-Year Daily CSV Dataset");
         return;
       }
-      const key = encodeURIComponent(state.licenseKey || "PRO-DEMO-2026");
+      const key = encodeURIComponent(state.licenseKey || "");
       try {
         const check = await fetch(`/api/semi/pro/csv?license_key=${key}`, {
           method: "HEAD",
@@ -1196,7 +1222,7 @@ function bindRowEvents() {
         licenseModal.style.display = "flex";
         const inputEl = document.getElementById("licenseInput");
         if (inputEl && !inputEl.value.trim()) {
-          inputEl.value = state.licenseKey || "PRO-DEMO-2026";
+          inputEl.value = state.licenseKey || "";
         }
       }
     });
@@ -1232,7 +1258,7 @@ function bindRowEvents() {
           const ts = encodeURIComponent(state.config.trendspider_aff_id || "rightside");
           window.open(`https://trendspider.com/?_go=${ts}&symbol=${ticker}`, "_blank", "noopener");
         } else {
-          const src = encodeURIComponent(state.config.seekingalpha_source || "affiliate_rightside");
+          const src = encodeURIComponent(state.config.seekingalpha_source || "better_life333");
           window.open(`https://seekingalpha.com/symbol/${ticker}/earnings?source=${src}`, "_blank", "noopener");
         }
       }

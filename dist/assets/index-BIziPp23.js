@@ -59,7 +59,7 @@ const translations = {
     vaultBadgeLocked: "PRO ANALYTICS TERMINAL · LOCKED (ENTER LICENSE KEY)",
     vaultBadgeUnlocked: "PRO ANALYTICS TERMINAL · FULL INSTITUTIONAL ACCESS",
     vaultTitle: "Institutional Execution & Risk Management Suite",
-    vaultUnlockBtn: "Demo Unlock (Key: PRO-DEMO-2026)",
+    vaultUnlockBtn: "🔑 Unlock Pro ($29/mo)",
     tool1Title: "MODULE 01 · POSITION RISK & 55-DAY TIME-STOP ENGINE",
     tool1Sub: "Asymmetric Exit & Opportunity-Cost Diagnostic",
     tool1Desc: "Input your US equity cost basis and holding period. Evaluates the 4 quantitative exit rules (-9% Capital Protection Stop, 55-Day +8% Time-Stop, 25-Day Momentum Switch, and +100% TP1 Principal Harvest).",
@@ -159,7 +159,7 @@ const translations = {
     vaultBadgeLocked: "PRO アナリティクスターミナル · ロック中 (要ライセンスキー)",
     vaultBadgeUnlocked: "PRO アナリティクスターミナル · 全機能アンロック済",
     vaultTitle: "機関投資家向けエグゼキューション＆リスク管理スイート",
-    vaultUnlockBtn: "デモ解除 (キー: PRO-DEMO-2026)",
+    vaultUnlockBtn: "🔑 Proをアンロック ($29/月)",
     tool1Title: "MODULE 01 · ポジションリスク＆55日タイムストップ診断",
     tool1Sub: "非対称エグジット＆機会損失シミュレーター",
     tool1Desc: "米国株の取得単価と保有営業日数を入力してください。4大定量エグジット原則（-9%ハード損切、55日+8%タイムストップ、25日モメンタム乗換、+100%元本回収）を即時判定します。",
@@ -257,7 +257,7 @@ const translations = {
     vaultBadgeLocked: "PRO 애널리틱스 터미널 · 잠김 (라이선스 키 입력 필요)",
     vaultBadgeUnlocked: "PRO 애널리틱스 터미널 · 전 기능 활성화됨",
     vaultTitle: "기관급 포지션 리스크 관리 & SEC 1차 공시 리서치 스위트",
-    vaultUnlockBtn: "데모 즉시 해제 (키: PRO-DEMO-2026)",
+    vaultUnlockBtn: "🔑 Pro 잠금 해제 ($29/월)",
     tool1Title: "MODULE 01 · 보유 포지션 리스크 & 55일 시간손절 판독기",
     tool1Sub: "비대칭 청산 원칙 및 기회비용 정밀 진단",
     tool1Desc: "미국 주식 매수 단가($)와 보유 거래일수를 입력하세요. 4대 정량 청산 원칙(-9% 칼손절 방어, 55일 +8% 미만 시간손절, 25일 모멘텀 교체, +100% 도달 시 원금 반절 회수)을 즉시 산출합니다.",
@@ -638,7 +638,7 @@ async function validateLicense(licenseKey) {
         expires_at: valid ? "2099-12-31T23:59:59Z" : null,
         message: valid
           ? "Pro Terminal License Verified."
-          : "Invalid license key. Use PRO-DEMO-2026 for demo.",
+          : "Invalid or expired license key. Please verify your Lemon Squeezy receipt or subscribe below.",
       };
     }
   );
@@ -1269,9 +1269,13 @@ async function buildClientTelegramPreview({
   };
 
   const buildRsaText = () => {
-    const asOf = ignStocks[0]?.date || "2026-10-13";
+    const asOf = ignStocks[0]?.date || "2026-10-30";
+    const proUnlocked = isProActive();
     const rows = ignStocks
       .map((s, idx) => {
+        if (!proUnlocked && idx >= 1) {
+          return `${idx + 1}. 🔒 VIP IGNITION #${idx + 1} — Unlock Pro at truthofmarket.com`;
+        }
         const trig = s.entry_trigger_price ?? s.ma60_price ?? s.close;
         const stopP = s.stop_loss_price ?? Number((s.close * 0.91).toFixed(2));
         const tp1P = s.tp1_2x_price ?? Number((s.close * 2.0).toFixed(2));
@@ -1725,7 +1729,10 @@ function renderHeader(state) {
   );
   const ytUrl = state.config?.youtube_url || "https://youtube.com/@rightsidealpha";
   const igUrl = state.config?.instagram_url || "https://www.instagram.com/semifeargreed";
-  const tgUrl = isPro ? (state.config?.telegram_channel_url || "https://t.me/+a6Sl2yLirbwyODQ1") : "#pro-vip-telegram";
+  const tgUrl = isPro ? (state.config?.telegram_vip_channel_url || "https://t.me/+a6Sl2yLirbwyODQ1") : "#pro-vip-telegram";
+  const isAdminMode =
+    (typeof window !== "undefined" && new URLSearchParams(window.location.search).get("admin") === "1") ||
+    Boolean(state.isAdminAuthenticated);
 
   return `
     <!-- INSTITUTIONAL MARKET TAPE RIBBON -->
@@ -1865,13 +1872,17 @@ function renderHeader(state) {
             <span style="width:6px; height:6px; border-radius:50%; background:${isPro ? "var(--fin-up)" : "#f59e0b"}; display:inline-block;"></span>
           </a>
 
-          <button class="btn" id="btnOpenConfig">
+          ${
+            isAdminMode
+              ? `<button class="btn" id="btnOpenConfig">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <circle cx="12" cy="12" r="3"></circle>
               <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
             </svg>
             <span id="btnAdmin">${t.btnAdmin}</span>
-          </button>
+          </button>`
+              : ""
+          }
 
           <a
             class="btn btn-primary lemonsqueezy-button"
@@ -2155,6 +2166,7 @@ function renderStockRows(state) {
       // Free users get 1 full sample row (idx === 0 or CELH); all other rows require Pro license
       const isFreeSample = idx === 0 || s.ticker === "CELH";
       const isVipIgnitionLocked = !isPro && s.zone_code === "IGNITION_ZONE" && !isFreeSample;
+      const isLockedRow = isVipIgnitionLocked;
       const calcTrig = s.entry_trigger_price ?? s.ma60_price ?? Number((closeVal * 1.02).toFixed(2));
       const calcStop = s.stop_loss_price ?? Number((closeVal * 0.91).toFixed(2));
       const calcTp1 = s.tp1_2x_price ?? Number((closeVal * 2.0).toFixed(2));
@@ -2185,7 +2197,7 @@ function renderStockRows(state) {
       const saUrl = `https://seekingalpha.com/symbol/${encodeURIComponent(s.ticker)}/earnings?source=${saSource}`;
       const brokerUrl = `${rawBrokerUrl}${brokerSep}symbol=${encodeURIComponent(s.ticker)}`;
 
-      const tickerCellHtml = isVipIgnitionLocked
+      const tickerCellHtml = isLockedRow
         ? `<div class="btn-unlock-row" style="cursor:pointer;" title="Click to unlock VIP Ignition Pick">
              <div style="display:flex; align-items:center; gap:7px;">
                <span class="mono" style="font-weight:800; font-size:0.86rem; color:#fbbf24; background:rgba(245,158,11,0.14); border:1px solid rgba(245,158,11,0.4); padding:2px 7px; border-radius:4px;">
@@ -2207,7 +2219,7 @@ function renderStockRows(state) {
            </div>`;
 
       return `
-      <tr data-ticker="${s.ticker}">
+      <tr data-ticker="${isLockedRow ? "LOCKED" : s.ticker}">
         <td>
           ${tickerCellHtml}
         </td>
@@ -2231,7 +2243,7 @@ function renderStockRows(state) {
           </div>
         </td>
         <td>
-          <div class="mono" style="font-weight:700; color:#ffffff;" title="Latest Close Date: ${s.date || "2026-10-13"}">$${closeVal.toFixed(2)}</div>
+          <div class="mono" style="font-weight:700; color:#ffffff;" title="Latest Close Date: ${s.date || "2026-10-30"}">$${closeVal.toFixed(2)}</div>
           <div class="range-52w-wrap" title="52W Range: $${low52.toFixed(2)} – $${high52.toFixed(2)}">
             <div class="range-52w-track">
               <div class="range-52w-fill" style="width:${rangePct}%;"></div>
@@ -2262,6 +2274,10 @@ function renderStockRows(state) {
         <td>${triggerHtml}</td>
         <td>
           <div style="display:flex; gap:5px;">
+            ${
+              isLockedRow
+                ? `<button class="btn btn-sm btn-unlock-row">🔒 Unlock Pro ($29/mo)</button>`
+                : `
             <button class="btn btn-sm btn-share-card" data-ticker="${s.ticker}" title="Export Institutional Tear Sheet PNG">
               PNG
             </button>
@@ -2274,6 +2290,8 @@ function renderStockRows(state) {
             <a class="btn btn-sm" href="${brokerUrl}" target="_blank" rel="noopener noreferrer" title="Execute Trade on Partner Broker / Exchange" style="border-color:rgba(16,185,129,0.4); color:#34d399;">
               Trade ↗
             </a>
+            `
+            }
           </div>
         </td>
       </tr>
@@ -2376,7 +2394,7 @@ plotshape(ignition and not ignition[1], "PW-RSI IGNITION", shape.labelup, locati
           </div>
           <a
             class="btn btn-sm"
-            href="${isPro ? "https://t.me/+a6Sl2yLirbwyODQ1" : "#pricingSection"}"
+            href="${isPro ? (state.config?.telegram_vip_channel_url || "https://t.me/+a6Sl2yLirbwyODQ1") : "#pricingSection"}"
             ${isPro ? 'target="_blank" rel="noopener noreferrer"' : ""}
             style="background:#0284c7; border-color:#38bdf8; color:#ffffff; font-weight:800; padding:8px 14px;"
           >
@@ -2416,12 +2434,27 @@ plotshape(ignition and not ignition[1], "PW-RSI IGNITION", shape.labelup, locati
             <tbody>
               ${topIgnitions
                 .map((s, idx) => {
+                  const lockedVip = !isPro && idx >= 1;
                   const c = Number(s.close || 25);
                   const trig = Number(s.entry_trigger_price ?? s.ma60_price ?? c).toFixed(2);
                   const stp = Number(s.stop_loss_price ?? c * 0.91).toFixed(2);
                   const tp1 = Number(s.tp1_2x_price ?? c * 2.0).toFixed(2);
                   const sh = Math.max(1, Math.floor(perSlotUsd / c));
                   const maxLossUsd = Math.round(sh * c * 0.09);
+                  if (lockedVip) {
+                    return `
+                    <tr>
+                      <td class="mono" style="font-weight:800; color:#fbbf24;">🔒 VIP IGNITION #${idx + 1} <span style="color:var(--muted); font-weight:500;">(${s.sector})</span></td>
+                      <td class="mono" style="color:var(--fin-up); font-weight:800;">${s.score}/100</td>
+                      <td class="mono">🔒 PRO</td>
+                      <td class="mono" style="color:#60a5fa; font-weight:700;">🔒 PRO</td>
+                      <td class="mono" style="color:var(--fin-down); font-weight:700;">🔒 PRO</td>
+                      <td class="mono" style="color:var(--fin-up); font-weight:700;">🔒 PRO</td>
+                      <td class="mono" style="color:#ffffff; font-weight:800;">🔒 Unlock Pro ($29/mo)</td>
+                      <td class="mono" style="color:var(--fin-amber);">-$${maxLossUsd.toLocaleString()} (-1.35% Eq)</td>
+                    </tr>
+                  `;
+                  }
                   return `
                     <tr>
                       <td class="mono" style="font-weight:800; color:#ffffff;">#${idx + 1} $${s.ticker} <span style="color:var(--muted); font-weight:500;">(${s.sector})</span></td>
@@ -2780,9 +2813,13 @@ function renderModals(state) {
             </h3>
           </div>
           <div style="display:flex; gap:6px; flex-wrap:wrap;">
-            <a class="btn btn-sm" id="tgModalSetupBoardBtn" href="./instagram_us_setup.html" target="_blank" rel="noopener noreferrer" style="background:rgba(239,68,68,0.16); border-color:rgba(239,68,68,0.55); color:#fca5a5; font-weight:700;">
+            ${
+              state.isAdminAuthenticated
+                ? `<a class="btn btn-sm" id="tgModalSetupBoardBtn" href="./instagram_us_setup.html" target="_blank" rel="noopener noreferrer" style="background:rgba(239,68,68,0.16); border-color:rgba(239,68,68,0.55); color:#fca5a5; font-weight:700;">
               🎬 YouTube & IG Setup Board ↗
-            </a>
+            </a>`
+                : ""
+            }
             <a class="btn btn-sm" id="tgModalYtBtn" href="${ytUrl}" target="_blank" rel="noopener noreferrer" style="border-color:rgba(239,68,68,0.45); color:#fca5a5;">
               📺 YouTube ↗
             </a>
@@ -2796,25 +2833,33 @@ function renderModals(state) {
         </div>
 
         <p style="color:var(--muted); font-size:0.8rem; margin-top:6px; margin-bottom:12px; line-height:1.5;">
-          Official Broadcast Channel <a href="https://t.me/truthofmarketss" target="_blank" rel="noopener noreferrer" style="color:#38bdf8; font-weight:700;">t.me/truthofmarketss</a> (<code class="mono" style="color:#93c5fd;">@truthofmarketss</code>) is connected with Admin Bot <a href="https://t.me/SemifearGreedbot" target="_blank" rel="noopener noreferrer" style="color:#38bdf8; font-weight:700;">@SemifearGreedbot</a> for automated English US Market & Semiconductor daily briefings.
+          Join our Official Broadcast Channel <a href="${tgChannelUrl}" target="_blank" rel="noopener noreferrer" style="color:#38bdf8; font-weight:700;">t.me/truthofmarketss</a> (<code class="mono" style="color:#93c5fd;">@truthofmarketss</code>) for automated daily US Market & Semiconductor briefings.
         </p>
 
-        <div class="semi-form-grid-2" style="margin-bottom:8px;">
+        ${
+          state.isAdminAuthenticated
+            ? `<div class="semi-form-grid-2" style="margin-bottom:8px;">
           <div>
             <label style="font-size:0.68rem; color:var(--muted); font-family:var(--font-mono);">TELEGRAM BOT PROFILE (@BotFather)</label>
             <input type="text" id="tgBotTokenInput" value="${tgToken}" placeholder="DEMO-BOT-TOKEN" autocomplete="off" style="margin:4px 0 0; -webkit-text-security:disc;" />
           </div>
           <div>
             <label style="font-size:0.68rem; color:var(--muted); font-family:var(--font-mono);">CHAT ID OR @CHANNEL USERNAME</label>
-            <input type="text" id="tgChatIdInput" value="${tgChatId}" placeholder="@SemiFearGreed or 123456789" autocomplete="off" style="margin:4px 0 0;" />
+            <input type="text" id="tgChatIdInput" value="${tgChatId}" placeholder="@truthofmarketss" autocomplete="off" style="margin:4px 0 0;" />
           </div>
-        </div>
+        </div>`
+            : ""
+        }
 
-        <div class="semi-form-grid-2" style="margin-bottom:10px;">
-          <div>
+        <div class="${state.isAdminAuthenticated ? "semi-form-grid-2" : ""}" style="margin-bottom:10px;">
+          ${
+            state.isAdminAuthenticated
+              ? `<div>
             <label style="font-size:0.68rem; color:var(--muted); font-family:var(--font-mono);">PUBLIC CHANNEL URL (HEADER / FOOTER LINK)</label>
-            <input type="text" id="tgChannelUrlInput" value="${tgChannelUrl}" placeholder="https://t.me/SemiFearGreed" style="margin:4px 0 0;" />
-          </div>
+            <input type="text" id="tgChannelUrlInput" value="${tgChannelUrl}" placeholder="https://t.me/truthofmarketss" style="margin:4px 0 0;" />
+          </div>`
+              : ""
+          }
           <div>
             <label style="font-size:0.68rem; color:var(--muted); font-family:var(--font-mono);">BRIEFING TEMPLATE</label>
             <select id="tgAlertTypeSelect" style="width:100%; padding:9px 10px; margin-top:4px; background:#060911; border:1px solid var(--border); color:#fff; border-radius:4px; font-family:var(--font-sans); font-size:0.82rem; font-weight:600;">
@@ -2822,7 +2867,11 @@ function renderModals(state) {
               <option value="RSA_IGNITION" ${tgType === "RSA_IGNITION" ? "selected" : ""}>2. RightSideAlpha US Top 5 Ignition Signals</option>
               <option value="FULL_DAILY" ${tgType === "FULL_DAILY" ? "selected" : ""}>3. Full Combined Daily Briefing (Semi + US Stocks)</option>
               <option value="POSITION_DOCTOR" ${tgType === "POSITION_DOCTOR" ? "selected" : ""}>4. Position Doctor Diagnostic ($CELH)</option>
-              <option value="TEST_PING" ${tgType === "TEST_PING" ? "selected" : ""}>5. Bot Connection Verification Ping</option>
+              ${
+                state.isAdminAuthenticated
+                  ? `<option value="TEST_PING" ${tgType === "TEST_PING" ? "selected" : ""}>5. Bot Connection Verification Ping</option>`
+                  : ""
+              }
             </select>
           </div>
         </div>
@@ -2832,7 +2881,11 @@ function renderModals(state) {
             LIVE BRIEFING PREVIEW (VERIFIED LATEST CLOSES)
           </span>
           <div style="display:flex; gap:6px;">
-            <button class="btn btn-sm" id="btnVerifyTelegram" title="Test Bot Token with Telegram API">Verify & Save Bot</button>
+            ${
+              state.isAdminAuthenticated
+                ? `<button class="btn btn-sm" id="btnVerifyTelegram" title="Test Bot Token with Telegram API">Verify & Save Bot</button>`
+                : ""
+            }
             <button class="btn btn-sm" id="btnPreviewTelegram">Refresh Preview</button>
             <button class="btn btn-sm" id="btnCopyTelegramMsg">Copy Text</button>
           </div>
@@ -2844,13 +2897,20 @@ function renderModals(state) {
 
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
           <span class="mono" style="font-size:0.68rem; color:var(--muted);">
-            Webhook Commands: /semi · /ignition · /price CELH · /doctor CELH 27.20 42
+            Official Channel: @truthofmarketss · Live Daily Briefings
           </span>
           <div style="display:flex; gap:8px;">
             <button class="btn" id="btnCloseTelegram">Close</button>
-            <button class="btn btn-primary" id="btnSendTelegramNow" style="background:#0284c7; border-color:#38bdf8;">
+            <a class="btn btn-primary" href="${tgChannelUrl}" target="_blank" rel="noopener noreferrer" style="background:#0284c7; border-color:#38bdf8;">
+              Join Telegram Channel ↗
+            </a>
+            ${
+              state.isAdminAuthenticated
+                ? `<button class="btn btn-primary" id="btnSendTelegramNow" style="background:#059669; border-color:#10b981;">
               Send Briefing to Telegram ↗
-            </button>
+            </button>`
+                : ""
+            }
           </div>
         </div>
       </div>
@@ -2934,7 +2994,7 @@ function renderModals(state) {
         <input type="text" id="cfgAffTv" value="${cfg.tradingview_aff_id || "1173809"}" />
 
         <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">SEEKING ALPHA PARTNER SOURCE TAG</label>
-        <input type="text" id="cfgAffSa" value="${cfg.seekingalpha_source || "affiliate_rightside"}" />
+        <input type="text" id="cfgAffSa" value="${cfg.seekingalpha_source || "better_life333"}" />
 
         <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">BROKER / EXCHANGE PARTNER LABEL (E.G. BITGET / IBKR)</label>
         <input type="text" id="cfgBrokerName" value="${cfg.broker_name || "Bitget (7nja)"}" />
@@ -3307,7 +3367,7 @@ function renderSemiFearGreedView(state) {
           </a>
           <a
             class="btn ${state.isProUnlocked ? "" : "btn-gated-vip-tg"}"
-            href="${state.isProUnlocked ? (state.config?.telegram_channel_url || "https://t.me/+a6Sl2yLirbwyODQ1") : "#pro-vip-telegram"}"
+            href="${state.isProUnlocked ? (state.config?.telegram_vip_channel_url || "https://t.me/+a6Sl2yLirbwyODQ1") : "#pro-vip-telegram"}"
             ${state.isProUnlocked ? 'target="_blank" rel="noopener noreferrer"' : ""}
             style="background:#0284c7; color:#ffffff; border-color:#0369a1;"
           >
@@ -3515,11 +3575,15 @@ function renderSemiFearGreedView(state) {
               <option value="WEEKLY" ${state.semiFreq === "WEEKLY" ? "selected" : ""}>Weekly Rebalance (High Tax Drag)</option>
             </select>
           </div>
-          <div>
+          ${
+            lang === "kr"
+              ? `<div>
             <label style="font-size:0.68rem; font-family:var(--font-mono); color:var(--muted);">UNREALIZED GAIN (₩ KRW · TAX HARVESTER)</label>
             <input type="number" id="semiGainKrwInput" value="${state.semiGainKrw ?? 3800000}" step="100000"
                    style="width:100%; padding:8px 10px; background:#060911; border:1px solid var(--border); color:#fff; border-radius:4px; font-family:var(--font-mono); margin-top:3px;" />
-          </div>
+          </div>`
+              : ""
+          }
         </div>
 
         <button class="btn btn-emerald" id="btnRunSemiRebalance" style="width:100%; justify-content:center; padding:9px;">
@@ -3534,7 +3598,11 @@ function renderSemiFearGreedView(state) {
               ${lang === "jp" ? rebal.active_rule_jp : lang === "kr" ? rebal.active_rule_kr : rebal.active_rule_en}
             </div>
             <div class="mono" style="font-size:0.71rem; color:#93c5fd; margin-bottom:8px;">
-              Latest Close Basis (${rebal.as_of_date || ov.date}): $SMH @ $${Number(rebal.smh_close ?? ov.smh_close).toFixed(2)} · $XLV @ $${Number(rebal.xlv_close ?? ov.xlv_close).toFixed(2)} · FX ₩${Number(rebal.usdkrw ?? ov.usdkrw).toLocaleString()}/$ · Total ₩${Number(rebal.total_capital_krw ?? 0).toLocaleString()}
+              Latest Close Basis (${rebal.as_of_date || ov.date}): $SMH @ $${Number(rebal.smh_close ?? ov.smh_close).toFixed(2)} · $XLV @ $${Number(rebal.xlv_close ?? ov.xlv_close).toFixed(2)}${
+                lang === "kr"
+                  ? ` · FX ₩${Number(rebal.usdkrw ?? ov.usdkrw).toLocaleString()}/$ · Total ₩${Number(rebal.total_capital_krw ?? 0).toLocaleString()}`
+                  : ` · Total Capital $${Number(rebal.total_capital_usd ?? state.semiCapUsd ?? 100000).toLocaleString()}`
+              }
             </div>
             <div class="semi-form-grid-2" style="margin-bottom:10px;">
               <div style="background:#0c1220; padding:10px; border-radius:4px; border:1px solid var(--border);">
@@ -3557,10 +3625,12 @@ function renderSemiFearGreedView(state) {
               </div>
             </div>
             <div style="font-size:0.75rem; color:var(--text-secondary); line-height:1.45; border-top:1px solid var(--border); padding-top:8px;">
-              <div><b>KRW 2.5M Tax-Free Harvester:</b> ${
-                lang === "jp" ? rebal.kr_tax_guidance_jp : lang === "kr" ? rebal.kr_tax_guidance_kr : rebal.kr_tax_guidance_en
-              }</div>
-              <div class="mono" style="color:var(--muted); margin-top:4px;">
+              ${
+                lang === "kr"
+                  ? `<div style="margin-bottom:4px;"><b>KRW 2.5M Tax-Free Harvester:</b> ${rebal.kr_tax_guidance_kr}</div>`
+                  : ""
+              }
+              <div class="mono" style="color:var(--muted);">
                 Residual Cash: $${Number(rebal.residual_cash_usd ?? 0).toFixed(2)} · Est. Annual Tax & Turnover Drag (${rebal.rebalance_frequency}): -${rebal.estimated_tax_drag_pct}%/yr · Expected Net 15Y Rate: +${rebal.expected_net_cagr_pct}%/yr
               </div>
             </div>
@@ -3752,21 +3822,38 @@ const defaultView =
 // Auto-migrate any stale legacy placeholder URLs stored in localStorage
 (function migrateLegacyLocalStorage() {
   try {
-    if (!localStorage.getItem("rsa_lang_v3_en")) {
-      localStorage.setItem("rsa_lang", "en");
-      localStorage.setItem("rsa_lang_v3_en", "1");
+    if (localStorage.getItem("rsa_lang_v3_en") && !localStorage.getItem("rsa_lang_v4_auto")) {
+      localStorage.removeItem("rsa_lang");
+      localStorage.removeItem("rsa_lang_v3_en");
+      localStorage.setItem("rsa_lang_v4_auto", "1");
+    }
+    const oldSite1 = localStorage.getItem("rsa_cfg_site1_url") || "";
+    if (oldSite1.includes("getbreakai.com")) {
+      localStorage.setItem("rsa_cfg_site1_url", "https://truthofmarket.com");
     }
     const oldM = localStorage.getItem("rsa_cfg_ls_monthly") || "";
-    if (oldM.includes("rightsidealpha.lemonsqueezy.com") || oldM.includes("d5e7e761")) {
+    if (
+      oldM.includes("rightsidealpha.lemonsqueezy.com") ||
+      oldM.includes("pro-monthly") ||
+      oldM.includes("d5e7e761")
+    ) {
       localStorage.removeItem("rsa_cfg_ls_monthly");
     }
     const oldL = localStorage.getItem("rsa_cfg_ls_ltd") || "";
-    if (oldL.includes("rightsidealpha.lemonsqueezy.com") || oldL.includes("667aa482")) {
+    if (
+      oldL.includes("rightsidealpha.lemonsqueezy.com") ||
+      oldL.includes("lifetime-pass") ||
+      oldL.includes("667aa482")
+    ) {
       localStorage.removeItem("rsa_cfg_ls_ltd");
     }
     const oldTv = localStorage.getItem("rsa_cfg_aff_tv") || "";
     if (oldTv === "rightsidealpha") {
       localStorage.setItem("rsa_cfg_aff_tv", "1173809");
+    }
+    const oldSa = localStorage.getItem("rsa_cfg_aff_sa") || "";
+    if (oldSa === "affiliate_rightside") {
+      localStorage.setItem("rsa_cfg_aff_sa", "better_life333");
     }
     const oldBrk = localStorage.getItem("rsa_cfg_broker_url") || "";
     if (oldBrk.includes("ibkr.com/referral/rightsidealpha") || oldBrk.includes("partner.bitget.com")) {
@@ -3784,8 +3871,21 @@ const defaultView =
   } catch (_) {}
 })();
 
+function detectInitialLang() {
+  try {
+    const saved = localStorage.getItem("rsa_lang");
+    if (saved && (saved === "kr" || saved === "en" || saved === "jp")) {
+      return saved;
+    }
+    const navLang = (navigator.language || navigator.userLanguage || "en").toLowerCase();
+    if (navLang.startsWith("ko")) return "kr";
+    if (navLang.startsWith("ja")) return "jp";
+  } catch (_) {}
+  return "en";
+}
+
 const state = {
-  lang: localStorage.getItem("rsa_lang") || "en",
+  lang: detectInitialLang(),
   activeView: defaultView,
   isAdminAuthenticated: sessionStorage.getItem("rsa_admin_auth") === "true",
   isProUnlocked: localStorage.getItem("rsa_pro_unlocked") === "true",
@@ -3834,6 +3934,7 @@ const state = {
     broker_referral_url:
       localStorage.getItem("rsa_cfg_broker_url") || "https://www.bitget.com/referral/register?clacCode=7nja",
     telegram_channel_url: localStorage.getItem("rsa_tg_channel_url") || "https://t.me/truthofmarketss",
+    telegram_vip_channel_url: localStorage.getItem("rsa_tg_vip_channel_url") || "https://t.me/+a6Sl2yLirbwyODQ1",
     telegram_chat_id: localStorage.getItem("rsa_tg_chat_id") || "@truthofmarketss",
     youtube_url: localStorage.getItem("rsa_cfg_youtube_url") || DEFAULT_YOUTUBE_URL,
     instagram_url: localStorage.getItem("rsa_cfg_instagram_url") || DEFAULT_INSTAGRAM_URL,
@@ -3863,7 +3964,10 @@ function applyClientFilterAndSort() {
     if (!s.ticker || String(s.ticker).includes(".")) return false;
     if (z !== "ALL" && s.zone_code !== z) return false;
     if (q) {
-      const hay = `${s.ticker} ${s.name_en} ${s.name_jp} ${s.name_kr} ${s.sector}`.toLowerCase();
+      const isLockedRow = !state.isProUnlocked && s.zone_code === "IGNITION_ZONE" && s.ticker !== "CELH";
+      const hay = isLockedRow
+        ? `vip ignition locked pro ${s.sector}`.toLowerCase()
+        : `${s.ticker} ${s.name_en} ${s.name_jp} ${s.name_kr} ${s.sector}`.toLowerCase();
       if (!hay.includes(q)) return false;
     }
     return true;
@@ -3937,7 +4041,7 @@ function renderApp() {
           </a>
           <span style="color:var(--border);">|</span>
           <a
-            href="${state.isProUnlocked ? (state.config.telegram_channel_url || "https://t.me/+a6Sl2yLirbwyODQ1") : "#pro-vip-telegram"}"
+            href="${state.isProUnlocked ? (state.config.telegram_vip_channel_url || "https://t.me/+a6Sl2yLirbwyODQ1") : "#pro-vip-telegram"}"
             class="${state.isProUnlocked ? "" : "btn-gated-vip-tg"}"
             ${state.isProUnlocked ? 'target="_blank" rel="noopener noreferrer"' : ""}
             style="color:#38bdf8; text-decoration:none; font-weight:600;"
@@ -4061,13 +4165,13 @@ function bindEvents() {
 
   // License Modal Controls
   const licenseModal = document.getElementById("licenseModal");
-  const openLicenseModal = (prefillDemo = false, customNotice = "") => {
+  const openLicenseModal = (_prefill = false, customNotice = "") => {
     if (!licenseModal) return;
     licenseModal.style.display = "flex";
     const inputEl = document.getElementById("licenseInput");
     const msgEl = document.getElementById("licenseMsg");
-    if (inputEl && prefillDemo && !inputEl.value.trim()) {
-      inputEl.value = state.licenseKey || "PRO-DEMO-2026";
+    if (inputEl && !inputEl.value.trim()) {
+      inputEl.value = state.licenseKey || "";
     }
     if (msgEl && customNotice) {
       msgEl.style.color = "#93c5fd";
@@ -4084,14 +4188,14 @@ function bindEvents() {
   const proStatusBadge = document.getElementById("proStatusBadge");
   if (proStatusBadge) {
     proStatusBadge.style.cursor = "pointer";
-    proStatusBadge.addEventListener("click", () => openLicenseModal(true));
+    proStatusBadge.addEventListener("click", () => openLicenseModal(false));
   }
 
   const vaultUnlockBtn = document.getElementById("vaultUnlockBtn");
-  if (vaultUnlockBtn) vaultUnlockBtn.addEventListener("click", () => openLicenseModal(true));
+  if (vaultUnlockBtn) vaultUnlockBtn.addEventListener("click", () => openLicenseModal(false));
 
   const vaultOverlayUnlock = document.getElementById("vaultOverlayUnlock");
-  if (vaultOverlayUnlock) vaultOverlayUnlock.addEventListener("click", () => openLicenseModal(true));
+  if (vaultOverlayUnlock) vaultOverlayUnlock.addEventListener("click", () => openLicenseModal(false));
 
   // Gated Pro VIP Telegram Channel buttons -> open License / Subscribe modal for Free users
   document.querySelectorAll(".btn-gated-vip-tg").forEach((el) => {
@@ -4108,15 +4212,6 @@ function bindEvents() {
 
   const btnCancelLicense = document.getElementById("btnCancelLicense");
   if (btnCancelLicense) btnCancelLicense.addEventListener("click", closeLicenseModal);
-
-  const btnFillDemoKey = document.getElementById("btnFillDemoKey");
-  if (btnFillDemoKey) {
-    btnFillDemoKey.addEventListener("click", () => {
-      const inputEl = document.getElementById("licenseInput");
-      if (inputEl) inputEl.value = "PRO-DEMO-2026";
-      verifyLicenseFlow();
-    });
-  }
 
   const btnLockLicense = document.getElementById("btnLockLicense");
   if (btnLockLicense) {
@@ -4139,7 +4234,7 @@ function bindEvents() {
     if (!key) {
       if (msgEl) {
         msgEl.style.color = "var(--fin-down)";
-        msgEl.textContent = "Please enter a valid license key.";
+        msgEl.textContent = "Please enter your Lemon Squeezy Pro license key.";
       }
       return;
     }
@@ -4163,13 +4258,14 @@ function bindEvents() {
       } else {
         if (msgEl) {
           msgEl.style.color = "var(--fin-down)";
-          msgEl.textContent = res.message || "Invalid key. Use PRO-DEMO-2026 for demo.";
+          msgEl.textContent =
+            res.message || "Invalid or expired license key. Please verify your Lemon Squeezy receipt or subscribe below.";
         }
       }
     } catch (err) {
       if (msgEl) {
         msgEl.style.color = "var(--fin-down)";
-        msgEl.textContent = "Validation error. Try PRO-DEMO-2026.";
+        msgEl.textContent = "Unable to verify license key. Please check your key and try again.";
       }
     }
   };
@@ -4319,7 +4415,7 @@ function bindEvents() {
       const ytUrl = document.getElementById("cfgYoutubeUrl")?.value.trim() || state.config.youtube_url || DEFAULT_YOUTUBE_URL;
       const igUrl = document.getElementById("cfgInstagramUrl")?.value.trim() || state.config.instagram_url || DEFAULT_INSTAGRAM_URL;
       const tvId = document.getElementById("cfgAffTv")?.value.trim() || "1173809";
-      const saSrc = document.getElementById("cfgAffSa")?.value.trim() || "affiliate_rightside";
+      const saSrc = document.getElementById("cfgAffSa")?.value.trim() || "better_life333";
       const brkName = document.getElementById("cfgBrokerName")?.value.trim() || "Bitget (7nja)";
       const brkUrl =
         document.getElementById("cfgBrokerUrl")?.value.trim() ||
@@ -4862,11 +4958,11 @@ function bindEvents() {
   if (btnDownloadSemiCsv) {
     btnDownloadSemiCsv.addEventListener("click", async () => {
       if (!state.isProUnlocked) {
-        openLicenseModal(true);
-        showToast("Enter PRO-DEMO-2026 to unlock the 26-Year Daily CSV Dataset");
+        openLicenseModal(false);
+        showToast("Unlock Pro ($29/mo or $199 Lifetime) to download the 26-Year Daily CSV Dataset");
         return;
       }
-      const key = encodeURIComponent(state.licenseKey || "PRO-DEMO-2026");
+      const key = encodeURIComponent(state.licenseKey || "");
       try {
         const check = await fetch(`/api/semi/pro/csv?license_key=${key}`, {
           method: "HEAD",
@@ -4897,7 +4993,7 @@ function bindRowEvents() {
         licenseModal.style.display = "flex";
         const inputEl = document.getElementById("licenseInput");
         if (inputEl && !inputEl.value.trim()) {
-          inputEl.value = state.licenseKey || "PRO-DEMO-2026";
+          inputEl.value = state.licenseKey || "";
         }
       }
     });
@@ -4933,7 +5029,7 @@ function bindRowEvents() {
           const ts = encodeURIComponent(state.config.trendspider_aff_id || "rightside");
           window.open(`https://trendspider.com/?_go=${ts}&symbol=${ticker}`, "_blank", "noopener");
         } else {
-          const src = encodeURIComponent(state.config.seekingalpha_source || "affiliate_rightside");
+          const src = encodeURIComponent(state.config.seekingalpha_source || "better_life333");
           window.open(`https://seekingalpha.com/symbol/${ticker}/earnings?source=${src}`, "_blank", "noopener");
         }
       }

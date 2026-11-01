@@ -131,6 +131,7 @@ export function renderStockRows(state) {
       // Free users get 1 full sample row (idx === 0 or CELH); all other rows require Pro license
       const isFreeSample = idx === 0 || s.ticker === "CELH";
       const isVipIgnitionLocked = !isPro && s.zone_code === "IGNITION_ZONE" && !isFreeSample;
+      const isLockedRow = isVipIgnitionLocked;
       const calcTrig = s.entry_trigger_price ?? s.ma60_price ?? Number((closeVal * 1.02).toFixed(2));
       const calcStop = s.stop_loss_price ?? Number((closeVal * 0.91).toFixed(2));
       const calcTp1 = s.tp1_2x_price ?? Number((closeVal * 2.0).toFixed(2));
@@ -161,7 +162,7 @@ export function renderStockRows(state) {
       const saUrl = `https://seekingalpha.com/symbol/${encodeURIComponent(s.ticker)}/earnings?source=${saSource}`;
       const brokerUrl = `${rawBrokerUrl}${brokerSep}symbol=${encodeURIComponent(s.ticker)}`;
 
-      const tickerCellHtml = isVipIgnitionLocked
+      const tickerCellHtml = isLockedRow
         ? `<div class="btn-unlock-row" style="cursor:pointer;" title="Click to unlock VIP Ignition Pick">
              <div style="display:flex; align-items:center; gap:7px;">
                <span class="mono" style="font-weight:800; font-size:0.86rem; color:#fbbf24; background:rgba(245,158,11,0.14); border:1px solid rgba(245,158,11,0.4); padding:2px 7px; border-radius:4px;">
@@ -183,7 +184,7 @@ export function renderStockRows(state) {
            </div>`;
 
       return `
-      <tr data-ticker="${s.ticker}">
+      <tr data-ticker="${isLockedRow ? "LOCKED" : s.ticker}">
         <td>
           ${tickerCellHtml}
         </td>
@@ -207,7 +208,7 @@ export function renderStockRows(state) {
           </div>
         </td>
         <td>
-          <div class="mono" style="font-weight:700; color:#ffffff;" title="Latest Close Date: ${s.date || "2026-10-13"}">$${closeVal.toFixed(2)}</div>
+          <div class="mono" style="font-weight:700; color:#ffffff;" title="Latest Close Date: ${s.date || "2026-10-30"}">$${closeVal.toFixed(2)}</div>
           <div class="range-52w-wrap" title="52W Range: $${low52.toFixed(2)} – $${high52.toFixed(2)}">
             <div class="range-52w-track">
               <div class="range-52w-fill" style="width:${rangePct}%;"></div>
@@ -238,6 +239,10 @@ export function renderStockRows(state) {
         <td>${triggerHtml}</td>
         <td>
           <div style="display:flex; gap:5px;">
+            ${
+              isLockedRow
+                ? `<button class="btn btn-sm btn-unlock-row">🔒 Unlock Pro ($29/mo)</button>`
+                : `
             <button class="btn btn-sm btn-share-card" data-ticker="${s.ticker}" title="Export Institutional Tear Sheet PNG">
               PNG
             </button>
@@ -250,6 +255,8 @@ export function renderStockRows(state) {
             <a class="btn btn-sm" href="${brokerUrl}" target="_blank" rel="noopener noreferrer" title="Execute Trade on Partner Broker / Exchange" style="border-color:rgba(16,185,129,0.4); color:#34d399;">
               Trade ↗
             </a>
+            `
+            }
           </div>
         </td>
       </tr>

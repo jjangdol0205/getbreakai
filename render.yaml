@@ -9,6 +9,15 @@ services:
       - www.truthofmarket.com
     routes:
       - type: rewrite
+        source: /robots.txt
+        destination: /robots.txt
+      - type: rewrite
+        source: /sitemap.xml
+        destination: /sitemap.xml
+      - type: rewrite
+        source: /og-preview.png
+        destination: /og-preview.png
+      - type: rewrite
         source: /api/health
         destination: /static_api/health.json
       - type: rewrite

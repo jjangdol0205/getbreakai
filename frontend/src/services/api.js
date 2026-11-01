@@ -339,7 +339,7 @@ export async function validateLicense(licenseKey) {
         expires_at: valid ? "2099-12-31T23:59:59Z" : null,
         message: valid
           ? "Pro Terminal License Verified."
-          : "Invalid license key. Use PRO-DEMO-2026 for demo.",
+          : "Invalid or expired license key. Please verify your Lemon Squeezy receipt or subscribe below.",
       };
     }
   );
@@ -981,9 +981,13 @@ export async function buildClientTelegramPreview({
   };
 
   const buildRsaText = () => {
-    const asOf = ignStocks[0]?.date || "2026-10-13";
+    const asOf = ignStocks[0]?.date || "2026-10-30";
+    const proUnlocked = isProActive();
     const rows = ignStocks
       .map((s, idx) => {
+        if (!proUnlocked && idx >= 1) {
+          return `${idx + 1}. 🔒 VIP IGNITION #${idx + 1} — Unlock Pro at truthofmarket.com`;
+        }
         const trig = s.entry_trigger_price ?? s.ma60_price ?? s.close;
         const stopP = s.stop_loss_price ?? Number((s.close * 0.91).toFixed(2));
         const tp1P = s.tp1_2x_price ?? Number((s.close * 2.0).toFixed(2));

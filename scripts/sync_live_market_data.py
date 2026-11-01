@@ -13,6 +13,7 @@ import yfinance as yf
 ROOT_DIR = Path(__file__).resolve().parent.parent
 STATIC_DIRS = [
     ROOT_DIR / "frontend" / "public" / "static_api",
+    ROOT_DIR / "frontend" / "dist" / "static_api",
     ROOT_DIR / "dist" / "static_api",
     ROOT_DIR / "static_api",
 ]
@@ -198,8 +199,13 @@ def main():
             print(f"Warning on {t}: {exc}")
             updated_pro.append(item)
 
-    # Sort updated_pro: IGNITION_ZONE first, then by score desc
-    updated_pro.sort(key=lambda x: (0 if x.get("zone_code") == "IGNITION_ZONE" else 1, -int(x.get("score", 0))))
+    # Sort updated_pro: CELH (Free Preview #1) first, then IGNITION_ZONE, then by score desc
+    updated_pro.sort(
+        key=lambda x: (
+            0 if x.get("ticker") == "CELH" else (1 if x.get("zone_code") == "IGNITION_ZONE" else 2),
+            -int(x.get("score", 0)),
+        )
+    )
 
     # Create stocks_free.json: Only 1 showcase ticker (first row / CELH) is unlocked; all other 71 rows require Pro!
     updated_free = []
@@ -214,6 +220,12 @@ def main():
             f_row["entry_trigger_price"] = None
             f_row["ma20_price"] = None
             f_row["ma60_price"] = None
+            if f_row.get("zone_code") == "IGNITION_ZONE":
+                f_row["ticker"] = "LOCKED"
+                f_row["name"] = "🔒 VIP IGNITION PICK (Pro Subscribers Only)"
+                f_row["name_en"] = "🔒 VIP IGNITION PICK (Pro Subscribers Only)"
+                f_row["name_jp"] = "🔒 VIP イグニッション銘柄 (Pro会員限定)"
+                f_row["name_kr"] = "🔒 VIP 우측 시동 종목 (Pro 구독자 전용)"
         updated_free.append(f_row)
 
     # Update SemiFearGreed overview ($SMH, $XLV, $QQQ, KRW=X)

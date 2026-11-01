@@ -1,9 +1,12 @@
 import fs from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const __dirname = fs.existsSync(path.join(process.cwd(), "src", "main.js"))
+  ? process.cwd()
+  : path.join(process.cwd(), "frontend");
+const rootDir = path.resolve(__dirname, "..");
 const distDir = path.join(__dirname, "dist");
+const rootDistDir = path.join(rootDir, "dist");
 const assetsDir = path.join(distDir, "assets");
 const publicDir = path.join(__dirname, "public");
 
@@ -55,6 +58,17 @@ const indexHtml = `<!DOCTYPE html>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>RightSideAlpha × SemiFearGreed | 72 US Equity PW-RSI Turnaround Terminal & Semiconductor Fear & Greed Index</title>
   <meta name="description" content="Real-time CNN-Edition Semiconductor Fear & Greed Index (0-100), $SMH/$XLV 70:30 & 80:20 Contrarian Barbell Rebalancing Engine, and 72 US Equity Post-Washout Right-Side Ignition (PW-RSI) Terminal." />
+  <link rel="canonical" href="https://truthofmarket.com/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="RightSideAlpha × SemiFearGreed" />
+  <meta property="og:title" content="RightSideAlpha × SemiFearGreed | 72 US Equity PW-RSI & Semiconductor Fear & Greed Index" />
+  <meta property="og:description" content="Real-time CNN-Edition Semiconductor Fear & Greed Index (0-100), $SMH/$XLV 70:30 & 80:20 Contrarian Barbell Rebalancing Engine, and 72 US Equity Post-Washout Right-Side Ignition (PW-RSI) Terminal." />
+  <meta property="og:url" content="https://truthofmarket.com/" />
+  <meta property="og:image" content="https://truthofmarket.com/og-preview.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="RightSideAlpha × SemiFearGreed | 72 US Equity PW-RSI & Semiconductor Fear & Greed Index" />
+  <meta name="twitter:description" content="Real-time CNN-Edition Semiconductor Fear & Greed Index (0-100), $SMH/$XLV 70:30 & 80:20 Contrarian Barbell Rebalancing Engine, and 72 US Equity Post-Washout Right-Side Ignition (PW-RSI) Terminal." />
+  <meta name="twitter:image" content="https://truthofmarket.com/og-preview.png" />
   <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -75,4 +89,17 @@ if (fs.existsSync(publicDir)) {
   fs.cpSync(publicDir, distDir, { recursive: true });
 }
 
-console.log(`Built frontend/dist successfully (${jsFileName}, ${cssFileName})`);
+// Also synchronize to root ./dist and root ./ static targets so Render Static & GitHub Pages stay 100% in sync
+fs.mkdirSync(rootDistDir, { recursive: true });
+fs.cpSync(distDir, rootDistDir, { recursive: true });
+
+fs.writeFileSync(path.join(rootDir, "index.html"), indexHtml, "utf8");
+fs.mkdirSync(path.join(rootDir, "assets"), { recursive: true });
+fs.cpSync(assetsDir, path.join(rootDir, "assets"), { recursive: true });
+if (fs.existsSync(publicDir)) {
+  for (const entry of fs.readdirSync(publicDir)) {
+    fs.cpSync(path.join(publicDir, entry), path.join(rootDir, entry), { recursive: true });
+  }
+}
+
+console.log(`Built frontend/dist, ./dist, and root static bundle (${jsFileName}, ${cssFileName})`);

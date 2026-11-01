@@ -1,3 +1,6 @@
+/robots.txt /robots.txt 200
+/sitemap.xml /sitemap.xml 200
+/og-preview.png /og-preview.png 200
 /api/health /static_api/health.json 200
 /api/stocks /static_api/stocks_pro.json 200
 /api/backtest /static_api/backtest.json 200

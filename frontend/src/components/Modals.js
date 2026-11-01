@@ -60,9 +60,13 @@ export function renderModals(state) {
             </h3>
           </div>
           <div style="display:flex; gap:6px; flex-wrap:wrap;">
-            <a class="btn btn-sm" id="tgModalSetupBoardBtn" href="./instagram_us_setup.html" target="_blank" rel="noopener noreferrer" style="background:rgba(239,68,68,0.16); border-color:rgba(239,68,68,0.55); color:#fca5a5; font-weight:700;">
+            ${
+              state.isAdminAuthenticated
+                ? `<a class="btn btn-sm" id="tgModalSetupBoardBtn" href="./instagram_us_setup.html" target="_blank" rel="noopener noreferrer" style="background:rgba(239,68,68,0.16); border-color:rgba(239,68,68,0.55); color:#fca5a5; font-weight:700;">
               🎬 YouTube & IG Setup Board ↗
-            </a>
+            </a>`
+                : ""
+            }
             <a class="btn btn-sm" id="tgModalYtBtn" href="${ytUrl}" target="_blank" rel="noopener noreferrer" style="border-color:rgba(239,68,68,0.45); color:#fca5a5;">
               📺 YouTube ↗
             </a>
@@ -76,25 +80,33 @@ export function renderModals(state) {
         </div>
 
         <p style="color:var(--muted); font-size:0.8rem; margin-top:6px; margin-bottom:12px; line-height:1.5;">
-          Official Broadcast Channel <a href="https://t.me/truthofmarketss" target="_blank" rel="noopener noreferrer" style="color:#38bdf8; font-weight:700;">t.me/truthofmarketss</a> (<code class="mono" style="color:#93c5fd;">@truthofmarketss</code>) is connected with Admin Bot <a href="https://t.me/SemifearGreedbot" target="_blank" rel="noopener noreferrer" style="color:#38bdf8; font-weight:700;">@SemifearGreedbot</a> for automated English US Market & Semiconductor daily briefings.
+          Join our Official Broadcast Channel <a href="${tgChannelUrl}" target="_blank" rel="noopener noreferrer" style="color:#38bdf8; font-weight:700;">t.me/truthofmarketss</a> (<code class="mono" style="color:#93c5fd;">@truthofmarketss</code>) for automated daily US Market & Semiconductor briefings.
         </p>
 
-        <div class="semi-form-grid-2" style="margin-bottom:8px;">
+        ${
+          state.isAdminAuthenticated
+            ? `<div class="semi-form-grid-2" style="margin-bottom:8px;">
           <div>
             <label style="font-size:0.68rem; color:var(--muted); font-family:var(--font-mono);">TELEGRAM BOT PROFILE (@BotFather)</label>
             <input type="text" id="tgBotTokenInput" value="${tgToken}" placeholder="DEMO-BOT-TOKEN" autocomplete="off" style="margin:4px 0 0; -webkit-text-security:disc;" />
           </div>
           <div>
             <label style="font-size:0.68rem; color:var(--muted); font-family:var(--font-mono);">CHAT ID OR @CHANNEL USERNAME</label>
-            <input type="text" id="tgChatIdInput" value="${tgChatId}" placeholder="@SemiFearGreed or 123456789" autocomplete="off" style="margin:4px 0 0;" />
+            <input type="text" id="tgChatIdInput" value="${tgChatId}" placeholder="@truthofmarketss" autocomplete="off" style="margin:4px 0 0;" />
           </div>
-        </div>
+        </div>`
+            : ""
+        }
 
-        <div class="semi-form-grid-2" style="margin-bottom:10px;">
-          <div>
+        <div class="${state.isAdminAuthenticated ? "semi-form-grid-2" : ""}" style="margin-bottom:10px;">
+          ${
+            state.isAdminAuthenticated
+              ? `<div>
             <label style="font-size:0.68rem; color:var(--muted); font-family:var(--font-mono);">PUBLIC CHANNEL URL (HEADER / FOOTER LINK)</label>
-            <input type="text" id="tgChannelUrlInput" value="${tgChannelUrl}" placeholder="https://t.me/SemiFearGreed" style="margin:4px 0 0;" />
-          </div>
+            <input type="text" id="tgChannelUrlInput" value="${tgChannelUrl}" placeholder="https://t.me/truthofmarketss" style="margin:4px 0 0;" />
+          </div>`
+              : ""
+          }
           <div>
             <label style="font-size:0.68rem; color:var(--muted); font-family:var(--font-mono);">BRIEFING TEMPLATE</label>
             <select id="tgAlertTypeSelect" style="width:100%; padding:9px 10px; margin-top:4px; background:#060911; border:1px solid var(--border); color:#fff; border-radius:4px; font-family:var(--font-sans); font-size:0.82rem; font-weight:600;">
@@ -102,7 +114,11 @@ export function renderModals(state) {
               <option value="RSA_IGNITION" ${tgType === "RSA_IGNITION" ? "selected" : ""}>2. RightSideAlpha US Top 5 Ignition Signals</option>
               <option value="FULL_DAILY" ${tgType === "FULL_DAILY" ? "selected" : ""}>3. Full Combined Daily Briefing (Semi + US Stocks)</option>
               <option value="POSITION_DOCTOR" ${tgType === "POSITION_DOCTOR" ? "selected" : ""}>4. Position Doctor Diagnostic ($CELH)</option>
-              <option value="TEST_PING" ${tgType === "TEST_PING" ? "selected" : ""}>5. Bot Connection Verification Ping</option>
+              ${
+                state.isAdminAuthenticated
+                  ? `<option value="TEST_PING" ${tgType === "TEST_PING" ? "selected" : ""}>5. Bot Connection Verification Ping</option>`
+                  : ""
+              }
             </select>
           </div>
         </div>
@@ -112,7 +128,11 @@ export function renderModals(state) {
             LIVE BRIEFING PREVIEW (VERIFIED LATEST CLOSES)
           </span>
           <div style="display:flex; gap:6px;">
-            <button class="btn btn-sm" id="btnVerifyTelegram" title="Test Bot Token with Telegram API">Verify & Save Bot</button>
+            ${
+              state.isAdminAuthenticated
+                ? `<button class="btn btn-sm" id="btnVerifyTelegram" title="Test Bot Token with Telegram API">Verify & Save Bot</button>`
+                : ""
+            }
             <button class="btn btn-sm" id="btnPreviewTelegram">Refresh Preview</button>
             <button class="btn btn-sm" id="btnCopyTelegramMsg">Copy Text</button>
           </div>
@@ -124,13 +144,20 @@ export function renderModals(state) {
 
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
           <span class="mono" style="font-size:0.68rem; color:var(--muted);">
-            Webhook Commands: /semi · /ignition · /price CELH · /doctor CELH 27.20 42
+            Official Channel: @truthofmarketss · Live Daily Briefings
           </span>
           <div style="display:flex; gap:8px;">
             <button class="btn" id="btnCloseTelegram">Close</button>
-            <button class="btn btn-primary" id="btnSendTelegramNow" style="background:#0284c7; border-color:#38bdf8;">
+            <a class="btn btn-primary" href="${tgChannelUrl}" target="_blank" rel="noopener noreferrer" style="background:#0284c7; border-color:#38bdf8;">
+              Join Telegram Channel ↗
+            </a>
+            ${
+              state.isAdminAuthenticated
+                ? `<button class="btn btn-primary" id="btnSendTelegramNow" style="background:#059669; border-color:#10b981;">
               Send Briefing to Telegram ↗
-            </button>
+            </button>`
+                : ""
+            }
           </div>
         </div>
       </div>
@@ -214,7 +241,7 @@ export function renderModals(state) {
         <input type="text" id="cfgAffTv" value="${cfg.tradingview_aff_id || "1173809"}" />
 
         <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">SEEKING ALPHA PARTNER SOURCE TAG</label>
-        <input type="text" id="cfgAffSa" value="${cfg.seekingalpha_source || "affiliate_rightside"}" />
+        <input type="text" id="cfgAffSa" value="${cfg.seekingalpha_source || "better_life333"}" />
 
         <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">BROKER / EXCHANGE PARTNER LABEL (E.G. BITGET / IBKR)</label>
         <input type="text" id="cfgBrokerName" value="${cfg.broker_name || "Bitget (7nja)"}" />

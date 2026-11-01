@@ -334,7 +334,7 @@ export function renderSemiFearGreedView(state) {
           </a>
           <a
             class="btn ${state.isProUnlocked ? "" : "btn-gated-vip-tg"}"
-            href="${state.isProUnlocked ? (state.config?.telegram_channel_url || "https://t.me/+a6Sl2yLirbwyODQ1") : "#pro-vip-telegram"}"
+            href="${state.isProUnlocked ? (state.config?.telegram_vip_channel_url || "https://t.me/+a6Sl2yLirbwyODQ1") : "#pro-vip-telegram"}"
             ${state.isProUnlocked ? 'target="_blank" rel="noopener noreferrer"' : ""}
             style="background:#0284c7; color:#ffffff; border-color:#0369a1;"
           >
@@ -542,11 +542,15 @@ export function renderSemiFearGreedView(state) {
               <option value="WEEKLY" ${state.semiFreq === "WEEKLY" ? "selected" : ""}>Weekly Rebalance (High Tax Drag)</option>
             </select>
           </div>
-          <div>
+          ${
+            lang === "kr"
+              ? `<div>
             <label style="font-size:0.68rem; font-family:var(--font-mono); color:var(--muted);">UNREALIZED GAIN (₩ KRW · TAX HARVESTER)</label>
             <input type="number" id="semiGainKrwInput" value="${state.semiGainKrw ?? 3800000}" step="100000"
                    style="width:100%; padding:8px 10px; background:#060911; border:1px solid var(--border); color:#fff; border-radius:4px; font-family:var(--font-mono); margin-top:3px;" />
-          </div>
+          </div>`
+              : ""
+          }
         </div>
 
         <button class="btn btn-emerald" id="btnRunSemiRebalance" style="width:100%; justify-content:center; padding:9px;">
@@ -561,7 +565,11 @@ export function renderSemiFearGreedView(state) {
               ${lang === "jp" ? rebal.active_rule_jp : lang === "kr" ? rebal.active_rule_kr : rebal.active_rule_en}
             </div>
             <div class="mono" style="font-size:0.71rem; color:#93c5fd; margin-bottom:8px;">
-              Latest Close Basis (${rebal.as_of_date || ov.date}): $SMH @ $${Number(rebal.smh_close ?? ov.smh_close).toFixed(2)} · $XLV @ $${Number(rebal.xlv_close ?? ov.xlv_close).toFixed(2)} · FX ₩${Number(rebal.usdkrw ?? ov.usdkrw).toLocaleString()}/$ · Total ₩${Number(rebal.total_capital_krw ?? 0).toLocaleString()}
+              Latest Close Basis (${rebal.as_of_date || ov.date}): $SMH @ $${Number(rebal.smh_close ?? ov.smh_close).toFixed(2)} · $XLV @ $${Number(rebal.xlv_close ?? ov.xlv_close).toFixed(2)}${
+                lang === "kr"
+                  ? ` · FX ₩${Number(rebal.usdkrw ?? ov.usdkrw).toLocaleString()}/$ · Total ₩${Number(rebal.total_capital_krw ?? 0).toLocaleString()}`
+                  : ` · Total Capital $${Number(rebal.total_capital_usd ?? state.semiCapUsd ?? 100000).toLocaleString()}`
+              }
             </div>
             <div class="semi-form-grid-2" style="margin-bottom:10px;">
               <div style="background:#0c1220; padding:10px; border-radius:4px; border:1px solid var(--border);">
@@ -584,10 +592,12 @@ export function renderSemiFearGreedView(state) {
               </div>
             </div>
             <div style="font-size:0.75rem; color:var(--text-secondary); line-height:1.45; border-top:1px solid var(--border); padding-top:8px;">
-              <div><b>KRW 2.5M Tax-Free Harvester:</b> ${
-                lang === "jp" ? rebal.kr_tax_guidance_jp : lang === "kr" ? rebal.kr_tax_guidance_kr : rebal.kr_tax_guidance_en
-              }</div>
-              <div class="mono" style="color:var(--muted); margin-top:4px;">
+              ${
+                lang === "kr"
+                  ? `<div style="margin-bottom:4px;"><b>KRW 2.5M Tax-Free Harvester:</b> ${rebal.kr_tax_guidance_kr}</div>`
+                  : ""
+              }
+              <div class="mono" style="color:var(--muted);">
                 Residual Cash: $${Number(rebal.residual_cash_usd ?? 0).toFixed(2)} · Est. Annual Tax & Turnover Drag (${rebal.rebalance_frequency}): -${rebal.estimated_tax_drag_pct}%/yr · Expected Net 15Y Rate: +${rebal.expected_net_cagr_pct}%/yr
               </div>
             </div>

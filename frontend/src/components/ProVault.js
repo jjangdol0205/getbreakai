@@ -92,7 +92,7 @@ plotshape(ignition and not ignition[1], "PW-RSI IGNITION", shape.labelup, locati
           </div>
           <a
             class="btn btn-sm"
-            href="${isPro ? "https://t.me/+a6Sl2yLirbwyODQ1" : "#pricingSection"}"
+            href="${isPro ? (state.config?.telegram_vip_channel_url || "https://t.me/+a6Sl2yLirbwyODQ1") : "#pricingSection"}"
             ${isPro ? 'target="_blank" rel="noopener noreferrer"' : ""}
             style="background:#0284c7; border-color:#38bdf8; color:#ffffff; font-weight:800; padding:8px 14px;"
           >
@@ -132,12 +132,27 @@ plotshape(ignition and not ignition[1], "PW-RSI IGNITION", shape.labelup, locati
             <tbody>
               ${topIgnitions
                 .map((s, idx) => {
+                  const lockedVip = !isPro && idx >= 1;
                   const c = Number(s.close || 25);
                   const trig = Number(s.entry_trigger_price ?? s.ma60_price ?? c).toFixed(2);
                   const stp = Number(s.stop_loss_price ?? c * 0.91).toFixed(2);
                   const tp1 = Number(s.tp1_2x_price ?? c * 2.0).toFixed(2);
                   const sh = Math.max(1, Math.floor(perSlotUsd / c));
                   const maxLossUsd = Math.round(sh * c * 0.09);
+                  if (lockedVip) {
+                    return `
+                    <tr>
+                      <td class="mono" style="font-weight:800; color:#fbbf24;">🔒 VIP IGNITION #${idx + 1} <span style="color:var(--muted); font-weight:500;">(${s.sector})</span></td>
+                      <td class="mono" style="color:var(--fin-up); font-weight:800;">${s.score}/100</td>
+                      <td class="mono">🔒 PRO</td>
+                      <td class="mono" style="color:#60a5fa; font-weight:700;">🔒 PRO</td>
+                      <td class="mono" style="color:var(--fin-down); font-weight:700;">🔒 PRO</td>
+                      <td class="mono" style="color:var(--fin-up); font-weight:700;">🔒 PRO</td>
+                      <td class="mono" style="color:#ffffff; font-weight:800;">🔒 Unlock Pro ($29/mo)</td>
+                      <td class="mono" style="color:var(--fin-amber);">-$${maxLossUsd.toLocaleString()} (-1.35% Eq)</td>
+                    </tr>
+                  `;
+                  }
                   return `
                     <tr>
                       <td class="mono" style="font-weight:800; color:#ffffff;">#${idx + 1} $${s.ticker} <span style="color:var(--muted); font-weight:500;">(${s.sector})</span></td>

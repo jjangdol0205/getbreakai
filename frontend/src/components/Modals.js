@@ -209,7 +209,7 @@ export function renderModals(state) {
         <input type="text" id="cfgInstagramUrl" value="${igUrl}" />
 
         <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">TRADINGVIEW AFFILIATE ID</label>
-        <input type="text" id="cfgAffTv" value="${cfg.tradingview_aff_id || "rightsidealpha"}" />
+        <input type="text" id="cfgAffTv" value="${cfg.tradingview_aff_id || "1173809"}" />
 
         <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">SEEKING ALPHA PARTNER SOURCE TAG</label>
         <input type="text" id="cfgAffSa" value="${cfg.seekingalpha_source || "affiliate_rightside"}" />

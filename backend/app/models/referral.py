@@ -6,7 +6,7 @@ from pydantic import BaseModel, Field
 
 
 class ReferralConfig(BaseModel):
-    tradingview_aff_id: str = Field("rightsidealpha", description="TradingView partner affiliate ID")
+    tradingview_aff_id: str = Field("1173809", description="TradingView partner affiliate ID")
     seekingalpha_source: str = Field("affiliate_rightside", description="Seeking Alpha tracking source tag")
     trendspider_aff_id: str = Field("rightside", description="TrendSpider partner tracking ID")
     ls_site1_monthly_url: str = Field(

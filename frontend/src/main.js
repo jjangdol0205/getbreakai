@@ -91,7 +91,7 @@ const state = {
     ls_site1_ltd_url:
       localStorage.getItem("rsa_cfg_ls_ltd") ||
       "https://truthofmarket.lemonsqueezy.com/checkout/buy/00c9f6e1-c8be-42a4-b5a5-e05af1a41ed9",
-    tradingview_aff_id: localStorage.getItem("rsa_cfg_aff_tv") || "rightsidealpha",
+    tradingview_aff_id: localStorage.getItem("rsa_cfg_aff_tv") || "1173809",
     seekingalpha_source: localStorage.getItem("rsa_cfg_aff_sa") || "affiliate_rightside",
     broker_name: localStorage.getItem("rsa_cfg_broker_name") || "IBKR / Webull",
     broker_referral_url:
@@ -567,7 +567,7 @@ function bindEvents() {
       const tgCh = document.getElementById("cfgTgChannel")?.value.trim() || state.config.telegram_channel_url || DEFAULT_TG_CHANNEL_URL;
       const ytUrl = document.getElementById("cfgYoutubeUrl")?.value.trim() || state.config.youtube_url || DEFAULT_YOUTUBE_URL;
       const igUrl = document.getElementById("cfgInstagramUrl")?.value.trim() || state.config.instagram_url || DEFAULT_INSTAGRAM_URL;
-      const tvId = document.getElementById("cfgAffTv")?.value.trim() || "rightsidealpha";
+      const tvId = document.getElementById("cfgAffTv")?.value.trim() || "1173809";
       const saSrc = document.getElementById("cfgAffSa")?.value.trim() || "affiliate_rightside";
       const brkName = document.getElementById("cfgBrokerName")?.value.trim() || "IBKR / Webull";
       const brkUrl =
@@ -1156,7 +1156,7 @@ function bindRowEvents() {
         const u = new URL(href, window.location.origin);
         const ticker = (u.searchParams.get("ticker") || "SPY").toUpperCase();
         if (href.includes("tradingview")) {
-          const aff = encodeURIComponent(state.config.tradingview_aff_id || "rightsidealpha");
+          const aff = encodeURIComponent(state.config.tradingview_aff_id || "1173809");
           window.open(`https://www.tradingview.com/symbols/${ticker}/?aff_id=${aff}`, "_blank", "noopener");
         } else if (href.includes("broker") || href.includes("exchange")) {
           const rawBrk = state.config.broker_referral_url || "https://ibkr.com/referral/rightsidealpha";

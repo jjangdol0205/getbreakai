@@ -89,7 +89,7 @@ class Settings:
     )
 
     # Referral Defaults (for M3)
-    DEFAULT_TRADINGVIEW_AFF_ID: str = os.getenv("TRADINGVIEW_AFF_ID", "rightsidealpha")
+    DEFAULT_TRADINGVIEW_AFF_ID: str = os.getenv("TRADINGVIEW_AFF_ID", "1173809")
     DEFAULT_SEEKINGALPHA_SOURCE: str = os.getenv("SEEKINGALPHA_SOURCE", "affiliate_rightside")
     DEFAULT_TRENDSPIDER_AFF_ID: str = os.getenv("TRENDSPIDER_AFF_ID", "rightside")
 

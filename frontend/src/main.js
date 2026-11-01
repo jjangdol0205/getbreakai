@@ -87,10 +87,10 @@ const state = {
     site2_url: "https://truthofmarket.com",
     ls_site1_monthly_url:
       localStorage.getItem("rsa_cfg_ls_monthly") ||
-      "https://rightsidealpha.lemonsqueezy.com/checkout/buy/pro-monthly",
+      "https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8",
     ls_site1_ltd_url:
       localStorage.getItem("rsa_cfg_ls_ltd") ||
-      "https://rightsidealpha.lemonsqueezy.com/checkout/buy/lifetime-pass",
+      "https://truthofmarket.lemonsqueezy.com/checkout/buy/667aa482-f17c-47d1-b7f3-a2427c36516b",
     tradingview_aff_id: localStorage.getItem("rsa_cfg_aff_tv") || "rightsidealpha",
     seekingalpha_source: localStorage.getItem("rsa_cfg_aff_sa") || "affiliate_rightside",
     broker_name: localStorage.getItem("rsa_cfg_broker_name") || "IBKR / Webull",

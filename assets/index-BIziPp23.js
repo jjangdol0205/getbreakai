@@ -316,7 +316,7 @@ function getAuthHeader() {
 }
 function formatCheckoutUrl(
   rawUrl,
-  fallbackUrl = "https://rightsidealpha.lemonsqueezy.com/checkout/buy/pro-monthly"
+  fallbackUrl = "https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8"
 ) {
   const base = String(rawUrl || fallbackUrl).trim() || fallbackUrl;
   if (/[?&]embed=1\b/i.test(base)) {
@@ -1711,7 +1711,7 @@ function renderHeader(state) {
   const xlv1d = xlvEtf && xlvEtf.ret_1d_pct !== undefined ? Number(xlvEtf.ret_1d_pct) : 0.0;
   const lsMonthlyHref = formatCheckoutUrl(
     state.config?.ls_site1_monthly_url,
-    "https://rightsidealpha.lemonsqueezy.com/checkout/buy/pro-monthly"
+    "https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8"
   );
   const ytUrl = state.config?.youtube_url || "https://youtube.com/@rightsidealpha";
   const igUrl = state.config?.instagram_url || "https://www.instagram.com/semifeargreed";
@@ -2501,11 +2501,11 @@ function renderPricing(state) {
   const c = PRICING_COPY[state.lang] || PRICING_COPY.en;
   const lsMonthly = formatCheckoutUrl(
     cfg.ls_site1_monthly_url,
-    "https://rightsidealpha.lemonsqueezy.com/checkout/buy/pro-monthly"
+    "https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8"
   );
   const lsLtd = formatCheckoutUrl(
     cfg.ls_site1_ltd_url,
-    "https://rightsidealpha.lemonsqueezy.com/checkout/buy/lifetime-pass"
+    "https://truthofmarket.lemonsqueezy.com/checkout/buy/667aa482-f17c-47d1-b7f3-a2427c36516b"
   );
   const brokerName = cfg.broker_name || "IBKR / Webull";
 
@@ -2784,10 +2784,10 @@ function renderModals(state) {
         <input type="text" id="cfgSite1Url" value="${cfg.site1_url || "https://truthofmarket.com"}" />
 
         <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">LEMON SQUEEZY MONTHLY CHECKOUT URL ($29/MO)</label>
-        <input type="text" id="cfgLsMonthly" value="${cfg.ls_site1_monthly_url || "https://rightsidealpha.lemonsqueezy.com/checkout/buy/pro-monthly"}" />
+        <input type="text" id="cfgLsMonthly" value="${cfg.ls_site1_monthly_url || "https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8"}" />
 
         <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">LEMON SQUEEZY LIFETIME CHECKOUT URL ($199)</label>
-        <input type="text" id="cfgLsLtd" value="${cfg.ls_site1_ltd_url || "https://rightsidealpha.lemonsqueezy.com/checkout/buy/lifetime-pass"}" />
+        <input type="text" id="cfgLsLtd" value="${cfg.ls_site1_ltd_url || "https://truthofmarket.lemonsqueezy.com/checkout/buy/667aa482-f17c-47d1-b7f3-a2427c36516b"}" />
 
         <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">TELEGRAM OFFICIAL CHANNEL / BOT URL</label>
         <input type="text" id="cfgTgChannel" value="${tgChannelUrl}" />
@@ -3650,10 +3650,10 @@ const state = {
     site2_url: "https://truthofmarket.com",
     ls_site1_monthly_url:
       localStorage.getItem("rsa_cfg_ls_monthly") ||
-      "https://rightsidealpha.lemonsqueezy.com/checkout/buy/pro-monthly",
+      "https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8",
     ls_site1_ltd_url:
       localStorage.getItem("rsa_cfg_ls_ltd") ||
-      "https://rightsidealpha.lemonsqueezy.com/checkout/buy/lifetime-pass",
+      "https://truthofmarket.lemonsqueezy.com/checkout/buy/667aa482-f17c-47d1-b7f3-a2427c36516b",
     tradingview_aff_id: localStorage.getItem("rsa_cfg_aff_tv") || "rightsidealpha",
     seekingalpha_source: localStorage.getItem("rsa_cfg_aff_sa") || "affiliate_rightside",
     broker_name: localStorage.getItem("rsa_cfg_broker_name") || "IBKR / Webull",

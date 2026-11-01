@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
 """
-scripts/broadcast_telegram_channel.py - 100% English Telegram Channel & Bot Setup + Daily Quant Broadcast
+scripts/broadcast_telegram_channel.py - Pro VIP Exclusive Telegram Channel Setup,
+Unmasked Ignition Order Book & Real-Time $SMH/$XLV + 72-Stock News Broadcast (100% English)
 """
 import argparse
+import html
 import json
 import os
+import xml.etree.ElementTree as ET
 from pathlib import Path
+from typing import Dict, List
 import httpx
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -16,7 +20,7 @@ STOCKS_PRO_PATH = BASE_DIR / "frontend" / "public" / "static_api" / "stocks_pro.
 
 def load_tg_credentials():
     token = os.getenv("TELEGRAM_BOT_TOKEN", "").strip()
-    chat_id = os.getenv("TELEGRAM_CHAT_ID", "").strip() or "@truthofmarketss"
+    chat_id = os.getenv("TELEGRAM_CHAT_ID", "").strip() or "-1004248811575"
     if TG_CONFIG_PATH.exists():
         try:
             cfg = json.loads(TG_CONFIG_PATH.read_text(encoding="utf-8"))
@@ -29,78 +33,70 @@ def load_tg_credentials():
     return token, chat_id
 
 
-def setup_bot_and_channel_english(client: httpx.Client, base_url: str, chat_id: str) -> None:
-    # 1. Bot Name, Short Description, Description, and Commands (100% US English)
-    r_name = client.post(
-        f"{base_url}/setMyName",
-        json={"name": "TruthOfMarket | US Quant & Semi Bot"},
-    ).json()
-    print("setMyName:", r_name)
+def fetch_ticker_news(client: httpx.Client, symbol: str, max_items: int = 2) -> List[Dict[str, str]]:
+    """Fetches real-time English Wall Street news headlines for a ticker via Yahoo Finance RSS."""
+    url = f"https://feeds.finance.yahoo.com/rss/2.0/headline?s={symbol}&region=US&lang=en-US"
+    results: List[Dict[str, str]] = []
+    try:
+        r = client.get(url, headers={"User-Agent": "Mozilla/5.0"}, timeout=8.0)
+        if r.status_code == 200 and r.text:
+            root = ET.fromstring(r.text)
+            for item in root.findall("./channel/item")[:max_items]:
+                title = (item.findtext("title") or "").strip()
+                link = (item.findtext("link") or "").strip()
+                if title and link:
+                    results.append({"symbol": symbol, "title": title, "link": link})
+    except Exception:
+        pass
+    return results
 
-    r_short = client.post(
+
+def setup_bot_and_channel_english(client: httpx.Client, base_url: str, chat_id: str) -> None:
+    client.post(
+        f"{base_url}/setMyName",
+        json={"name": "TruthOfMarket | Pro VIP Quant & News Bot"},
+    )
+    client.post(
         f"{base_url}/setMyShortDescription",
         json={
             "short_description": (
-                "Official US Stock (RightSideAlpha) & Semiconductor ($SMH/$XLV) Fear & Greed Quant Bot — https://truthofmarket.com"
+                "Pro VIP Exclusive $SMH/$XLV & 72-Equity Breaking News + Ignition Order Book Bot — https://truthofmarket.com"
             )
         },
-    ).json()
-    print("setMyShortDescription:", r_short)
-
-    r_desc = client.post(
+    )
+    client.post(
         f"{base_url}/setMyDescription",
         json={
             "description": (
-                "Official Quantitative Dispatch Bot for TruthOfMarket (https://truthofmarket.com)\n\n"
-                "📢 Official Broadcast Channel: https://t.me/truthofmarketss\n"
-                "📈 72 US Equities Right-Side PW-RSI Breakout Screener\n"
-                "🧭 Semiconductor 7-Factor Fear & Greed Index ($SMH / $XLV / $QQQ)\n"
-                "👑 Pro VIP Command Center: Daily Top 5 Order Book & Position Sizing Calculator"
+                "Official Pro VIP Quantitative & Breaking News Bot for TruthOfMarket (https://truthofmarket.com)\n\n"
+                "👑 Pro VIP Exclusive Channel (Subscribers Only)\n"
+                "📰 Real-Time $SMH, $XLV & 72 US Equity Breaking News\n"
+                "🎯 Daily Unmasked Right-Side PW-RSI Ignition Order Book\n"
+                "🧭 Semiconductor 7-Factor Fear & Greed Index"
             )
         },
-    ).json()
-    print("setMyDescription:", r_desc)
-
-    r_cmds = client.post(
-        f"{base_url}/setMyCommands",
-        json={
-            "commands": [
-                {"command": "start", "description": "Launch TruthOfMarket US Quant Bot & menu"},
-                {"command": "semi", "description": "Semiconductor 7-Factor Fear & Greed + $SMH:$XLV Barbell"},
-                {"command": "ignition", "description": "Top US Right-Side PW-RSI Breakout Signals"},
-                {"command": "stock", "description": "Instant US Stock Quant Card (e.g. /stock NVDA)"},
-                {"command": "doctor", "description": "Position Doctor 4-Rule Audit (e.g. /doctor CELH 27.20 42)"},
-                {"command": "full", "description": "Full Daily US Market & Semiconductor Quant Briefing"},
-            ]
-        },
-    ).json()
-    print("setMyCommands:", r_cmds)
-
-    # 2. Channel Title & Description (if bot has can_change_info permission)
-    r_ctitle = client.post(
+    )
+    client.post(
         f"{base_url}/setChatTitle",
         json={
             "chat_id": chat_id,
-            "title": "TruthOfMarket | US Stock & Semi Quant",
+            "title": "TruthOfMarket VIP | $SMH·$XLV & 72 US Stock News",
         },
-    ).json()
-    print("setChatTitle:", r_ctitle)
-
-    r_cdesc = client.post(
+    )
+    client.post(
         f"{base_url}/setChatDescription",
         json={
             "chat_id": chat_id,
             "description": (
-                "Daily US Market Close Quantitative Briefings • 72-Equity Right-Side PW-RSI Ignition Signals • "
-                "Semiconductor ($SMH/$XLV) 7-Factor Fear & Greed Index.\n"
-                "🖥️ Live Terminal & Pro VIP Order Book: https://truthofmarket.com"
+                "👑 PRO VIP SUBSCRIBERS ONLY • Real-Time $SMH/$XLV & 72-Equity Breaking News • "
+                "Unmasked Daily Right-Side PW-RSI Ignition Order Book.\n"
+                "🖥️ Terminal & License Verification: https://truthofmarket.com"
             ),
         },
-    ).json()
-    print("setChatDescription:", r_cdesc)
+    )
 
 
-def build_english_daily_briefing() -> str:
+def build_vip_briefing_with_news(client: httpx.Client) -> str:
     semi = json.loads(SEMI_JSON_PATH.read_text(encoding="utf-8"))
     stocks_payload = json.loads(STOCKS_PRO_PATH.read_text(encoding="utf-8"))
     stocks = stocks_payload if isinstance(stocks_payload, list) else stocks_payload.get("stocks", [])
@@ -119,48 +115,59 @@ def build_english_daily_briefing() -> str:
     xlv_close = float(semi.get("xlv_close", 184.87))
     qqq_close = float(semi.get("qqq_close", 690.49))
 
-    # Showcase #1 (CELH if present in ignition, else first ignition pick)
-    showcase = next((s for s in ignition if s.get("ticker") == "CELH"), ignition[0])
-    vip_locked = [s for s in ignition if s.get("ticker") != showcase.get("ticker")][:3]
-
     lines = [
-        f"🏛️ <b>[TRUTHOFMARKET] DAILY US QUANT &amp; SEMICONDUCTOR BRIEFING ({as_of})</b>",
+        f"👑 <b>[TRUTHOFMARKET PRO VIP] DAILY ORDER BOOK &amp; BREAKING NEWS ({as_of})</b>",
         "━━━━━━━━━━━━━━━━━━━━",
-        "🧭 <b>1. Semiconductor 7-Factor Fear &amp; Greed Index</b>",
-        f"• <b>Composite Score</b>: <b>{fg_score:.1f} / 100 ({regime_en})</b>",
-        f"• <b>Barbell Allocation Directive</b>: <b>{smh_w}% $SMH : {xlv_w}% $XLV</b>",
-        f"• <b>$SMH (Semiconductor)</b>: <b>${smh_close:.2f}</b> ({smh_dd:.2f}% 52W DD | RSI {smh_rsi:.1f})",
-        f"• <b>$XLV (Healthcare Vault)</b>: <b>${xlv_close:.2f}</b> | <b>$QQQ</b>: <b>${qqq_close:.2f}</b>",
+        "🧭 <b>1. Semiconductor ($SMH) &amp; Healthcare ($XLV) Barbell Desk</b>",
+        f"• <b>Fear &amp; Greed Score</b>: <b>{fg_score:.1f} / 100 ({regime_en})</b>",
+        f"• <b>Target Barbell Allocation</b>: <b>{smh_w}% $SMH : {xlv_w}% $XLV</b>",
+        f"• <b>$SMH</b>: <b>${smh_close:.2f}</b> ({smh_dd:.2f}% 52W DD | RSI {smh_rsi:.1f}) | <b>$XLV</b>: <b>${xlv_close:.2f}</b> | <b>$QQQ</b>: <b>${qqq_close:.2f}</b>",
         "",
-        f"🚀 <b>2. RightSideAlpha US 72-Equity Ignition Screener ({len(ignition)} Active Signals)</b>",
-        "<i>4-Condition Turnaround Filter: 52W DD ≤ -20% + Off Low + MA20/60 Reclaim + 10D Vol Surge</i>",
-        "",
-        f"✅ <b>[FREE SAMPLE PICK #1] ${showcase['ticker']} ({showcase.get('name_en', showcase['ticker'])})</b>",
-        f"• <b>Latest Close</b>: <b>${float(showcase['close']):.2f}</b> | <b>PW-RSI Score</b>: <b>{int(showcase['score'])} / 100</b>",
-        f"• <b>52W Drawdown</b>: {float(showcase['dd_high52_pct']):.1f}% | <b>10D Vol Surge</b>: {float(showcase['vol_surge_10d']):.2f}x",
-        f"• 🎯 <b>Entry Trigger (TRG)</b>: <code>${float(showcase['entry_trigger_price']):.2f}</code>",
-        f"• 🛑 <b>Hard Stop (-7% STP)</b>: <code>${float(showcase['stop_loss_price']):.2f}</code>",
-        f"• 💰 <b>Target 1 (+5% TP1)</b>: <code>${float(showcase['tp1_2x_price']):.2f}</code>",
-        "",
+        f"🎯 <b>2. Unmasked Pro VIP Ignition Order Book ({len(ignition)} Active Signals)</b>",
     ]
 
-    for idx, s in enumerate(vip_locked, start=2):
-        lines.extend([
-            f"🔒 <b>[PRO VIP IGNITION PICK #{idx}] — TICKER LOCKED</b>",
-            f"• <b>Sector</b>: {s.get('sector', 'US Equity')} | <b>PW-RSI Score</b>: <b>{int(s['score'])} / 100</b>",
-            f"• <b>52W Drawdown</b>: {float(s['dd_high52_pct']):.1f}% | <b>Off 52W Low</b>: +{float(s['prox_low52_pct']):.1f}% | <b>Vol</b>: {float(s['vol_surge_10d']):.2f}x",
-            "• 🎯 <b>Entry / Stop (-7%) / TP1 (+5%)</b>: <code>🔒 Unlock Pro VIP at truthofmarket.com</code>",
-            "",
-        ])
+    for idx, s in enumerate(ignition[:5], start=1):
+        close_p = float(s["close"])
+        trg_p = float(s.get("entry_trigger_price") or close_p)
+        stp_p = float(s.get("stop_loss_price") or close_p * 0.93)
+        tp1_p = float(s.get("tp1_2x_price") or close_p * 1.05)
+        shares_10k = max(1, int(4500 // close_p))
+        lines.append(
+            f"<b>#{idx} ${s['ticker']}</b> ({html.escape(s.get('name_en', s['ticker']))}) — <b>${close_p:.2f}</b> | Score <b>{int(s['score'])}/100</b>\n"
+            f"   └ 🎯 Entry: <code>${trg_p:.2f}</code> | 🛑 Stop(-7%): <code>${stp_p:.2f}</code> | 💰 TP1(+5%): <code>${tp1_p:.2f}</code> | 🧮 Ref Size: <code>{shares_10k} sh</code>"
+        )
+
+    # Fetch live news for SMH, XLV, and active Ignition stocks + top movers from the 72 universe
+    lines.extend([
+        "",
+        "📰 <b>3. Live Wall Street News Radar ($SMH · $XLV · 72-Equity Universe)</b>",
+    ])
+
+    etf_news = fetch_ticker_news(client, "SMH", max_items=1) + fetch_ticker_news(client, "XLV", max_items=1)
+    for n in etf_news:
+        safe_title = html.escape(n["title"])
+        safe_link = html.escape(n["link"], quote=True)
+        lines.append(f"• <b>[${n['symbol']} ETF]</b> <a href=\"{safe_link}\">{safe_title}</a>")
+
+    stock_Watch = [s["ticker"] for s in ignition[:4]]
+    for extra in ("NVDA", "TSLA", "AMD", "PLTR"):
+        if extra not in stock_Watch and len(stock_Watch) < 6:
+            stock_Watch.append(extra)
+
+    seen_titles = set()
+    for sym in stock_Watch:
+        items = fetch_ticker_news(client, sym, max_items=1)
+        for n in items:
+            if n["title"] in seen_titles:
+                continue
+            seen_titles.add(n["title"])
+            safe_title = html.escape(n["title"])
+            safe_link = html.escape(n["link"], quote=True)
+            lines.append(f"• <b>[${sym}]</b> <a href=\"{safe_link}\">{safe_title}</a>")
 
     lines.extend([
         "━━━━━━━━━━━━━━━━━━━━",
-        "👑 <b>What Pro VIP Subscribers Unlock on TruthOfMarket.com:</b>",
-        "1️⃣ <b>Daily Top 5 Ignition Order Book</b> (Unmasked Tickers + Exact Entry/Stop/TP1)",
-        "2️⃣ <b>Account Position Sizing &amp; Share Calculator</b> (Exact shares to buy per 1.5% risk)",
-        "3️⃣ <b>All 72 US Stocks Target Levels + Position Doctor + TradingView Pine Script v5</b>",
-        "",
-        "👇 <b>Launch the Live Terminal or Unlock Pro VIP Access below:</b>",
+        "🔒 <i>Strictly Confidential — For TruthOfMarket Pro VIP Subscribers Only.</i>",
     ])
     return "\n".join(lines)
 
@@ -170,19 +177,9 @@ def build_inline_keyboard() -> dict:
         "inline_keyboard": [
             [
                 {
-                    "text": "🖥️ Open Live Terminal (truthofmarket.com)",
+                    "text": "🖥️ Open Pro VIP Terminal (truthofmarket.com)",
                     "url": "https://truthofmarket.com",
                 }
-            ],
-            [
-                {
-                    "text": "👑 Unlock Pro Monthly ($29/mo)",
-                    "url": "https://truthofmarket.lemonsqueezy.com/checkout/buy/bad98d00-7175-41f6-9d58-eeb2471d0da4",
-                },
-                {
-                    "text": "🏆 Lifetime VIP Pass ($199)",
-                    "url": "https://truthofmarket.lemonsqueezy.com/checkout/buy/00c9f6e1-c8be-42a4-b5a5-e05af1a41ed9",
-                },
             ],
             [
                 {
@@ -210,7 +207,7 @@ def build_inline_keyboard() -> dict:
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--setup", action="store_true", help="Configure Bot & Channel profile in English")
+    parser.add_argument("--setup", action="store_true", help="Configure Bot & VIP Channel profile in English")
     parser.add_argument("--pin", action="store_true", help="Pin the broadcasted message in the channel")
     args = parser.parse_args()
 
@@ -224,7 +221,7 @@ def main():
         if args.setup:
             setup_bot_and_channel_english(client, base_url, chat_id)
 
-        msg_html = build_english_daily_briefing()
+        msg_html = build_vip_briefing_with_news(client)
         resp = client.post(
             f"{base_url}/sendMessage",
             json={

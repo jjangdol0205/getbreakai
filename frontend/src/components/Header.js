@@ -34,7 +34,7 @@ export function renderHeader(state) {
   );
   const ytUrl = state.config?.youtube_url || "https://youtube.com/@rightsidealpha";
   const igUrl = state.config?.instagram_url || "https://www.instagram.com/semifeargreed";
-  const tgUrl = state.config?.telegram_channel_url || "https://t.me/truthofmarketss";
+  const tgUrl = isPro ? (state.config?.telegram_channel_url || "https://t.me/+a6Sl2yLirbwyODQ1") : "#pro-vip-telegram";
 
   return `
     <!-- INSTITUTIONAL MARKET TAPE RIBBON -->
@@ -159,25 +159,20 @@ export function renderHeader(state) {
           </a>
 
           <a
-            class="btn"
+            class="btn ${isPro ? "" : "btn-gated-vip-tg"}"
             id="headerTelegramLink"
             href="${tgUrl}"
-            target="_blank"
-            rel="noopener noreferrer"
-            title="Official Telegram Channel (@truthofmarketss)"
+            ${isPro ? 'target="_blank" rel="noopener noreferrer"' : ""}
+            title="${isPro ? "Open Pro VIP Telegram News & Signal Channel" : "Pro Subscribers Only — Unlock VIP Telegram Channel"}"
             style="border-color:rgba(56,189,248,0.45); color:#38bdf8;"
           >
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <line x1="22" y1="2" x2="11" y2="13"></line>
               <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
             </svg>
-            <span>Telegram</span>
-            <span style="width:6px; height:6px; border-radius:50%; background:var(--fin-up); display:inline-block;"></span>
+            <span>${isPro ? "👑 VIP Telegram" : "🔒 VIP Telegram"}</span>
+            <span style="width:6px; height:6px; border-radius:50%; background:${isPro ? "var(--fin-up)" : "#f59e0b"}; display:inline-block;"></span>
           </a>
-
-          <button class="btn" id="btnOpenTelegram" title="Telegram Quant Briefing Preview">
-            <span id="btnTelegramLabel">📡 Brief</span>
-          </button>
 
           <button class="btn" id="btnOpenConfig">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

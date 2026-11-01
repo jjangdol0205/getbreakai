@@ -80,6 +80,26 @@ plotshape(ignition and not ignition[1], "PW-RSI IGNITION", shape.labelup, locati
 
       <!-- PRO VIP MODULE 00: TODAY'S IGNITION ORDER BOOK & ACCOUNT POSITION SIZING ENGINE -->
       <div class="${isPro ? "" : "blur-locked"}" style="background:#090d16; border:1px solid rgba(16,185,129,0.35); border-left:4px solid var(--fin-up); border-radius:4px; padding:16px 18px; margin-bottom:16px;">
+        <!-- PRO VIP PRIVATE TELEGRAM CHANNEL INVITE BANNER -->
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; background:rgba(2,132,199,0.14); border:1px solid rgba(56,189,248,0.45); border-radius:6px; padding:12px 14px; margin-bottom:14px;">
+          <div>
+            <div class="mono" style="font-size:0.68rem; color:#38bdf8; font-weight:800; letter-spacing:0.05em;">
+              🔒 PRO SUBSCRIBERS ONLY · PRIVATE VIP TELEGRAM NEWS & SIGNAL DESK
+            </div>
+            <div style="font-size:0.86rem; font-weight:800; color:#ffffff; margin-top:2px;">
+              Real-Time $SMH / $XLV & 72-Equity Breaking News + Daily Unmasked Ignition Order Book Alerts
+            </div>
+          </div>
+          <a
+            class="btn btn-sm"
+            href="${isPro ? "https://t.me/+a6Sl2yLirbwyODQ1" : "#pricingSection"}"
+            ${isPro ? 'target="_blank" rel="noopener noreferrer"' : ""}
+            style="background:#0284c7; border-color:#38bdf8; color:#ffffff; font-weight:800; padding:8px 14px;"
+          >
+            ✈️ Join Pro VIP Telegram Channel ↗
+          </a>
+        </div>
+
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
           <div>
             <div class="mono" style="font-size:0.7rem; color:var(--fin-up); font-weight:800; letter-spacing:0.05em;">

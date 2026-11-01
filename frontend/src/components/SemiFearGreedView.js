@@ -333,17 +333,13 @@ export function renderSemiFearGreedView(state) {
             📸 Instagram (@semifeargreed) ↗
           </a>
           <a
-            class="btn"
-            href="${state.config?.telegram_channel_url || "https://t.me/truthofmarketss"}"
-            target="_blank"
-            rel="noopener noreferrer"
+            class="btn ${state.isProUnlocked ? "" : "btn-gated-vip-tg"}"
+            href="${state.isProUnlocked ? (state.config?.telegram_channel_url || "https://t.me/+a6Sl2yLirbwyODQ1") : "#pro-vip-telegram"}"
+            ${state.isProUnlocked ? 'target="_blank" rel="noopener noreferrer"' : ""}
             style="background:#0284c7; color:#ffffff; border-color:#0369a1;"
           >
-            ✈️ Telegram (@truthofmarketss) ↗
+            ${state.isProUnlocked ? "👑 VIP Telegram News ↗" : "🔒 VIP Telegram ($SMH/$XLV News)"}
           </a>
-          <button class="btn" id="btnSendSemiTelegram" style="background:#1e293b; color:#ffffff; border-color:#334155;">
-            <span>📡 Brief Preview</span>
-          </button>
           <button class="btn" id="btnExportSemiGauge" style="background:#111827; color:#ffffff; border-color:#111827;">
             ${t.cnnExportGauge}
           </button>

@@ -1725,7 +1725,7 @@ function renderHeader(state) {
   );
   const ytUrl = state.config?.youtube_url || "https://youtube.com/@rightsidealpha";
   const igUrl = state.config?.instagram_url || "https://www.instagram.com/semifeargreed";
-  const tgUrl = state.config?.telegram_channel_url || "https://t.me/truthofmarketss";
+  const tgUrl = isPro ? (state.config?.telegram_channel_url || "https://t.me/+a6Sl2yLirbwyODQ1") : "#pro-vip-telegram";
 
   return `
     <!-- INSTITUTIONAL MARKET TAPE RIBBON -->
@@ -1850,25 +1850,20 @@ function renderHeader(state) {
           </a>
 
           <a
-            class="btn"
+            class="btn ${isPro ? "" : "btn-gated-vip-tg"}"
             id="headerTelegramLink"
             href="${tgUrl}"
-            target="_blank"
-            rel="noopener noreferrer"
-            title="Official Telegram Channel (@truthofmarketss)"
+            ${isPro ? 'target="_blank" rel="noopener noreferrer"' : ""}
+            title="${isPro ? "Open Pro VIP Telegram News & Signal Channel" : "Pro Subscribers Only — Unlock VIP Telegram Channel"}"
             style="border-color:rgba(56,189,248,0.45); color:#38bdf8;"
           >
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <line x1="22" y1="2" x2="11" y2="13"></line>
               <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
             </svg>
-            <span>Telegram</span>
-            <span style="width:6px; height:6px; border-radius:50%; background:var(--fin-up); display:inline-block;"></span>
+            <span>${isPro ? "👑 VIP Telegram" : "🔒 VIP Telegram"}</span>
+            <span style="width:6px; height:6px; border-radius:50%; background:${isPro ? "var(--fin-up)" : "#f59e0b"}; display:inline-block;"></span>
           </a>
-
-          <button class="btn" id="btnOpenTelegram" title="Telegram Quant Briefing Preview">
-            <span id="btnTelegramLabel">📡 Brief</span>
-          </button>
 
           <button class="btn" id="btnOpenConfig">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -2369,6 +2364,26 @@ plotshape(ignition and not ignition[1], "PW-RSI IGNITION", shape.labelup, locati
 
       <!-- PRO VIP MODULE 00: TODAY'S IGNITION ORDER BOOK & ACCOUNT POSITION SIZING ENGINE -->
       <div class="${isPro ? "" : "blur-locked"}" style="background:#090d16; border:1px solid rgba(16,185,129,0.35); border-left:4px solid var(--fin-up); border-radius:4px; padding:16px 18px; margin-bottom:16px;">
+        <!-- PRO VIP PRIVATE TELEGRAM CHANNEL INVITE BANNER -->
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; background:rgba(2,132,199,0.14); border:1px solid rgba(56,189,248,0.45); border-radius:6px; padding:12px 14px; margin-bottom:14px;">
+          <div>
+            <div class="mono" style="font-size:0.68rem; color:#38bdf8; font-weight:800; letter-spacing:0.05em;">
+              🔒 PRO SUBSCRIBERS ONLY · PRIVATE VIP TELEGRAM NEWS & SIGNAL DESK
+            </div>
+            <div style="font-size:0.86rem; font-weight:800; color:#ffffff; margin-top:2px;">
+              Real-Time $SMH / $XLV & 72-Equity Breaking News + Daily Unmasked Ignition Order Book Alerts
+            </div>
+          </div>
+          <a
+            class="btn btn-sm"
+            href="${isPro ? "https://t.me/+a6Sl2yLirbwyODQ1" : "#pricingSection"}"
+            ${isPro ? 'target="_blank" rel="noopener noreferrer"' : ""}
+            style="background:#0284c7; border-color:#38bdf8; color:#ffffff; font-weight:800; padding:8px 14px;"
+          >
+            ✈️ Join Pro VIP Telegram Channel ↗
+          </a>
+        </div>
+
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
           <div>
             <div class="mono" style="font-size:0.7rem; color:var(--fin-up); font-weight:800; letter-spacing:0.05em;">
@@ -2535,7 +2550,7 @@ const PRICING_COPY = {
     tvBtn: "📈 Launch TradingView Terminal ↗",
     saBtn: "📊 Open Seeking Alpha EPS Consensus ↗",
     brokerBtn: "🏦 Open US Broker / Exchange PartnerBonus ↗",
-    tgBtn: "✈️ Join Official Telegram Channel (@truthofmarketss) ↗",
+    tgBtn: "🔒 Pro VIP Telegram ($SMH/$XLV & 72-Stock Live News)",
   },
   kr: {
     t1Badge: "PRO 퀀트 멤버십",
@@ -2684,8 +2699,8 @@ function renderPricing(state) {
           <a class="btn" id="affBrokerBtn" href="${rawBrkUrl}" target="_blank" rel="noopener noreferrer" style="justify-content:center; border-color:rgba(16,185,129,0.45); color:#34d399; font-weight:700;">
             ${c.brokerBtn} (${brokerName})
           </a>
-          <a class="btn" id="pricingTelegramChannelBtn" href="${cfg.telegram_channel_url || "https://t.me/truthofmarketss"}" target="_blank" rel="noopener noreferrer" style="justify-content:center; border-color:rgba(56,189,248,0.45); color:#38bdf8; font-weight:700;">
-            ${c.tgBtn}
+          <a class="btn ${state.isProUnlocked ? "" : "btn-gated-vip-tg"}" id="pricingTelegramChannelBtn" href="${state.isProUnlocked ? (cfg.telegram_channel_url || "https://t.me/+a6Sl2yLirbwyODQ1") : "#pro-vip-telegram"}" ${state.isProUnlocked ? 'target="_blank" rel="noopener noreferrer"' : ""} style="justify-content:center; border-color:rgba(56,189,248,0.45); color:#38bdf8; font-weight:700;">
+            ${state.isProUnlocked ? "👑 Enter Pro VIP Telegram Channel ↗" : c.tgBtn}
           </a>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
             <a class="btn" id="pricingYoutubeBtn" href="${cfg.youtube_url || "https://youtube.com/@rightsidealpha"}" target="_blank" rel="noopener noreferrer" style="justify-content:center; border-color:rgba(239,68,68,0.4); color:#fca5a5;">
@@ -3291,17 +3306,13 @@ function renderSemiFearGreedView(state) {
             📸 Instagram (@semifeargreed) ↗
           </a>
           <a
-            class="btn"
-            href="${state.config?.telegram_channel_url || "https://t.me/truthofmarketss"}"
-            target="_blank"
-            rel="noopener noreferrer"
+            class="btn ${state.isProUnlocked ? "" : "btn-gated-vip-tg"}"
+            href="${state.isProUnlocked ? (state.config?.telegram_channel_url || "https://t.me/+a6Sl2yLirbwyODQ1") : "#pro-vip-telegram"}"
+            ${state.isProUnlocked ? 'target="_blank" rel="noopener noreferrer"' : ""}
             style="background:#0284c7; color:#ffffff; border-color:#0369a1;"
           >
-            ✈️ Telegram (@truthofmarketss) ↗
+            ${state.isProUnlocked ? "👑 VIP Telegram News ↗" : "🔒 VIP Telegram ($SMH/$XLV News)"}
           </a>
-          <button class="btn" id="btnSendSemiTelegram" style="background:#1e293b; color:#ffffff; border-color:#334155;">
-            <span>📡 Brief Preview</span>
-          </button>
           <button class="btn" id="btnExportSemiGauge" style="background:#111827; color:#ffffff; border-color:#111827;">
             ${t.cnnExportGauge}
           </button>
@@ -3925,12 +3936,13 @@ function renderApp() {
             📸 Instagram (@semifeargreed) ↗
           </a>
           <span style="color:var(--border);">|</span>
-          <a href="${state.config.telegram_channel_url || DEFAULT_TG_CHANNEL_URL}" target="_blank" rel="noopener noreferrer" style="color:#38bdf8; text-decoration:none; font-weight:600;">
-            ✈️ Telegram Channel (@truthofmarketss) ↗
-          </a>
-          <span style="color:var(--border);">|</span>
-          <a href="https://t.me/SemifearGreedbot" target="_blank" rel="noopener noreferrer" style="color:#60a5fa; text-decoration:none; font-weight:600;">
-            🤖 Quant Bot (@SemifearGreedbot) ↗
+          <a
+            href="${state.isProUnlocked ? (state.config.telegram_channel_url || "https://t.me/+a6Sl2yLirbwyODQ1") : "#pro-vip-telegram"}"
+            class="${state.isProUnlocked ? "" : "btn-gated-vip-tg"}"
+            ${state.isProUnlocked ? 'target="_blank" rel="noopener noreferrer"' : ""}
+            style="color:#38bdf8; text-decoration:none; font-weight:600;"
+          >
+            ${state.isProUnlocked ? "👑 Pro VIP Telegram Channel ↗" : "🔒 Pro VIP Telegram ($SMH/$XLV & 72-Stock News)"}
           </a>
         </div>
         <p id="disclaimerText">${t.disclaimer}</p>
@@ -4080,6 +4092,19 @@ function bindEvents() {
 
   const vaultOverlayUnlock = document.getElementById("vaultOverlayUnlock");
   if (vaultOverlayUnlock) vaultOverlayUnlock.addEventListener("click", () => openLicenseModal(true));
+
+  // Gated Pro VIP Telegram Channel buttons -> open License / Subscribe modal for Free users
+  document.querySelectorAll(".btn-gated-vip-tg").forEach((el) => {
+    el.addEventListener("click", (e) => {
+      if (!state.isProUnlocked) {
+        e.preventDefault();
+        openLicenseModal(
+          false,
+          "🔒 Pro VIP Telegram Channel ($SMH/$XLV & 72-Stock Real-Time News + Unmasked Ignition Signals) is exclusively for Pro Subscribers ($29/mo or $199 Lifetime)."
+        );
+      }
+    });
+  });
 
   const btnCancelLicense = document.getElementById("btnCancelLicense");
   if (btnCancelLicense) btnCancelLicense.addEventListener("click", closeLicenseModal);

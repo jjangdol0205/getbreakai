@@ -30,6 +30,8 @@ data/admin_config.json
 data/admin_secret.json
 data/lemonsqueezy_2fa_backup_codes.txt
 data/daily_shorts_state.json
+data/master_hq_bridge_state.json
+data/master_hq_bridge.pid
 viral_shorts_10_output/
 
 # OS & Editor

@@ -235,12 +235,13 @@ function renderApp() {
             📸 Instagram (@semifeargreed) ↗
           </a>
           <span style="color:var(--border);">|</span>
-          <a href="${state.config.telegram_channel_url || DEFAULT_TG_CHANNEL_URL}" target="_blank" rel="noopener noreferrer" style="color:#38bdf8; text-decoration:none; font-weight:600;">
-            ✈️ Telegram Channel (@truthofmarketss) ↗
-          </a>
-          <span style="color:var(--border);">|</span>
-          <a href="https://t.me/SemifearGreedbot" target="_blank" rel="noopener noreferrer" style="color:#60a5fa; text-decoration:none; font-weight:600;">
-            🤖 Quant Bot (@SemifearGreedbot) ↗
+          <a
+            href="${state.isProUnlocked ? (state.config.telegram_channel_url || "https://t.me/+a6Sl2yLirbwyODQ1") : "#pro-vip-telegram"}"
+            class="${state.isProUnlocked ? "" : "btn-gated-vip-tg"}"
+            ${state.isProUnlocked ? 'target="_blank" rel="noopener noreferrer"' : ""}
+            style="color:#38bdf8; text-decoration:none; font-weight:600;"
+          >
+            ${state.isProUnlocked ? "👑 Pro VIP Telegram Channel ↗" : "🔒 Pro VIP Telegram ($SMH/$XLV & 72-Stock News)"}
           </a>
         </div>
         <p id="disclaimerText">${t.disclaimer}</p>
@@ -390,6 +391,19 @@ function bindEvents() {
 
   const vaultOverlayUnlock = document.getElementById("vaultOverlayUnlock");
   if (vaultOverlayUnlock) vaultOverlayUnlock.addEventListener("click", () => openLicenseModal(true));
+
+  // Gated Pro VIP Telegram Channel buttons -> open License / Subscribe modal for Free users
+  document.querySelectorAll(".btn-gated-vip-tg").forEach((el) => {
+    el.addEventListener("click", (e) => {
+      if (!state.isProUnlocked) {
+        e.preventDefault();
+        openLicenseModal(
+          false,
+          "🔒 Pro VIP Telegram Channel ($SMH/$XLV & 72-Stock Real-Time News + Unmasked Ignition Signals) is exclusively for Pro Subscribers ($29/mo or $199 Lifetime)."
+        );
+      }
+    });
+  });
 
   const btnCancelLicense = document.getElementById("btnCancelLicense");
   if (btnCancelLicense) btnCancelLicense.addEventListener("click", closeLicenseModal);

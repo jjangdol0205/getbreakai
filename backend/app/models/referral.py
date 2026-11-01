@@ -18,9 +18,17 @@ class ReferralConfig(BaseModel):
         description="Lemon Squeezy Lifetime Pass checkout URL",
     )
     site1_url: str = Field(
-        default="https://getbreakai.com",
+        default="https://truthofmarket.com",
         description="Primary production domain URL",
     )
+    broker_name: str = Field("IBKR / Webull", description="Broker/Exchange partner label")
+    broker_referral_url: str = Field(
+        "https://ibkr.com/referral/rightsidealpha",
+        description="Broker/Exchange affiliate referral URL",
+    )
+    telegram_channel_url: Optional[str] = Field("https://t.me/SemifearGreedbot")
+    youtube_url: Optional[str] = Field("https://youtube.com/@rightsidealpha")
+    instagram_url: Optional[str] = Field("https://www.instagram.com/semifeargreed")
 
 
 class ReferralClickStats(BaseModel):
@@ -28,6 +36,7 @@ class ReferralClickStats(BaseModel):
     tradingview: int = Field(0, description="TradingView click count")
     seekingalpha: int = Field(0, description="Seeking Alpha click count")
     trendspider: int = Field(0, description="TrendSpider click count")
+    broker: int = Field(0, description="Broker/Exchange click count")
     last_clicked_at: Optional[str] = Field(None, description="ISO timestamp of most recent outbound referral click")
     last_provider: Optional[str] = Field(None, description="Partner network of most recent click")
     last_ticker: Optional[str] = Field(None, description="Target symbol of most recent click")

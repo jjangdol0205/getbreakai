@@ -1,5 +1,4 @@
-const formatLsUrl = (u) =>
-  !u ? "#" : u.includes("?") ? (u.includes("embed=1") ? u : `${u}&embed=1`) : `${u}?embed=1`;
+import { formatCheckoutUrl } from "../services/api.js";
 
 export function renderHeader(state) {
   const t = state.t;
@@ -9,13 +8,13 @@ export function renderHeader(state) {
   const ov = state.semiOverview;
   const semiScore = ov && ov.fg_score !== undefined ? Number(ov.fg_score).toFixed(1) : "18.0";
   const rawRegime = ov
-    ? state.lang === "kr"
-      ? ov.regime_kr || ov.regime_en
-      : state.lang === "jp"
-        ? ov.regime_jp || ov.regime_en
-        : ov.regime_en || "NEUTRAL"
-    : "NEUTRAL";
-  const semiRegime = String(rawRegime || "NEUTRAL").toUpperCase();
+    ? lang === "jp"
+      ? ov.regime_jp
+      : lang === "kr"
+      ? ov.regime_kr
+      : ov.regime_en
+    : "EXTREME FEAR";
+  const semiRegime = String(rawRegime || "EXTREME FEAR").toUpperCase();
   const semiDate = ov && ov.date ? ov.date : "2026-10-26";
   const smhPrice = ov && ov.smh_close !== undefined ? Number(ov.smh_close).toFixed(2) : "541.62";
   const xlvPrice = ov && ov.xlv_close !== undefined ? Number(ov.xlv_close).toFixed(2) : "179.28";
@@ -28,7 +27,13 @@ export function renderHeader(state) {
 
   const qqq1d = qqqEtf && qqqEtf.ret_1d_pct !== undefined ? Number(qqqEtf.ret_1d_pct) : 1.11;
   const smhDd = smhEtf && smhEtf.dd_52w_pct !== undefined ? Number(smhEtf.dd_52w_pct) : (ov && ov.smh_dd_pct !== undefined ? Number(ov.smh_dd_pct) : -19.03);
-  const xlv1d = xlvEtf && xlvEtf.ret_1d_pct !== undefined ? Number(xlvEtf.ret_1d_pct) : Number(ov?.xlv_1d_pct ?? 0.0);
+  const xlv1d = xlvEtf && xlvEtf.ret_1d_pct !== undefined ? Number(xlvEtf.ret_1d_pct) : 0.0;
+  const lsMonthlyHref = formatCheckoutUrl(
+    state.config?.ls_site1_monthly_url,
+    "https://rightsidealpha.lemonsqueezy.com/checkout/buy/pro-monthly"
+  );
+  const ytUrl = state.config?.youtube_url || "https://youtube.com/@rightsidealpha";
+  const igUrl = state.config?.instagram_url || "https://www.instagram.com/semifeargreed";
 
   return `
     <!-- INSTITUTIONAL MARKET TAPE RIBBON -->
@@ -56,7 +61,7 @@ export function renderHeader(state) {
           </span>
           <span class="tape-item" style="cursor:pointer;" id="ribbonSwitchSemi">
             <span class="tape-sym">SEMI FEAR & GREED</span>
-            <span class="tape-down" style="font-weight:700;">${semiScore} / 100 (${semiRegime})</span>
+            <span class="${Number(semiScore) >= 55 ? "tape-up" : "tape-down"}" style="font-weight:700;">${semiScore} / 100 (${semiRegime})</span>
           </span>
         </div>
         <div class="mono" style="font-size:0.68rem; color:var(--muted);">
@@ -112,22 +117,53 @@ export function renderHeader(state) {
             ${isPro ? t.statusPro : t.statusFree}
           </span>
 
-          <button class="btn" id="btnOpenTelegram" style="border-color:rgba(96,165,250,0.4);">
-            <span
-              id="tgHeaderStatusDot"
-              style="width:7px; height:7px; border-radius:50%; display:inline-block; background:${
-                state.telegramStatus?.configured || state.config?.tg_chat_id ? "#10b981" : "#60a5fa"
-              };"
-            ></span>
-            <span id="btnTelegramLabel">📲 ${t.telegram?.btnTelegram || "Telegram"}</span>
-          </button>
-
           <button class="btn" id="btnOpenLicense">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
               <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
             </svg>
             <span id="btnLicense">${t.btnLicense}</span>
+          </button>
+
+          <a
+            class="btn"
+            id="headerYoutubeLink"
+            href="${ytUrl}"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Official YouTube (@rightsidealpha)"
+            style="border-color:rgba(239,68,68,0.4); color:#fca5a5;"
+          >
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/>
+            </svg>
+            <span>YouTube</span>
+          </a>
+
+          <a
+            class="btn"
+            id="headerInstagramLink"
+            href="${igUrl}"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Official Instagram (@semifeargreed)"
+            style="border-color:rgba(236,72,153,0.4); color:#f9a8d4;"
+          >
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+            <span>Instagram</span>
+          </a>
+
+          <button class="btn" id="btnOpenTelegram" title="Telegram Alert Bot & Channel">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+            <span id="btnTelegramLabel">${t.btnTelegram || "Telegram Alert"}</span>
+            <span style="width:6px; height:6px; border-radius:50%; background:${state.telegramConfigured ? "var(--fin-up)" : "#38bdf8"}; display:inline-block;"></span>
           </button>
 
           <button class="btn" id="btnOpenConfig">
@@ -141,9 +177,9 @@ export function renderHeader(state) {
           <a
             class="btn btn-primary lemonsqueezy-button"
             id="topSubscribeBtn"
-            data-plan="monthly"
-            href="${formatLsUrl(state.config?.ls_site1_monthly_url)}"
-            style="${isPro ? "display:none;" : ""}"
+            href="${lsMonthlyHref}"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             <span id="btnUnlockPro">${t.btnUnlockPro}</span>
           </a>

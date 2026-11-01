@@ -12,7 +12,7 @@ from backend.app.models.referral import ReferralConfig, ReferralClickStats
 class ReferralService:
     """Manages partner affiliate links and in-memory click analytics."""
 
-    VALID_PROVIDERS = {"tradingview", "seekingalpha", "trendspider"}
+    VALID_PROVIDERS = {"tradingview", "seekingalpha", "trendspider", "broker", "exchange"}
 
     def __init__(self):
         self._lock = threading.Lock()
@@ -50,6 +50,10 @@ class ReferralService:
             return f"https://seekingalpha.com/symbol/{tick}/earnings?source={cfg.seekingalpha_source}"
         elif prov == "trendspider":
             return f"https://trendspider.com/?_go={cfg.trendspider_aff_id}&symbol={tick}"
+        elif prov in ("broker", "exchange"):
+            base_url = cfg.broker_referral_url or "https://ibkr.com/referral/rightsidealpha"
+            sep = "&" if "?" in base_url else "?"
+            return f"{base_url}{sep}symbol={tick}"
         else:
             raise ValueError(f"Provider '{provider}' not implemented")
 
@@ -69,6 +73,8 @@ class ReferralService:
                 self.stats.seekingalpha += 1
             elif prov == "trendspider":
                 self.stats.trendspider += 1
+            elif prov in ("broker", "exchange"):
+                self.stats.broker += 1
 
             self.stats.last_clicked_at = datetime.now(timezone.utc).isoformat()
             self.stats.last_provider = prov

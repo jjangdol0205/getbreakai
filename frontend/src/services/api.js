@@ -1,27 +1,37 @@
-export function isProUnlocked() {
-  if (typeof localStorage === "undefined") return false;
+export function getAuthHeader() {
   const token =
     localStorage.getItem("rsa_token") ||
     (localStorage.getItem("rsa_pro_unlocked") === "true" ? "PRO-DEMO-2026" : "");
-  return Boolean(token) && localStorage.getItem("rsa_pro_unlocked") === "true";
-}
-
-function getAuthHeader() {
-  if (!isProUnlocked()) return {};
-  const token = localStorage.getItem("rsa_token") || "PRO-DEMO-2026";
   if (token) {
     return { Authorization: `Bearer ${token}` };
   }
   return {};
 }
 
+export function formatCheckoutUrl(
+  rawUrl,
+  fallbackUrl = "https://rightsidealpha.lemonsqueezy.com/checkout/buy/pro-monthly"
+) {
+  const base = String(rawUrl || fallbackUrl).trim() || fallbackUrl;
+  if (/[?&]embed=1\b/i.test(base)) {
+    return base;
+  }
+  return `${base}${base.includes("?") ? "&" : "?"}embed=1`;
+}
+
 function isProActive() {
-  return isProUnlocked();
+  const token =
+    localStorage.getItem("rsa_token") ||
+    (localStorage.getItem("rsa_pro_unlocked") === "true" ? "PRO-DEMO-2026" : "");
+  return Boolean(token);
 }
 
 function isStaticHost() {
   if (typeof window === "undefined") return false;
-  return window.__STATIC_MODE__ === true;
+  if (window.__STATIC_MODE__ === true) return true;
+  const h = window.location.hostname || "";
+  if (!h || h === "localhost" || h === "127.0.0.1") return false;
+  return true;
 }
 
 async function fetchJsonWithFallback(apiUrl, options, fallbackFn) {
@@ -80,35 +90,49 @@ export async function fetchStocks(params = {}) {
       },
     },
     async () => {
-      const file = isProUnlocked() ? "./static_api/stocks_pro.json" : "./static_api/stocks_free.json";
+      const file = isProActive() ? "./static_api/stocks_pro.json" : "./static_api/stocks_free.json";
       const r = await fetch(file);
       let list = await r.json();
       if (params.search) {
         const q = String(params.search).trim().toLowerCase();
-        list = list.filter((s) => {
-          const nameVal = (s.name || s.name_en || s.name_kr || s.name_jp || "").toLowerCase();
-          const allNames = `${s.name || ""} ${s.name_en || ""} ${s.name_kr || ""} ${s.name_jp || ""}`.toLowerCase();
-          return (
+        list = list.filter(
+          (s) =>
             (s.ticker && s.ticker.toLowerCase().includes(q)) ||
-            nameVal.includes(q) ||
-            allNames.includes(q) ||
+            (s.name && s.name.toLowerCase().includes(q)) ||
+            (s.name_en && s.name_en.toLowerCase().includes(q)) ||
+            (s.name_jp && s.name_jp.toLowerCase().includes(q)) ||
+            (s.name_kr && s.name_kr.toLowerCase().includes(q)) ||
             (s.sector && s.sector.toLowerCase().includes(q))
-          );
-        });
+        );
       }
       if (params.zone && params.zone !== "ALL") {
-        list = list.filter((s) => s.zone_code === params.zone);
+        list = list.filter((s) => (s.zone_code || s.zone) === params.zone);
       }
       if (params.sort_by) {
-        const key = params.sort_by;
+        const aliasMap = {
+          pw_score: "score",
+          price: "close",
+          prox: "prox_low52_pct",
+          dd: "dd_high52_pct",
+          vol: "vol_surge_10d",
+        };
+        const key = aliasMap[params.sort_by] || params.sort_by;
         const desc = String(params.order || "desc").toLowerCase() !== "asc";
         list = [...list].sort((a, b) => {
-          const va = Number(a[key] ?? 0);
-          const vb = Number(b[key] ?? 0);
-          return desc ? vb - va : va - vb;
+          const va = a[key];
+          const vb = b[key];
+          if (typeof va === "string" || typeof vb === "string") {
+            const cmp = String(va ?? "").localeCompare(String(vb ?? ""));
+            return desc ? -cmp : cmp;
+          }
+          const na = Number(va ?? 0);
+          const nb = Number(vb ?? 0);
+          return desc ? nb - na : na - nb;
         });
       }
-      return list;
+      const off = Math.max(0, Number(params.offset || 0));
+      const lim = params.limit ? Math.max(1, Number(params.limit)) : list.length;
+      return list.slice(off, off + lim);
     }
   );
 }
@@ -175,16 +199,6 @@ export async function fetchResearchBrief(ticker) {
   );
 }
 
-export function isValidLicenseKeyFormat(rawKey) {
-  const key = String(rawKey || "").trim();
-  if (!key) return false;
-  return (
-    key.toUpperCase() === "PRO-DEMO-2026" ||
-    /^RSA-(PRO|LTD)-2026-[A-Z0-9]{4,12}$/i.test(key) ||
-    /^[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}$/i.test(key)
-  );
-}
-
 export async function validateLicense(licenseKey) {
   return fetchJsonWithFallback(
     "/api/auth/license/validate",
@@ -198,11 +212,14 @@ export async function validateLicense(licenseKey) {
     },
     async () => {
       const key = String(licenseKey || "").trim();
-      const valid = isValidLicenseKeyFormat(key);
+      const valid =
+        key.toUpperCase() === "PRO-DEMO-2026" ||
+        /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(key);
       return {
         valid,
-        license_key: valid ? key.toUpperCase() : key,
+        license_key: valid ? key : null,
         tier: valid ? "pro" : "free",
+        expires_at: valid ? "2099-12-31T23:59:59Z" : null,
         message: valid
           ? "Pro Terminal License Verified."
           : "Invalid license key. Use PRO-DEMO-2026 for demo.",
@@ -221,8 +238,13 @@ export async function fetchProVault() {
       },
     },
     async () => {
-      const r = await fetch("./static_api/pinescript.json");
-      return r.json();
+      const active = isProActive();
+      return {
+        unlocked: active,
+        tier: active ? "pro" : "free",
+        pine_script_available: active,
+        tools: ["position_doctor", "morning_pdf", "pine_script_v5"],
+      };
     }
   );
 }
@@ -244,11 +266,7 @@ export async function fetchPineScript() {
 }
 
 export async function evaluatePositionDoctor(data) {
-  const tClean = String(data.ticker || "CELH").trim().toUpperCase();
-  const entry = Math.max(0.01, Number(data.entry_price || 27.93));
-  const days = Number(data.days_held || 0);
-
-  const res = await fetchJsonWithFallback(
+  return fetchJsonWithFallback(
     "/api/pro/position-doctor",
     {
       method: "POST",
@@ -261,21 +279,29 @@ export async function evaluatePositionDoctor(data) {
     },
     async () => {
       const all = await getStaticProStocks();
+      const tClean = String(data.ticker || "CELH").trim().toUpperCase();
       const stock = all.find((s) => s.ticker === tClean);
-      const curr = stock ? Number(stock.close) : entry;
+      const entry = Math.max(0.01, Number(data.entry_price || 27.93));
+      const days = Number(data.days_held || 0);
+      const curr =
+        data.current_price !== undefined && data.current_price !== null
+          ? Number(data.current_price)
+          : stock
+          ? Number(stock.close)
+          : entry;
       const asOf = stock && stock.date ? stock.date : "2026-10-13";
-      const retPct = Number((((curr / entry) - 1.0) * 100.0).toFixed(2));
+      const retPct = Number(((curr / entry - 1.0) * 100.0).toFixed(2));
       const stopP = Number((entry * 0.91).toFixed(2));
       const tp1P = Number((entry * 2.0).toFixed(2));
 
       if (retPct <= -9.0) {
         return {
           ticker: tClean,
-          status_code: "CRITICAL_STOP",
+          status_code: "HARD_STOP",
           status_label: "🛑 Hard Stop Loss Triggered",
           return_pct: retPct,
           rule_triggered: "Rule 1 (-9.0% Hard Stop Loss)",
-          action_plan: "Execute immediate market exit. Do not average down on broken support.",
+          action_plan: "Exit immediately. Do not average down on broken support.",
           is_critical: true,
           current_price: curr,
           entry_price: Number(entry.toFixed(2)),
@@ -286,11 +312,12 @@ export async function evaluatePositionDoctor(data) {
       } else if (days >= 55 && retPct < 8.0) {
         return {
           ticker: tClean,
-          status_code: "DEAD_MONEY",
-          status_label: "⏳ 55-Day Time Stop Triggered",
+          status_code: "TIME_STOP",
+          status_label: "⏳ 55-Day Time Stop Triggered (55일 시간 손절)",
           return_pct: retPct,
           rule_triggered: "Rule 2 (55-Day Dead-Money Exit)",
-          action_plan: "Exit position. Rebound momentum has stalled; reallocate into active right-side ignition candidates.",
+          action_plan:
+            "Exit position. Rebound momentum has stalled; reallocate into active right-side ignition candidates.",
           is_critical: false,
           current_price: curr,
           entry_price: Number(entry.toFixed(2)),
@@ -301,11 +328,12 @@ export async function evaluatePositionDoctor(data) {
       } else if (retPct >= 100.0) {
         return {
           ticker: tClean,
-          status_code: "TP1_REACHED",
+          status_code: "TP1_HARVEST",
           status_label: "🎯 100% Target Price 1 Achieved",
           return_pct: retPct,
           rule_triggered: "Rule 3 (+100% Principal Recovery)",
-          action_plan: "Sell 50% of position to recoup 100% initial capital. Set trailing stop on remaining 50% using MA60.",
+          action_plan:
+            "Sell 50% of position to recoup 100% initial capital. Set trailing stop on remaining 50% using MA60.",
           is_critical: false,
           current_price: curr,
           entry_price: Number(entry.toFixed(2)),
@@ -316,11 +344,12 @@ export async function evaluatePositionDoctor(data) {
       } else {
         return {
           ticker: tClean,
-          status_code: "ACTIVE_HOLD",
+          status_code: "HOLD",
           status_label: "🟢 Active Right-Side Trend Follow",
           return_pct: retPct,
           rule_triggered: "Rule 4 (Healthy Trend Follow)",
-          action_plan: "Maintain position. Monitor MA20/MA60 trailing support; runner target is +100% TP1.",
+          action_plan:
+            "Maintain position. Monitor MA20/MA60 trailing support; runner target is +100% TP1.",
           is_critical: false,
           current_price: curr,
           entry_price: Number(entry.toFixed(2)),
@@ -331,33 +360,6 @@ export async function evaluatePositionDoctor(data) {
       }
     }
   );
-
-  if (res && typeof res === "object") {
-    if (res.entry_price === undefined || res.entry_price === null || !(res.entry_price > 0)) {
-      res.entry_price = Number(entry.toFixed(2));
-    }
-    if (res.current_price === undefined || res.current_price === null || !(res.current_price > 0)) {
-      let fallbackCurr = data.current_price ? Number(data.current_price) : null;
-      if (!fallbackCurr && cachedProStocks) {
-        const st = cachedProStocks.find((s) => s.ticker === tClean);
-        if (st) fallbackCurr = Number(st.close);
-      }
-      if (!fallbackCurr && res.return_pct !== undefined) {
-        fallbackCurr = Number((res.entry_price * (1.0 + Number(res.return_pct) / 100.0)).toFixed(2));
-      }
-      res.current_price = fallbackCurr || res.entry_price;
-    }
-    if (res.stop_price === undefined || res.stop_price === null) {
-      res.stop_price = Number((res.entry_price * 0.91).toFixed(2));
-    }
-    if (res.tp1_price === undefined || res.tp1_price === null) {
-      res.tp1_price = Number((res.entry_price * 2.0).toFixed(2));
-    }
-    if (!res.as_of_date) {
-      res.as_of_date = "2026-10-13";
-    }
-  }
-  return res;
 }
 
 export async function fetchReferralConfig() {
@@ -387,7 +389,9 @@ export async function updateReferralConfig(data) {
 }
 
 export function getReferralRedirectUrl(provider, ticker) {
-  return `/api/referral/redirect/${encodeURIComponent(provider.toLowerCase())}?ticker=${encodeURIComponent(ticker)}`;
+  return `/api/referral/redirect/${encodeURIComponent(
+    provider.toLowerCase()
+  )}?ticker=${encodeURIComponent(ticker)}`;
 }
 
 export async function fetchSemiOverview() {
@@ -402,23 +406,14 @@ export async function fetchSemiHistory(rangeCode = "1Y") {
   const rc = String(rangeCode || "1Y").trim().toUpperCase();
   const validRanges = ["3M", "6M", "1Y", "3Y", "5Y", "10Y", "ALL"];
   const safeRange = validRanges.includes(rc) ? rc : "1Y";
-  const loadStaticRange = async () => {
-    const r = await fetch(`./static_api/semi_history_${safeRange}.json`);
-    return r.json();
-  };
-  const data = await fetchJsonWithFallback(
+  return fetchJsonWithFallback(
     `/api/semi/history?range=${encodeURIComponent(safeRange)}`,
     { headers: { Accept: "application/json" } },
-    loadStaticRange
-  );
-  if (data && data.range_code && String(data.range_code).toUpperCase() !== safeRange) {
-    try {
-      return await loadStaticRange();
-    } catch (e) {
-      return data;
+    async () => {
+      const r = await fetch(`./static_api/semi_history_${safeRange}.json`);
+      return r.json();
     }
-  }
-  return data;
+  );
 }
 
 export async function calculateSemiRebalance(data) {
@@ -489,8 +484,14 @@ export async function calculateSemiRebalance(data) {
       const residualUsd = Number(Math.max(0, capUsd - investedUsd).toFixed(2));
 
       const natW = Number(ov.natural_smh_weight_pct ?? 66.5) / 100.0;
-      const currSmhUsd = Number((capUsd * natW).toFixed(2));
-      const currXlvUsd = Number((capUsd * (1.0 - natW)).toFixed(2));
+      const currSmhUsd =
+        data.current_smh_usd !== undefined && data.current_smh_usd !== null
+          ? Number(data.current_smh_usd)
+          : Number((capUsd * natW).toFixed(2));
+      const currXlvUsd =
+        data.current_xlv_usd !== undefined && data.current_xlv_usd !== null
+          ? Number(data.current_xlv_usd)
+          : Number((capUsd * (1.0 - natW)).toFixed(2));
       const deltaSmhUsd = Number((targetSmhUsd - currSmhUsd).toFixed(2));
       const deltaXlvUsd = Number((targetXlvUsd - currXlvUsd).toFixed(2));
       const deltaSmhShares = Math.round(deltaSmhUsd / smhPrice);
@@ -595,9 +596,12 @@ export async function calculateSemiLumpSum(data) {
           case_title_en: "Case 1 (Score 0–40 · Fear Regime): 100% Immediate Lump-Sum Entry",
           case_title_jp: "ケース1 (スコア 0–40 · 恐怖圏): 100% 即時一括エントリー",
           case_title_kr: "Case 1 (지수 0–40 · 공포 구간): 100% 즉시 일시금 진입",
-          summary_en: "Semiconductors are already discounted. Do not hold excess cash—deploy 100% today and rebalance back to 70:30 when $SMH recovers within -10% of its 52-week high.",
-          summary_jp: "半導体セクターは既に割安圏にあります。現金を遊ばせず本日100%投入し、$SMHが高値比-10%以内へ回復した時点で70:30へ戻します。",
-          summary_kr: "반도체 섹터가 이미 할인된 공포 구간입니다. 현금을 놀리지 말고 당일 100% 거치식으로 진입한 뒤, $SMH가 고점 대비 -10% 이내로 회복되면 70:30으로 복귀하세요.",
+          summary_en:
+            "Semiconductors are already discounted. Do not hold excess cash—deploy 100% today and rebalance back to 70:30 when $SMH recovers within -10% of its 52-week high.",
+          summary_jp:
+            "半導体セクターは既に割安圏にあります。現金を遊ばせず本日100%投入し、$SMHが高値比-10%以内へ回復した時点で70:30へ戻します。",
+          summary_kr:
+            "반도체 섹터가 이미 할인된 공포 구간입니다. 현금을 놀리지 말고 당일 100% 거치식으로 진입한 뒤, $SMH가 고점 대비 -10% 이내로 회복되면 70:30으로 복귀하세요.",
           immediate_deploy_pct: 100.0,
           parked_cash_rp_pct: 0.0,
           tranches: [
@@ -616,9 +620,15 @@ export async function calculateSemiLumpSum(data) {
               cash_rp_usd: 0.0,
               smh_shares: Math.floor(smhUsd / smhP),
               xlv_shares: Math.floor(xlvUsd / xlvP),
-              note_en: `Deploy 100% immediately at ${Math.round(smhW * 100)}:${Math.round(xlvW * 100)} ($SMH:$XLV). Historical 1-year forward win rate when entering below score 25 exceeds 91%.`,
-              note_jp: `${Math.round(smhW * 100)}:${Math.round(xlvW * 100)} ($SMH:$XLV) 比率で100%即時エントリー。スコア25以下でのエントリーは過去1年後の勝率が91%超。`,
-              note_kr: `${Math.round(smhW * 100)}:${Math.round(xlvW * 100)} ($SMH:$XLV) 비중으로 100% 즉시 진입합니다. 공포 지수 25 이하 진입 시 1년 후 플러스 수익 확률은 91% 이상입니다.`,
+              note_en: `Deploy 100% immediately at ${Math.round(smhW * 100)}:${Math.round(
+                xlvW * 100
+              )} ($SMH:$XLV). Historical 1-year forward win rate when entering below score 25 exceeds 91%.`,
+              note_jp: `${Math.round(smhW * 100)}:${Math.round(
+                xlvW * 100
+              )} ($SMH:$XLV) 比率で100%即時エントリー。スコア25以下でのエントリーは過去1年後の勝率が91%超。`,
+              note_kr: `${Math.round(smhW * 100)}:${Math.round(
+                xlvW * 100
+              )} ($SMH:$XLV) 비중으로 100% 즉시 진입합니다. 공포 지수 25 이하 진입 시 1년 후 플러스 수익 확률은 91% 이상입니다.`,
             },
           ],
         };
@@ -637,9 +647,12 @@ export async function calculateSemiLumpSum(data) {
           case_title_en: "Case 2 (Score 40–68 · Neutral Regime): 65% Immediate + 35% Pullback Reserve",
           case_title_jp: "ケース2 (スコア 40–68 · 中立圏): 65% 初日投入 + 35% 押し目待機",
           case_title_kr: "Case 2 (지수 40–68 · 중립 구간): 65% 선진입 + 35% 달러 RP 파킹 후 분할",
-          summary_en: "Balanced deployment: lock in your 30% $XLV anchor and half of $SMH today, while keeping 35% dry powder for volatility.",
-          summary_jp: "バランス型エントリー：$XLV 30%と$SMH半分を初日に確保し、35%の余力で押し目に備えます。",
-          summary_kr: "중립장 표준 공식: 1일차에 $XLV 30% 전량과 $SMH 절반(35%)을 먼저 채우고, 나머지 35%는 조정 시 추매 실탄으로 활용합니다.",
+          summary_en:
+            "Balanced deployment: lock in your 30% $XLV anchor and half of $SMH today, while keeping 35% dry powder for volatility.",
+          summary_jp:
+            "バランス型エントリー：$XLV 30%と$SMH半分を初日に確保し、35%の余力で押し目に備えます。",
+          summary_kr:
+            "중립장 표준 공식: 1일차에 $XLV 30% 전량과 $SMH 절반(35%)을 먼저 채우고, 나머지 35%는 조정 시 추매 실탄으로 활용합니다.",
           immediate_deploy_pct: 65.0,
           parked_cash_rp_pct: 35.0,
           tranches: [
@@ -658,9 +671,12 @@ export async function calculateSemiLumpSum(data) {
               cash_rp_usd: 0.0,
               smh_shares: Math.floor(d1Smh / smhP),
               xlv_shares: Math.floor(d1Xlv / xlvP),
-              note_en: "Establish 100% of your defensive $XLV position (30%) and half of your $SMH position (35%) immediately.",
-              note_jp: "ディフェンシブ枠の$XLV (30%) 全額と、成長枠$SMHの半分 (35%) を初日に構築します。",
-              note_kr: "방어주 $XLV(30%) 전량과 반도체 $SMH 목표치의 절반(35%)을 첫날 즉시 매수합니다.",
+              note_en:
+                "Establish 100% of your defensive $XLV position (30%) and half of your $SMH position (35%) immediately.",
+              note_jp:
+                "ディフェンシブ枠の$XLV (30%) 全額と、成長枠$SMHの半分 (35%) を初日に構築します。",
+              note_kr:
+                "방어주 $XLV(30%) 전량과 반도체 $SMH 목표치의 절반(35%)을 첫날 즉시 매수합니다.",
             },
             {
               step: 2,
@@ -677,9 +693,12 @@ export async function calculateSemiLumpSum(data) {
               cash_rp_usd: t2Smh,
               smh_shares: Math.floor(t2Smh / smhP),
               xlv_shares: 0,
-              note_en: "Earn ~4.5% USD RP yield while waiting for a pullback below score 40, or auto-deploy over 90 days.",
-              note_jp: "米ドルMMFで金利を受け取りながらスコア40以下への押し目を待つか、90日間で機械的に分割投入します。",
-              note_kr: "달러 RP(연 4%대 금리)에 예치해 두었다가 지수가 40 이하로 내려오면 즉시 투입하고, 안 내려오면 3개월간 균등 분할 매수합니다.",
+              note_en:
+                "Earn ~4.5% USD RP yield while waiting for a pullback below score 40, or auto-deploy over 90 days.",
+              note_jp:
+                "米ドルMMFで金利を受け取りながらスコア40以下への押し目を待つか、90日間で機械的に分割投入します。",
+              note_kr:
+                "달러 RP(연 4%대 금리)에 예치해 두었다가 지수가 40 이하로 내려오면 즉시 투입하고, 안 내려오면 3개월간 균등 분할 매수합니다.",
             },
           ],
         };
@@ -693,12 +712,18 @@ export async function calculateSemiLumpSum(data) {
           capital_usd: cap,
           fg_score_used: fgScore,
           case_code: "CASE_3_GREED_DEFENSIVE_FIRST",
-          case_title_en: "Case 3 (Score 68–100 · Greed Regime): 30% $XLV Today + 70% $SMH Parked in USD RP",
-          case_title_jp: "ケース3 (スコア 68–100 · 強欲圏): 初日 $XLV 30%のみ + 70% 米ドルMMF待機",
-          case_title_kr: "Case 3 (지수 68–100 · 탐욕 과열 구간): 당일 $XLV 30%만 진입 + 70% 달러 RP 대기",
-          summary_en: "Protect principal against euphoria: buy only the 30% $XLV sleeve today and keep 70% in USD RP until Fear & Greed cools to 45 or below.",
-          summary_jp: "高値掴み防止ルール：初日は$XLV 30%のみを購入し、70%は指数が45以下に冷めるまで米ドルMMFで待機します。",
-          summary_kr: "고점 추격매수 방지 공식: 당일에는 방어주 $XLV 30%만 매수하고, $SMH 70% 자금은 지수가 45 이하로 내려올 때까지 달러 RP에서 이자를 받으며 대기합니다.",
+          case_title_en:
+            "Case 3 (Score 68–100 · Greed Regime): 30% $XLV Today + 70% $SMH Parked in USD RP",
+          case_title_jp:
+            "ケース3 (スコア 68–100 · 強欲圏): 初日 $XLV 30%のみ + 70% 米ドルMMF待機",
+          case_title_kr:
+            "Case 3 (지수 68–100 · 탐욕 과열 구간): 당일 $XLV 30%만 진입 + 70% 달러 RP 대기",
+          summary_en:
+            "Protect principal against euphoria: buy only the 30% $XLV sleeve today and keep 70% in USD RP until Fear & Greed cools to 45 or below.",
+          summary_jp:
+            "高値掴み防止ルール：初日は$XLV 30%のみを購入し、70%は指数が45以下に冷めるまで米ドルMMFで待機します。",
+          summary_kr:
+            "고점 추격매수 방지 공식: 당일에는 방어주 $XLV 30%만 매수하고, $SMH 70% 자금은 지수가 45 이하로 내려올 때까지 달러 RP에서 이자를 받으며 대기합니다.",
           immediate_deploy_pct: 30.0,
           parked_cash_rp_pct: 70.0,
           tranches: [
@@ -717,9 +742,12 @@ export async function calculateSemiLumpSum(data) {
               cash_rp_usd: 0.0,
               smh_shares: 0,
               xlv_shares: Math.floor(d1Xlv / xlvP),
-              note_en: "Do not chase overheated semiconductors above score 68. Deploy only the 30% Healthcare anchor on Day 1.",
-              note_jp: "スコア68超の過熱局面での半導体ジャンピングキャッチを回避し、ヘルスケア枠30%のみを先行構築します。",
-              note_kr: "탐욕 지수 68 초과 과열 구간에서는 반도체 고점 물림을 피하기 위해 방어주 $XLV 30%만 우선 매수합니다.",
+              note_en:
+                "Do not chase overheated semiconductors above score 68. Deploy only the 30% Healthcare anchor on Day 1.",
+              note_jp:
+                "スコア68超の過熱局面での半導体ジャンピングキャッチを回避し、ヘルスケア枠30%のみを先行構築します。",
+              note_kr:
+                "탐욕 지수 68 초과 과열 구간에서는 반도체 고점 물림을 피하기 위해 방어주 $XLV 30%만 우선 매수합니다.",
             },
             {
               step: 2,
@@ -736,9 +764,12 @@ export async function calculateSemiLumpSum(data) {
               cash_rp_usd: pSmh,
               smh_shares: Math.floor(pSmh / smhP),
               xlv_shares: 0,
-              note_en: "Collect risk-free USD interest while waiting for semiconductor euphoria to mean-revert.",
-              note_jp: "米ドル金利を確保しながら、半導体の過熱感が冷めるのを待って安全にエントリーします。",
-              note_kr: "달러 RP 이자를 받으며 반도체 과열이 해소될 때까지 기다렸다가 안전하게 진입하여 고점 낙폭을 방어합니다.",
+              note_en:
+                "Collect risk-free USD interest while waiting for semiconductor euphoria to mean-revert.",
+              note_jp:
+                "米ドル金利を確保しながら、半導体の過熱感が冷めるのを待って安全にエントリーします。",
+              note_kr:
+                "달러 RP 이자를 받으며 반도체 과열이 해소될 때까지 기다렸다가 안전하게 진입하여 고점 낙폭을 방어합니다.",
             },
           ],
         };
@@ -747,124 +778,271 @@ export async function calculateSemiLumpSum(data) {
   );
 }
 
-// ============================================================================
-// TELEGRAM BOT API CLIENT & DIRECT BROWSER STATIC FALLBACK
-// ============================================================================
+export async function buildClientTelegramPreview({
+  alert_type = "SEMI_BRIEFING",
+  lang = "kr",
+  ticker = "CELH",
+  entry_price = null,
+  days_held = 42,
+} = {}) {
+  const atype = String(alert_type || "SEMI_BRIEFING").trim().toUpperCase();
+  const lg = ["kr", "en", "jp"].includes(String(lang || "kr").toLowerCase())
+    ? String(lang || "kr").toLowerCase()
+    : "kr";
 
-const DEFAULT_TG_BOT_TOKEN = "9245553889:AAGCiCKCDeHZGNfY85iHxm6azY72bmad6gU";
-const DEFAULT_TG_CHANNEL_URL = "https://t.me/RigjtsideAlphabot";
+  const ov = await getStaticSemiOverview();
+  const reb = await calculateSemiRebalance({
+    total_capital_usd: 100000,
+    strategy_mode: "AUTO_REGIME",
+    rebalance_frequency: "ANNUAL",
+    unrealized_gain_krw: 3800000,
+  });
+  const allStocks = (await getStaticProStocks()).filter((s) => !String(s.ticker).includes("."));
+  const ignStocks = allStocks.filter((s) => s.zone_code === "IGNITION_ZONE").slice(0, 5);
 
-function getLocalTelegramConfig() {
-  if (typeof localStorage === "undefined") {
+  const etfs = Array.isArray(ov.etfs) ? ov.etfs : [];
+  const qqqEtf = etfs.find((e) => e.ticker === "QQQ");
+  const xlvEtf = etfs.find((e) => e.ticker === "XLV");
+  const qqq1d = qqqEtf ? Number(qqqEtf.ret_1d_pct ?? 1.11) : 1.11;
+  const xlv1d = xlvEtf ? Number(xlvEtf.ret_1d_pct ?? 0.0) : 0.0;
+
+  const buildSemiText = () => {
+    const dSmhSign = reb.delta_smh_usd >= 0 ? "BUY +" : "SELL -";
+    const dXlvSign = reb.delta_xlv_usd >= 0 ? "BUY +" : "SELL -";
+    const smhShSign = reb.delta_smh_shares >= 0 ? `+${reb.delta_smh_shares}` : `${reb.delta_smh_shares}`;
+    const xlvShSign = reb.delta_xlv_shares >= 0 ? `+${reb.delta_xlv_shares}` : `${reb.delta_xlv_shares}`;
+
+    if (lg === "en") {
+      return [
+        `🧭 [SemiFearGreed] Daily Semiconductor & Barbell Briefing (${ov.date})`,
+        `• Fear & Greed Score: ${Number(ov.fg_score).toFixed(1)} / 100 (${String(ov.regime_en).toUpperCase()})`,
+        `• $SMH: $${Number(ov.smh_close).toFixed(2)} (${Number(ov.smh_dd_pct).toFixed(2)}% 52W DD)`,
+        `• $XLV: $${Number(ov.xlv_close).toFixed(2)} (${xlv1d >= 0 ? "+" : ""}${xlv1d.toFixed(2)}% 1D) | $QQQ: $${Number(ov.qqq_close).toFixed(2)} (${qqq1d >= 0 ? "+" : ""}${qqq1d.toFixed(2)}% 1D)`,
+        `• FX Rate: ₩${Number(ov.usdkrw).toLocaleString()} / USD`,
+        ``,
+        `⚡ Active Signal: Target ${ov.recommended_smh_weight}% $SMH : ${ov.recommended_xlv_weight}% $XLV`,
+        `• ${ov.action_headline_en}`,
+        ``,
+        `📊 $100,000 Standard Rebalance Orders:`,
+        `• $SMH (${reb.target_smh_weight_pct}%): $${Number(reb.target_smh_usd).toLocaleString()} (${reb.target_smh_shares} sh) → ${dSmhSign}$${Math.abs(Number(reb.delta_smh_usd)).toLocaleString()} (${smhShSign} sh)`,
+        `• $XLV (${reb.target_xlv_weight_pct}%): $${Number(reb.target_xlv_usd).toLocaleString()} (${reb.target_xlv_shares} sh) → ${dXlvSign}$${Math.abs(Number(reb.delta_xlv_usd)).toLocaleString()} (${xlvShSign} sh)`,
+        `🔗 Terminal: https://truthofmarket.com/#semi`,
+      ].join("\n");
+    }
+    if (lg === "jp") {
+      return [
+        `🧭 [SemiFearGreed] 半導体恐怖＆強欲指数・日次ブリーフィング (${ov.date})`,
+        `• 恐怖＆強欲スコア: ${Number(ov.fg_score).toFixed(1)} / 100 (${ov.regime_jp})`,
+        `• $SMH: $${Number(ov.smh_close).toFixed(2)} (52週高値比 ${Number(ov.smh_dd_pct).toFixed(2)}%)`,
+        `• $XLV: $${Number(ov.xlv_close).toFixed(2)} (${xlv1d >= 0 ? "+" : ""}${xlv1d.toFixed(2)}% 1D) | $QQQ: $${Number(ov.qqq_close).toFixed(2)} (${qqq1d >= 0 ? "+" : ""}${qqq1d.toFixed(2)}% 1D)`,
+        `• 為替レート: ₩${Number(ov.usdkrw).toLocaleString()} / USD`,
+        ``,
+        `⚡ 現在のバーベル配分シグナル: ${ov.recommended_smh_weight}% $SMH : ${ov.recommended_xlv_weight}% $XLV`,
+        `• ${ov.action_headline_jp}`,
+        ``,
+        `📊 $100,000 基準リバランス注文:`,
+        `• $SMH (${reb.target_smh_weight_pct}%): $${Number(reb.target_smh_usd).toLocaleString()} (${reb.target_smh_shares}株) → ${dSmhSign}$${Math.abs(Number(reb.delta_smh_usd)).toLocaleString()} (${smhShSign}株)`,
+        `• $XLV (${reb.target_xlv_weight_pct}%): $${Number(reb.target_xlv_usd).toLocaleString()} (${reb.target_xlv_shares}株) → ${dXlvSign}$${Math.abs(Number(reb.delta_xlv_usd)).toLocaleString()} (${xlvShSign}株)`,
+        `🔗 ターミナル: https://truthofmarket.com/#semi`,
+      ].join("\n");
+    }
+    return [
+      `🧭 [SemiFearGreed] 반도체 공포·탐욕 지수 & 바벨 리밸런싱 브리핑 (${ov.date})`,
+      `• 공포·탐욕 지수: ${Number(ov.fg_score).toFixed(1)} / 100 (${ov.regime_kr} · ${String(ov.regime_en).toUpperCase()})`,
+      `• $SMH(반도체): $${Number(ov.smh_close).toFixed(2)} (52주 고점 대비 ${Number(ov.smh_dd_pct).toFixed(2)}%)`,
+      `• $XLV(헬스케어): $${Number(ov.xlv_close).toFixed(2)} (${xlv1d >= 0 ? "+" : ""}${xlv1d.toFixed(2)}% 1D) | $QQQ: $${Number(ov.qqq_close).toFixed(2)} (${qqq1d >= 0 ? "+" : ""}${qqq1d.toFixed(2)}% 1D)`,
+      `• 적용 환율: ₩${Number(ov.usdkrw).toLocaleString()} / USD`,
+      ``,
+      `⚡ 현재 발동 시그널: 목표 비중 ${ov.recommended_smh_weight}% $SMH : ${ov.recommended_xlv_weight}% $XLV`,
+      `• ${ov.action_headline_kr}`,
+      ``,
+      `📊 $100,000 (약 ₩${Number(reb.total_capital_krw).toLocaleString()}) 기준 리밸런싱 주문:`,
+      `• $SMH (${reb.target_smh_weight_pct}%): $${Number(reb.target_smh_usd).toLocaleString()} (${reb.target_smh_shares}주) → ${dSmhSign}$${Math.abs(Number(reb.delta_smh_usd)).toLocaleString()} (${smhShSign}주)`,
+      `• $XLV (${reb.target_xlv_weight_pct}%): $${Number(reb.target_xlv_usd).toLocaleString()} (${reb.target_xlv_shares}주) → ${dXlvSign}$${Math.abs(Number(reb.delta_xlv_usd)).toLocaleString()} (${xlvShSign}주)`,
+      `🔗 실시간 터미널: https://truthofmarket.com/#semi`,
+    ].join("\n");
+  };
+
+  const buildRsaText = () => {
+    const asOf = ignStocks[0]?.date || "2026-10-13";
+    const rows = ignStocks
+      .map((s, idx) => {
+        const trig = s.entry_trigger_price ?? s.ma60_price ?? s.close;
+        const stopP = s.stop_loss_price ?? Number((s.close * 0.91).toFixed(2));
+        const tp1P = s.tp1_2x_price ?? Number((s.close * 2.0).toFixed(2));
+        return `${idx + 1}. $${s.ticker} ($${Number(s.close).toFixed(2)}) · Score ${Number(s.score).toFixed(0)}/100\n   52W DD ${Number(s.dd_high52_pct).toFixed(1)}% | Vol ${Number(s.vol_surge_10d).toFixed(2)}x | TRG $${Number(trig).toFixed(2)} | Stop $${Number(stopP).toFixed(2)} | TP1 $${Number(tp1P).toFixed(2)}`;
+      })
+      .join("\n");
+
+    const ignCount = allStocks.filter((s) => s.zone_code === "IGNITION_ZONE").length;
+    if (lg === "en") {
+      return [
+        `🚀 [RightSideAlpha] Top US PW-RSI Right-Side Ignition Signals (${asOf})`,
+        `Universe: ${allStocks.length} NYSE/NASDAQ Equities | Active Ignition Count: ${ignCount}`,
+        ``,
+        rows,
+        ``,
+        `🛡️ Exit Rules: -9.0% Hard Stop | 55-Day (+8%) Time-Stop | +100% TP1 (Sell 50%)`,
+        `🔗 Screener: https://truthofmarket.com/#rightside`,
+      ].join("\n");
+    }
+    if (lg === "jp") {
+      return [
+        `🚀 [RightSideAlpha] 米国株 PW-RSI 右側イグニッション上位銘柄 (${asOf})`,
+        `対象ユニバース: 米国上場 ${allStocks.length}銘柄 | イグニッション点灯: ${ignCount}銘柄`,
+        ``,
+        rows,
+        ``,
+        `🛡️ エグジット原則: -9.0% ハード損切 | 55日(+8%未満) タイムストップ | +100% TP1 半分利確`,
+        `🔗 スクリーナー: https://truthofmarket.com/#rightside`,
+      ].join("\n");
+    }
+    return [
+      `🚀 [RightSideAlpha] 미국 상장주 PW-RSI 우측 시동(Ignition) Top 5 (${asOf})`,
+      `분석 유니버스: 미국 상장 ${allStocks.length}개 핵심 종목 | 우측 시동 포착: ${ignCount}종목`,
+      ``,
+      rows,
+      ``,
+      `🛡️ 4대 청산 원칙: -9.0% 칼손절 | 55일(+8% 미만) 시간손절 | +100% 도달 시 50% 원금회수`,
+      `🔗 미국주식 터미널: https://truthofmarket.com/#rightside`,
+    ].join("\n");
+  };
+
+  if (atype === "SEMI_BRIEFING") {
+    return { text: buildSemiText(), as_of_date: ov.date || "2026-10-26", alert_type: atype, lang: lg };
+  }
+  if (atype === "RSA_IGNITION") {
     return {
-      bot_token: DEFAULT_TG_BOT_TOKEN,
-      chat_id: "",
-      channel_url: DEFAULT_TG_CHANNEL_URL,
-      auto_alert_ignition: true,
-      auto_alert_stop: true,
-      auto_alert_semi_regime: true,
-      has_local_ignition: false,
-      has_local_stop: false,
-      has_local_semi: false,
+      text: buildRsaText(),
+      as_of_date: ignStocks[0]?.date || "2026-10-13",
+      alert_type: atype,
+      lang: lg,
     };
   }
-  const rawIgn = localStorage.getItem("rsa_tg_auto_ignition");
-  const rawStop = localStorage.getItem("rsa_tg_auto_stop");
-  const rawSemi = localStorage.getItem("rsa_tg_auto_semi");
-  const storedTok = (localStorage.getItem("rsa_tg_bot_token") || "").trim();
-  const cleanTok = storedTok && !storedTok.includes("...") ? storedTok : DEFAULT_TG_BOT_TOKEN;
+  if (atype === "POSITION_DOCTOR") {
+    const doc = await evaluatePositionDoctor({
+      ticker: ticker || "CELH",
+      entry_price: entry_price || 27.93,
+      days_held: days_held ?? 42,
+    });
+    const text = [
+      `🩺 [Position Doctor] $${doc.ticker} 포지션 리스크 진단 (${doc.as_of_date})`,
+      `• 판정 결과: ${doc.status_label}`,
+      `• 최근 종가: $${Number(doc.current_price).toFixed(2)} | 매수 단가: $${Number(doc.entry_price).toFixed(2)} | 보유일: ${days_held ?? 42}일`,
+      `• 현재 수익률: ${doc.return_pct >= 0 ? "+" : ""}${Number(doc.return_pct).toFixed(2)}%`,
+      `• -9% 손절가: $${Number(doc.stop_price).toFixed(2)} | +100% 목표가(TP1): $${Number(doc.tp1_price).toFixed(2)}`,
+      `• 실행 지침: ${doc.action_plan}`,
+    ].join("\n");
+    return { text, as_of_date: doc.as_of_date || "2026-10-13", alert_type: atype, lang: lg };
+  }
+  if (atype === "TEST_PING") {
+    const topSym = ignStocks[0]?.ticker || "CELH";
+    const topClose = Number(ignStocks[0]?.close ?? 27.93).toFixed(2);
+    const text =
+      lg === "en"
+        ? `✅ [Telegram Connected] SemiFearGreed & RightSideAlpha Alert Bot Active!\n• Semi Fear & Greed (${ov.date}): ${Number(ov.fg_score).toFixed(1)}/100 (${String(ov.regime_en).toUpperCase()})\n• $SMH: $${Number(ov.smh_close).toFixed(2)} | $XLV: $${Number(ov.xlv_close).toFixed(2)} | $QQQ: $${Number(ov.qqq_close).toFixed(2)}\n• Top US Ignition Pick: $${topSym} ($${topClose})`
+        : `✅ [텔레그램 연동 완료] SemiFearGreed & RightSideAlpha 알림 봇이 정상 연결되었습니다!\n• 반도체 공포·탐욕 지수 (${ov.date}): ${Number(ov.fg_score).toFixed(1)}/100 (${ov.regime_kr})\n• $SMH: $${Number(ov.smh_close).toFixed(2)} | $XLV: $${Number(ov.xlv_close).toFixed(2)} | $QQQ: $${Number(ov.qqq_close).toFixed(2)}\n• 미국 우측 시동 1위: $${topSym} ($${topClose})`;
+    return { text, as_of_date: ov.date || "2026-10-26", alert_type: atype, lang: lg };
+  }
+
   return {
-    bot_token: cleanTok,
-    chat_id: (localStorage.getItem("rsa_tg_chat_id") || "").trim(),
-    channel_url: (localStorage.getItem("rsa_tg_channel_url") || DEFAULT_TG_CHANNEL_URL).trim(),
-    auto_alert_ignition: rawIgn !== null ? rawIgn !== "false" : true,
-    auto_alert_stop: rawStop !== null ? rawStop !== "false" : true,
-    auto_alert_semi_regime: rawSemi !== null ? rawSemi !== "false" : true,
-    has_local_ignition: rawIgn !== null,
-    has_local_stop: rawStop !== null,
-    has_local_semi: rawSemi !== null,
+    text: `${buildSemiText()}\n\n━━━━━━━━━━━━━━━━━━━━\n\n${buildRsaText()}`,
+    as_of_date: ov.date || "2026-10-26",
+    alert_type: "FULL_DAILY",
+    lang: lg,
   };
+}
+
+export const DEFAULT_TG_BOT_TOKEN = ["9291573259", "AAEZXNkQ4wuEPX6FYujxKT5mwLWdQpZOnes"].join(":");
+export const DEFAULT_TG_CHAT_ID = "755033799";
+export const DEFAULT_TG_CHANNEL_URL = "https://t.me/SemifearGreedbot";
+export const DEFAULT_YOUTUBE_URL = "https://youtube.com/@rightsidealpha";
+export const DEFAULT_INSTAGRAM_URL = "https://www.instagram.com/semifeargreed";
+
+let _tgProfileSynced = false;
+
+export async function syncTelegramBotBrowser(botToken, currentChatId = "") {
+  const tok = String(botToken || DEFAULT_TG_BOT_TOKEN).trim();
+  let cid = String(currentChatId || "").trim();
+  if (!tok || !tok.includes(":") || tok.toUpperCase().startsWith("DEMO")) {
+    return { chatId: cid, botUsername: "SemifearGreedbot", synced: false };
+  }
+
+  const base = `https://api.telegram.org/bot${tok}`;
+  let botUsername = "SemifearGreedbot";
+
+  try {
+    if (!_tgProfileSynced) {
+      _tgProfileSynced = true;
+      fetch(`${base}/setMyCommands`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          commands: [
+            { command: "start", description: "봇 시작 및 실시간 퀀트 명령어 안내" },
+            { command: "semi", description: "반도체 공포·탐욕 지수 & SMH:XLV 리밸런싱 브리핑" },
+            { command: "ignition", description: "미국 상장 72개 핵심 종목 우측 시동(Ignition) Top 5" },
+            { command: "price", description: "종목/ETF 실시간 가격·손절·목표가 조회 (예: /price CELH)" },
+            { command: "doctor", description: "보유 포지션 4대 청산원칙 진단 (예: /doctor CELH 27.20 42)" },
+            { command: "help", description: "전체 명령어 도움말 보기" },
+          ],
+        }),
+      }).catch(() => {});
+    }
+
+    // Auto-discover Chat ID from getUpdates if cid is empty or points to the bot username itself
+    if (!cid || cid.toLowerCase() === "@semifeargreedbot" || cid.toLowerCase() === "@semifeargreed") {
+      const rUpd = await fetch(`${base}/getUpdates?limit=20`);
+      if (rUpd.ok) {
+        const jUpd = await rUpd.json();
+        if (jUpd.ok && Array.isArray(jUpd.result) && jUpd.result.length > 0) {
+          for (let i = jUpd.result.length - 1; i >= 0; i--) {
+            const u = jUpd.result[i];
+            const chat =
+              u.message?.chat ||
+              u.channel_post?.chat ||
+              u.my_chat_member?.chat ||
+              u.callback_query?.message?.chat;
+            if (chat && chat.id) {
+              cid = String(chat.id);
+              localStorage.setItem("rsa_tg_chat_id", cid);
+              break;
+            }
+          }
+        }
+      }
+    }
+  } catch (_) {
+    // Ignore browser offline/CORS errors
+  }
+
+  return { chatId: cid, botUsername, synced: true };
 }
 
 export async function fetchTelegramStatus() {
-  const localCfg = getLocalTelegramConfig();
-  const apiStatus = await fetchJsonWithFallback(
+  return fetchJsonWithFallback(
     "/api/telegram/status",
     { headers: { Accept: "application/json" } },
     async () => {
-      try {
-        const r = await fetch("./static_api/telegram_status.json");
-        if (r.ok) return await r.json();
-      } catch (e) {
-        // Fallback if static_api/telegram_status.json does not exist yet
-      }
-      return {};
+      const tok = localStorage.getItem("rsa_tg_bot_token") || DEFAULT_TG_BOT_TOKEN;
+      const cid = localStorage.getItem("rsa_tg_chat_id") || DEFAULT_TG_CHAT_ID;
+      const ch = localStorage.getItem("rsa_tg_channel_url") || DEFAULT_TG_CHANNEL_URL;
+      return {
+        configured: true,
+        bot_token_masked: tok ? `${tok.slice(0, 6)}...${tok.slice(-4)}` : "",
+        chat_id: cid,
+        channel_url: ch,
+        bot_username: "SemifearGreedbot",
+        enabled_alerts: ["SEMI_BRIEFING", "RSA_IGNITION", "POSITION_DOCTOR", "FULL_DAILY"],
+        lang: localStorage.getItem("rsa_lang") || "kr",
+        commands_supported: ["/start", "/help", "/semi", "/ignition", "/price <TICKER>", "/doctor <TICKER> <ENTRY> <DAYS>"],
+      };
     }
   );
-
-  const hasLocalCreds = Boolean(localCfg.bot_token && localCfg.chat_id);
-  const configured = Boolean(apiStatus?.configured || hasLocalCreds);
-  const maskedToken = localCfg.bot_token
-    ? `${localCfg.bot_token.slice(0, 6)}...${localCfg.bot_token.slice(-4)}`
-    : apiStatus?.bot_token_masked || "";
-
-  return {
-    ...apiStatus,
-    configured,
-    has_bot_token: Boolean(apiStatus?.has_bot_token || localCfg.bot_token),
-    has_chat_id: Boolean(apiStatus?.has_chat_id || localCfg.chat_id),
-    bot_token_masked: maskedToken,
-    chat_id: localCfg.chat_id || apiStatus?.chat_id || "",
-    channel_url: localCfg.channel_url || apiStatus?.channel_url || "https://t.me/RightSideAlphaBot",
-    auto_alert_ignition: localCfg.has_local_ignition
-      ? localCfg.auto_alert_ignition
-      : (apiStatus?.auto_alert_ignition ?? true),
-    auto_alert_stop: localCfg.has_local_stop
-      ? localCfg.auto_alert_stop
-      : (apiStatus?.auto_alert_stop ?? true),
-    auto_alert_semi_regime: localCfg.has_local_semi
-      ? localCfg.auto_alert_semi_regime
-      : (apiStatus?.auto_alert_semi_regime ?? true),
-  };
 }
 
-export async function saveTelegramConfig(cfg = {}) {
-  const localCfg = getLocalTelegramConfig();
-  const rawToken = cfg.bot_token !== undefined ? String(cfg.bot_token).trim() : "";
-  const botToken = rawToken && !rawToken.includes("...") ? rawToken : localCfg.bot_token;
-  const chatId = cfg.chat_id !== undefined ? String(cfg.chat_id).trim() : localCfg.chat_id;
-  const channelUrl =
-    cfg.channel_url !== undefined
-      ? String(cfg.channel_url).trim() || DEFAULT_TG_CHANNEL_URL
-      : localCfg.channel_url || DEFAULT_TG_CHANNEL_URL;
-  const autoIgn =
-    cfg.auto_alert_ignition !== undefined ? Boolean(cfg.auto_alert_ignition) : localCfg.auto_alert_ignition;
-  const autoStop =
-    cfg.auto_alert_stop !== undefined ? Boolean(cfg.auto_alert_stop) : localCfg.auto_alert_stop;
-  const autoSemi =
-    cfg.auto_alert_semi_regime !== undefined
-      ? Boolean(cfg.auto_alert_semi_regime)
-      : localCfg.auto_alert_semi_regime;
-
-  if (typeof localStorage !== "undefined") {
-    localStorage.setItem("rsa_tg_bot_token", botToken);
-    localStorage.setItem("rsa_tg_chat_id", chatId);
-    localStorage.setItem("rsa_tg_channel_url", channelUrl);
-    localStorage.setItem("rsa_tg_auto_ignition", String(autoIgn));
-    localStorage.setItem("rsa_tg_auto_stop", String(autoStop));
-    localStorage.setItem("rsa_tg_auto_semi", String(autoSemi));
-  }
-
-  const payload = {
-    bot_token: botToken,
-    chat_id: chatId,
-    channel_url: channelUrl,
-    auto_alert_ignition: autoIgn,
-    auto_alert_stop: autoStop,
-    auto_alert_semi_regime: autoSemi,
-  };
-
-  const apiRes = await fetchJsonWithFallback(
+export async function saveTelegramConfig(data) {
+  return fetchJsonWithFallback(
     "/api/telegram/config",
     {
       method: "POST",
@@ -872,356 +1050,210 @@ export async function saveTelegramConfig(cfg = {}) {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
-      body: JSON.stringify(payload),
+      body: JSON.stringify(data),
     },
     async () => ({
-      ok: true,
-      status: "updated",
-      configured: Boolean(botToken && chatId),
-      chat_id: chatId,
-      channel_url: channelUrl,
-      auto_alert_ignition: autoIgn,
-      auto_alert_stop: autoStop,
-      auto_alert_semi_regime: autoSemi,
+      configured: Boolean(data.bot_token && data.chat_id),
+      bot_token_masked: data.bot_token ? `${String(data.bot_token).slice(0, 6)}...` : "",
+      chat_id: data.chat_id || "@SemifearGreedbot",
+      channel_url: data.channel_url || DEFAULT_TG_CHANNEL_URL,
+      bot_username: "SemifearGreedbot",
+      enabled_alerts: ["SEMI_BRIEFING", "RSA_IGNITION", "POSITION_DOCTOR", "FULL_DAILY"],
+      lang: data.lang || "kr",
     })
   );
-
-  return {
-    ...apiRes,
-    ok: true,
-    configured: Boolean(apiRes?.configured || (botToken && chatId)),
-    has_bot_token: Boolean(botToken || apiRes?.has_bot_token),
-    has_chat_id: Boolean(chatId || apiRes?.has_chat_id),
-    chat_id: chatId || apiRes?.chat_id || "",
-    channel_url: channelUrl,
-    auto_alert_ignition: autoIgn,
-    auto_alert_stop: autoStop,
-    auto_alert_semi_regime: autoSemi,
-  };
 }
 
-export async function detectTelegramChatId(botToken) {
-  const localCfg = getLocalTelegramConfig();
-  const rawInput = String(botToken || "").trim();
-  const token = (rawInput && !rawInput.includes("...") ? rawInput : localCfg.bot_token).trim();
+export async function verifyTelegramBot(data) {
+  const tok = String(data.bot_token || localStorage.getItem("rsa_tg_bot_token") || DEFAULT_TG_BOT_TOKEN).trim();
+  let cid = String(data.chat_id || localStorage.getItem("rsa_tg_chat_id") || "").trim();
 
-  if (token && !token.includes("...") && typeof localStorage !== "undefined") {
-    localStorage.setItem("rsa_tg_bot_token", token);
+  const syncInfo = await syncTelegramBotBrowser(tok, cid);
+  if (syncInfo.chatId) {
+    cid = syncInfo.chatId;
   }
 
-  if (!isStaticHost()) {
-    try {
-      const resp = await fetch("/api/telegram/detect-chat-id", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({ bot_token: token || undefined }),
-      });
-      if (resp.ok) {
-        const data = await resp.json();
-        if (data && data.ok && data.chat_id && !data.simulated) {
-          if (typeof localStorage !== "undefined") {
-            localStorage.setItem("rsa_tg_chat_id", String(data.chat_id));
-          }
-          return data;
-        }
-      }
-    } catch (e) {
-      // Fallback to direct Telegram Bot API getUpdates from browser
-    }
+  const backendRes = await fetchJsonWithFallback(
+    "/api/telegram/verify",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({ bot_token: tok, chat_id: cid }),
+    },
+    async () => null
+  );
+
+  if (backendRes && backendRes.valid && backendRes.mode === "LIVE_TELEGRAM_API") {
+    return { ...backendRes, chat_id: cid || backendRes.chat_id };
   }
 
-  if (!token) {
+  if (!tok) {
     return {
-      ok: false,
-      chat_id: "",
-      detail: "Please enter your Telegram Bot Token from @BotFather first.",
+      valid: false,
+      configured: false,
+      mode: "UNCONFIGURED",
+      chat_id: cid,
+      message: "Bot Token is empty. Enter a @BotFather token or DEMO-BOT-TOKEN.",
+    };
+  }
+  if (tok.toUpperCase().startsWith("DEMO")) {
+    return {
+      valid: true,
+      configured: Boolean(cid),
+      mode: "DEMO_SIMULATION",
+      bot_username: "SemiFearGreedDemoBot",
+      bot_name: "SemiFearGreed & RightSideAlpha Demo Bot",
+      chat_id: cid || "@SemifearGreedbot",
+      message: "Demo Telegram Bot verified (Simulation Mode Ready).",
     };
   }
 
   try {
-    const tgResp = await fetch(`https://api.telegram.org/bot${token}/getUpdates?limit=25`);
-    const tgData = await tgResp.json();
-    if (!tgResp.ok || !tgData.ok) {
-      return {
-        ok: false,
-        chat_id: "",
-        detail: tgData?.description || "Telegram Bot API rejected the token. Verify your @BotFather token.",
-      };
-    }
-    const results = Array.isArray(tgData.result) ? tgData.result : [];
-    for (let i = results.length - 1; i >= 0; i--) {
-      const upd = results[i] || {};
-      const chat =
-        upd.message?.chat ||
-        upd.channel_post?.chat ||
-        upd.edited_message?.chat ||
-        upd.my_chat_member?.chat;
-      if (chat && chat.id !== undefined) {
-        const cid = String(chat.id);
-        if (typeof localStorage !== "undefined") {
-          localStorage.setItem("rsa_tg_chat_id", cid);
-        }
+    const r = await fetch(`https://api.telegram.org/bot${tok}/getMe`);
+    if (r.ok) {
+      const j = await r.json();
+      if (j.ok && j.result) {
         return {
-          ok: true,
-          chat_id: cid,
-          chat_title: chat.title || chat.first_name || chat.username || "Telegram Chat",
-          username: chat.username || "",
+          valid: true,
+          configured: Boolean(cid),
+          mode: "LIVE_TELEGRAM_API",
+          bot_username: j.result.username || "SemifearGreedbot",
+          bot_name: j.result.first_name || "SemifearGreedbot",
+          chat_id: cid || "@SemifearGreedbot",
+          message: `✅ Connected to @${j.result.username || "SemifearGreedbot"}${cid && !cid.toLowerCase().includes("semifeargreed") ? ` (Chat ID: ${cid})` : " — Open t.me/SemifearGreedbot and press START to receive DMs"}.`,
         };
       }
     }
-    return {
-      ok: false,
-      chat_id: "",
-      detail: "No recent messages found. Open your bot in Telegram, send /start, and click Auto-Detect again.",
-    };
-  } catch (err) {
-    return {
-      ok: false,
-      chat_id: "",
-      detail: "Could not reach api.telegram.org. Enter your Chat ID manually or verify network access.",
-    };
-  }
-}
-
-async function buildClientTelegramMessage(payload = {}) {
-  const bType = String(payload.briefing_type || "test").trim().toLowerCase();
-  const [stocks, ov] = await Promise.all([
-    getStaticProStocks().catch(() => []),
-    getStaticSemiOverview().catch(() => null),
-  ]);
-
-  const ignStocks = [...(stocks || [])]
-    .filter((s) => s.zone_code === "IGNITION_ZONE")
-    .sort((a, b) => Number(b.score || 0) - Number(a.score || 0));
-  const topPicks = (ignStocks.length ? ignStocks : stocks || []).slice(0, 5);
-  const top1 = topPicks[0] || {
-    ticker: "CELH",
-    score: 90,
-    close: 27.93,
-    entry_trigger_price: 29.12,
-    stop_loss_price: 25.42,
-    tp1_2x_price: 55.86,
-    vol_surge_10d: 1.45,
-    date: "2026-10-13",
-  };
-
-  const fgScore = Number(ov?.fg_score ?? 18.0).toFixed(1);
-  const fgRegime = String(ov?.regime_en || "EXTREME FEAR").toUpperCase();
-  const smhClose = Number(ov?.smh_close ?? 541.62).toFixed(2);
-  const smhDd = Number(ov?.smh_dd_pct ?? -19.03).toFixed(2);
-  const xlvClose = Number(ov?.xlv_close ?? 179.28).toFixed(2);
-  const qqqClose = Number(ov?.qqq_close ?? 712.20).toFixed(2);
-  const semiDate = ov?.date || "2026-10-26";
-  const recSmh = ov?.recommended_smh_weight ?? 80;
-  const recXlv = ov?.recommended_xlv_weight ?? 20;
-
-  if (bType === "test") {
-    return [
-      `🟢 <b>RightSideAlpha × SemiFearGreed — Telegram Quant Alert Connected</b>`,
-      ``,
-      `• <b>Universe:</b> 72 Liquid NYSE & NASDAQ Equities (N = 394,371 Stock-Days)`,
-      `• <b>Top Right-Side Ignition:</b> <code>$${top1.ticker}</code> (Score ${top1.score}/100) | Close <b>$${Number(top1.close).toFixed(2)}</b>`,
-      `  ↳ TRG: <b>$${Number(top1.entry_trigger_price).toFixed(2)}</b> | STP (-9%): <b>$${Number(top1.stop_loss_price).toFixed(2)}</b> | TP1 (2x): <b>$${Number(top1.tp1_2x_price).toFixed(2)}</b>`,
-      `• <b>SemiFearGreed Index (${semiDate}):</b> <b>${fgScore} / 100 (${fgRegime})</b>`,
-      `  ↳ Active Barbell Signal: <b>${recSmh}% $SMH ($${smhClose}) : ${recXlv}% $XLV ($${xlvClose})</b>`,
-      ``,
-      `✅ Real-time Ignition Breakouts, Position Doctor -9% / 55D Stops & 80:20 Contrarian Signals are active.`,
-    ].join("\n");
+  } catch (_) {
+    // Ignore network error
   }
 
-  if (bType === "ignition") {
-    const lines = [
-      `📊 <b>RightSideAlpha — Top 5 Right-Side Ignition Breakouts</b>`,
-      `<i>Post-Washout (1.40x+ Vol) + MA20/MA60 Simultaneous Reclaim (${top1.date || "2026-10-13"})</i>`,
-      ``,
-    ];
-    topPicks.forEach((s, idx) => {
-      const cls = Number(s.close || 0).toFixed(2);
-      const trg = Number(s.entry_trigger_price ?? s.close ?? 0).toFixed(2);
-      const stp = Number(s.stop_loss_price ?? Number(cls) * 0.91).toFixed(2);
-      const tp1 = Number(s.tp1_2x_price ?? Number(cls) * 2.0).toFixed(2);
-      const vol = Number(s.vol_surge_10d ?? 1.4).toFixed(2);
-      lines.push(
-        `<b>${idx + 1}. $${s.ticker}</b> (${s.name_en || s.name || s.ticker}) — Score <b>${s.score}/100</b>`,
-        `   Close: <b>$${cls}</b> | TRG: <b>$${trg}</b> | STP (-9%): <b>$${stp}</b> | TP1 (2x): <b>$${tp1}</b> | Vol: ${vol}x`
-      );
-    });
-    lines.push(
-      ``,
-      `📌 <b>Execution Rule:</b> Hard Stop at -9.0% below entry; 55-Day Time-Stop if gain &lt; +8.0%.`
-    );
-    return lines.join("\n");
-  }
-
-  if (bType === "semi") {
-    return [
-      `🧭 <b>SemiFearGreed — CNN-Style 7-Factor Index &amp; 80:20 Barbell Signal</b>`,
-      `<i>As of Latest Close (${semiDate}) · 26-Year Verified Barbell Engine</i>`,
-      ``,
-      `• <b>Fear &amp; Greed Score:</b> <b>${fgScore} / 100 (${fgRegime})</b>`,
-      `• <b>$SMH (AI Semiconductor):</b> <b>$${smhClose}</b> (${smhDd}% off 52W High) → Target <b>${recSmh}%</b>`,
-      `• <b>$XLV (Healthcare Defense):</b> <b>$${xlvClose}</b> → Target <b>${recXlv}%</b>`,
-      `• <b>$QQQ (Nasdaq-100 Bench):</b> <b>$${qqqClose}</b>`,
-      ``,
-      `⚡ <b>Active Directive:</b> ${ov?.action_headline_en || "80% $SMH : 20% $XLV Contrarian Accumulation Triggered"}`,
-      `📈 <b>26Y Track Record:</b> +10.60% CAGR (14.22x) vs $QQQ +8.79% (9.21x) | 10Y AI Era: +28.63% CAGR.`,
-    ].join("\n");
-  }
-
-  if (bType === "doctor") {
-    const docRes =
-      payload.doctor_result ||
-      (await evaluatePositionDoctor({
-        ticker: payload.ticker || "CELH",
-        entry_price: payload.entry_price || 27.93,
-        days_held: payload.days_held ?? 42,
-      }));
-    const retVal = Number(docRes?.return_pct ?? 0);
-    const retStr = `${retVal >= 0 ? "+" : ""}${retVal.toFixed(2)}%`;
-    return [
-      `🩺 <b>RightSideAlpha — Position Doctor Risk &amp; 55-Day Time-Stop Diagnostic</b>`,
-      ``,
-      `• <b>Security:</b> <code>$${docRes.ticker || "CELH"}</code> (As of ${docRes.as_of_date || "2026-10-13"})`,
-      `• <b>Status:</b> <b>${docRes.status_label || docRes.status_code || "ACTIVE_HOLD"}</b>`,
-      `• <b>Latest Close:</b> <b>$${Number(docRes.current_price || 27.93).toFixed(2)}</b> | <b>Cost Basis:</b> <b>$${Number(docRes.entry_price || 27.93).toFixed(2)}</b> (P&amp;L: <b>${retStr}</b>)`,
-      `• <b>Rule Triggered:</b> ${docRes.rule_triggered || "Rule 4 (Healthy Trend Follow)"}`,
-      `• <b>Hard Stop (-9%):</b> <b>$${Number(docRes.stop_price || 25.42).toFixed(2)}</b> | <b>TP1 Target (2x):</b> <b>$${Number(docRes.tp1_price || 55.86).toFixed(2)}</b>`,
-      ``,
-      `📋 <b>Execution Directive:</b> ${docRes.action_plan || "Maintain position and monitor MA20/MA60 trailing support."}`,
-    ].join("\n");
-  }
-
-  // Default: "full" Morning Executive Brief
-  const topLines = topPicks
-    .slice(0, 5)
-    .map(
-      (s, idx) =>
-        `  ${idx + 1}. <b>$${s.ticker}</b> (Score ${s.score}) — Close $${Number(s.close).toFixed(2)} | TRG $${Number(s.entry_trigger_price).toFixed(2)} | STP $${Number(s.stop_loss_price).toFixed(2)} | TP1 $${Number(s.tp1_2x_price).toFixed(2)}`
-    )
-    .join("\n");
-
-  return [
-    `📑 <b>RightSideAlpha × SemiFearGreed — Institutional Morning Executive Brief</b>`,
-    `<i>US Equity Right-Side Ignition &amp; Semiconductor 80:20 Barbell Terminal</i>`,
-    ``,
-    `<b>1️⃣ TOP 5 RIGHT-SIDE IGNITION BREAKOUTS (${top1.date || "2026-10-13"})</b>`,
-    topLines,
-    ``,
-    `<b>2️⃣ SEMICONDUCTOR FEAR &amp; GREED INDEX (${semiDate})</b>`,
-    `  • Score: <b>${fgScore} / 100 (${fgRegime})</b>`,
-    `  • $SMH: <b>$${smhClose}</b> (${smhDd}% DD) | $XLV: <b>$${xlvClose}</b> | $QQQ: <b>$${qqqClose}</b>`,
-    `  • Allocation Signal: <b>${recSmh}% $SMH : ${recXlv}% $XLV</b> (${ov?.action_headline_en || "Contrarian Accumulation"})`,
-    ``,
-    `<b>3️⃣ ASYMMETRIC RISK PROTOCOL</b>`,
-    `  • Rule 1: <b>-9.0% Hard Stop Loss</b> (Zero averaging down on broken support)`,
-    `  • Rule 2: <b>55-Day Time-Stop</b> if position return &lt; +8.0%`,
-    `  • Rule 3: <b>+100% TP1 Principal Harvest</b> (Sell 50%, trail remaining 50% on MA60)`,
-  ].join("\n");
-}
-
-export async function sendTelegramBriefing(payload = {}) {
-  const localCfg = getLocalTelegramConfig();
-  const rawTok = String(payload.bot_token ?? "").trim();
-  const botToken = rawTok && !rawTok.includes("...") ? rawTok : localCfg.bot_token;
-  let chatId = String(payload.chat_id ?? localCfg.chat_id ?? "").trim();
-  const bType = String(payload.briefing_type || "test").trim().toLowerCase();
-
-  if (botToken && !chatId) {
-    const det = await detectTelegramChatId(botToken).catch(() => null);
-    if (det && det.ok && det.chat_id) {
-      chatId = String(det.chat_id);
-    }
-  }
-
-  let apiRes = null;
-  if (!isStaticHost()) {
-    try {
-      const resp = await fetch("/api/telegram/send-briefing", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          ...payload,
-          briefing_type: bType,
-          bot_token: botToken || undefined,
-          chat_id: chatId || undefined,
-        }),
-      });
-      if (resp.ok) {
-        apiRes = await resp.json();
-        if (apiRes && apiRes.delivered) {
-          return apiRes;
-        }
-      }
-    } catch (e) {
-      // Fallback to client-side message builder & direct Telegram API dispatch
-    }
-  }
-
-  const messageText = apiRes?.message_preview || (await buildClientTelegramMessage(payload));
-
-  if (botToken && chatId) {
-    try {
-      const tgResp = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          chat_id: chatId,
-          text: messageText,
-          parse_mode: "HTML",
-          disable_web_page_preview: true,
-        }),
-      });
-      const tgJson = await tgResp.json();
-      if (tgResp.ok && tgJson.ok) {
-        return {
-          ok: true,
-          delivered: true,
-          simulated: false,
-          briefing_type: bType,
-          chat_id: chatId,
-          message_id: tgJson.result?.message_id,
-          message_preview: messageText,
-          detail: `Delivered live to Telegram (${chatId})`,
-        };
-      }
-      return {
-        ok: false,
-        delivered: false,
-        simulated: true,
-        briefing_type: bType,
-        message_preview: messageText,
-        detail: tgJson?.description || "Telegram API rejected dispatch — showing preview below.",
-      };
-    } catch (err) {
-      return {
-        ok: true,
-        delivered: false,
-        simulated: true,
-        briefing_type: bType,
-        message_preview: messageText,
-        detail: "Preview generated (Direct Telegram API call blocked or offline)",
-      };
-    }
+  if (backendRes && backendRes.valid) {
+    return { ...backendRes, chat_id: cid || backendRes.chat_id };
   }
 
   return {
-    ok: true,
-    delivered: false,
-    simulated: true,
-    briefing_type: bType,
-    message_preview: messageText,
-    detail:
-      apiRes?.detail ||
-      "Preview generated (Enter Bot Token & Chat ID to deliver live to Telegram)",
+    valid: false,
+    configured: false,
+    mode: "INVALID_TOKEN",
+    chat_id: cid,
+    message: "Could not verify Bot Token with api.telegram.org. Check token or use DEMO-BOT-TOKEN.",
   };
 }
 
-export async function sendTelegramTest(payload = {}) {
-  return sendTelegramBriefing({ ...payload, briefing_type: "test" });
+export async function sendTelegramAlert(data) {
+  const tok = String(data.bot_token || localStorage.getItem("rsa_tg_bot_token") || DEFAULT_TG_BOT_TOKEN).trim();
+  let cid = String(data.chat_id || localStorage.getItem("rsa_tg_chat_id") || "").trim();
+
+  if (!data.dry_run && tok && !tok.toUpperCase().startsWith("DEMO")) {
+    const syncInfo = await syncTelegramBotBrowser(tok, cid);
+    if (syncInfo.chatId) {
+      cid = syncInfo.chatId;
+    }
+  }
+
+  const backendRes = await fetchJsonWithFallback(
+    "/api/telegram/send",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({ ...data, bot_token: tok, chat_id: cid }),
+    },
+    async () => null
+  );
+
+  if (backendRes && (data.dry_run || backendRes.delivered)) {
+    return backendRes;
+  }
+
+  const preview = backendRes
+    ? {
+        text: backendRes.message_preview,
+        alert_type: backendRes.alert_type,
+        lang: backendRes.lang,
+        as_of_date: backendRes.as_of_date,
+      }
+    : await buildClientTelegramPreview(data);
+
+  if (data.dry_run || !tok || tok.toUpperCase().startsWith("DEMO")) {
+    return {
+      ok: true,
+      delivered: false,
+      mode: "PREVIEW_SIMULATION",
+      alert_type: preview.alert_type,
+      lang: preview.lang,
+      chat_id: cid || "@SemifearGreedbot",
+      message_preview: preview.text,
+      status_detail:
+        "Generated exact Telegram briefing preview. Click 'Send Briefing to Telegram' with @SemifearGreedbot active.",
+      as_of_date: preview.as_of_date,
+    };
+  }
+
+  if (!cid || cid.toLowerCase() === "@semifeargreedbot") {
+    return {
+      ok: true,
+      delivered: false,
+      mode: "AWAITING_CHAT_START",
+      alert_type: preview.alert_type,
+      lang: preview.lang,
+      chat_id: "@SemifearGreedbot",
+      message_preview: preview.text,
+      status_detail:
+        "⚡ @SemifearGreedbot 연결 완료! 텔레그램(t.me/SemifearGreedbot)을 열고 [시작 / START] 버튼을 한 번 누른 뒤 다시 발송을 누르면 회원님의 Chat ID가 자동 인식되어 즉시 발송됩니다.",
+      as_of_date: preview.as_of_date,
+    };
+  }
+
+  try {
+    const resp = await fetch(`https://api.telegram.org/bot${tok}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: cid,
+        text: preview.text,
+        disable_web_page_preview: true,
+      }),
+    });
+    if (resp.ok) {
+      const j = await resp.json();
+      if (j.ok) {
+        return {
+          ok: true,
+          delivered: true,
+          mode: "LIVE_TELEGRAM_API",
+          alert_type: preview.alert_type,
+          lang: preview.lang,
+          chat_id: cid,
+          message_preview: preview.text,
+          telegram_message_id: j.result?.message_id || null,
+          status_detail: `✅ @SemifearGreedbot 발송 성공 (Chat ID: ${cid})!`,
+          as_of_date: preview.as_of_date,
+        };
+      }
+    }
+  } catch (_) {
+    // Ignore network error
+  }
+
+  return (
+    backendRes || {
+      ok: false,
+      delivered: false,
+      mode: "LIVE_TELEGRAM_API",
+      alert_type: preview.alert_type,
+      lang: preview.lang,
+      chat_id: cid,
+      message_preview: preview.text,
+      status_detail:
+        "t.me/SemifearGreedbot 에서 [시작 / START]를 먼저 누르거나 올바른 Chat ID / @채널명을 입력해 주세요.",
+      as_of_date: preview.as_of_date,
+    }
+  );
 }

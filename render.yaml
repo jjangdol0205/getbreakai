@@ -1,12 +1,12 @@
 services:
   - type: web
-    name: getbreakai-static
+    name: truthofmarket-static
     runtime: static
     buildCommand: ""
     staticPublishPath: ./dist
     domains:
-      - getbreakai.com
-      - www.getbreakai.com
+      - truthofmarket.com
+      - www.truthofmarket.com
     routes:
       - type: rewrite
         source: /api/health

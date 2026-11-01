@@ -1,12 +1,26 @@
 {
-  "configured": false,
-  "bot_token_masked": "",
-  "bot_username": "RightSideAlphaBot",
-  "chat_id": "",
-  "channel_url": "https://t.me/RightSideAlphaBot",
-  "auto_alert_ignition": true,
-  "auto_alert_stop_loss": true,
-  "auto_alert_semi_extreme": true,
-  "last_sent_at": null,
-  "messages_sent_count": 0
+  "configured": true,
+  "bot_token_masked": "929157...Ones",
+  "chat_id": "755033799",
+  "channel_url": "https://t.me/SemifearGreedbot",
+  "youtube_url": "https://youtube.com/@rightsidealpha",
+  "instagram_url": "https://www.instagram.com/semifeargreed",
+  "enabled_alerts": [
+    "SEMI_BRIEFING",
+    "RSA_IGNITION",
+    "POSITION_DOCTOR",
+    "FULL_DAILY"
+  ],
+  "lang": "kr",
+  "bot_username": "SemifearGreedbot",
+  "commands_supported": [
+    "/start",
+    "/help",
+    "/semi",
+    "/ignition",
+    "/daily",
+    "/price <TICKER>",
+    "/doctor <TICKER> <ENTRY> <DAYS>",
+    "/channels"
+  ]
 }

@@ -1,3 +1,5 @@
+import { renderPricing } from "./Pricing.js";
+
 function polarToCartesian(cx, cy, r, angleDeg) {
   const rad = (angleDeg * Math.PI) / 180.0;
   return {
@@ -15,7 +17,7 @@ function describeArc(cx, cy, r, startAngleDeg, endAngleDeg) {
 }
 
 export function renderCnnDialSvg(score, regimeLabel) {
-  const s = Math.max(0, Math.min(100, Number(score || 18.0)));
+  const s = Math.max(0, Math.min(100, Number(score ?? 18.0)));
   const cx = 230;
   const cy = 200;
   const r = 146;
@@ -141,8 +143,8 @@ export function renderTimelineSvg(historyData, activeRange) {
         <div style="font-size:0.8rem; font-weight:700; color:#374151;">
           Historical Semiconductor Fear & Greed Index (${firstDate} → ${lastDate})
         </div>
-        <div style="display:flex; gap:4px; flex-wrap:wrap;">
-          ${["3M", "6M", "1Y", "3Y", "5Y", "10Y", "ALL"]
+        <div style="display:flex; gap:4px;">
+          ${["3M", "1Y", "3Y", "5Y", "10Y", "ALL"]
             .map(
               (r) => `
             <button class="btn-semi-range" data-range="${r}"
@@ -311,7 +313,32 @@ export function renderSemiFearGreedView(state) {
           <h1 class="cnn-main-title">${t.cnnTitle}</h1>
           <p class="cnn-main-subtitle">${t.cnnSubtitle}</p>
         </div>
-        <div style="display:flex; gap:8px; align-items:center;">
+        <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+          <a
+            class="btn"
+            href="${state.config?.youtube_url || "https://youtube.com/@rightsidealpha"}"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="background:#dc2626; color:#ffffff; border-color:#b91c1c;"
+          >
+            📺 YouTube (@rightsidealpha) ↗
+          </a>
+          <a
+            class="btn"
+            href="${state.config?.instagram_url || "https://www.instagram.com/semifeargreed"}"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="background:#db2777; color:#ffffff; border-color:#be185d;"
+          >
+            📸 Instagram (@semifeargreed) ↗
+          </a>
+          <button class="btn" id="btnSendSemiTelegram" style="background:#0284c7; color:#ffffff; border-color:#0369a1;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+            <span>${t.cnnTelegramBtn || "Telegram Briefing"}</span>
+          </button>
           <button class="btn" id="btnExportSemiGauge" style="background:#111827; color:#ffffff; border-color:#111827;">
             ${t.cnnExportGauge}
           </button>
@@ -429,13 +456,14 @@ export function renderSemiFearGreedView(state) {
     </section>
 
     <!-- SECTION 2: CORE ETF SNAPSHOT STRIP ($SMH, $XLV, $QQQ) -->
-    <section style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap:14px; margin-bottom:22px;">
+    <section style="display:grid; grid-template-columns:repeat(auto-fit, minmax(310px, 1fr)); gap:14px; margin-bottom:22px;">
       ${ov.etfs
         .map((etf) => {
           const name = lang === "jp" ? etf.name_jp : lang === "kr" ? etf.name_kr : etf.name_en;
           const role = lang === "jp" ? etf.role_jp : lang === "kr" ? etf.role_kr : etf.role_en;
           const tvUrl = `/api/referral/redirect/tradingview?ticker=${encodeURIComponent(etf.ticker)}`;
           const saUrl = `/api/referral/redirect/seekingalpha?ticker=${encodeURIComponent(etf.ticker)}`;
+          const brokerUrl = `/api/referral/redirect/broker?ticker=${encodeURIComponent(etf.ticker)}`;
           return `
           <div class="proof-card" style="margin-bottom:0; border-top:2px solid ${
             etf.ticker === "SMH" ? "var(--fin-blue)" : etf.ticker === "XLV" ? "var(--fin-up)" : "#64748b"
@@ -465,6 +493,7 @@ export function renderSemiFearGreedView(state) {
               <div style="display:flex; gap:6px;">
                 <a class="btn btn-sm" href="${tvUrl}" target="_blank" rel="noopener noreferrer">TV Chart ↗</a>
                 <a class="btn btn-sm" href="${saUrl}" target="_blank" rel="noopener noreferrer">Holdings ↗</a>
+                <a class="btn btn-sm" href="${brokerUrl}" target="_blank" rel="noopener noreferrer" style="border-color:rgba(16,185,129,0.4); color:#34d399;">Trade ↗</a>
               </div>
             </div>
           </div>
@@ -474,7 +503,7 @@ export function renderSemiFearGreedView(state) {
     </section>
 
     <!-- SECTION 3: INTERACTIVE SMH + XLV REBALANCING & 2.5M KRW TAX HARVESTING ENGINE + 3-STAGE LUMP-SUM PLANNER -->
-    <section class="semi-calc-grid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap:18px; margin-bottom:22px;">
+    <section class="semi-calc-grid">
       <!-- Calculator 1: SMH + XLV Rebalancing & Tax Optimizer -->
       <div class="proof-card" style="margin-bottom:0; border-top:2px solid var(--fin-up);">
         <div style="font-size:0.7rem; font-family:var(--font-mono); font-weight:700; color:var(--fin-up); letter-spacing:0.05em;">
@@ -483,10 +512,10 @@ export function renderSemiFearGreedView(state) {
         <h3 style="font-size:1.12rem; font-weight:800; color:#ffffff; margin:4px 0 6px;">${t.rebalSectionTitle}</h3>
         <p style="font-size:0.8rem; color:var(--muted); margin-bottom:14px;">${t.rebalSectionDesc}</p>
 
-        <div class="semi-form-two-col" style="display:grid; grid-template-columns:repeat(2, 1fr); gap:10px; margin-bottom:12px;">
+        <div class="semi-form-grid-2" style="margin-bottom:12px;">
           <div>
             <label style="font-size:0.68rem; font-family:var(--font-mono); color:var(--muted);">PORTFOLIO CAPITAL ($ USD)</label>
-            <input type="number" id="semiCapInput" value="${state.semiCapUsd || 100000}" step="1000"
+            <input type="number" id="semiCapInput" value="${state.semiCapUsd ?? 100000}" step="1000"
                    style="width:100%; padding:8px 10px; background:#060911; border:1px solid var(--border); color:#fff; border-radius:4px; font-family:var(--font-mono); font-weight:700; margin-top:3px;" />
           </div>
           <div>
@@ -509,7 +538,7 @@ export function renderSemiFearGreedView(state) {
           </div>
           <div>
             <label style="font-size:0.68rem; font-family:var(--font-mono); color:var(--muted);">UNREALIZED GAIN (₩ KRW · TAX HARVESTER)</label>
-            <input type="number" id="semiGainKrwInput" value="${state.semiGainKrw || 3800000}" step="100000"
+            <input type="number" id="semiGainKrwInput" value="${state.semiGainKrw ?? 3800000}" step="100000"
                    style="width:100%; padding:8px 10px; background:#060911; border:1px solid var(--border); color:#fff; border-radius:4px; font-family:var(--font-mono); margin-top:3px;" />
           </div>
         </div>
@@ -528,7 +557,7 @@ export function renderSemiFearGreedView(state) {
             <div class="mono" style="font-size:0.71rem; color:#93c5fd; margin-bottom:8px;">
               Latest Close Basis (${rebal.as_of_date || ov.date}): $SMH @ $${Number(rebal.smh_close ?? ov.smh_close).toFixed(2)} · $XLV @ $${Number(rebal.xlv_close ?? ov.xlv_close).toFixed(2)} · FX ₩${Number(rebal.usdkrw ?? ov.usdkrw).toLocaleString()}/$ · Total ₩${Number(rebal.total_capital_krw ?? 0).toLocaleString()}
             </div>
-            <div class="semi-form-two-col" style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px;">
+            <div class="semi-form-grid-2" style="margin-bottom:10px;">
               <div style="background:#0c1220; padding:10px; border-radius:4px; border:1px solid var(--border);">
                 <div style="font-size:0.7rem; color:var(--muted);">TARGET $SMH (${rebal.target_smh_weight_pct}%)</div>
                 <div class="mono" style="font-size:1.05rem; font-weight:800; color:#fff; margin-top:2px;">
@@ -570,10 +599,10 @@ export function renderSemiFearGreedView(state) {
         <h3 style="font-size:1.12rem; font-weight:800; color:#ffffff; margin:4px 0 6px;">${t.lumpSectionTitle}</h3>
         <p style="font-size:0.8rem; color:var(--muted); margin-bottom:14px;">${t.lumpSectionDesc}</p>
 
-        <div class="semi-form-two-col" style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px;">
+        <div class="semi-form-grid-2" style="margin-bottom:12px;">
           <div>
             <label style="font-size:0.68rem; font-family:var(--font-mono); color:var(--muted);">NEW LUMP-SUM CASH ($ USD)</label>
-            <input type="number" id="semiLumpCapInput" value="${state.semiLumpCapUsd || 50000}" step="1000"
+            <input type="number" id="semiLumpCapInput" value="${state.semiLumpCapUsd ?? 50000}" step="1000"
                    style="width:100%; padding:8px 10px; background:#060911; border:1px solid var(--border); color:#fff; border-radius:4px; font-family:var(--font-mono); font-weight:700; margin-top:3px;" />
           </div>
           <div>
@@ -648,12 +677,9 @@ export function renderSemiFearGreedView(state) {
           <h3 style="font-size:1.15rem; font-weight:800; color:#ffffff; margin-top:3px;">${t.eraSectionTitle}</h3>
           <p style="font-size:0.8rem; color:var(--muted); margin-top:2px;">${t.eraSectionDesc}</p>
         </div>
-        <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
-          <button type="button" class="btn" id="btnSendSemiTelegram" style="border-color:rgba(96,165,250,0.4); color:#93c5fd;">📲 Send 80:20 Signal to Telegram</button>
-          <button class="btn btn-sm" id="btnDownloadSemiCsv">
-            Download 2000–2026 Daily CSV Dataset (Pro)
-          </button>
-        </div>
+        <button class="btn btn-sm" id="btnDownloadSemiCsv">
+          Download 2000–2026 Daily CSV Dataset (Pro)
+        </button>
       </div>
 
       ${renderEquityCurveSvg(state.semiHistory)}
@@ -694,6 +720,9 @@ export function renderSemiFearGreedView(state) {
         </table>
       </div>
     </section>
+
+    <!-- SECTION 5: PRO TERMINAL & LIFETIME LICENSE PRICING -->
+    ${renderPricing(state)}
 
     <!-- CROSS-PLATFORM SWITCH BANNER BACK TO RIGHTSIDEALPHA -->
     <section class="cross-banner" style="border-left-color:var(--fin-blue);">

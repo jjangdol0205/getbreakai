@@ -461,9 +461,14 @@ export function renderSemiFearGreedView(state) {
         .map((etf) => {
           const name = lang === "jp" ? etf.name_jp : lang === "kr" ? etf.name_kr : etf.name_en;
           const role = lang === "jp" ? etf.role_jp : lang === "kr" ? etf.role_kr : etf.role_en;
-          const tvUrl = `/api/referral/redirect/tradingview?ticker=${encodeURIComponent(etf.ticker)}`;
-          const saUrl = `/api/referral/redirect/seekingalpha?ticker=${encodeURIComponent(etf.ticker)}`;
-          const brokerUrl = `/api/referral/redirect/broker?ticker=${encodeURIComponent(etf.ticker)}`;
+          const cfg = state.config || {};
+          const tvAffId = encodeURIComponent(cfg.tradingview_aff_id || "1173809");
+          const saSource = encodeURIComponent(cfg.seekingalpha_source || "better_life333");
+          const rawBrk = cfg.broker_referral_url || "https://www.bitget.com/referral/register?clacCode=7nja";
+          const brkSep = rawBrk.includes("?") ? "&" : "?";
+          const tvUrl = `https://www.tradingview.com/symbols/${encodeURIComponent(etf.ticker)}/?aff_id=${tvAffId}`;
+          const saUrl = `https://seekingalpha.com/symbol/${encodeURIComponent(etf.ticker)}/earnings?source=${saSource}`;
+          const brokerUrl = `${rawBrk}${brkSep}symbol=${encodeURIComponent(etf.ticker)}`;
           return `
           <div class="proof-card" style="margin-bottom:0; border-top:2px solid ${
             etf.ticker === "SMH" ? "var(--fin-blue)" : etf.ticker === "XLV" ? "var(--fin-up)" : "#64748b"

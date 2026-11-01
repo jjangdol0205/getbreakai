@@ -1,0 +1,42 @@
+name: Daily US Market Close Price Sync
+
+on:
+  schedule:
+    # Runs at 21:20 UTC (17:20 EST / 06:20 KST next day) Mon-Fri after US market close
+    - cron: "20 21 * * 1-5"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync-market-data:
+    runs-only-if-enabled: true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install yfinance pandas numpy
+
+      - name: Sync latest US stock & ETF closing prices
+        run: |
+          python scripts/sync_live_market_data.py
+
+      - name: Commit and push updated market snapshots
+        run: |
+          git config user.name "RightSideAlpha Quant Bot"
+          git config user.email "bot@truthofmarket.com"
+          git add frontend/public/static_api/ dist/static_api/ static_api/
+          if ! git diff --cached --quiet; then
+            git commit -m "Auto-sync daily US market close prices (72 stocks + SMH/XLV/QQQ)"
+            git push
+          fi

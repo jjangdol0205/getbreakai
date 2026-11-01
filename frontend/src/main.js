@@ -48,12 +48,36 @@ const defaultView =
     ? "semi"
     : "rightside";
 
+// Auto-migrate any stale legacy placeholder URLs stored in localStorage
+(function migrateLegacyLocalStorage() {
+  try {
+    const oldM = localStorage.getItem("rsa_cfg_ls_monthly") || "";
+    if (oldM.includes("rightsidealpha.lemonsqueezy.com") || oldM.includes("d5e7e761")) {
+      localStorage.removeItem("rsa_cfg_ls_monthly");
+    }
+    const oldL = localStorage.getItem("rsa_cfg_ls_ltd") || "";
+    if (oldL.includes("rightsidealpha.lemonsqueezy.com") || oldL.includes("667aa482")) {
+      localStorage.removeItem("rsa_cfg_ls_ltd");
+    }
+    const oldTv = localStorage.getItem("rsa_cfg_aff_tv") || "";
+    if (oldTv === "rightsidealpha") {
+      localStorage.setItem("rsa_cfg_aff_tv", "1173809");
+    }
+    const oldBrk = localStorage.getItem("rsa_cfg_broker_url") || "";
+    if (oldBrk.includes("ibkr.com/referral/rightsidealpha")) {
+      localStorage.setItem("rsa_cfg_broker_url", "https://www.bitget.com/referral/register?clacCode=7nja");
+      localStorage.setItem("rsa_cfg_broker_name", "Bitget (7nja)");
+    }
+  } catch (_) {}
+})();
+
 const state = {
   lang: localStorage.getItem("rsa_lang") || "en",
   activeView: defaultView,
   isAdminAuthenticated: sessionStorage.getItem("rsa_admin_auth") === "true",
   isProUnlocked: localStorage.getItem("rsa_pro_unlocked") === "true",
   licenseKey: localStorage.getItem("rsa_token") || "",
+  proPortfolioUsd: Number(localStorage.getItem("rsa_pro_cap_usd") || 30000),
   stocks: [],
   filteredStocks: [],
   backtestKpis: null,
@@ -821,6 +845,22 @@ function bindEvents() {
           statusEl.style.color = "var(--fin-down)";
           statusEl.textContent = "Error sending Telegram alert.";
         }
+      }
+    });
+  }
+
+  // Pro VIP Position Sizing Calculator
+  const btnCalcProSizing = document.getElementById("btnCalcProSizing");
+  if (btnCalcProSizing) {
+    btnCalcProSizing.addEventListener("click", () => {
+      const rawVal = parseFloat(document.getElementById("proCapitalInput")?.value || "30000");
+      if (Number.isFinite(rawVal) && rawVal >= 1000) {
+        state.proPortfolioUsd = rawVal;
+        localStorage.setItem("rsa_pro_cap_usd", String(rawVal));
+        renderApp();
+        showToast(`Updated Pro Position Sizing for $${rawVal.toLocaleString()} Account`);
+      } else {
+        showToast("Please enter an account size of at least $1,000");
       }
     });
   }

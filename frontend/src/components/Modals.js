@@ -19,15 +19,17 @@ export function renderModals(state) {
         </div>
         <h3 style="font-size:1.12rem; font-weight:800; margin-top:4px; color:#ffffff;">Activate Pro Terminal License</h3>
         <p style="color:var(--muted); font-size:0.82rem; margin-top:6px; line-height:1.5;">
-          Enter the license key issued upon Lemon Squeezy checkout to unlock all 72 US equity target levels, Position Risk Diagnostics, and the 26-year Semiconductor CSV dataset.<br/>
-          <span style="color:var(--text-secondary);">Evaluation Key: <code class="mono" style="color:var(--fin-up); font-weight:700;">PRO-DEMO-2026</code></span>
+          Enter the license key issued upon Lemon Squeezy checkout to unlock all 72 US equity target levels, Daily VIP Ignition Order Book, Position Sizing Calculator, Position Doctor, and the 26-year Semiconductor CSV dataset.
         </p>
-        <div style="margin:10px 0 8px;">
-          <button type="button" class="btn btn-emerald btn-sm" id="btnFillDemoKey" style="width:100%; justify-content:center; padding:7px 10px;">
-            ⚡ Apply Evaluation Key (PRO-DEMO-2026)
-          </button>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:12px 0 10px;">
+          <a class="btn btn-primary btn-sm lemonsqueezy-button" href="${cfg.ls_site1_monthly_url || "https://truthofmarket.lemonsqueezy.com/checkout/buy/bad98d00-7175-41f6-9d58-eeb2471d0da4"}?embed=1" target="_blank" rel="noopener noreferrer" style="justify-content:center; padding:8px 10px; font-weight:700;">
+            🍋 Subscribe Pro ($29/mo) ↗
+          </a>
+          <a class="btn btn-emerald btn-sm lemonsqueezy-button" href="${cfg.ls_site1_ltd_url || "https://truthofmarket.lemonsqueezy.com/checkout/buy/00c9f6e1-c8be-42a4-b5a5-e05af1a41ed9"}?embed=1" target="_blank" rel="noopener noreferrer" style="justify-content:center; padding:8px 10px; font-weight:700;">
+            🏆 Lifetime Pass ($199) ↗
+          </a>
         </div>
-        <input type="text" id="licenseInput" value="${state.licenseKey || ""}" placeholder="PRO-DEMO-2026 or XXXX-XXXX-XXXX" autocomplete="off" />
+        <input type="text" id="licenseInput" value="${state.licenseKey || ""}" placeholder="Enter Lemon Squeezy License Key (XXXX-XXXX-XXXX-XXXX)" autocomplete="off" />
         <div id="licenseMsg" style="font-size:0.8rem; margin-bottom:12px; min-height:1.2em;"></div>
         <div style="display:flex; gap:8px; justify-content:space-between; align-items:center; flex-wrap:wrap;">
           <div>

@@ -117,6 +117,11 @@ export function renderPricing(state) {
     "https://truthofmarket.lemonsqueezy.com/checkout/buy/00c9f6e1-c8be-42a4-b5a5-e05af1a41ed9"
   );
   const brokerName = cfg.broker_name || "Bitget (7nja)";
+  const tvAffId = encodeURIComponent(cfg.tradingview_aff_id || "1173809");
+  const saSource = encodeURIComponent(cfg.seekingalpha_source || "better_life333");
+  const rawBrkUrl = cfg.broker_referral_url || "https://www.bitget.com/referral/register?clacCode=7nja";
+  const directTvUrl = `https://www.tradingview.com/?aff_id=${tvAffId}`;
+  const directSaUrl = `https://seekingalpha.com/symbol/SPY/earnings?source=${saSource}`;
 
   return `
     <section class="pricing-grid" id="pricingSection">
@@ -169,13 +174,13 @@ export function renderPricing(state) {
           </ul>
         </div>
         <div style="display:flex; flex-direction:column; gap:7px;">
-          <a class="btn" id="affTvBtn" href="/api/referral/redirect/tradingview?ticker=SPY" target="_blank" rel="noopener noreferrer" style="justify-content:center;">
+          <a class="btn" id="affTvBtn" href="${directTvUrl}" target="_blank" rel="noopener noreferrer" style="justify-content:center;">
             ${c.tvBtn}
           </a>
-          <a class="btn" id="affSaBtn" href="/api/referral/redirect/seekingalpha?ticker=SPY" target="_blank" rel="noopener noreferrer" style="justify-content:center;">
+          <a class="btn" id="affSaBtn" href="${directSaUrl}" target="_blank" rel="noopener noreferrer" style="justify-content:center;">
             ${c.saBtn}
           </a>
-          <a class="btn" id="affBrokerBtn" href="/api/referral/redirect/broker?ticker=SPY" target="_blank" rel="noopener noreferrer" style="justify-content:center; border-color:rgba(16,185,129,0.45); color:#34d399; font-weight:700;">
+          <a class="btn" id="affBrokerBtn" href="${rawBrkUrl}" target="_blank" rel="noopener noreferrer" style="justify-content:center; border-color:rgba(16,185,129,0.45); color:#34d399; font-weight:700;">
             ${c.brokerBtn} (${brokerName})
           </a>
           <button class="btn" id="btnOpenTelegramFromPricing" style="justify-content:center; border-color:rgba(56,189,248,0.4); color:#38bdf8;">

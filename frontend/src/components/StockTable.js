@@ -87,6 +87,11 @@ export function renderStockRows(state) {
   const stocks = (state.filteredStocks || []).filter((s) => !String(s.ticker).includes("."));
   const lang = state.lang;
   const isPro = state.isProUnlocked;
+  const cfg = state.config || {};
+  const tvAffId = encodeURIComponent(cfg.tradingview_aff_id || "1173809");
+  const saSource = encodeURIComponent(cfg.seekingalpha_source || "better_life333");
+  const rawBrokerUrl = cfg.broker_referral_url || "https://www.bitget.com/referral/register?clacCode=7nja";
+  const brokerSep = rawBrokerUrl.includes("?") ? "&" : "?";
 
   if (!stocks.length) {
     return `
@@ -122,54 +127,65 @@ export function renderStockRows(state) {
       const rangeSpan = Math.max(0.01, high52 - low52);
       const rangePct = Math.min(100, Math.max(2, Math.round(((closeVal - low52) / rangeSpan) * 100)));
 
-      // Free tier previews top 4 rows; rows 4+ require Pro
-      const hasUnmaskedPrices =
-        s.stop_loss_price !== null &&
-        s.stop_loss_price !== undefined &&
-        s.tp1_2x_price !== null &&
-        s.tp1_2x_price !== undefined;
-      const showTargets = (isPro || !s.is_pro_locked) && hasUnmaskedPrices;
-      const trigPrice = s.entry_trigger_price ?? s.ma60_price;
-      const ma60Disp =
-        trigPrice !== null && trigPrice !== undefined
-          ? `$${Number(trigPrice).toFixed(2)}`
-          : "LOCKED";
-      const stopDisp =
-        s.stop_loss_price !== null && s.stop_loss_price !== undefined
-          ? `$${Number(s.stop_loss_price).toFixed(2)}`
-          : "LOCKED";
-      const tp1Disp =
-        s.tp1_2x_price !== null && s.tp1_2x_price !== undefined
-          ? `$${Number(s.tp1_2x_price).toFixed(2)}`
-          : "LOCKED";
+      // Clear Free vs. Pro differentiation:
+      // Free users get 1 full sample row (idx === 0 or CELH); all other rows require Pro license
+      const isFreeSample = idx === 0 || s.ticker === "CELH";
+      const isVipIgnitionLocked = !isPro && s.zone_code === "IGNITION_ZONE" && !isFreeSample;
+      const calcTrig = s.entry_trigger_price ?? s.ma60_price ?? Number((closeVal * 1.02).toFixed(2));
+      const calcStop = s.stop_loss_price ?? Number((closeVal * 0.91).toFixed(2));
+      const calcTp1 = s.tp1_2x_price ?? Number((closeVal * 2.0).toFixed(2));
+      const showTargets = isPro || isFreeSample;
+
+      const ma60Disp = `$${Number(calcTrig).toFixed(2)}`;
+      const stopDisp = `$${Number(calcStop).toFixed(2)}`;
+      const tp1Disp = `$${Number(calcTp1).toFixed(2)}`;
 
       const triggerHtml = showTargets
         ? `<div class="mono" style="font-size:0.75rem; line-height:1.45;">
-             <div><span style="color:var(--muted);">TRG</span> <span style="color:#60a5fa; font-weight:700;">${ma60Disp}</span></div>
+             <div><span style="color:var(--muted);">TRG</span> <span style="color:#60a5fa; font-weight:700;">${ma60Disp}</span> ${
+               !isPro && isFreeSample
+                 ? `<span style="font-size:0.6rem; padding:1px 4px; background:rgba(14,203,129,0.18); color:var(--fin-up); border-radius:2px;">FREE SAMPLE</span>`
+                 : ""
+             }</div>
              <div><span style="color:var(--muted);">STP</span> <span style="color:var(--fin-down); font-weight:600;">${stopDisp}</span> · <span style="color:var(--fin-up);">TP ${tp1Disp}</span></div>
            </div>`
-        : `<span class="pro-lock-cell btn-unlock-row" title="Click to enter Pro license key">
+        : `<span class="pro-lock-cell btn-unlock-row" title="Unlock Pro to view exact Entry Trigger, -9% Stop & +100% Target">
              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
              </svg>
-             <span>PRO TARGETS</span>
+             <span>🔒 PRO TARGETS</span>
            </span>`;
 
-      const tvUrl = `/api/referral/redirect/tradingview?ticker=${encodeURIComponent(s.ticker)}`;
-      const saUrl = `/api/referral/redirect/seekingalpha?ticker=${encodeURIComponent(s.ticker)}`;
-      const brokerUrl = `/api/referral/redirect/broker?ticker=${encodeURIComponent(s.ticker)}`;
+      const tvUrl = `https://www.tradingview.com/symbols/${encodeURIComponent(s.ticker)}/?aff_id=${tvAffId}`;
+      const saUrl = `https://seekingalpha.com/symbol/${encodeURIComponent(s.ticker)}/earnings?source=${saSource}`;
+      const brokerUrl = `${rawBrokerUrl}${brokerSep}symbol=${encodeURIComponent(s.ticker)}`;
+
+      const tickerCellHtml = isVipIgnitionLocked
+        ? `<div class="btn-unlock-row" style="cursor:pointer;" title="Click to unlock VIP Ignition Pick">
+             <div style="display:flex; align-items:center; gap:7px;">
+               <span class="mono" style="font-weight:800; font-size:0.86rem; color:#fbbf24; background:rgba(245,158,11,0.14); border:1px solid rgba(245,158,11,0.4); padding:2px 7px; border-radius:4px;">
+                 🔒 VIP IGNITION #${idx + 1}
+               </span>
+             </div>
+             <div style="font-size:0.72rem; color:var(--muted); margin-top:3px;">
+               ${s.sector} · <span style="color:#93c5fd; text-decoration:underline;">Unlock Pro to Reveal Ticker</span>
+             </div>
+           </div>`
+        : `<div>
+             <div style="display:flex; align-items:center; gap:7px;">
+               <span class="mono" style="font-weight:800; font-size:0.9rem; color:#ffffff;">${s.ticker}</span>
+               <span style="font-size:0.62rem; font-family:var(--font-mono); padding:1px 4px; background:#141d2f; border:1px solid #24324d; color:#93c5fd; border-radius:2px;">US</span>
+             </div>
+             <div style="font-size:0.73rem; font-family:var(--font-sans); color:var(--muted); margin-top:2px;">
+               ${stockName} · <span style="color:var(--text-secondary);">${s.sector}</span>
+             </div>
+           </div>`;
 
       return `
       <tr data-ticker="${s.ticker}">
         <td>
-          <div style="display:flex; align-items:center; gap:7px;">
-            <span class="mono" style="font-weight:800; font-size:0.9rem; color:#ffffff;">${s.ticker}</span>
-            <span style="font-size:0.62rem; font-family:var(--font-mono); padding:1px 4px; background:#141d2f; border:1px solid #24324d; color:#93c5fd; border-radius:2px;">US</span>
-          </div>
-          <div style="font-size:0.73rem; font-family:var(--font-sans); color:var(--muted); margin-top:2px;">
-            ${stockName} · <span style="color:var(--text-secondary);">${s.sector}</span>
-          </div>
+          ${tickerCellHtml}
         </td>
         <td>
           <span class="badge ${badgeClass}">${cleanZoneLabel}</span>

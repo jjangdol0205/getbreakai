@@ -2093,6 +2093,11 @@ function renderStockRows(state) {
   const stocks = (state.filteredStocks || []).filter((s) => !String(s.ticker).includes("."));
   const lang = state.lang;
   const isPro = state.isProUnlocked;
+  const cfg = state.config || {};
+  const tvAffId = encodeURIComponent(cfg.tradingview_aff_id || "1173809");
+  const saSource = encodeURIComponent(cfg.seekingalpha_source || "better_life333");
+  const rawBrokerUrl = cfg.broker_referral_url || "https://www.bitget.com/referral/register?clacCode=7nja";
+  const brokerSep = rawBrokerUrl.includes("?") ? "&" : "?";
 
   if (!stocks.length) {
     return `
@@ -2128,54 +2133,65 @@ function renderStockRows(state) {
       const rangeSpan = Math.max(0.01, high52 - low52);
       const rangePct = Math.min(100, Math.max(2, Math.round(((closeVal - low52) / rangeSpan) * 100)));
 
-      // Free tier previews top 4 rows; rows 4+ require Pro
-      const hasUnmaskedPrices =
-        s.stop_loss_price !== null &&
-        s.stop_loss_price !== undefined &&
-        s.tp1_2x_price !== null &&
-        s.tp1_2x_price !== undefined;
-      const showTargets = (isPro || !s.is_pro_locked) && hasUnmaskedPrices;
-      const trigPrice = s.entry_trigger_price ?? s.ma60_price;
-      const ma60Disp =
-        trigPrice !== null && trigPrice !== undefined
-          ? `$${Number(trigPrice).toFixed(2)}`
-          : "LOCKED";
-      const stopDisp =
-        s.stop_loss_price !== null && s.stop_loss_price !== undefined
-          ? `$${Number(s.stop_loss_price).toFixed(2)}`
-          : "LOCKED";
-      const tp1Disp =
-        s.tp1_2x_price !== null && s.tp1_2x_price !== undefined
-          ? `$${Number(s.tp1_2x_price).toFixed(2)}`
-          : "LOCKED";
+      // Clear Free vs. Pro differentiation:
+      // Free users get 1 full sample row (idx === 0 or CELH); all other rows require Pro license
+      const isFreeSample = idx === 0 || s.ticker === "CELH";
+      const isVipIgnitionLocked = !isPro && s.zone_code === "IGNITION_ZONE" && !isFreeSample;
+      const calcTrig = s.entry_trigger_price ?? s.ma60_price ?? Number((closeVal * 1.02).toFixed(2));
+      const calcStop = s.stop_loss_price ?? Number((closeVal * 0.91).toFixed(2));
+      const calcTp1 = s.tp1_2x_price ?? Number((closeVal * 2.0).toFixed(2));
+      const showTargets = isPro || isFreeSample;
+
+      const ma60Disp = `$${Number(calcTrig).toFixed(2)}`;
+      const stopDisp = `$${Number(calcStop).toFixed(2)}`;
+      const tp1Disp = `$${Number(calcTp1).toFixed(2)}`;
 
       const triggerHtml = showTargets
         ? `<div class="mono" style="font-size:0.75rem; line-height:1.45;">
-             <div><span style="color:var(--muted);">TRG</span> <span style="color:#60a5fa; font-weight:700;">${ma60Disp}</span></div>
+             <div><span style="color:var(--muted);">TRG</span> <span style="color:#60a5fa; font-weight:700;">${ma60Disp}</span> ${
+               !isPro && isFreeSample
+                 ? `<span style="font-size:0.6rem; padding:1px 4px; background:rgba(14,203,129,0.18); color:var(--fin-up); border-radius:2px;">FREE SAMPLE</span>`
+                 : ""
+             }</div>
              <div><span style="color:var(--muted);">STP</span> <span style="color:var(--fin-down); font-weight:600;">${stopDisp}</span> · <span style="color:var(--fin-up);">TP ${tp1Disp}</span></div>
            </div>`
-        : `<span class="pro-lock-cell btn-unlock-row" title="Click to enter Pro license key">
+        : `<span class="pro-lock-cell btn-unlock-row" title="Unlock Pro to view exact Entry Trigger, -9% Stop & +100% Target">
              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
              </svg>
-             <span>PRO TARGETS</span>
+             <span>🔒 PRO TARGETS</span>
            </span>`;
 
-      const tvUrl = `/api/referral/redirect/tradingview?ticker=${encodeURIComponent(s.ticker)}`;
-      const saUrl = `/api/referral/redirect/seekingalpha?ticker=${encodeURIComponent(s.ticker)}`;
-      const brokerUrl = `/api/referral/redirect/broker?ticker=${encodeURIComponent(s.ticker)}`;
+      const tvUrl = `https://www.tradingview.com/symbols/${encodeURIComponent(s.ticker)}/?aff_id=${tvAffId}`;
+      const saUrl = `https://seekingalpha.com/symbol/${encodeURIComponent(s.ticker)}/earnings?source=${saSource}`;
+      const brokerUrl = `${rawBrokerUrl}${brokerSep}symbol=${encodeURIComponent(s.ticker)}`;
+
+      const tickerCellHtml = isVipIgnitionLocked
+        ? `<div class="btn-unlock-row" style="cursor:pointer;" title="Click to unlock VIP Ignition Pick">
+             <div style="display:flex; align-items:center; gap:7px;">
+               <span class="mono" style="font-weight:800; font-size:0.86rem; color:#fbbf24; background:rgba(245,158,11,0.14); border:1px solid rgba(245,158,11,0.4); padding:2px 7px; border-radius:4px;">
+                 🔒 VIP IGNITION #${idx + 1}
+               </span>
+             </div>
+             <div style="font-size:0.72rem; color:var(--muted); margin-top:3px;">
+               ${s.sector} · <span style="color:#93c5fd; text-decoration:underline;">Unlock Pro to Reveal Ticker</span>
+             </div>
+           </div>`
+        : `<div>
+             <div style="display:flex; align-items:center; gap:7px;">
+               <span class="mono" style="font-weight:800; font-size:0.9rem; color:#ffffff;">${s.ticker}</span>
+               <span style="font-size:0.62rem; font-family:var(--font-mono); padding:1px 4px; background:#141d2f; border:1px solid #24324d; color:#93c5fd; border-radius:2px;">US</span>
+             </div>
+             <div style="font-size:0.73rem; font-family:var(--font-sans); color:var(--muted); margin-top:2px;">
+               ${stockName} · <span style="color:var(--text-secondary);">${s.sector}</span>
+             </div>
+           </div>`;
 
       return `
       <tr data-ticker="${s.ticker}">
         <td>
-          <div style="display:flex; align-items:center; gap:7px;">
-            <span class="mono" style="font-weight:800; font-size:0.9rem; color:#ffffff;">${s.ticker}</span>
-            <span style="font-size:0.62rem; font-family:var(--font-mono); padding:1px 4px; background:#141d2f; border:1px solid #24324d; color:#93c5fd; border-radius:2px;">US</span>
-          </div>
-          <div style="font-size:0.73rem; font-family:var(--font-sans); color:var(--muted); margin-top:2px;">
-            ${stockName} · <span style="color:var(--text-secondary);">${s.sector}</span>
-          </div>
+          ${tickerCellHtml}
         </td>
         <td>
           <span class="badge ${badgeClass}">${cleanZoneLabel}</span>
@@ -2254,6 +2270,11 @@ function renderProVault(state) {
   const t = state.t;
   const isPro = state.isProUnlocked;
   const stocks = state.stocks || [];
+  const topIgnitions = stocks
+    .filter((s) => s.zone_code === "IGNITION_ZONE" || Number(s.score) >= 75)
+    .slice(0, 5);
+  const proCapUsd = Number(state.proPortfolioUsd || 30000);
+  const perSlotUsd = Math.round(proCapUsd * 0.15); // 15% slot -> 9% stop = 1.35% total account risk
   const celh = stocks.find((s) => s.ticker === "CELH");
   const mbly = stocks.find((s) => s.ticker === "MBLY");
 
@@ -2306,16 +2327,82 @@ plotshape(ignition and not ignition[1], "PW-RSI IGNITION", shape.labelup, locati
       <div style="position:relative;">
         ${
           !isPro
-            ? `<div id="vaultOverlayUnlock" style="position:absolute; inset:0; z-index:10; display:flex; align-items:center; justify-content:center; background:rgba(6,9,17,0.45); border-radius:6px; cursor:pointer;">
-                 <div style="background:#0d1424; border:1px solid var(--fin-blue); box-shadow:0 12px 32px rgba(0,0,0,0.65); border-radius:6px; padding:18px 24px; text-align:center; max-width:440px;">
-                   <div class="mono" style="font-size:0.7rem; color:#93c5fd; font-weight:700; letter-spacing:0.05em;">🔒 PRO ANALYTICS VAULT LOCKED</div>
-                   <div style="font-size:1rem; font-weight:800; color:#ffffff; margin:6px 0;">Unlock Position Doctor, SEC Briefs & Pine Script v5</div>
-                   <div style="font-size:0.78rem; color:var(--muted); margin-bottom:12px;">Subscribe ($29/mo or $199 Lifetime) or click below to test with Evaluation Key <code class="mono" style="color:var(--fin-up);">PRO-DEMO-2026</code></div>
-                   <span class="btn btn-primary" style="justify-content:center; width:100%;">🔑 Click to Enter License Key / Unlock Pro</span>
+            ? `<div id="vaultOverlayUnlock" style="position:absolute; inset:0; z-index:10; display:flex; align-items:center; justify-content:center; background:rgba(6,9,17,0.58); border-radius:6px; cursor:pointer;">
+                 <div style="background:#0d1424; border:1px solid var(--fin-blue); box-shadow:0 12px 32px rgba(0,0,0,0.75); border-radius:6px; padding:22px 26px; text-align:center; max-width:500px;">
+                   <div class="mono" style="font-size:0.72rem; color:#fbbf24; font-weight:800; letter-spacing:0.05em;">👑 PRO VIP ALPHA COMMAND CENTER LOCKED</div>
+                   <div style="font-size:1.05rem; font-weight:800; color:#ffffff; margin:8px 0;">
+                     Unlock All 72 Stock Targets, Daily Ignition Order Book, Position Sizing Calculator & Pine Script v5
+                   </div>
+                   <div style="font-size:0.8rem; color:var(--muted); margin-bottom:14px; line-height:1.5;">
+                     Free users see only 1 sample stock ($CELH). Upgrade to Pro ($29/mo or $199 Lifetime) to reveal all hidden VIP Ignition picks, exact share-sizing orders, Position Doctor diagnostics, and the 26-Year Semiconductor CSV.
+                   </div>
+                   <span class="btn btn-primary" style="justify-content:center; width:100%; padding:10px; font-weight:800;">
+                     🔑 Enter Pro License Key / Subscribe Now →
+                   </span>
                  </div>
                </div>`
             : ""
         }
+
+      <!-- PRO VIP MODULE 00: TODAY'S IGNITION ORDER BOOK & ACCOUNT POSITION SIZING ENGINE -->
+      <div class="${isPro ? "" : "blur-locked"}" style="background:#090d16; border:1px solid rgba(16,185,129,0.35); border-left:4px solid var(--fin-up); border-radius:4px; padding:16px 18px; margin-bottom:16px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
+          <div>
+            <div class="mono" style="font-size:0.7rem; color:var(--fin-up); font-weight:800; letter-spacing:0.05em;">
+              👑 PRO VIP EXCLUSIVE · DAILY RIGHT-SIDE IGNITION ORDER BOOK & POSITION SIZING
+            </div>
+            <h3 style="font-size:1.02rem; font-weight:800; color:#ffffff; margin-top:3px;">
+              Today's Top Turnaround Action Sheet (1.35% Max Account Risk per Position)
+            </h3>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <label class="mono" style="font-size:0.72rem; color:var(--muted);">MY ACCOUNT ($ USD):</label>
+            <input type="number" id="proCapitalInput" value="${proCapUsd}" step="5000" min="1000" style="width:120px; padding:6px 8px; background:#05080f; border:1px solid var(--border); color:#fff; border-radius:4px; font-family:var(--font-mono); font-weight:700; margin:0;" />
+            <button type="button" class="btn btn-emerald btn-sm" id="btnCalcProSizing">Update Shares</button>
+          </div>
+        </div>
+        <div class="table-responsive-scroll">
+          <table class="stock-table" style="font-size:0.78rem;">
+            <thead>
+              <tr>
+                <th>VIP Pick</th>
+                <th>PW Score</th>
+                <th>Latest Close</th>
+                <th>Entry Trigger (MA20/60)</th>
+                <th>-9.0% Hard Stop</th>
+                <th>+100% TP1 Target</th>
+                <th>15% Slot Allocation ($${perSlotUsd.toLocaleString()})</th>
+                <th>Max Loss Impact</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${topIgnitions
+                .map((s, idx) => {
+                  const c = Number(s.close || 25);
+                  const trig = Number(s.entry_trigger_price ?? s.ma60_price ?? c).toFixed(2);
+                  const stp = Number(s.stop_loss_price ?? c * 0.91).toFixed(2);
+                  const tp1 = Number(s.tp1_2x_price ?? c * 2.0).toFixed(2);
+                  const sh = Math.max(1, Math.floor(perSlotUsd / c));
+                  const maxLossUsd = Math.round(sh * c * 0.09);
+                  return `
+                    <tr>
+                      <td class="mono" style="font-weight:800; color:#ffffff;">#${idx + 1} $${s.ticker} <span style="color:var(--muted); font-weight:500;">(${s.sector})</span></td>
+                      <td class="mono" style="color:var(--fin-up); font-weight:800;">${s.score}/100</td>
+                      <td class="mono">$${c.toFixed(2)}</td>
+                      <td class="mono" style="color:#60a5fa; font-weight:700;">$${trig}</td>
+                      <td class="mono" style="color:var(--fin-down); font-weight:700;">$${stp}</td>
+                      <td class="mono" style="color:var(--fin-up); font-weight:700;">$${tp1}</td>
+                      <td class="mono" style="color:#ffffff; font-weight:800;">Buy ${sh} shares ($${Math.round(sh * c).toLocaleString()})</td>
+                      <td class="mono" style="color:var(--fin-amber);">-$${maxLossUsd.toLocaleString()} (-1.35% Eq)</td>
+                    </tr>
+                  `;
+                })
+                .join("")}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
       <div id="vaultContentWrap" class="${isPro ? "" : "blur-locked"}" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(330px, 1fr)); gap:16px;">
         <!-- Module 01: Position Doctor -->
         ${renderPositionDoctorForm(state)}
@@ -2508,6 +2595,11 @@ function renderPricing(state) {
     "https://truthofmarket.lemonsqueezy.com/checkout/buy/00c9f6e1-c8be-42a4-b5a5-e05af1a41ed9"
   );
   const brokerName = cfg.broker_name || "Bitget (7nja)";
+  const tvAffId = encodeURIComponent(cfg.tradingview_aff_id || "1173809");
+  const saSource = encodeURIComponent(cfg.seekingalpha_source || "better_life333");
+  const rawBrkUrl = cfg.broker_referral_url || "https://www.bitget.com/referral/register?clacCode=7nja";
+  const directTvUrl = `https://www.tradingview.com/?aff_id=${tvAffId}`;
+  const directSaUrl = `https://seekingalpha.com/symbol/SPY/earnings?source=${saSource}`;
 
   return `
     <section class="pricing-grid" id="pricingSection">
@@ -2560,13 +2652,13 @@ function renderPricing(state) {
           </ul>
         </div>
         <div style="display:flex; flex-direction:column; gap:7px;">
-          <a class="btn" id="affTvBtn" href="/api/referral/redirect/tradingview?ticker=SPY" target="_blank" rel="noopener noreferrer" style="justify-content:center;">
+          <a class="btn" id="affTvBtn" href="${directTvUrl}" target="_blank" rel="noopener noreferrer" style="justify-content:center;">
             ${c.tvBtn}
           </a>
-          <a class="btn" id="affSaBtn" href="/api/referral/redirect/seekingalpha?ticker=SPY" target="_blank" rel="noopener noreferrer" style="justify-content:center;">
+          <a class="btn" id="affSaBtn" href="${directSaUrl}" target="_blank" rel="noopener noreferrer" style="justify-content:center;">
             ${c.saBtn}
           </a>
-          <a class="btn" id="affBrokerBtn" href="/api/referral/redirect/broker?ticker=SPY" target="_blank" rel="noopener noreferrer" style="justify-content:center; border-color:rgba(16,185,129,0.45); color:#34d399; font-weight:700;">
+          <a class="btn" id="affBrokerBtn" href="${rawBrkUrl}" target="_blank" rel="noopener noreferrer" style="justify-content:center; border-color:rgba(16,185,129,0.45); color:#34d399; font-weight:700;">
             ${c.brokerBtn} (${brokerName})
           </a>
           <button class="btn" id="btnOpenTelegramFromPricing" style="justify-content:center; border-color:rgba(56,189,248,0.4); color:#38bdf8;">
@@ -2609,15 +2701,17 @@ function renderModals(state) {
         </div>
         <h3 style="font-size:1.12rem; font-weight:800; margin-top:4px; color:#ffffff;">Activate Pro Terminal License</h3>
         <p style="color:var(--muted); font-size:0.82rem; margin-top:6px; line-height:1.5;">
-          Enter the license key issued upon Lemon Squeezy checkout to unlock all 72 US equity target levels, Position Risk Diagnostics, and the 26-year Semiconductor CSV dataset.<br/>
-          <span style="color:var(--text-secondary);">Evaluation Key: <code class="mono" style="color:var(--fin-up); font-weight:700;">PRO-DEMO-2026</code></span>
+          Enter the license key issued upon Lemon Squeezy checkout to unlock all 72 US equity target levels, Daily VIP Ignition Order Book, Position Sizing Calculator, Position Doctor, and the 26-year Semiconductor CSV dataset.
         </p>
-        <div style="margin:10px 0 8px;">
-          <button type="button" class="btn btn-emerald btn-sm" id="btnFillDemoKey" style="width:100%; justify-content:center; padding:7px 10px;">
-            ⚡ Apply Evaluation Key (PRO-DEMO-2026)
-          </button>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:12px 0 10px;">
+          <a class="btn btn-primary btn-sm lemonsqueezy-button" href="${cfg.ls_site1_monthly_url || "https://truthofmarket.lemonsqueezy.com/checkout/buy/bad98d00-7175-41f6-9d58-eeb2471d0da4"}?embed=1" target="_blank" rel="noopener noreferrer" style="justify-content:center; padding:8px 10px; font-weight:700;">
+            🍋 Subscribe Pro ($29/mo) ↗
+          </a>
+          <a class="btn btn-emerald btn-sm lemonsqueezy-button" href="${cfg.ls_site1_ltd_url || "https://truthofmarket.lemonsqueezy.com/checkout/buy/00c9f6e1-c8be-42a4-b5a5-e05af1a41ed9"}?embed=1" target="_blank" rel="noopener noreferrer" style="justify-content:center; padding:8px 10px; font-weight:700;">
+            🏆 Lifetime Pass ($199) ↗
+          </a>
         </div>
-        <input type="text" id="licenseInput" value="${state.licenseKey || ""}" placeholder="PRO-DEMO-2026 or XXXX-XXXX-XXXX" autocomplete="off" />
+        <input type="text" id="licenseInput" value="${state.licenseKey || ""}" placeholder="Enter Lemon Squeezy License Key (XXXX-XXXX-XXXX-XXXX)" autocomplete="off" />
         <div id="licenseMsg" style="font-size:0.8rem; margin-bottom:12px; min-height:1.2em;"></div>
         <div style="display:flex; gap:8px; justify-content:space-between; align-items:center; flex-wrap:wrap;">
           <div>
@@ -3302,9 +3396,14 @@ function renderSemiFearGreedView(state) {
         .map((etf) => {
           const name = lang === "jp" ? etf.name_jp : lang === "kr" ? etf.name_kr : etf.name_en;
           const role = lang === "jp" ? etf.role_jp : lang === "kr" ? etf.role_kr : etf.role_en;
-          const tvUrl = `/api/referral/redirect/tradingview?ticker=${encodeURIComponent(etf.ticker)}`;
-          const saUrl = `/api/referral/redirect/seekingalpha?ticker=${encodeURIComponent(etf.ticker)}`;
-          const brokerUrl = `/api/referral/redirect/broker?ticker=${encodeURIComponent(etf.ticker)}`;
+          const cfg = state.config || {};
+          const tvAffId = encodeURIComponent(cfg.tradingview_aff_id || "1173809");
+          const saSource = encodeURIComponent(cfg.seekingalpha_source || "better_life333");
+          const rawBrk = cfg.broker_referral_url || "https://www.bitget.com/referral/register?clacCode=7nja";
+          const brkSep = rawBrk.includes("?") ? "&" : "?";
+          const tvUrl = `https://www.tradingview.com/symbols/${encodeURIComponent(etf.ticker)}/?aff_id=${tvAffId}`;
+          const saUrl = `https://seekingalpha.com/symbol/${encodeURIComponent(etf.ticker)}/earnings?source=${saSource}`;
+          const brokerUrl = `${rawBrk}${brkSep}symbol=${encodeURIComponent(etf.ticker)}`;
           return `
           <div class="proof-card" style="margin-bottom:0; border-top:2px solid ${
             etf.ticker === "SMH" ? "var(--fin-blue)" : etf.ticker === "XLV" ? "var(--fin-up)" : "#64748b"
@@ -3611,12 +3710,36 @@ const defaultView =
     ? "semi"
     : "rightside";
 
+// Auto-migrate any stale legacy placeholder URLs stored in localStorage
+(function migrateLegacyLocalStorage() {
+  try {
+    const oldM = localStorage.getItem("rsa_cfg_ls_monthly") || "";
+    if (oldM.includes("rightsidealpha.lemonsqueezy.com") || oldM.includes("d5e7e761")) {
+      localStorage.removeItem("rsa_cfg_ls_monthly");
+    }
+    const oldL = localStorage.getItem("rsa_cfg_ls_ltd") || "";
+    if (oldL.includes("rightsidealpha.lemonsqueezy.com") || oldL.includes("667aa482")) {
+      localStorage.removeItem("rsa_cfg_ls_ltd");
+    }
+    const oldTv = localStorage.getItem("rsa_cfg_aff_tv") || "";
+    if (oldTv === "rightsidealpha") {
+      localStorage.setItem("rsa_cfg_aff_tv", "1173809");
+    }
+    const oldBrk = localStorage.getItem("rsa_cfg_broker_url") || "";
+    if (oldBrk.includes("ibkr.com/referral/rightsidealpha")) {
+      localStorage.setItem("rsa_cfg_broker_url", "https://www.bitget.com/referral/register?clacCode=7nja");
+      localStorage.setItem("rsa_cfg_broker_name", "Bitget (7nja)");
+    }
+  } catch (_) {}
+})();
+
 const state = {
   lang: localStorage.getItem("rsa_lang") || "en",
   activeView: defaultView,
   isAdminAuthenticated: sessionStorage.getItem("rsa_admin_auth") === "true",
   isProUnlocked: localStorage.getItem("rsa_pro_unlocked") === "true",
   licenseKey: localStorage.getItem("rsa_token") || "",
+  proPortfolioUsd: Number(localStorage.getItem("rsa_pro_cap_usd") || 30000),
   stocks: [],
   filteredStocks: [],
   backtestKpis: null,
@@ -4384,6 +4507,22 @@ function bindEvents() {
           statusEl.style.color = "var(--fin-down)";
           statusEl.textContent = "Error sending Telegram alert.";
         }
+      }
+    });
+  }
+
+  // Pro VIP Position Sizing Calculator
+  const btnCalcProSizing = document.getElementById("btnCalcProSizing");
+  if (btnCalcProSizing) {
+    btnCalcProSizing.addEventListener("click", () => {
+      const rawVal = parseFloat(document.getElementById("proCapitalInput")?.value || "30000");
+      if (Number.isFinite(rawVal) && rawVal >= 1000) {
+        state.proPortfolioUsd = rawVal;
+        localStorage.setItem("rsa_pro_cap_usd", String(rawVal));
+        renderApp();
+        showToast(`Updated Pro Position Sizing for $${rawVal.toLocaleString()} Account`);
+      } else {
+        showToast("Please enter an account size of at least $1,000");
       }
     });
   }

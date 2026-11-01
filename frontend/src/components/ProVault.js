@@ -4,6 +4,11 @@ export function renderProVault(state) {
   const t = state.t;
   const isPro = state.isProUnlocked;
   const stocks = state.stocks || [];
+  const topIgnitions = stocks
+    .filter((s) => s.zone_code === "IGNITION_ZONE" || Number(s.score) >= 75)
+    .slice(0, 5);
+  const proCapUsd = Number(state.proPortfolioUsd || 30000);
+  const perSlotUsd = Math.round(proCapUsd * 0.15); // 15% slot -> 9% stop = 1.35% total account risk
   const celh = stocks.find((s) => s.ticker === "CELH");
   const mbly = stocks.find((s) => s.ticker === "MBLY");
 
@@ -56,16 +61,82 @@ plotshape(ignition and not ignition[1], "PW-RSI IGNITION", shape.labelup, locati
       <div style="position:relative;">
         ${
           !isPro
-            ? `<div id="vaultOverlayUnlock" style="position:absolute; inset:0; z-index:10; display:flex; align-items:center; justify-content:center; background:rgba(6,9,17,0.45); border-radius:6px; cursor:pointer;">
-                 <div style="background:#0d1424; border:1px solid var(--fin-blue); box-shadow:0 12px 32px rgba(0,0,0,0.65); border-radius:6px; padding:18px 24px; text-align:center; max-width:440px;">
-                   <div class="mono" style="font-size:0.7rem; color:#93c5fd; font-weight:700; letter-spacing:0.05em;">🔒 PRO ANALYTICS VAULT LOCKED</div>
-                   <div style="font-size:1rem; font-weight:800; color:#ffffff; margin:6px 0;">Unlock Position Doctor, SEC Briefs & Pine Script v5</div>
-                   <div style="font-size:0.78rem; color:var(--muted); margin-bottom:12px;">Subscribe ($29/mo or $199 Lifetime) or click below to test with Evaluation Key <code class="mono" style="color:var(--fin-up);">PRO-DEMO-2026</code></div>
-                   <span class="btn btn-primary" style="justify-content:center; width:100%;">🔑 Click to Enter License Key / Unlock Pro</span>
+            ? `<div id="vaultOverlayUnlock" style="position:absolute; inset:0; z-index:10; display:flex; align-items:center; justify-content:center; background:rgba(6,9,17,0.58); border-radius:6px; cursor:pointer;">
+                 <div style="background:#0d1424; border:1px solid var(--fin-blue); box-shadow:0 12px 32px rgba(0,0,0,0.75); border-radius:6px; padding:22px 26px; text-align:center; max-width:500px;">
+                   <div class="mono" style="font-size:0.72rem; color:#fbbf24; font-weight:800; letter-spacing:0.05em;">👑 PRO VIP ALPHA COMMAND CENTER LOCKED</div>
+                   <div style="font-size:1.05rem; font-weight:800; color:#ffffff; margin:8px 0;">
+                     Unlock All 72 Stock Targets, Daily Ignition Order Book, Position Sizing Calculator & Pine Script v5
+                   </div>
+                   <div style="font-size:0.8rem; color:var(--muted); margin-bottom:14px; line-height:1.5;">
+                     Free users see only 1 sample stock ($CELH). Upgrade to Pro ($29/mo or $199 Lifetime) to reveal all hidden VIP Ignition picks, exact share-sizing orders, Position Doctor diagnostics, and the 26-Year Semiconductor CSV.
+                   </div>
+                   <span class="btn btn-primary" style="justify-content:center; width:100%; padding:10px; font-weight:800;">
+                     🔑 Enter Pro License Key / Subscribe Now →
+                   </span>
                  </div>
                </div>`
             : ""
         }
+
+      <!-- PRO VIP MODULE 00: TODAY'S IGNITION ORDER BOOK & ACCOUNT POSITION SIZING ENGINE -->
+      <div class="${isPro ? "" : "blur-locked"}" style="background:#090d16; border:1px solid rgba(16,185,129,0.35); border-left:4px solid var(--fin-up); border-radius:4px; padding:16px 18px; margin-bottom:16px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
+          <div>
+            <div class="mono" style="font-size:0.7rem; color:var(--fin-up); font-weight:800; letter-spacing:0.05em;">
+              👑 PRO VIP EXCLUSIVE · DAILY RIGHT-SIDE IGNITION ORDER BOOK & POSITION SIZING
+            </div>
+            <h3 style="font-size:1.02rem; font-weight:800; color:#ffffff; margin-top:3px;">
+              Today's Top Turnaround Action Sheet (1.35% Max Account Risk per Position)
+            </h3>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <label class="mono" style="font-size:0.72rem; color:var(--muted);">MY ACCOUNT ($ USD):</label>
+            <input type="number" id="proCapitalInput" value="${proCapUsd}" step="5000" min="1000" style="width:120px; padding:6px 8px; background:#05080f; border:1px solid var(--border); color:#fff; border-radius:4px; font-family:var(--font-mono); font-weight:700; margin:0;" />
+            <button type="button" class="btn btn-emerald btn-sm" id="btnCalcProSizing">Update Shares</button>
+          </div>
+        </div>
+        <div class="table-responsive-scroll">
+          <table class="stock-table" style="font-size:0.78rem;">
+            <thead>
+              <tr>
+                <th>VIP Pick</th>
+                <th>PW Score</th>
+                <th>Latest Close</th>
+                <th>Entry Trigger (MA20/60)</th>
+                <th>-9.0% Hard Stop</th>
+                <th>+100% TP1 Target</th>
+                <th>15% Slot Allocation ($${perSlotUsd.toLocaleString()})</th>
+                <th>Max Loss Impact</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${topIgnitions
+                .map((s, idx) => {
+                  const c = Number(s.close || 25);
+                  const trig = Number(s.entry_trigger_price ?? s.ma60_price ?? c).toFixed(2);
+                  const stp = Number(s.stop_loss_price ?? c * 0.91).toFixed(2);
+                  const tp1 = Number(s.tp1_2x_price ?? c * 2.0).toFixed(2);
+                  const sh = Math.max(1, Math.floor(perSlotUsd / c));
+                  const maxLossUsd = Math.round(sh * c * 0.09);
+                  return `
+                    <tr>
+                      <td class="mono" style="font-weight:800; color:#ffffff;">#${idx + 1} $${s.ticker} <span style="color:var(--muted); font-weight:500;">(${s.sector})</span></td>
+                      <td class="mono" style="color:var(--fin-up); font-weight:800;">${s.score}/100</td>
+                      <td class="mono">$${c.toFixed(2)}</td>
+                      <td class="mono" style="color:#60a5fa; font-weight:700;">$${trig}</td>
+                      <td class="mono" style="color:var(--fin-down); font-weight:700;">$${stp}</td>
+                      <td class="mono" style="color:var(--fin-up); font-weight:700;">$${tp1}</td>
+                      <td class="mono" style="color:#ffffff; font-weight:800;">Buy ${sh} shares ($${Math.round(sh * c).toLocaleString()})</td>
+                      <td class="mono" style="color:var(--fin-amber);">-$${maxLossUsd.toLocaleString()} (-1.35% Eq)</td>
+                    </tr>
+                  `;
+                })
+                .join("")}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
       <div id="vaultContentWrap" class="${isPro ? "" : "blur-locked"}" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(330px, 1fr)); gap:16px;">
         <!-- Module 01: Position Doctor -->
         ${renderPositionDoctorForm(state)}

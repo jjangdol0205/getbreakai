@@ -1,9 +1,13 @@
 /api/health /static_api/health.json 200
-/api/stocks /static_api/stocks_free.json 200
+/api/stocks /static_api/stocks_pro.json 200
 /api/backtest /static_api/backtest.json 200
 /api/research /static_api/research_list.json 200
+/api/pro/pinescript /static_api/pinescript.json 200
 /api/referral/config /static_api/referral_config.json 200
-/api/semi/overview /static_api/semi_overview.json 200
-/api/semi/download-csv /static_api/smh_xlv_fear_greed_history.csv 200
 /api/telegram/status /static_api/telegram_status.json 200
+/api/telegram/config /static_api/telegram_status.json 200
+/api/semi/overview /static_api/semi_overview.json 200
+/api/semi/history /static_api/semi_history_1Y.json 200
+/api/semi/pro/csv /static_api/smh_xlv_fear_greed_history.csv 200
+/api/semi/download-csv /static_api/smh_xlv_fear_greed_history.csv 200
 /* /index.html 200

@@ -4,6 +4,9 @@ services:
     runtime: static
     buildCommand: ""
     staticPublishPath: ./dist
+    domains:
+      - getbreakai.com
+      - www.getbreakai.com
     routes:
       - type: rewrite
         source: /api/health

@@ -31,12 +31,14 @@ import { renderSemiFearGreedView } from "./components/SemiFearGreedView.js";
 
 const initialPath = window.location.pathname.toLowerCase();
 const initialHash = window.location.hash.toLowerCase();
-const initialHost = window.location.hostname.toLowerCase();
+const initialSearch = new URLSearchParams(window.location.search);
+const viewParam = (initialSearch.get("view") || "").toLowerCase();
 const defaultView =
-  window.__DEFAULT_VIEW__ === "semi" ||
-  initialHost.includes("truthofmarket") ||
-  initialPath.includes("/semi") ||
-  initialHash.includes("semi")
+  viewParam === "semi" || initialHash.includes("semi") || initialPath.includes("/semi")
+    ? "semi"
+    : viewParam === "rightside" || initialHash.includes("rightside") || initialPath.includes("/rightside")
+    ? "rightside"
+    : window.__DEFAULT_VIEW__ === "semi"
     ? "semi"
     : "rightside";
 

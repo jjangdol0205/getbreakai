@@ -10,7 +10,7 @@ export function getAuthHeader() {
 
 export function formatCheckoutUrl(
   rawUrl,
-  fallbackUrl = "https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8"
+  fallbackUrl = "https://truthofmarket.lemonsqueezy.com/checkout/buy/bad98d00-7175-41f6-9d58-eeb2471d0da4"
 ) {
   const base = String(rawUrl || fallbackUrl).trim() || fallbackUrl;
   if (/[?&]embed=1\b/i.test(base)) {

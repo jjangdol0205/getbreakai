@@ -30,7 +30,7 @@ export function renderHeader(state) {
   const xlv1d = xlvEtf && xlvEtf.ret_1d_pct !== undefined ? Number(xlvEtf.ret_1d_pct) : 0.0;
   const lsMonthlyHref = formatCheckoutUrl(
     state.config?.ls_site1_monthly_url,
-    "https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8"
+    "https://truthofmarket.lemonsqueezy.com/checkout/buy/bad98d00-7175-41f6-9d58-eeb2471d0da4"
   );
   const ytUrl = state.config?.youtube_url || "https://youtube.com/@rightsidealpha";
   const igUrl = state.config?.instagram_url || "https://www.instagram.com/semifeargreed";

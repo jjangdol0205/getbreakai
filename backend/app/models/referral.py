@@ -10,11 +10,11 @@ class ReferralConfig(BaseModel):
     seekingalpha_source: str = Field("affiliate_rightside", description="Seeking Alpha tracking source tag")
     trendspider_aff_id: str = Field("rightside", description="TrendSpider partner tracking ID")
     ls_site1_monthly_url: str = Field(
-        default="https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8",
+        default="https://truthofmarket.lemonsqueezy.com/checkout/buy/bad98d00-7175-41f6-9d58-eeb2471d0da4",
         description="Lemon Squeezy Pro Monthly checkout URL",
     )
     ls_site1_ltd_url: str = Field(
-        default="https://truthofmarket.lemonsqueezy.com/checkout/buy/667aa482-f17c-47d1-b7f3-a2427c36516b",
+        default="https://truthofmarket.lemonsqueezy.com/checkout/buy/00c9f6e1-c8be-42a4-b5a5-e05af1a41ed9",
         description="Lemon Squeezy Lifetime Pass checkout URL",
     )
     site1_url: str = Field(

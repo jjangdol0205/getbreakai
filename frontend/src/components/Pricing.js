@@ -110,11 +110,11 @@ export function renderPricing(state) {
   const c = PRICING_COPY[state.lang] || PRICING_COPY.en;
   const lsMonthly = formatCheckoutUrl(
     cfg.ls_site1_monthly_url,
-    "https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8"
+    "https://truthofmarket.lemonsqueezy.com/checkout/buy/bad98d00-7175-41f6-9d58-eeb2471d0da4"
   );
   const lsLtd = formatCheckoutUrl(
     cfg.ls_site1_ltd_url,
-    "https://truthofmarket.lemonsqueezy.com/checkout/buy/667aa482-f17c-47d1-b7f3-a2427c36516b"
+    "https://truthofmarket.lemonsqueezy.com/checkout/buy/00c9f6e1-c8be-42a4-b5a5-e05af1a41ed9"
   );
   const brokerName = cfg.broker_name || "IBKR / Webull";
 

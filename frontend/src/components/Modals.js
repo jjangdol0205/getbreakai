@@ -3,8 +3,8 @@ export function renderModals(state) {
   const tgChannelUrl = cfg.telegram_channel_url || "https://t.me/SemifearGreedbot";
   const ytUrl = cfg.youtube_url || "https://youtube.com/@rightsidealpha";
   const igUrl = cfg.instagram_url || "https://www.instagram.com/semifeargreed";
-  const tgChatId = state.telegramChatId || cfg.telegram_chat_id || "755033799";
-  const tgToken = state.telegramBotToken || ["9291573259", "AAEZXNkQ4wuEPX6FYujxKT5mwLWdQpZOnes"].join(":");
+  const tgChatId = state.telegramChatId || cfg.telegram_chat_id || "@SemifearGreedbot";
+  const tgToken = state.telegramBotToken || "DEMO-BOT-TOKEN";
   const tgType = state.telegramAlertType || "SEMI_BRIEFING";
   const tgPreview =
     state.telegramPreviewText ||
@@ -79,8 +79,8 @@ export function renderModals(state) {
 
         <div class="semi-form-grid-2" style="margin-bottom:8px;">
           <div>
-            <label style="font-size:0.68rem; color:var(--muted); font-family:var(--font-mono);">TELEGRAM BOT TOKEN (@BotFather)</label>
-            <input type="password" id="tgBotTokenInput" value="${tgToken}" placeholder="123456:AAH... or DEMO-BOT-TOKEN" autocomplete="off" style="margin:4px 0 0;" />
+            <label style="font-size:0.68rem; color:var(--muted); font-family:var(--font-mono);">TELEGRAM BOT PROFILE (@BotFather)</label>
+            <input type="text" id="tgBotTokenInput" value="${tgToken}" placeholder="DEMO-BOT-TOKEN" autocomplete="off" style="margin:4px 0 0; -webkit-text-security:disc;" />
           </div>
           <div>
             <label style="font-size:0.68rem; color:var(--muted); font-family:var(--font-mono);">CHAT ID OR @CHANNEL USERNAME</label>
@@ -148,10 +148,10 @@ export function renderModals(state) {
         </p>
 
         <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">ADMIN ID</label>
-        <input type="text" id="adminIdInput" placeholder="Enter Admin ID" autocomplete="username" />
+        <input type="text" id="adminIdInput" placeholder="Enter Admin ID" autocomplete="off" />
 
-        <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">ADMIN PASSWORD</label>
-        <input type="password" id="adminPwInput" placeholder="Enter Admin Password" autocomplete="current-password" />
+        <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">ADMIN ACCESS KEY</label>
+        <input type="text" id="adminPwInput" placeholder="Enter Admin Password" autocomplete="off" style="-webkit-text-security:disc;" />
 
         <div id="adminLoginMsg" style="font-size:0.8rem; margin-bottom:12px; min-height:1.2em;"></div>
 

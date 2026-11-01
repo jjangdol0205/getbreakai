@@ -2507,7 +2507,7 @@ function renderPricing(state) {
     cfg.ls_site1_ltd_url,
     "https://truthofmarket.lemonsqueezy.com/checkout/buy/00c9f6e1-c8be-42a4-b5a5-e05af1a41ed9"
   );
-  const brokerName = cfg.broker_name || "IBKR / Webull";
+  const brokerName = cfg.broker_name || "Bitget (7nja)";
 
   return `
     <section class="pricing-grid" id="pricingSection">
@@ -2804,11 +2804,11 @@ function renderModals(state) {
         <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">SEEKING ALPHA PARTNER SOURCE TAG</label>
         <input type="text" id="cfgAffSa" value="${cfg.seekingalpha_source || "affiliate_rightside"}" />
 
-        <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">BROKER / EXCHANGE PARTNER LABEL (E.G. IBKR / WEBULL / BYBIT)</label>
-        <input type="text" id="cfgBrokerName" value="${cfg.broker_name || "IBKR / Webull"}" />
+        <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">BROKER / EXCHANGE PARTNER LABEL (E.G. BITGET / IBKR)</label>
+        <input type="text" id="cfgBrokerName" value="${cfg.broker_name || "Bitget (7nja)"}" />
 
         <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">BROKER / EXCHANGE REFERRAL URL</label>
-        <input type="text" id="cfgBrokerUrl" value="${cfg.broker_referral_url || "https://ibkr.com/referral/rightsidealpha"}" />
+        <input type="text" id="cfgBrokerUrl" value="${cfg.broker_referral_url || "https://www.bitget.com/referral/register?clacCode=7nja"}" />
 
         <div id="configMsg" style="font-size:0.8rem; margin-bottom:12px; min-height:1.2em;"></div>
 
@@ -3656,9 +3656,9 @@ const state = {
       "https://truthofmarket.lemonsqueezy.com/checkout/buy/00c9f6e1-c8be-42a4-b5a5-e05af1a41ed9",
     tradingview_aff_id: localStorage.getItem("rsa_cfg_aff_tv") || "1173809",
     seekingalpha_source: localStorage.getItem("rsa_cfg_aff_sa") || "affiliate_rightside",
-    broker_name: localStorage.getItem("rsa_cfg_broker_name") || "IBKR / Webull",
+    broker_name: localStorage.getItem("rsa_cfg_broker_name") || "Bitget (7nja)",
     broker_referral_url:
-      localStorage.getItem("rsa_cfg_broker_url") || "https://ibkr.com/referral/rightsidealpha",
+      localStorage.getItem("rsa_cfg_broker_url") || "https://www.bitget.com/referral/register?clacCode=7nja",
     telegram_channel_url: localStorage.getItem("rsa_tg_channel_url") || DEFAULT_TG_CHANNEL_URL,
     telegram_chat_id: localStorage.getItem("rsa_tg_chat_id") || "755033799",
     youtube_url: localStorage.getItem("rsa_cfg_youtube_url") || DEFAULT_YOUTUBE_URL,
@@ -4132,10 +4132,10 @@ function bindEvents() {
       const igUrl = document.getElementById("cfgInstagramUrl")?.value.trim() || state.config.instagram_url || DEFAULT_INSTAGRAM_URL;
       const tvId = document.getElementById("cfgAffTv")?.value.trim() || "1173809";
       const saSrc = document.getElementById("cfgAffSa")?.value.trim() || "affiliate_rightside";
-      const brkName = document.getElementById("cfgBrokerName")?.value.trim() || "IBKR / Webull";
+      const brkName = document.getElementById("cfgBrokerName")?.value.trim() || "Bitget (7nja)";
       const brkUrl =
         document.getElementById("cfgBrokerUrl")?.value.trim() ||
-        "https://ibkr.com/referral/rightsidealpha";
+        "https://www.bitget.com/referral/register?clacCode=7nja";
 
       state.config.site1_url = s1Url;
       state.config.ls_site1_monthly_url = lsM;
@@ -4722,7 +4722,7 @@ function bindRowEvents() {
           const aff = encodeURIComponent(state.config.tradingview_aff_id || "1173809");
           window.open(`https://www.tradingview.com/symbols/${ticker}/?aff_id=${aff}`, "_blank", "noopener");
         } else if (href.includes("broker") || href.includes("exchange")) {
-          const rawBrk = state.config.broker_referral_url || "https://ibkr.com/referral/rightsidealpha";
+          const rawBrk = state.config.broker_referral_url || "https://www.bitget.com/referral/register?clacCode=7nja";
           const sep = rawBrk.includes("?") ? "&" : "?";
           window.open(`${rawBrk}${sep}symbol=${encodeURIComponent(ticker)}`, "_blank", "noopener");
         } else if (href.includes("trendspider")) {

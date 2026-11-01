@@ -116,7 +116,7 @@ export function renderPricing(state) {
     cfg.ls_site1_ltd_url,
     "https://truthofmarket.lemonsqueezy.com/checkout/buy/00c9f6e1-c8be-42a4-b5a5-e05af1a41ed9"
   );
-  const brokerName = cfg.broker_name || "IBKR / Webull";
+  const brokerName = cfg.broker_name || "Bitget (7nja)";
 
   return `
     <section class="pricing-grid" id="pricingSection">

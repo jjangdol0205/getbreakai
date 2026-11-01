@@ -214,11 +214,11 @@ export function renderModals(state) {
         <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">SEEKING ALPHA PARTNER SOURCE TAG</label>
         <input type="text" id="cfgAffSa" value="${cfg.seekingalpha_source || "affiliate_rightside"}" />
 
-        <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">BROKER / EXCHANGE PARTNER LABEL (E.G. IBKR / WEBULL / BYBIT)</label>
-        <input type="text" id="cfgBrokerName" value="${cfg.broker_name || "IBKR / Webull"}" />
+        <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">BROKER / EXCHANGE PARTNER LABEL (E.G. BITGET / IBKR)</label>
+        <input type="text" id="cfgBrokerName" value="${cfg.broker_name || "Bitget (7nja)"}" />
 
         <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">BROKER / EXCHANGE REFERRAL URL</label>
-        <input type="text" id="cfgBrokerUrl" value="${cfg.broker_referral_url || "https://ibkr.com/referral/rightsidealpha"}" />
+        <input type="text" id="cfgBrokerUrl" value="${cfg.broker_referral_url || "https://www.bitget.com/referral/register?clacCode=7nja"}" />
 
         <div id="configMsg" style="font-size:0.8rem; margin-bottom:12px; min-height:1.2em;"></div>
 

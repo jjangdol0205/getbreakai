@@ -21,9 +21,9 @@ class ReferralConfig(BaseModel):
         default="https://truthofmarket.com",
         description="Primary production domain URL",
     )
-    broker_name: str = Field("IBKR / Webull", description="Broker/Exchange partner label")
+    broker_name: str = Field("Bitget (7nja)", description="Broker/Exchange partner label")
     broker_referral_url: str = Field(
-        "https://ibkr.com/referral/rightsidealpha",
+        "https://www.bitget.com/referral/register?clacCode=7nja",
         description="Broker/Exchange affiliate referral URL",
     )
     telegram_channel_url: Optional[str] = Field("https://t.me/SemifearGreedbot")

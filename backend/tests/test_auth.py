@@ -110,3 +110,24 @@ def test_lemonsqueezy_webhook_registration(api_client):
     assert res.status_code == 200
     assert res.json()["registered"] is True
     assert license_service.is_valid_pro_key("LS-WEBHOOK-TEST-2026") is True
+
+
+def test_admin_login_endpoint_rejects_wrong_credentials(api_client):
+    """POST /api/auth/admin/login rejects wrong password and grants access on valid .env credentials."""
+    r_bad = api_client.post(
+        "/api/auth/admin/login",
+        json={"username": "wrong_user", "password": "wrong_password"},
+    )
+    assert r_bad.status_code == 200
+    assert r_bad.json()["authenticated"] is False
+
+    from backend.app.config import settings
+
+    if settings.ADMIN_USERNAME and settings.ADMIN_PASSWORD:
+        r_ok = api_client.post(
+            "/api/auth/admin/login",
+            json={"username": settings.ADMIN_USERNAME, "password": settings.ADMIN_PASSWORD},
+        )
+        assert r_ok.status_code == 200
+        assert r_ok.json()["authenticated"] is True
+        assert r_ok.json()["role"] == "admin"

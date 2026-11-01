@@ -18,6 +18,18 @@ class LicenseValidateResponse(BaseModel):
     message: str = Field(..., description="Human-readable validation message")
 
 
+class AdminLoginRequest(BaseModel):
+    username: str = Field(..., description="Admin username")
+    password: str = Field(..., description="Admin password")
+
+
+class AdminLoginResponse(BaseModel):
+    authenticated: bool = Field(..., description="Whether admin credentials are valid")
+    role: str = Field("guest", description="'admin' when authenticated")
+    license_key: Optional[str] = Field(None, description="Auto-granted Pro license key for admin")
+    message: str = Field(..., description="Authentication status message")
+
+
 class ProVaultResponse(BaseModel):
     unlocked: bool = Field(..., description="Pro vault unlock status")
     tier: str = Field("pro", description="Access tier")

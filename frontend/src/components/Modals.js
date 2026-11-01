@@ -134,19 +134,64 @@ export function renderModals(state) {
       </div>
     </div>
 
+    <!-- ADMIN LOGIN MODAL (SHA-256 PROTECTED, NO PLAINTEXT IN GIT) -->
+    <div class="modal-backdrop" id="adminLoginModal">
+      <div class="modal" style="max-width:440px;">
+        <div style="font-size:0.68rem; font-family:var(--font-mono); color:#f59e0b; text-transform:uppercase; letter-spacing:0.05em;">
+          RESTRICTED ACCESS · ADMINISTRATOR AUTHENTICATION
+        </div>
+        <h3 style="font-size:1.12rem; font-weight:800; margin-top:4px; color:#ffffff;">
+          🔒 Admin Terminal Login
+        </h3>
+        <p style="color:var(--muted); font-size:0.8rem; margin-top:6px; margin-bottom:12px; line-height:1.5;">
+          Enter your Administrator ID and Password to unlock Terminal Configuration, Lemon Squeezy Checkout Setup, Affiliate Routing, and full Pro Terminal access.
+        </p>
+
+        <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">ADMIN ID</label>
+        <input type="text" id="adminIdInput" placeholder="Enter Admin ID" autocomplete="username" />
+
+        <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">ADMIN PASSWORD</label>
+        <input type="password" id="adminPwInput" placeholder="Enter Admin Password" autocomplete="current-password" />
+
+        <div id="adminLoginMsg" style="font-size:0.8rem; margin-bottom:12px; min-height:1.2em;"></div>
+
+        <div style="display:flex; gap:8px; justify-content:flex-end;">
+          <button class="btn" id="btnCancelAdminLogin">Cancel</button>
+          <button class="btn btn-primary" id="btnSubmitAdminLogin">Login as Admin</button>
+        </div>
+      </div>
+    </div>
+
     <!-- TERMINAL & AFFILIATE CONFIG MODAL -->
     <div class="modal-backdrop" id="configModal">
-      <div class="modal">
-        <div style="font-size:0.68rem; font-family:var(--font-mono); color:#93c5fd; text-transform:uppercase; letter-spacing:0.05em;">
-          ADMINISTRATION · MONETIZATION & PARTNER ROUTING
+      <div class="modal" style="max-width:640px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+          <div>
+            <div style="font-size:0.68rem; font-family:var(--font-mono); color:#93c5fd; text-transform:uppercase; letter-spacing:0.05em;">
+              ADMINISTRATION · MONETIZATION & PARTNER ROUTING
+            </div>
+            <h3 style="font-size:1.12rem; font-weight:800; margin-top:4px; color:#ffffff;">Checkout & Affiliate Parameter Configuration</h3>
+          </div>
+          <button class="btn btn-sm" id="btnAdminLogout" style="border-color:rgba(246,70,93,0.45); color:var(--fin-down);">
+            🔒 Admin Logout
+          </button>
         </div>
-        <h3 style="font-size:1.12rem; font-weight:800; margin-top:4px; color:#ffffff;">Checkout & Affiliate Parameter Configuration</h3>
-        <p style="color:var(--muted); font-size:0.8rem; margin-top:4px; margin-bottom:12px;">
+        <p style="color:var(--muted); font-size:0.8rem; margin-top:4px; margin-bottom:10px;">
           Update Lemon Squeezy checkout endpoints, Telegram channel link, and affiliate attribution identifiers. Changes persist to the backend and browser storage.
         </p>
 
+        <div style="background:rgba(37,99,235,0.1); border:1px solid rgba(59,130,246,0.35); border-radius:4px; padding:10px 12px; margin-bottom:12px; display:flex; gap:6px; align-items:center; justify-content:space-between; flex-wrap:wrap;">
+          <span class="mono" style="font-size:0.7rem; color:#93c5fd; font-weight:700;">⚡ QUICK PARTNER PORTALS:</span>
+          <div style="display:flex; gap:6px; flex-wrap:wrap;">
+            <a class="btn btn-sm" href="https://app.lemonsqueezy.com/products" target="_blank" rel="noopener noreferrer" style="font-size:0.7rem; padding:4px 8px;">🍋 Lemon Squeezy ↗</a>
+            <a class="btn btn-sm" href="https://www.tradingview.com/affiliate-program/" target="_blank" rel="noopener noreferrer" style="font-size:0.7rem; padding:4px 8px;">📈 TradingView Aff ↗</a>
+            <a class="btn btn-sm" href="https://www.interactivebrokers.com/en/general/refer-a-friend.php" target="_blank" rel="noopener noreferrer" style="font-size:0.7rem; padding:4px 8px;">🏦 IBKR Referral ↗</a>
+            <a class="btn btn-sm" href="https://affiliates.seekingalpha.com/" target="_blank" rel="noopener noreferrer" style="font-size:0.7rem; padding:4px 8px;">📊 Seeking Alpha Aff ↗</a>
+          </div>
+        </div>
+
         <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">PLATFORM DOMAIN (TEAR SHEET WATERMARK)</label>
-        <input type="text" id="cfgSite1Url" value="${cfg.site1_url || "https://getbreakai.com"}" />
+        <input type="text" id="cfgSite1Url" value="${cfg.site1_url || "https://truthofmarket.com"}" />
 
         <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">LEMON SQUEEZY MONTHLY CHECKOUT URL ($29/MO)</label>
         <input type="text" id="cfgLsMonthly" value="${cfg.ls_site1_monthly_url || "https://rightsidealpha.lemonsqueezy.com/checkout/buy/pro-monthly"}" />

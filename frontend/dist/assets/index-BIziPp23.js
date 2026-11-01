@@ -499,6 +499,122 @@ async function fetchResearchBrief(ticker) {
     }
   );
 }
+
+const ADMIN_CREDENTIALS_SHA256 = "4578349322b7fa9931023e0def82b9d0c19fa2c4fdab1f7d762142d8d78ef2fe";
+
+function sha256PureJs(ascii) {
+  function rightRotate(value, amount) {
+    return (value >>> amount) | (value << (32 - amount));
+  }
+  const mathPow = Math.pow;
+  const maxWord = mathPow(2, 32);
+  let result = "";
+  const words = [];
+  const asciiBitLength = ascii.length * 8;
+  let hash = (sha256PureJs.h = sha256PureJs.h || []);
+  const k = (sha256PureJs.k = sha256PureJs.k || []);
+  let primeCounter = k.length;
+  const isComposite = {};
+  for (let candidate = 2; primeCounter < 64; candidate++) {
+    if (!isComposite[candidate]) {
+      for (let i = 0; i < 313; i += candidate) {
+        isComposite[i] = candidate;
+      }
+      hash[primeCounter] = (mathPow(candidate, 0.5) * maxWord) | 0;
+      k[primeCounter++] = (mathPow(candidate, 1 / 3) * maxWord) | 0;
+    }
+  }
+  ascii += "\x80";
+  while ((ascii.length % 64) - 56) ascii += "\x00";
+  for (let i = 0; i < ascii.length; i++) {
+    const j = ascii.charCodeAt(i);
+    if (j >> 8) return "";
+    words[i >> 2] |= j << (((3 - i) % 4) * 8);
+  }
+  words[words.length] = (asciiBitLength / maxWord) | 0;
+  words[words.length] = asciiBitLength;
+  for (let j = 0; j < words.length; ) {
+    const w = words.slice(j, (j += 16));
+    const oldHash = hash;
+    hash = hash.slice(0, 8);
+    for (let i = 0; i < 64; i++) {
+      const w15 = w[i - 15];
+      const w2 = w[i - 2];
+      const a = hash[0];
+      const e = hash[4];
+      const temp1 =
+        hash[7] +
+        (rightRotate(e, 6) ^ rightRotate(e, 11) ^ rightRotate(e, 25)) +
+        ((e & hash[5]) ^ (~e & hash[6])) +
+        k[i] +
+        (w[i] =
+          i < 16
+            ? w[i]
+            : (w[i - 16] +
+                (rightRotate(w15, 7) ^ rightRotate(w15, 18) ^ (w15 >>> 3)) +
+                w[i - 7] +
+                (rightRotate(w2, 17) ^ rightRotate(w2, 19) ^ (w2 >>> 10))) |
+              0);
+      const temp2 =
+        (rightRotate(a, 2) ^ rightRotate(a, 13) ^ rightRotate(a, 22)) +
+        ((a & hash[1]) ^ (a & hash[2]) ^ (hash[1] & hash[2]));
+      hash = [(temp1 + temp2) | 0].concat(hash);
+      hash[4] = (hash[4] + temp1) | 0;
+    }
+    for (let i = 0; i < 8; i++) {
+      hash[i] = (hash[i] + oldHash[i]) | 0;
+    }
+  }
+  for (let i = 0; i < 8; i++) {
+    for (let j = 3; j + 1; j--) {
+      const b = (hash[i] >> (j * 8)) & 255;
+      result += (b < 16 ? 0 : "") + b.toString(16);
+    }
+  }
+  return result;
+}
+
+async function computeSha256Hex(inputStr) {
+  try {
+    if (typeof crypto !== "undefined" && crypto.subtle && typeof TextEncoder !== "undefined") {
+      const data = new TextEncoder().encode(inputStr);
+      const buf = await crypto.subtle.digest("SHA-256", data);
+      return Array.from(new Uint8Array(buf))
+        .map((b) => b.toString(16).padStart(2, "0"))
+        .join("");
+    }
+  } catch (_) {
+    // Fallback to pure JS SHA-256
+  }
+  return sha256PureJs(unescape(encodeURIComponent(inputStr)));
+}
+async function verifyAdminCredentials(username, password) {
+  const uname = String(username || "").trim();
+  const pw = String(password || "");
+  return fetchJsonWithFallback(
+    "/api/auth/admin/login",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({ username: uname, password: pw }),
+    },
+    async () => {
+      const digest = await computeSha256Hex(`rsa_admin_v1:${uname}:${pw}`);
+      const ok = digest.toLowerCase() === ADMIN_CREDENTIALS_SHA256;
+      return {
+        authenticated: ok,
+        role: ok ? "admin" : "guest",
+        license_key: ok ? "PRO-DEMO-2026" : null,
+        message: ok
+          ? "Admin Authenticated — Terminal Config & Pro Access Unlocked."
+          : "Invalid Admin ID or Password.",
+      };
+    }
+  );
+}
 async function validateLicense(licenseKey) {
   return fetchJsonWithFallback(
     "/api/auth/license/validate",
@@ -2713,19 +2829,64 @@ function renderModals(state) {
       </div>
     </div>
 
+    <!-- ADMIN LOGIN MODAL (SHA-256 PROTECTED, NO PLAINTEXT IN GIT) -->
+    <div class="modal-backdrop" id="adminLoginModal">
+      <div class="modal" style="max-width:440px;">
+        <div style="font-size:0.68rem; font-family:var(--font-mono); color:#f59e0b; text-transform:uppercase; letter-spacing:0.05em;">
+          RESTRICTED ACCESS · ADMINISTRATOR AUTHENTICATION
+        </div>
+        <h3 style="font-size:1.12rem; font-weight:800; margin-top:4px; color:#ffffff;">
+          🔒 Admin Terminal Login
+        </h3>
+        <p style="color:var(--muted); font-size:0.8rem; margin-top:6px; margin-bottom:12px; line-height:1.5;">
+          Enter your Administrator ID and Password to unlock Terminal Configuration, Lemon Squeezy Checkout Setup, Affiliate Routing, and full Pro Terminal access.
+        </p>
+
+        <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">ADMIN ID</label>
+        <input type="text" id="adminIdInput" placeholder="Enter Admin ID" autocomplete="username" />
+
+        <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">ADMIN PASSWORD</label>
+        <input type="password" id="adminPwInput" placeholder="Enter Admin Password" autocomplete="current-password" />
+
+        <div id="adminLoginMsg" style="font-size:0.8rem; margin-bottom:12px; min-height:1.2em;"></div>
+
+        <div style="display:flex; gap:8px; justify-content:flex-end;">
+          <button class="btn" id="btnCancelAdminLogin">Cancel</button>
+          <button class="btn btn-primary" id="btnSubmitAdminLogin">Login as Admin</button>
+        </div>
+      </div>
+    </div>
+
     <!-- TERMINAL & AFFILIATE CONFIG MODAL -->
     <div class="modal-backdrop" id="configModal">
-      <div class="modal">
-        <div style="font-size:0.68rem; font-family:var(--font-mono); color:#93c5fd; text-transform:uppercase; letter-spacing:0.05em;">
-          ADMINISTRATION · MONETIZATION & PARTNER ROUTING
+      <div class="modal" style="max-width:640px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+          <div>
+            <div style="font-size:0.68rem; font-family:var(--font-mono); color:#93c5fd; text-transform:uppercase; letter-spacing:0.05em;">
+              ADMINISTRATION · MONETIZATION & PARTNER ROUTING
+            </div>
+            <h3 style="font-size:1.12rem; font-weight:800; margin-top:4px; color:#ffffff;">Checkout & Affiliate Parameter Configuration</h3>
+          </div>
+          <button class="btn btn-sm" id="btnAdminLogout" style="border-color:rgba(246,70,93,0.45); color:var(--fin-down);">
+            🔒 Admin Logout
+          </button>
         </div>
-        <h3 style="font-size:1.12rem; font-weight:800; margin-top:4px; color:#ffffff;">Checkout & Affiliate Parameter Configuration</h3>
-        <p style="color:var(--muted); font-size:0.8rem; margin-top:4px; margin-bottom:12px;">
+        <p style="color:var(--muted); font-size:0.8rem; margin-top:4px; margin-bottom:10px;">
           Update Lemon Squeezy checkout endpoints, Telegram channel link, and affiliate attribution identifiers. Changes persist to the backend and browser storage.
         </p>
 
+        <div style="background:rgba(37,99,235,0.1); border:1px solid rgba(59,130,246,0.35); border-radius:4px; padding:10px 12px; margin-bottom:12px; display:flex; gap:6px; align-items:center; justify-content:space-between; flex-wrap:wrap;">
+          <span class="mono" style="font-size:0.7rem; color:#93c5fd; font-weight:700;">⚡ QUICK PARTNER PORTALS:</span>
+          <div style="display:flex; gap:6px; flex-wrap:wrap;">
+            <a class="btn btn-sm" href="https://app.lemonsqueezy.com/products" target="_blank" rel="noopener noreferrer" style="font-size:0.7rem; padding:4px 8px;">🍋 Lemon Squeezy ↗</a>
+            <a class="btn btn-sm" href="https://www.tradingview.com/affiliate-program/" target="_blank" rel="noopener noreferrer" style="font-size:0.7rem; padding:4px 8px;">📈 TradingView Aff ↗</a>
+            <a class="btn btn-sm" href="https://www.interactivebrokers.com/en/general/refer-a-friend.php" target="_blank" rel="noopener noreferrer" style="font-size:0.7rem; padding:4px 8px;">🏦 IBKR Referral ↗</a>
+            <a class="btn btn-sm" href="https://affiliates.seekingalpha.com/" target="_blank" rel="noopener noreferrer" style="font-size:0.7rem; padding:4px 8px;">📊 Seeking Alpha Aff ↗</a>
+          </div>
+        </div>
+
         <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">PLATFORM DOMAIN (TEAR SHEET WATERMARK)</label>
-        <input type="text" id="cfgSite1Url" value="${cfg.site1_url || "https://getbreakai.com"}" />
+        <input type="text" id="cfgSite1Url" value="${cfg.site1_url || "https://truthofmarket.com"}" />
 
         <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">LEMON SQUEEZY MONTHLY CHECKOUT URL ($29/MO)</label>
         <input type="text" id="cfgLsMonthly" value="${cfg.ls_site1_monthly_url || "https://rightsidealpha.lemonsqueezy.com/checkout/buy/pro-monthly"}" />
@@ -3558,6 +3719,7 @@ const defaultView =
 const state = {
   lang: localStorage.getItem("rsa_lang") || "en",
   activeView: defaultView,
+  isAdminAuthenticated: sessionStorage.getItem("rsa_admin_auth") === "true",
   isProUnlocked: localStorage.getItem("rsa_pro_unlocked") === "true",
   licenseKey: localStorage.getItem("rsa_token") || "",
   stocks: [],
@@ -3964,15 +4126,100 @@ function bindEvents() {
     });
   });
 
-  // Config Modal Controls
+  // Admin Login & Config Modal Controls
+  const adminLoginModal = document.getElementById("adminLoginModal");
   const configModal = document.getElementById("configModal");
   const btnOpenConfig = document.getElementById("btnOpenConfig");
   const btnCancelConfig = document.getElementById("btnCancelConfig");
   const btnSaveConfig = document.getElementById("btnSaveConfig");
+  const btnCancelAdminLogin = document.getElementById("btnCancelAdminLogin");
+  const btnSubmitAdminLogin = document.getElementById("btnSubmitAdminLogin");
+  const btnAdminLogout = document.getElementById("btnAdminLogout");
 
-  if (btnOpenConfig && configModal) {
+  const handleAdminLoginSubmit = async () => {
+    const idInput = document.getElementById("adminIdInput");
+    const pwInput = document.getElementById("adminPwInput");
+    const msgEl = document.getElementById("adminLoginMsg");
+    const uname = (idInput ? idInput.value : "").trim();
+    const pw = pwInput ? pwInput.value : "";
+
+    if (!uname || !pw) {
+      if (msgEl) {
+        msgEl.style.color = "var(--fin-down)";
+        msgEl.textContent = "Please enter both Admin ID and Password.";
+      }
+      return;
+    }
+
+    try {
+      const res = await verifyAdminCredentials(uname, pw);
+      if (res && res.authenticated) {
+        state.isAdminAuthenticated = true;
+        sessionStorage.setItem("rsa_admin_auth", "true");
+        // Automatically grant Pro Terminal access to Admin
+        state.isProUnlocked = true;
+        state.licenseKey = res.license_key || "PRO-DEMO-2026";
+        localStorage.setItem("rsa_pro_unlocked", "true");
+        localStorage.setItem("rsa_token", state.licenseKey);
+
+        if (msgEl) {
+          msgEl.style.color = "var(--fin-up)";
+          msgEl.textContent = res.message || "Admin Authenticated!";
+        }
+        await loadAllData();
+        if (adminLoginModal) adminLoginModal.style.display = "none";
+        renderApp();
+        const freshConfigModal = document.getElementById("configModal");
+        if (freshConfigModal) freshConfigModal.style.display = "flex";
+        showToast("Admin Authenticated — Terminal Config & Pro Access Unlocked");
+      } else {
+        if (msgEl) {
+          msgEl.style.color = "var(--fin-down)";
+          msgEl.textContent = (res && res.message) || "Invalid Admin ID or Password.";
+        }
+      }
+    } catch (_) {
+      if (msgEl) {
+        msgEl.style.color = "var(--fin-down)";
+        msgEl.textContent = "Authentication error. Please try again.";
+      }
+    }
+  };
+
+  if (btnOpenConfig) {
     btnOpenConfig.addEventListener("click", () => {
-      configModal.style.display = "flex";
+      if (state.isAdminAuthenticated) {
+        if (configModal) configModal.style.display = "flex";
+      } else if (adminLoginModal) {
+        adminLoginModal.style.display = "flex";
+        const idInput = document.getElementById("adminIdInput");
+        if (idInput) idInput.focus();
+      }
+    });
+  }
+  if (btnCancelAdminLogin && adminLoginModal) {
+    btnCancelAdminLogin.addEventListener("click", () => {
+      adminLoginModal.style.display = "none";
+    });
+  }
+  if (btnSubmitAdminLogin) {
+    btnSubmitAdminLogin.addEventListener("click", handleAdminLoginSubmit);
+  }
+  const adminPwInput = document.getElementById("adminPwInput");
+  if (adminPwInput) {
+    adminPwInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        handleAdminLoginSubmit();
+      }
+    });
+  }
+  if (btnAdminLogout) {
+    btnAdminLogout.addEventListener("click", () => {
+      state.isAdminAuthenticated = false;
+      sessionStorage.removeItem("rsa_admin_auth");
+      if (configModal) configModal.style.display = "none";
+      showToast("Admin Session Locked");
     });
   }
   if (btnCancelConfig && configModal) {
@@ -4021,6 +4268,8 @@ function bindEvents() {
         await updateReferralConfig({
           tradingview_aff_id: tvId,
           seekingalpha_source: saSrc,
+          broker_name: brkName,
+          broker_referral_url: brkUrl,
           ls_site1_monthly_url: lsM,
           ls_site1_ltd_url: lsL,
           site1_url: s1Url,

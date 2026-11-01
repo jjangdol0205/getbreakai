@@ -8,10 +8,50 @@ from typing import Optional
 from fastapi import APIRouter, Header, HTTPException, Request, status
 
 from backend.app.config import settings
-from backend.app.models.auth import LicenseValidateRequest, LicenseValidateResponse
+from backend.app.models.auth import (
+    AdminLoginRequest,
+    AdminLoginResponse,
+    LicenseValidateRequest,
+    LicenseValidateResponse,
+)
 from backend.app.services.license_service import license_service
 
 router = APIRouter()
+
+
+@router.post("/admin/login", response_model=AdminLoginResponse)
+def admin_login(payload: AdminLoginRequest):
+    """
+    Verifies Admin ID & Password using git-ignored .env or salted SHA-256 digest
+    so plaintext credentials are never exposed in the repository.
+    """
+    uname = (payload.username or "").strip()
+    pw = payload.password or ""
+    salted = f"rsa_admin_v1:{uname}:{pw}".encode("utf-8")
+    digest = hashlib.sha256(salted).hexdigest()
+
+    env_match = bool(
+        settings.ADMIN_USERNAME
+        and settings.ADMIN_PASSWORD
+        and hmac.compare_digest(uname, settings.ADMIN_USERNAME)
+        and hmac.compare_digest(pw, settings.ADMIN_PASSWORD)
+    )
+    hash_match = hmac.compare_digest(digest, settings.ADMIN_CREDENTIALS_SHA256.lower())
+
+    if env_match or hash_match:
+        return AdminLoginResponse(
+            authenticated=True,
+            role="admin",
+            license_key=settings.DEMO_LICENSE_KEY,
+            message="Admin Authenticated — Terminal Config & Pro Access Unlocked.",
+        )
+
+    return AdminLoginResponse(
+        authenticated=False,
+        role="guest",
+        license_key=None,
+        message="Invalid Admin ID or Password.",
+    )
 
 
 @router.post("/license/validate", response_model=LicenseValidateResponse)

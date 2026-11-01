@@ -312,27 +312,65 @@ def send_episode_package_to_telegram(ep_num: int, advance_state: bool = False) -
     chat_id = telegram_service._resolve_chat_id() or "755033799"
     base = f"https://api.telegram.org/bot{token}"
 
-    with httpx.Client(timeout=60.0) as client:
+    timeout_cfg = httpx.Timeout(connect=20.0, read=240.0, write=240.0, pool=30.0)
+    with httpx.Client(timeout=timeout_cfg) as client:
         # 1. Upload the mastered MP4 video so the user can save it directly on their phone
         if mp4_path.exists():
-            video_bytes = mp4_path.read_bytes()
+            upload_path = mp4_path
+            if mp4_path.stat().st_size > 8 * 1024 * 1024:
+                try:
+                    import subprocess
+                    import imageio_ffmpeg
+                    slim_path = VIDEOS_DIR / f"EP{real_num:02d}_TG_Fast.mp4"
+                    if not slim_path.exists():
+                        subprocess.run(
+                            [
+                                imageio_ffmpeg.get_ffmpeg_exe(),
+                                "-y",
+                                "-i",
+                                str(mp4_path),
+                                "-c:v",
+                                "libx264",
+                                "-preset",
+                                "veryfast",
+                                "-crf",
+                                "25",
+                                "-c:a",
+                                "copy",
+                                "-movflags",
+                                "+faststart",
+                                str(slim_path),
+                            ],
+                            stdout=subprocess.DEVNULL,
+                            stderr=subprocess.DEVNULL,
+                            check=False,
+                        )
+                    if slim_path.exists() and slim_path.stat().st_size > 100_000:
+                        upload_path = slim_path
+                except Exception:
+                    upload_path = mp4_path
+
+            video_bytes = upload_path.read_bytes()
             caption = (
                 f"🎬 <b>[Day {real_num}/10 모닝 쇼츠·릴스 배달] {kit['id']} 완성본 영상</b>\n"
                 f"📌 주제: {kit['topic_kr']}\n\n"
                 "👆 <b>영상을 터치한 뒤 우측 상단 [⋮] → [갤러리에 저장(비디오 저장)]</b>을 눌러 핸드폰에 저장하세요!\n"
                 "👇 바로 아래 메시지의 파란 글씨 박스를 터치하면 유튜브 제목·설명·인스타 캡션이 1초 만에 복사됩니다."
             )
-            r_vid = client.post(
-                f"{base}/sendVideo",
-                data={
-                    "chat_id": chat_id,
-                    "caption": caption,
-                    "parse_mode": "HTML",
-                    "supports_streaming": "true",
-                },
-                files={"video": (mp4_path.name, video_bytes, "video/mp4")},
-            )
-            print(f"[DailyShorts] sendVideo EP{real_num:02d}: HTTP {r_vid.status_code}")
+            try:
+                r_vid = client.post(
+                    f"{base}/sendVideo",
+                    data={
+                        "chat_id": chat_id,
+                        "caption": caption,
+                        "parse_mode": "HTML",
+                        "supports_streaming": "true",
+                    },
+                    files={"video": (mp4_path.name, video_bytes, "video/mp4")},
+                )
+                print(f"[DailyShorts] sendVideo EP{real_num:02d}: HTTP {r_vid.status_code}")
+            except Exception as vid_exc:
+                print(f"[DailyShorts] sendVideo warning: {vid_exc}")
 
         # 2. Send 1-Tap Copy YouTube Title, Description, Pinned Comment & Instagram Caption
         import html

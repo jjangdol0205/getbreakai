@@ -6,6 +6,7 @@ import {
   fetchBacktestSummary,
   fetchResearchBrief,
   validateLicense,
+  verifyAdminCredentials,
   fetchPineScript,
   evaluatePositionDoctor,
   fetchReferralConfig,
@@ -50,6 +51,7 @@ const defaultView =
 const state = {
   lang: localStorage.getItem("rsa_lang") || "en",
   activeView: defaultView,
+  isAdminAuthenticated: sessionStorage.getItem("rsa_admin_auth") === "true",
   isProUnlocked: localStorage.getItem("rsa_pro_unlocked") === "true",
   licenseKey: localStorage.getItem("rsa_token") || "",
   stocks: [],
@@ -456,15 +458,100 @@ function bindEvents() {
     });
   });
 
-  // Config Modal Controls
+  // Admin Login & Config Modal Controls
+  const adminLoginModal = document.getElementById("adminLoginModal");
   const configModal = document.getElementById("configModal");
   const btnOpenConfig = document.getElementById("btnOpenConfig");
   const btnCancelConfig = document.getElementById("btnCancelConfig");
   const btnSaveConfig = document.getElementById("btnSaveConfig");
+  const btnCancelAdminLogin = document.getElementById("btnCancelAdminLogin");
+  const btnSubmitAdminLogin = document.getElementById("btnSubmitAdminLogin");
+  const btnAdminLogout = document.getElementById("btnAdminLogout");
 
-  if (btnOpenConfig && configModal) {
+  const handleAdminLoginSubmit = async () => {
+    const idInput = document.getElementById("adminIdInput");
+    const pwInput = document.getElementById("adminPwInput");
+    const msgEl = document.getElementById("adminLoginMsg");
+    const uname = (idInput ? idInput.value : "").trim();
+    const pw = pwInput ? pwInput.value : "";
+
+    if (!uname || !pw) {
+      if (msgEl) {
+        msgEl.style.color = "var(--fin-down)";
+        msgEl.textContent = "Please enter both Admin ID and Password.";
+      }
+      return;
+    }
+
+    try {
+      const res = await verifyAdminCredentials(uname, pw);
+      if (res && res.authenticated) {
+        state.isAdminAuthenticated = true;
+        sessionStorage.setItem("rsa_admin_auth", "true");
+        // Automatically grant Pro Terminal access to Admin
+        state.isProUnlocked = true;
+        state.licenseKey = res.license_key || "PRO-DEMO-2026";
+        localStorage.setItem("rsa_pro_unlocked", "true");
+        localStorage.setItem("rsa_token", state.licenseKey);
+
+        if (msgEl) {
+          msgEl.style.color = "var(--fin-up)";
+          msgEl.textContent = res.message || "Admin Authenticated!";
+        }
+        await loadAllData();
+        if (adminLoginModal) adminLoginModal.style.display = "none";
+        renderApp();
+        const freshConfigModal = document.getElementById("configModal");
+        if (freshConfigModal) freshConfigModal.style.display = "flex";
+        showToast("Admin Authenticated — Terminal Config & Pro Access Unlocked");
+      } else {
+        if (msgEl) {
+          msgEl.style.color = "var(--fin-down)";
+          msgEl.textContent = (res && res.message) || "Invalid Admin ID or Password.";
+        }
+      }
+    } catch (_) {
+      if (msgEl) {
+        msgEl.style.color = "var(--fin-down)";
+        msgEl.textContent = "Authentication error. Please try again.";
+      }
+    }
+  };
+
+  if (btnOpenConfig) {
     btnOpenConfig.addEventListener("click", () => {
-      configModal.style.display = "flex";
+      if (state.isAdminAuthenticated) {
+        if (configModal) configModal.style.display = "flex";
+      } else if (adminLoginModal) {
+        adminLoginModal.style.display = "flex";
+        const idInput = document.getElementById("adminIdInput");
+        if (idInput) idInput.focus();
+      }
+    });
+  }
+  if (btnCancelAdminLogin && adminLoginModal) {
+    btnCancelAdminLogin.addEventListener("click", () => {
+      adminLoginModal.style.display = "none";
+    });
+  }
+  if (btnSubmitAdminLogin) {
+    btnSubmitAdminLogin.addEventListener("click", handleAdminLoginSubmit);
+  }
+  const adminPwInput = document.getElementById("adminPwInput");
+  if (adminPwInput) {
+    adminPwInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        handleAdminLoginSubmit();
+      }
+    });
+  }
+  if (btnAdminLogout) {
+    btnAdminLogout.addEventListener("click", () => {
+      state.isAdminAuthenticated = false;
+      sessionStorage.removeItem("rsa_admin_auth");
+      if (configModal) configModal.style.display = "none";
+      showToast("Admin Session Locked");
     });
   }
   if (btnCancelConfig && configModal) {
@@ -513,6 +600,8 @@ function bindEvents() {
         await updateReferralConfig({
           tradingview_aff_id: tvId,
           seekingalpha_source: saSrc,
+          broker_name: brkName,
+          broker_referral_url: brkUrl,
           ls_site1_monthly_url: lsM,
           ls_site1_ltd_url: lsL,
           site1_url: s1Url,

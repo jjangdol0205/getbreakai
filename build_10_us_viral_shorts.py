@@ -450,6 +450,10 @@ def main() -> int:
 
     targets = [e for e in EPISODES if args.ep == 0 or e["num"] == args.ep]
     for ep in targets:
+        out_check = OUTPUT_DIR / f"{ep['id'].upper()}_US_Viral_Shorts.mp4"
+        if args.ep == 0 and out_check.exists() and out_check.stat().st_size > 1_000_000:
+            print(f"⏭️ Skipping Episode {ep['num']:02d} (already exists: {out_check.name})")
+            continue
         print(f"\n🎬 Building Episode {ep['num']:02d}: {ep['title']}...")
         out = build_episode(ep, ending_mode=args.ending)
         print(f"✅ Completed: {out}")

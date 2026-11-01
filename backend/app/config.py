@@ -6,8 +6,21 @@ from pathlib import Path
 from typing import List
 
 # Resolve base directories
-# config.py is in backend/app/ -> parent is backend/ -> parent.parent is project root (d:\투자홈페이지)
+# config.py is in backend/app/ -> parent is backend/ -> parent.parent is project root
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
+# Load local .env file if present (git-ignored secrets)
+_ENV_FILE = BASE_DIR / ".env"
+if _ENV_FILE.exists():
+    try:
+        for _line in _ENV_FILE.read_text(encoding="utf-8").splitlines():
+            _clean = _line.strip()
+            if not _clean or _clean.startswith("#") or "=" not in _clean:
+                continue
+            _k, _v = _clean.split("=", 1)
+            os.environ.setdefault(_k.strip(), _v.strip())
+    except Exception:
+        pass
 
 
 class Settings:
@@ -66,6 +79,14 @@ class Settings:
     LEMON_SQUEEZY_API_KEY: str = os.getenv("LEMON_SQUEEZY_API_KEY", "")
     LEMON_SQUEEZY_STORE_ID: str = os.getenv("LEMON_SQUEEZY_STORE_ID", "")
     LEMON_SQUEEZY_WEBHOOK_SECRET: str = os.getenv("LEMON_SQUEEZY_WEBHOOK_SECRET", "")
+
+    # Admin Authentication (Salted SHA-256 hash in code; raw credentials only in git-ignored .env)
+    ADMIN_USERNAME: str = os.getenv("ADMIN_USERNAME", "")
+    ADMIN_PASSWORD: str = os.getenv("ADMIN_PASSWORD", "")
+    ADMIN_CREDENTIALS_SHA256: str = os.getenv(
+        "ADMIN_CREDENTIALS_SHA256",
+        "4578349322b7fa9931023e0def82b9d0c19fa2c4fdab1f7d762142d8d78ef2fe",
+    )
 
     # Referral Defaults (for M3)
     DEFAULT_TRADINGVIEW_AFF_ID: str = os.getenv("TRADINGVIEW_AFF_ID", "rightsidealpha")

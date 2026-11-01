@@ -21,11 +21,13 @@ AI에이전트_유튜브_이관_전체백업/
 관심종목_백업_20261030/*.txt
 관심종목_백업_20261030/*.bat
 
-# Environment & Secrets
+# Environment & Secrets (NEVER commit admin credentials or API keys)
 .env
-.env.local
-.env.*.local
+.env.*
+!.env.example
 data/telegram_config.json
+data/admin_config.json
+data/admin_secret.json
 data/daily_shorts_state.json
 viral_shorts_10_output/
 

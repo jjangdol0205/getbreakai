@@ -51,6 +51,10 @@ const defaultView =
 // Auto-migrate any stale legacy placeholder URLs stored in localStorage
 (function migrateLegacyLocalStorage() {
   try {
+    if (!localStorage.getItem("rsa_lang_v3_en")) {
+      localStorage.setItem("rsa_lang", "en");
+      localStorage.setItem("rsa_lang_v3_en", "1");
+    }
     const oldM = localStorage.getItem("rsa_cfg_ls_monthly") || "";
     if (oldM.includes("rightsidealpha.lemonsqueezy.com") || oldM.includes("d5e7e761")) {
       localStorage.removeItem("rsa_cfg_ls_monthly");
@@ -64,9 +68,17 @@ const defaultView =
       localStorage.setItem("rsa_cfg_aff_tv", "1173809");
     }
     const oldBrk = localStorage.getItem("rsa_cfg_broker_url") || "";
-    if (oldBrk.includes("ibkr.com/referral/rightsidealpha")) {
+    if (oldBrk.includes("ibkr.com/referral/rightsidealpha") || oldBrk.includes("partner.bitget.com")) {
       localStorage.setItem("rsa_cfg_broker_url", "https://www.bitget.com/referral/register?clacCode=7nja");
       localStorage.setItem("rsa_cfg_broker_name", "Bitget (7nja)");
+    }
+    const oldTgCh = localStorage.getItem("rsa_tg_channel_url") || "";
+    if (!oldTgCh || oldTgCh.includes("SemifearGreedbot") || oldTgCh.includes("RightSideAlphaBot")) {
+      localStorage.setItem("rsa_tg_channel_url", "https://t.me/truthofmarketss");
+    }
+    const oldTgCid = localStorage.getItem("rsa_tg_chat_id") || "";
+    if (!oldTgCid || oldTgCid.includes("SemifearGreedbot") || oldTgCid === "755033799") {
+      localStorage.setItem("rsa_tg_chat_id", "@truthofmarketss");
     }
   } catch (_) {}
 })();
@@ -99,10 +111,10 @@ const state = {
   semiLumpCapUsd: 50000,
   semiLumpScore: null,
   semiLumpSumResult: null,
-  // Telegram state (@SemifearGreedbot pre-configured)
+  // Telegram state (@truthofmarketss channel + @SemifearGreedbot admin bot)
   telegramConfigured: true,
   telegramBotToken: localStorage.getItem("rsa_tg_bot_token") || DEFAULT_TG_BOT_TOKEN,
-  telegramChatId: localStorage.getItem("rsa_tg_chat_id") || "755033799",
+  telegramChatId: localStorage.getItem("rsa_tg_chat_id") || "@truthofmarketss",
   telegramAlertType: "SEMI_BRIEFING",
   telegramPreviewText: "",
   config: {
@@ -116,12 +128,12 @@ const state = {
       localStorage.getItem("rsa_cfg_ls_ltd") ||
       "https://truthofmarket.lemonsqueezy.com/checkout/buy/00c9f6e1-c8be-42a4-b5a5-e05af1a41ed9",
     tradingview_aff_id: localStorage.getItem("rsa_cfg_aff_tv") || "1173809",
-    seekingalpha_source: localStorage.getItem("rsa_cfg_aff_sa") || "affiliate_rightside",
+    seekingalpha_source: localStorage.getItem("rsa_cfg_aff_sa") || "better_life333",
     broker_name: localStorage.getItem("rsa_cfg_broker_name") || "Bitget (7nja)",
     broker_referral_url:
       localStorage.getItem("rsa_cfg_broker_url") || "https://www.bitget.com/referral/register?clacCode=7nja",
-    telegram_channel_url: localStorage.getItem("rsa_tg_channel_url") || DEFAULT_TG_CHANNEL_URL,
-    telegram_chat_id: localStorage.getItem("rsa_tg_chat_id") || "755033799",
+    telegram_channel_url: localStorage.getItem("rsa_tg_channel_url") || "https://t.me/truthofmarketss",
+    telegram_chat_id: localStorage.getItem("rsa_tg_chat_id") || "@truthofmarketss",
     youtube_url: localStorage.getItem("rsa_cfg_youtube_url") || DEFAULT_YOUTUBE_URL,
     instagram_url: localStorage.getItem("rsa_cfg_instagram_url") || DEFAULT_INSTAGRAM_URL,
   },
@@ -224,11 +236,11 @@ function renderApp() {
           </a>
           <span style="color:var(--border);">|</span>
           <a href="${state.config.telegram_channel_url || DEFAULT_TG_CHANNEL_URL}" target="_blank" rel="noopener noreferrer" style="color:#38bdf8; text-decoration:none; font-weight:600;">
-            🤖 Telegram Bot (@SemifearGreedbot) ↗
+            ✈️ Telegram Channel (@truthofmarketss) ↗
           </a>
           <span style="color:var(--border);">|</span>
-          <a href="https://t.me/RigjtsideAlphabot" target="_blank" rel="noopener noreferrer" style="color:#60a5fa; text-decoration:none; font-weight:600;">
-            🤖 US Stock Bot (@RigjtsideAlphabot) ↗
+          <a href="https://t.me/SemifearGreedbot" target="_blank" rel="noopener noreferrer" style="color:#60a5fa; text-decoration:none; font-weight:600;">
+            🤖 Quant Bot (@SemifearGreedbot) ↗
           </a>
         </div>
         <p id="disclaimerText">${t.disclaimer}</p>

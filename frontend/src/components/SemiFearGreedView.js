@@ -332,12 +332,17 @@ export function renderSemiFearGreedView(state) {
           >
             📸 Instagram (@semifeargreed) ↗
           </a>
-          <button class="btn" id="btnSendSemiTelegram" style="background:#0284c7; color:#ffffff; border-color:#0369a1;">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="22" y1="2" x2="11" y2="13"></line>
-              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-            </svg>
-            <span>${t.cnnTelegramBtn || "Telegram Briefing"}</span>
+          <a
+            class="btn"
+            href="${state.config?.telegram_channel_url || "https://t.me/truthofmarketss"}"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="background:#0284c7; color:#ffffff; border-color:#0369a1;"
+          >
+            ✈️ Telegram (@truthofmarketss) ↗
+          </a>
+          <button class="btn" id="btnSendSemiTelegram" style="background:#1e293b; color:#ffffff; border-color:#334155;">
+            <span>📡 Brief Preview</span>
           </button>
           <button class="btn" id="btnExportSemiGauge" style="background:#111827; color:#ffffff; border-color:#111827;">
             ${t.cnnExportGauge}

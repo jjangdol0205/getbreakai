@@ -11,7 +11,6 @@ permissions:
 
 jobs:
   sync-market-data:
-    runs-only-if-enabled: true
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -25,11 +24,18 @@ jobs:
       - name: Install dependencies
         run: |
           pip install --upgrade pip
-          pip install yfinance pandas numpy
+          pip install yfinance pandas numpy httpx
 
       - name: Sync latest US stock & ETF closing prices
         run: |
           python scripts/sync_live_market_data.py
+
+      - name: Broadcast English Daily Briefing to @truthofmarketss
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: "@truthofmarketss"
+        run: |
+          python scripts/broadcast_telegram_channel.py --pin
 
       - name: Commit and push updated market snapshots
         run: |

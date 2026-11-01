@@ -1,14 +1,14 @@
 export function renderModals(state) {
   const cfg = state.config || {};
-  const tgChannelUrl = cfg.telegram_channel_url || "https://t.me/SemifearGreedbot";
+  const tgChannelUrl = cfg.telegram_channel_url || "https://t.me/truthofmarketss";
   const ytUrl = cfg.youtube_url || "https://youtube.com/@rightsidealpha";
   const igUrl = cfg.instagram_url || "https://www.instagram.com/semifeargreed";
-  const tgChatId = state.telegramChatId || cfg.telegram_chat_id || "@SemifearGreedbot";
+  const tgChatId = state.telegramChatId || cfg.telegram_chat_id || "@truthofmarketss";
   const tgToken = state.telegramBotToken || "DEMO-BOT-TOKEN";
   const tgType = state.telegramAlertType || "SEMI_BRIEFING";
   const tgPreview =
     state.telegramPreviewText ||
-    "🧭 [SemiFearGreed] 반도체 공포·탐욕 지수 & 바벨 리밸런싱 브리핑 (2026-10-26)\n• 공포·탐욕 지수: 18.0 / 100 (극단적 공포 · EXTREME FEAR)\n• $SMH(반도체): $541.62 (52주 고점 대비 -19.03%)\n• $XLV(헬스케어): $179.28 (+0.00% 1D) | $QQQ: $712.20 (+1.11% 1D)\n• 현재 발동 시그널: 목표 비중 80% $SMH : 20% $XLV 역발상 매집";
+    "🧭 [SemiFearGreed] Daily Semiconductor & Barbell Briefing (2026-10-30)\n• Fear & Greed Score: 64.6 / 100 (GREED)\n• $SMH (Semiconductor): $522.49 (-5.24% 52W DD | RSI 61.9)\n• $XLV (Healthcare Vault): $184.87 (+0.38% 1D) | $QQQ: $690.49 (+1.18% 1D)\n• Active Signal: Target 50% $SMH : 50% $XLV Barbell Allocation";
 
   return `
     <!-- LICENSE ACTIVATION MODAL -->
@@ -61,7 +61,7 @@ export function renderModals(state) {
           </div>
           <div style="display:flex; gap:6px; flex-wrap:wrap;">
             <a class="btn btn-sm" id="tgModalSetupBoardBtn" href="./instagram_us_setup.html" target="_blank" rel="noopener noreferrer" style="background:rgba(239,68,68,0.16); border-color:rgba(239,68,68,0.55); color:#fca5a5; font-weight:700;">
-              🎬 YouTube & IG 세팅 보드 ↗
+              🎬 YouTube & IG Setup Board ↗
             </a>
             <a class="btn btn-sm" id="tgModalYtBtn" href="${ytUrl}" target="_blank" rel="noopener noreferrer" style="border-color:rgba(239,68,68,0.45); color:#fca5a5;">
               📺 YouTube ↗
@@ -70,13 +70,13 @@ export function renderModals(state) {
               📸 Instagram ↗
             </a>
             <a class="btn btn-sm" id="tgChannelLinkBtn" href="${tgChannelUrl}" target="_blank" rel="noopener noreferrer" style="border-color:rgba(56,189,248,0.45); color:#38bdf8;">
-              🤖 @SemifearGreedbot ↗
+              ✈️ @truthofmarketss ↗
             </a>
           </div>
         </div>
 
         <p style="color:var(--muted); font-size:0.8rem; margin-top:6px; margin-bottom:12px; line-height:1.5;">
-          Official Bot <a href="https://t.me/SemifearGreedbot" target="_blank" rel="noopener noreferrer" style="color:#38bdf8; font-weight:700;">t.me/SemifearGreedbot</a> is pre-connected. Open the bot in Telegram and press <strong>START (시작)</strong> so your Chat ID is auto-detected, or enter your channel username (<code class="mono" style="color:#93c5fd;">@channel</code>) to broadcast briefings.
+          Official Broadcast Channel <a href="https://t.me/truthofmarketss" target="_blank" rel="noopener noreferrer" style="color:#38bdf8; font-weight:700;">t.me/truthofmarketss</a> (<code class="mono" style="color:#93c5fd;">@truthofmarketss</code>) is connected with Admin Bot <a href="https://t.me/SemifearGreedbot" target="_blank" rel="noopener noreferrer" style="color:#38bdf8; font-weight:700;">@SemifearGreedbot</a> for automated English US Market & Semiconductor daily briefings.
         </p>
 
         <div class="semi-form-grid-2" style="margin-bottom:8px;">

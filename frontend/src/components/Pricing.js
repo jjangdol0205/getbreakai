@@ -33,7 +33,7 @@ const PRICING_COPY = {
     tvBtn: "📈 Launch TradingView Terminal ↗",
     saBtn: "📊 Open Seeking Alpha EPS Consensus ↗",
     brokerBtn: "🏦 Open US Broker / Exchange PartnerBonus ↗",
-    tgBtn: "🤖 Connect Telegram Alert Bot (@SemifearGreedbot) ↗",
+    tgBtn: "✈️ Join Official Telegram Channel (@truthofmarketss) ↗",
   },
   kr: {
     t1Badge: "PRO 퀀트 멤버십",
@@ -183,9 +183,9 @@ export function renderPricing(state) {
           <a class="btn" id="affBrokerBtn" href="${rawBrkUrl}" target="_blank" rel="noopener noreferrer" style="justify-content:center; border-color:rgba(16,185,129,0.45); color:#34d399; font-weight:700;">
             ${c.brokerBtn} (${brokerName})
           </a>
-          <button class="btn" id="btnOpenTelegramFromPricing" style="justify-content:center; border-color:rgba(56,189,248,0.4); color:#38bdf8;">
+          <a class="btn" id="pricingTelegramChannelBtn" href="${cfg.telegram_channel_url || "https://t.me/truthofmarketss"}" target="_blank" rel="noopener noreferrer" style="justify-content:center; border-color:rgba(56,189,248,0.45); color:#38bdf8; font-weight:700;">
             ${c.tgBtn}
-          </button>
+          </a>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
             <a class="btn" id="pricingYoutubeBtn" href="${cfg.youtube_url || "https://youtube.com/@rightsidealpha"}" target="_blank" rel="noopener noreferrer" style="justify-content:center; border-color:rgba(239,68,68,0.4); color:#fca5a5;">
               📺 YouTube (@rightsidealpha) ↗

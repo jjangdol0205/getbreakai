@@ -1185,15 +1185,15 @@ async function calculateSemiLumpSum(data) {
 }
 async function buildClientTelegramPreview({
   alert_type = "SEMI_BRIEFING",
-  lang = "kr",
+  lang = "en",
   ticker = "CELH",
   entry_price = null,
   days_held = 42,
 } = {}) {
   const atype = String(alert_type || "SEMI_BRIEFING").trim().toUpperCase();
-  const lg = ["kr", "en", "jp"].includes(String(lang || "kr").toLowerCase())
-    ? String(lang || "kr").toLowerCase()
-    : "kr";
+  const lg = ["kr", "en", "jp"].includes(String(lang || "en").toLowerCase())
+    ? String(lang || "en").toLowerCase()
+    : "en";
 
   const ov = await getStaticSemiOverview();
   const reb = await calculateSemiRebalance({
@@ -1330,15 +1330,25 @@ async function buildClientTelegramPreview({
       entry_price: entry_price || 27.93,
       days_held: days_held ?? 42,
     });
-    const text = [
-      `🩺 [Position Doctor] $${doc.ticker} 포지션 리스크 진단 (${doc.as_of_date})`,
-      `• 판정 결과: ${doc.status_label}`,
-      `• 최근 종가: $${Number(doc.current_price).toFixed(2)} | 매수 단가: $${Number(doc.entry_price).toFixed(2)} | 보유일: ${days_held ?? 42}일`,
-      `• 현재 수익률: ${doc.return_pct >= 0 ? "+" : ""}${Number(doc.return_pct).toFixed(2)}%`,
-      `• -9% 손절가: $${Number(doc.stop_price).toFixed(2)} | +100% 목표가(TP1): $${Number(doc.tp1_price).toFixed(2)}`,
-      `• 실행 지침: ${doc.action_plan}`,
-    ].join("\n");
-    return { text, as_of_date: doc.as_of_date || "2026-10-13", alert_type: atype, lang: lg };
+    const text =
+      lg === "en"
+        ? [
+            `🩺 [Position Doctor] $${doc.ticker} Asymmetric Exit Audit (${doc.as_of_date})`,
+            `• Status: ${doc.status_label} (${doc.status_code})`,
+            `• Latest Close: $${Number(doc.current_price).toFixed(2)} | Cost Basis: $${Number(doc.entry_price).toFixed(2)} | Held: ${days_held ?? 42}d`,
+            `• Current Return: ${doc.return_pct >= 0 ? "+" : ""}${Number(doc.return_pct).toFixed(2)}%`,
+            `• -9% Hard Stop: $${Number(doc.stop_price).toFixed(2)} | +100% Target (TP1): $${Number(doc.tp1_price).toFixed(2)}`,
+            `• Action Plan: ${doc.action_plan}`,
+          ].join("\n")
+        : [
+            `🩺 [Position Doctor] $${doc.ticker} 포지션 리스크 진단 (${doc.as_of_date})`,
+            `• 판정 결과: ${doc.status_label}`,
+            `• 최근 종가: $${Number(doc.current_price).toFixed(2)} | 매수 단가: $${Number(doc.entry_price).toFixed(2)} | 보유일: ${days_held ?? 42}일`,
+            `• 현재 수익률: ${doc.return_pct >= 0 ? "+" : ""}${Number(doc.return_pct).toFixed(2)}%`,
+            `• -9% 손절가: $${Number(doc.stop_price).toFixed(2)} | +100% 목표가(TP1): $${Number(doc.tp1_price).toFixed(2)}`,
+            `• 실행 지침: ${doc.action_plan}`,
+          ].join("\n");
+    return { text, as_of_date: doc.as_of_date || "2026-10-30", alert_type: atype, lang: lg };
   }
   if (atype === "TEST_PING") {
     const topSym = ignStocks[0]?.ticker || "CELH";
@@ -1358,8 +1368,8 @@ async function buildClientTelegramPreview({
   };
 }
 const DEFAULT_TG_BOT_TOKEN = "DEMO-BOT-TOKEN";
-const DEFAULT_TG_CHAT_ID = "@SemifearGreedbot";
-const DEFAULT_TG_CHANNEL_URL = "https://t.me/SemifearGreedbot";
+const DEFAULT_TG_CHAT_ID = "@truthofmarketss";
+const DEFAULT_TG_CHANNEL_URL = "https://t.me/truthofmarketss";
 const DEFAULT_YOUTUBE_URL = "https://youtube.com/@rightsidealpha";
 const DEFAULT_INSTAGRAM_URL = "https://www.instagram.com/semifeargreed";
 async function syncTelegramBotBrowser(botToken, currentChatId = "") {
@@ -1529,10 +1539,10 @@ async function sendTelegramAlert(data) {
       mode: "AWAITING_CHAT_START",
       alert_type: preview.alert_type,
       lang: preview.lang,
-      chat_id: "@SemifearGreedbot",
+      chat_id: "@truthofmarketss",
       message_preview: preview.text,
       status_detail:
-        "⚡ @SemifearGreedbot 연결 완료! 텔레그램(t.me/SemifearGreedbot)을 열고 [시작 / START] 버튼을 한 번 누른 뒤 다시 발송을 누르면 회원님의 Chat ID가 자동 인식되어 즉시 발송됩니다.",
+        "✅ Connected to Official Channel @truthofmarketss (https://t.me/truthofmarketss) via Admin Bot @SemifearGreedbot.",
       as_of_date: preview.as_of_date,
     };
   }
@@ -1544,9 +1554,9 @@ async function sendTelegramAlert(data) {
       mode: "BRIEFING_READY",
       alert_type: preview.alert_type,
       lang: preview.lang,
-      chat_id: cid || "@SemifearGreedbot",
+      chat_id: cid || "@truthofmarketss",
       message_preview: preview.text,
-      status_detail: "✅ @SemifearGreedbot 브리핑 생성 완료! t.me/SemifearGreedbot 에서 실시간 알림을 확인하세요.",
+      status_detail: "✅ Briefing ready for @truthofmarketss (https://t.me/truthofmarketss) via Admin Bot @SemifearGreedbot.",
       as_of_date: preview.as_of_date,
     }
   );
@@ -1715,6 +1725,7 @@ function renderHeader(state) {
   );
   const ytUrl = state.config?.youtube_url || "https://youtube.com/@rightsidealpha";
   const igUrl = state.config?.instagram_url || "https://www.instagram.com/semifeargreed";
+  const tgUrl = state.config?.telegram_channel_url || "https://t.me/truthofmarketss";
 
   return `
     <!-- INSTITUTIONAL MARKET TAPE RIBBON -->
@@ -1838,13 +1849,25 @@ function renderHeader(state) {
             <span>Instagram</span>
           </a>
 
-          <button class="btn" id="btnOpenTelegram" title="Telegram Alert Bot & Channel">
+          <a
+            class="btn"
+            id="headerTelegramLink"
+            href="${tgUrl}"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Official Telegram Channel (@truthofmarketss)"
+            style="border-color:rgba(56,189,248,0.45); color:#38bdf8;"
+          >
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <line x1="22" y1="2" x2="11" y2="13"></line>
               <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
             </svg>
-            <span id="btnTelegramLabel">${t.btnTelegram || "Telegram Alert"}</span>
-            <span style="width:6px; height:6px; border-radius:50%; background:${state.telegramConfigured ? "var(--fin-up)" : "#38bdf8"}; display:inline-block;"></span>
+            <span>Telegram</span>
+            <span style="width:6px; height:6px; border-radius:50%; background:var(--fin-up); display:inline-block;"></span>
+          </a>
+
+          <button class="btn" id="btnOpenTelegram" title="Telegram Quant Briefing Preview">
+            <span id="btnTelegramLabel">📡 Brief</span>
           </button>
 
           <button class="btn" id="btnOpenConfig">
@@ -2512,7 +2535,7 @@ const PRICING_COPY = {
     tvBtn: "📈 Launch TradingView Terminal ↗",
     saBtn: "📊 Open Seeking Alpha EPS Consensus ↗",
     brokerBtn: "🏦 Open US Broker / Exchange PartnerBonus ↗",
-    tgBtn: "🤖 Connect Telegram Alert Bot (@SemifearGreedbot) ↗",
+    tgBtn: "✈️ Join Official Telegram Channel (@truthofmarketss) ↗",
   },
   kr: {
     t1Badge: "PRO 퀀트 멤버십",
@@ -2661,9 +2684,9 @@ function renderPricing(state) {
           <a class="btn" id="affBrokerBtn" href="${rawBrkUrl}" target="_blank" rel="noopener noreferrer" style="justify-content:center; border-color:rgba(16,185,129,0.45); color:#34d399; font-weight:700;">
             ${c.brokerBtn} (${brokerName})
           </a>
-          <button class="btn" id="btnOpenTelegramFromPricing" style="justify-content:center; border-color:rgba(56,189,248,0.4); color:#38bdf8;">
+          <a class="btn" id="pricingTelegramChannelBtn" href="${cfg.telegram_channel_url || "https://t.me/truthofmarketss"}" target="_blank" rel="noopener noreferrer" style="justify-content:center; border-color:rgba(56,189,248,0.45); color:#38bdf8; font-weight:700;">
             ${c.tgBtn}
-          </button>
+          </a>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
             <a class="btn" id="pricingYoutubeBtn" href="${cfg.youtube_url || "https://youtube.com/@rightsidealpha"}" target="_blank" rel="noopener noreferrer" style="justify-content:center; border-color:rgba(239,68,68,0.4); color:#fca5a5;">
               📺 YouTube (@rightsidealpha) ↗
@@ -2682,15 +2705,15 @@ function renderPricing(state) {
 // --- src/components/Modals.js ---
 function renderModals(state) {
   const cfg = state.config || {};
-  const tgChannelUrl = cfg.telegram_channel_url || "https://t.me/SemifearGreedbot";
+  const tgChannelUrl = cfg.telegram_channel_url || "https://t.me/truthofmarketss";
   const ytUrl = cfg.youtube_url || "https://youtube.com/@rightsidealpha";
   const igUrl = cfg.instagram_url || "https://www.instagram.com/semifeargreed";
-  const tgChatId = state.telegramChatId || cfg.telegram_chat_id || "@SemifearGreedbot";
+  const tgChatId = state.telegramChatId || cfg.telegram_chat_id || "@truthofmarketss";
   const tgToken = state.telegramBotToken || "DEMO-BOT-TOKEN";
   const tgType = state.telegramAlertType || "SEMI_BRIEFING";
   const tgPreview =
     state.telegramPreviewText ||
-    "🧭 [SemiFearGreed] 반도체 공포·탐욕 지수 & 바벨 리밸런싱 브리핑 (2026-10-26)\n• 공포·탐욕 지수: 18.0 / 100 (극단적 공포 · EXTREME FEAR)\n• $SMH(반도체): $541.62 (52주 고점 대비 -19.03%)\n• $XLV(헬스케어): $179.28 (+0.00% 1D) | $QQQ: $712.20 (+1.11% 1D)\n• 현재 발동 시그널: 목표 비중 80% $SMH : 20% $XLV 역발상 매집";
+    "🧭 [SemiFearGreed] Daily Semiconductor & Barbell Briefing (2026-10-30)\n• Fear & Greed Score: 64.6 / 100 (GREED)\n• $SMH (Semiconductor): $522.49 (-5.24% 52W DD | RSI 61.9)\n• $XLV (Healthcare Vault): $184.87 (+0.38% 1D) | $QQQ: $690.49 (+1.18% 1D)\n• Active Signal: Target 50% $SMH : 50% $XLV Barbell Allocation";
 
   return `
     <!-- LICENSE ACTIVATION MODAL -->
@@ -2743,7 +2766,7 @@ function renderModals(state) {
           </div>
           <div style="display:flex; gap:6px; flex-wrap:wrap;">
             <a class="btn btn-sm" id="tgModalSetupBoardBtn" href="./instagram_us_setup.html" target="_blank" rel="noopener noreferrer" style="background:rgba(239,68,68,0.16); border-color:rgba(239,68,68,0.55); color:#fca5a5; font-weight:700;">
-              🎬 YouTube & IG 세팅 보드 ↗
+              🎬 YouTube & IG Setup Board ↗
             </a>
             <a class="btn btn-sm" id="tgModalYtBtn" href="${ytUrl}" target="_blank" rel="noopener noreferrer" style="border-color:rgba(239,68,68,0.45); color:#fca5a5;">
               📺 YouTube ↗
@@ -2752,13 +2775,13 @@ function renderModals(state) {
               📸 Instagram ↗
             </a>
             <a class="btn btn-sm" id="tgChannelLinkBtn" href="${tgChannelUrl}" target="_blank" rel="noopener noreferrer" style="border-color:rgba(56,189,248,0.45); color:#38bdf8;">
-              🤖 @SemifearGreedbot ↗
+              ✈️ @truthofmarketss ↗
             </a>
           </div>
         </div>
 
         <p style="color:var(--muted); font-size:0.8rem; margin-top:6px; margin-bottom:12px; line-height:1.5;">
-          Official Bot <a href="https://t.me/SemifearGreedbot" target="_blank" rel="noopener noreferrer" style="color:#38bdf8; font-weight:700;">t.me/SemifearGreedbot</a> is pre-connected. Open the bot in Telegram and press <strong>START (시작)</strong> so your Chat ID is auto-detected, or enter your channel username (<code class="mono" style="color:#93c5fd;">@channel</code>) to broadcast briefings.
+          Official Broadcast Channel <a href="https://t.me/truthofmarketss" target="_blank" rel="noopener noreferrer" style="color:#38bdf8; font-weight:700;">t.me/truthofmarketss</a> (<code class="mono" style="color:#93c5fd;">@truthofmarketss</code>) is connected with Admin Bot <a href="https://t.me/SemifearGreedbot" target="_blank" rel="noopener noreferrer" style="color:#38bdf8; font-weight:700;">@SemifearGreedbot</a> for automated English US Market & Semiconductor daily briefings.
         </p>
 
         <div class="semi-form-grid-2" style="margin-bottom:8px;">
@@ -3267,12 +3290,17 @@ function renderSemiFearGreedView(state) {
           >
             📸 Instagram (@semifeargreed) ↗
           </a>
-          <button class="btn" id="btnSendSemiTelegram" style="background:#0284c7; color:#ffffff; border-color:#0369a1;">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="22" y1="2" x2="11" y2="13"></line>
-              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-            </svg>
-            <span>${t.cnnTelegramBtn || "Telegram Briefing"}</span>
+          <a
+            class="btn"
+            href="${state.config?.telegram_channel_url || "https://t.me/truthofmarketss"}"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="background:#0284c7; color:#ffffff; border-color:#0369a1;"
+          >
+            ✈️ Telegram (@truthofmarketss) ↗
+          </a>
+          <button class="btn" id="btnSendSemiTelegram" style="background:#1e293b; color:#ffffff; border-color:#334155;">
+            <span>📡 Brief Preview</span>
           </button>
           <button class="btn" id="btnExportSemiGauge" style="background:#111827; color:#ffffff; border-color:#111827;">
             ${t.cnnExportGauge}
@@ -3713,6 +3741,10 @@ const defaultView =
 // Auto-migrate any stale legacy placeholder URLs stored in localStorage
 (function migrateLegacyLocalStorage() {
   try {
+    if (!localStorage.getItem("rsa_lang_v3_en")) {
+      localStorage.setItem("rsa_lang", "en");
+      localStorage.setItem("rsa_lang_v3_en", "1");
+    }
     const oldM = localStorage.getItem("rsa_cfg_ls_monthly") || "";
     if (oldM.includes("rightsidealpha.lemonsqueezy.com") || oldM.includes("d5e7e761")) {
       localStorage.removeItem("rsa_cfg_ls_monthly");
@@ -3726,9 +3758,17 @@ const defaultView =
       localStorage.setItem("rsa_cfg_aff_tv", "1173809");
     }
     const oldBrk = localStorage.getItem("rsa_cfg_broker_url") || "";
-    if (oldBrk.includes("ibkr.com/referral/rightsidealpha")) {
+    if (oldBrk.includes("ibkr.com/referral/rightsidealpha") || oldBrk.includes("partner.bitget.com")) {
       localStorage.setItem("rsa_cfg_broker_url", "https://www.bitget.com/referral/register?clacCode=7nja");
       localStorage.setItem("rsa_cfg_broker_name", "Bitget (7nja)");
+    }
+    const oldTgCh = localStorage.getItem("rsa_tg_channel_url") || "";
+    if (!oldTgCh || oldTgCh.includes("SemifearGreedbot") || oldTgCh.includes("RightSideAlphaBot")) {
+      localStorage.setItem("rsa_tg_channel_url", "https://t.me/truthofmarketss");
+    }
+    const oldTgCid = localStorage.getItem("rsa_tg_chat_id") || "";
+    if (!oldTgCid || oldTgCid.includes("SemifearGreedbot") || oldTgCid === "755033799") {
+      localStorage.setItem("rsa_tg_chat_id", "@truthofmarketss");
     }
   } catch (_) {}
 })();
@@ -3761,10 +3801,10 @@ const state = {
   semiLumpCapUsd: 50000,
   semiLumpScore: null,
   semiLumpSumResult: null,
-  // Telegram state (@SemifearGreedbot pre-configured)
+  // Telegram state (@truthofmarketss channel + @SemifearGreedbot admin bot)
   telegramConfigured: true,
   telegramBotToken: localStorage.getItem("rsa_tg_bot_token") || DEFAULT_TG_BOT_TOKEN,
-  telegramChatId: localStorage.getItem("rsa_tg_chat_id") || "755033799",
+  telegramChatId: localStorage.getItem("rsa_tg_chat_id") || "@truthofmarketss",
   telegramAlertType: "SEMI_BRIEFING",
   telegramPreviewText: "",
   config: {
@@ -3778,12 +3818,12 @@ const state = {
       localStorage.getItem("rsa_cfg_ls_ltd") ||
       "https://truthofmarket.lemonsqueezy.com/checkout/buy/00c9f6e1-c8be-42a4-b5a5-e05af1a41ed9",
     tradingview_aff_id: localStorage.getItem("rsa_cfg_aff_tv") || "1173809",
-    seekingalpha_source: localStorage.getItem("rsa_cfg_aff_sa") || "affiliate_rightside",
+    seekingalpha_source: localStorage.getItem("rsa_cfg_aff_sa") || "better_life333",
     broker_name: localStorage.getItem("rsa_cfg_broker_name") || "Bitget (7nja)",
     broker_referral_url:
       localStorage.getItem("rsa_cfg_broker_url") || "https://www.bitget.com/referral/register?clacCode=7nja",
-    telegram_channel_url: localStorage.getItem("rsa_tg_channel_url") || DEFAULT_TG_CHANNEL_URL,
-    telegram_chat_id: localStorage.getItem("rsa_tg_chat_id") || "755033799",
+    telegram_channel_url: localStorage.getItem("rsa_tg_channel_url") || "https://t.me/truthofmarketss",
+    telegram_chat_id: localStorage.getItem("rsa_tg_chat_id") || "@truthofmarketss",
     youtube_url: localStorage.getItem("rsa_cfg_youtube_url") || DEFAULT_YOUTUBE_URL,
     instagram_url: localStorage.getItem("rsa_cfg_instagram_url") || DEFAULT_INSTAGRAM_URL,
   },
@@ -3886,11 +3926,11 @@ function renderApp() {
           </a>
           <span style="color:var(--border);">|</span>
           <a href="${state.config.telegram_channel_url || DEFAULT_TG_CHANNEL_URL}" target="_blank" rel="noopener noreferrer" style="color:#38bdf8; text-decoration:none; font-weight:600;">
-            🤖 Telegram Bot (@SemifearGreedbot) ↗
+            ✈️ Telegram Channel (@truthofmarketss) ↗
           </a>
           <span style="color:var(--border);">|</span>
-          <a href="https://t.me/RigjtsideAlphabot" target="_blank" rel="noopener noreferrer" style="color:#60a5fa; text-decoration:none; font-weight:600;">
-            🤖 US Stock Bot (@RigjtsideAlphabot) ↗
+          <a href="https://t.me/SemifearGreedbot" target="_blank" rel="noopener noreferrer" style="color:#60a5fa; text-decoration:none; font-weight:600;">
+            🤖 Quant Bot (@SemifearGreedbot) ↗
           </a>
         </div>
         <p id="disclaimerText">${t.disclaimer}</p>

@@ -897,15 +897,15 @@ export async function calculateSemiLumpSum(data) {
 
 export async function buildClientTelegramPreview({
   alert_type = "SEMI_BRIEFING",
-  lang = "kr",
+  lang = "en",
   ticker = "CELH",
   entry_price = null,
   days_held = 42,
 } = {}) {
   const atype = String(alert_type || "SEMI_BRIEFING").trim().toUpperCase();
-  const lg = ["kr", "en", "jp"].includes(String(lang || "kr").toLowerCase())
-    ? String(lang || "kr").toLowerCase()
-    : "kr";
+  const lg = ["kr", "en", "jp"].includes(String(lang || "en").toLowerCase())
+    ? String(lang || "en").toLowerCase()
+    : "en";
 
   const ov = await getStaticSemiOverview();
   const reb = await calculateSemiRebalance({
@@ -1042,15 +1042,25 @@ export async function buildClientTelegramPreview({
       entry_price: entry_price || 27.93,
       days_held: days_held ?? 42,
     });
-    const text = [
-      `🩺 [Position Doctor] $${doc.ticker} 포지션 리스크 진단 (${doc.as_of_date})`,
-      `• 판정 결과: ${doc.status_label}`,
-      `• 최근 종가: $${Number(doc.current_price).toFixed(2)} | 매수 단가: $${Number(doc.entry_price).toFixed(2)} | 보유일: ${days_held ?? 42}일`,
-      `• 현재 수익률: ${doc.return_pct >= 0 ? "+" : ""}${Number(doc.return_pct).toFixed(2)}%`,
-      `• -9% 손절가: $${Number(doc.stop_price).toFixed(2)} | +100% 목표가(TP1): $${Number(doc.tp1_price).toFixed(2)}`,
-      `• 실행 지침: ${doc.action_plan}`,
-    ].join("\n");
-    return { text, as_of_date: doc.as_of_date || "2026-10-13", alert_type: atype, lang: lg };
+    const text =
+      lg === "en"
+        ? [
+            `🩺 [Position Doctor] $${doc.ticker} Asymmetric Exit Audit (${doc.as_of_date})`,
+            `• Status: ${doc.status_label} (${doc.status_code})`,
+            `• Latest Close: $${Number(doc.current_price).toFixed(2)} | Cost Basis: $${Number(doc.entry_price).toFixed(2)} | Held: ${days_held ?? 42}d`,
+            `• Current Return: ${doc.return_pct >= 0 ? "+" : ""}${Number(doc.return_pct).toFixed(2)}%`,
+            `• -9% Hard Stop: $${Number(doc.stop_price).toFixed(2)} | +100% Target (TP1): $${Number(doc.tp1_price).toFixed(2)}`,
+            `• Action Plan: ${doc.action_plan}`,
+          ].join("\n")
+        : [
+            `🩺 [Position Doctor] $${doc.ticker} 포지션 리스크 진단 (${doc.as_of_date})`,
+            `• 판정 결과: ${doc.status_label}`,
+            `• 최근 종가: $${Number(doc.current_price).toFixed(2)} | 매수 단가: $${Number(doc.entry_price).toFixed(2)} | 보유일: ${days_held ?? 42}일`,
+            `• 현재 수익률: ${doc.return_pct >= 0 ? "+" : ""}${Number(doc.return_pct).toFixed(2)}%`,
+            `• -9% 손절가: $${Number(doc.stop_price).toFixed(2)} | +100% 목표가(TP1): $${Number(doc.tp1_price).toFixed(2)}`,
+            `• 실행 지침: ${doc.action_plan}`,
+          ].join("\n");
+    return { text, as_of_date: doc.as_of_date || "2026-10-30", alert_type: atype, lang: lg };
   }
   if (atype === "TEST_PING") {
     const topSym = ignStocks[0]?.ticker || "CELH";
@@ -1071,8 +1081,8 @@ export async function buildClientTelegramPreview({
 }
 
 export const DEFAULT_TG_BOT_TOKEN = "DEMO-BOT-TOKEN";
-export const DEFAULT_TG_CHAT_ID = "@SemifearGreedbot";
-export const DEFAULT_TG_CHANNEL_URL = "https://t.me/SemifearGreedbot";
+export const DEFAULT_TG_CHAT_ID = "@truthofmarketss";
+export const DEFAULT_TG_CHANNEL_URL = "https://t.me/truthofmarketss";
 export const DEFAULT_YOUTUBE_URL = "https://youtube.com/@rightsidealpha";
 export const DEFAULT_INSTAGRAM_URL = "https://www.instagram.com/semifeargreed";
 
@@ -1247,10 +1257,10 @@ export async function sendTelegramAlert(data) {
       mode: "AWAITING_CHAT_START",
       alert_type: preview.alert_type,
       lang: preview.lang,
-      chat_id: "@SemifearGreedbot",
+      chat_id: "@truthofmarketss",
       message_preview: preview.text,
       status_detail:
-        "⚡ @SemifearGreedbot 연결 완료! 텔레그램(t.me/SemifearGreedbot)을 열고 [시작 / START] 버튼을 한 번 누른 뒤 다시 발송을 누르면 회원님의 Chat ID가 자동 인식되어 즉시 발송됩니다.",
+        "✅ Connected to Official Channel @truthofmarketss (https://t.me/truthofmarketss) via Admin Bot @SemifearGreedbot.",
       as_of_date: preview.as_of_date,
     };
   }
@@ -1262,9 +1272,9 @@ export async function sendTelegramAlert(data) {
       mode: "BRIEFING_READY",
       alert_type: preview.alert_type,
       lang: preview.lang,
-      chat_id: cid || "@SemifearGreedbot",
+      chat_id: cid || "@truthofmarketss",
       message_preview: preview.text,
-      status_detail: "✅ @SemifearGreedbot 브리핑 생성 완료! t.me/SemifearGreedbot 에서 실시간 알림을 확인하세요.",
+      status_detail: "✅ Briefing ready for @truthofmarketss (https://t.me/truthofmarketss) via Admin Bot @SemifearGreedbot.",
       as_of_date: preview.as_of_date,
     }
   );

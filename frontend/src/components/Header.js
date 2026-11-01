@@ -34,6 +34,7 @@ export function renderHeader(state) {
   );
   const ytUrl = state.config?.youtube_url || "https://youtube.com/@rightsidealpha";
   const igUrl = state.config?.instagram_url || "https://www.instagram.com/semifeargreed";
+  const tgUrl = state.config?.telegram_channel_url || "https://t.me/truthofmarketss";
 
   return `
     <!-- INSTITUTIONAL MARKET TAPE RIBBON -->
@@ -157,13 +158,25 @@ export function renderHeader(state) {
             <span>Instagram</span>
           </a>
 
-          <button class="btn" id="btnOpenTelegram" title="Telegram Alert Bot & Channel">
+          <a
+            class="btn"
+            id="headerTelegramLink"
+            href="${tgUrl}"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Official Telegram Channel (@truthofmarketss)"
+            style="border-color:rgba(56,189,248,0.45); color:#38bdf8;"
+          >
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <line x1="22" y1="2" x2="11" y2="13"></line>
               <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
             </svg>
-            <span id="btnTelegramLabel">${t.btnTelegram || "Telegram Alert"}</span>
-            <span style="width:6px; height:6px; border-radius:50%; background:${state.telegramConfigured ? "var(--fin-up)" : "#38bdf8"}; display:inline-block;"></span>
+            <span>Telegram</span>
+            <span style="width:6px; height:6px; border-radius:50%; background:var(--fin-up); display:inline-block;"></span>
+          </a>
+
+          <button class="btn" id="btnOpenTelegram" title="Telegram Quant Briefing Preview">
+            <span id="btnTelegramLabel">📡 Brief</span>
           </button>
 
           <button class="btn" id="btnOpenConfig">

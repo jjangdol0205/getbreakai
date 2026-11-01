@@ -41,8 +41,13 @@ class Settings:
     )
 
     # Data Source File Paths
-    # Points to workspace datasets in 관심종목_백업_20261030
-    DATA_ROOT: Path = Path(os.getenv("DATA_ROOT", str(BASE_DIR / "관심종목_백업_20261030")))
+    # Points to workspace datasets in 4_퀀트백테스트_모닝PDF_연구소 (or legacy 관심종목_백업_20261030)
+    _DEFAULT_DATA_ROOT: Path = (
+        BASE_DIR / "관심종목_백업_20261030"
+        if (BASE_DIR / "관심종목_백업_20261030").exists()
+        else BASE_DIR.parent / "4_퀀트백테스트_모닝PDF_연구소"
+    )
+    DATA_ROOT: Path = Path(os.getenv("DATA_ROOT", str(_DEFAULT_DATA_ROOT)))
     STOCKS_DATA_PATH: Path = DATA_ROOT / "all_100_stocks_screened.json"
     BACKTEST_DATA_PATH: Path = DATA_ROOT / "pw_rsi_2000_2026_backtest.json"
     WEEKLY_PICKS_DIR: Path = DATA_ROOT / "weekly_picks"

@@ -33,8 +33,9 @@ export function renderHeader(state) {
     "https://truthofmarket.lemonsqueezy.com/checkout/buy/bad98d00-7175-41f6-9d58-eeb2471d0da4"
   );
   const ytUrl = state.config?.youtube_url || "https://youtube.com/@rightsidealpha";
-  const igUrl = state.config?.instagram_url || "https://www.instagram.com/semifeargreed";
-  const tgUrl = isPro ? (state.config?.telegram_vip_channel_url || "https://t.me/+a6Sl2yLirbwyODQ1") : "#pro-vip-telegram";
+  const igUrl = state.config?.instagram_url || "https://www.instagram.com/rightsidealpha";
+  const xUrl = state.config?.x_url || "https://x.com/rightsidealpha";
+  const tgUrl = isPro ? (state.config?.telegram_vip_channel_url || state.config?.telegram_channel_url || "https://t.me/truthofmarketss") : "#pro-vip-telegram";
   const isAdminMode =
     (typeof window !== "undefined" && new URLSearchParams(window.location.search).get("admin") === "1") ||
     Boolean(state.isAdminAuthenticated);
@@ -150,7 +151,7 @@ export function renderHeader(state) {
             href="${igUrl}"
             target="_blank"
             rel="noopener noreferrer"
-            title="Official Instagram (@semifeargreed)"
+            title="Official Instagram (@rightsidealpha)"
             style="border-color:rgba(236,72,153,0.4); color:#f9a8d4;"
           >
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -159,6 +160,18 @@ export function renderHeader(state) {
               <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
             </svg>
             <span>Instagram</span>
+          </a>
+
+          <a
+            class="btn"
+            id="headerXLink"
+            href="${xUrl}"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Official X (@rightsidealpha)"
+            style="border-color:rgba(148,163,184,0.4); color:#e2e8f0;"
+          >
+            <span>𝕏</span>
           </a>
 
           <a

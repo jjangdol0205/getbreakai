@@ -275,6 +275,10 @@ function renderApp() {
             📸 Instagram (@rightsidealpha) ↗
           </a>
           <span style="color:var(--border);">|</span>
+          <a href="${state.config.x_url || "https://x.com/rightsidealpha"}" target="_blank" rel="noopener noreferrer" style="color:#e2e8f0; text-decoration:none; font-weight:600;">
+            𝕏 (@rightsidealpha) ↗
+          </a>
+          <span style="color:var(--border);">|</span>
           <a
             href="${getVipTelegramUrl(state.isProUnlocked)}"
             class="${state.isProUnlocked ? "" : "btn-gated-vip-tg"}"

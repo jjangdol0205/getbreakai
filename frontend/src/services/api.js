@@ -27,7 +27,7 @@ export function getAuthHeader() {
 export function getVipTelegramUrl(isPro = false) {
   if (isPro && isProActive()) {
     try {
-      return atob("aHR0cHM6Ly90Lm1lLythNlNsMnlMaXJid3lPRFAx");
+      return atob("aHR0cHM6Ly90Lm1lL3RydXRob2ZtYXJrZXRzcw==");
     } catch (_) {
       return "#pro-vip-telegram";
     }

@@ -13,7 +13,7 @@ export const translations = {
     btnUnlockPro: "Upgrade to Pro ($29/mo)",
 
     // RightSideAlpha Hero & KPIs
-    heroTag: "INSTITUTIONAL TURNAROUND RESEARCH · 394,371 US STOCK-DAYS VERIFIED (2006–2026)",
+    heroTag: "INSTITUTIONAL TURNAROUND RESEARCH · 394,371 US STOCK-DAYS VERIFIED (2000–2026 · 26.8-YR)",
     heroTitle: "Systematic Right-Side Ignition for US-Listed Equities.",
     heroDesc: "Blindly buying 52-week lows in US growth equities traps capital for a median of 81 trading days with a -30.3% post-entry drawdown. RightSideAlpha isolates post-washout (1.40x+ volume) breakouts reclaiming the 20-day and 60-day moving averages across 72 liquid NYSE & NASDAQ equities.",
     kpi1_label: "PW-RSI 1Y 2x (+100%) Hit Rate",
@@ -97,7 +97,7 @@ export const translations = {
     lumpSectionTag: "CAPITAL DEPLOYMENT PROTOCOL",
     lumpSectionTitle: "3-Stage Lump-Sum Entry Planner",
     lumpSectionDesc: "Eliminate timing regret when deploying new cash. Automatically calculates Day-1 immediate entry vs. USD RP reserve tranches based on the live or simulated Fear & Greed score.",
-    eraSectionTag: "26-YEAR EMPIRICAL VERIFICATION (2000–2026)",
+    eraSectionTag: "26.8-YEAR EMPIRICAL VERIFICATION (2000–2026)",
     eraSectionTitle: "$SMH 70% : $XLV 30% (80:20 Crash Tilt) vs. 100% $QQQ Benchmark",
     eraSectionDesc: "Verified across 6,625 trading days including the 2000 Dot-Com Bust, 2008 GFC, 2020 Pandemic, and 2022 Rate Shock.",
 
@@ -116,7 +116,7 @@ export const translations = {
     btnTelegram: "Telegram通知",
     btnUnlockPro: "Proへアップグレード ($29/月)",
 
-    heroTag: "機関投資家向けターンアラウンド分析 · 米国株 394,371営業日検証済 (2006–2026)",
+    heroTag: "機関投資家向けターンアラウンド分析 · 米国株 394,371営業日検証済 (2000–2026 · 26.8年間)",
     heroTitle: "米国上場株に特化した「右側イグニッション」定量スクリーナー",
     heroDesc: "米国グロース株の単純な52週安値買い（左側逆張り）は、中央値81営業日の資金拘束と平均-30.3%の追加下落を招きます。RightSideAlphaはNYSE・NASDAQ上場72銘柄を対象に、出来高1.4倍以上のセリングクライマックス後に20日・60日移動平均線を同時突破する初動銘柄のみを抽出します。",
     kpi1_label: "PW-RSI 1年 2倍 (+100%) 到達率",
@@ -128,7 +128,7 @@ export const translations = {
     kpi4_label: "深刻な下落 (≤ -20%) 発生率",
     kpi4_sub: "-9%ハード損切＆業績フィルタ適用時",
 
-    proofHeading: "20年実証パフォーマンス比較 · 左側安値買い vs PW-RSI 右側イグニッション",
+    proofHeading: "26.8年間実証パフォーマンス比較 · 左側安値買い vs PW-RSI 右側イグニッション",
     proofCopyScorecardBtn: "検証ティアシート出力 (PNG)",
     th_arch: "エントリー手法 (米国株, N = 394,371営業日)",
     th_2x: "1年 2倍 (+100%) 確率",
@@ -195,7 +195,7 @@ export const translations = {
     lumpSectionTag: "新規資金エントリープロトコル",
     lumpSectionTitle: "3段階 一括資金エントリープランナー",
     lumpSectionDesc: "現在の恐怖＆強欲スコアに応じて、初日即時投入枠と米ドルMMF待機枠の最適比率を算出します。",
-    eraSectionTag: "26年間（2000–2026）実証バックテスト",
+    eraSectionTag: "26.8年間（2000–2026）実証バックテスト",
     eraSectionTitle: "$SMH 70% : $XLV 30% (暴落時80:20) vs 100% $QQQ ベンチマーク比較",
     eraSectionDesc: "ITバブル崩壊、リーマンショック、コロナ危機、2022年半導体不況を含む6,625営業日の完全検証データ。",
 
@@ -214,7 +214,7 @@ export const translations = {
     btnTelegram: "텔레그램 알림",
     btnUnlockPro: "Pro 업그레이드 ($29/월)",
 
-    heroTag: "기관급 턴어라운드 리서치 · 미국 상장주식 394,371 거래일 전수 검증 (2006–2026)",
+    heroTag: "기관급 턴어라운드 리서치 · 미국 상장주식 394,371 거래일 전수 검증 (2000–2026 · 26.8개년)",
     heroTitle: "미국 상장주식에 최적화된 우측 변곡점(PW-RSI) 정량 분석 플랫폼",
     heroDesc: "미국 성장주를 단순 52주 신저가(좌측 구간)에 매수하면 중앙값 81거래일의 자금 묶임(데드머니)과 -30.3%의 추가 낙폭에 노출됩니다. RightSideAlpha는 NYSE·NASDAQ 상장 72개 핵심 종목만을 대상으로 1.4배 이상 거래량 투매(Washout) 후 20일·60일 이동평균선을 동시 탈환하는 우측 초동 시그널을 판독합니다.",
     kpi1_label: "PW-RSI 1년 2배 (+100%) 도달률",
@@ -226,7 +226,7 @@ export const translations = {
     kpi4_label: "심각한 손실 (≤ -20%) 발생 확률",
     kpi4_sub: "-9% 손절 및 실적 턴어라운드 필터 적용 시",
 
-    proofHeading: "20년 실증 백테스트 매트릭스 · 좌측 신저가 매수 vs PW-RSI 우측 시동 모델",
+    proofHeading: "26.8개년 실증 백테스트 매트릭스 · 좌측 신저가 매수 vs PW-RSI 우측 시동 모델",
     proofCopyScorecardBtn: "백테스트 티어시트 저장 (PNG)",
     th_arch: "진입 방법론 (미국 상장주, N = 394,371 거래일)",
     th_2x: "1년 2배 (+100%) 확률",
@@ -293,7 +293,7 @@ export const translations = {
     lumpSectionTag: "신규 거치식 자금 투입 프로토콜",
     lumpSectionTitle: "3단계 일시금(Lump-Sum) 진입 플래너",
     lumpSectionDesc: "목돈을 한 번에 넣을 때 고점 물림을 방지합니다. 현재(또는 시뮬레이션) 공포·탐욕 점수에 따라 당일 즉시 진입 물량과 달러 RP 파킹 물량을 자동 계산합니다.",
-    eraSectionTag: "26개년(2000–2026) 실증 백테스트 검증",
+    eraSectionTag: "26.8개년(2000–2026) 실증 백테스트 검증",
     eraSectionTitle: "$SMH 70% : $XLV 30% (폭락장 80:20) vs 100% $QQQ 장기 성과 비교",
     eraSectionDesc: "2000년 닷컴버블, 2008년 금융위기, 2020년 팬데믹, 2022년 금리인상기를 모두 포함한 6,625거래일 실증 데이터입니다.",
 

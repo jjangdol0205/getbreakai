@@ -32,10 +32,10 @@ class ReferralConfig(BaseModel):
         description="Broker/Exchange affiliate referral URL",
     )
     telegram_channel_url: Optional[str] = Field("https://t.me/truthofmarketss")
-    telegram_vip_channel_url: Optional[str] = Field("https://t.me/+a6Sl2yLirbwyODQ1")
+    telegram_vip_channel_url: Optional[str] = Field("")
     telegram_chat_id: Optional[str] = Field("@truthofmarketss")
     youtube_url: Optional[str] = Field("https://youtube.com/@rightsidealpha")
-    instagram_url: Optional[str] = Field("https://www.instagram.com/semifeargreed")
+    instagram_url: Optional[str] = Field("https://www.instagram.com/rightsidealpha")
 
 
 class ReferralClickStats(BaseModel):

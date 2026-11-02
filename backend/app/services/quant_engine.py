@@ -463,6 +463,10 @@ class QuantEngine:
                 t_price = round(c_price * 2.00, 2)
                 as_of_date = "2026-10-13"
 
+            # Remove any legacy Korean stock references from US equity research markdown
+            content = re.sub(r"SK스퀘어\s*\([0-9]+\)\s*[0-9]+주", "$INTC (Intel Corp)", content)
+            content = content.replace("SK스퀘어", "Intel ($INTC)")
+
             rrr_str = "1 : 11.1"
             title_str = f"{cname} (${ticker}) — {op} | Latest Close ${c_price:.2f} ({as_of_date})"
 

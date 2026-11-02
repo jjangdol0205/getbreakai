@@ -8,7 +8,7 @@ export function renderHero(state) {
   const latestStockDate =
     state.stocks && state.stocks.length > 0 && state.stocks[0].date
       ? state.stocks[0].date
-      : "2026-10-13";
+      : "2026-10-30";
 
   return `
     <section class="hero">

@@ -1,11 +1,38 @@
+export function isProActive() {
+  const isAdmin =
+    typeof sessionStorage !== "undefined" && sessionStorage.getItem("rsa_admin_auth") === "true";
+  if (isAdmin) return true;
+  const unlocked =
+    typeof localStorage !== "undefined" && localStorage.getItem("rsa_pro_unlocked") === "true";
+  const token = typeof localStorage !== "undefined" ? String(localStorage.getItem("rsa_token") || "").trim() : "";
+  if (!unlocked || !token || token.toUpperCase() === "PRO-DEMO-2026") {
+    return false;
+  }
+  return true;
+}
+
 export function getAuthHeader() {
+  if (!isProActive()) {
+    return {};
+  }
   const token =
     localStorage.getItem("rsa_token") ||
-    (localStorage.getItem("rsa_pro_unlocked") === "true" ? "PRO-DEMO-2026" : "");
+    (sessionStorage.getItem("rsa_admin_auth") === "true" ? "RSA-ADMIN-SESSION" : "");
   if (token) {
     return { Authorization: `Bearer ${token}` };
   }
   return {};
+}
+
+export function getVipTelegramUrl(isPro = false) {
+  if (isPro && isProActive()) {
+    try {
+      return atob("aHR0cHM6Ly90Lm1lLythNlNsMnlMaXJid3lPRFAx");
+    } catch (_) {
+      return "#pro-vip-telegram";
+    }
+  }
+  return "#pro-vip-telegram";
 }
 
 export function formatCheckoutUrl(
@@ -17,13 +44,6 @@ export function formatCheckoutUrl(
     return base;
   }
   return `${base}${base.includes("?") ? "&" : "?"}embed=1`;
-}
-
-function isProActive() {
-  const token =
-    localStorage.getItem("rsa_token") ||
-    (localStorage.getItem("rsa_pro_unlocked") === "true" ? "PRO-DEMO-2026" : "");
-  return Boolean(token);
 }
 
 function isStaticHost() {
@@ -53,6 +73,7 @@ async function fetchJsonWithFallback(apiUrl, options, fallbackFn) {
 }
 
 let cachedProStocks = null;
+let cachedFreeStocks = null;
 let cachedSemiOverview = null;
 
 async function getStaticProStocks() {
@@ -61,6 +82,18 @@ async function getStaticProStocks() {
     cachedProStocks = await r.json();
   }
   return cachedProStocks;
+}
+
+async function getStaticFreeStocks() {
+  if (!cachedFreeStocks) {
+    const r = await fetch("./static_api/stocks_free.json");
+    cachedFreeStocks = await r.json();
+  }
+  return cachedFreeStocks;
+}
+
+async function getStaticStocksForCurrentUser() {
+  return isProActive() ? getStaticProStocks() : getStaticFreeStocks();
 }
 
 async function getStaticSemiOverview() {
@@ -307,7 +340,7 @@ export async function verifyAdminCredentials(username, password) {
       return {
         authenticated: ok,
         role: ok ? "admin" : "guest",
-        license_key: ok ? "PRO-DEMO-2026" : null,
+        license_key: ok ? "RSA-ADMIN-SESSION" : null,
         message: ok
           ? "Admin Authenticated — Terminal Config & Pro Access Unlocked."
           : "Invalid Admin ID or Password.",
@@ -329,18 +362,59 @@ export async function validateLicense(licenseKey) {
     },
     async () => {
       const key = String(licenseKey || "").trim();
-      const valid =
-        key.toUpperCase() === "PRO-DEMO-2026" ||
-        /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(key);
-      return {
-        valid,
-        license_key: valid ? key : null,
-        tier: valid ? "pro" : "free",
-        expires_at: valid ? "2099-12-31T23:59:59Z" : null,
-        message: valid
-          ? "Pro Terminal License Verified."
-          : "Invalid or expired license key. Please verify your Lemon Squeezy receipt or subscribe below.",
-      };
+      if (!key) {
+        return {
+          valid: false,
+          license_key: null,
+          tier: "free",
+          expires_at: null,
+          message: "Please enter a valid Lemon Squeezy license key.",
+        };
+      }
+      if (
+        typeof sessionStorage !== "undefined" &&
+        sessionStorage.getItem("rsa_admin_auth") === "true" &&
+        key.toUpperCase() === "RSA-ADMIN-SESSION"
+      ) {
+        return {
+          valid: true,
+          license_key: key,
+          tier: "pro",
+          expires_at: "2099-12-31T23:59:59Z",
+          message: "Admin Session Pro Access Active.",
+        };
+      }
+      try {
+        const lsResp = await fetch("https://api.lemonsqueezy.com/v1/licenses/validate", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: new URLSearchParams({ license_key: key }).toString(),
+        });
+        const lsData = await lsResp.json().catch(() => null);
+        const valid = Boolean(lsData && lsData.valid === true && !lsData.error);
+        return {
+          valid,
+          license_key: valid ? key : null,
+          tier: valid ? "pro" : "free",
+          expires_at: valid ? lsData?.license_key?.expires_at || "2099-12-31T23:59:59Z" : null,
+          message: valid
+            ? "Pro Terminal License Verified via Lemon Squeezy."
+            : (lsData && lsData.error) ||
+              "Invalid or expired license key. Please verify your Lemon Squeezy receipt or subscribe below.",
+        };
+      } catch (_) {
+        return {
+          valid: false,
+          license_key: null,
+          tier: "free",
+          expires_at: null,
+          message:
+            "License verification failed. Please check your Lemon Squeezy license key and network connection.",
+        };
+      }
     }
   );
 }
@@ -395,7 +469,7 @@ export async function evaluatePositionDoctor(data) {
       body: JSON.stringify(data),
     },
     async () => {
-      const all = await getStaticProStocks();
+      const all = await getStaticStocksForCurrentUser();
       const tClean = String(data.ticker || "CELH").trim().toUpperCase();
       const stock = all.find((s) => s.ticker === tClean);
       const entry = Math.max(0.01, Number(data.entry_price || 27.93));
@@ -403,10 +477,10 @@ export async function evaluatePositionDoctor(data) {
       const curr =
         data.current_price !== undefined && data.current_price !== null
           ? Number(data.current_price)
-          : stock
+          : stock && stock.close !== null && stock.close !== undefined
           ? Number(stock.close)
           : entry;
-      const asOf = stock && stock.date ? stock.date : "2026-10-13";
+      const asOf = stock && stock.date ? stock.date : "2026-10-30";
       const retPct = Number(((curr / entry - 1.0) * 100.0).toFixed(2));
       const stopP = Number((entry * 0.91).toFixed(2));
       const tp1P = Number((entry * 2.0).toFixed(2));
@@ -914,7 +988,7 @@ export async function buildClientTelegramPreview({
     rebalance_frequency: "ANNUAL",
     unrealized_gain_krw: 3800000,
   });
-  const allStocks = (await getStaticProStocks()).filter((s) => !String(s.ticker).includes("."));
+  const allStocks = (await getStaticStocksForCurrentUser()).filter((s) => !String(s.ticker).includes("."));
   const ignStocks = allStocks.filter((s) => s.zone_code === "IGNITION_ZONE").slice(0, 5);
 
   const etfs = Array.isArray(ov.etfs) ? ov.etfs : [];
@@ -1088,7 +1162,7 @@ export const DEFAULT_TG_BOT_TOKEN = "DEMO-BOT-TOKEN";
 export const DEFAULT_TG_CHAT_ID = "@truthofmarketss";
 export const DEFAULT_TG_CHANNEL_URL = "https://t.me/truthofmarketss";
 export const DEFAULT_YOUTUBE_URL = "https://youtube.com/@rightsidealpha";
-export const DEFAULT_INSTAGRAM_URL = "https://www.instagram.com/semifeargreed";
+export const DEFAULT_INSTAGRAM_URL = "https://www.instagram.com/rightsidealpha";
 
 export async function syncTelegramBotBrowser(botToken, currentChatId = "") {
   const cid = String(currentChatId || DEFAULT_TG_CHAT_ID).trim();

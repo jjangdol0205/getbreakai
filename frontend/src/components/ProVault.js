@@ -1,4 +1,5 @@
 import { renderPositionDoctorForm } from "./PositionDoctor.js";
+import { getVipTelegramUrl } from "../services/api.js";
 
 export function renderProVault(state) {
   const t = state.t;
@@ -12,18 +13,18 @@ export function renderProVault(state) {
   const celh = stocks.find((s) => s.ticker === "CELH");
   const mbly = stocks.find((s) => s.ticker === "MBLY");
 
-  const celhClose = celh ? Number(celh.close).toFixed(2) : "27.93";
-  const celhMa20 = celh && celh.ma20_price ? Number(celh.ma20_price).toFixed(2) : "27.93";
-  const celhMa60 = celh && celh.ma60_price ? Number(celh.ma60_price).toFixed(2) : "29.12";
+  const celhClose = celh && celh.close ? Number(celh.close).toFixed(2) : "29.12";
+  const celhMa20 = celh && celh.ma20_price ? Number(celh.ma20_price).toFixed(2) : "28.19";
+  const celhMa60 = celh && celh.ma60_price ? Number(celh.ma60_price).toFixed(2) : "29.16";
   const celhTp1 = celh && celh.tp1_2x_price ? Number(celh.tp1_2x_price).toFixed(2) : (Number(celhClose) * 2).toFixed(2);
   const celhStop = celh && celh.stop_loss_price ? Number(celh.stop_loss_price).toFixed(2) : (Number(celhClose) * 0.91).toFixed(2);
-  const celhScore = celh ? Number(celh.score) : 90;
+  const celhScore = celh ? Number(celh.score) : 84;
 
-  const mblyClose = mbly ? Number(mbly.close).toFixed(2) : "7.02";
-  const mblyLow52 = mbly ? Number(mbly.low52).toFixed(2) : "6.47";
-  const mblyMa60 = mbly && mbly.ma60_price ? Number(mbly.ma60_price).toFixed(2) : "8.17";
-  const mblyTp1 = mbly && mbly.tp1_2x_price ? Number(mbly.tp1_2x_price).toFixed(2) : (Number(mblyClose) * 2).toFixed(2);
-  const mblyScore = mbly ? Number(mbly.score) : 47;
+  const mblyClose = mbly && mbly.close ? Number(mbly.close).toFixed(2) : "5.96";
+  const mblyLow52 = mbly && mbly.low52 ? Number(mbly.low52).toFixed(2) : "5.86";
+  const mblyMa20 = mbly && mbly.ma20_price ? Number(mbly.ma20_price).toFixed(2) : "6.83";
+  const mblyScore = mbly ? Number(mbly.score) : 20;
+  const vipTgUrl = getVipTelegramUrl(isPro);
 
   const pineCode =
     state.pineCode ||
@@ -91,8 +92,8 @@ plotshape(ignition and not ignition[1], "PW-RSI IGNITION", shape.labelup, locati
             </div>
           </div>
           <a
-            class="btn btn-sm"
-            href="${isPro ? (state.config?.telegram_vip_channel_url || "https://t.me/+a6Sl2yLirbwyODQ1") : "#pricingSection"}"
+            class="btn btn-sm ${isPro ? "" : "btn-gated-vip-tg"}"
+            href="${isPro ? vipTgUrl : "#pricingSection"}"
             ${isPro ? 'target="_blank" rel="noopener noreferrer"' : ""}
             style="background:#0284c7; border-color:#38bdf8; color:#ffffff; font-weight:800; padding:8px 14px;"
           >
@@ -133,26 +134,27 @@ plotshape(ignition and not ignition[1], "PW-RSI IGNITION", shape.labelup, locati
               ${topIgnitions
                 .map((s, idx) => {
                   const lockedVip = !isPro && idx >= 1;
-                  const c = Number(s.close || 25);
-                  const trig = Number(s.entry_trigger_price ?? s.ma60_price ?? c).toFixed(2);
-                  const stp = Number(s.stop_loss_price ?? c * 0.91).toFixed(2);
-                  const tp1 = Number(s.tp1_2x_price ?? c * 2.0).toFixed(2);
-                  const sh = Math.max(1, Math.floor(perSlotUsd / c));
-                  const maxLossUsd = Math.round(sh * c * 0.09);
                   if (lockedVip) {
+                    const genericSlotLoss = Math.round(perSlotUsd * 0.09);
                     return `
                     <tr>
-                      <td class="mono" style="font-weight:800; color:#fbbf24;">🔒 VIP IGNITION #${idx + 1} <span style="color:var(--muted); font-weight:500;">(${s.sector})</span></td>
+                      <td class="mono" style="font-weight:800; color:#fbbf24;">🔒 VIP IGNITION #${idx + 1} <span style="color:var(--muted); font-weight:500;">(🔒 VIP SECTOR)</span></td>
                       <td class="mono" style="color:var(--fin-up); font-weight:800;">${s.score}/100</td>
                       <td class="mono">🔒 PRO</td>
                       <td class="mono" style="color:#60a5fa; font-weight:700;">🔒 PRO</td>
                       <td class="mono" style="color:var(--fin-down); font-weight:700;">🔒 PRO</td>
                       <td class="mono" style="color:var(--fin-up); font-weight:700;">🔒 PRO</td>
                       <td class="mono" style="color:#ffffff; font-weight:800;">🔒 Unlock Pro ($29/mo)</td>
-                      <td class="mono" style="color:var(--fin-amber);">-$${maxLossUsd.toLocaleString()} (-1.35% Eq)</td>
+                      <td class="mono" style="color:var(--fin-amber);">-$${genericSlotLoss.toLocaleString()} (-1.35% Eq)</td>
                     </tr>
                   `;
                   }
+                  const c = Number(s.close || 29.12);
+                  const trig = Number(s.entry_trigger_price ?? s.ma60_price ?? c).toFixed(2);
+                  const stp = Number(s.stop_loss_price ?? c * 0.91).toFixed(2);
+                  const tp1 = Number(s.tp1_2x_price ?? c * 2.0).toFixed(2);
+                  const sh = Math.max(1, Math.floor(perSlotUsd / c));
+                  const maxLossUsd = Math.round(sh * c * 0.09);
                   return `
                     <tr>
                       <td class="mono" style="font-weight:800; color:#ffffff;">#${idx + 1} $${s.ticker} <span style="color:var(--muted); font-weight:500;">(${s.sector})</span></td>
@@ -199,16 +201,16 @@ plotshape(ignition and not ignition[1], "PW-RSI IGNITION", shape.labelup, locati
                 </button>
               </div>
 
-              <div style="border-left:3px solid var(--fin-blue); padding-left:10px;">
-                <div style="display:flex; justify-content:space-between; align-items:center;">
+              <div style="border-left:3px solid var(--fin-down); padding-left:10px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:4px;">
                   <b class="mono" style="color:#ffffff;">MBLY · Mobileye Global ($${mblyClose})</b>
-                  <span class="badge badge-watch">SCORE ${mblyScore}</span>
+                  <span class="badge badge-knife">🛑 RULE 1 STOP EXECUTED · SCORE ${mblyScore}</span>
                 </div>
                 <div style="color:var(--muted); font-size:0.76rem; margin-top:4px; line-height:1.45;">
-                  Tier-1 OEM ADAS inventory digestion completed; EyeQ6 design wins drive operating income inflection (-$0.39B → +$0.45B). Latest Close <b class="mono" style="color:#fff;">$${mblyClose}</b> · 52W Low $${mblyLow52} · MA60 Trigger <b class="mono" style="color:#60a5fa;">$${mblyMa60}</b> · TP1: <b class="mono" style="color:var(--fin-up);">$${mblyTp1}</b>.
+                  <b style="color:#fca5a5;">Post-Mortem Audit:</b> Oct 13 watch ($7.02) breached Rule 1 Hard Stop (<b class="mono" style="color:var(--fin-down);">$6.39 / -9.0%</b>) and fell to <b class="mono" style="color:#fff;">$${mblyClose}</b> (52W Low $${mblyLow52}, <span class="mono">LEFT_SIDE_KNIFE</span>). Mechanical exit protected capital & rotated into <b class="mono" style="color:var(--fin-up);">$CELH / $LULU</b>. Re-entry prohibited until MA20 ($${mblyMa20}) reclaim.
                 </div>
                 <button class="btn btn-sm btn-open-research" data-ticker="MBLY" style="margin-top:6px;">
-                  Read $MBLY SEC Research Brief ↗
+                  Read $MBLY Rule 1 Stop Audit Brief ↗
                 </button>
               </div>
             </div>

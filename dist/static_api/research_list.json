@@ -1,1 +1,36 @@
-[{"ticker": "MBLY", "company_name": "모빌아이", "title": "모빌아이 ($MBLY) — STRONG_BUY (금주의 주간 최고 손익비 Top-Pick) | Latest Close $7.02 (2026-10-13)", "report_date": "2026-10-13", "opinion": "STRONG_BUY (금주의 주간 최고 손익비 Top-Pick)", "turnaround_score": 47.0, "current_price": 7.02, "target_price": 14.04, "stop_price": 6.39, "as_of_date": "2026-10-13", "file_name": "2026-10-13_MBLY.md", "is_pro_locked": false}, {"ticker": "MBLY", "company_name": "모빌아이", "title": "모빌아이 ($MBLY) — STRONG_BUY (금주의 주간 최고 손익비 Top-Pick) | Latest Close $7.02 (2026-10-13)", "report_date": "2026-10-12", "opinion": "STRONG_BUY (금주의 주간 최고 손익비 Top-Pick)", "turnaround_score": 47.0, "current_price": 7.02, "target_price": 14.04, "stop_price": 6.39, "as_of_date": "2026-10-13", "file_name": "2026-10-12_MBLY.md", "is_pro_locked": false}, {"ticker": "CELH", "company_name": "셀시우스홀딩스", "title": "셀시우스홀딩스 ($CELH) — STRONG_BUY (금주의 주간 최고 손익비 Top-Pick) | Latest Close $27.93 (2026-10-13)", "report_date": "2026-09-30", "opinion": "STRONG_BUY (금주의 주간 최고 손익비 Top-Pick)", "turnaround_score": 90.0, "current_price": 27.93, "target_price": 55.86, "stop_price": 25.42, "as_of_date": "2026-10-13", "file_name": "2026-09-30_CELH.md", "is_pro_locked": false}, {"ticker": "MBLY", "company_name": "모빌아이", "title": "모빌아이 ($MBLY) — STRONG_BUY (금주의 주간 최고 손익비 Top-Pick) | Latest Close $7.02 (2026-10-13)", "report_date": "2026-09-29", "opinion": "STRONG_BUY (금주의 주간 최고 손익비 Top-Pick)", "turnaround_score": 47.0, "current_price": 7.02, "target_price": 14.04, "stop_price": 6.39, "as_of_date": "2026-10-13", "file_name": "2026-09-29_MBLY.md", "is_pro_locked": false}]
+[
+  {
+    "ticker": "CELH",
+    "company_name": "Celsius Holdings",
+    "title": "Celsius Holdings ($CELH) — STRONG_BUY (Right-Side Ignition #1 Sample) | Latest Close $29.12 (2026-10-30)",
+    "title_en": "Celsius Holdings ($CELH) — STRONG_BUY (Right-Side Ignition) | Latest Close $29.12 (2026-10-30)",
+    "title_jp": "セルシウス・ホールディングス ($CELH) — STRONG_BUY (右側イグニッション) | 最新終値 $29.12 (2026-10-30)",
+    "title_kr": "셀시우스홀딩스 ($CELH) — STRONG_BUY (우측 돌파 시동 Top-Pick) | 최신 종가 $29.12 (2026-10-30)",
+    "report_date": "2026-10-30",
+    "opinion": "STRONG_BUY (Right-Side Ignition Active)",
+    "turnaround_score": 84.0,
+    "current_price": 29.12,
+    "target_price": 58.24,
+    "stop_price": 26.5,
+    "as_of_date": "2026-10-30",
+    "file_name": "2026-10-30_CELH.md",
+    "is_pro_locked": false
+  },
+  {
+    "ticker": "MBLY",
+    "company_name": "Mobileye Global",
+    "title": "Mobileye Global ($MBLY) — 🛑 RULE 1 STOP EXECUTED @ $6.39 (-9.0%) | Post-Mortem Audit ($5.96 Close, 2026-10-30)",
+    "title_en": "Mobileye Global ($MBLY) — 🛑 RULE 1 STOP EXECUTED @ $6.39 (-9.0%) | Post-Mortem Audit ($5.96 Close, 2026-10-30)",
+    "title_jp": "モービルアイ ($MBLY) — 🛑 RULE 1 損切執行監査 ($6.39 / -9.0%) | 最新終値 $5.96 (2026-10-30)",
+    "title_kr": "모빌아이 ($MBLY) — 🛑 RULE 1 칼손절 집행 감사 ($6.39 / -9.0%) | 최신 종가 $5.96 (2026-10-30)",
+    "report_date": "2026-10-30",
+    "opinion": "RULE_1_STOP_EXECUTED (-9.0% Hard Stop @ $6.39)",
+    "turnaround_score": 20.0,
+    "current_price": 5.96,
+    "target_price": 13.66,
+    "stop_price": 6.39,
+    "as_of_date": "2026-10-30",
+    "file_name": "2026-10-30_MBLY.md",
+    "is_pro_locked": false
+  }
+]

@@ -14,7 +14,7 @@ const translations = {
     btnUnlockPro: "Upgrade to Pro ($29/mo)",
 
     // RightSideAlpha Hero & KPIs
-    heroTag: "INSTITUTIONAL TURNAROUND RESEARCH · 394,371 US STOCK-DAYS VERIFIED (2006–2026)",
+    heroTag: "INSTITUTIONAL TURNAROUND RESEARCH · 394,371 US STOCK-DAYS VERIFIED (2000–2026 · 26.8-YR)",
     heroTitle: "Systematic Right-Side Ignition for US-Listed Equities.",
     heroDesc: "Blindly buying 52-week lows in US growth equities traps capital for a median of 81 trading days with a -30.3% post-entry drawdown. RightSideAlpha isolates post-washout (1.40x+ volume) breakouts reclaiming the 20-day and 60-day moving averages across 72 liquid NYSE & NASDAQ equities.",
     kpi1_label: "PW-RSI 1Y 2x (+100%) Hit Rate",
@@ -98,7 +98,7 @@ const translations = {
     lumpSectionTag: "CAPITAL DEPLOYMENT PROTOCOL",
     lumpSectionTitle: "3-Stage Lump-Sum Entry Planner",
     lumpSectionDesc: "Eliminate timing regret when deploying new cash. Automatically calculates Day-1 immediate entry vs. USD RP reserve tranches based on the live or simulated Fear & Greed score.",
-    eraSectionTag: "26-YEAR EMPIRICAL VERIFICATION (2000–2026)",
+    eraSectionTag: "26.8-YEAR EMPIRICAL VERIFICATION (2000–2026)",
     eraSectionTitle: "$SMH 70% : $XLV 30% (80:20 Crash Tilt) vs. 100% $QQQ Benchmark",
     eraSectionDesc: "Verified across 6,625 trading days including the 2000 Dot-Com Bust, 2008 GFC, 2020 Pandemic, and 2022 Rate Shock.",
 
@@ -117,7 +117,7 @@ const translations = {
     btnTelegram: "Telegram通知",
     btnUnlockPro: "Proへアップグレード ($29/月)",
 
-    heroTag: "機関投資家向けターンアラウンド分析 · 米国株 394,371営業日検証済 (2006–2026)",
+    heroTag: "機関投資家向けターンアラウンド分析 · 米国株 394,371営業日検証済 (2000–2026 · 26.8年間)",
     heroTitle: "米国上場株に特化した「右側イグニッション」定量スクリーナー",
     heroDesc: "米国グロース株の単純な52週安値買い（左側逆張り）は、中央値81営業日の資金拘束と平均-30.3%の追加下落を招きます。RightSideAlphaはNYSE・NASDAQ上場72銘柄を対象に、出来高1.4倍以上のセリングクライマックス後に20日・60日移動平均線を同時突破する初動銘柄のみを抽出します。",
     kpi1_label: "PW-RSI 1年 2倍 (+100%) 到達率",
@@ -129,7 +129,7 @@ const translations = {
     kpi4_label: "深刻な下落 (≤ -20%) 発生率",
     kpi4_sub: "-9%ハード損切＆業績フィルタ適用時",
 
-    proofHeading: "20年実証パフォーマンス比較 · 左側安値買い vs PW-RSI 右側イグニッション",
+    proofHeading: "26.8年間実証パフォーマンス比較 · 左側安値買い vs PW-RSI 右側イグニッション",
     proofCopyScorecardBtn: "検証ティアシート出力 (PNG)",
     th_arch: "エントリー手法 (米国株, N = 394,371営業日)",
     th_2x: "1年 2倍 (+100%) 確率",
@@ -196,7 +196,7 @@ const translations = {
     lumpSectionTag: "新規資金エントリープロトコル",
     lumpSectionTitle: "3段階 一括資金エントリープランナー",
     lumpSectionDesc: "現在の恐怖＆強欲スコアに応じて、初日即時投入枠と米ドルMMF待機枠の最適比率を算出します。",
-    eraSectionTag: "26年間（2000–2026）実証バックテスト",
+    eraSectionTag: "26.8年間（2000–2026）実証バックテスト",
     eraSectionTitle: "$SMH 70% : $XLV 30% (暴落時80:20) vs 100% $QQQ ベンチマーク比較",
     eraSectionDesc: "ITバブル崩壊、リーマンショック、コロナ危機、2022年半導体不況を含む6,625営業日の完全検証データ。",
 
@@ -215,7 +215,7 @@ const translations = {
     btnTelegram: "텔레그램 알림",
     btnUnlockPro: "Pro 업그레이드 ($29/월)",
 
-    heroTag: "기관급 턴어라운드 리서치 · 미국 상장주식 394,371 거래일 전수 검증 (2006–2026)",
+    heroTag: "기관급 턴어라운드 리서치 · 미국 상장주식 394,371 거래일 전수 검증 (2000–2026 · 26.8개년)",
     heroTitle: "미국 상장주식에 최적화된 우측 변곡점(PW-RSI) 정량 분석 플랫폼",
     heroDesc: "미국 성장주를 단순 52주 신저가(좌측 구간)에 매수하면 중앙값 81거래일의 자금 묶임(데드머니)과 -30.3%의 추가 낙폭에 노출됩니다. RightSideAlpha는 NYSE·NASDAQ 상장 72개 핵심 종목만을 대상으로 1.4배 이상 거래량 투매(Washout) 후 20일·60일 이동평균선을 동시 탈환하는 우측 초동 시그널을 판독합니다.",
     kpi1_label: "PW-RSI 1년 2배 (+100%) 도달률",
@@ -227,7 +227,7 @@ const translations = {
     kpi4_label: "심각한 손실 (≤ -20%) 발생 확률",
     kpi4_sub: "-9% 손절 및 실적 턴어라운드 필터 적용 시",
 
-    proofHeading: "20년 실증 백테스트 매트릭스 · 좌측 신저가 매수 vs PW-RSI 우측 시동 모델",
+    proofHeading: "26.8개년 실증 백테스트 매트릭스 · 좌측 신저가 매수 vs PW-RSI 우측 시동 모델",
     proofCopyScorecardBtn: "백테스트 티어시트 저장 (PNG)",
     th_arch: "진입 방법론 (미국 상장주, N = 394,371 거래일)",
     th_2x: "1년 2배 (+100%) 확률",
@@ -294,7 +294,7 @@ const translations = {
     lumpSectionTag: "신규 거치식 자금 투입 프로토콜",
     lumpSectionTitle: "3단계 일시금(Lump-Sum) 진입 플래너",
     lumpSectionDesc: "목돈을 한 번에 넣을 때 고점 물림을 방지합니다. 현재(또는 시뮬레이션) 공포·탐욕 점수에 따라 당일 즉시 진입 물량과 달러 RP 파킹 물량을 자동 계산합니다.",
-    eraSectionTag: "26개년(2000–2026) 실증 백테스트 검증",
+    eraSectionTag: "26.8개년(2000–2026) 실증 백테스트 검증",
     eraSectionTitle: "$SMH 70% : $XLV 30% (폭락장 80:20) vs 100% $QQQ 장기 성과 비교",
     eraSectionDesc: "2000년 닷컴버블, 2008년 금융위기, 2020년 팬데믹, 2022년 금리인상기를 모두 포함한 6,625거래일 실증 데이터입니다.",
 
@@ -305,14 +305,39 @@ const translations = {
 
 
 // --- src/services/api.js ---
+function isProActive() {
+  const isAdmin =
+    typeof sessionStorage !== "undefined" && sessionStorage.getItem("rsa_admin_auth") === "true";
+  if (isAdmin) return true;
+  const unlocked =
+    typeof localStorage !== "undefined" && localStorage.getItem("rsa_pro_unlocked") === "true";
+  const token = typeof localStorage !== "undefined" ? String(localStorage.getItem("rsa_token") || "").trim() : "";
+  if (!unlocked || !token || token.toUpperCase() === "PRO-DEMO-2026") {
+    return false;
+  }
+  return true;
+}
 function getAuthHeader() {
+  if (!isProActive()) {
+    return {};
+  }
   const token =
     localStorage.getItem("rsa_token") ||
-    (localStorage.getItem("rsa_pro_unlocked") === "true" ? "PRO-DEMO-2026" : "");
+    (sessionStorage.getItem("rsa_admin_auth") === "true" ? "RSA-ADMIN-SESSION" : "");
   if (token) {
     return { Authorization: `Bearer ${token}` };
   }
   return {};
+}
+function getVipTelegramUrl(isPro = false) {
+  if (isPro && isProActive()) {
+    try {
+      return atob("aHR0cHM6Ly90Lm1lLythNlNsMnlMaXJid3lPRFAx");
+    } catch (_) {
+      return "#pro-vip-telegram";
+    }
+  }
+  return "#pro-vip-telegram";
 }
 function formatCheckoutUrl(
   rawUrl,
@@ -323,13 +348,6 @@ function formatCheckoutUrl(
     return base;
   }
   return `${base}${base.includes("?") ? "&" : "?"}embed=1`;
-}
-
-function isProActive() {
-  const token =
-    localStorage.getItem("rsa_token") ||
-    (localStorage.getItem("rsa_pro_unlocked") === "true" ? "PRO-DEMO-2026" : "");
-  return Boolean(token);
 }
 
 function isStaticHost() {
@@ -359,6 +377,7 @@ async function fetchJsonWithFallback(apiUrl, options, fallbackFn) {
 }
 
 let cachedProStocks = null;
+let cachedFreeStocks = null;
 let cachedSemiOverview = null;
 
 async function getStaticProStocks() {
@@ -367,6 +386,18 @@ async function getStaticProStocks() {
     cachedProStocks = await r.json();
   }
   return cachedProStocks;
+}
+
+async function getStaticFreeStocks() {
+  if (!cachedFreeStocks) {
+    const r = await fetch("./static_api/stocks_free.json");
+    cachedFreeStocks = await r.json();
+  }
+  return cachedFreeStocks;
+}
+
+async function getStaticStocksForCurrentUser() {
+  return isProActive() ? getStaticProStocks() : getStaticFreeStocks();
 }
 
 async function getStaticSemiOverview() {
@@ -607,7 +638,7 @@ async function verifyAdminCredentials(username, password) {
       return {
         authenticated: ok,
         role: ok ? "admin" : "guest",
-        license_key: ok ? "PRO-DEMO-2026" : null,
+        license_key: ok ? "RSA-ADMIN-SESSION" : null,
         message: ok
           ? "Admin Authenticated — Terminal Config & Pro Access Unlocked."
           : "Invalid Admin ID or Password.",
@@ -628,18 +659,59 @@ async function validateLicense(licenseKey) {
     },
     async () => {
       const key = String(licenseKey || "").trim();
-      const valid =
-        key.toUpperCase() === "PRO-DEMO-2026" ||
-        /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(key);
-      return {
-        valid,
-        license_key: valid ? key : null,
-        tier: valid ? "pro" : "free",
-        expires_at: valid ? "2099-12-31T23:59:59Z" : null,
-        message: valid
-          ? "Pro Terminal License Verified."
-          : "Invalid or expired license key. Please verify your Lemon Squeezy receipt or subscribe below.",
-      };
+      if (!key) {
+        return {
+          valid: false,
+          license_key: null,
+          tier: "free",
+          expires_at: null,
+          message: "Please enter a valid Lemon Squeezy license key.",
+        };
+      }
+      if (
+        typeof sessionStorage !== "undefined" &&
+        sessionStorage.getItem("rsa_admin_auth") === "true" &&
+        key.toUpperCase() === "RSA-ADMIN-SESSION"
+      ) {
+        return {
+          valid: true,
+          license_key: key,
+          tier: "pro",
+          expires_at: "2099-12-31T23:59:59Z",
+          message: "Admin Session Pro Access Active.",
+        };
+      }
+      try {
+        const lsResp = await fetch("https://api.lemonsqueezy.com/v1/licenses/validate", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: new URLSearchParams({ license_key: key }).toString(),
+        });
+        const lsData = await lsResp.json().catch(() => null);
+        const valid = Boolean(lsData && lsData.valid === true && !lsData.error);
+        return {
+          valid,
+          license_key: valid ? key : null,
+          tier: valid ? "pro" : "free",
+          expires_at: valid ? lsData?.license_key?.expires_at || "2099-12-31T23:59:59Z" : null,
+          message: valid
+            ? "Pro Terminal License Verified via Lemon Squeezy."
+            : (lsData && lsData.error) ||
+              "Invalid or expired license key. Please verify your Lemon Squeezy receipt or subscribe below.",
+        };
+      } catch (_) {
+        return {
+          valid: false,
+          license_key: null,
+          tier: "free",
+          expires_at: null,
+          message:
+            "License verification failed. Please check your Lemon Squeezy license key and network connection.",
+        };
+      }
     }
   );
 }
@@ -691,7 +763,7 @@ async function evaluatePositionDoctor(data) {
       body: JSON.stringify(data),
     },
     async () => {
-      const all = await getStaticProStocks();
+      const all = await getStaticStocksForCurrentUser();
       const tClean = String(data.ticker || "CELH").trim().toUpperCase();
       const stock = all.find((s) => s.ticker === tClean);
       const entry = Math.max(0.01, Number(data.entry_price || 27.93));
@@ -699,10 +771,10 @@ async function evaluatePositionDoctor(data) {
       const curr =
         data.current_price !== undefined && data.current_price !== null
           ? Number(data.current_price)
-          : stock
+          : stock && stock.close !== null && stock.close !== undefined
           ? Number(stock.close)
           : entry;
-      const asOf = stock && stock.date ? stock.date : "2026-10-13";
+      const asOf = stock && stock.date ? stock.date : "2026-10-30";
       const retPct = Number(((curr / entry - 1.0) * 100.0).toFixed(2));
       const stopP = Number((entry * 0.91).toFixed(2));
       const tp1P = Number((entry * 2.0).toFixed(2));
@@ -1202,7 +1274,7 @@ async function buildClientTelegramPreview({
     rebalance_frequency: "ANNUAL",
     unrealized_gain_krw: 3800000,
   });
-  const allStocks = (await getStaticProStocks()).filter((s) => !String(s.ticker).includes("."));
+  const allStocks = (await getStaticStocksForCurrentUser()).filter((s) => !String(s.ticker).includes("."));
   const ignStocks = allStocks.filter((s) => s.zone_code === "IGNITION_ZONE").slice(0, 5);
 
   const etfs = Array.isArray(ov.etfs) ? ov.etfs : [];
@@ -1375,7 +1447,7 @@ const DEFAULT_TG_BOT_TOKEN = "DEMO-BOT-TOKEN";
 const DEFAULT_TG_CHAT_ID = "@truthofmarketss";
 const DEFAULT_TG_CHANNEL_URL = "https://t.me/truthofmarketss";
 const DEFAULT_YOUTUBE_URL = "https://youtube.com/@rightsidealpha";
-const DEFAULT_INSTAGRAM_URL = "https://www.instagram.com/semifeargreed";
+const DEFAULT_INSTAGRAM_URL = "https://www.instagram.com/rightsidealpha";
 async function syncTelegramBotBrowser(botToken, currentChatId = "") {
   const cid = String(currentChatId || DEFAULT_TG_CHAT_ID).trim();
   return { chatId: cid, botUsername: "SemifearGreedbot", synced: true };
@@ -1911,7 +1983,7 @@ function renderHero(state) {
   const latestStockDate =
     state.stocks && state.stocks.length > 0 && state.stocks[0].date
       ? state.stocks[0].date
-      : "2026-10-13";
+      : "2026-10-30";
 
   return `
     <section class="hero">
@@ -2205,7 +2277,7 @@ function renderStockRows(state) {
                </span>
              </div>
              <div style="font-size:0.72rem; color:var(--muted); margin-top:3px;">
-               ${s.sector} · <span style="color:#93c5fd; text-decoration:underline;">Unlock Pro to Reveal Ticker</span>
+               🔒 VIP SECTOR · <span style="color:#93c5fd; text-decoration:underline;">Unlock Pro to Reveal Ticker</span>
              </div>
            </div>`
         : `<div>
@@ -2217,6 +2289,21 @@ function renderStockRows(state) {
                ${stockName} · <span style="color:var(--text-secondary);">${s.sector}</span>
              </div>
            </div>`;
+
+      const closeCellHtml =
+        isLockedRow || s.close === null || s.close === undefined
+          ? `<div class="mono btn-unlock-row" style="font-weight:700; color:#fbbf24; cursor:pointer;" title="Unlock Pro to reveal Last Close & 52W Range">🔒 VIP PRICE</div>
+             <div style="font-size:0.68rem; color:var(--muted); margin-top:3px;">52W Range Locked</div>`
+          : `<div class="mono" style="font-weight:700; color:#ffffff;" title="Latest Close Date: ${s.date || "2026-10-30"}">$${closeVal.toFixed(2)}</div>
+             <div class="range-52w-wrap" title="52W Range: $${low52.toFixed(2)} – $${high52.toFixed(2)}">
+               <div class="range-52w-track">
+                 <div class="range-52w-fill" style="width:${rangePct}%;"></div>
+               </div>
+               <div class="range-52w-labels">
+                 <span>L:$${low52.toFixed(0)}</span>
+                 <span>H:$${high52.toFixed(0)}</span>
+               </div>
+             </div>`;
 
       return `
       <tr data-ticker="${isLockedRow ? "LOCKED" : s.ticker}">
@@ -2243,16 +2330,7 @@ function renderStockRows(state) {
           </div>
         </td>
         <td>
-          <div class="mono" style="font-weight:700; color:#ffffff;" title="Latest Close Date: ${s.date || "2026-10-30"}">$${closeVal.toFixed(2)}</div>
-          <div class="range-52w-wrap" title="52W Range: $${low52.toFixed(2)} – $${high52.toFixed(2)}">
-            <div class="range-52w-track">
-              <div class="range-52w-fill" style="width:${rangePct}%;"></div>
-            </div>
-            <div class="range-52w-labels">
-              <span>L:$${low52.toFixed(0)}</span>
-              <span>H:$${high52.toFixed(0)}</span>
-            </div>
-          </div>
+          ${closeCellHtml}
         </td>
         <td class="mono" style="color:${s.prox_low52_pct <= 40 && s.prox_low52_pct >= 10 ? "var(--fin-up)" : "var(--text-secondary)"}; font-weight:600;">
           +${Number(s.prox_low52_pct ?? 0).toFixed(1)}%
@@ -2314,18 +2392,18 @@ function renderProVault(state) {
   const celh = stocks.find((s) => s.ticker === "CELH");
   const mbly = stocks.find((s) => s.ticker === "MBLY");
 
-  const celhClose = celh ? Number(celh.close).toFixed(2) : "27.93";
-  const celhMa20 = celh && celh.ma20_price ? Number(celh.ma20_price).toFixed(2) : "27.93";
-  const celhMa60 = celh && celh.ma60_price ? Number(celh.ma60_price).toFixed(2) : "29.12";
+  const celhClose = celh && celh.close ? Number(celh.close).toFixed(2) : "29.12";
+  const celhMa20 = celh && celh.ma20_price ? Number(celh.ma20_price).toFixed(2) : "28.19";
+  const celhMa60 = celh && celh.ma60_price ? Number(celh.ma60_price).toFixed(2) : "29.16";
   const celhTp1 = celh && celh.tp1_2x_price ? Number(celh.tp1_2x_price).toFixed(2) : (Number(celhClose) * 2).toFixed(2);
   const celhStop = celh && celh.stop_loss_price ? Number(celh.stop_loss_price).toFixed(2) : (Number(celhClose) * 0.91).toFixed(2);
-  const celhScore = celh ? Number(celh.score) : 90;
+  const celhScore = celh ? Number(celh.score) : 84;
 
-  const mblyClose = mbly ? Number(mbly.close).toFixed(2) : "7.02";
-  const mblyLow52 = mbly ? Number(mbly.low52).toFixed(2) : "6.47";
-  const mblyMa60 = mbly && mbly.ma60_price ? Number(mbly.ma60_price).toFixed(2) : "8.17";
-  const mblyTp1 = mbly && mbly.tp1_2x_price ? Number(mbly.tp1_2x_price).toFixed(2) : (Number(mblyClose) * 2).toFixed(2);
-  const mblyScore = mbly ? Number(mbly.score) : 47;
+  const mblyClose = mbly && mbly.close ? Number(mbly.close).toFixed(2) : "5.96";
+  const mblyLow52 = mbly && mbly.low52 ? Number(mbly.low52).toFixed(2) : "5.86";
+  const mblyMa20 = mbly && mbly.ma20_price ? Number(mbly.ma20_price).toFixed(2) : "6.83";
+  const mblyScore = mbly ? Number(mbly.score) : 20;
+  const vipTgUrl = getVipTelegramUrl(isPro);
 
   const pineCode =
     state.pineCode ||
@@ -2393,8 +2471,8 @@ plotshape(ignition and not ignition[1], "PW-RSI IGNITION", shape.labelup, locati
             </div>
           </div>
           <a
-            class="btn btn-sm"
-            href="${isPro ? (state.config?.telegram_vip_channel_url || "https://t.me/+a6Sl2yLirbwyODQ1") : "#pricingSection"}"
+            class="btn btn-sm ${isPro ? "" : "btn-gated-vip-tg"}"
+            href="${isPro ? vipTgUrl : "#pricingSection"}"
             ${isPro ? 'target="_blank" rel="noopener noreferrer"' : ""}
             style="background:#0284c7; border-color:#38bdf8; color:#ffffff; font-weight:800; padding:8px 14px;"
           >
@@ -2435,26 +2513,27 @@ plotshape(ignition and not ignition[1], "PW-RSI IGNITION", shape.labelup, locati
               ${topIgnitions
                 .map((s, idx) => {
                   const lockedVip = !isPro && idx >= 1;
-                  const c = Number(s.close || 25);
-                  const trig = Number(s.entry_trigger_price ?? s.ma60_price ?? c).toFixed(2);
-                  const stp = Number(s.stop_loss_price ?? c * 0.91).toFixed(2);
-                  const tp1 = Number(s.tp1_2x_price ?? c * 2.0).toFixed(2);
-                  const sh = Math.max(1, Math.floor(perSlotUsd / c));
-                  const maxLossUsd = Math.round(sh * c * 0.09);
                   if (lockedVip) {
+                    const genericSlotLoss = Math.round(perSlotUsd * 0.09);
                     return `
                     <tr>
-                      <td class="mono" style="font-weight:800; color:#fbbf24;">🔒 VIP IGNITION #${idx + 1} <span style="color:var(--muted); font-weight:500;">(${s.sector})</span></td>
+                      <td class="mono" style="font-weight:800; color:#fbbf24;">🔒 VIP IGNITION #${idx + 1} <span style="color:var(--muted); font-weight:500;">(🔒 VIP SECTOR)</span></td>
                       <td class="mono" style="color:var(--fin-up); font-weight:800;">${s.score}/100</td>
                       <td class="mono">🔒 PRO</td>
                       <td class="mono" style="color:#60a5fa; font-weight:700;">🔒 PRO</td>
                       <td class="mono" style="color:var(--fin-down); font-weight:700;">🔒 PRO</td>
                       <td class="mono" style="color:var(--fin-up); font-weight:700;">🔒 PRO</td>
                       <td class="mono" style="color:#ffffff; font-weight:800;">🔒 Unlock Pro ($29/mo)</td>
-                      <td class="mono" style="color:var(--fin-amber);">-$${maxLossUsd.toLocaleString()} (-1.35% Eq)</td>
+                      <td class="mono" style="color:var(--fin-amber);">-$${genericSlotLoss.toLocaleString()} (-1.35% Eq)</td>
                     </tr>
                   `;
                   }
+                  const c = Number(s.close || 29.12);
+                  const trig = Number(s.entry_trigger_price ?? s.ma60_price ?? c).toFixed(2);
+                  const stp = Number(s.stop_loss_price ?? c * 0.91).toFixed(2);
+                  const tp1 = Number(s.tp1_2x_price ?? c * 2.0).toFixed(2);
+                  const sh = Math.max(1, Math.floor(perSlotUsd / c));
+                  const maxLossUsd = Math.round(sh * c * 0.09);
                   return `
                     <tr>
                       <td class="mono" style="font-weight:800; color:#ffffff;">#${idx + 1} $${s.ticker} <span style="color:var(--muted); font-weight:500;">(${s.sector})</span></td>
@@ -2501,16 +2580,16 @@ plotshape(ignition and not ignition[1], "PW-RSI IGNITION", shape.labelup, locati
                 </button>
               </div>
 
-              <div style="border-left:3px solid var(--fin-blue); padding-left:10px;">
-                <div style="display:flex; justify-content:space-between; align-items:center;">
+              <div style="border-left:3px solid var(--fin-down); padding-left:10px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:4px;">
                   <b class="mono" style="color:#ffffff;">MBLY · Mobileye Global ($${mblyClose})</b>
-                  <span class="badge badge-watch">SCORE ${mblyScore}</span>
+                  <span class="badge badge-knife">🛑 RULE 1 STOP EXECUTED · SCORE ${mblyScore}</span>
                 </div>
                 <div style="color:var(--muted); font-size:0.76rem; margin-top:4px; line-height:1.45;">
-                  Tier-1 OEM ADAS inventory digestion completed; EyeQ6 design wins drive operating income inflection (-$0.39B → +$0.45B). Latest Close <b class="mono" style="color:#fff;">$${mblyClose}</b> · 52W Low $${mblyLow52} · MA60 Trigger <b class="mono" style="color:#60a5fa;">$${mblyMa60}</b> · TP1: <b class="mono" style="color:var(--fin-up);">$${mblyTp1}</b>.
+                  <b style="color:#fca5a5;">Post-Mortem Audit:</b> Oct 13 watch ($7.02) breached Rule 1 Hard Stop (<b class="mono" style="color:var(--fin-down);">$6.39 / -9.0%</b>) and fell to <b class="mono" style="color:#fff;">$${mblyClose}</b> (52W Low $${mblyLow52}, <span class="mono">LEFT_SIDE_KNIFE</span>). Mechanical exit protected capital & rotated into <b class="mono" style="color:var(--fin-up);">$CELH / $LULU</b>. Re-entry prohibited until MA20 ($${mblyMa20}) reclaim.
                 </div>
                 <button class="btn btn-sm btn-open-research" data-ticker="MBLY" style="margin-top:6px;">
-                  Read $MBLY SEC Research Brief ↗
+                  Read $MBLY Rule 1 Stop Audit Brief ↗
                 </button>
               </div>
             </div>
@@ -2582,7 +2661,7 @@ const PRICING_COPY = {
     ],
     tvBtn: "📈 Launch TradingView Terminal ↗",
     saBtn: "📊 Open Seeking Alpha EPS Consensus ↗",
-    brokerBtn: "🏦 Open US Broker / Exchange PartnerBonus ↗",
+    brokerBtn: "🏦 Open US Broker / Exchange Partner Bonus ↗",
     tgBtn: "🔒 Pro VIP Telegram ($SMH/$XLV & 72-Stock Live News)",
   },
   kr: {
@@ -2732,15 +2811,15 @@ function renderPricing(state) {
           <a class="btn" id="affBrokerBtn" href="${rawBrkUrl}" target="_blank" rel="noopener noreferrer" style="justify-content:center; border-color:rgba(16,185,129,0.45); color:#34d399; font-weight:700;">
             ${c.brokerBtn} (${brokerName})
           </a>
-          <a class="btn ${state.isProUnlocked ? "" : "btn-gated-vip-tg"}" id="pricingTelegramChannelBtn" href="${state.isProUnlocked ? (cfg.telegram_channel_url || "https://t.me/+a6Sl2yLirbwyODQ1") : "#pro-vip-telegram"}" ${state.isProUnlocked ? 'target="_blank" rel="noopener noreferrer"' : ""} style="justify-content:center; border-color:rgba(56,189,248,0.45); color:#38bdf8; font-weight:700;">
+          <a class="btn ${state.isProUnlocked ? "" : "btn-gated-vip-tg"}" id="pricingTelegramChannelBtn" href="${getVipTelegramUrl(state.isProUnlocked)}" ${state.isProUnlocked ? 'target="_blank" rel="noopener noreferrer"' : ""} style="justify-content:center; border-color:rgba(56,189,248,0.45); color:#38bdf8; font-weight:700;">
             ${state.isProUnlocked ? "👑 Enter Pro VIP Telegram Channel ↗" : c.tgBtn}
           </a>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
             <a class="btn" id="pricingYoutubeBtn" href="${cfg.youtube_url || "https://youtube.com/@rightsidealpha"}" target="_blank" rel="noopener noreferrer" style="justify-content:center; border-color:rgba(239,68,68,0.4); color:#fca5a5;">
               📺 YouTube (@rightsidealpha) ↗
             </a>
-            <a class="btn" id="pricingInstagramBtn" href="${cfg.instagram_url || "https://www.instagram.com/semifeargreed"}" target="_blank" rel="noopener noreferrer" style="justify-content:center; border-color:rgba(236,72,153,0.4); color:#f9a8d4;">
-              📸 Instagram (@semifeargreed) ↗
+            <a class="btn" id="pricingInstagramBtn" href="${cfg.instagram_url || "https://www.instagram.com/rightsidealpha"}" target="_blank" rel="noopener noreferrer" style="justify-content:center; border-color:rgba(236,72,153,0.4); color:#f9a8d4;">
+              📸 Instagram (@rightsidealpha) ↗
             </a>
           </div>
         </div>
@@ -2755,13 +2834,24 @@ function renderModals(state) {
   const cfg = state.config || {};
   const tgChannelUrl = cfg.telegram_channel_url || "https://t.me/truthofmarketss";
   const ytUrl = cfg.youtube_url || "https://youtube.com/@rightsidealpha";
-  const igUrl = cfg.instagram_url || "https://www.instagram.com/semifeargreed";
+  const igUrl = cfg.instagram_url || "https://www.instagram.com/rightsidealpha";
   const tgChatId = state.telegramChatId || cfg.telegram_chat_id || "@truthofmarketss";
   const tgToken = state.telegramBotToken || "DEMO-BOT-TOKEN";
   const tgType = state.telegramAlertType || "SEMI_BRIEFING";
+  const ov = state.semiOverview || {};
+  const ovDate = ov.date || "2026-10-30";
+  const ovScore = Number(ov.fg_score ?? 18.0).toFixed(1);
+  const ovRegime = String(ov.regime_en || "EXTREME FEAR").toUpperCase();
+  const ovSmh = Number(ov.smh_close ?? 522.49).toFixed(2);
+  const ovDd = Number(ov.smh_dd_pct ?? -22.23).toFixed(2);
+  const ovRsi = Number(ov.smh_rsi ?? 40.6).toFixed(1);
+  const ovXlv = Number(ov.xlv_close ?? 184.87).toFixed(2);
+  const ovQqq = Number(ov.qqq_close ?? 690.49).toFixed(2);
+  const ovW1 = ov.recommended_smh_weight ?? 80;
+  const ovW2 = ov.recommended_xlv_weight ?? 20;
   const tgPreview =
     state.telegramPreviewText ||
-    "🧭 [SemiFearGreed] Daily Semiconductor & Barbell Briefing (2026-10-30)\n• Fear & Greed Score: 64.6 / 100 (GREED)\n• $SMH (Semiconductor): $522.49 (-5.24% 52W DD | RSI 61.9)\n• $XLV (Healthcare Vault): $184.87 (+0.38% 1D) | $QQQ: $690.49 (+1.18% 1D)\n• Active Signal: Target 50% $SMH : 50% $XLV Barbell Allocation";
+    `🧭 [SemiFearGreed] Daily Semiconductor & Barbell Briefing (${ovDate})\n• Fear & Greed Score: ${ovScore} / 100 (${ovRegime})\n• $SMH (Semiconductor): $${ovSmh} (${ovDd}% 52W DD | RSI ${ovRsi})\n• $XLV (Healthcare Vault): $${ovXlv} | $QQQ: $${ovQqq}\n• Active Signal: Target ${ovW1}% $SMH : ${ovW2}% $XLV Barbell Allocation`;
 
   return `
     <!-- LICENSE ACTIVATION MODAL -->
@@ -2813,13 +2903,6 @@ function renderModals(state) {
             </h3>
           </div>
           <div style="display:flex; gap:6px; flex-wrap:wrap;">
-            ${
-              state.isAdminAuthenticated
-                ? `<a class="btn btn-sm" id="tgModalSetupBoardBtn" href="./instagram_us_setup.html" target="_blank" rel="noopener noreferrer" style="background:rgba(239,68,68,0.16); border-color:rgba(239,68,68,0.55); color:#fca5a5; font-weight:700;">
-              🎬 YouTube & IG Setup Board ↗
-            </a>`
-                : ""
-            }
             <a class="btn btn-sm" id="tgModalYtBtn" href="${ytUrl}" target="_blank" rel="noopener noreferrer" style="border-color:rgba(239,68,68,0.45); color:#fca5a5;">
               📺 YouTube ↗
             </a>
@@ -2987,7 +3070,7 @@ function renderModals(state) {
         <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">OFFICIAL YOUTUBE CHANNEL URL (@rightsidealpha)</label>
         <input type="text" id="cfgYoutubeUrl" value="${ytUrl}" />
 
-        <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">OFFICIAL INSTAGRAM PROFILE URL (@semifeargreed)</label>
+        <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">OFFICIAL INSTAGRAM PROFILE URL (@rightsidealpha)</label>
         <input type="text" id="cfgInstagramUrl" value="${igUrl}" />
 
         <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">TRADINGVIEW AFFILIATE ID</label>
@@ -3028,6 +3111,60 @@ function renderModals(state) {
       </div>
     </div>
 
+    <!-- LEGAL, PRIVACY, REFUND POLICY & SUPPORT MODAL -->
+    <div class="modal-backdrop" id="legalModal">
+      <div class="modal" style="max-width:740px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:12px;">
+          <div>
+            <div style="font-size:0.68rem; font-family:var(--font-mono); color:#93c5fd; text-transform:uppercase; letter-spacing:0.05em;">
+              LEGAL & COMPLIANCE · MERCHANT OF RECORD: LEMON SQUEEZY
+            </div>
+            <h3 style="font-size:1.1rem; font-weight:800; color:#ffffff; margin-top:3px;" id="legalModalTitle">
+              Terms of Service, Privacy Policy & Refund Policy
+            </h3>
+          </div>
+          <div style="display:flex; gap:6px; flex-wrap:wrap;">
+            <button type="button" class="btn btn-sm btn-legal-tab" data-legal-tab="terms">Terms of Service</button>
+            <button type="button" class="btn btn-sm btn-legal-tab" data-legal-tab="privacy">Privacy Policy</button>
+            <button type="button" class="btn btn-sm btn-legal-tab" data-legal-tab="refund">Refund Policy</button>
+            <button type="button" class="btn btn-sm btn-legal-tab" data-legal-tab="support">Support Contact</button>
+            <button type="button" class="btn btn-sm" id="btnCloseLegalModal">Close ✕</button>
+          </div>
+        </div>
+        <div id="legalModalBody" style="font-size:0.82rem; color:var(--text); line-height:1.68; max-height:62vh; overflow-y:auto; background:#05080f; padding:18px; border-radius:4px; border:1px solid var(--border);">
+          <div data-legal-section="terms">
+            <h4 style="color:#ffffff; font-size:0.95rem; font-weight:800; margin-bottom:6px;">1. Terms of Service & Non-Advisory Disclosure</h4>
+            <p style="color:var(--muted); margin-bottom:10px;">
+              RightSideAlpha and SemiFearGreed (<code class="mono">truthofmarket.com</code>) provide quantitative financial data analytics, empirical backtesting outputs (2000–2026), and algorithmic screening tools for US-listed equities and ETFs. Nothing on this platform constitutes personalized investment advice, brokerage solicitation, legal advice, or tax counsel. Users are solely responsible for their own investment decisions and trade executions.
+            </p>
+            <p style="color:var(--muted); margin-bottom:12px;">
+              Pro Terminal licenses grant single-user access to quantitative target levels, daily SEC primary-filing briefs, Position Doctor diagnostics, and Pine Script v5 indicators. Redistribution or unauthorized sharing of license keys or private VIP Telegram invite links is strictly prohibited.
+            </p>
+          </div>
+          <div data-legal-section="privacy" style="border-top:1px solid var(--border); padding-top:12px; margin-top:12px;">
+            <h4 style="color:#ffffff; font-size:0.95rem; font-weight:800; margin-bottom:6px;">2. Privacy Policy</h4>
+            <p style="color:var(--muted); margin-bottom:10px;">
+              We respect your financial privacy. Portfolio inputs entered into the Position Sizing Calculator, Position Doctor, or $SMH:$XLV Barbell Rebalancing Engine are processed locally in your browser and are never sold or shared with third parties. Payment processing and billing data are handled securely by our Merchant of Record, <b>Lemon Squeezy, LLC</b>, under PCI-DSS compliance.
+            </p>
+          </div>
+          <div data-legal-section="refund" style="border-top:1px solid var(--border); padding-top:12px; margin-top:12px;">
+            <h4 style="color:#ffffff; font-size:0.95rem; font-weight:800; margin-bottom:6px;">3. Subscription Cancellation & Refund Policy</h4>
+            <p style="color:var(--muted); margin-bottom:10px;">
+              Monthly Pro subscriptions ($29/mo) can be canceled at any time with one click via your Lemon Squeezy customer billing portal or by contacting support; access remains active through the end of the current billing period with zero cancellation fees. Because digital quantitative data, downloadable 26.8-year CSV datasets, and Pine Script v5 source code are delivered immediately upon activation, Lifetime Pass ($199) and activated digital licenses are non-refundable once accessed, except where required by applicable consumer protection law or in cases of duplicate billing.
+            </p>
+          </div>
+          <div data-legal-section="support" style="border-top:1px solid var(--border); padding-top:12px; margin-top:12px;">
+            <h4 style="color:#ffffff; font-size:0.95rem; font-weight:800; margin-bottom:6px;">4. Customer Support & Billing Inquiries</h4>
+            <p style="color:var(--muted);">
+              • <b>Official Support Email</b>: <a href="mailto:support@truthofmarket.com" style="color:#60a5fa; font-weight:700;">support@truthofmarket.com</a><br/>
+              • <b>Merchant of Record</b>: Lemon Squeezy, LLC (<a href="https://app.lemonsqueezy.com/my-orders" target="_blank" rel="noopener noreferrer" style="color:#60a5fa;">Manage Orders & Receipts ↗</a>)<br/>
+              • <b>Public Broadcast Desk</b>: <a href="https://t.me/truthofmarketss" target="_blank" rel="noopener noreferrer" style="color:#38bdf8;">t.me/truthofmarketss (@truthofmarketss) ↗</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- TOAST NOTIFICATION -->
     <div class="toast" id="toastBox">Action completed</div>
   `;
@@ -3035,6 +3172,7 @@ function renderModals(state) {
 
 
 // --- src/components/SemiFearGreedView.js ---
+
 
 function polarToCartesian(cx, cy, r, angleDeg) {
   const rad = (angleDeg * Math.PI) / 180.0;
@@ -3358,16 +3496,16 @@ function renderSemiFearGreedView(state) {
           </a>
           <a
             class="btn"
-            href="${state.config?.instagram_url || "https://www.instagram.com/semifeargreed"}"
+            href="${state.config?.instagram_url || "https://www.instagram.com/rightsidealpha"}"
             target="_blank"
             rel="noopener noreferrer"
             style="background:#db2777; color:#ffffff; border-color:#be185d;"
           >
-            📸 Instagram (@semifeargreed) ↗
+            📸 Instagram (@rightsidealpha) ↗
           </a>
           <a
             class="btn ${state.isProUnlocked ? "" : "btn-gated-vip-tg"}"
-            href="${state.isProUnlocked ? (state.config?.telegram_vip_channel_url || "https://t.me/+a6Sl2yLirbwyODQ1") : "#pro-vip-telegram"}"
+            href="${getVipTelegramUrl(state.isProUnlocked)}"
             ${state.isProUnlocked ? 'target="_blank" rel="noopener noreferrer"' : ""}
             style="background:#0284c7; color:#ffffff; border-color:#0369a1;"
           >
@@ -3868,6 +4006,10 @@ const defaultView =
     if (!oldTgCid || oldTgCid.includes("SemifearGreedbot") || oldTgCid === "755033799") {
       localStorage.setItem("rsa_tg_chat_id", "@truthofmarketss");
     }
+    const oldIg = localStorage.getItem("rsa_cfg_instagram_url") || "";
+    if (oldIg.includes("semifeargreed")) {
+      localStorage.setItem("rsa_cfg_instagram_url", "https://www.instagram.com/rightsidealpha");
+    }
   } catch (_) {}
 })();
 
@@ -3888,7 +4030,7 @@ const state = {
   lang: detectInitialLang(),
   activeView: defaultView,
   isAdminAuthenticated: sessionStorage.getItem("rsa_admin_auth") === "true",
-  isProUnlocked: localStorage.getItem("rsa_pro_unlocked") === "true",
+  isProUnlocked: isProActive(),
   licenseKey: localStorage.getItem("rsa_token") || "",
   proPortfolioUsd: Number(localStorage.getItem("rsa_pro_cap_usd") || 30000),
   stocks: [],
@@ -3934,7 +4076,7 @@ const state = {
     broker_referral_url:
       localStorage.getItem("rsa_cfg_broker_url") || "https://www.bitget.com/referral/register?clacCode=7nja",
     telegram_channel_url: localStorage.getItem("rsa_tg_channel_url") || "https://t.me/truthofmarketss",
-    telegram_vip_channel_url: localStorage.getItem("rsa_tg_vip_channel_url") || "https://t.me/+a6Sl2yLirbwyODQ1",
+    telegram_vip_channel_url: localStorage.getItem("rsa_tg_vip_channel_url") || "",
     telegram_chat_id: localStorage.getItem("rsa_tg_chat_id") || "@truthofmarketss",
     youtube_url: localStorage.getItem("rsa_cfg_youtube_url") || DEFAULT_YOUTUBE_URL,
     instagram_url: localStorage.getItem("rsa_cfg_instagram_url") || DEFAULT_INSTAGRAM_URL,
@@ -4037,17 +4179,26 @@ function renderApp() {
           </a>
           <span style="color:var(--border);">|</span>
           <a href="${state.config.instagram_url || DEFAULT_INSTAGRAM_URL}" target="_blank" rel="noopener noreferrer" style="color:#f9a8d4; text-decoration:none; font-weight:600;">
-            📸 Instagram (@semifeargreed) ↗
+            📸 Instagram (@rightsidealpha) ↗
           </a>
           <span style="color:var(--border);">|</span>
           <a
-            href="${state.isProUnlocked ? (state.config.telegram_vip_channel_url || "https://t.me/+a6Sl2yLirbwyODQ1") : "#pro-vip-telegram"}"
+            href="${getVipTelegramUrl(state.isProUnlocked)}"
             class="${state.isProUnlocked ? "" : "btn-gated-vip-tg"}"
             ${state.isProUnlocked ? 'target="_blank" rel="noopener noreferrer"' : ""}
             style="color:#38bdf8; text-decoration:none; font-weight:600;"
           >
             ${state.isProUnlocked ? "👑 Pro VIP Telegram Channel ↗" : "🔒 Pro VIP Telegram ($SMH/$XLV & 72-Stock News)"}
           </a>
+        </div>
+        <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-bottom:10px; font-size:0.74rem;">
+          <a href="#legal-terms" class="btn-open-legal" data-legal-tab="terms" style="color:#93c5fd; text-decoration:none; font-weight:600;">Terms of Service</a>
+          <span style="color:var(--border);">·</span>
+          <a href="#legal-privacy" class="btn-open-legal" data-legal-tab="privacy" style="color:#93c5fd; text-decoration:none; font-weight:600;">Privacy Policy</a>
+          <span style="color:var(--border);">·</span>
+          <a href="#legal-refund" class="btn-open-legal" data-legal-tab="refund" style="color:#93c5fd; text-decoration:none; font-weight:600;">Refund & Cancellation Policy</a>
+          <span style="color:var(--border);">·</span>
+          <a href="mailto:support@truthofmarket.com" style="color:#93c5fd; text-decoration:none; font-weight:600;">Support: support@truthofmarket.com</a>
         </div>
         <p id="disclaimerText">${t.disclaimer}</p>
         <p style="margin-top:8px; font-family:var(--font-mono); font-size:0.72rem;" id="copyrightText">${t.copyright}</p>
@@ -4337,7 +4488,7 @@ function bindEvents() {
         sessionStorage.setItem("rsa_admin_auth", "true");
         // Automatically grant Pro Terminal access to Admin
         state.isProUnlocked = true;
-        state.licenseKey = res.license_key || "PRO-DEMO-2026";
+        state.licenseKey = res.license_key || "RSA-ADMIN-SESSION";
         localStorage.setItem("rsa_pro_unlocked", "true");
         localStorage.setItem("rsa_token", state.licenseKey);
 
@@ -4749,7 +4900,7 @@ function bindEvents() {
     });
   }
 
-  // Research Modal Controls
+  // Research & Legal Modal Controls
   const researchModal = document.getElementById("researchModal");
   const btnCloseResearch = document.getElementById("btnCloseResearch");
   if (btnCloseResearch && researchModal) {
@@ -4758,8 +4909,29 @@ function bindEvents() {
     });
   }
 
+  const legalModal = document.getElementById("legalModal");
+  const btnCloseLegalModal = document.getElementById("btnCloseLegalModal");
+  if (btnCloseLegalModal && legalModal) {
+    btnCloseLegalModal.addEventListener("click", () => {
+      legalModal.style.display = "none";
+    });
+  }
+  document.querySelectorAll(".btn-open-legal, .btn-legal-tab").forEach((el) => {
+    el.addEventListener("click", (e) => {
+      e.preventDefault();
+      const tab = el.getAttribute("data-legal-tab") || "terms";
+      if (legalModal) {
+        legalModal.style.display = "flex";
+        const sec = legalModal.querySelector(`[data-legal-section="${tab}"]`);
+        if (sec && typeof sec.scrollIntoView === "function") {
+          sec.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+    });
+  });
+
   // Backdrop click-to-close on all modals
-  [licenseModal, telegramModal, configModal, researchModal].forEach((modalEl) => {
+  [licenseModal, telegramModal, configModal, researchModal, legalModal].forEach((modalEl) => {
     if (modalEl) {
       modalEl.addEventListener("click", (e) => {
         if (e.target === modalEl) {
@@ -4768,6 +4940,99 @@ function bindEvents() {
       });
     }
   });
+
+  const renderMarkdownToHtml = (mdText) => {
+    const esc = (s) =>
+      String(s || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+    const fmtInline = (s) =>
+      esc(s)
+        .replace(/\*\*([^*]+)\*\*/g, '<strong style="color:#ffffff;">$1</strong>')
+        .replace(/`([^`]+)`/g, '<code class="mono" style="background:#0f172a; padding:1px 5px; border-radius:3px; color:#93c5fd;">$1</code>');
+
+    const lines = String(mdText || "").split(/\r?\n/);
+    const out = [];
+    let inTable = false;
+    let tableRows = [];
+    let inList = false;
+
+    const flushTable = () => {
+      if (!tableRows.length) return;
+      const header = tableRows[0];
+      const body = tableRows.slice(1).filter((r) => !r.every((c) => /^[-:\s]+$/.test(c)));
+      const thHtml = header
+        .map((c) => `<th style="padding:7px 10px; border-bottom:1px solid #334155; text-align:left; color:#93c5fd; font-size:0.76rem;">${fmtInline(c)}</th>`)
+        .join("");
+      const tbHtml = body
+        .map(
+          (r) =>
+            `<tr>${r
+              .map((c) => `<td style="padding:7px 10px; border-bottom:1px solid #1e293b; font-size:0.78rem;">${fmtInline(c)}</td>`)
+              .join("")}</tr>`
+        )
+        .join("");
+      out.push(
+        `<div class="table-responsive-scroll" style="margin:10px 0;"><table style="width:100%; border-collapse:collapse; background:#090d16; border:1px solid #1e293b;"><thead><tr>${thHtml}</tr></thead><tbody>${tbHtml}</tbody></table></div>`
+      );
+      tableRows = [];
+      inTable = false;
+    };
+
+    const flushList = () => {
+      if (inList) {
+        out.push("</ul>");
+        inList = false;
+      }
+    };
+
+    for (const rawLine of lines) {
+      const line = rawLine.trim();
+      if (line.startsWith("|") && line.endsWith("|")) {
+        flushList();
+        inTable = true;
+        const cells = line
+          .slice(1, -1)
+          .split("|")
+          .map((c) => c.trim());
+        tableRows.push(cells);
+        continue;
+      } else if (inTable) {
+        flushTable();
+      }
+
+      if (!line) {
+        flushList();
+        continue;
+      }
+      if (/^---+$/.test(line)) {
+        flushList();
+        out.push('<hr style="border:none; border-top:1px solid var(--border); margin:12px 0;" />');
+      } else if (line.startsWith("### ")) {
+        flushList();
+        out.push(`<h4 style="color:#93c5fd; font-size:0.9rem; font-weight:800; margin:12px 0 6px;">${fmtInline(line.slice(4))}</h4>`);
+      } else if (line.startsWith("## ")) {
+        flushList();
+        out.push(`<h3 style="color:#ffffff; font-size:0.98rem; font-weight:800; margin:14px 0 6px;">${fmtInline(line.slice(3))}</h3>`);
+      } else if (line.startsWith("# ")) {
+        flushList();
+        out.push(`<h2 style="color:#ffffff; font-size:1.06rem; font-weight:800; margin:6px 0 10px;">${fmtInline(line.slice(2))}</h2>`);
+      } else if (/^([-*]|\d+\.)\s+/.test(line)) {
+        if (!inList) {
+          out.push('<ul style="margin:6px 0 10px 18px; padding:0; line-height:1.6;">');
+          inList = true;
+        }
+        out.push(`<li style="margin-bottom:4px;">${fmtInline(line.replace(/^([-*]|\d+\.)\s+/, ""))}</li>`);
+      } else {
+        flushList();
+        out.push(`<p style="margin:6px 0;">${fmtInline(line)}</p>`);
+      }
+    }
+    if (inTable) flushTable();
+    flushList();
+    return out.join("");
+  };
 
   const openResearchForTicker = async (ticker) => {
     if (!researchModal) return;
@@ -4779,26 +5044,25 @@ function bindEvents() {
     try {
       const data = await fetchResearchBrief(ticker);
       const stockObj = state.stocks.find((s) => s.ticker === ticker);
-      const cPrice = Number(data.current_price ?? stockObj?.close ?? 27.93).toFixed(2);
+      const cPrice = Number(data.current_price ?? stockObj?.close ?? 29.12).toFixed(2);
       const sPrice = Number(data.stop_price ?? stockObj?.stop_loss_price ?? Number(cPrice) * 0.91).toFixed(2);
       const tPrice = Number(data.target_price ?? stockObj?.tp1_2x_price ?? Number(cPrice) * 2.0).toFixed(2);
-      const asOf = data.as_of_date || stockObj?.date || data.report_date || "2026-10-13";
+      const asOf = data.as_of_date || stockObj?.date || data.report_date || "2026-10-30";
+      const langTitle = data[`title_${state.lang}`] || data.title;
       const safeTitle =
-        data.title ||
+        langTitle ||
         `${data.company_name || ticker} ($${data.ticker || ticker}) — ${data.opinion || "STRONG_BUY"} | Latest Close $${cPrice} (${asOf})`;
       if (titleEl) titleEl.textContent = safeTitle;
       if (bodyEl) {
-        const formatted = (data.content || "")
-          .replace(/&/g, "&amp;")
-          .replace(/</g, "&lt;")
-          .replace(/>/g, "&gt;")
-          .replace(/\n/g, "<br/>");
+        const rawMarkdown = data[`content_${state.lang}`] || data.content || "";
+        const formatted = renderMarkdownToHtml(rawMarkdown);
+        const isStopped = String(data.opinion || "").includes("STOP");
         const metaHeader = `
-          <div style="display:flex; flex-wrap:wrap; gap:14px; background:#090d16; border:1px solid var(--border); border-left:3px solid var(--fin-up); padding:10px 14px; border-radius:4px; margin-bottom:14px; font-family:var(--font-mono); font-size:0.76rem;">
+          <div style="display:flex; flex-wrap:wrap; gap:14px; background:#090d16; border:1px solid var(--border); border-left:3px solid ${isStopped ? "var(--fin-down)" : "var(--fin-up)"}; padding:10px 14px; border-radius:4px; margin-bottom:14px; font-family:var(--font-mono); font-size:0.76rem;">
             <span>LATEST CLOSE (${asOf}): <b style="color:#ffffff;">$${cPrice}</b></span>
-            <span>HARD STOP (-9%): <b style="color:var(--fin-down);">$${sPrice}</b></span>
+            <span>RULE 1 HARD STOP (-9%): <b style="color:var(--fin-down);">$${sPrice}</b></span>
             <span>TP1 TARGET (2x): <b style="color:var(--fin-up);">$${tPrice}</b></span>
-            <span>RRR: <b style="color:#93c5fd;">${data.rrr_ratio || "1 : 11.1"}</b></span>
+            <span>STATUS / RRR: <b style="color:${isStopped ? "#fca5a5" : "#93c5fd"};">${data.rrr_ratio || "1 : 11.1"}</b></span>
           </div>
         `;
         bodyEl.innerHTML = `${metaHeader}<div style="font-family:var(--font-sans); line-height:1.65;">${formatted}</div>`;

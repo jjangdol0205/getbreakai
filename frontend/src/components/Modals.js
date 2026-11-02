@@ -2,13 +2,24 @@ export function renderModals(state) {
   const cfg = state.config || {};
   const tgChannelUrl = cfg.telegram_channel_url || "https://t.me/truthofmarketss";
   const ytUrl = cfg.youtube_url || "https://youtube.com/@rightsidealpha";
-  const igUrl = cfg.instagram_url || "https://www.instagram.com/semifeargreed";
+  const igUrl = cfg.instagram_url || "https://www.instagram.com/rightsidealpha";
   const tgChatId = state.telegramChatId || cfg.telegram_chat_id || "@truthofmarketss";
   const tgToken = state.telegramBotToken || "DEMO-BOT-TOKEN";
   const tgType = state.telegramAlertType || "SEMI_BRIEFING";
+  const ov = state.semiOverview || {};
+  const ovDate = ov.date || "2026-10-30";
+  const ovScore = Number(ov.fg_score ?? 18.0).toFixed(1);
+  const ovRegime = String(ov.regime_en || "EXTREME FEAR").toUpperCase();
+  const ovSmh = Number(ov.smh_close ?? 522.49).toFixed(2);
+  const ovDd = Number(ov.smh_dd_pct ?? -22.23).toFixed(2);
+  const ovRsi = Number(ov.smh_rsi ?? 40.6).toFixed(1);
+  const ovXlv = Number(ov.xlv_close ?? 184.87).toFixed(2);
+  const ovQqq = Number(ov.qqq_close ?? 690.49).toFixed(2);
+  const ovW1 = ov.recommended_smh_weight ?? 80;
+  const ovW2 = ov.recommended_xlv_weight ?? 20;
   const tgPreview =
     state.telegramPreviewText ||
-    "🧭 [SemiFearGreed] Daily Semiconductor & Barbell Briefing (2026-10-30)\n• Fear & Greed Score: 64.6 / 100 (GREED)\n• $SMH (Semiconductor): $522.49 (-5.24% 52W DD | RSI 61.9)\n• $XLV (Healthcare Vault): $184.87 (+0.38% 1D) | $QQQ: $690.49 (+1.18% 1D)\n• Active Signal: Target 50% $SMH : 50% $XLV Barbell Allocation";
+    `🧭 [SemiFearGreed] Daily Semiconductor & Barbell Briefing (${ovDate})\n• Fear & Greed Score: ${ovScore} / 100 (${ovRegime})\n• $SMH (Semiconductor): $${ovSmh} (${ovDd}% 52W DD | RSI ${ovRsi})\n• $XLV (Healthcare Vault): $${ovXlv} | $QQQ: $${ovQqq}\n• Active Signal: Target ${ovW1}% $SMH : ${ovW2}% $XLV Barbell Allocation`;
 
   return `
     <!-- LICENSE ACTIVATION MODAL -->
@@ -60,13 +71,6 @@ export function renderModals(state) {
             </h3>
           </div>
           <div style="display:flex; gap:6px; flex-wrap:wrap;">
-            ${
-              state.isAdminAuthenticated
-                ? `<a class="btn btn-sm" id="tgModalSetupBoardBtn" href="./instagram_us_setup.html" target="_blank" rel="noopener noreferrer" style="background:rgba(239,68,68,0.16); border-color:rgba(239,68,68,0.55); color:#fca5a5; font-weight:700;">
-              🎬 YouTube & IG Setup Board ↗
-            </a>`
-                : ""
-            }
             <a class="btn btn-sm" id="tgModalYtBtn" href="${ytUrl}" target="_blank" rel="noopener noreferrer" style="border-color:rgba(239,68,68,0.45); color:#fca5a5;">
               📺 YouTube ↗
             </a>
@@ -234,7 +238,7 @@ export function renderModals(state) {
         <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">OFFICIAL YOUTUBE CHANNEL URL (@rightsidealpha)</label>
         <input type="text" id="cfgYoutubeUrl" value="${ytUrl}" />
 
-        <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">OFFICIAL INSTAGRAM PROFILE URL (@semifeargreed)</label>
+        <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">OFFICIAL INSTAGRAM PROFILE URL (@rightsidealpha)</label>
         <input type="text" id="cfgInstagramUrl" value="${igUrl}" />
 
         <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">TRADINGVIEW AFFILIATE ID</label>
@@ -271,6 +275,60 @@ export function renderModals(state) {
         </div>
         <div id="researchModalBody" style="font-size:0.84rem; color:var(--text); line-height:1.65; max-height:62vh; overflow-y:auto; background:#05080f; padding:18px; border-radius:4px; border:1px solid var(--border);">
           Loading institutional brief...
+        </div>
+      </div>
+    </div>
+
+    <!-- LEGAL, PRIVACY, REFUND POLICY & SUPPORT MODAL -->
+    <div class="modal-backdrop" id="legalModal">
+      <div class="modal" style="max-width:740px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:12px;">
+          <div>
+            <div style="font-size:0.68rem; font-family:var(--font-mono); color:#93c5fd; text-transform:uppercase; letter-spacing:0.05em;">
+              LEGAL & COMPLIANCE · MERCHANT OF RECORD: LEMON SQUEEZY
+            </div>
+            <h3 style="font-size:1.1rem; font-weight:800; color:#ffffff; margin-top:3px;" id="legalModalTitle">
+              Terms of Service, Privacy Policy & Refund Policy
+            </h3>
+          </div>
+          <div style="display:flex; gap:6px; flex-wrap:wrap;">
+            <button type="button" class="btn btn-sm btn-legal-tab" data-legal-tab="terms">Terms of Service</button>
+            <button type="button" class="btn btn-sm btn-legal-tab" data-legal-tab="privacy">Privacy Policy</button>
+            <button type="button" class="btn btn-sm btn-legal-tab" data-legal-tab="refund">Refund Policy</button>
+            <button type="button" class="btn btn-sm btn-legal-tab" data-legal-tab="support">Support Contact</button>
+            <button type="button" class="btn btn-sm" id="btnCloseLegalModal">Close ✕</button>
+          </div>
+        </div>
+        <div id="legalModalBody" style="font-size:0.82rem; color:var(--text); line-height:1.68; max-height:62vh; overflow-y:auto; background:#05080f; padding:18px; border-radius:4px; border:1px solid var(--border);">
+          <div data-legal-section="terms">
+            <h4 style="color:#ffffff; font-size:0.95rem; font-weight:800; margin-bottom:6px;">1. Terms of Service & Non-Advisory Disclosure</h4>
+            <p style="color:var(--muted); margin-bottom:10px;">
+              RightSideAlpha and SemiFearGreed (<code class="mono">truthofmarket.com</code>) provide quantitative financial data analytics, empirical backtesting outputs (2000–2026), and algorithmic screening tools for US-listed equities and ETFs. Nothing on this platform constitutes personalized investment advice, brokerage solicitation, legal advice, or tax counsel. Users are solely responsible for their own investment decisions and trade executions.
+            </p>
+            <p style="color:var(--muted); margin-bottom:12px;">
+              Pro Terminal licenses grant single-user access to quantitative target levels, daily SEC primary-filing briefs, Position Doctor diagnostics, and Pine Script v5 indicators. Redistribution or unauthorized sharing of license keys or private VIP Telegram invite links is strictly prohibited.
+            </p>
+          </div>
+          <div data-legal-section="privacy" style="border-top:1px solid var(--border); padding-top:12px; margin-top:12px;">
+            <h4 style="color:#ffffff; font-size:0.95rem; font-weight:800; margin-bottom:6px;">2. Privacy Policy</h4>
+            <p style="color:var(--muted); margin-bottom:10px;">
+              We respect your financial privacy. Portfolio inputs entered into the Position Sizing Calculator, Position Doctor, or $SMH:$XLV Barbell Rebalancing Engine are processed locally in your browser and are never sold or shared with third parties. Payment processing and billing data are handled securely by our Merchant of Record, <b>Lemon Squeezy, LLC</b>, under PCI-DSS compliance.
+            </p>
+          </div>
+          <div data-legal-section="refund" style="border-top:1px solid var(--border); padding-top:12px; margin-top:12px;">
+            <h4 style="color:#ffffff; font-size:0.95rem; font-weight:800; margin-bottom:6px;">3. Subscription Cancellation & Refund Policy</h4>
+            <p style="color:var(--muted); margin-bottom:10px;">
+              Monthly Pro subscriptions ($29/mo) can be canceled at any time with one click via your Lemon Squeezy customer billing portal or by contacting support; access remains active through the end of the current billing period with zero cancellation fees. Because digital quantitative data, downloadable 26.8-year CSV datasets, and Pine Script v5 source code are delivered immediately upon activation, Lifetime Pass ($199) and activated digital licenses are non-refundable once accessed, except where required by applicable consumer protection law or in cases of duplicate billing.
+            </p>
+          </div>
+          <div data-legal-section="support" style="border-top:1px solid var(--border); padding-top:12px; margin-top:12px;">
+            <h4 style="color:#ffffff; font-size:0.95rem; font-weight:800; margin-bottom:6px;">4. Customer Support & Billing Inquiries</h4>
+            <p style="color:var(--muted);">
+              • <b>Official Support Email</b>: <a href="mailto:support@truthofmarket.com" style="color:#60a5fa; font-weight:700;">support@truthofmarket.com</a><br/>
+              • <b>Merchant of Record</b>: Lemon Squeezy, LLC (<a href="https://app.lemonsqueezy.com/my-orders" target="_blank" rel="noopener noreferrer" style="color:#60a5fa;">Manage Orders & Receipts ↗</a>)<br/>
+              • <b>Public Broadcast Desk</b>: <a href="https://t.me/truthofmarketss" target="_blank" rel="noopener noreferrer" style="color:#38bdf8;">t.me/truthofmarketss (@truthofmarketss) ↗</a>
+            </p>
+          </div>
         </div>
       </div>
     </div>

@@ -1,6 +1,8 @@
 import "./styles/theme.css";
 import { translations } from "./locales/i18n.js";
 import {
+  isProActive,
+  getVipTelegramUrl,
   getAuthHeader,
   fetchStocks,
   fetchBacktestSummary,
@@ -97,6 +99,10 @@ const defaultView =
     if (!oldTgCid || oldTgCid.includes("SemifearGreedbot") || oldTgCid === "755033799") {
       localStorage.setItem("rsa_tg_chat_id", "@truthofmarketss");
     }
+    const oldIg = localStorage.getItem("rsa_cfg_instagram_url") || "";
+    if (oldIg.includes("semifeargreed")) {
+      localStorage.setItem("rsa_cfg_instagram_url", "https://www.instagram.com/rightsidealpha");
+    }
   } catch (_) {}
 })();
 
@@ -117,7 +123,7 @@ const state = {
   lang: detectInitialLang(),
   activeView: defaultView,
   isAdminAuthenticated: sessionStorage.getItem("rsa_admin_auth") === "true",
-  isProUnlocked: localStorage.getItem("rsa_pro_unlocked") === "true",
+  isProUnlocked: isProActive(),
   licenseKey: localStorage.getItem("rsa_token") || "",
   proPortfolioUsd: Number(localStorage.getItem("rsa_pro_cap_usd") || 30000),
   stocks: [],
@@ -163,7 +169,7 @@ const state = {
     broker_referral_url:
       localStorage.getItem("rsa_cfg_broker_url") || "https://www.bitget.com/referral/register?clacCode=7nja",
     telegram_channel_url: localStorage.getItem("rsa_tg_channel_url") || "https://t.me/truthofmarketss",
-    telegram_vip_channel_url: localStorage.getItem("rsa_tg_vip_channel_url") || "https://t.me/+a6Sl2yLirbwyODQ1",
+    telegram_vip_channel_url: localStorage.getItem("rsa_tg_vip_channel_url") || "",
     telegram_chat_id: localStorage.getItem("rsa_tg_chat_id") || "@truthofmarketss",
     youtube_url: localStorage.getItem("rsa_cfg_youtube_url") || DEFAULT_YOUTUBE_URL,
     instagram_url: localStorage.getItem("rsa_cfg_instagram_url") || DEFAULT_INSTAGRAM_URL,
@@ -266,17 +272,26 @@ function renderApp() {
           </a>
           <span style="color:var(--border);">|</span>
           <a href="${state.config.instagram_url || DEFAULT_INSTAGRAM_URL}" target="_blank" rel="noopener noreferrer" style="color:#f9a8d4; text-decoration:none; font-weight:600;">
-            📸 Instagram (@semifeargreed) ↗
+            📸 Instagram (@rightsidealpha) ↗
           </a>
           <span style="color:var(--border);">|</span>
           <a
-            href="${state.isProUnlocked ? (state.config.telegram_vip_channel_url || "https://t.me/+a6Sl2yLirbwyODQ1") : "#pro-vip-telegram"}"
+            href="${getVipTelegramUrl(state.isProUnlocked)}"
             class="${state.isProUnlocked ? "" : "btn-gated-vip-tg"}"
             ${state.isProUnlocked ? 'target="_blank" rel="noopener noreferrer"' : ""}
             style="color:#38bdf8; text-decoration:none; font-weight:600;"
           >
             ${state.isProUnlocked ? "👑 Pro VIP Telegram Channel ↗" : "🔒 Pro VIP Telegram ($SMH/$XLV & 72-Stock News)"}
           </a>
+        </div>
+        <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-bottom:10px; font-size:0.74rem;">
+          <a href="#legal-terms" class="btn-open-legal" data-legal-tab="terms" style="color:#93c5fd; text-decoration:none; font-weight:600;">Terms of Service</a>
+          <span style="color:var(--border);">·</span>
+          <a href="#legal-privacy" class="btn-open-legal" data-legal-tab="privacy" style="color:#93c5fd; text-decoration:none; font-weight:600;">Privacy Policy</a>
+          <span style="color:var(--border);">·</span>
+          <a href="#legal-refund" class="btn-open-legal" data-legal-tab="refund" style="color:#93c5fd; text-decoration:none; font-weight:600;">Refund & Cancellation Policy</a>
+          <span style="color:var(--border);">·</span>
+          <a href="mailto:support@truthofmarket.com" style="color:#93c5fd; text-decoration:none; font-weight:600;">Support: support@truthofmarket.com</a>
         </div>
         <p id="disclaimerText">${t.disclaimer}</p>
         <p style="margin-top:8px; font-family:var(--font-mono); font-size:0.72rem;" id="copyrightText">${t.copyright}</p>
@@ -566,7 +581,7 @@ function bindEvents() {
         sessionStorage.setItem("rsa_admin_auth", "true");
         // Automatically grant Pro Terminal access to Admin
         state.isProUnlocked = true;
-        state.licenseKey = res.license_key || "PRO-DEMO-2026";
+        state.licenseKey = res.license_key || "RSA-ADMIN-SESSION";
         localStorage.setItem("rsa_pro_unlocked", "true");
         localStorage.setItem("rsa_token", state.licenseKey);
 
@@ -978,7 +993,7 @@ function bindEvents() {
     });
   }
 
-  // Research Modal Controls
+  // Research & Legal Modal Controls
   const researchModal = document.getElementById("researchModal");
   const btnCloseResearch = document.getElementById("btnCloseResearch");
   if (btnCloseResearch && researchModal) {
@@ -987,8 +1002,29 @@ function bindEvents() {
     });
   }
 
+  const legalModal = document.getElementById("legalModal");
+  const btnCloseLegalModal = document.getElementById("btnCloseLegalModal");
+  if (btnCloseLegalModal && legalModal) {
+    btnCloseLegalModal.addEventListener("click", () => {
+      legalModal.style.display = "none";
+    });
+  }
+  document.querySelectorAll(".btn-open-legal, .btn-legal-tab").forEach((el) => {
+    el.addEventListener("click", (e) => {
+      e.preventDefault();
+      const tab = el.getAttribute("data-legal-tab") || "terms";
+      if (legalModal) {
+        legalModal.style.display = "flex";
+        const sec = legalModal.querySelector(`[data-legal-section="${tab}"]`);
+        if (sec && typeof sec.scrollIntoView === "function") {
+          sec.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+    });
+  });
+
   // Backdrop click-to-close on all modals
-  [licenseModal, telegramModal, configModal, researchModal].forEach((modalEl) => {
+  [licenseModal, telegramModal, configModal, researchModal, legalModal].forEach((modalEl) => {
     if (modalEl) {
       modalEl.addEventListener("click", (e) => {
         if (e.target === modalEl) {
@@ -997,6 +1033,99 @@ function bindEvents() {
       });
     }
   });
+
+  const renderMarkdownToHtml = (mdText) => {
+    const esc = (s) =>
+      String(s || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+    const fmtInline = (s) =>
+      esc(s)
+        .replace(/\*\*([^*]+)\*\*/g, '<strong style="color:#ffffff;">$1</strong>')
+        .replace(/`([^`]+)`/g, '<code class="mono" style="background:#0f172a; padding:1px 5px; border-radius:3px; color:#93c5fd;">$1</code>');
+
+    const lines = String(mdText || "").split(/\r?\n/);
+    const out = [];
+    let inTable = false;
+    let tableRows = [];
+    let inList = false;
+
+    const flushTable = () => {
+      if (!tableRows.length) return;
+      const header = tableRows[0];
+      const body = tableRows.slice(1).filter((r) => !r.every((c) => /^[-:\s]+$/.test(c)));
+      const thHtml = header
+        .map((c) => `<th style="padding:7px 10px; border-bottom:1px solid #334155; text-align:left; color:#93c5fd; font-size:0.76rem;">${fmtInline(c)}</th>`)
+        .join("");
+      const tbHtml = body
+        .map(
+          (r) =>
+            `<tr>${r
+              .map((c) => `<td style="padding:7px 10px; border-bottom:1px solid #1e293b; font-size:0.78rem;">${fmtInline(c)}</td>`)
+              .join("")}</tr>`
+        )
+        .join("");
+      out.push(
+        `<div class="table-responsive-scroll" style="margin:10px 0;"><table style="width:100%; border-collapse:collapse; background:#090d16; border:1px solid #1e293b;"><thead><tr>${thHtml}</tr></thead><tbody>${tbHtml}</tbody></table></div>`
+      );
+      tableRows = [];
+      inTable = false;
+    };
+
+    const flushList = () => {
+      if (inList) {
+        out.push("</ul>");
+        inList = false;
+      }
+    };
+
+    for (const rawLine of lines) {
+      const line = rawLine.trim();
+      if (line.startsWith("|") && line.endsWith("|")) {
+        flushList();
+        inTable = true;
+        const cells = line
+          .slice(1, -1)
+          .split("|")
+          .map((c) => c.trim());
+        tableRows.push(cells);
+        continue;
+      } else if (inTable) {
+        flushTable();
+      }
+
+      if (!line) {
+        flushList();
+        continue;
+      }
+      if (/^---+$/.test(line)) {
+        flushList();
+        out.push('<hr style="border:none; border-top:1px solid var(--border); margin:12px 0;" />');
+      } else if (line.startsWith("### ")) {
+        flushList();
+        out.push(`<h4 style="color:#93c5fd; font-size:0.9rem; font-weight:800; margin:12px 0 6px;">${fmtInline(line.slice(4))}</h4>`);
+      } else if (line.startsWith("## ")) {
+        flushList();
+        out.push(`<h3 style="color:#ffffff; font-size:0.98rem; font-weight:800; margin:14px 0 6px;">${fmtInline(line.slice(3))}</h3>`);
+      } else if (line.startsWith("# ")) {
+        flushList();
+        out.push(`<h2 style="color:#ffffff; font-size:1.06rem; font-weight:800; margin:6px 0 10px;">${fmtInline(line.slice(2))}</h2>`);
+      } else if (/^([-*]|\d+\.)\s+/.test(line)) {
+        if (!inList) {
+          out.push('<ul style="margin:6px 0 10px 18px; padding:0; line-height:1.6;">');
+          inList = true;
+        }
+        out.push(`<li style="margin-bottom:4px;">${fmtInline(line.replace(/^([-*]|\d+\.)\s+/, ""))}</li>`);
+      } else {
+        flushList();
+        out.push(`<p style="margin:6px 0;">${fmtInline(line)}</p>`);
+      }
+    }
+    if (inTable) flushTable();
+    flushList();
+    return out.join("");
+  };
 
   const openResearchForTicker = async (ticker) => {
     if (!researchModal) return;
@@ -1008,26 +1137,25 @@ function bindEvents() {
     try {
       const data = await fetchResearchBrief(ticker);
       const stockObj = state.stocks.find((s) => s.ticker === ticker);
-      const cPrice = Number(data.current_price ?? stockObj?.close ?? 27.93).toFixed(2);
+      const cPrice = Number(data.current_price ?? stockObj?.close ?? 29.12).toFixed(2);
       const sPrice = Number(data.stop_price ?? stockObj?.stop_loss_price ?? Number(cPrice) * 0.91).toFixed(2);
       const tPrice = Number(data.target_price ?? stockObj?.tp1_2x_price ?? Number(cPrice) * 2.0).toFixed(2);
-      const asOf = data.as_of_date || stockObj?.date || data.report_date || "2026-10-13";
+      const asOf = data.as_of_date || stockObj?.date || data.report_date || "2026-10-30";
+      const langTitle = data[`title_${state.lang}`] || data.title;
       const safeTitle =
-        data.title ||
+        langTitle ||
         `${data.company_name || ticker} ($${data.ticker || ticker}) — ${data.opinion || "STRONG_BUY"} | Latest Close $${cPrice} (${asOf})`;
       if (titleEl) titleEl.textContent = safeTitle;
       if (bodyEl) {
-        const formatted = (data.content || "")
-          .replace(/&/g, "&amp;")
-          .replace(/</g, "&lt;")
-          .replace(/>/g, "&gt;")
-          .replace(/\n/g, "<br/>");
+        const rawMarkdown = data[`content_${state.lang}`] || data.content || "";
+        const formatted = renderMarkdownToHtml(rawMarkdown);
+        const isStopped = String(data.opinion || "").includes("STOP");
         const metaHeader = `
-          <div style="display:flex; flex-wrap:wrap; gap:14px; background:#090d16; border:1px solid var(--border); border-left:3px solid var(--fin-up); padding:10px 14px; border-radius:4px; margin-bottom:14px; font-family:var(--font-mono); font-size:0.76rem;">
+          <div style="display:flex; flex-wrap:wrap; gap:14px; background:#090d16; border:1px solid var(--border); border-left:3px solid ${isStopped ? "var(--fin-down)" : "var(--fin-up)"}; padding:10px 14px; border-radius:4px; margin-bottom:14px; font-family:var(--font-mono); font-size:0.76rem;">
             <span>LATEST CLOSE (${asOf}): <b style="color:#ffffff;">$${cPrice}</b></span>
-            <span>HARD STOP (-9%): <b style="color:var(--fin-down);">$${sPrice}</b></span>
+            <span>RULE 1 HARD STOP (-9%): <b style="color:var(--fin-down);">$${sPrice}</b></span>
             <span>TP1 TARGET (2x): <b style="color:var(--fin-up);">$${tPrice}</b></span>
-            <span>RRR: <b style="color:#93c5fd;">${data.rrr_ratio || "1 : 11.1"}</b></span>
+            <span>STATUS / RRR: <b style="color:${isStopped ? "#fca5a5" : "#93c5fd"};">${data.rrr_ratio || "1 : 11.1"}</b></span>
           </div>
         `;
         bodyEl.innerHTML = `${metaHeader}<div style="font-family:var(--font-sans); line-height:1.65;">${formatted}</div>`;

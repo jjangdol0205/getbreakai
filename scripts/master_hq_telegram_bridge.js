@@ -256,27 +256,30 @@ let currentTask = null;
 
 function detectDivisionFromText(text, fallbackDiv) {
   const t = text.toLowerCase();
+  // 1. Check explicit domain names or division labels first
+  if (t.includes("kidsfit.co.kr") || t.includes("사업아이템") || t.includes("3사업")) {
+    return "KFK";
+  }
+  if (t.includes("kisfitglobal.com") || t.includes("kidsfitglobal.com") || t.includes("키즈핏 영문") || t.includes("2사업")) {
+    return "KFG";
+  }
+  if (t.includes("truthofmarket.com") || t.includes("rightsidealpha") || t.includes("1사업")) {
+    return "TOM";
+  }
+  // 2. Fallback keyword matching
   if (
     t.includes("주식") ||
     t.includes("반도체") ||
     t.includes("smh") ||
     t.includes("xlv") ||
-    t.includes("truth") ||
-    t.includes("rightside") ||
-    t.includes("1사업")
+    t.includes("rightside")
   ) {
     return "TOM";
   }
-  if (t.includes("영문") || t.includes("글로벌") || t.includes("global") || t.includes("kisfit") || t.includes("2사업")) {
+  if (t.includes("영문") || t.includes("글로벌") || t.includes("kisfit")) {
     return "KFG";
   }
-  if (
-    t.includes("사업아이템") ||
-    t.includes("국내") ||
-    t.includes("키즈핏") ||
-    t.includes("kidsfit") ||
-    t.includes("3사업")
-  ) {
+  if (t.includes("국내") || t.includes("키즈핏") || t.includes("kidsfit")) {
     return "KFK";
   }
   return fallbackDiv || "TOM";

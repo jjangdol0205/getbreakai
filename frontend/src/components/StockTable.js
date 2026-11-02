@@ -170,7 +170,7 @@ export function renderStockRows(state) {
                </span>
              </div>
              <div style="font-size:0.72rem; color:var(--muted); margin-top:3px;">
-               ${s.sector} · <span style="color:#93c5fd; text-decoration:underline;">Unlock Pro to Reveal Ticker</span>
+               🔒 VIP SECTOR · <span style="color:#93c5fd; text-decoration:underline;">Unlock Pro to Reveal Ticker</span>
              </div>
            </div>`
         : `<div>
@@ -182,6 +182,21 @@ export function renderStockRows(state) {
                ${stockName} · <span style="color:var(--text-secondary);">${s.sector}</span>
              </div>
            </div>`;
+
+      const closeCellHtml =
+        isLockedRow || s.close === null || s.close === undefined
+          ? `<div class="mono btn-unlock-row" style="font-weight:700; color:#fbbf24; cursor:pointer;" title="Unlock Pro to reveal Last Close & 52W Range">🔒 VIP PRICE</div>
+             <div style="font-size:0.68rem; color:var(--muted); margin-top:3px;">52W Range Locked</div>`
+          : `<div class="mono" style="font-weight:700; color:#ffffff;" title="Latest Close Date: ${s.date || "2026-10-30"}">$${closeVal.toFixed(2)}</div>
+             <div class="range-52w-wrap" title="52W Range: $${low52.toFixed(2)} – $${high52.toFixed(2)}">
+               <div class="range-52w-track">
+                 <div class="range-52w-fill" style="width:${rangePct}%;"></div>
+               </div>
+               <div class="range-52w-labels">
+                 <span>L:$${low52.toFixed(0)}</span>
+                 <span>H:$${high52.toFixed(0)}</span>
+               </div>
+             </div>`;
 
       return `
       <tr data-ticker="${isLockedRow ? "LOCKED" : s.ticker}">
@@ -208,16 +223,7 @@ export function renderStockRows(state) {
           </div>
         </td>
         <td>
-          <div class="mono" style="font-weight:700; color:#ffffff;" title="Latest Close Date: ${s.date || "2026-10-30"}">$${closeVal.toFixed(2)}</div>
-          <div class="range-52w-wrap" title="52W Range: $${low52.toFixed(2)} – $${high52.toFixed(2)}">
-            <div class="range-52w-track">
-              <div class="range-52w-fill" style="width:${rangePct}%;"></div>
-            </div>
-            <div class="range-52w-labels">
-              <span>L:$${low52.toFixed(0)}</span>
-              <span>H:$${high52.toFixed(0)}</span>
-            </div>
-          </div>
+          ${closeCellHtml}
         </td>
         <td class="mono" style="color:${s.prox_low52_pct <= 40 && s.prox_low52_pct >= 10 ? "var(--fin-up)" : "var(--text-secondary)"}; font-weight:600;">
           +${Number(s.prox_low52_pct ?? 0).toFixed(1)}%

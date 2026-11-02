@@ -1,4 +1,4 @@
-import { formatCheckoutUrl } from "../services/api.js";
+import { formatCheckoutUrl, getVipTelegramUrl } from "../services/api.js";
 
 const PRICING_COPY = {
   en: {
@@ -32,7 +32,7 @@ const PRICING_COPY = {
     ],
     tvBtn: "📈 Launch TradingView Terminal ↗",
     saBtn: "📊 Open Seeking Alpha EPS Consensus ↗",
-    brokerBtn: "🏦 Open US Broker / Exchange PartnerBonus ↗",
+    brokerBtn: "🏦 Open US Broker / Exchange Partner Bonus ↗",
     tgBtn: "🔒 Pro VIP Telegram ($SMH/$XLV & 72-Stock Live News)",
   },
   kr: {
@@ -183,15 +183,15 @@ export function renderPricing(state) {
           <a class="btn" id="affBrokerBtn" href="${rawBrkUrl}" target="_blank" rel="noopener noreferrer" style="justify-content:center; border-color:rgba(16,185,129,0.45); color:#34d399; font-weight:700;">
             ${c.brokerBtn} (${brokerName})
           </a>
-          <a class="btn ${state.isProUnlocked ? "" : "btn-gated-vip-tg"}" id="pricingTelegramChannelBtn" href="${state.isProUnlocked ? (cfg.telegram_channel_url || "https://t.me/+a6Sl2yLirbwyODQ1") : "#pro-vip-telegram"}" ${state.isProUnlocked ? 'target="_blank" rel="noopener noreferrer"' : ""} style="justify-content:center; border-color:rgba(56,189,248,0.45); color:#38bdf8; font-weight:700;">
+          <a class="btn ${state.isProUnlocked ? "" : "btn-gated-vip-tg"}" id="pricingTelegramChannelBtn" href="${getVipTelegramUrl(state.isProUnlocked)}" ${state.isProUnlocked ? 'target="_blank" rel="noopener noreferrer"' : ""} style="justify-content:center; border-color:rgba(56,189,248,0.45); color:#38bdf8; font-weight:700;">
             ${state.isProUnlocked ? "👑 Enter Pro VIP Telegram Channel ↗" : c.tgBtn}
           </a>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
             <a class="btn" id="pricingYoutubeBtn" href="${cfg.youtube_url || "https://youtube.com/@rightsidealpha"}" target="_blank" rel="noopener noreferrer" style="justify-content:center; border-color:rgba(239,68,68,0.4); color:#fca5a5;">
               📺 YouTube (@rightsidealpha) ↗
             </a>
-            <a class="btn" id="pricingInstagramBtn" href="${cfg.instagram_url || "https://www.instagram.com/semifeargreed"}" target="_blank" rel="noopener noreferrer" style="justify-content:center; border-color:rgba(236,72,153,0.4); color:#f9a8d4;">
-              📸 Instagram (@semifeargreed) ↗
+            <a class="btn" id="pricingInstagramBtn" href="${cfg.instagram_url || "https://www.instagram.com/rightsidealpha"}" target="_blank" rel="noopener noreferrer" style="justify-content:center; border-color:rgba(236,72,153,0.4); color:#f9a8d4;">
+              📸 Instagram (@rightsidealpha) ↗
             </a>
           </div>
         </div>

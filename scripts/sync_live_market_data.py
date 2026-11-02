@@ -226,6 +226,11 @@ def main():
                 f_row["name_en"] = "🔒 VIP IGNITION PICK (Pro Subscribers Only)"
                 f_row["name_jp"] = "🔒 VIP イグニッション銘柄 (Pro会員限定)"
                 f_row["name_kr"] = "🔒 VIP 우측 시동 종목 (Pro 구독자 전용)"
+                f_row["sector"] = "🔒 VIP SECTOR"
+                f_row["close"] = None
+                f_row["price"] = None
+                f_row["low52"] = None
+                f_row["high52"] = None
         updated_free.append(f_row)
 
     # Update SemiFearGreed overview ($SMH, $XLV, $QQQ, KRW=X)

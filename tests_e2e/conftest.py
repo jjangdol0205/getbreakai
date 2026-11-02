@@ -28,7 +28,11 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-DATA_ROOT = PROJECT_ROOT / "관심종목_백업_20261030"
+DATA_ROOT = (
+    PROJECT_ROOT / "관심종목_백업_20261030"
+    if (PROJECT_ROOT / "관심종목_백업_20261030").exists()
+    else PROJECT_ROOT.parent / "4_퀀트백테스트_모닝PDF_연구소"
+)
 BACKTEST_PATH = DATA_ROOT / "pw_rsi_2000_2026_backtest.json"
 STOCKS_PATH = DATA_ROOT / "all_100_stocks_screened.json"
 RESEARCH_DIR = DATA_ROOT / "weekly_picks"

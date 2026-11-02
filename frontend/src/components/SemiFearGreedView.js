@@ -1,4 +1,5 @@
 import { renderPricing } from "./Pricing.js";
+import { getVipTelegramUrl } from "../services/api.js";
 
 function polarToCartesian(cx, cy, r, angleDeg) {
   const rad = (angleDeg * Math.PI) / 180.0;
@@ -325,16 +326,16 @@ export function renderSemiFearGreedView(state) {
           </a>
           <a
             class="btn"
-            href="${state.config?.instagram_url || "https://www.instagram.com/semifeargreed"}"
+            href="${state.config?.instagram_url || "https://www.instagram.com/rightsidealpha"}"
             target="_blank"
             rel="noopener noreferrer"
             style="background:#db2777; color:#ffffff; border-color:#be185d;"
           >
-            📸 Instagram (@semifeargreed) ↗
+            📸 Instagram (@rightsidealpha) ↗
           </a>
           <a
             class="btn ${state.isProUnlocked ? "" : "btn-gated-vip-tg"}"
-            href="${state.isProUnlocked ? (state.config?.telegram_vip_channel_url || "https://t.me/+a6Sl2yLirbwyODQ1") : "#pro-vip-telegram"}"
+            href="${getVipTelegramUrl(state.isProUnlocked)}"
             ${state.isProUnlocked ? 'target="_blank" rel="noopener noreferrer"' : ""}
             style="background:#0284c7; color:#ffffff; border-color:#0369a1;"
           >

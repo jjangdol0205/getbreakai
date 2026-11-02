@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>RightSideAlpha x SemiFearGreed | US Equity Quant Terminal &amp; Semiconductor Fear &amp; Greed Index</title>
+    <link>https://truthofmarket.com/</link>
+    <atom:link href="https://truthofmarket.com/rss.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://pubsubhubbub.appspot.com/" rel="hub" />
+    <description>Institutional US Equity Post-Washout Right-Side Ignition (PW-RSI) Quant Terminal covering 72 US equities, daily $SMH Semiconductor Fear &amp; Greed Index (0-100), and $SMH/$XLV contrarian barbell allocation.</description>
+    <language>en-US</language>
+    <lastBuildDate>Fri, 30 Oct 2026 21:00:00 +0000</lastBuildDate>
+    <item>
+      <title><![CDATA[RightSideAlpha x SemiFearGreed — 72 US Equity PW-RSI Turnaround Terminal & 26.8-Year Backtest (2000-2026)]]></title>
+      <link>https://truthofmarket.com/</link>
+      <guid isPermaLink="true">https://truthofmarket.com/</guid>
+      <pubDate>Fri, 30 Oct 2026 21:00:00 +0000</pubDate>
+      <description><![CDATA[Live institutional US equity quant screener tracking 72 liquid US stocks across 52-week washout bottoms, right-side SMA20/SMA60 turnaround ignition triggers, -9.0% mechanical hard-stop protection, and 2x (TP1 +100%) asymmetric profit targets.]]></description>
+    </item>
+    <item>
+      <title><![CDATA[CNN-Edition Semiconductor Fear & Greed Index ($SMH 37.9 FEAR) & $SMH/$XLV 70:30 Barbell Engine]]></title>
+      <link>https://truthofmarket.com/?view=semi</link>
+      <guid isPermaLink="true">https://truthofmarket.com/?view=semi</guid>
+      <pubDate>Fri, 30 Oct 2026 20:30:00 +0000</pubDate>
+      <description><![CDATA[Real-time 5-factor Semiconductor Fear & Greed Index ($SMH Close $206.92, -22.23% from 52W High $266.05) and regime-based $SMH (VanEck Semiconductor ETF) vs. $XLV (Health Care Select Sector SPDR) contrarian barbell rebalancing simulator.]]></description>
+    </item>
+    <item>
+      <title><![CDATA[Celsius Holdings ($CELH) Institutional Deep-Dive: 52W Bottom Re-Accumulation & PW-RSI Turnaround Analysis ($29.12)]]></title>
+      <link>https://truthofmarket.com/?ticker=CELH</link>
+      <guid isPermaLink="true">https://truthofmarket.com/?ticker=CELH</guid>
+      <pubDate>Fri, 30 Oct 2026 20:00:00 +0000</pubDate>
+      <description><![CDATA[Comprehensive institutional audit of Celsius Holdings ($CELH) following its -70.6% PepsiCo inventory destocking washout: 63.3% gross margin defense, international expansion catalysts, $26.50 (-9.0%) hard stop floor, and $58.24 (+100% 2x) TP1 target.]]></description>
+    </item>
+    <item>
+      <title><![CDATA[Mobileye Global ($MBLY) Post-Mortem Risk Audit: Rule 1 (-9.0% Hard Stop @ $6.39) Execution & Capital Preservation]]></title>
+      <link>https://truthofmarket.com/?ticker=MBLY</link>
+      <guid isPermaLink="true">https://truthofmarket.com/?ticker=MBLY</guid>
+      <pubDate>Fri, 30 Oct 2026 19:30:00 +0000</pubDate>
+      <description><![CDATA[Transparent institutional post-mortem on Mobileye Global ($MBLY, Close $5.96): how mechanical execution of Rule 1 (-9.0% Hard Stop at $6.39) prevented deeper drawdown after support breakdown and redeployed capital into confirmed right-side leaders.]]></description>
+    </item>
+    <item>
+      <title><![CDATA[Daily PW-RSI Right-Side Ignition Watchlist: $ON, $MCHP, $ENPH, $FSLR, $DVN, $OXY, $INTC, $BIIB]]></title>
+      <link>https://truthofmarket.com/?filter=ignition</link>
+      <guid isPermaLink="true">https://truthofmarket.com/?filter=ignition</guid>
+      <pubDate>Fri, 30 Oct 2026 19:00:00 +0000</pubDate>
+      <description><![CDATA[Daily quantitative screening of 72 US equities identifying stocks emerging from 52-week extreme oversold washouts with bullish RSI divergence, volume dry-up (VDU) exhaustion, and 20-day moving average reclaim triggers.]]></description>
+    </item>
+  </channel>
+</rss>

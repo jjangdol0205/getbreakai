@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://truthofmarket.com/sitemap.xml
+Sitemap: https://truthofmarket.com/rss.xml

@@ -94,6 +94,34 @@ _static_candidates = [
 _static_dir = next((p for p in _static_candidates if p.exists() and (p / "index.html").exists()), None)
 
 if _static_dir:
+    @app.get("/rss.xml", include_in_schema=False)
+    def rss_xml_entry():
+        p = _static_dir / "rss.xml"
+        if not p.exists():
+            p = settings.BASE_DIR / "frontend" / "public" / "rss.xml"
+        return FileResponse(str(p), media_type="application/xml; charset=utf-8")
+
+    @app.get("/feed.xml", include_in_schema=False)
+    def feed_xml_entry():
+        p = _static_dir / "feed.xml"
+        if not p.exists():
+            p = settings.BASE_DIR / "frontend" / "public" / "feed.xml"
+        return FileResponse(str(p), media_type="application/xml; charset=utf-8")
+
+    @app.get("/sitemap.xml", include_in_schema=False)
+    def sitemap_xml_entry():
+        p = _static_dir / "sitemap.xml"
+        if not p.exists():
+            p = settings.BASE_DIR / "frontend" / "public" / "sitemap.xml"
+        return FileResponse(str(p), media_type="application/xml; charset=utf-8")
+
+    @app.get("/robots.txt", include_in_schema=False)
+    def robots_txt_entry():
+        p = _static_dir / "robots.txt"
+        if not p.exists():
+            p = settings.BASE_DIR / "frontend" / "public" / "robots.txt"
+        return FileResponse(str(p), media_type="text/plain; charset=utf-8")
+
     @app.get("/semi", include_in_schema=False)
     def semi_spa_entry():
         return FileResponse(str(_static_dir / "index.html"))

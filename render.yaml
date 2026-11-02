@@ -7,13 +7,23 @@ services:
     domains:
       - truthofmarket.com
       - www.truthofmarket.com
+    headers:
+      - path: /rss.xml
+        name: Content-Type
+        value: application/xml; charset=utf-8
+      - path: /feed.xml
+        name: Content-Type
+        value: application/xml; charset=utf-8
+      - path: /sitemap.xml
+        name: Content-Type
+        value: application/xml; charset=utf-8
     routes:
       - type: rewrite
         source: /api/health
         destination: /static_api/health.json
       - type: rewrite
         source: /api/stocks
-        destination: /static_api/stocks_pro.json
+        destination: /static_api/stocks_free.json
       - type: rewrite
         source: /api/backtest
         destination: /static_api/backtest.json

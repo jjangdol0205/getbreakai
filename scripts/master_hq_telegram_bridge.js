@@ -106,6 +106,9 @@ const HQ_KEYBOARD = {
       { text: "🎬 2사업부(영문) Flow 릴스 1건", callback_data: "/flow_kfg" },
       { text: "🎬 3사업부(국내) Flow 릴스 1건", callback_data: "/flow_kfk" },
     ],
+    [
+      { text: "📈 전사업부 방문자·서치콘솔 즉시조회", callback_data: "/visitors" },
+    ],
   ],
 };
 
@@ -255,34 +258,29 @@ const taskQueue = [];
 let currentTask = null;
 
 function detectDivisionFromText(text, fallbackDiv) {
-  const t = text.toLowerCase();
-  // 1. Check explicit domain names or division labels first
+  const firstLine = (text || "").trim().split(/\r?\n/)[0].toLowerCase();
+  // Only override the active remote button mode if the user explicitly prefixes the first line with a division tag
+  if (/^(\[?1사업부\]?|1사업부\s*:|\[?tom\]?)/.test(firstLine)) {
+    return "TOM";
+  }
+  if (/^(\[?2사업부\]?|2사업부\s*:|\[?kfg\]?)/.test(firstLine)) {
+    return "KFG";
+  }
+  if (/^(\[?3사업부\]?|3사업부\s*:|\[?kfk\]?)/.test(firstLine)) {
+    return "KFK";
+  }
+  // If no active division was selected yet, fall back to domain/keyword detection
+  if (fallbackDiv && DIVISIONS[fallbackDiv]) {
+    return fallbackDiv;
+  }
+  const t = (text || "").toLowerCase();
   if (t.includes("kidsfit.co.kr") || t.includes("사업아이템") || t.includes("3사업")) {
     return "KFK";
   }
   if (t.includes("kisfitglobal.com") || t.includes("kidsfitglobal.com") || t.includes("키즈핏 영문") || t.includes("2사업")) {
     return "KFG";
   }
-  if (t.includes("truthofmarket.com") || t.includes("rightsidealpha") || t.includes("1사업")) {
-    return "TOM";
-  }
-  // 2. Fallback keyword matching
-  if (
-    t.includes("주식") ||
-    t.includes("반도체") ||
-    t.includes("smh") ||
-    t.includes("xlv") ||
-    t.includes("rightside")
-  ) {
-    return "TOM";
-  }
-  if (t.includes("영문") || t.includes("글로벌") || t.includes("kisfit")) {
-    return "KFG";
-  }
-  if (t.includes("국내") || t.includes("키즈핏") || t.includes("kidsfit")) {
-    return "KFK";
-  }
-  return fallbackDiv || "TOM";
+  return "TOM";
 }
 
 function enqueueTask(task, botToken) {
@@ -430,6 +428,13 @@ async function handleCommand(rawText, state, botToken = null) {
     return;
   }
 
+  if (text === "/visitors" || text === "방문자" || text === "/stats" || text === "방문현황") {
+    const { runVisitorBriefing } = require("./hq_all_divisions_visitor_briefing");
+    const { html } = await runVisitorBriefing({ sendTelegram: false });
+    await sendHqMessage(html, true, botToken);
+    return;
+  }
+
   if (text === "/tom_news" || text === "뉴스") {
     enqueueTask(
       {
@@ -522,7 +527,17 @@ function checkDailyStaggeredSchedule(state) {
     saveState(state);
     handleCommand("/flow_kfk", state);
   }
-  if (hhmm === "21:00" && state.lastAutoRunDate.KFG !== ymd) {
+  if (hhmm === "08:30" && state.lastAutoRunDate.VISITOR_AM !== ymd) {
+    state.lastAutoRunDate.VISITOR_AM = ymd;
+    saveState(state);
+    handleCommand("/visitors", state);
+  }
+  if (hhmm === "21:00" && state.lastAutoRunDate.VISITOR_PM !== ymd) {
+    state.lastAutoRunDate.VISITOR_PM = ymd;
+    saveState(state);
+    handleCommand("/visitors", state);
+  }
+  if (hhmm === "21:05" && state.lastAutoRunDate.KFG !== ymd) {
     state.lastAutoRunDate.KFG = ymd;
     saveState(state);
     handleCommand("/flow_kfg", state);

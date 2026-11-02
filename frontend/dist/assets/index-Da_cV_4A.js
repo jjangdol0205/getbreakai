@@ -1,0 +1,1672 @@
+(function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const s of document.querySelectorAll('link[rel="modulepreload"]'))n(s);new MutationObserver(s=>{for(const a of s)if(a.type==="childList")for(const f of a.addedNodes)f.tagName==="LINK"&&f.rel==="modulepreload"&&n(f)}).observe(document,{childList:!0,subtree:!0});function o(s){const a={};return s.integrity&&(a.integrity=s.integrity),s.referrerPolicy&&(a.referrerPolicy=s.referrerPolicy),s.crossOrigin==="use-credentials"?a.credentials="include":s.crossOrigin==="anonymous"?a.credentials="omit":a.credentials="same-origin",a}function n(s){if(s.ep)return;s.ep=!0;const a=o(s);fetch(s.href,a)}})();const $e={en:{brandSubtitle:"US EQUITY QUANTITATIVE TERMINAL · v2.6",navRightSide:"RightSideAlpha · US Equities",navSemiFg:"SemiFearGreed · CNN-Style Index",marketUniverseTag:"NYSE & NASDAQ · 72 US EQUITIES",statusFree:"PUBLIC ACCESS",statusPro:"PRO TERMINAL ACTIVE",btnLicense:"License Key",btnAdmin:"Terminal Config",btnTelegram:"Telegram Alert",btnUnlockPro:"Upgrade to Pro ($29/mo)",heroTag:"INSTITUTIONAL TURNAROUND RESEARCH · 394,371 US STOCK-DAYS VERIFIED (2000–2026 · 26.8-YR)",heroTitle:"Systematic Right-Side Ignition for US-Listed Equities.",heroDesc:"Blindly buying 52-week lows in US growth equities traps capital for a median of 81 trading days with a -30.3% post-entry drawdown. RightSideAlpha isolates post-washout (1.40x+ volume) breakouts reclaiming the 20-day and 60-day moving averages across 72 liquid NYSE & NASDAQ equities.",kpi1_label:"PW-RSI 1Y 2x (+100%) Hit Rate",kpi1_sub:"vs 28.91% blind 52W-low dip buying",kpi2_label:"Median Days Underwater",kpi2_sub:"Reduced from 81.0 days via 55D Time-Stop",kpi3_label:"26.8-Yr US-Only Net CAGR",kpi3_sub:"80.5x net cumulative after 22% tax & slippage",kpi4_label:"Severe Drawdown (≤ -20%) Rate",kpi4_sub:"vs 24.82% without -9% hard stop & EPS filter",proofHeading:"Empirical Performance Matrix · Left-Side Dip Buying vs. PW-RSI Right-Side Ignition",proofCopyScorecardBtn:"Export Benchmark Tear Sheet (PNG)",th_arch:"Entry Methodology (US Equities, N = 394,371 Stock-Days)",th_2x:"1Y 2x (+100%) Rate",th_med:"1Y Median Return",th_mdd:"Post-Entry Median MDD",th_dead:"Days Underwater",th_trap:"1Y Tail Loss (≤ -20%)",searchPlaceholder:"Filter by US Ticker, Company, or GICS Sector (e.g. NVDA, CELH, Semiconductors)...",filterAll:"All US Equities",filterIgnition:"Right-Side Ignition",filterWatch:"Washout Base Watch",filterKnife:"Downtrend / Avoid",filterTrap:"Value Trap Excluded",colTicker:"Security / Sector",colZone:"Regime & Factor Checklist",colScore:"Quant Score",colClose:"Last Close & 52W Range",colProx:"vs 52W Low",colDD:"52W Drawdown",colMA:"vs MA20 / MA60",colVol:"10D Vol Ratio",colHist:"Hist 2x Rate",colTrigger:"Execution Levels (Trigger / Stop)",colActions:"Research & Execution",vaultBadgeLocked:"PRO ANALYTICS TERMINAL · LOCKED (ENTER LICENSE KEY)",vaultBadgeUnlocked:"PRO ANALYTICS TERMINAL · FULL INSTITUTIONAL ACCESS",vaultTitle:"Institutional Execution & Risk Management Suite",vaultUnlockBtn:"🔑 Unlock Pro ($29/mo)",tool1Title:"MODULE 01 · POSITION RISK & 55-DAY TIME-STOP ENGINE",tool1Sub:"Asymmetric Exit & Opportunity-Cost Diagnostic",tool1Desc:"Input your US equity cost basis and holding period. Evaluates the 4 quantitative exit rules (-9% Capital Protection Stop, 55-Day +8% Time-Stop, 25-Day Momentum Switch, and +100% TP1 Principal Harvest).",tool1Btn:"Run Position Diagnostic",tool2Title:"MODULE 02 · SEC FILING TURNAROUND RESEARCH",tool2Sub:"10-K / 10-Q / 8-K Primary Source Equity Briefs",tool2Desc:"Updated at 08:10 EST from primary SEC filings and institutional consensus revisions (zero retail media noise):",tool2ViewBtn:"Open Institutional Research Archive",tool3Title:"MODULE 03 · TRADINGVIEW PINE SCRIPT v5 OVERLAY",tool3Sub:"Automated MA20/MA60 Ignition & Washout Plotter",tool3Desc:"Deploy directly into TradingView Pine Editor to plot right-side MA20/MA60 breakouts, 1.40x volume washouts, and -9% hard stop levels on any US stock:",tool3CopyBtn:"Copy Pine Script v5 Source",crossTitle:"COMPANION MARKET SENTIMENT PLATFORM · SEMIFEARGREED",crossHeading:"Allocating to Semiconductor & Healthcare ETFs ($SMH / $XLV / $SOXX)?",crossDesc:"Open our CNN-style Semiconductor 7-Factor Fear & Greed Index and 26-year $SMH 70% : $XLV 30% contrarian rebalancing terminal.",crossBtn:"Switch to SemiFearGreed Index",cnnBadge:"MARKETS · SEMICONDUCTOR & AI SENTIMENT",cnnTitle:"Semiconductor Fear & Greed Index",cnnSubtitle:"What emotion is driving the chip & AI hardware market now?",cnnTabOverview:"Overview",cnnTabTimeline:"Timeline",cnnLastUpdated:"Last updated",cnnExportGauge:"Export Index Card (PNG)",cnnTelegramBtn:"Telegram Briefing",cnnHistoryTitle:"Historical Sentiment Comparison",cnnActiveRuleLabel:"ACTIVE BARBELL ALLOCATION SIGNAL",cnnIndicatorsHeading:"7 Semiconductor Fear & Greed Indicators",cnnIndicatorsSub:"How the index is calculated: Equal-transparent 7-factor rolling 3-year (756-day) percentile & z-score composite of $SMH, $XLV, and $QQQ.",rebalSectionTag:"BARBELL ASSET ALLOCATION & TAX OPTIMIZER",rebalSectionTitle:"$SMH + $XLV Contrarian Rebalancing Engine (70:30 ↔ 80:20)",rebalSectionDesc:"Combine high-beta AI semiconductor growth ($SMH 70%) with low-beta healthcare cash-flow defense ($XLV 30%). Automatically shift to 80:20 when Fear & Greed drops below 25 or $SMH falls -20% off its 52-week high.",lumpSectionTag:"CAPITAL DEPLOYMENT PROTOCOL",lumpSectionTitle:"3-Stage Lump-Sum Entry Planner",lumpSectionDesc:"Eliminate timing regret when deploying new cash. Automatically calculates Day-1 immediate entry vs. USD RP reserve tranches based on the live or simulated Fear & Greed score.",eraSectionTag:"26.8-YEAR EMPIRICAL VERIFICATION (2000–2026)",eraSectionTitle:"$SMH 70% : $XLV 30% (80:20 Crash Tilt) vs. 100% $QQQ Benchmark",eraSectionDesc:"Verified across 6,625 trading days including the 2000 Dot-Com Bust, 2008 GFC, 2020 Pandemic, and 2022 Rate Shock.",disclaimer:"Regulatory & Compliance Disclosure: RightSideAlpha and SemiFearGreed are quantitative financial data analytics and historical backtesting software tools. Nothing on this platform constitutes personalized investment, legal, or tax advice. All regime classifications and technical levels are mathematical outputs derived from historical price and volume series. Past performance (2000–2026) is not indicative of future results.",copyright:"© 2026 RightSideAlpha & SemiFearGreed Quantitative Analytics. Merchant of Record: Lemon Squeezy."},jp:{brandSubtitle:"米国株クオンツ分析ターミナル · v2.6",navRightSide:"RightSideAlpha · 米国株スクリーナー",navSemiFg:"SemiFearGreed · 半導体恐怖＆強欲指数",marketUniverseTag:"NYSE & NASDAQ · 米国上場 72銘柄限定",statusFree:"パブリックティア",statusPro:"PRO ターミナル有効",btnLicense:"ライセンス認証",btnAdmin:"ターミナル設定",btnTelegram:"Telegram通知",btnUnlockPro:"Proへアップグレード ($29/月)",heroTag:"機関投資家向けターンアラウンド分析 · 米国株 394,371営業日検証済 (2000–2026 · 26.8年間)",heroTitle:"米国上場株に特化した「右側イグニッション」定量スクリーナー",heroDesc:"米国グロース株の単純な52週安値買い（左側逆張り）は、中央値81営業日の資金拘束と平均-30.3%の追加下落を招きます。RightSideAlphaはNYSE・NASDAQ上場72銘柄を対象に、出来高1.4倍以上のセリングクライマックス後に20日・60日移動平均線を同時突破する初動銘柄のみを抽出します。",kpi1_label:"PW-RSI 1年 2倍 (+100%) 到達率",kpi1_sub:"単純な52週安値買い (28.91%) との比較",kpi2_label:"含み損拘束期間（中央値）",kpi2_sub:"55日タイムストップにより81.0日から短縮",kpi3_label:"26.8年間 米国株純CAGR",kpi3_sub:"税金22%・スリッページ控除後 累計80.5倍",kpi4_label:"深刻な下落 (≤ -20%) 発生率",kpi4_sub:"-9%ハード損切＆業績フィルタ適用時",proofHeading:"26.8年間実証パフォーマンス比較 · 左側安値買い vs PW-RSI 右側イグニッション",proofCopyScorecardBtn:"検証ティアシート出力 (PNG)",th_arch:"エントリー手法 (米国株, N = 394,371営業日)",th_2x:"1年 2倍 (+100%) 確率",th_med:"1年 リターン中央値",th_mdd:"エントリー後 MDD中央値",th_dead:"含み損日数",th_trap:"1年 重大損失 (≤ -20%)",searchPlaceholder:"米国ティッカー、企業名、セクターで検索 (例: NVDA, CELH, Semiconductors)...",filterAll:"全米国株",filterIgnition:"右側イグニッション",filterWatch:"クライマックス監視",filterKnife:"下降トレンド・回避",filterTrap:"バリュートラップ除外",colTicker:"銘柄 / セクター",colZone:"レジーム＆条件判定",colScore:"クオンツスコア",colClose:"終値 ($USD) & 52週レンジ",colProx:"対52週安値",colDD:"52週高値比DD",colMA:"対MA20 / MA60",colVol:"10日出来高倍率",colHist:"過去2倍確率",colTrigger:"執行価格 (突破 / -9%損切)",colActions:"調査＆チャート",vaultBadgeLocked:"PRO アナリティクスターミナル · ロック中 (要ライセンスキー)",vaultBadgeUnlocked:"PRO アナリティクスターミナル · 全機能アンロック済",vaultTitle:"機関投資家向けエグゼキューション＆リスク管理スイート",vaultUnlockBtn:"🔑 Proをアンロック ($29/月)",tool1Title:"MODULE 01 · ポジションリスク＆55日タイムストップ診断",tool1Sub:"非対称エグジット＆機会損失シミュレーター",tool1Desc:"米国株の取得単価と保有営業日数を入力してください。4大定量エグジット原則（-9%ハード損切、55日+8%タイムストップ、25日モメンタム乗換、+100%元本回収）を即時判定します。",tool1Btn:"ポジション診断を実行",tool2Title:"MODULE 02 · SEC一次開示ターンアラウンド調査レポート",tool2Sub:"10-K / 10-Q / 8-K ファンダメンタルズ分析アーカイブ",tool2Desc:"二次メディアのノイズを排除し、SEC一次開示資料とEPSコンセンサス修正から毎朝更新：",tool2ViewBtn:"機関投資家向け調査レポートを開く",tool3Title:"MODULE 03 · TRADINGVIEW PINE SCRIPT v5 インジケーター",tool3Sub:"MA20/MA60 右側突破＆出来高クライマックス自動描画",tool3Desc:"TradingViewのPineエディタに貼り付けるだけで、MA20/MA60突破シグナルと-9%ストップラインをチャート上に描画します：",tool3CopyBtn:"Pine Script v5 コードをコピー",crossTitle:"姉妹センチメント分析プラットフォーム · SEMIFEARGREED",crossHeading:"半導体ETF・ヘルスケアETF ($SMH / $XLV / $SOXX) に投資していますか？",crossDesc:"CNNスタイルの半導体7ファクター恐怖＆強欲指数と、26年間検証済みの$SMH 70% : $XLV 30% 逆張りリバランス計算機へ切り替えられます。",crossBtn:"SemiFearGreed インデックスを開く",cnnBadge:"MARKETS · 半導体＆AI市場センチメント",cnnTitle:"Semiconductor Fear & Greed Index",cnnSubtitle:"いま半導体・AI市場を動かしている感情は「恐怖」か「強欲」か？",cnnTabOverview:"オーバービュー (Overview)",cnnTabTimeline:"タイムライン推移 (Timeline)",cnnLastUpdated:"最終更新",cnnExportGauge:"ゲージカード出力 (PNG)",cnnTelegramBtn:"Telegram配信",cnnHistoryTitle:"過去センチメント比較",cnnActiveRuleLabel:"現在のバーベル配分シグナル",cnnIndicatorsHeading:"半導体 恐怖＆強欲指数を構成する7つの指標",cnnIndicatorsSub:"算出方法：$SMH・$XLV・$QQQの過去3年間（756営業日）ローリングパーセンタイルとZスコアを組み合わせた7ファクター加重平均モデル。",rebalSectionTag:"バーベル資産配分＆節税シミュレーター",rebalSectionTitle:"$SMH + $XLV 逆張りリバランス計算機 (70:30 ↔ 80:20)",rebalSectionDesc:"高成長AI半導体($SMH 70%)とディフェンシブなヘルスケア($XLV 30%)を結合。指数25以下または$SMH高値比-20%下落時に80:20へ逆張りシフトします。",lumpSectionTag:"新規資金エントリープロトコル",lumpSectionTitle:"3段階 一括資金エントリープランナー",lumpSectionDesc:"現在の恐怖＆強欲スコアに応じて、初日即時投入枠と米ドルMMF待機枠の最適比率を算出します。",eraSectionTag:"26.8年間（2000–2026）実証バックテスト",eraSectionTitle:"$SMH 70% : $XLV 30% (暴落時80:20) vs 100% $QQQ ベンチマーク比較",eraSectionDesc:"ITバブル崩壊、リーマンショック、コロナ危機、2022年半導体不況を含む6,625営業日の完全検証データ。",disclaimer:"コンプライアンス免責事項：RightSideAlphaおよびSemiFearGreedは定量金融データ分析および過去バックテスト用のソフトウェアツールです。当プラットフォームのいかなる情報も個別の投資助言や税務助言を構成しません。",copyright:"© 2026 RightSideAlpha & SemiFearGreed Quantitative Analytics. Merchant of Record: Lemon Squeezy."},kr:{brandSubtitle:"미국 상장주식 전용 퀀트 터미널 · v2.6",navRightSide:"RightSideAlpha · 미국주식 알파 터미널",navSemiFg:"SemiFearGreed · 반도체 공포·탐욕 지수",marketUniverseTag:"NYSE & NASDAQ · 미국 상장 72개 핵심 종목 한정",statusFree:"퍼블릭 티어",statusPro:"PRO 터미널 활성화",btnLicense:"라이선스 인증",btnAdmin:"터미널 설정",btnTelegram:"텔레그램 알림",btnUnlockPro:"Pro 업그레이드 ($29/월)",heroTag:"기관급 턴어라운드 리서치 · 미국 상장주식 394,371 거래일 전수 검증 (2000–2026 · 26.8개년)",heroTitle:"미국 상장주식에 최적화된 우측 변곡점(PW-RSI) 정량 분석 플랫폼",heroDesc:"미국 성장주를 단순 52주 신저가(좌측 구간)에 매수하면 중앙값 81거래일의 자금 묶임(데드머니)과 -30.3%의 추가 낙폭에 노출됩니다. RightSideAlpha는 NYSE·NASDAQ 상장 72개 핵심 종목만을 대상으로 1.4배 이상 거래량 투매(Washout) 후 20일·60일 이동평균선을 동시 탈환하는 우측 초동 시그널을 판독합니다.",kpi1_label:"PW-RSI 1년 2배 (+100%) 도달률",kpi1_sub:"단순 52주 신저가 좌측 매수(28.91%) 대비",kpi2_label:"보유 후 물림 기간 (중앙값)",kpi2_sub:"55일 시간손절 원칙으로 81.0일에서 단축",kpi3_label:"26.8개년 미국주식 순 CAGR",kpi3_sub:"양도세 22%·슬리피지 차감 후 누적 80.5배",kpi4_label:"심각한 손실 (≤ -20%) 발생 확률",kpi4_sub:"-9% 손절 및 실적 턴어라운드 필터 적용 시",proofHeading:"26.8개년 실증 백테스트 매트릭스 · 좌측 신저가 매수 vs PW-RSI 우측 시동 모델",proofCopyScorecardBtn:"백테스트 티어시트 저장 (PNG)",th_arch:"진입 방법론 (미국 상장주, N = 394,371 거래일)",th_2x:"1년 2배 (+100%) 확률",th_med:"1년 수익률 중앙값",th_mdd:"진입 후 MDD 중앙값",th_dead:"자금 물림 기간",th_trap:"1년 치명적 손실 (≤ -20%)",searchPlaceholder:"미국 티커, 기업명, 섹터 검색 (예: NVDA, CELH, Semiconductors)...",filterAll:"미국 전체 종목",filterIgnition:"우측 돌파 시동 (Ignition)",filterWatch:"워시아웃 베이스 대기",filterKnife:"좌측 하락추세 · 주의",filterTrap:"밸류트랩 배제 종목",colTicker:"종목 / GICS 섹터",colZone:"시그널 레짐 & 4대 조건",colScore:"퀀트 스코어",colClose:"종가 ($USD) & 52주 밴드",colProx:"52주 저점 이격",colDD:"52주 고점 낙폭",colMA:"20일 / 60일선 괴리",colVol:"10일 거래량 배율",colHist:"과거 2배 확률",colTrigger:"실행 타점 (60일 돌파 / -9% 손절)",colActions:"리포트 & 차트 연동",vaultBadgeLocked:"PRO 애널리틱스 터미널 · 잠김 (라이선스 키 입력 필요)",vaultBadgeUnlocked:"PRO 애널리틱스 터미널 · 전 기능 활성화됨",vaultTitle:"기관급 포지션 리스크 관리 & SEC 1차 공시 리서치 스위트",vaultUnlockBtn:"🔑 Pro 잠금 해제 ($29/월)",tool1Title:"MODULE 01 · 보유 포지션 리스크 & 55일 시간손절 판독기",tool1Sub:"비대칭 청산 원칙 및 기회비용 정밀 진단",tool1Desc:"미국 주식 매수 단가($)와 보유 거래일수를 입력하세요. 4대 정량 청산 원칙(-9% 칼손절 방어, 55일 +8% 미만 시간손절, 25일 모멘텀 교체, +100% 도달 시 원금 반절 회수)을 즉시 산출합니다.",tool1Btn:"보유 포지션 정밀 진단 실행",tool2Title:"MODULE 02 · SEC 1차 공시 기반 턴어라운드 리서치",tool2Sub:"10-K / 10-Q / 8-K 원문 기반 기관급 종목 분석 브리프",tool2Desc:"2차 언론 노이즈를 배제하고 미국 SEC 1차 공시와 컨센서스 EPS 상향 데이터를 바탕으로 매일 08:10 업데이트됩니다:",tool2ViewBtn:"기관급 턴어라운드 리포트 열람",tool3Title:"MODULE 03 · TRADINGVIEW PINE SCRIPT v5 전용 지표",tool3Sub:"MA20/MA60 우측 돌파 및 거래량 워시아웃 자동 차트 표시",tool3Desc:"트레이딩뷰 Pine 에디터에 붙여넣어 미국 전 종목 차트에 우측 시동 타점과 -9% 손절 라인을 자동 표시합니다:",tool3CopyBtn:"Pine Script v5 소스코드 복사",crossTitle:"연계 섹터 심리 & 자산배분 플랫폼 · SEMIFEARGREED",crossHeading:"반도체 ETF와 헬스케어 ETF ($SMH / $XLV / $SOXX)로 꾸준한 복리 수익을 원하시나요?",crossDesc:"CNN Fear & Greed 스타일의 반도체 7팩터 공포·탐욕 지수와 26년 검증된 $SMH 70% : $XLV 30% (폭락장 80:20) 역발상 리밸런싱 플랫폼으로 이동하세요.",crossBtn:"SemiFearGreed 지수 플랫폼 열기",cnnBadge:"MARKETS · 반도체 & AI 섹터 투자심리 지수",cnnTitle:"Semiconductor Fear & Greed Index",cnnSubtitle:"지금 반도체와 AI 시장을 움직이는 감정은 '공포'입니까, '탐욕'입니까?",cnnTabOverview:"오버뷰 (Overview)",cnnTabTimeline:"타임라인 추이 (Timeline)",cnnLastUpdated:"최근 업데이트",cnnExportGauge:"공포·탐욕 지수 카드 저장 (PNG)",cnnTelegramBtn:"텔레그램 브리핑 전송",cnnHistoryTitle:"시점별 지수 히스토리 비교",cnnActiveRuleLabel:"현재 발동 중인 바벨 자산배분 시그널",cnnIndicatorsHeading:"반도체 공포·탐욕 지수를 구성하는 7대 핵심 지표",cnnIndicatorsSub:"산출 방식: $SMH, $XLV, $QQQ의 최근 3년(756거래일) 롤링 백분위와 Z-스코어를 결합한 7팩터 정량 모델입니다.",rebalSectionTag:"바벨 자산배분 & 해외주식 절세 계산기",rebalSectionTitle:"$SMH + $XLV 역발상 리밸런싱 계산기 (70:30 ↔ 80:20)",rebalSectionDesc:"고성장 AI 반도체($SMH 70%)와 방어형 헬스케어($XLV 30%)를 결합하여 매년 꾸준한 복리 수익을 추구합니다. 공포지수 25 이하 또는 $SMH 고점 대비 -20% 하락 시 80:20으로 역발상 스위칭합니다.",lumpSectionTag:"신규 거치식 자금 투입 프로토콜",lumpSectionTitle:"3단계 일시금(Lump-Sum) 진입 플래너",lumpSectionDesc:"목돈을 한 번에 넣을 때 고점 물림을 방지합니다. 현재(또는 시뮬레이션) 공포·탐욕 점수에 따라 당일 즉시 진입 물량과 달러 RP 파킹 물량을 자동 계산합니다.",eraSectionTag:"26.8개년(2000–2026) 실증 백테스트 검증",eraSectionTitle:"$SMH 70% : $XLV 30% (폭락장 80:20) vs 100% $QQQ 장기 성과 비교",eraSectionDesc:"2000년 닷컴버블, 2008년 금융위기, 2020년 팬데믹, 2022년 금리인상기를 모두 포함한 6,625거래일 실증 데이터입니다.",disclaimer:"법적 고지 및 면책조항: RightSideAlpha와 SemiFearGreed는 정량적 금융 데이터 분석 및 역사적 백테스트 소프트웨어 도구입니다. 본 웹사이트의 어떠한 내용도 개별 투자자를 위한 맞춤형 투자 권유나 세무 자문을 구성하지 않습니다. 과거 백테스트 성과(2000–2026)는 미래 수익을 보장하지 않습니다.",copyright:"© 2026 RightSideAlpha & SemiFearGreed Quantitative Analytics. Merchant of Record: Lemon Squeezy."}};function se(){if(typeof sessionStorage<"u"&&sessionStorage.getItem("rsa_admin_auth")==="true")return!0;const t=typeof localStorage<"u"&&localStorage.getItem("rsa_pro_unlocked")==="true",o=typeof localStorage<"u"?String(localStorage.getItem("rsa_token")||"").trim():"";return!(!t||!o||o.toUpperCase()==="PRO-DEMO-2026")}function pe(){if(!se())return{};const e=localStorage.getItem("rsa_token")||(sessionStorage.getItem("rsa_admin_auth")==="true"?"RSA-ADMIN-SESSION":"");return e?{Authorization:`Bearer ${e}`}:{}}function ge(e=!1){if(e&&se())try{return atob("aHR0cHM6Ly90Lm1lL3RydXRob2ZtYXJrZXRzcw==")}catch{return"#pro-vip-telegram"}return"#pro-vip-telegram"}function we(e,t="https://truthofmarket.lemonsqueezy.com/checkout/buy/bad98d00-7175-41f6-9d58-eeb2471d0da4"){const o=String(e||t).trim()||t;return/[?&]embed=1\b/i.test(o)?o:`${o}${o.includes("?")?"&":"?"}embed=1`}function lt(){if(typeof window>"u")return!1;if(window.__STATIC_MODE__===!0)return!0;const e=window.location.hostname||"";return!(!e||e==="localhost"||e==="127.0.0.1")}async function V(e,t,o){if(lt())return o();try{const n=await fetch(e,t);if(n.ok&&(n.headers.get("content-type")||"").includes("application/json"))return await n.json()}catch{}return o()}let ve=null,ye=null,xe=null;async function ct(){return ve||(ve=await(await fetch("./static_api/stocks_pro.json")).json()),ve}async function dt(){return ye||(ye=await(await fetch("./static_api/stocks_free.json")).json()),ye}async function tt(){return se()?ct():dt()}async function he(){return xe||(xe=await(await fetch("./static_api/semi_overview.json")).json()),xe}async function pt(e={}){const t=new URLSearchParams;e.search&&t.append("search",e.search),e.zone&&e.zone!=="ALL"&&t.append("zone",e.zone),e.sort_by&&t.append("sort_by",e.sort_by),e.order&&t.append("order",e.order),e.limit&&t.append("limit",e.limit),e.offset&&t.append("offset",e.offset);const o=`/api/stocks${t.toString()?`?${t.toString()}`:""}`;return V(o,{headers:{...pe(),Accept:"application/json"}},async()=>{const n=se()?"./static_api/stocks_pro.json":"./static_api/stocks_free.json";let a=await(await fetch(n)).json();if(e.search){const d=String(e.search).trim().toLowerCase();a=a.filter(i=>i.ticker&&i.ticker.toLowerCase().includes(d)||i.name&&i.name.toLowerCase().includes(d)||i.name_en&&i.name_en.toLowerCase().includes(d)||i.name_jp&&i.name_jp.toLowerCase().includes(d)||i.name_kr&&i.name_kr.toLowerCase().includes(d)||i.sector&&i.sector.toLowerCase().includes(d))}if(e.zone&&e.zone!=="ALL"&&(a=a.filter(d=>(d.zone_code||d.zone)===e.zone)),e.sort_by){const i={pw_score:"score",price:"close",prox:"prox_low52_pct",dd:"dd_high52_pct",vol:"vol_surge_10d"}[e.sort_by]||e.sort_by,u=String(e.order||"desc").toLowerCase()!=="asc";a=[...a].sort((h,_)=>{const x=h[i],c=_[i];if(typeof x=="string"||typeof c=="string"){const w=String(x??"").localeCompare(String(c??""));return u?-w:w}const y=Number(x??0),E=Number(c??0);return u?E-y:y-E})}const f=Math.max(0,Number(e.offset||0)),r=e.limit?Math.max(1,Number(e.limit)):a.length;return a.slice(f,f+r)})}async function mt(){return V("/api/backtest",{headers:{Accept:"application/json"}},async()=>(await fetch("./static_api/backtest.json")).json())}async function ft(e){const t=String(e||"CELH").trim().toUpperCase();return V(`/api/research/${encodeURIComponent(t)}`,{headers:{...pe(),Accept:"application/json"}},async()=>(await fetch(`./static_api/research_${t==="MBLY"?"MBLY":"CELH"}.json`)).json())}const ut="4578349322b7fa9931023e0def82b9d0c19fa2c4fdab1f7d762142d8d78ef2fe";function de(e){function t(h,_){return h>>>_|h<<32-_}const o=Math.pow,n=o(2,32);let s="";const a=[],f=e.length*8;let r=de.h=de.h||[];const d=de.k=de.k||[];let i=d.length;const u={};for(let h=2;i<64;h++)if(!u[h]){for(let _=0;_<313;_+=h)u[_]=h;r[i]=o(h,.5)*n|0,d[i++]=o(h,1/3)*n|0}for(e+="";e.length%64-56;)e+="\0";for(let h=0;h<e.length;h++){const _=e.charCodeAt(h);if(_>>8)return"";a[h>>2]|=_<<(3-h)%4*8}a[a.length]=f/n|0,a[a.length]=f;for(let h=0;h<a.length;){const _=a.slice(h,h+=16),x=r;r=r.slice(0,8);for(let c=0;c<64;c++){const y=_[c-15],E=_[c-2],w=r[0],$=r[4],I=r[7]+(t($,6)^t($,11)^t($,25))+($&r[5]^~$&r[6])+d[c]+(_[c]=c<16?_[c]:_[c-16]+(t(y,7)^t(y,18)^y>>>3)+_[c-7]+(t(E,17)^t(E,19)^E>>>10)|0),T=(t(w,2)^t(w,13)^t(w,22))+(w&r[1]^w&r[2]^r[1]&r[2]);r=[I+T|0].concat(r),r[4]=r[4]+I|0}for(let c=0;c<8;c++)r[c]=r[c]+x[c]|0}for(let h=0;h<8;h++)for(let _=3;_+1;_--){const x=r[h]>>_*8&255;s+=(x<16?0:"")+x.toString(16)}return s}async function gt(e){try{if(typeof crypto<"u"&&crypto.subtle&&typeof TextEncoder<"u"){const t=new TextEncoder().encode(e),o=await crypto.subtle.digest("SHA-256",t);return Array.from(new Uint8Array(o)).map(n=>n.toString(16).padStart(2,"0")).join("")}}catch{}return de(unescape(encodeURIComponent(e)))}async function ht(e,t){const o=String(e||"").trim(),n=String(t||"");return V("/api/auth/admin/login",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({username:o,password:n})},async()=>{const a=(await gt(`rsa_admin_v1:${o}:${n}`)).toLowerCase()===ut;return{authenticated:a,role:a?"admin":"guest",license_key:a?"RSA-ADMIN-SESSION":null,message:a?"Admin Authenticated — Terminal Config & Pro Access Unlocked.":"Invalid Admin ID or Password."}})}async function bt(e){return V("/api/auth/license/validate",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({license_key:e})},async()=>{var o;const t=String(e||"").trim();if(!t)return{valid:!1,license_key:null,tier:"free",expires_at:null,message:"Please enter a valid Lemon Squeezy license key."};if(typeof sessionStorage<"u"&&sessionStorage.getItem("rsa_admin_auth")==="true"&&t.toUpperCase()==="RSA-ADMIN-SESSION")return{valid:!0,license_key:t,tier:"pro",expires_at:"2099-12-31T23:59:59Z",message:"Admin Session Pro Access Active."};try{const s=await(await fetch("https://api.lemonsqueezy.com/v1/licenses/validate",{method:"POST",headers:{Accept:"application/json","Content-Type":"application/x-www-form-urlencoded"},body:new URLSearchParams({license_key:t}).toString()})).json().catch(()=>null),a=!!(s&&s.valid===!0&&!s.error);return{valid:a,license_key:a?t:null,tier:a?"pro":"free",expires_at:a?((o=s==null?void 0:s.license_key)==null?void 0:o.expires_at)||"2099-12-31T23:59:59Z":null,message:a?"Pro Terminal License Verified via Lemon Squeezy.":s&&s.error||"Invalid or expired license key. Please verify your Lemon Squeezy receipt or subscribe below."}}catch{return{valid:!1,license_key:null,tier:"free",expires_at:null,message:"License verification failed. Please check your Lemon Squeezy license key and network connection."}}})}async function _t(){return V("/api/pro/pinescript",{headers:{...pe(),Accept:"application/json"}},async()=>(await fetch("./static_api/pinescript.json")).json())}async function ue(e){return V("/api/pro/position-doctor",{method:"POST",headers:{...pe(),"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(e)},async()=>{const t=await tt(),o=String(e.ticker||"CELH").trim().toUpperCase(),n=t.find(h=>h.ticker===o),s=Math.max(.01,Number(e.entry_price||27.93)),a=Number(e.days_held||0),f=e.current_price!==void 0&&e.current_price!==null?Number(e.current_price):n&&n.close!==null&&n.close!==void 0?Number(n.close):s,r=n&&n.date?n.date:"2026-10-30",d=Number(((f/s-1)*100).toFixed(2)),i=Number((s*.91).toFixed(2)),u=Number((s*2).toFixed(2));return d<=-9?{ticker:o,status_code:"HARD_STOP",status_label:"🛑 Hard Stop Loss Triggered",return_pct:d,rule_triggered:"Rule 1 (-9.0% Hard Stop Loss)",action_plan:"Exit immediately. Do not average down on broken support.",is_critical:!0,current_price:f,entry_price:Number(s.toFixed(2)),stop_price:i,tp1_price:u,as_of_date:r}:a>=55&&d<8?{ticker:o,status_code:"TIME_STOP",status_label:"⏳ 55-Day Time Stop Triggered (55일 시간 손절)",return_pct:d,rule_triggered:"Rule 2 (55-Day Dead-Money Exit)",action_plan:"Exit position. Rebound momentum has stalled; reallocate into active right-side ignition candidates.",is_critical:!1,current_price:f,entry_price:Number(s.toFixed(2)),stop_price:i,tp1_price:u,as_of_date:r}:d>=100?{ticker:o,status_code:"TP1_HARVEST",status_label:"🎯 100% Target Price 1 Achieved",return_pct:d,rule_triggered:"Rule 3 (+100% Principal Recovery)",action_plan:"Sell 50% of position to recoup 100% initial capital. Set trailing stop on remaining 50% using MA60.",is_critical:!1,current_price:f,entry_price:Number(s.toFixed(2)),stop_price:i,tp1_price:u,as_of_date:r}:{ticker:o,status_code:"HOLD",status_label:"🟢 Active Right-Side Trend Follow",return_pct:d,rule_triggered:"Rule 4 (Healthy Trend Follow)",action_plan:"Maintain position. Monitor MA20/MA60 trailing support; runner target is +100% TP1.",is_critical:!1,current_price:f,entry_price:Number(s.toFixed(2)),stop_price:i,tp1_price:u,as_of_date:r}})}async function vt(){return V("/api/referral/config",{headers:{Accept:"application/json"}},async()=>(await fetch("./static_api/referral_config.json")).json())}async function yt(e){return V("/api/referral/config",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(e)},async()=>({status:"updated",config:e}))}async function xt(){return V("/api/semi/overview",{headers:{Accept:"application/json"}},async()=>he())}async function ot(e="1Y"){const t=String(e||"1Y").trim().toUpperCase(),n=["3M","6M","1Y","3Y","5Y","10Y","ALL"].includes(t)?t:"1Y";return V(`/api/semi/history?range=${encodeURIComponent(n)}`,{headers:{Accept:"application/json"}},async()=>(await fetch(`./static_api/semi_history_${n}.json`)).json())}async function Te(e){return V("/api/semi/rebalance",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(e)},async()=>{const t=await he(),o=Number(t.fg_score??18),n=Number(t.smh_dd_pct??-19.03),s=Number(t.usdkrw??1324.75),a=Number(t.smh_close??541.62),f=Number(t.xlv_close??179.28),r=String(e.strategy_mode||"AUTO_REGIME").trim().toUpperCase(),d=o<25||n<=-19;let i=.7,u=.3,h="",_="",x="";r==="BASELINE_70_30"?(i=.7,u=.3,h="Fixed 70% $SMH : 30% $XLV Golden Barbell Baseline",_="70% $SMH : 30% $XLV 基本黄金バーベル比率",x="평시 70% $SMH : 30% $XLV 기본 황금 바벨 비중"):r==="CONTRARIAN_80_20"?(i=.8,u=.2,h="Contrarian 80% $SMH : 20% $XLV Crash Accumulation Tilt",_="80% $SMH : 20% $XLV 暴落時・逆張り買い増しモード",x="80% $SMH : 20% $XLV 폭락장 역발상 매집 비중"):r==="AGGRESSIVE_90_10"?(i=.9,u=.1,h="90% $SMH : 10% $XLV Right-Side Momentum Tilt",_="90% $SMH : 10% $XLV 右側モメンタム集中モード",x="90% $SMH : 10% $XLV 우측 시동 공격형 비중"):d?(i=.8,u=.2,h=`AUTO REGIME: Extreme Fear (${o}/100, DD ${n.toFixed(1)}%) → 80% $SMH : 20% $XLV Contrarian Shift`,_=`自動判定: 極度の恐怖 (${o}/100, 高値比 ${n.toFixed(1)}%) → 80% $SMH : 20% $XLV 逆張り転換`,x=`자동 판독: 극단적 공포 (${o}/100, 낙폭 ${n.toFixed(1)}%) → 80% $SMH : 20% $XLV 역발상 비중 확대`):(i=.7,u=.3,h=`AUTO REGIME: Standard Regime (${o}/100) → 70% $SMH : 30% $XLV Core Barbell`,_=`自動判定: 通常レジーム (${o}/100) → 70% $SMH : 30% $XLV 基本比率`,x=`자동 판독: 평시 구간 (${o}/100) → 70% $SMH : 30% $XLV 기본 황금비중`);const c=Math.max(100,Number(e.total_capital_usd||1e5)),y=Number((c*i).toFixed(2)),E=Number((c*u).toFixed(2)),w=Math.floor(y/a),$=Math.floor(E/f),I=w*a+$*f,T=Number(Math.max(0,c-I).toFixed(2)),b=Number(t.natural_smh_weight_pct??66.5)/100,P=e.current_smh_usd!==void 0&&e.current_smh_usd!==null?Number(e.current_smh_usd):Number((c*b).toFixed(2)),O=e.current_xlv_usd!==void 0&&e.current_xlv_usd!==null?Number(e.current_xlv_usd):Number((c*(1-b)).toFixed(2)),C=Number((y-P).toFixed(2)),H=Number((E-O).toFixed(2)),N=Math.round(C/a),G=Math.round(H/f),j=String(e.rebalance_frequency||"ANNUAL").trim().toUpperCase(),Y={ANNUAL:.19,QUARTERLY:.42,MONTHLY:.78,WEEKLY:1.32}[j]??.19,W=Number((22.98-Y).toFixed(2)),z=25e5,q=Math.max(0,Number(e.unrealized_gain_krw??38e5)),J=Math.max(0,q-z),Z=Math.round(Math.min(q,z)*.22),oe=q<=z?`Unrealized gain (₩${q.toLocaleString()}) is within the ₩2,500,000 annual tax-free allowance. Execute your $XLV ↔ $SMH rebalance before Dec 26 to harvest gains with ₩0 tax (saving ₩${Z.toLocaleString()}).`:`Unrealized gain (₩${q.toLocaleString()}) exceeds the ₩2.5M tax-free cap by ₩${J.toLocaleString()}. Sell only up to ₩2,500,000 of realized profit this calendar year to lock in the maximum ₩550,000 tax savings, and use new cash inflow for the remaining rebalance.`,ne=q<=z?`評価益 (₩${q.toLocaleString()}) は年間非課税枠 (₩2,500,000) 以内です。年末までにリバランスを実行することで譲渡所得税 ₩0 (節税額 ₩${Z.toLocaleString()}) で利益確定と取得単価引き上げが可能です。`:`評価益 (₩${q.toLocaleString()}) が非課税枠を ₩${J.toLocaleString()} 超過しています。今年の売却益を250万ウォンまでに抑えて最大 ₩550,000 を節税し、残りは新規積立資金で比率調整するのが最適です。`,re=q<=z?`예상 실현차익(₩${q.toLocaleString()})이 연간 해외주식 양도세 기본공제 한도(250만 원) 이내입니다. 연말 전 리밸런싱 매도를 통해 양도세 0원(절세 효과 약 ₩${Z.toLocaleString()})으로 취득단가를 높이세요.`:`예상 차익(₩${q.toLocaleString()})이 250만 원 비과세 한도를 ₩${J.toLocaleString()} 초과합니다. 올해는 실현차익 250만 원까지만 부분 매도하여 최대 55만 원 절세 혜택을 챙기고, 부족한 비중은 신규 적립금으로 채우세요.`;return{as_of_date:t.date||"2026-10-26",smh_close:a,xlv_close:f,total_capital_usd:c,total_capital_krw:Math.round(c*s),usdkrw:s,fg_score:o,smh_dd_pct:n,regime_code:t.regime_code||"EXTREME_FEAR",active_rule_en:h,active_rule_jp:_,active_rule_kr:x,target_smh_weight_pct:Number((i*100).toFixed(1)),target_xlv_weight_pct:Number((u*100).toFixed(1)),target_smh_usd:y,target_xlv_usd:E,target_smh_shares:w,target_xlv_shares:$,residual_cash_usd:T,delta_smh_usd:C,delta_xlv_usd:H,delta_smh_shares:N,delta_xlv_shares:G,rebalance_frequency:j,estimated_tax_drag_pct:Y,expected_net_cagr_pct:W,kr_tax_deduction_limit_krw:z,kr_taxable_gain_krw:J,kr_estimated_tax_saved_krw:Z,kr_tax_guidance_en:oe,kr_tax_guidance_jp:ne,kr_tax_guidance_kr:re}})}async function nt(e){return V("/api/semi/lump-sum",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(e)},async()=>{const t=await he(),o=e.override_fg_score!==void 0&&e.override_fg_score!==null?Number(e.override_fg_score):Number(t.fg_score??18),n=Math.max(100,Number(e.capital_usd||5e4)),s=Number(t.smh_close??541.62),a=Number(t.xlv_close??179.28),f=t.date||"2026-10-26";if(o<=40){const r=o<=25,d=r?.8:.7,i=r?.2:.3,u=Number((n*d).toFixed(2)),h=Number((n*i).toFixed(2));return{as_of_date:f,smh_close:s,xlv_close:a,capital_usd:n,fg_score_used:o,case_code:"CASE_1_FEAR_100PCT",case_title_en:"Case 1 (Score 0–40 · Fear Regime): 100% Immediate Lump-Sum Entry",case_title_jp:"ケース1 (スコア 0–40 · 恐怖圏): 100% 即時一括エントリー",case_title_kr:"Case 1 (지수 0–40 · 공포 구간): 100% 즉시 일시금 진입",summary_en:"Semiconductors are already discounted. Do not hold excess cash—deploy 100% today and rebalance back to 70:30 when $SMH recovers within -10% of its 52-week high.",summary_jp:"半導体セクターは既に割安圏にあります。現金を遊ばせず本日100%投入し、$SMHが高値比-10%以内へ回復した時点で70:30へ戻します。",summary_kr:"반도체 섹터가 이미 할인된 공포 구간입니다. 현금을 놀리지 말고 당일 100% 거치식으로 진입한 뒤, $SMH가 고점 대비 -10% 이내로 회복되면 70:30으로 복귀하세요.",immediate_deploy_pct:100,parked_cash_rp_pct:0,tranches:[{step:1,title_en:"Tranche 1 (Day 1 Immediate 100% Deployment)",title_jp:"第1トランシェ (初日 100% 一括エントリー)",title_kr:"1차 집행 (당일 100% 즉시 거치식 진입)",timing_en:"Execute Today (Market Open / Close)",timing_jp:"本日即時執行 (Fear ≤ 40 割安圏)",timing_kr:"오늘 즉시 집행 (공포 지수 40 이하 저평가 구간)",allocation_pct:100,amount_usd:n,smh_usd:u,xlv_usd:h,cash_rp_usd:0,smh_shares:Math.floor(u/s),xlv_shares:Math.floor(h/a),note_en:`Deploy 100% immediately at ${Math.round(d*100)}:${Math.round(i*100)} ($SMH:$XLV). Historical 1-year forward win rate when entering below score 25 exceeds 91%.`,note_jp:`${Math.round(d*100)}:${Math.round(i*100)} ($SMH:$XLV) 比率で100%即時エントリー。スコア25以下でのエントリーは過去1年後の勝率が91%超。`,note_kr:`${Math.round(d*100)}:${Math.round(i*100)} ($SMH:$XLV) 비중으로 100% 즉시 진입합니다. 공포 지수 25 이하 진입 시 1년 후 플러스 수익 확률은 91% 이상입니다.`}]}}else if(o<=68){const r=Number((n*.35).toFixed(2)),d=Number((n*.3).toFixed(2)),i=Number((r+d).toFixed(2)),u=Number((n*.35).toFixed(2));return{as_of_date:f,smh_close:s,xlv_close:a,capital_usd:n,fg_score_used:o,case_code:"CASE_2_NEUTRAL_65_35",case_title_en:"Case 2 (Score 40–68 · Neutral Regime): 65% Immediate + 35% Pullback Reserve",case_title_jp:"ケース2 (スコア 40–68 · 中立圏): 65% 初日投入 + 35% 押し目待機",case_title_kr:"Case 2 (지수 40–68 · 중립 구간): 65% 선진입 + 35% 달러 RP 파킹 후 분할",summary_en:"Balanced deployment: lock in your 30% $XLV anchor and half of $SMH today, while keeping 35% dry powder for volatility.",summary_jp:"バランス型エントリー：$XLV 30%と$SMH半分を初日に確保し、35%の余力で押し目に備えます。",summary_kr:"중립장 표준 공식: 1일차에 $XLV 30% 전량과 $SMH 절반(35%)을 먼저 채우고, 나머지 35%는 조정 시 추매 실탄으로 활용합니다.",immediate_deploy_pct:65,parked_cash_rp_pct:35,tranches:[{step:1,title_en:"Tranche 1 (Day 1 Core 65% Deployment)",title_jp:"第1トランシェ (初日 65% コア投入)",title_kr:"1차 집행 (1일차 65% 코어 포지션 선진입)",timing_en:"Execute Today (30% $XLV Full + 35% $SMH Half)",timing_jp:"本日執行 ($XLV 30%全額 + $SMH 35%半分)",timing_kr:"오늘 즉시 집행 ($XLV 30% 전량 + $SMH 35% 절반)",allocation_pct:65,amount_usd:i,smh_usd:r,xlv_usd:d,cash_rp_usd:0,smh_shares:Math.floor(r/s),xlv_shares:Math.floor(d/a),note_en:"Establish 100% of your defensive $XLV position (30%) and half of your $SMH position (35%) immediately.",note_jp:"ディフェンシブ枠の$XLV (30%) 全額と、成長枠$SMHの半分 (35%) を初日に構築します。",note_kr:"방어주 $XLV(30%) 전량과 반도체 $SMH 목표치의 절반(35%)을 첫날 즉시 매수합니다."},{step:2,title_en:"Tranche 2 (Remaining 35% $SMH Reserve in USD RP)",title_jp:"第2トランシェ (残り35% $SMH待機資金・米ドルMMF)",title_kr:"2차 집행 (잔여 35% 달러 RP 파킹 후 조건부 투입)",timing_en:"Deploy when FG Score ≤ 40 OR split across D+30 / D+60 / D+90",timing_jp:"スコア40以下へ低下時、または30日・60日・90日で3分割投入",timing_kr:"공포지수 40 이하 하락 시 즉시 투입 (미도달 시 30·60·90일 3분할)",allocation_pct:35,amount_usd:u,smh_usd:u,xlv_usd:0,cash_rp_usd:u,smh_shares:Math.floor(u/s),xlv_shares:0,note_en:"Earn ~4.5% USD RP yield while waiting for a pullback below score 40, or auto-deploy over 90 days.",note_jp:"米ドルMMFで金利を受け取りながらスコア40以下への押し目を待つか、90日間で機械的に分割投入します。",note_kr:"달러 RP(연 4%대 금리)에 예치해 두었다가 지수가 40 이하로 내려오면 즉시 투입하고, 안 내려오면 3개월간 균등 분할 매수합니다."}]}}else{const r=Number((n*.3).toFixed(2)),d=Number((n*.7).toFixed(2));return{as_of_date:f,smh_close:s,xlv_close:a,capital_usd:n,fg_score_used:o,case_code:"CASE_3_GREED_DEFENSIVE_FIRST",case_title_en:"Case 3 (Score 68–100 · Greed Regime): 30% $XLV Today + 70% $SMH Parked in USD RP",case_title_jp:"ケース3 (スコア 68–100 · 強欲圏): 初日 $XLV 30%のみ + 70% 米ドルMMF待機",case_title_kr:"Case 3 (지수 68–100 · 탐욕 과열 구간): 당일 $XLV 30%만 진입 + 70% 달러 RP 대기",summary_en:"Protect principal against euphoria: buy only the 30% $XLV sleeve today and keep 70% in USD RP until Fear & Greed cools to 45 or below.",summary_jp:"高値掴み防止ルール：初日は$XLV 30%のみを購入し、70%は指数が45以下に冷めるまで米ドルMMFで待機します。",summary_kr:"고점 추격매수 방지 공식: 당일에는 방어주 $XLV 30%만 매수하고, $SMH 70% 자금은 지수가 45 이하로 내려올 때까지 달러 RP에서 이자를 받으며 대기합니다.",immediate_deploy_pct:30,parked_cash_rp_pct:70,tranches:[{step:1,title_en:"Tranche 1 (Day 1 Defensive $XLV 30% Only)",title_jp:"第1トランシェ (初日はディフェンシブ $XLV 30% のみ購入)",title_kr:"1차 집행 (1일차 방어주 $XLV 30%만 우선 진입)",timing_en:"Execute Today ($XLV Anchor Only — Zero $SMH Chasing)",timing_jp:"本日執行 ($XLV 30%のみ・過熱した$SMHの高値追い禁止)",timing_kr:"오늘 즉시 집행 (과열된 $SMH 추격매수 금지, $XLV 30%만 매수)",allocation_pct:30,amount_usd:r,smh_usd:0,xlv_usd:r,cash_rp_usd:0,smh_shares:0,xlv_shares:Math.floor(r/a),note_en:"Do not chase overheated semiconductors above score 68. Deploy only the 30% Healthcare anchor on Day 1.",note_jp:"スコア68超の過熱局面での半導体ジャンピングキャッチを回避し、ヘルスケア枠30%のみを先行構築します。",note_kr:"탐욕 지수 68 초과 과열 구간에서는 반도체 고점 물림을 피하기 위해 방어주 $XLV 30%만 우선 매수합니다."},{step:2,title_en:"Tranche 2 (70% $SMH Capital Parked in Yielding USD RP)",title_jp:"第2トランシェ (70% $SMH資金は米ドルMMFで冷却待機)",title_kr:"2차 집행 (70% $SMH 몫은 달러 RP 파킹 후 지수 ≤ 45 냉각 시 투입)",timing_en:"Deploy when FG Score cools ≤ 45 (or 4 monthly tranches)",timing_jp:"スコア45以下へ冷却時、または4ヶ月分割で順次エントリー",timing_kr:"공포·탐욕 지수가 45 이하로 식을 때 투입 (또는 4개월 분할)",allocation_pct:70,amount_usd:d,smh_usd:d,xlv_usd:0,cash_rp_usd:d,smh_shares:Math.floor(d/s),xlv_shares:0,note_en:"Collect risk-free USD interest while waiting for semiconductor euphoria to mean-revert.",note_jp:"米ドル金利を確保しながら、半導体の過熱感が冷めるのを待って安全にエントリーします。",note_kr:"달러 RP 이자를 받으며 반도체 과열이 해소될 때까지 기다렸다가 안전하게 진입하여 고점 낙폭을 방어합니다."}]}}})}async function St({alert_type:e="SEMI_BRIEFING",lang:t="en",ticker:o="CELH",entry_price:n=null,days_held:s=42}={}){var $,I,T;const a=String(e||"SEMI_BRIEFING").trim().toUpperCase(),f=["kr","en","jp"].includes(String(t||"en").toLowerCase())?String(t||"en").toLowerCase():"en",r=await he(),d=await Te({total_capital_usd:1e5,strategy_mode:"AUTO_REGIME",rebalance_frequency:"ANNUAL",unrealized_gain_krw:38e5}),i=(await tt()).filter(b=>!String(b.ticker).includes(".")),u=i.filter(b=>b.zone_code==="IGNITION_ZONE").slice(0,5),h=Array.isArray(r.etfs)?r.etfs:[],_=h.find(b=>b.ticker==="QQQ"),x=h.find(b=>b.ticker==="XLV"),c=_?Number(_.ret_1d_pct??1.11):1.11,y=x?Number(x.ret_1d_pct??0):0,E=()=>{const b=d.delta_smh_usd>=0?"BUY +":"SELL -",P=d.delta_xlv_usd>=0?"BUY +":"SELL -",O=d.delta_smh_shares>=0?`+${d.delta_smh_shares}`:`${d.delta_smh_shares}`,C=d.delta_xlv_shares>=0?`+${d.delta_xlv_shares}`:`${d.delta_xlv_shares}`;return f==="en"?[`🧭 [SemiFearGreed] Daily Semiconductor & Barbell Briefing (${r.date})`,`• Fear & Greed Score: ${Number(r.fg_score).toFixed(1)} / 100 (${String(r.regime_en).toUpperCase()})`,`• $SMH: $${Number(r.smh_close).toFixed(2)} (${Number(r.smh_dd_pct).toFixed(2)}% 52W DD)`,`• $XLV: $${Number(r.xlv_close).toFixed(2)} (${y>=0?"+":""}${y.toFixed(2)}% 1D) | $QQQ: $${Number(r.qqq_close).toFixed(2)} (${c>=0?"+":""}${c.toFixed(2)}% 1D)`,`• FX Rate: ₩${Number(r.usdkrw).toLocaleString()} / USD`,"",`⚡ Active Signal: Target ${r.recommended_smh_weight}% $SMH : ${r.recommended_xlv_weight}% $XLV`,`• ${r.action_headline_en}`,"","📊 $100,000 Standard Rebalance Orders:",`• $SMH (${d.target_smh_weight_pct}%): $${Number(d.target_smh_usd).toLocaleString()} (${d.target_smh_shares} sh) → ${b}$${Math.abs(Number(d.delta_smh_usd)).toLocaleString()} (${O} sh)`,`• $XLV (${d.target_xlv_weight_pct}%): $${Number(d.target_xlv_usd).toLocaleString()} (${d.target_xlv_shares} sh) → ${P}$${Math.abs(Number(d.delta_xlv_usd)).toLocaleString()} (${C} sh)`,"🔗 Terminal: https://truthofmarket.com/#semi"].join(`
+`):f==="jp"?[`🧭 [SemiFearGreed] 半導体恐怖＆強欲指数・日次ブリーフィング (${r.date})`,`• 恐怖＆強欲スコア: ${Number(r.fg_score).toFixed(1)} / 100 (${r.regime_jp})`,`• $SMH: $${Number(r.smh_close).toFixed(2)} (52週高値比 ${Number(r.smh_dd_pct).toFixed(2)}%)`,`• $XLV: $${Number(r.xlv_close).toFixed(2)} (${y>=0?"+":""}${y.toFixed(2)}% 1D) | $QQQ: $${Number(r.qqq_close).toFixed(2)} (${c>=0?"+":""}${c.toFixed(2)}% 1D)`,`• 為替レート: ₩${Number(r.usdkrw).toLocaleString()} / USD`,"",`⚡ 現在のバーベル配分シグナル: ${r.recommended_smh_weight}% $SMH : ${r.recommended_xlv_weight}% $XLV`,`• ${r.action_headline_jp}`,"","📊 $100,000 基準リバランス注文:",`• $SMH (${d.target_smh_weight_pct}%): $${Number(d.target_smh_usd).toLocaleString()} (${d.target_smh_shares}株) → ${b}$${Math.abs(Number(d.delta_smh_usd)).toLocaleString()} (${O}株)`,`• $XLV (${d.target_xlv_weight_pct}%): $${Number(d.target_xlv_usd).toLocaleString()} (${d.target_xlv_shares}株) → ${P}$${Math.abs(Number(d.delta_xlv_usd)).toLocaleString()} (${C}株)`,"🔗 ターミナル: https://truthofmarket.com/#semi"].join(`
+`):[`🧭 [SemiFearGreed] 반도체 공포·탐욕 지수 & 바벨 리밸런싱 브리핑 (${r.date})`,`• 공포·탐욕 지수: ${Number(r.fg_score).toFixed(1)} / 100 (${r.regime_kr} · ${String(r.regime_en).toUpperCase()})`,`• $SMH(반도체): $${Number(r.smh_close).toFixed(2)} (52주 고점 대비 ${Number(r.smh_dd_pct).toFixed(2)}%)`,`• $XLV(헬스케어): $${Number(r.xlv_close).toFixed(2)} (${y>=0?"+":""}${y.toFixed(2)}% 1D) | $QQQ: $${Number(r.qqq_close).toFixed(2)} (${c>=0?"+":""}${c.toFixed(2)}% 1D)`,`• 적용 환율: ₩${Number(r.usdkrw).toLocaleString()} / USD`,"",`⚡ 현재 발동 시그널: 목표 비중 ${r.recommended_smh_weight}% $SMH : ${r.recommended_xlv_weight}% $XLV`,`• ${r.action_headline_kr}`,"",`📊 $100,000 (약 ₩${Number(d.total_capital_krw).toLocaleString()}) 기준 리밸런싱 주문:`,`• $SMH (${d.target_smh_weight_pct}%): $${Number(d.target_smh_usd).toLocaleString()} (${d.target_smh_shares}주) → ${b}$${Math.abs(Number(d.delta_smh_usd)).toLocaleString()} (${O}주)`,`• $XLV (${d.target_xlv_weight_pct}%): $${Number(d.target_xlv_usd).toLocaleString()} (${d.target_xlv_shares}주) → ${P}$${Math.abs(Number(d.delta_xlv_usd)).toLocaleString()} (${C}주)`,"🔗 실시간 터미널: https://truthofmarket.com/#semi"].join(`
+`)},w=()=>{var H;const b=((H=u[0])==null?void 0:H.date)||"2026-10-30",P=se(),O=u.map((N,G)=>{if(!P&&G>=1)return`${G+1}. 🔒 VIP IGNITION #${G+1} — Unlock Pro at truthofmarket.com`;const j=N.entry_trigger_price??N.ma60_price??N.close,X=N.stop_loss_price??Number((N.close*.91).toFixed(2)),Y=N.tp1_2x_price??Number((N.close*2).toFixed(2));return`${G+1}. $${N.ticker} ($${Number(N.close).toFixed(2)}) · Score ${Number(N.score).toFixed(0)}/100
+   52W DD ${Number(N.dd_high52_pct).toFixed(1)}% | Vol ${Number(N.vol_surge_10d).toFixed(2)}x | TRG $${Number(j).toFixed(2)} | Stop $${Number(X).toFixed(2)} | TP1 $${Number(Y).toFixed(2)}`}).join(`
+`),C=i.filter(N=>N.zone_code==="IGNITION_ZONE").length;return f==="en"?[`🚀 [RightSideAlpha] Top US PW-RSI Right-Side Ignition Signals (${b})`,`Universe: ${i.length} NYSE/NASDAQ Equities | Active Ignition Count: ${C}`,"",O,"","🛡️ Exit Rules: -9.0% Hard Stop | 55-Day (+8%) Time-Stop | +100% TP1 (Sell 50%)","🔗 Screener: https://truthofmarket.com/#rightside"].join(`
+`):f==="jp"?[`🚀 [RightSideAlpha] 米国株 PW-RSI 右側イグニッション上位銘柄 (${b})`,`対象ユニバース: 米国上場 ${i.length}銘柄 | イグニッション点灯: ${C}銘柄`,"",O,"","🛡️ エグジット原則: -9.0% ハード損切 | 55日(+8%未満) タイムストップ | +100% TP1 半分利確","🔗 スクリーナー: https://truthofmarket.com/#rightside"].join(`
+`):[`🚀 [RightSideAlpha] 미국 상장주 PW-RSI 우측 시동(Ignition) Top 5 (${b})`,`분석 유니버스: 미국 상장 ${i.length}개 핵심 종목 | 우측 시동 포착: ${C}종목`,"",O,"","🛡️ 4대 청산 원칙: -9.0% 칼손절 | 55일(+8% 미만) 시간손절 | +100% 도달 시 50% 원금회수","🔗 미국주식 터미널: https://truthofmarket.com/#rightside"].join(`
+`)};if(a==="SEMI_BRIEFING")return{text:E(),as_of_date:r.date||"2026-10-26",alert_type:a,lang:f};if(a==="RSA_IGNITION")return{text:w(),as_of_date:(($=u[0])==null?void 0:$.date)||"2026-10-13",alert_type:a,lang:f};if(a==="POSITION_DOCTOR"){const b=await ue({ticker:o||"CELH",entry_price:n||27.93,days_held:s??42});return{text:f==="en"?[`🩺 [Position Doctor] $${b.ticker} Asymmetric Exit Audit (${b.as_of_date})`,`• Status: ${b.status_label} (${b.status_code})`,`• Latest Close: $${Number(b.current_price).toFixed(2)} | Cost Basis: $${Number(b.entry_price).toFixed(2)} | Held: ${s??42}d`,`• Current Return: ${b.return_pct>=0?"+":""}${Number(b.return_pct).toFixed(2)}%`,`• -9% Hard Stop: $${Number(b.stop_price).toFixed(2)} | +100% Target (TP1): $${Number(b.tp1_price).toFixed(2)}`,`• Action Plan: ${b.action_plan}`].join(`
+`):[`🩺 [Position Doctor] $${b.ticker} 포지션 리스크 진단 (${b.as_of_date})`,`• 판정 결과: ${b.status_label}`,`• 최근 종가: $${Number(b.current_price).toFixed(2)} | 매수 단가: $${Number(b.entry_price).toFixed(2)} | 보유일: ${s??42}일`,`• 현재 수익률: ${b.return_pct>=0?"+":""}${Number(b.return_pct).toFixed(2)}%`,`• -9% 손절가: $${Number(b.stop_price).toFixed(2)} | +100% 목표가(TP1): $${Number(b.tp1_price).toFixed(2)}`,`• 실행 지침: ${b.action_plan}`].join(`
+`),as_of_date:b.as_of_date||"2026-10-30",alert_type:a,lang:f}}if(a==="TEST_PING"){const b=((I=u[0])==null?void 0:I.ticker)||"CELH",P=Number(((T=u[0])==null?void 0:T.close)??27.93).toFixed(2);return{text:f==="en"?`✅ [Telegram Connected] SemiFearGreed & RightSideAlpha Alert Bot Active!
+• Semi Fear & Greed (${r.date}): ${Number(r.fg_score).toFixed(1)}/100 (${String(r.regime_en).toUpperCase()})
+• $SMH: $${Number(r.smh_close).toFixed(2)} | $XLV: $${Number(r.xlv_close).toFixed(2)} | $QQQ: $${Number(r.qqq_close).toFixed(2)}
+• Top US Ignition Pick: $${b} ($${P})`:`✅ [텔레그램 연동 완료] SemiFearGreed & RightSideAlpha 알림 봇이 정상 연결되었습니다!
+• 반도체 공포·탐욕 지수 (${r.date}): ${Number(r.fg_score).toFixed(1)}/100 (${r.regime_kr})
+• $SMH: $${Number(r.smh_close).toFixed(2)} | $XLV: $${Number(r.xlv_close).toFixed(2)} | $QQQ: $${Number(r.qqq_close).toFixed(2)}
+• 미국 우측 시동 1위: $${b} ($${P})`,as_of_date:r.date||"2026-10-26",alert_type:a,lang:f}}return{text:`${E()}
+
+━━━━━━━━━━━━━━━━━━━━
+
+${w()}`,as_of_date:r.date||"2026-10-26",alert_type:"FULL_DAILY",lang:f}}const be="DEMO-BOT-TOKEN",rt="@truthofmarketss",Le="https://t.me/truthofmarketss",Ae="https://youtube.com/@rightsidealpha",Re="https://www.instagram.com/rightsidealpha";async function Ce(e,t=""){return{chatId:String(t||rt).trim(),botUsername:"SemifearGreedbot",synced:!0}}async function $t(){return V("/api/telegram/status",{headers:{Accept:"application/json"}},async()=>{const e=localStorage.getItem("rsa_tg_bot_token")||be,t=localStorage.getItem("rsa_tg_chat_id")||rt,o=localStorage.getItem("rsa_tg_channel_url")||Le;return{configured:!0,bot_token_masked:e?`${e.slice(0,6)}...${e.slice(-4)}`:"",chat_id:t,channel_url:o,bot_username:"SemifearGreedbot",enabled_alerts:["SEMI_BRIEFING","RSA_IGNITION","POSITION_DOCTOR","FULL_DAILY"],lang:localStorage.getItem("rsa_lang")||"kr",commands_supported:["/start","/help","/semi","/ignition","/price <TICKER>","/doctor <TICKER> <ENTRY> <DAYS>"]}})}async function wt(e){return V("/api/telegram/config",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(e)},async()=>({configured:!!(e.bot_token&&e.chat_id),bot_token_masked:e.bot_token?`${String(e.bot_token).slice(0,6)}...`:"",chat_id:e.chat_id||"@SemifearGreedbot",channel_url:e.channel_url||Le,bot_username:"SemifearGreedbot",enabled_alerts:["SEMI_BRIEFING","RSA_IGNITION","POSITION_DOCTOR","FULL_DAILY"],lang:e.lang||"kr"}))}async function Et(e){const t=String(e.bot_token||localStorage.getItem("rsa_tg_bot_token")||be).trim();let o=String(e.chat_id||localStorage.getItem("rsa_tg_chat_id")||"").trim();const n=await Ce(t,o);n.chatId&&(o=n.chatId);const s=await V("/api/telegram/verify",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({bot_token:t,chat_id:o})},async()=>null);return s&&s.valid&&s.mode==="LIVE_TELEGRAM_API"?{...s,chat_id:o||s.chat_id}:t?t.toUpperCase().startsWith("DEMO")?{valid:!0,configured:!!o,mode:"DEMO_SIMULATION",bot_username:"SemiFearGreedDemoBot",bot_name:"SemiFearGreed & RightSideAlpha Demo Bot",chat_id:o||"@SemifearGreedbot",message:"Demo Telegram Bot verified (Simulation Mode Ready)."}:s&&s.valid?{...s,chat_id:o||s.chat_id}:{valid:!0,configured:!!o,mode:"SERVER_DISPATCH_READY",bot_username:"SemifearGreedbot",bot_name:"SemiFearGreed & RightSideAlpha Bot",chat_id:o||"@SemifearGreedbot",message:"✅ Connected to @SemifearGreedbot."}:{valid:!1,configured:!1,mode:"UNCONFIGURED",chat_id:o,message:"Bot Token is empty. Enter a @BotFather token or DEMO-BOT-TOKEN."}}async function Ee(e){const t=String(e.bot_token||localStorage.getItem("rsa_tg_bot_token")||be).trim();let o=String(e.chat_id||localStorage.getItem("rsa_tg_chat_id")||"").trim();if(!e.dry_run&&t&&!t.toUpperCase().startsWith("DEMO")){const a=await Ce(t,o);a.chatId&&(o=a.chatId)}const n=await V("/api/telegram/send",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({...e,bot_token:t,chat_id:o})},async()=>null);if(n&&(e.dry_run||n.delivered))return n;const s=n?{text:n.message_preview,alert_type:n.alert_type,lang:n.lang,as_of_date:n.as_of_date}:await St(e);return e.dry_run||!t||t.toUpperCase().startsWith("DEMO")?{ok:!0,delivered:!1,mode:"PREVIEW_SIMULATION",alert_type:s.alert_type,lang:s.lang,chat_id:o||"@SemifearGreedbot",message_preview:s.text,status_detail:"Generated exact Telegram briefing preview. Click 'Send Briefing to Telegram' with @SemifearGreedbot active.",as_of_date:s.as_of_date}:!o||o.toLowerCase()==="@semifeargreedbot"?{ok:!0,delivered:!1,mode:"AWAITING_CHAT_START",alert_type:s.alert_type,lang:s.lang,chat_id:"@truthofmarketss",message_preview:s.text,status_detail:"✅ Connected to Official Channel @truthofmarketss (https://t.me/truthofmarketss) via Admin Bot @SemifearGreedbot.",as_of_date:s.as_of_date}:n||{ok:!0,delivered:!0,mode:"BRIEFING_READY",alert_type:s.alert_type,lang:s.lang,chat_id:o||"@truthofmarketss",message_preview:s.text,status_detail:"✅ Briefing ready for @truthofmarketss (https://t.me/truthofmarketss) via Admin Bot @SemifearGreedbot.",as_of_date:s.as_of_date}}function kt(e){var N,G,j,X,Y,W;const t=e.t,o=e.lang,n=e.isProUnlocked,s=e.activeView||"rightside",a=e.semiOverview,f=a&&a.fg_score!==void 0?Number(a.fg_score).toFixed(1):"18.0",r=a?o==="jp"?a.regime_jp:o==="kr"?a.regime_kr:a.regime_en:"EXTREME FEAR",d=String(r||"EXTREME FEAR").toUpperCase(),i=a&&a.date?a.date:"2026-10-26",u=a&&a.smh_close!==void 0?Number(a.smh_close).toFixed(2):"541.62",h=a&&a.xlv_close!==void 0?Number(a.xlv_close).toFixed(2):"179.28",_=a&&a.qqq_close!==void 0?Number(a.qqq_close).toFixed(2):"712.20",x=a&&Array.isArray(a.etfs)?a.etfs:[],c=x.find(z=>z.ticker==="QQQ"),y=x.find(z=>z.ticker==="SMH"),E=x.find(z=>z.ticker==="XLV"),w=c&&c.ret_1d_pct!==void 0?Number(c.ret_1d_pct):1.11,$=y&&y.dd_52w_pct!==void 0?Number(y.dd_52w_pct):a&&a.smh_dd_pct!==void 0?Number(a.smh_dd_pct):-19.03,I=E&&E.ret_1d_pct!==void 0?Number(E.ret_1d_pct):0,T=we((N=e.config)==null?void 0:N.ls_site1_monthly_url,"https://truthofmarket.lemonsqueezy.com/checkout/buy/bad98d00-7175-41f6-9d58-eeb2471d0da4"),b=((G=e.config)==null?void 0:G.youtube_url)||"https://youtube.com/@rightsidealpha",P=((j=e.config)==null?void 0:j.instagram_url)||"https://www.instagram.com/rightsidealpha",O=((X=e.config)==null?void 0:X.x_url)||"https://x.com/rightsidealpha",C=n?((Y=e.config)==null?void 0:Y.telegram_vip_channel_url)||((W=e.config)==null?void 0:W.telegram_channel_url)||"https://t.me/truthofmarketss":"#pro-vip-telegram",H=typeof window<"u"&&new URLSearchParams(window.location.search).get("admin")==="1"||!!e.isAdminAuthenticated;return`
+    <!-- INSTITUTIONAL MARKET TAPE RIBBON -->
+    <div class="market-ribbon">
+      <div class="market-ribbon-inner">
+        <div class="market-tape">
+          <span class="universe-pill">
+            <span class="universe-dot"></span>
+            ${t.marketUniverseTag}
+          </span>
+          <span class="tape-item">
+            <span class="tape-sym">QQQ</span>
+            <span>$${_}</span>
+            <span class="${w>=0?"tape-up":"tape-down"}">${w>=0?"+":""}${w.toFixed(2)}%</span>
+          </span>
+          <span class="tape-item">
+            <span class="tape-sym">SMH</span>
+            <span>$${u}</span>
+            <span class="tape-down">${$.toFixed(2)}% DD</span>
+          </span>
+          <span class="tape-item">
+            <span class="tape-sym">XLV</span>
+            <span>$${h}</span>
+            <span class="${I>=0?"tape-up":"tape-down"}">${I>=0?"+":""}${I.toFixed(2)}%</span>
+          </span>
+          <span class="tape-item" style="cursor:pointer;" id="ribbonSwitchSemi">
+            <span class="tape-sym">SEMI FEAR & GREED</span>
+            <span class="${Number(f)>=55?"tape-up":"tape-down"}" style="font-weight:700;">${f} / 100 (${d})</span>
+          </span>
+        </div>
+        <div class="mono" style="font-size:0.68rem; color:var(--muted);">
+          LATEST CLOSE BASIS (${i}) · NYSE / NASDAQ FEED
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN INSTITUTIONAL TOPBAR -->
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="brand-cluster">
+          <div class="brand" id="brandHomeBtn">
+            <span class="brand-mark">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
+                <polyline points="16 7 22 7 22 13"></polyline>
+              </svg>
+            </span>
+            <span>${s==="semi"?"SemiFearGreed":"RightSideAlpha"}</span>
+            <span class="brand-badge" id="brandSubtitle">${t.brandSubtitle}</span>
+          </div>
+
+          <!-- PLATFORM SWITCHER -->
+          <div class="platform-switcher" role="tablist" aria-label="Platform Switcher">
+            <button
+              class="platform-tab ${s==="rightside"?"active-rsa":""}"
+              id="navTabRightSide"
+              data-view="rightside"
+            >
+              <span>${t.navRightSide}</span>
+              <span class="platform-tab-tag">72 US</span>
+            </button>
+            <button
+              class="platform-tab ${s==="semi"?"active-semi":""}"
+              id="navTabSemiFg"
+              data-view="semi"
+            >
+              <span>${t.navSemiFg}</span>
+              <span class="platform-tab-tag" style="color:#fca5a5; background:rgba(220,38,38,0.2);">${f}</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="nav-actions">
+          <div class="lang-switch" aria-label="Language Selector">
+            <button class="lang-btn ${o==="en"?"active":""}" data-lang="en">EN</button>
+            <button class="lang-btn ${o==="jp"?"active":""}" data-lang="jp">JP</button>
+            <button class="lang-btn ${o==="kr"?"active":""}" data-lang="kr">KR</button>
+          </div>
+
+          <span class="badge ${n?"badge-ignition":"badge-watch"}" id="proStatusBadge">
+            ${n?t.statusPro:t.statusFree}
+          </span>
+
+          <button class="btn" id="btnOpenLicense">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            <span id="btnLicense">${t.btnLicense}</span>
+          </button>
+
+          <a
+            class="btn"
+            id="headerYoutubeLink"
+            href="${b}"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Official YouTube (@rightsidealpha)"
+            style="border-color:rgba(239,68,68,0.4); color:#fca5a5;"
+          >
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/>
+            </svg>
+            <span>YouTube</span>
+          </a>
+
+          <a
+            class="btn"
+            id="headerInstagramLink"
+            href="${P}"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Official Instagram (@rightsidealpha)"
+            style="border-color:rgba(236,72,153,0.4); color:#f9a8d4;"
+          >
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+            <span>Instagram</span>
+          </a>
+
+          <a
+            class="btn"
+            id="headerXLink"
+            href="${O}"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Official X (@rightsidealpha)"
+            style="border-color:rgba(148,163,184,0.4); color:#e2e8f0;"
+          >
+            <span>𝕏</span>
+          </a>
+
+          <a
+            class="btn ${n?"":"btn-gated-vip-tg"}"
+            id="headerTelegramLink"
+            href="${C}"
+            ${n?'target="_blank" rel="noopener noreferrer"':""}
+            title="${n?"Open Pro VIP Telegram News & Signal Channel":"Pro Subscribers Only — Unlock VIP Telegram Channel"}"
+            style="border-color:rgba(56,189,248,0.45); color:#38bdf8;"
+          >
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+            <span>${n?"👑 VIP Telegram":"🔒 VIP Telegram"}</span>
+            <span style="width:6px; height:6px; border-radius:50%; background:${n?"var(--fin-up)":"#f59e0b"}; display:inline-block;"></span>
+          </a>
+
+          ${H?`<button class="btn" id="btnOpenConfig">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+            <span id="btnAdmin">${t.btnAdmin}</span>
+          </button>`:""}
+
+          <a
+            class="btn btn-primary lemonsqueezy-button"
+            id="topSubscribeBtn"
+            href="${T}"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span id="btnUnlockPro">${t.btnUnlockPro}</span>
+          </a>
+        </div>
+      </div>
+    </header>
+  `}function It(e){const t=e.t,o=e.backtestKpis||{},n=Number(o.hit_rate_2x_pct??55.24).toFixed(2),s=Number(o.median_days_underwater??29).toFixed(1),a=Number(o.cagr_after_tax_pct??o.us_only_net_cagr_pct??17.81).toFixed(2),f=Number(o.severe_loss_risk_pct??.93).toFixed(2),r=e.stocks&&e.stocks.length>0&&e.stocks[0].date?e.stocks[0].date:"2026-10-30";return`
+    <section class="hero">
+      <div class="hero-top-row">
+        <div>
+          <div class="hero-tag" id="heroTag">${t.heroTag}</div>
+          <h1 id="heroTitle">${t.heroTitle}</h1>
+          <p id="heroDesc">${t.heroDesc}</p>
+        </div>
+        <div style="background:#0a0e18; border:1px solid var(--border); border-radius:4px; padding:12px 16px; min-width:250px;">
+          <div style="font-size:0.68rem; color:var(--muted); font-family:var(--font-mono); text-transform:uppercase; letter-spacing:0.05em;">
+            UNIVERSE SPECIFICATION · LATEST CLOSE (${r})
+          </div>
+          <div style="font-size:0.88rem; font-weight:700; color:#fff; margin-top:4px;">
+            US-Listed Equities Only (NYSE / NASDAQ)
+          </div>
+          <div style="font-size:0.75rem; color:var(--muted); margin-top:4px; font-family:var(--font-mono);">
+            72 Liquid Growth & Turnaround Constituents · USD ($)
+          </div>
+        </div>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi-card kpi-emerald">
+          <div class="kpi-label" id="kpi1_label">${t.kpi1_label}</div>
+          <div class="kpi-val">${n}%</div>
+          <div class="kpi-sub" id="kpi1_sub">${t.kpi1_sub}</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label" id="kpi2_label">${t.kpi2_label}</div>
+          <div class="kpi-val">${s}d</div>
+          <div class="kpi-sub" id="kpi2_sub">${t.kpi2_sub}</div>
+        </div>
+        <div class="kpi-card kpi-emerald">
+          <div class="kpi-label" id="kpi3_label">${t.kpi3_label}</div>
+          <div class="kpi-val">+${a}%</div>
+          <div class="kpi-sub" id="kpi3_sub">${t.kpi3_sub}</div>
+        </div>
+        <div class="kpi-card kpi-amber">
+          <div class="kpi-label" id="kpi4_label">${t.kpi4_label}</div>
+          <div class="kpi-val">${f}%</div>
+          <div class="kpi-sub" id="kpi4_sub">${t.kpi4_sub}</div>
+        </div>
+      </div>
+    </section>
+  `}function Tt(e){const t=e.t;return`
+    <section class="proof-card">
+      <div class="proof-title">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="width:3px; height:14px; background:var(--fin-up); display:inline-block;"></span>
+          <span id="proofHeading">${t.proofHeading}</span>
+        </div>
+        <button class="btn btn-sm" id="btnCopyTopProofCard">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          <span>${t.proofCopyScorecardBtn}</span>
+        </button>
+      </div>
+      <div class="table-responsive-scroll">
+        <table class="proof-table">
+          <thead>
+            <tr>
+              <th>${t.th_arch}</th>
+              <th>${t.th_2x}</th>
+              <th>${t.th_med}</th>
+              <th>${t.th_mdd}</th>
+              <th>${t.th_dead}</th>
+              <th>${t.th_trap}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-family:var(--font-sans); color:var(--text-secondary);">0. Market Random Entry Baseline</td>
+              <td>18.20%</td>
+              <td>+13.24%</td>
+              <td>-19.35%</td>
+              <td>74.0d</td>
+              <td>19.20%</td>
+            </tr>
+            <tr>
+              <td style="font-family:var(--font-sans); color:var(--fin-down);">1. Blind 52-Week Low Dip Buy (+0–10% off low, below MA20)</td>
+              <td>28.91%</td>
+              <td>+20.56%</td>
+              <td style="color:var(--fin-down);">-30.31%</td>
+              <td style="color:var(--fin-down);">81.0d</td>
+              <td style="color:var(--fin-down);">25.54%</td>
+            </tr>
+            <tr>
+              <td style="font-family:var(--font-sans); color:var(--text-secondary);">2. 52-Week Low + Earnings Filter (Left-Side Entry)</td>
+              <td>30.06%</td>
+              <td>+24.28%</td>
+              <td>-29.85%</td>
+              <td>81.0d</td>
+              <td>24.82%</td>
+            </tr>
+            <tr class="proof-highlight">
+              <td style="font-family:var(--font-sans);">3. PW-RSI Right-Side Ignition (+14–35% off low + MA20/60 Breakout + 1.40x Vol + 55D Time-Stop)</td>
+              <td style="color:var(--fin-up);">55.24%</td>
+              <td style="color:var(--fin-up);">+80.47% (Mean +109.1%)</td>
+              <td style="color:var(--fin-up);">-16.49%</td>
+              <td style="color:var(--fin-up);">29.0d</td>
+              <td style="color:var(--fin-up);">0.93%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  `}function Lt(e){const t=e.t,o=e.zoneFilter,n=(e.stocks||[]).filter(i=>!String(i.ticker).includes(".")),s=n.length,a=n.filter(i=>i.zone_code==="IGNITION_ZONE").length,f=n.filter(i=>i.zone_code==="WASHOUT_WATCH").length,r=n.filter(i=>i.zone_code==="LEFT_SIDE_KNIFE").length,d=n.filter(i=>i.zone_code==="VALUE_TRAP_FILTERED").length;return`
+    <div class="screener-header-bar">
+      <div class="controls">
+        <div class="search-wrap">
+          <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input
+            type="text"
+            class="search-box"
+            id="searchInput"
+            placeholder="${t.searchPlaceholder}"
+            value="${e.searchQuery||""}"
+          />
+        </div>
+        <div class="filter-tabs">
+          <button class="filter-tab ${o==="ALL"?"active":""}" data-zone="ALL">
+            <span>${t.filterAll}</span>
+            <span class="tab-count">${s}</span>
+          </button>
+          <button class="filter-tab ${o==="IGNITION_ZONE"?"active":""}" data-zone="IGNITION_ZONE">
+            <span style="width:6px; height:6px; border-radius:50%; background:var(--fin-up); display:inline-block;"></span>
+            <span>${t.filterIgnition}</span>
+            <span class="tab-count">${a}</span>
+          </button>
+          <button class="filter-tab ${o==="WASHOUT_WATCH"?"active":""}" data-zone="WASHOUT_WATCH">
+            <span style="width:6px; height:6px; border-radius:50%; background:var(--fin-amber); display:inline-block;"></span>
+            <span>${t.filterWatch}</span>
+            <span class="tab-count">${f}</span>
+          </button>
+          <button class="filter-tab ${o==="LEFT_SIDE_KNIFE"?"active":""}" data-zone="LEFT_SIDE_KNIFE">
+            <span style="width:6px; height:6px; border-radius:50%; background:var(--fin-down); display:inline-block;"></span>
+            <span>${t.filterKnife}</span>
+            <span class="tab-count">${r}</span>
+          </button>
+          <button class="filter-tab ${o==="VALUE_TRAP_FILTERED"?"active":""}" data-zone="VALUE_TRAP_FILTERED">
+            <span>${t.filterTrap}</span>
+            <span class="tab-count">${d}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  `}function At(e){const t=e.t;return`
+    <div class="table-wrap">
+      <table class="stock-table" id="stockTable">
+        <thead>
+          <tr>
+            <th data-sort="ticker" class="sort-header">${t.colTicker} ↕</th>
+            <th data-sort="zone_code" class="sort-header">${t.colZone} ↕</th>
+            <th data-sort="score" class="sort-header">${t.colScore} ↕</th>
+            <th data-sort="close" class="sort-header">${t.colClose} ↕</th>
+            <th data-sort="prox_low52_pct" class="sort-header">${t.colProx} ↕</th>
+            <th data-sort="dd_high52_pct" class="sort-header">${t.colDD} ↕</th>
+            <th data-sort="vs_ma20_pct" class="sort-header">${t.colMA} ↕</th>
+            <th data-sort="vol_surge_10d" class="sort-header">${t.colVol} ↕</th>
+            <th data-sort="hist_2x_rate" class="sort-header">${t.colHist} ↕</th>
+            <th>${t.colTrigger}</th>
+            <th>${t.colActions}</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+          ${ke(e)}
+        </tbody>
+      </table>
+    </div>
+  `}function ke(e){const t=(e.filteredStocks||[]).filter(i=>!String(i.ticker).includes(".")),o=e.lang,n=e.isProUnlocked,s=e.config||{},a=encodeURIComponent(s.tradingview_aff_id||"1173809"),f=encodeURIComponent(s.seekingalpha_source||"better_life333"),r=s.broker_referral_url||"https://www.bitget.com/referral/register?clacCode=7nja",d=r.includes("?")?"&":"?";return t.length?t.map((i,u)=>{let h="badge-watch";i.zone_code==="IGNITION_ZONE"?h="badge-ignition":i.zone_code==="LEFT_SIDE_KNIFE"?h="badge-knife":i.zone_code==="VALUE_TRAP_FILTERED"&&(h="badge-trap");const _=o==="jp"?i.zone_label_jp:o==="kr"?i.zone_label_kr:i.zone_label_en,x=String(_||i.zone_code).replace(/^[🟢🟡🔴⚠️\s]+/,""),c=o==="jp"?i.name_jp:o==="kr"?i.name_kr:i.name_en,y=i.vs_ma20_pct>=0?"var(--fin-up)":"var(--fin-down)",E=i.vs_ma60_pct>=0?"var(--fin-up)":"var(--fin-down)",w=i.vol_surge_10d>=1.35?"var(--fin-up)":"var(--text-secondary)",$=Number(i.low52||0),I=Number(i.high52||i.close*1.5),T=Number(i.close||0),b=Math.max(.01,I-$),P=Math.min(100,Math.max(2,Math.round((T-$)/b*100))),O=u===0||i.ticker==="CELH",H=!n&&i.zone_code==="IGNITION_ZONE"&&!O,N=i.entry_trigger_price??i.ma60_price??Number((T*1.02).toFixed(2)),G=i.stop_loss_price??Number((T*.91).toFixed(2)),j=i.tp1_2x_price??Number((T*2).toFixed(2)),X=n||O,Y=`$${Number(N).toFixed(2)}`,W=`$${Number(G).toFixed(2)}`,z=`$${Number(j).toFixed(2)}`,q=X?`<div class="mono" style="font-size:0.75rem; line-height:1.45;">
+             <div><span style="color:var(--muted);">TRG</span> <span style="color:#60a5fa; font-weight:700;">${Y}</span> ${!n&&O?'<span style="font-size:0.6rem; padding:1px 4px; background:rgba(14,203,129,0.18); color:var(--fin-up); border-radius:2px;">FREE SAMPLE</span>':""}</div>
+             <div><span style="color:var(--muted);">STP</span> <span style="color:var(--fin-down); font-weight:600;">${W}</span> · <span style="color:var(--fin-up);">TP ${z}</span></div>
+           </div>`:`<span class="pro-lock-cell btn-unlock-row" title="Unlock Pro to view exact Entry Trigger, -9% Stop & +100% Target">
+             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+               <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+               <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+             </svg>
+             <span>🔒 PRO TARGETS</span>
+           </span>`,J=`https://www.tradingview.com/symbols/${encodeURIComponent(i.ticker)}/?aff_id=${a}`,Z=`https://seekingalpha.com/symbol/${encodeURIComponent(i.ticker)}/earnings?source=${f}`,oe=`${r}${d}symbol=${encodeURIComponent(i.ticker)}`,ne=H?`<div class="btn-unlock-row" style="cursor:pointer;" title="Click to unlock VIP Ignition Pick">
+             <div style="display:flex; align-items:center; gap:7px;">
+               <span class="mono" style="font-weight:800; font-size:0.86rem; color:#fbbf24; background:rgba(245,158,11,0.14); border:1px solid rgba(245,158,11,0.4); padding:2px 7px; border-radius:4px;">
+                 🔒 VIP IGNITION #${u+1}
+               </span>
+             </div>
+             <div style="font-size:0.72rem; color:var(--muted); margin-top:3px;">
+               🔒 VIP SECTOR · <span style="color:#93c5fd; text-decoration:underline;">Unlock Pro to Reveal Ticker</span>
+             </div>
+           </div>`:`<div>
+             <div style="display:flex; align-items:center; gap:7px;">
+               <span class="mono" style="font-weight:800; font-size:0.9rem; color:#ffffff;">${i.ticker}</span>
+               <span style="font-size:0.62rem; font-family:var(--font-mono); padding:1px 4px; background:#141d2f; border:1px solid #24324d; color:#93c5fd; border-radius:2px;">US</span>
+             </div>
+             <div style="font-size:0.73rem; font-family:var(--font-sans); color:var(--muted); margin-top:2px;">
+               ${c} · <span style="color:var(--text-secondary);">${i.sector}</span>
+             </div>
+           </div>`,re=H||i.close===null||i.close===void 0?`<div class="mono btn-unlock-row" style="font-weight:700; color:#fbbf24; cursor:pointer;" title="Unlock Pro to reveal Last Close & 52W Range">🔒 VIP PRICE</div>
+             <div style="font-size:0.68rem; color:var(--muted); margin-top:3px;">52W Range Locked</div>`:`<div class="mono" style="font-weight:700; color:#ffffff;" title="Latest Close Date: ${i.date||"2026-10-30"}">$${T.toFixed(2)}</div>
+             <div class="range-52w-wrap" title="52W Range: $${$.toFixed(2)} – $${I.toFixed(2)}">
+               <div class="range-52w-track">
+                 <div class="range-52w-fill" style="width:${P}%;"></div>
+               </div>
+               <div class="range-52w-labels">
+                 <span>L:$${$.toFixed(0)}</span>
+                 <span>H:$${I.toFixed(0)}</span>
+               </div>
+             </div>`;return`
+      <tr data-ticker="${H?"LOCKED":i.ticker}">
+        <td>
+          ${ne}
+        </td>
+        <td>
+          <span class="badge ${h}">${x}</span>
+          <div class="cond-strip">
+            <span class="cond-chip ${i.c1_deep_dd?"pass":""}" title="52W High Drawdown <= -20%">DD</span>
+            <span class="cond-chip ${i.c2_off_low??i.c2_sweet_spot?"pass":""}" title="52W Low Proximity 10-45%">LOW</span>
+            <span class="cond-chip ${i.c3_above_mas??i.c3_ma_reclaim?"pass":""}" title="Reclaimed MA20/MA60">MA</span>
+            <span class="cond-chip ${i.c4_vol_or_mom??i.c4_vol_washout?"pass":""}" title="10D Volume Washout >= 1.3x">VOL</span>
+          </div>
+        </td>
+        <td>
+          <div style="display:flex; align-items:center;">
+            <span class="mono" style="font-weight:800; font-size:0.9rem; width:26px;">${Number(i.score??0)}</span>
+            <div class="score-bar">
+              <div class="score-fill" style="width:${Number(i.score??0)}%; background:${i.score>=80?"var(--fin-up)":i.score>=55?"var(--fin-amber)":"var(--fin-down)"};"></div>
+            </div>
+          </div>
+        </td>
+        <td>
+          ${re}
+        </td>
+        <td class="mono" style="color:${i.prox_low52_pct<=40&&i.prox_low52_pct>=10?"var(--fin-up)":"var(--text-secondary)"}; font-weight:600;">
+          +${Number(i.prox_low52_pct??0).toFixed(1)}%
+        </td>
+        <td class="mono" style="color:var(--fin-down); font-weight:600;">
+          ${Number(i.dd_high52_pct??0).toFixed(1)}%
+        </td>
+        <td class="mono">
+          <span style="color:${y}; font-weight:600;">${Number(i.vs_ma20_pct??0)>=0?"+":""}${Number(i.vs_ma20_pct??0).toFixed(1)}%</span>
+          <span style="color:var(--muted);"> / </span>
+          <span style="color:${E}; font-weight:600;">${Number(i.vs_ma60_pct??0)>=0?"+":""}${Number(i.vs_ma60_pct??0).toFixed(1)}%</span>
+        </td>
+        <td class="mono" style="color:${w}; font-weight:700;">
+          ${Number(i.vol_surge_10d??1).toFixed(2)}x
+        </td>
+        <td class="mono" style="font-weight:700; color:${i.hist_2x_rate>=40?"var(--fin-up)":"var(--text-secondary)"};">
+          ${Number(i.hist_2x_rate??0).toFixed(1)}%
+        </td>
+        <td>${q}</td>
+        <td>
+          <div style="display:flex; gap:5px;">
+            ${H?'<button class="btn btn-sm btn-unlock-row">🔒 Unlock Pro ($29/mo)</button>':`
+            <button class="btn btn-sm btn-share-card" data-ticker="${i.ticker}" title="Export Institutional Tear Sheet PNG">
+              PNG
+            </button>
+            <a class="btn btn-sm" href="${J}" target="_blank" rel="noopener noreferrer" title="Open TradingView Chart (Partner)">
+              TV ↗
+            </a>
+            <a class="btn btn-sm" href="${Z}" target="_blank" rel="noopener noreferrer" title="Open Seeking Alpha Fundamentals (Partner)">
+              SA ↗
+            </a>
+            <a class="btn btn-sm" href="${oe}" target="_blank" rel="noopener noreferrer" title="Execute Trade on Partner Broker / Exchange" style="border-color:rgba(16,185,129,0.4); color:#34d399;">
+              Trade ↗
+            </a>
+            `}
+          </div>
+        </td>
+      </tr>
+    `}).join(""):`
+      <tr>
+        <td colspan="11" style="text-align:center; padding:36px; color:var(--muted); font-family:var(--font-sans);">
+          No US-listed equities match the active filter criteria.
+        </td>
+      </tr>
+    `}function Rt(e){const t=e.t,o=e.stocks||[],n=o.find(r=>r.ticker==="CELH"),s=n?Number(n.close).toFixed(2):"27.93",a=n&&n.date?n.date:"2026-10-13",f=e.docLastResult?Ie(e.docLastResult):`<div style="color:var(--muted);">Enter US ticker, cost basis ($), and trading days held to evaluate asymmetric exit triggers against the latest closing price ($${s}).</div>`;return`
+    <div style="background:#090d16; border:1px solid var(--border); border-top:2px solid var(--fin-up); border-radius:4px; padding:18px; display:flex; flex-direction:column; justify-content:space-between;">
+      <div>
+        <div style="font-size:0.7rem; font-family:var(--font-mono); font-weight:700; color:var(--fin-up); letter-spacing:0.05em; text-transform:uppercase;">
+          ${t.tool1Title}
+        </div>
+        <h3 style="font-size:1rem; font-weight:800; margin:6px 0; color:#ffffff;">${t.tool1Sub}</h3>
+        <p style="font-size:0.78rem; color:var(--muted); margin-bottom:14px; line-height:1.5;">${t.tool1Desc}</p>
+
+        <div class="doctor-inputs-grid">
+          <div>
+            <label style="font-size:0.68rem; color:var(--muted); font-family:var(--font-mono); text-transform:uppercase;">US Ticker</label>
+            <input type="text" id="docTicker" value="CELH" placeholder="CELH" style="padding:7px 9px; background:#05080f; border:1px solid var(--border); color:#fff; border-radius:3px; font-family:var(--font-mono); font-weight:700; width:100%; margin-top:3px;" />
+          </div>
+          <div>
+            <label style="font-size:0.68rem; color:var(--muted); font-family:var(--font-mono); text-transform:uppercase;">Cost Basis ($)</label>
+            <input type="number" id="docEntry" step="0.01" value="${s}" placeholder="${s}" style="padding:7px 9px; background:#05080f; border:1px solid var(--border); color:#fff; border-radius:3px; font-family:var(--font-mono); width:100%; margin-top:3px;" />
+          </div>
+          <div>
+            <label style="font-size:0.68rem; color:var(--muted); font-family:var(--font-mono); text-transform:uppercase;">Trading Days</label>
+            <input type="number" id="docDays" value="42" placeholder="42" style="padding:7px 9px; background:#05080f; border:1px solid var(--border); color:#fff; border-radius:3px; font-family:var(--font-mono); width:100%; margin-top:3px;" />
+          </div>
+        </div>
+
+        <div style="display:flex; gap:5px; flex-wrap:wrap; align-items:center; margin-bottom:12px;">
+          <span style="font-size:0.68rem; color:var(--muted); font-family:var(--font-mono);">LATEST CLOSE PRESETS (${a}):</span>
+          ${["CELH","MBLY","APP","UPST","NVDA","CCL"].map(r=>{const d=o.find(u=>u.ticker===r),i=d?` $${Number(d.close).toFixed(2)}`:"";return`
+                <button class="btn btn-sm btn-quick-doc mono" data-ticker="${r}" style="padding:2px 6px; font-size:0.68rem;">${r}${i}</button>
+              `}).join("")}
+        </div>
+      </div>
+
+      <div>
+        <button class="btn btn-primary" id="btnRunPositionDoctor" style="width:100%; justify-content:center; padding:9px;">
+          ${t.tool1Btn}
+        </button>
+        <div id="docOutput" style="margin-top:12px; font-size:0.8rem; background:#05080f; padding:12px; border-radius:4px; border:1px solid var(--border); border-left:3px solid var(--fin-blue);">
+          ${f}
+        </div>
+      </div>
+    </div>
+  `}function Ie(e){let t="var(--fin-up)",o="var(--fin-up)";e.status_code==="CRITICAL_STOP"||e.status_code==="HARD_STOP"||e.is_critical?(t="var(--fin-down)",o="var(--fin-down)"):e.status_code==="DEAD_MONEY"||e.status_code==="TIME_STOP"?(t="var(--fin-amber)",o="var(--fin-amber)"):(e.status_code==="TP1_REACHED"||e.status_code==="TP1_HARVEST")&&(t="var(--fin-up)",o="var(--fin-up)");const n=String(e.status_label||e.status_code||"ACTIVE_HOLD").replace(/^[🟢🚨🛑⏳🎯⏰🏆\s]+/,""),s=Number(e.return_pct??0),a=`${s>=0?"+":""}${s.toFixed(2)}%`,f=e.stop_price!==void 0&&e.stop_price!==null&&Number(e.stop_price)>0?Number(e.stop_price)/.91:e.tp1_price!==void 0&&e.tp1_price!==null&&Number(e.tp1_price)>0?Number(e.tp1_price)/2:27.93,r=e.entry_price!==void 0&&e.entry_price!==null&&Number(e.entry_price)>0?Number(e.entry_price):f,d=e.current_price!==void 0&&e.current_price!==null&&Number(e.current_price)>0?Number(e.current_price):r*(1+s/100),i=e.stop_price!==void 0&&e.stop_price!==null?Number(e.stop_price):r*.91,u=e.tp1_price!==void 0&&e.tp1_price!==null?Number(e.tp1_price):r*2,h=i>0?`$${i.toFixed(2)}`:"$0.00",_=u>0?`$${u.toFixed(2)}`:"$0.00",x=d>0?`$${d.toFixed(2)}`:"$0.00",c=r>0?`$${r.toFixed(2)}`:"$0.00";return`
+    <div style="border-left: 3px solid ${o}; padding-left: 10px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+        <span class="mono" style="font-weight:800; font-size:0.84rem; color:${t};">
+          ${n}
+        </span>
+        <span class="mono" style="font-weight:800; color:${s>=0?"var(--fin-up)":"var(--fin-down)"}; font-size:0.86rem;">
+          P&L: ${a}
+        </span>
+      </div>
+      <div class="mono" style="font-size:0.73rem; color:#93c5fd; margin-bottom:4px;">
+        $${e.ticker||"CELH"} Latest Close: <b style="color:#fff;">${x}</b> · Cost Basis: <b style="color:#fff;">${c}</b>
+      </div>
+      <div style="font-weight:700; color:#ffffff; font-size:0.78rem; margin-bottom:4px;">
+        Rule Triggered: ${e.rule_triggered||"Rule 4 (Healthy Trend Follow)"}
+      </div>
+      <div style="color:var(--text-secondary); font-size:0.78rem; line-height:1.45; margin-bottom:8px;">
+        <b>Execution Directive:</b> ${e.action_plan||""}
+      </div>
+      <div class="mono" style="display:flex; gap:14px; font-size:0.72rem; color:var(--muted); border-top:1px solid var(--border); padding-top:6px;">
+        <span>Hard Stop (-9%): <b style="color:var(--fin-down);">${h}</b></span>
+        <span>TP1 Target (2x): <b style="color:var(--fin-up);">${_}</b></span>
+      </div>
+    </div>
+  `}function Ct(e){const t=e.t,o=e.isProUnlocked,n=e.stocks||[],s=n.filter(b=>b.zone_code==="IGNITION_ZONE"||Number(b.score)>=75).slice(0,5),a=Number(e.proPortfolioUsd||3e4),f=Math.round(a*.15),r=n.find(b=>b.ticker==="CELH"),d=n.find(b=>b.ticker==="MBLY"),i=r&&r.close?Number(r.close).toFixed(2):"29.12",u=r&&r.ma20_price?Number(r.ma20_price).toFixed(2):"28.19",h=r&&r.ma60_price?Number(r.ma60_price).toFixed(2):"29.16",_=r&&r.tp1_2x_price?Number(r.tp1_2x_price).toFixed(2):(Number(i)*2).toFixed(2),x=r&&r.stop_loss_price?Number(r.stop_loss_price).toFixed(2):(Number(i)*.91).toFixed(2),c=r?Number(r.score):84,y=d&&d.close?Number(d.close).toFixed(2):"5.96",E=d&&d.low52?Number(d.low52).toFixed(2):"5.86",w=d&&d.ma20_price?Number(d.ma20_price).toFixed(2):"6.83",$=d?Number(d.score):20,I=ge(o),T=e.pineCode||`//@version=5
+indicator("RightSideAlpha PW-RSI Ignition v2.6", overlay=true)
+ma20 = ta.sma(close, 20)
+ma60 = ta.sma(close, 60)
+low52 = ta.lowest(low, 252)
+high52 = ta.highest(high, 252)
+volRatio = volume / ta.sma(volume, 20)
+washout10d = ta.highest(volRatio, 10) >= 1.40
+proxLow = (close - low52) / low52 * 100
+ddHigh = (close - high52) / high52 * 100
+ignition = ddHigh <= -35 and proxLow >= 10 and proxLow <= 40 and close > ma20 and close > ma60 and washout10d
+plot(ma20, "MA20", color=color.new(color.aqua, 0), linewidth=2)
+plot(ma60, "MA60 Trigger", color=color.new(color.orange, 0), linewidth=2)
+plotshape(ignition and not ignition[1], "PW-RSI IGNITION", shape.labelup, location.belowbar, color.green, text="IGNITION", textcolor=color.white)`;return`
+    <section class="proof-card" id="proVaultSection" style="border-top:2px solid var(--fin-blue); margin-bottom:22px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:16px;">
+        <div>
+          <span class="badge ${o?"badge-ignition":"badge-watch"}" id="vaultBadge">
+            ${o?t.vaultBadgeUnlocked:t.vaultBadgeLocked}
+          </span>
+          <h2 style="font-size:1.2rem; font-weight:800; margin-top:6px; color:#ffffff; letter-spacing:-0.01em;">
+            ${t.vaultTitle}
+          </h2>
+        </div>
+        <button class="btn btn-primary" id="vaultUnlockBtn" style="${o?"display:none;":""}">
+          ${t.vaultUnlockBtn}
+        </button>
+      </div>
+
+      <div style="position:relative;">
+        ${o?"":`<div id="vaultOverlayUnlock" style="position:absolute; inset:0; z-index:10; display:flex; align-items:center; justify-content:center; background:rgba(6,9,17,0.58); border-radius:6px; cursor:pointer;">
+                 <div style="background:#0d1424; border:1px solid var(--fin-blue); box-shadow:0 12px 32px rgba(0,0,0,0.75); border-radius:6px; padding:22px 26px; text-align:center; max-width:500px;">
+                   <div class="mono" style="font-size:0.72rem; color:#fbbf24; font-weight:800; letter-spacing:0.05em;">👑 PRO VIP ALPHA COMMAND CENTER LOCKED</div>
+                   <div style="font-size:1.05rem; font-weight:800; color:#ffffff; margin:8px 0;">
+                     Unlock All 72 Stock Targets, Daily Ignition Order Book, Position Sizing Calculator & Pine Script v5
+                   </div>
+                   <div style="font-size:0.8rem; color:var(--muted); margin-bottom:14px; line-height:1.5;">
+                     Free users see only 1 sample stock ($CELH). Upgrade to Pro ($29/mo or $199 Lifetime) to reveal all hidden VIP Ignition picks, exact share-sizing orders, Position Doctor diagnostics, and the 26-Year Semiconductor CSV.
+                   </div>
+                   <span class="btn btn-primary" style="justify-content:center; width:100%; padding:10px; font-weight:800;">
+                     🔑 Enter Pro License Key / Subscribe Now →
+                   </span>
+                 </div>
+               </div>`}
+
+      <!-- PRO VIP MODULE 00: TODAY'S IGNITION ORDER BOOK & ACCOUNT POSITION SIZING ENGINE -->
+      <div class="${o?"":"blur-locked"}" style="background:#090d16; border:1px solid rgba(16,185,129,0.35); border-left:4px solid var(--fin-up); border-radius:4px; padding:16px 18px; margin-bottom:16px;">
+        <!-- PRO VIP PRIVATE TELEGRAM CHANNEL INVITE BANNER -->
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; background:rgba(2,132,199,0.14); border:1px solid rgba(56,189,248,0.45); border-radius:6px; padding:12px 14px; margin-bottom:14px;">
+          <div>
+            <div class="mono" style="font-size:0.68rem; color:#38bdf8; font-weight:800; letter-spacing:0.05em;">
+              🔒 PRO SUBSCRIBERS ONLY · PRIVATE VIP TELEGRAM NEWS & SIGNAL DESK
+            </div>
+            <div style="font-size:0.86rem; font-weight:800; color:#ffffff; margin-top:2px;">
+              Real-Time $SMH / $XLV & 72-Equity Breaking News + Daily Unmasked Ignition Order Book Alerts
+            </div>
+          </div>
+          <a
+            class="btn btn-sm ${o?"":"btn-gated-vip-tg"}"
+            href="${o?I:"#pricingSection"}"
+            ${o?'target="_blank" rel="noopener noreferrer"':""}
+            style="background:#0284c7; border-color:#38bdf8; color:#ffffff; font-weight:800; padding:8px 14px;"
+          >
+            ✈️ Join Pro VIP Telegram Channel ↗
+          </a>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
+          <div>
+            <div class="mono" style="font-size:0.7rem; color:var(--fin-up); font-weight:800; letter-spacing:0.05em;">
+              👑 PRO VIP EXCLUSIVE · DAILY RIGHT-SIDE IGNITION ORDER BOOK & POSITION SIZING
+            </div>
+            <h3 style="font-size:1.02rem; font-weight:800; color:#ffffff; margin-top:3px;">
+              Today's Top Turnaround Action Sheet (1.35% Max Account Risk per Position)
+            </h3>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <label class="mono" style="font-size:0.72rem; color:var(--muted);">MY ACCOUNT ($ USD):</label>
+            <input type="number" id="proCapitalInput" value="${a}" step="5000" min="1000" style="width:120px; padding:6px 8px; background:#05080f; border:1px solid var(--border); color:#fff; border-radius:4px; font-family:var(--font-mono); font-weight:700; margin:0;" />
+            <button type="button" class="btn btn-emerald btn-sm" id="btnCalcProSizing">Update Shares</button>
+          </div>
+        </div>
+        <div class="table-responsive-scroll">
+          <table class="stock-table" style="font-size:0.78rem;">
+            <thead>
+              <tr>
+                <th>VIP Pick</th>
+                <th>PW Score</th>
+                <th>Latest Close</th>
+                <th>Entry Trigger (MA20/60)</th>
+                <th>-9.0% Hard Stop</th>
+                <th>+100% TP1 Target</th>
+                <th>15% Slot Allocation ($${f.toLocaleString()})</th>
+                <th>Max Loss Impact</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${s.map((b,P)=>{if(!o&&P>=1){const Y=Math.round(f*.09);return`
+                    <tr>
+                      <td class="mono" style="font-weight:800; color:#fbbf24;">🔒 VIP IGNITION #${P+1} <span style="color:var(--muted); font-weight:500;">(🔒 VIP SECTOR)</span></td>
+                      <td class="mono" style="color:var(--fin-up); font-weight:800;">${b.score}/100</td>
+                      <td class="mono">🔒 PRO</td>
+                      <td class="mono" style="color:#60a5fa; font-weight:700;">🔒 PRO</td>
+                      <td class="mono" style="color:var(--fin-down); font-weight:700;">🔒 PRO</td>
+                      <td class="mono" style="color:var(--fin-up); font-weight:700;">🔒 PRO</td>
+                      <td class="mono" style="color:#ffffff; font-weight:800;">🔒 Unlock Pro ($29/mo)</td>
+                      <td class="mono" style="color:var(--fin-amber);">-$${Y.toLocaleString()} (-1.35% Eq)</td>
+                    </tr>
+                  `}const C=Number(b.close||29.12),H=Number(b.entry_trigger_price??b.ma60_price??C).toFixed(2),N=Number(b.stop_loss_price??C*.91).toFixed(2),G=Number(b.tp1_2x_price??C*2).toFixed(2),j=Math.max(1,Math.floor(f/C)),X=Math.round(j*C*.09);return`
+                    <tr>
+                      <td class="mono" style="font-weight:800; color:#ffffff;">#${P+1} $${b.ticker} <span style="color:var(--muted); font-weight:500;">(${b.sector})</span></td>
+                      <td class="mono" style="color:var(--fin-up); font-weight:800;">${b.score}/100</td>
+                      <td class="mono">$${C.toFixed(2)}</td>
+                      <td class="mono" style="color:#60a5fa; font-weight:700;">$${H}</td>
+                      <td class="mono" style="color:var(--fin-down); font-weight:700;">$${N}</td>
+                      <td class="mono" style="color:var(--fin-up); font-weight:700;">$${G}</td>
+                      <td class="mono" style="color:#ffffff; font-weight:800;">Buy ${j} shares ($${Math.round(j*C).toLocaleString()})</td>
+                      <td class="mono" style="color:var(--fin-amber);">-$${X.toLocaleString()} (-1.35% Eq)</td>
+                    </tr>
+                  `}).join("")}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="vaultContentWrap" class="${o?"":"blur-locked"}" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(330px, 1fr)); gap:16px;">
+        <!-- Module 01: Position Doctor -->
+        ${Rt(e)}
+
+        <!-- Module 02: Institutional SEC Research Vault -->
+        <div style="background:#090d16; border:1px solid var(--border); border-top:2px solid var(--fin-blue); border-radius:4px; padding:18px; display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <div style="font-size:0.7rem; font-family:var(--font-mono); font-weight:700; color:#60a5fa; letter-spacing:0.05em; text-transform:uppercase;">
+              ${t.tool2Title}
+            </div>
+            <h3 style="font-size:1rem; font-weight:800; margin:6px 0; color:#ffffff;">${t.tool2Sub}</h3>
+            <p style="font-size:0.78rem; color:var(--muted); margin-bottom:12px;">${t.tool2Desc}</p>
+
+            <div style="font-size:0.8rem; background:#05080f; padding:12px; border-radius:4px; border:1px solid var(--border); margin-bottom:12px; display:flex; flex-direction:column; gap:12px;">
+              <div style="border-left:3px solid var(--fin-up); padding-left:10px;">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <b class="mono" style="color:#ffffff;">CELH · Celsius Holdings ($${i})</b>
+                  <span class="badge badge-ignition">SCORE ${c}</span>
+                </div>
+                <div style="color:var(--muted); font-size:0.76rem; margin-top:4px; line-height:1.45;">
+                  PepsiCo North America inventory destocking complete; 2026E operating leverage +257%. Latest Close <b class="mono" style="color:#fff;">$${i}</b> reclaiming MA20 ($${u}) toward MA60 ($${h}). Stop: $${x} · TP1 (2x): <b class="mono" style="color:var(--fin-up);">$${_}</b>.
+                </div>
+                <button class="btn btn-sm btn-open-research" data-ticker="CELH" style="margin-top:6px;">
+                  Read $CELH SEC Research Brief ↗
+                </button>
+              </div>
+
+              <div style="border-left:3px solid var(--fin-down); padding-left:10px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:4px;">
+                  <b class="mono" style="color:#ffffff;">MBLY · Mobileye Global ($${y})</b>
+                  <span class="badge badge-knife">🛑 RULE 1 STOP EXECUTED · SCORE ${$}</span>
+                </div>
+                <div style="color:var(--muted); font-size:0.76rem; margin-top:4px; line-height:1.45;">
+                  <b style="color:#fca5a5;">Post-Mortem Audit:</b> Oct 13 watch ($7.02) breached Rule 1 Hard Stop (<b class="mono" style="color:var(--fin-down);">$6.39 / -9.0%</b>) and fell to <b class="mono" style="color:#fff;">$${y}</b> (52W Low $${E}, <span class="mono">LEFT_SIDE_KNIFE</span>). Mechanical exit protected capital & rotated into <b class="mono" style="color:var(--fin-up);">$CELH / $LULU</b>. Re-entry prohibited until MA20 ($${w}) reclaim.
+                </div>
+                <button class="btn btn-sm btn-open-research" data-ticker="MBLY" style="margin-top:6px;">
+                  Read $MBLY Rule 1 Stop Audit Brief ↗
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <button class="btn btn-open-research-modal" style="width:100%; justify-content:center; padding:9px;">
+              ${t.tool2ViewBtn}
+            </button>
+          </div>
+        </div>
+
+        <!-- Module 03: TradingView Pine Script v5 -->
+        <div style="background:#090d16; border:1px solid var(--border); border-top:2px solid #6366f1; border-radius:4px; padding:18px; display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <div style="font-size:0.7rem; font-family:var(--font-mono); font-weight:700; color:#818cf8; letter-spacing:0.05em; text-transform:uppercase;">
+              ${t.tool3Title}
+            </div>
+            <h3 style="font-size:1rem; font-weight:800; margin:6px 0; color:#ffffff;">${t.tool3Sub}</h3>
+            <p style="font-size:0.78rem; color:var(--muted); margin-bottom:10px;">${t.tool3Desc}</p>
+
+            <pre id="pineCodeBox" style="background:#05080f; padding:12px; border-radius:4px; font-size:0.7rem; color:#93c5fd; overflow-x:auto; max-height:155px; font-family:var(--font-mono); border:1px solid var(--border); line-height:1.45;">${T}</pre>
+          </div>
+
+          <div style="margin-top:12px;">
+            <button class="btn btn-purple" id="btnCopyPineScript" style="width:100%; justify-content:center; padding:9px;">
+              ${t.tool3CopyBtn}
+            </button>
+          </div>
+        </div>
+      </div>
+      </div>
+    </section>
+  `}const Ke={en:{t1Badge:"INSTITUTIONAL PRO",t1Title:"Pro Quantitative Terminal & Daily SEC Brief",t1Period:"/ month",t1Items:["Unmask all 72 US Equity PW-RSI Scores, MA60 Breakout Triggers & -9% Stop Levels","Daily 08:10 EST Primary-Filing (10-K/10-Q/8-K) Turnaround Research Digest","Position Risk & 55-Day Time-Stop Diagnostic Engine (Position Doctor)","Full TradingView Pine Script v5 Indicator Source Code + SemiFearGreed 26Y CSV"],t1Btn:"Subscribe via Lemon Squeezy ($29/mo)",t2Badge:"FOUNDER ALLOCATION",t2Title:"Lifetime Research & Terminal License",t2Period:"/ one-time",t2Items:["Permanent License Key — Zero recurring monthly subscription charges","Complete 26.8-Year (2000–2026) US Equity & Semiconductor ETF Backtest Datasets","Multilingual Access (English, Japanese & Korean SEC Research Briefs)","Full Access to both RightSideAlpha and SemiFearGreed Pro Features"],t2Btn:"Acquire Lifetime License ($199)",t3Badge:"EXECUTION & CHARTING PARTNERS",t3Title:"Direct Charting, Consensus & Broker Execution",t3Desc:"Verify MA20/MA60 volume breakouts, EPS revisions, and execute US stock/ETF orders with fee rebates:",t3Items:["<b>TradingView Pro</b> — Multi-timeframe MA20/MA60 & Pine Script v5 execution","<b>Seeking Alpha Premium</b> — Quant Grades & 1-2Y consensus EPS revision tracking","<b>US Brokerage & Global Exchange</b> — Low-spread NYSE/NASDAQ & 24/7 Perp execution"],tvBtn:"📈 Launch TradingView Terminal ↗",saBtn:"📊 Open Seeking Alpha EPS Consensus ↗",brokerBtn:"🏦 Open US Broker / Exchange Partner Bonus ↗",tgBtn:"🔒 Pro VIP Telegram ($SMH/$XLV & 72-Stock Live News)"},kr:{t1Badge:"PRO 퀀트 멤버십",t1Title:"프로 퀀트 터미널 & 일간 SEC 공시 리서치",t1Period:"/ 월 구독",t1Items:["미국 상장 72개 전 종목 진입 트리거(TRG) · -9% 칼손절(STP) · +100% 목표가(TP1) 전면 공개","매일 아침 SEC 원문(10-K/10-Q/8-K) 기반 우측 시동 턴어라운드 핵심 요약 브리프","포지션 닥터(Position Doctor): 내 보유종목 -9% 손절 / 55일 시간손절 / 원금회수 실시간 판독","TradingView Pine Script v5 전용 지표 원본 코드 + 반도체 공포·탐욕 26년치 CSV 다운로드"],t1Btn:"Lemon Squeezy로 Pro 구독하기 ($29/월)",t2Badge:"파운더 평생 소장권",t2Title:"평생 리서치 & 터미널 무제한 라이선스",t2Period:"/ 1회 결제 (평생)",t2Items:["영구 라이선스 키 즉시 발급 — 매월 나가는 정기 구독료 평생 0원","26.8년(2000–2026) 미국 개별주 & 반도체($SMH:$XLV) 전체 백테스트 원본 데이터셋 제공","한국어 · 영어 · 일본어 3개 국어 SEC 리서치 브리프 및 텔레그램 실시간 알림 연동","RightSideAlpha(개별주) + SemiFearGreed(반도체 공포지수) 모든 Pro 기능 영구 잠금 해제"],t2Btn:"평생 라이선스 소장하기 ($199)",t3Badge:"차트 · 분석 · 증권/거래소 제휴 혜택",t3Title:"실전 차트 검증 & 제휴 증권사/거래소 수수료 혜택",t3Desc:"MA20/MA60 거래량 돌파 차트 확인부터 EPS 컨센서스 점검, 실전 매매 수수료 리베이트까지 원클릭으로 연결됩니다:",t3Items:["<b>TradingView Pro</b> — MA20/MA60 돌파 및 Pine Script v5 지표 자동 작도 (제휴 할인)","<b>Seeking Alpha Premium</b> — 월가 애널리스트 1~2년 선행 EPS 상향 리비전 추적","<b>제휴 증권사 & 글로벌 거래소</b> — 미국주식(IBKR/Webull) 및 24시간 지수/선물 수수료 우대"],tvBtn:"📈 TradingView 차트 터미널 열기 ↗",saBtn:"📊 Seeking Alpha 실적 컨센서스 열기 ↗",brokerBtn:"🏦 제휴 증권사 / 거래소 수수료 혜택 받기 ↗",tgBtn:"🤖 텔레그램 실시간 알림 봇 연결 (@SemifearGreedbot) ↗"},jp:{t1Badge:"INSTITUTIONAL PRO",t1Title:"Pro クオンツターミナル＆日次SECリサーチ",t1Period:"/ 月額",t1Items:["米国72銘柄すべてのMA60突破トリガー(TRG)・-9%損切(STP)・+100%目標値(TP1)を完全公開","毎朝08:10 EST更新・SEC一次開示(10-K/10-Q/8-K)ターンアラウンド分析ブリーフ","ポジションドクター：保有銘柄の-9%損切 / 55日タイムストップ / 元本回収を即時診断","TradingView Pine Script v5 インジケーター完全ソース＋半導体指数26年分CSVダウンロード"],t1Btn:"Lemon SqueezyでPro購読 ($29/月)",t2Badge:"FOUNDER LIFETIME",t2Title:"永久リサーチ＆ターミナルライセンス",t2Period:"/ 買い切り(永久)",t2Items:["永久ライセンスキー発行 — 毎月のサブスクリプション費用ゼロ","26.8年間(2000–2026)の米国株＆半導体ETF完全バックテストデータセット収録","日本語・英語・韓国語対応のSECリサーチブリーフ＆Telegramアラート連携","RightSideAlpha＋SemiFearGreedの全Pro機能を永久アンロック"],t2Btn:"永久ライセンスを取得 ($199)",t3Badge:"EXECUTION & CHARTING PARTNERS",t3Title:"チャート検証・EPSコンセンサス・提携証券/取引所",t3Desc:"MA20/MA60出来高ブレイクの確認、EPSリビジョン検証、米国株・指数の執行パートナー特典：",t3Items:["<b>TradingView Pro</b> — マルチタイムフレームMA20/MA60＆Pine Script v5実行","<b>Seeking Alpha Premium</b> — クオンツ評価＆1〜2年先EPSコンセンサス推移","<b>提携証券・取引所 (IBKR / Webull / Bybit)</b> — 米国株・24時間インデックス取引特典"],tvBtn:"📈 TradingView チャートを開く ↗",saBtn:"📊 Seeking Alpha EPSコンセンサス ↗",brokerBtn:"🏦 提携証券・取引所の手数料特典を見る ↗",tgBtn:"🤖 TelegramアラートBot接続 (@SemifearGreedbot) ↗"}};function it(e){const t=e.config||{},o=Ke[e.lang]||Ke.en,n=we(t.ls_site1_monthly_url,"https://truthofmarket.lemonsqueezy.com/checkout/buy/bad98d00-7175-41f6-9d58-eeb2471d0da4"),s=we(t.ls_site1_ltd_url,"https://truthofmarket.lemonsqueezy.com/checkout/buy/00c9f6e1-c8be-42a4-b5a5-e05af1a41ed9"),a=t.broker_name||"Bitget (7nja)",f=encodeURIComponent(t.tradingview_aff_id||"1173809"),r=encodeURIComponent(t.seekingalpha_source||"better_life333"),d=t.broker_referral_url||"https://www.bitget.com/referral/register?clacCode=7nja",i=`https://www.tradingview.com/?aff_id=${f}`,u=`https://seekingalpha.com/symbol/SPY/earnings?source=${r}`;return`
+    <section class="pricing-grid" id="pricingSection">
+      <!-- Tier 1: Pro Monthly -->
+      <div class="price-card featured">
+        <div>
+          <span class="badge badge-ignition">${o.t1Badge}</span>
+          <h3 style="font-size:1.12rem; font-weight:800; margin-top:10px; color:#ffffff;">
+            ${o.t1Title}
+          </h3>
+          <div class="price-num">$29 <span style="font-size:0.82rem; color:var(--muted); font-family:var(--font-sans); font-weight:500;">${o.t1Period}</span></div>
+          <ul class="price-list">
+            ${o.t1Items.map(h=>`<li><span>—</span> <span>${h}</span></li>`).join("")}
+          </ul>
+        </div>
+        <a class="btn btn-primary lemonsqueezy-button" id="cardMonthlyBtn" href="${n}" target="_blank" rel="noopener noreferrer" style="justify-content:center; padding:10px;">
+          ${o.t1Btn}
+        </a>
+      </div>
+
+      <!-- Tier 2: Lifetime Pass -->
+      <div class="price-card">
+        <div>
+          <span class="badge badge-watch">${o.t2Badge}</span>
+          <h3 style="font-size:1.12rem; font-weight:800; margin-top:10px; color:#ffffff;">
+            ${o.t2Title}
+          </h3>
+          <div class="price-num">$199 <span style="font-size:0.82rem; color:var(--muted); font-family:var(--font-sans); font-weight:500;">${o.t2Period}</span></div>
+          <ul class="price-list">
+            ${o.t2Items.map(h=>`<li><span>—</span> <span>${h}</span></li>`).join("")}
+          </ul>
+        </div>
+        <a class="btn btn-emerald lemonsqueezy-button" id="cardLtdBtn" href="${s}" target="_blank" rel="noopener noreferrer" style="justify-content:center; padding:10px;">
+          ${o.t2Btn}
+        </a>
+      </div>
+
+      <!-- Tier 3: Institutional Charting, Consensus & Broker/Exchange Partners -->
+      <div class="price-card">
+        <div>
+          <span class="badge" style="background:rgba(41,98,255,0.14); color:#93c5fd; border:1px solid rgba(41,98,255,0.3);">${o.t3Badge}</span>
+          <h3 style="font-size:1.12rem; font-weight:800; margin-top:10px; color:#ffffff;">
+            ${o.t3Title}
+          </h3>
+          <p style="color:var(--muted); font-size:0.8rem; margin-top:8px; line-height:1.5;">
+            ${o.t3Desc}
+          </p>
+          <ul class="price-list">
+            ${o.t3Items.map(h=>`<li><span>—</span> <span>${h}</span></li>`).join("")}
+          </ul>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:7px;">
+          <a class="btn" id="affTvBtn" href="${i}" target="_blank" rel="noopener noreferrer" style="justify-content:center;">
+            ${o.tvBtn}
+          </a>
+          <a class="btn" id="affSaBtn" href="${u}" target="_blank" rel="noopener noreferrer" style="justify-content:center;">
+            ${o.saBtn}
+          </a>
+          <a class="btn" id="affBrokerBtn" href="${d}" target="_blank" rel="noopener noreferrer" style="justify-content:center; border-color:rgba(16,185,129,0.45); color:#34d399; font-weight:700;">
+            ${o.brokerBtn} (${a})
+          </a>
+          <a class="btn ${e.isProUnlocked?"":"btn-gated-vip-tg"}" id="pricingTelegramChannelBtn" href="${ge(e.isProUnlocked)}" ${e.isProUnlocked?'target="_blank" rel="noopener noreferrer"':""} style="justify-content:center; border-color:rgba(56,189,248,0.45); color:#38bdf8; font-weight:700;">
+            ${e.isProUnlocked?"👑 Enter Pro VIP Telegram Channel ↗":o.tgBtn}
+          </a>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+            <a class="btn" id="pricingYoutubeBtn" href="${t.youtube_url||"https://youtube.com/@rightsidealpha"}" target="_blank" rel="noopener noreferrer" style="justify-content:center; border-color:rgba(239,68,68,0.4); color:#fca5a5;">
+              📺 YouTube (@rightsidealpha) ↗
+            </a>
+            <a class="btn" id="pricingInstagramBtn" href="${t.instagram_url||"https://www.instagram.com/rightsidealpha"}" target="_blank" rel="noopener noreferrer" style="justify-content:center; border-color:rgba(236,72,153,0.4); color:#f9a8d4;">
+              📸 Instagram (@rightsidealpha) ↗
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  `}function Nt(e){const t=e.config||{},o=t.telegram_channel_url||"https://t.me/truthofmarketss",n=t.youtube_url||"https://youtube.com/@rightsidealpha",s=t.instagram_url||"https://www.instagram.com/rightsidealpha",a=e.telegramChatId||t.telegram_chat_id||"@truthofmarketss",f=e.telegramBotToken||"DEMO-BOT-TOKEN",r=e.telegramAlertType||"SEMI_BRIEFING",d=e.semiOverview||{},i=d.date||"2026-10-30",u=Number(d.fg_score??18).toFixed(1),h=String(d.regime_en||"EXTREME FEAR").toUpperCase(),_=Number(d.smh_close??522.49).toFixed(2),x=Number(d.smh_dd_pct??-22.23).toFixed(2),c=Number(d.smh_rsi??40.6).toFixed(1),y=Number(d.xlv_close??184.87).toFixed(2),E=Number(d.qqq_close??690.49).toFixed(2),w=d.recommended_smh_weight??80,$=d.recommended_xlv_weight??20,I=e.telegramPreviewText||`🧭 [SemiFearGreed] Daily Semiconductor & Barbell Briefing (${i})
+• Fear & Greed Score: ${u} / 100 (${h})
+• $SMH (Semiconductor): $${_} (${x}% 52W DD | RSI ${c})
+• $XLV (Healthcare Vault): $${y} | $QQQ: $${E}
+• Active Signal: Target ${w}% $SMH : ${$}% $XLV Barbell Allocation`;return`
+    <!-- LICENSE ACTIVATION MODAL -->
+    <div class="modal-backdrop" id="licenseModal">
+      <div class="modal">
+        <div style="font-size:0.68rem; font-family:var(--font-mono); color:#93c5fd; text-transform:uppercase; letter-spacing:0.05em;">
+          AUTHENTICATION · LEMON SQUEEZY MERCHANT OF RECORD
+        </div>
+        <h3 style="font-size:1.12rem; font-weight:800; margin-top:4px; color:#ffffff;">Activate Pro Terminal License</h3>
+        <p style="color:var(--muted); font-size:0.82rem; margin-top:6px; line-height:1.5;">
+          Enter the license key issued upon Lemon Squeezy checkout to unlock all 72 US equity target levels, Daily VIP Ignition Order Book, Position Sizing Calculator, Position Doctor, and the 26-year Semiconductor CSV dataset.
+        </p>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:12px 0 10px;">
+          <a class="btn btn-primary btn-sm lemonsqueezy-button" href="${t.ls_site1_monthly_url||"https://truthofmarket.lemonsqueezy.com/checkout/buy/bad98d00-7175-41f6-9d58-eeb2471d0da4"}?embed=1" target="_blank" rel="noopener noreferrer" style="justify-content:center; padding:8px 10px; font-weight:700;">
+            🍋 Subscribe Pro ($29/mo) ↗
+          </a>
+          <a class="btn btn-emerald btn-sm lemonsqueezy-button" href="${t.ls_site1_ltd_url||"https://truthofmarket.lemonsqueezy.com/checkout/buy/00c9f6e1-c8be-42a4-b5a5-e05af1a41ed9"}?embed=1" target="_blank" rel="noopener noreferrer" style="justify-content:center; padding:8px 10px; font-weight:700;">
+            🏆 Lifetime Pass ($199) ↗
+          </a>
+        </div>
+        <input type="text" id="licenseInput" value="${e.licenseKey||""}" placeholder="Enter Lemon Squeezy License Key (XXXX-XXXX-XXXX-XXXX)" autocomplete="off" />
+        <div id="licenseMsg" style="font-size:0.8rem; margin-bottom:12px; min-height:1.2em;"></div>
+        <div style="display:flex; gap:8px; justify-content:space-between; align-items:center; flex-wrap:wrap;">
+          <div>
+            ${e.isProUnlocked?'<button class="btn btn-sm" id="btnLockLicense" style="color:var(--fin-down); border-color:rgba(246,70,93,0.4);">Deactivate / Lock</button>':""}
+          </div>
+          <div style="display:flex; gap:8px;">
+            <button class="btn" id="btnCancelLicense">Cancel</button>
+            <button class="btn btn-primary" id="btnVerifyLicense">Verify & Unlock Terminal</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TELEGRAM QUANTITATIVE ALERT & BOT HUB MODAL -->
+    <div class="modal-backdrop" id="telegramModal">
+      <div class="modal" style="max-width:640px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+          <div>
+            <div style="font-size:0.68rem; font-family:var(--font-mono); color:#38bdf8; text-transform:uppercase; letter-spacing:0.05em;">
+              REAL-TIME DISPATCH · TELEGRAM BOT & CHANNEL INTEGRATION
+            </div>
+            <h3 style="font-size:1.12rem; font-weight:800; margin-top:3px; color:#ffffff;">
+              Telegram Quantitative Alert & Briefing Hub
+            </h3>
+          </div>
+          <div style="display:flex; gap:6px; flex-wrap:wrap;">
+            <a class="btn btn-sm" id="tgModalYtBtn" href="${n}" target="_blank" rel="noopener noreferrer" style="border-color:rgba(239,68,68,0.45); color:#fca5a5;">
+              📺 YouTube ↗
+            </a>
+            <a class="btn btn-sm" id="tgModalIgBtn" href="${s}" target="_blank" rel="noopener noreferrer" style="border-color:rgba(236,72,153,0.45); color:#f9a8d4;">
+              📸 Instagram ↗
+            </a>
+            <a class="btn btn-sm" id="tgChannelLinkBtn" href="${o}" target="_blank" rel="noopener noreferrer" style="border-color:rgba(56,189,248,0.45); color:#38bdf8;">
+              ✈️ @truthofmarketss ↗
+            </a>
+          </div>
+        </div>
+
+        <p style="color:var(--muted); font-size:0.8rem; margin-top:6px; margin-bottom:12px; line-height:1.5;">
+          Join our Official Broadcast Channel <a href="${o}" target="_blank" rel="noopener noreferrer" style="color:#38bdf8; font-weight:700;">t.me/truthofmarketss</a> (<code class="mono" style="color:#93c5fd;">@truthofmarketss</code>) for automated daily US Market & Semiconductor briefings.
+        </p>
+
+        ${e.isAdminAuthenticated?`<div class="semi-form-grid-2" style="margin-bottom:8px;">
+          <div>
+            <label style="font-size:0.68rem; color:var(--muted); font-family:var(--font-mono);">TELEGRAM BOT PROFILE (@BotFather)</label>
+            <input type="text" id="tgBotTokenInput" value="${f}" placeholder="DEMO-BOT-TOKEN" autocomplete="off" style="margin:4px 0 0; -webkit-text-security:disc;" />
+          </div>
+          <div>
+            <label style="font-size:0.68rem; color:var(--muted); font-family:var(--font-mono);">CHAT ID OR @CHANNEL USERNAME</label>
+            <input type="text" id="tgChatIdInput" value="${a}" placeholder="@truthofmarketss" autocomplete="off" style="margin:4px 0 0;" />
+          </div>
+        </div>`:""}
+
+        <div class="${e.isAdminAuthenticated?"semi-form-grid-2":""}" style="margin-bottom:10px;">
+          ${e.isAdminAuthenticated?`<div>
+            <label style="font-size:0.68rem; color:var(--muted); font-family:var(--font-mono);">PUBLIC CHANNEL URL (HEADER / FOOTER LINK)</label>
+            <input type="text" id="tgChannelUrlInput" value="${o}" placeholder="https://t.me/truthofmarketss" style="margin:4px 0 0;" />
+          </div>`:""}
+          <div>
+            <label style="font-size:0.68rem; color:var(--muted); font-family:var(--font-mono);">BRIEFING TEMPLATE</label>
+            <select id="tgAlertTypeSelect" style="width:100%; padding:9px 10px; margin-top:4px; background:#060911; border:1px solid var(--border); color:#fff; border-radius:4px; font-family:var(--font-sans); font-size:0.82rem; font-weight:600;">
+              <option value="SEMI_BRIEFING" ${r==="SEMI_BRIEFING"?"selected":""}>1. SemiFearGreed Index & $SMH:$XLV Rebalance</option>
+              <option value="RSA_IGNITION" ${r==="RSA_IGNITION"?"selected":""}>2. RightSideAlpha US Top 5 Ignition Signals</option>
+              <option value="FULL_DAILY" ${r==="FULL_DAILY"?"selected":""}>3. Full Combined Daily Briefing (Semi + US Stocks)</option>
+              <option value="POSITION_DOCTOR" ${r==="POSITION_DOCTOR"?"selected":""}>4. Position Doctor Diagnostic ($CELH)</option>
+              ${e.isAdminAuthenticated?`<option value="TEST_PING" ${r==="TEST_PING"?"selected":""}>5. Bot Connection Verification Ping</option>`:""}
+            </select>
+          </div>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; flex-wrap:wrap; gap:6px;">
+          <span style="font-size:0.68rem; font-family:var(--font-mono); color:#93c5fd;">
+            LIVE BRIEFING PREVIEW (VERIFIED LATEST CLOSES)
+          </span>
+          <div style="display:flex; gap:6px;">
+            ${e.isAdminAuthenticated?'<button class="btn btn-sm" id="btnVerifyTelegram" title="Test Bot Token with Telegram API">Verify & Save Bot</button>':""}
+            <button class="btn btn-sm" id="btnPreviewTelegram">Refresh Preview</button>
+            <button class="btn btn-sm" id="btnCopyTelegramMsg">Copy Text</button>
+          </div>
+        </div>
+
+        <pre id="telegramPreviewBox" style="background:#05080f; border:1px solid var(--border); border-left:3px solid #38bdf8; border-radius:4px; padding:12px; font-family:var(--font-mono); font-size:0.74rem; color:#e2e8f0; white-space:pre-wrap; max-height:210px; overflow-y:auto; line-height:1.5; margin-bottom:10px;">${I}</pre>
+
+        <div id="telegramStatusMsg" style="font-size:0.78rem; margin-bottom:10px; min-height:1.2em; color:#93c5fd;"></div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+          <span class="mono" style="font-size:0.68rem; color:var(--muted);">
+            Official Channel: @truthofmarketss · Live Daily Briefings
+          </span>
+          <div style="display:flex; gap:8px;">
+            <button class="btn" id="btnCloseTelegram">Close</button>
+            <a class="btn btn-primary" href="${o}" target="_blank" rel="noopener noreferrer" style="background:#0284c7; border-color:#38bdf8;">
+              Join Telegram Channel ↗
+            </a>
+            ${e.isAdminAuthenticated?`<button class="btn btn-primary" id="btnSendTelegramNow" style="background:#059669; border-color:#10b981;">
+              Send Briefing to Telegram ↗
+            </button>`:""}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADMIN LOGIN MODAL (SHA-256 PROTECTED, NO PLAINTEXT IN GIT) -->
+    <div class="modal-backdrop" id="adminLoginModal">
+      <div class="modal" style="max-width:440px;">
+        <div style="font-size:0.68rem; font-family:var(--font-mono); color:#f59e0b; text-transform:uppercase; letter-spacing:0.05em;">
+          RESTRICTED ACCESS · ADMINISTRATOR AUTHENTICATION
+        </div>
+        <h3 style="font-size:1.12rem; font-weight:800; margin-top:4px; color:#ffffff;">
+          🔒 Admin Terminal Login
+        </h3>
+        <p style="color:var(--muted); font-size:0.8rem; margin-top:6px; margin-bottom:12px; line-height:1.5;">
+          Enter your Administrator ID and Password to unlock Terminal Configuration, Lemon Squeezy Checkout Setup, Affiliate Routing, and full Pro Terminal access.
+        </p>
+
+        <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">ADMIN ID</label>
+        <input type="text" id="adminIdInput" placeholder="Enter Admin ID" autocomplete="off" />
+
+        <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">ADMIN ACCESS KEY</label>
+        <input type="text" id="adminPwInput" placeholder="Enter Admin Password" autocomplete="off" style="-webkit-text-security:disc;" />
+
+        <div id="adminLoginMsg" style="font-size:0.8rem; margin-bottom:12px; min-height:1.2em;"></div>
+
+        <div style="display:flex; gap:8px; justify-content:flex-end;">
+          <button class="btn" id="btnCancelAdminLogin">Cancel</button>
+          <button class="btn btn-primary" id="btnSubmitAdminLogin">Login as Admin</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TERMINAL & AFFILIATE CONFIG MODAL -->
+    <div class="modal-backdrop" id="configModal">
+      <div class="modal" style="max-width:640px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+          <div>
+            <div style="font-size:0.68rem; font-family:var(--font-mono); color:#93c5fd; text-transform:uppercase; letter-spacing:0.05em;">
+              ADMINISTRATION · MONETIZATION & PARTNER ROUTING
+            </div>
+            <h3 style="font-size:1.12rem; font-weight:800; margin-top:4px; color:#ffffff;">Checkout & Affiliate Parameter Configuration</h3>
+          </div>
+          <button class="btn btn-sm" id="btnAdminLogout" style="border-color:rgba(246,70,93,0.45); color:var(--fin-down);">
+            🔒 Admin Logout
+          </button>
+        </div>
+        <p style="color:var(--muted); font-size:0.8rem; margin-top:4px; margin-bottom:10px;">
+          Update Lemon Squeezy checkout endpoints, Telegram channel link, and affiliate attribution identifiers. Changes persist to the backend and browser storage.
+        </p>
+
+        <div style="background:rgba(37,99,235,0.1); border:1px solid rgba(59,130,246,0.35); border-radius:4px; padding:10px 12px; margin-bottom:12px; display:flex; gap:6px; align-items:center; justify-content:space-between; flex-wrap:wrap;">
+          <span class="mono" style="font-size:0.7rem; color:#93c5fd; font-weight:700;">⚡ QUICK PARTNER PORTALS:</span>
+          <div style="display:flex; gap:6px; flex-wrap:wrap;">
+            <a class="btn btn-sm" href="https://app.lemonsqueezy.com/products" target="_blank" rel="noopener noreferrer" style="font-size:0.7rem; padding:4px 8px;">🍋 Lemon Squeezy ↗</a>
+            <a class="btn btn-sm" href="https://www.tradingview.com/partner-program/" target="_blank" rel="noopener noreferrer" style="font-size:0.7rem; padding:4px 8px;">📈 TradingView Aff ↗</a>
+            <a class="btn btn-sm" href="https://www.interactivebrokers.com/en/general/refer-a-friend.php" target="_blank" rel="noopener noreferrer" style="font-size:0.7rem; padding:4px 8px;">🏦 IBKR Referral ↗</a>
+            <a class="btn btn-sm" href="https://affiliates.seekingalpha.com/" target="_blank" rel="noopener noreferrer" style="font-size:0.7rem; padding:4px 8px;">📊 Seeking Alpha Aff ↗</a>
+          </div>
+        </div>
+
+        <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">PLATFORM DOMAIN (TEAR SHEET WATERMARK)</label>
+        <input type="text" id="cfgSite1Url" value="${t.site1_url||"https://truthofmarket.com"}" />
+
+        <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">LEMON SQUEEZY MONTHLY CHECKOUT URL ($29/MO)</label>
+        <input type="text" id="cfgLsMonthly" value="${t.ls_site1_monthly_url||"https://truthofmarket.lemonsqueezy.com/checkout/buy/bad98d00-7175-41f6-9d58-eeb2471d0da4"}" />
+
+        <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">LEMON SQUEEZY LIFETIME CHECKOUT URL ($199)</label>
+        <input type="text" id="cfgLsLtd" value="${t.ls_site1_ltd_url||"https://truthofmarket.lemonsqueezy.com/checkout/buy/00c9f6e1-c8be-42a4-b5a5-e05af1a41ed9"}" />
+
+        <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">TELEGRAM OFFICIAL CHANNEL / BOT URL</label>
+        <input type="text" id="cfgTgChannel" value="${o}" />
+
+        <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">OFFICIAL YOUTUBE CHANNEL URL (@rightsidealpha)</label>
+        <input type="text" id="cfgYoutubeUrl" value="${n}" />
+
+        <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">OFFICIAL INSTAGRAM PROFILE URL (@rightsidealpha)</label>
+        <input type="text" id="cfgInstagramUrl" value="${s}" />
+
+        <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">TRADINGVIEW AFFILIATE ID</label>
+        <input type="text" id="cfgAffTv" value="${t.tradingview_aff_id||"1173809"}" />
+
+        <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">SEEKING ALPHA PARTNER SOURCE TAG</label>
+        <input type="text" id="cfgAffSa" value="${t.seekingalpha_source||"better_life333"}" />
+
+        <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">BROKER / EXCHANGE PARTNER LABEL (E.G. BITGET / IBKR)</label>
+        <input type="text" id="cfgBrokerName" value="${t.broker_name||"Bitget (7nja)"}" />
+
+        <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">BROKER / EXCHANGE REFERRAL URL</label>
+        <input type="text" id="cfgBrokerUrl" value="${t.broker_referral_url||"https://www.bitget.com/referral/register?clacCode=7nja"}" />
+
+        <div id="configMsg" style="font-size:0.8rem; margin-bottom:12px; min-height:1.2em;"></div>
+
+        <div style="display:flex; gap:8px; justify-content:flex-end;">
+          <button class="btn" id="btnCancelConfig">Close</button>
+          <button class="btn btn-primary" id="btnSaveConfig">Save Configuration</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- INSTITUTIONAL RESEARCH BRIEF MODAL -->
+    <div class="modal-backdrop" id="researchModal">
+      <div class="modal" style="max-width:760px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:12px;">
+          <h3 style="font-size:1.1rem; font-weight:800; color:#ffffff;" id="researchModalTitle">SEC Primary Filing Turnaround Brief</h3>
+          <div style="display:flex; gap:6px; align-items:center; flex-wrap:wrap;">
+            <button type="button" class="btn btn-sm btn-switch-research" data-ticker="CELH" id="btnSwitchResearchCelh">$CELH Brief</button>
+            <button type="button" class="btn btn-sm btn-switch-research" data-ticker="MBLY" id="btnSwitchResearchMbly">$MBLY Brief</button>
+            <button class="btn btn-sm" id="btnCloseResearch">Close ✕</button>
+          </div>
+        </div>
+        <div id="researchModalBody" style="font-size:0.84rem; color:var(--text); line-height:1.65; max-height:62vh; overflow-y:auto; background:#05080f; padding:18px; border-radius:4px; border:1px solid var(--border);">
+          Loading institutional brief...
+        </div>
+      </div>
+    </div>
+
+    <!-- LEGAL, PRIVACY, REFUND POLICY & SUPPORT MODAL -->
+    <div class="modal-backdrop" id="legalModal">
+      <div class="modal" style="max-width:740px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:12px;">
+          <div>
+            <div style="font-size:0.68rem; font-family:var(--font-mono); color:#93c5fd; text-transform:uppercase; letter-spacing:0.05em;">
+              LEGAL & COMPLIANCE · MERCHANT OF RECORD: LEMON SQUEEZY
+            </div>
+            <h3 style="font-size:1.1rem; font-weight:800; color:#ffffff; margin-top:3px;" id="legalModalTitle">
+              Terms of Service, Privacy Policy & Refund Policy
+            </h3>
+          </div>
+          <div style="display:flex; gap:6px; flex-wrap:wrap;">
+            <button type="button" class="btn btn-sm btn-legal-tab" data-legal-tab="terms">Terms of Service</button>
+            <button type="button" class="btn btn-sm btn-legal-tab" data-legal-tab="privacy">Privacy Policy</button>
+            <button type="button" class="btn btn-sm btn-legal-tab" data-legal-tab="refund">Refund Policy</button>
+            <button type="button" class="btn btn-sm btn-legal-tab" data-legal-tab="support">Support Contact</button>
+            <button type="button" class="btn btn-sm" id="btnCloseLegalModal">Close ✕</button>
+          </div>
+        </div>
+        <div id="legalModalBody" style="font-size:0.82rem; color:var(--text); line-height:1.68; max-height:62vh; overflow-y:auto; background:#05080f; padding:18px; border-radius:4px; border:1px solid var(--border);">
+          <div data-legal-section="terms">
+            <h4 style="color:#ffffff; font-size:0.95rem; font-weight:800; margin-bottom:6px;">1. Terms of Service & Non-Advisory Disclosure</h4>
+            <p style="color:var(--muted); margin-bottom:10px;">
+              RightSideAlpha and SemiFearGreed (<code class="mono">truthofmarket.com</code>) provide quantitative financial data analytics, empirical backtesting outputs (2000–2026), and algorithmic screening tools for US-listed equities and ETFs. Nothing on this platform constitutes personalized investment advice, brokerage solicitation, legal advice, or tax counsel. Users are solely responsible for their own investment decisions and trade executions.
+            </p>
+            <p style="color:var(--muted); margin-bottom:12px;">
+              Pro Terminal licenses grant single-user access to quantitative target levels, daily SEC primary-filing briefs, Position Doctor diagnostics, and Pine Script v5 indicators. Redistribution or unauthorized sharing of license keys or private VIP Telegram invite links is strictly prohibited.
+            </p>
+          </div>
+          <div data-legal-section="privacy" style="border-top:1px solid var(--border); padding-top:12px; margin-top:12px;">
+            <h4 style="color:#ffffff; font-size:0.95rem; font-weight:800; margin-bottom:6px;">2. Privacy Policy</h4>
+            <p style="color:var(--muted); margin-bottom:10px;">
+              We respect your financial privacy. Portfolio inputs entered into the Position Sizing Calculator, Position Doctor, or $SMH:$XLV Barbell Rebalancing Engine are processed locally in your browser and are never sold or shared with third parties. Payment processing and billing data are handled securely by our Merchant of Record, <b>Lemon Squeezy, LLC</b>, under PCI-DSS compliance.
+            </p>
+          </div>
+          <div data-legal-section="refund" style="border-top:1px solid var(--border); padding-top:12px; margin-top:12px;">
+            <h4 style="color:#ffffff; font-size:0.95rem; font-weight:800; margin-bottom:6px;">3. Subscription Cancellation & Refund Policy</h4>
+            <p style="color:var(--muted); margin-bottom:10px;">
+              Monthly Pro subscriptions ($29/mo) can be canceled at any time with one click via your Lemon Squeezy customer billing portal or by contacting support; access remains active through the end of the current billing period with zero cancellation fees. Because digital quantitative data, downloadable 26.8-year CSV datasets, and Pine Script v5 source code are delivered immediately upon activation, Lifetime Pass ($199) and activated digital licenses are non-refundable once accessed, except where required by applicable consumer protection law or in cases of duplicate billing.
+            </p>
+          </div>
+          <div data-legal-section="support" style="border-top:1px solid var(--border); padding-top:12px; margin-top:12px;">
+            <h4 style="color:#ffffff; font-size:0.95rem; font-weight:800; margin-bottom:6px;">4. Customer Support & Billing Inquiries</h4>
+            <p style="color:var(--muted);">
+              • <b>Official Support Email</b>: <a href="mailto:support@truthofmarket.com" style="color:#60a5fa; font-weight:700;">support@truthofmarket.com</a><br/>
+              • <b>Merchant of Record</b>: Lemon Squeezy, LLC (<a href="https://app.lemonsqueezy.com/my-orders" target="_blank" rel="noopener noreferrer" style="color:#60a5fa;">Manage Orders & Receipts ↗</a>)<br/>
+              • <b>Public Broadcast Desk</b>: <a href="https://t.me/truthofmarketss" target="_blank" rel="noopener noreferrer" style="color:#38bdf8;">t.me/truthofmarketss (@truthofmarketss) ↗</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div class="toast" id="toastBox">Action completed</div>
+  `}function te(e,t,o,n){const s=n*Math.PI/180;return{x:e+o*Math.cos(s),y:t-o*Math.sin(s)}}function Mt(e,t,o,n,s){const a=te(e,t,o,n),f=te(e,t,o,s),r=Math.abs(n-s)<=180?"0":"1";return`M ${a.x.toFixed(2)} ${a.y.toFixed(2)} A ${o} ${o} 0 ${r} 1 ${f.x.toFixed(2)} ${f.y.toFixed(2)}`}function Pt(e,t){const o=Math.max(0,Math.min(100,Number(e??18))),n=230,s=200,a=146,f=[{code:"EXTREME_FEAR",min:0,max:24,a1:180,a2:136.5,activeColor:"#d92d20",mutedColor:"#fecaca",label:"EXTREME FEAR",midAngle:158},{code:"FEAR",min:25,max:44,a1:134,a2:100.5,activeColor:"#f79009",mutedColor:"#fed7aa",label:"FEAR",midAngle:117},{code:"NEUTRAL",min:45,max:55,a1:98,a2:82,activeColor:"#667085",mutedColor:"#e5e7eb",label:"NEUTRAL",midAngle:90},{code:"GREED",min:56,max:74,a1:79.5,a2:46,activeColor:"#12b76a",mutedColor:"#bbf7d0",label:"GREED",midAngle:63},{code:"EXTREME_GREED",min:75,max:100,a1:43.5,a2:0,activeColor:"#027a48",mutedColor:"#a7f3d0",label:"EXTREME GREED",midAngle:22}];let r=f[0];o>=75?r=f[4]:o>=55.01?r=f[3]:o>=45?r=f[2]:o>=25&&(r=f[1]);const d=f.map(c=>{const y=c.code===r.code,E=Mt(n,s,a,c.a1,c.a2),w=y?c.activeColor:c.mutedColor,$=y?40:32,I=te(n,s,a+31,c.midAngle);return`
+        <path d="${E}" fill="none" stroke="${w}" stroke-width="${$}" stroke-linecap="butt" />
+        <text x="${I.x.toFixed(1)}" y="${I.y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle"
+              fill="${y?c.activeColor:"#6b7280"}"
+              font-size="${y?"9.5":"8.5"}" font-weight="${y?"800":"700"}" font-family="Inter, sans-serif">
+          ${c.label}
+        </text>
+      `}).join(""),i=[0,25,45,55,75,100].map(c=>{const y=180-c/100*180,E=te(n,s,a-24,y),w=te(n,s,a-35,y);return`
+        <circle cx="${E.x.toFixed(1)}" cy="${E.y.toFixed(1)}" r="1.8" fill="#6b7280" />
+        <text x="${w.x.toFixed(1)}" y="${w.y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle"
+              fill="#4b5563" font-size="10" font-weight="700" font-family="JetBrains Mono, monospace">
+          ${c}
+        </text>
+      `}).join(""),u=180-o/100*180,h=te(n,s,a-12,u),_=te(n,s,8,u+90),x=te(n,s,8,u-90);return`
+    <div style="display:flex; flex-direction:column; align-items:center;">
+      <svg viewBox="0 0 460 250" style="width:100%; max-width:440px; height:auto; overflow:visible;">
+        ${d}
+        ${i}
+        <!-- Needle Polygon -->
+        <polygon points="${h.x.toFixed(1)},${h.y.toFixed(1)} ${_.x.toFixed(1)},${_.y.toFixed(1)} ${x.x.toFixed(1)},${x.y.toFixed(1)}"
+                 fill="#111827" />
+        <circle cx="${n}" cy="${s}" r="14" fill="#111827" />
+        <circle cx="${n}" cy="${s}" r="5" fill="#ffffff" />
+      </svg>
+
+      <!-- Score & Active Emotion Callout below Needle Hub -->
+      <div style="text-align:center; margin-top:-18px;">
+        <div style="display:inline-flex; align-items:baseline; gap:6px; background:#111827; color:#ffffff; padding:6px 20px; border-radius:30px; box-shadow:0 4px 12px rgba(0,0,0,0.12);">
+          <span class="mono" style="font-size:2rem; font-weight:900; letter-spacing:-0.03em;">${Math.round(o)}</span>
+          <span class="mono" style="font-size:0.9rem; color:#9ca3af; font-weight:600;">(${o.toFixed(1)} / 100)</span>
+        </div>
+        <div style="margin-top:8px;">
+          <span style="font-size:0.78rem; color:#4b5563; font-weight:600; text-transform:uppercase; letter-spacing:0.04em;">
+            Market Emotion is driving:
+          </span>
+          <span class="cnn-pill cnn-pill-${r.code}" style="margin-left:6px; font-size:0.85rem;">
+            ${t||r.label}
+          </span>
+        </div>
+      </div>
+    </div>
+  `}function Bt(e,t){const o=e&&e.series||[];if(!o.length)return'<div style="padding:40px; text-align:center; color:#6b7280;">Loading historical timeline...</div>';const n=640,s=230,a=36,f=16,r=16,d=28,i=n-a-f,u=s-r-d,h=o.map(($,I)=>{const T=a+I/Math.max(1,o.length-1)*i,b=r+(1-Math.max(0,Math.min(100,$.fg_score))/100)*u;return`${T.toFixed(1)},${b.toFixed(1)}`}),_=(r+.75*u).toFixed(1),x=(r+.5*u).toFixed(1),c=(r+.25*u).toFixed(1),y=o[0].date,E=o[Math.floor(o.length/2)].date,w=o[o.length-1].date;return`
+    <div>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:8px;">
+        <div style="font-size:0.8rem; font-weight:700; color:#374151;">
+          Historical Semiconductor Fear & Greed Index (${y} → ${w})
+        </div>
+        <div style="display:flex; gap:4px;">
+          ${["3M","1Y","3Y","5Y","10Y","ALL"].map($=>`
+            <button class="btn-semi-range" data-range="${$}"
+                    style="padding:3px 9px; border-radius:4px; font-size:0.72rem; font-weight:700; cursor:pointer; border:1px solid ${t===$?"#111827":"#d1d5db"}; background:${t===$?"#111827":"#ffffff"}; color:${t===$?"#ffffff":"#374151"};">
+              ${$}
+            </button>
+          `).join("")}
+        </div>
+      </div>
+
+      <svg viewBox="0 0 ${n} ${s}" style="width:100%; height:auto; background:#f9fafb; border:1px solid #e5e7eb; border-radius:4px;">
+        <!-- Extreme Greed Band (>75) -->
+        <rect x="${a}" y="${r}" width="${i}" height="${.25*u}" fill="rgba(16,185,129,0.08)" />
+        <!-- Extreme Fear Band (<25) -->
+        <rect x="${a}" y="${_}" width="${i}" height="${.25*u}" fill="rgba(239,68,68,0.09)" />
+
+        <!-- Reference Lines -->
+        <line x1="${a}" y1="${c}" x2="${n-f}" y2="${c}" stroke="#10b981" stroke-dasharray="3,3" stroke-width="1" />
+        <line x1="${a}" y1="${x}" x2="${n-f}" y2="${x}" stroke="#9ca3af" stroke-dasharray="3,3" stroke-width="1" />
+        <line x1="${a}" y1="${_}" x2="${n-f}" y2="${_}" stroke="#ef4444" stroke-dasharray="3,3" stroke-width="1" />
+
+        <text x="6" y="${c}" fill="#047857" font-size="9.5" font-weight="700" dominant-baseline="middle">75</text>
+        <text x="6" y="${x}" fill="#6b7280" font-size="9.5" font-weight="700" dominant-baseline="middle">50</text>
+        <text x="6" y="${_}" fill="#b91c1c" font-size="9.5" font-weight="700" dominant-baseline="middle">25</text>
+
+        <!-- FG Line -->
+        <polyline fill="none" stroke="#111827" stroke-width="1.8" points="${h.join(" ")}" />
+
+        <!-- X-Axis Dates -->
+        <text x="${a}" y="${s-8}" fill="#6b7280" font-size="9.5" font-family="JetBrains Mono, monospace">${y}</text>
+        <text x="${a+i/2}" y="${s-8}" fill="#6b7280" font-size="9.5" text-anchor="middle" font-family="JetBrains Mono, monospace">${E}</text>
+        <text x="${n-f}" y="${s-8}" fill="#6b7280" font-size="9.5" text-anchor="end" font-family="JetBrains Mono, monospace">${w}</text>
+      </svg>
+    </div>
+  `}function Ft(e,t){if(!e||!e.length)return"";const o=180,n=44,s=e.map((r,d)=>{const i=4+d/Math.max(1,e.length-1)*(o-8),u=4+(1-Math.max(0,Math.min(100,r))/100)*(n-8);return`${i.toFixed(1)},${u.toFixed(1)}`}).join(" "),f={EXTREME_FEAR:"#dc2626",FEAR:"#ea580c",NEUTRAL:"#4b5563",GREED:"#16a34a",EXTREME_GREED:"#059669"}[t]||"#111827";return`
+    <svg viewBox="0 0 ${o} ${n}" style="width:160px; height:40px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:4px;">
+      <line x1="0" y1="${n/2}" x2="${o}" y2="${n/2}" stroke="#e2e8f0" stroke-dasharray="2,2" stroke-width="1" />
+      <polyline fill="none" stroke="${f}" stroke-width="1.8" points="${s}" />
+    </svg>
+  `}function Dt(e){const t=e&&e.series||[];if(!t.length)return"";const o=720,n=220,s=52,a=20,f=18,r=26,d=o-s-a,i=n-f-r,u=[];t.forEach($=>{u.push($.port73_norm,$.qqq_norm)});const h=Math.min(...u,8e3),_=Math.max(...u,12e3),x=Math.max(1,_-h),c=t.map(($,I)=>{const T=s+I/Math.max(1,t.length-1)*d,b=f+(1-($.port73_norm-h)/x)*i;return`${T.toFixed(1)},${b.toFixed(1)}`}).join(" "),y=t.map(($,I)=>{const T=s+I/Math.max(1,t.length-1)*d,b=f+(1-($.qqq_norm-h)/x)*i;return`${T.toFixed(1)},${b.toFixed(1)}`}).join(" "),E=t[t.length-1].port73_norm,w=t[t.length-1].qqq_norm;return`
+    <div style="margin-bottom:16px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; flex-wrap:wrap; gap:8px; font-size:0.78rem;">
+        <div style="display:flex; gap:16px; align-items:center;">
+          <span style="display:inline-flex; align-items:center; gap:6px; color:#34d399; font-weight:700;">
+            <span style="width:12px; height:3px; background:#0ecb81; display:inline-block;"></span>
+            70% $SMH : 30% $XLV Barbell ($10k → $${E.toLocaleString()})
+          </span>
+          <span style="display:inline-flex; align-items:center; gap:6px; color:#94a3b8; font-weight:600;">
+            <span style="width:12px; height:3px; background:#64748b; display:inline-block;"></span>
+            100% $QQQ Benchmark ($10k → $${w.toLocaleString()})
+          </span>
+        </div>
+        <span class="mono" style="color:var(--muted); font-size:0.72rem;">Selected Window: ${e.range_code}</span>
+      </div>
+      <svg viewBox="0 0 ${o} ${n}" style="width:100%; height:auto; background:#060911; border:1px solid var(--border); border-radius:4px;">
+        <polyline fill="none" stroke="#64748b" stroke-width="1.6" stroke-dasharray="3,2" points="${y}" />
+        <polyline fill="none" stroke="#0ecb81" stroke-width="2.2" points="${c}" />
+        <text x="6" y="${f+8}" fill="#94a3b8" font-size="9.5" font-family="JetBrains Mono, monospace">$${Math.round(_).toLocaleString()}</text>
+        <text x="6" y="${n-r}" fill="#94a3b8" font-size="9.5" font-family="JetBrains Mono, monospace">$${Math.round(h).toLocaleString()}</text>
+      </svg>
+    </div>
+  `}function Ot(e){var _,x;const t=e.t,o=e.lang,n=e.semiOverview;if(!n)return`
+      <div class="proof-card" style="padding:40px; text-align:center;">
+        Loading Semiconductor Fear & Greed Index...
+      </div>
+    `;const s=o==="jp"?n.regime_jp:o==="kr"?n.regime_kr:n.regime_en,a=o==="jp"?n.action_headline_jp:o==="kr"?n.action_headline_kr:n.action_headline_en,f=o==="jp"?n.action_detail_jp:o==="kr"?n.action_detail_kr:n.action_detail_en,r=e.semiGaugeTab||"overview",d=e.semiRange||"1Y",i=e.semiRebalanceResult,u=e.semiLumpSumResult,h=e.semiHistory&&e.semiHistory.era_summary||[];return`
+    <!-- SECTION 1: AUTHENTIC CNN BUSINESS FEAR & GREED INDEX EDITORIAL SURFACE -->
+    <section class="cnn-page-wrapper" id="semiCnnSection">
+      <div class="cnn-editorial-header">
+        <div>
+          <div class="cnn-red-tag">${t.cnnBadge}</div>
+          <h1 class="cnn-main-title">${t.cnnTitle}</h1>
+          <p class="cnn-main-subtitle">${t.cnnSubtitle}</p>
+        </div>
+        <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+          <a
+            class="btn"
+            href="${((_=e.config)==null?void 0:_.youtube_url)||"https://youtube.com/@rightsidealpha"}"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="background:#dc2626; color:#ffffff; border-color:#b91c1c;"
+          >
+            📺 YouTube (@rightsidealpha) ↗
+          </a>
+          <a
+            class="btn"
+            href="${((x=e.config)==null?void 0:x.instagram_url)||"https://www.instagram.com/rightsidealpha"}"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="background:#db2777; color:#ffffff; border-color:#be185d;"
+          >
+            📸 Instagram (@rightsidealpha) ↗
+          </a>
+          <a
+            class="btn ${e.isProUnlocked?"":"btn-gated-vip-tg"}"
+            href="${ge(e.isProUnlocked)}"
+            ${e.isProUnlocked?'target="_blank" rel="noopener noreferrer"':""}
+            style="background:#0284c7; color:#ffffff; border-color:#0369a1;"
+          >
+            ${e.isProUnlocked?"👑 VIP Telegram News ↗":"🔒 VIP Telegram ($SMH/$XLV News)"}
+          </a>
+          <button class="btn" id="btnExportSemiGauge" style="background:#111827; color:#ffffff; border-color:#111827;">
+            ${t.cnnExportGauge}
+          </button>
+        </div>
+      </div>
+
+      <!-- CNN TOP 2-COLUMN GRID: LEFT = DIAL GAUGE / TIMELINE, RIGHT = 4 HISTORICAL COMPARISONS -->
+      <div class="cnn-top-grid">
+        <div class="cnn-card">
+          <div class="cnn-card-header">
+            <div style="font-size:0.78rem; color:#6b7280; font-weight:600;">
+              ${t.cnnLastUpdated}: <b class="mono" style="color:#111827;">${n.date}</b> · $SMH <b class="mono">$${n.smh_close.toFixed(2)}</b> (${n.smh_dd_pct.toFixed(2)}% off 52W High)
+            </div>
+            <div class="cnn-view-tabs">
+              <button class="cnn-view-tab ${r==="overview"?"active":""}" data-semi-tab="overview">
+                ${t.cnnTabOverview}
+              </button>
+              <button class="cnn-view-tab ${r==="timeline"?"active":""}" data-semi-tab="timeline">
+                ${t.cnnTabTimeline}
+              </button>
+            </div>
+          </div>
+
+          ${r==="overview"?Pt(n.fg_score,s):Bt(e.semiHistory,d)}
+        </div>
+
+        <!-- RIGHT COLUMN: CNN 4-ROW HISTORICAL STACK + BARBELL SIGNAL -->
+        <div class="cnn-card" style="display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <div style="font-size:0.78rem; font-weight:800; text-transform:uppercase; letter-spacing:0.05em; color:#6b7280; margin-bottom:8px;">
+              ${t.cnnHistoryTitle}
+            </div>
+            <div class="cnn-history-list">
+              ${n.comparisons.map(c=>{const y=o==="jp"?c.label_jp:o==="kr"?c.label_kr:c.label_en,E=o==="jp"?c.regime_jp:o==="kr"?c.regime_kr:c.regime_en;return`
+                  <div class="cnn-history-row">
+                    <div>
+                      <div class="cnn-hist-label">${y} <span class="mono" style="font-size:0.72rem; color:#9ca3af;">(${c.date})</span></div>
+                      <div class="cnn-hist-regime">${E}</div>
+                    </div>
+                    <div class="cnn-score-circle">${Math.round(c.score)}</div>
+                  </div>
+                `}).join("")}
+            </div>
+          </div>
+
+          <!-- Active SMH:XLV Barbell Regime Box -->
+          <div style="margin-top:16px; padding:14px 16px; background:#fef2f2; border:1px solid #fecaca; border-left:4px solid #dc2626; border-radius:4px;">
+            <div style="font-size:0.68rem; font-weight:800; color:#991b1b; letter-spacing:0.05em; text-transform:uppercase;">
+              ${t.cnnActiveRuleLabel} · TARGET ${n.recommended_smh_weight}% $SMH : ${n.recommended_xlv_weight}% $XLV
+            </div>
+            <div style="font-size:0.88rem; font-weight:800; color:#111827; margin-top:4px;">
+              ${a}
+            </div>
+            <p style="font-size:0.78rem; color:#374151; margin-top:4px; line-height:1.45;">
+              ${f}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CNN 7 FEAR & GREED INDICATORS BREAKDOWN -->
+      <div style="margin-top:12px;">
+        <div style="border-bottom:2px solid #111827; padding-bottom:10px; margin-bottom:16px;">
+          <h2 style="font-size:1.35rem; font-weight:900; color:#111827;">${t.cnnIndicatorsHeading}</h2>
+          <p style="font-size:0.84rem; color:#4b5563; margin-top:2px;">${t.cnnIndicatorsSub}</p>
+        </div>
+
+        <div class="cnn-indicators-list">
+          ${n.factors.map(c=>{const y=o==="jp"?c.title_jp:o==="kr"?c.title_kr:c.title_en,E=o==="jp"?c.subtitle_jp:o==="kr"?c.subtitle_kr:c.subtitle_en,w=o==="jp"?c.desc_jp:o==="kr"?c.desc_kr:c.desc_en,$=o==="jp"?c.regime_jp:o==="kr"?c.regime_kr:c.regime_en;return`
+              <div class="cnn-indicator-item">
+                <div>
+                  <div style="display:flex; align-items:center; gap:8px;">
+                    <span class="mono" style="font-size:0.7rem; font-weight:800; padding:2px 6px; background:#f3f4f6; border:1px solid #d1d5db; border-radius:3px; color:#374151;">
+                      #${c.order} · ${c.weight_pct}% WEIGHT
+                    </span>
+                    <span class="cnn-ind-title">${y}</span>
+                  </div>
+                  <div class="cnn-ind-sub">${E}</div>
+                  <p class="cnn-ind-desc">${w}</p>
+                </div>
+
+                <div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+                  ${Ft(c.sparkline,c.regime_code)}
+                  <div class="mono" style="font-size:0.74rem; color:#374151; font-weight:700;">
+                    Reading: ${c.raw_display} · Score ${c.score.toFixed(1)}/100
+                  </div>
+                </div>
+
+                <div style="text-align:right;">
+                  <span class="cnn-pill cnn-pill-${c.regime_code}">${$}</span>
+                </div>
+              </div>
+            `}).join("")}
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: CORE ETF SNAPSHOT STRIP ($SMH, $XLV, $QQQ) -->
+    <section style="display:grid; grid-template-columns:repeat(auto-fit, minmax(310px, 1fr)); gap:14px; margin-bottom:22px;">
+      ${n.etfs.map(c=>{const y=o==="jp"?c.name_jp:o==="kr"?c.name_kr:c.name_en,E=o==="jp"?c.role_jp:o==="kr"?c.role_kr:c.role_en,w=e.config||{},$=encodeURIComponent(w.tradingview_aff_id||"1173809"),I=encodeURIComponent(w.seekingalpha_source||"better_life333"),T=w.broker_referral_url||"https://www.bitget.com/referral/register?clacCode=7nja",b=T.includes("?")?"&":"?",P=`https://www.tradingview.com/symbols/${encodeURIComponent(c.ticker)}/?aff_id=${$}`,O=`https://seekingalpha.com/symbol/${encodeURIComponent(c.ticker)}/earnings?source=${I}`,C=`${T}${b}symbol=${encodeURIComponent(c.ticker)}`;return`
+          <div class="proof-card" style="margin-bottom:0; border-top:2px solid ${c.ticker==="SMH"?"var(--fin-blue)":c.ticker==="XLV"?"var(--fin-up)":"#64748b"};">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+              <div>
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <span class="mono" style="font-size:1.15rem; font-weight:900; color:#ffffff;">$${c.ticker}</span>
+                  <span style="font-size:0.78rem; color:var(--text-secondary); font-weight:600;">${y}</span>
+                </div>
+                <div style="font-size:0.74rem; color:var(--muted); margin-top:3px;">${E}</div>
+              </div>
+              <div style="text-align:right;">
+                <div class="mono" style="font-size:1.15rem; font-weight:800; color:#ffffff;">$${Number(c.close??0).toFixed(2)}</div>
+                <div class="mono" style="font-size:0.74rem; color:${c.ret_1d_pct>=0?"var(--fin-up)":"var(--fin-down)"};">
+                  1D: ${c.ret_1d_pct>=0?"+":""}${Number(c.ret_1d_pct??0).toFixed(2)}% · 20D: ${c.ret_20d_pct>=0?"+":""}${Number(c.ret_20d_pct??0).toFixed(2)}%
+                </div>
+                <div class="mono" style="font-size:0.7rem; color:var(--muted); margin-top:1px;">
+                  52W DD: ${Number(c.dd_52w_pct??0).toFixed(2)}% · RSI(14): ${Number(c.rsi14??50).toFixed(1)}
+                </div>
+              </div>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:12px; padding-top:10px; border-top:1px solid var(--border-subtle); font-size:0.74rem;">
+              <span class="mono" style="color:var(--muted);">
+                Normal: <b style="color:#fff;">${c.target_weight_normal}%</b> → Extreme Fear: <b style="color:var(--fin-up);">${c.target_weight_fear}%</b>
+              </span>
+              <div style="display:flex; gap:6px;">
+                <a class="btn btn-sm" href="${P}" target="_blank" rel="noopener noreferrer">TV Chart ↗</a>
+                <a class="btn btn-sm" href="${O}" target="_blank" rel="noopener noreferrer">Holdings ↗</a>
+                <a class="btn btn-sm" href="${C}" target="_blank" rel="noopener noreferrer" style="border-color:rgba(16,185,129,0.4); color:#34d399;">Trade ↗</a>
+              </div>
+            </div>
+          </div>
+        `}).join("")}
+    </section>
+
+    <!-- SECTION 3: INTERACTIVE SMH + XLV REBALANCING & 2.5M KRW TAX HARVESTING ENGINE + 3-STAGE LUMP-SUM PLANNER -->
+    <section class="semi-calc-grid">
+      <!-- Calculator 1: SMH + XLV Rebalancing & Tax Optimizer -->
+      <div class="proof-card" style="margin-bottom:0; border-top:2px solid var(--fin-up);">
+        <div style="font-size:0.7rem; font-family:var(--font-mono); font-weight:700; color:var(--fin-up); letter-spacing:0.05em;">
+          ${t.rebalSectionTag}
+        </div>
+        <h3 style="font-size:1.12rem; font-weight:800; color:#ffffff; margin:4px 0 6px;">${t.rebalSectionTitle}</h3>
+        <p style="font-size:0.8rem; color:var(--muted); margin-bottom:14px;">${t.rebalSectionDesc}</p>
+
+        <div class="semi-form-grid-2" style="margin-bottom:12px;">
+          <div>
+            <label style="font-size:0.68rem; font-family:var(--font-mono); color:var(--muted);">PORTFOLIO CAPITAL ($ USD)</label>
+            <input type="number" id="semiCapInput" value="${e.semiCapUsd??1e5}" step="1000"
+                   style="width:100%; padding:8px 10px; background:#060911; border:1px solid var(--border); color:#fff; border-radius:4px; font-family:var(--font-mono); font-weight:700; margin-top:3px;" />
+          </div>
+          <div>
+            <label style="font-size:0.68rem; font-family:var(--font-mono); color:var(--muted);">ALLOCATION MODE</label>
+            <select id="semiModeInput" style="width:100%; padding:8px 10px; background:#060911; border:1px solid var(--border); color:#fff; border-radius:4px; font-family:var(--font-sans); font-weight:600; margin-top:3px;">
+              <option value="AUTO_REGIME" ${e.semiMode==="AUTO_REGIME"?"selected":""}>Auto Regime (70:30 ↔ 80:20 on Fear ≤ 25)</option>
+              <option value="BASELINE_70_30" ${e.semiMode==="BASELINE_70_30"?"selected":""}>70% $SMH : 30% $XLV Golden Baseline</option>
+              <option value="CONTRARIAN_80_20" ${e.semiMode==="CONTRARIAN_80_20"?"selected":""}>80% $SMH : 20% $XLV Contrarian Accumulation</option>
+              <option value="AGGRESSIVE_90_10" ${e.semiMode==="AGGRESSIVE_90_10"?"selected":""}>90% $SMH : 10% $XLV Right-Side Tilt</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size:0.68rem; font-family:var(--font-mono); color:var(--muted);">REBALANCING CADENCE</label>
+            <select id="semiFreqInput" style="width:100%; padding:8px 10px; background:#060911; border:1px solid var(--border); color:#fff; border-radius:4px; font-family:var(--font-sans); font-weight:600; margin-top:3px;">
+              <option value="ANNUAL" ${e.semiFreq==="ANNUAL"?"selected":""}>Annual + Band Trigger (Min Tax Drag)</option>
+              <option value="QUARTERLY" ${e.semiFreq==="QUARTERLY"?"selected":""}>Quarterly Rebalance</option>
+              <option value="MONTHLY" ${e.semiFreq==="MONTHLY"?"selected":""}>Monthly Rebalance</option>
+              <option value="WEEKLY" ${e.semiFreq==="WEEKLY"?"selected":""}>Weekly Rebalance (High Tax Drag)</option>
+            </select>
+          </div>
+          ${o==="kr"?`<div>
+            <label style="font-size:0.68rem; font-family:var(--font-mono); color:var(--muted);">UNREALIZED GAIN (₩ KRW · TAX HARVESTER)</label>
+            <input type="number" id="semiGainKrwInput" value="${e.semiGainKrw??38e5}" step="100000"
+                   style="width:100%; padding:8px 10px; background:#060911; border:1px solid var(--border); color:#fff; border-radius:4px; font-family:var(--font-mono); margin-top:3px;" />
+          </div>`:""}
+        </div>
+
+        <button class="btn btn-emerald" id="btnRunSemiRebalance" style="width:100%; justify-content:center; padding:9px;">
+          Calculate Exact $SMH / $XLV Rebalancing Orders
+        </button>
+
+        ${i?`
+          <div id="semiRebalOutput" style="margin-top:14px; background:#060911; border:1px solid var(--border); border-left:3px solid var(--fin-up); border-radius:4px; padding:14px; font-size:0.8rem;">
+            <div style="font-weight:800; color:var(--fin-up); margin-bottom:4px;">
+              ${o==="jp"?i.active_rule_jp:o==="kr"?i.active_rule_kr:i.active_rule_en}
+            </div>
+            <div class="mono" style="font-size:0.71rem; color:#93c5fd; margin-bottom:8px;">
+              Latest Close Basis (${i.as_of_date||n.date}): $SMH @ $${Number(i.smh_close??n.smh_close).toFixed(2)} · $XLV @ $${Number(i.xlv_close??n.xlv_close).toFixed(2)}${o==="kr"?` · FX ₩${Number(i.usdkrw??n.usdkrw).toLocaleString()}/$ · Total ₩${Number(i.total_capital_krw??0).toLocaleString()}`:` · Total Capital $${Number(i.total_capital_usd??e.semiCapUsd??1e5).toLocaleString()}`}
+            </div>
+            <div class="semi-form-grid-2" style="margin-bottom:10px;">
+              <div style="background:#0c1220; padding:10px; border-radius:4px; border:1px solid var(--border);">
+                <div style="font-size:0.7rem; color:var(--muted);">TARGET $SMH (${i.target_smh_weight_pct}%)</div>
+                <div class="mono" style="font-size:1.05rem; font-weight:800; color:#fff; margin-top:2px;">
+                  $${Number(i.target_smh_usd??0).toLocaleString()} (${i.target_smh_shares} sh)
+                </div>
+                <div class="mono" style="font-size:0.73rem; color:${i.delta_smh_usd>=0?"var(--fin-up)":"var(--fin-down)"}; margin-top:2px;">
+                  Order vs Drift: ${i.delta_smh_usd>=0?"BUY +":"SELL "}$${Math.abs(Number(i.delta_smh_usd??0)).toLocaleString()} (${i.delta_smh_shares>=0?"+":""}${i.delta_smh_shares} sh)
+                </div>
+              </div>
+              <div style="background:#0c1220; padding:10px; border-radius:4px; border:1px solid var(--border);">
+                <div style="font-size:0.7rem; color:var(--muted);">TARGET $XLV (${i.target_xlv_weight_pct}%)</div>
+                <div class="mono" style="font-size:1.05rem; font-weight:800; color:#fff; margin-top:2px;">
+                  $${Number(i.target_xlv_usd??0).toLocaleString()} (${i.target_xlv_shares} sh)
+                </div>
+                <div class="mono" style="font-size:0.73rem; color:${i.delta_xlv_usd>=0?"var(--fin-up)":"var(--fin-down)"}; margin-top:2px;">
+                  Order vs Drift: ${i.delta_xlv_usd>=0?"BUY +":"SELL "}$${Math.abs(Number(i.delta_xlv_usd??0)).toLocaleString()} (${i.delta_xlv_shares>=0?"+":""}${i.delta_xlv_shares} sh)
+                </div>
+              </div>
+            </div>
+            <div style="font-size:0.75rem; color:var(--text-secondary); line-height:1.45; border-top:1px solid var(--border); padding-top:8px;">
+              ${o==="kr"?`<div style="margin-bottom:4px;"><b>KRW 2.5M Tax-Free Harvester:</b> ${i.kr_tax_guidance_kr}</div>`:""}
+              <div class="mono" style="color:var(--muted);">
+                Residual Cash: $${Number(i.residual_cash_usd??0).toFixed(2)} · Est. Annual Tax & Turnover Drag (${i.rebalance_frequency}): -${i.estimated_tax_drag_pct}%/yr · Expected Net 15Y Rate: +${i.expected_net_cagr_pct}%/yr
+              </div>
+            </div>
+          </div>
+        `:""}
+      </div>
+
+      <!-- Calculator 2: 3-Stage Lump-Sum Entry Planner -->
+      <div class="proof-card" style="margin-bottom:0; border-top:2px solid var(--fin-blue);">
+        <div style="font-size:0.7rem; font-family:var(--font-mono); font-weight:700; color:#60a5fa; letter-spacing:0.05em;">
+          ${t.lumpSectionTag}
+        </div>
+        <h3 style="font-size:1.12rem; font-weight:800; color:#ffffff; margin:4px 0 6px;">${t.lumpSectionTitle}</h3>
+        <p style="font-size:0.8rem; color:var(--muted); margin-bottom:14px;">${t.lumpSectionDesc}</p>
+
+        <div class="semi-form-grid-2" style="margin-bottom:12px;">
+          <div>
+            <label style="font-size:0.68rem; font-family:var(--font-mono); color:var(--muted);">NEW LUMP-SUM CASH ($ USD)</label>
+            <input type="number" id="semiLumpCapInput" value="${e.semiLumpCapUsd??5e4}" step="1000"
+                   style="width:100%; padding:8px 10px; background:#060911; border:1px solid var(--border); color:#fff; border-radius:4px; font-family:var(--font-mono); font-weight:700; margin-top:3px;" />
+          </div>
+          <div>
+            <label style="font-size:0.68rem; font-family:var(--font-mono); color:var(--muted);">
+              SIMULATE FEAR & GREED SCORE (LIVE: ${n.fg_score})
+            </label>
+            <input type="number" id="semiLumpScoreInput" value="${e.semiLumpScore!==null&&e.semiLumpScore!==void 0?e.semiLumpScore:n.fg_score}" min="0" max="100" step="1"
+                   style="width:100%; padding:8px 10px; background:#060911; border:1px solid var(--border); color:#fff; border-radius:4px; font-family:var(--font-mono); font-weight:700; margin-top:3px;" />
+          </div>
+        </div>
+
+        <div style="display:flex; gap:6px; margin-bottom:12px; flex-wrap:wrap;">
+          <button class="btn btn-sm btn-sim-fg" data-fg="18.0">Live Extreme Fear (18.0)</button>
+          <button class="btn btn-sm btn-sim-fg" data-fg="50.0">Simulate Neutral (50.0)</button>
+          <button class="btn btn-sm btn-sim-fg" data-fg="78.0">Simulate Extreme Greed (78.0)</button>
+        </div>
+
+        <button class="btn btn-primary" id="btnRunSemiLumpSum" style="width:100%; justify-content:center; padding:9px;">
+          Generate 3-Stage Lump-Sum Tranche Schedule
+        </button>
+
+        ${u?`
+          <div id="semiLumpOutput" style="margin-top:14px; background:#060911; border:1px solid var(--border); border-left:3px solid var(--fin-blue); border-radius:4px; padding:14px; font-size:0.8rem;">
+            <div style="font-weight:800; color:#93c5fd; margin-bottom:3px;">
+              ${o==="jp"?u.case_title_jp:o==="kr"?u.case_title_kr:u.case_title_en}
+            </div>
+            <div class="mono" style="font-size:0.71rem; color:var(--muted); margin-bottom:6px;">
+              Latest Close Basis (${u.as_of_date||n.date}): $SMH @ $${Number(u.smh_close??n.smh_close).toFixed(2)} · $XLV @ $${Number(u.xlv_close??n.xlv_close).toFixed(2)}
+            </div>
+            <p style="font-size:0.76rem; color:var(--text-secondary); margin-bottom:10px;">
+              ${o==="jp"?u.summary_jp:o==="kr"?u.summary_kr:u.summary_en}
+            </p>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              ${u.tranches.map(c=>{const y=o==="jp"?c.title_jp:o==="kr"?c.title_kr:c.title_en,E=o==="jp"?c.timing_jp:o==="kr"?c.timing_kr:c.timing_en,w=o==="jp"?c.note_jp:o==="kr"?c.note_kr:c.note_en;return`
+                  <div style="background:#0c1220; padding:10px; border-radius:4px; border:1px solid var(--border);">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                      <b style="color:#ffffff;">${y}</b>
+                      <span class="mono" style="color:var(--fin-up); font-weight:700;">$${c.amount_usd.toLocaleString()} (${c.allocation_pct}%)</span>
+                    </div>
+                    <div class="mono" style="font-size:0.72rem; color:#93c5fd; margin-top:2px;">
+                      ${E} · $SMH: $${c.smh_usd.toLocaleString()} (${c.smh_shares} sh) | $XLV: $${c.xlv_usd.toLocaleString()} (${c.xlv_shares} sh)
+                    </div>
+                    <div style="font-size:0.74rem; color:var(--muted); margin-top:4px;">${w}</div>
+                  </div>
+                `}).join("")}
+            </div>
+          </div>
+        `:""}
+      </div>
+    </section>
+
+    <!-- SECTION 4: 26-YEAR EMPIRICAL PERFORMANCE TABLE & EQUITY CURVE (2000-2026) -->
+    <section class="proof-card">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px; margin-bottom:14px;">
+        <div>
+          <div style="font-size:0.7rem; font-family:var(--font-mono); font-weight:700; color:var(--fin-up); letter-spacing:0.05em;">
+            ${t.eraSectionTag}
+          </div>
+          <h3 style="font-size:1.15rem; font-weight:800; color:#ffffff; margin-top:3px;">${t.eraSectionTitle}</h3>
+          <p style="font-size:0.8rem; color:var(--muted); margin-top:2px;">${t.eraSectionDesc}</p>
+        </div>
+        <button class="btn btn-sm" id="btnDownloadSemiCsv">
+          Download 2000–2026 Daily CSV Dataset (Pro)
+        </button>
+      </div>
+
+      ${Dt(e.semiHistory)}
+
+      <div class="table-responsive-scroll">
+        <table class="proof-table">
+          <thead>
+            <tr>
+              <th>Investment Horizon</th>
+              <th>Period</th>
+              <th>100% $QQQ CAGR</th>
+              <th>100% $QQQ Multiple</th>
+              <th>70:30 Baseline CAGR</th>
+              <th>70:30 (80:20 Fear Tilt) CAGR</th>
+              <th>70:30 (80:20 Tilt) Multiple</th>
+              <th>Max Drawdown (vs QQQ)</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${h.map(c=>`
+                <tr class="proof-highlight">
+                  <td style="font-family:var(--font-sans);">${o==="jp"?c.horizon_jp:o==="kr"?c.horizon_kr:c.horizon_en}</td>
+                  <td>${c.period}</td>
+                  <td style="color:var(--text-secondary);">+${c.qqq_cagr_pct.toFixed(2)}%</td>
+                  <td style="color:var(--text-secondary);">${c.qqq_multiple.toFixed(2)}x</td>
+                  <td>+${c.port_70_30_cagr_pct.toFixed(2)}%</td>
+                  <td style="color:var(--fin-up); font-weight:800;">+${c.port_80_20_cagr_pct.toFixed(2)}%</td>
+                  <td style="color:var(--fin-up); font-weight:800;">${c.port_80_20_multiple.toFixed(2)}x</td>
+                  <td><span style="color:var(--fin-up);">${c.port_80_20_mdd_pct.toFixed(1)}%</span> <span style="color:var(--muted); font-size:0.72rem;">(QQQ ${c.qqq_mdd_pct.toFixed(1)}%)</span></td>
+                </tr>
+              `).join("")}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SECTION 5: PRO TERMINAL & LIFETIME LICENSE PRICING -->
+    ${it(e)}
+
+    <!-- CROSS-PLATFORM SWITCH BANNER BACK TO RIGHTSIDEALPHA -->
+    <section class="cross-banner" style="border-left-color:var(--fin-blue);">
+      <div>
+        <div style="font-size:0.72rem; font-family:var(--font-mono); font-weight:700; color:#93c5fd; text-transform:uppercase;">
+          COMPANION US INDIVIDUAL EQUITY SCREENER · RIGHTSIDEALPHA
+        </div>
+        <h3 style="font-size:1.15rem; font-weight:800; margin:4px 0; color:#ffffff;">
+          Looking for High-Alpha US Individual Stock Turnarounds ($CELH, $MBLY, $NVDA, $APP)?
+        </h3>
+        <p style="font-size:0.84rem; color:var(--muted);">
+          Switch to the RightSideAlpha US Equity Terminal to screen 72 NYSE & NASDAQ stocks for MA20/MA60 Right-Side Ignitions and 55-Day Time-Stop diagnostics.
+        </p>
+      </div>
+      <button class="btn btn-primary" id="btnSwitchToRightSide">
+        Open RightSideAlpha US Equity Terminal →
+      </button>
+    </section>
+  `}const Je=window.location.pathname.toLowerCase(),Ze=window.location.hash.toLowerCase(),Ut=new URLSearchParams(window.location.search),et=(Ut.get("view")||"").toLowerCase(),Ht=et==="semi"||Ze.includes("semi")||Je.includes("/semi")?"semi":et==="rightside"||Ze.includes("rightside")||Je.includes("/rightside")?"rightside":window.__DEFAULT_VIEW__==="semi"?"semi":"rightside";(function(){try{localStorage.getItem("rsa_lang_v3_en")&&!localStorage.getItem("rsa_lang_v4_auto")&&(localStorage.removeItem("rsa_lang"),localStorage.removeItem("rsa_lang_v3_en"),localStorage.setItem("rsa_lang_v4_auto","1")),(localStorage.getItem("rsa_cfg_site1_url")||"").includes("getbreakai.com")&&localStorage.setItem("rsa_cfg_site1_url","https://truthofmarket.com");const o=localStorage.getItem("rsa_cfg_ls_monthly")||"";(o.includes("rightsidealpha.lemonsqueezy.com")||o.includes("pro-monthly")||o.includes("d5e7e761"))&&localStorage.removeItem("rsa_cfg_ls_monthly");const n=localStorage.getItem("rsa_cfg_ls_ltd")||"";(n.includes("rightsidealpha.lemonsqueezy.com")||n.includes("lifetime-pass")||n.includes("667aa482"))&&localStorage.removeItem("rsa_cfg_ls_ltd"),(localStorage.getItem("rsa_cfg_aff_tv")||"")==="rightsidealpha"&&localStorage.setItem("rsa_cfg_aff_tv","1173809"),(localStorage.getItem("rsa_cfg_aff_sa")||"")==="affiliate_rightside"&&localStorage.setItem("rsa_cfg_aff_sa","better_life333");const f=localStorage.getItem("rsa_cfg_broker_url")||"";(f.includes("ibkr.com/referral/rightsidealpha")||f.includes("partner.bitget.com"))&&(localStorage.setItem("rsa_cfg_broker_url","https://www.bitget.com/referral/register?clacCode=7nja"),localStorage.setItem("rsa_cfg_broker_name","Bitget (7nja)"));const r=localStorage.getItem("rsa_tg_channel_url")||"";(!r||r.includes("SemifearGreedbot")||r.includes("RightSideAlphaBot"))&&localStorage.setItem("rsa_tg_channel_url","https://t.me/truthofmarketss");const d=localStorage.getItem("rsa_tg_chat_id")||"";(!d||d.includes("SemifearGreedbot")||d==="755033799")&&localStorage.setItem("rsa_tg_chat_id","@truthofmarketss"),(localStorage.getItem("rsa_cfg_instagram_url")||"").includes("semifeargreed")&&localStorage.setItem("rsa_cfg_instagram_url","https://www.instagram.com/rightsidealpha")}catch{}})();function zt(){try{const e=localStorage.getItem("rsa_lang");if(e&&(e==="kr"||e==="en"||e==="jp"))return e;const t=(navigator.language||navigator.userLanguage||"en").toLowerCase();if(t.startsWith("ko"))return"kr";if(t.startsWith("ja"))return"jp"}catch{}return"en"}const l={lang:zt(),activeView:Ht,isAdminAuthenticated:sessionStorage.getItem("rsa_admin_auth")==="true",isProUnlocked:se(),licenseKey:localStorage.getItem("rsa_token")||"",proPortfolioUsd:Number(localStorage.getItem("rsa_pro_cap_usd")||3e4),stocks:[],filteredStocks:[],backtestKpis:null,pineCode:null,searchQuery:"",zoneFilter:"ALL",sortCol:"score",sortAsc:!1,semiOverview:null,semiHistory:null,semiGaugeTab:"overview",semiRange:"1Y",semiCapUsd:1e5,semiMode:"AUTO_REGIME",semiFreq:"ANNUAL",semiGainKrw:38e5,semiRebalanceResult:null,semiLumpCapUsd:5e4,semiLumpScore:null,semiLumpSumResult:null,telegramConfigured:!0,telegramBotToken:localStorage.getItem("rsa_tg_bot_token")||be,telegramChatId:localStorage.getItem("rsa_tg_chat_id")||"@truthofmarketss",telegramAlertType:"SEMI_BRIEFING",telegramPreviewText:"",config:{site1_name:"RightSideAlpha",site1_url:localStorage.getItem("rsa_cfg_site1_url")||"https://truthofmarket.com",site2_url:"https://truthofmarket.com",ls_site1_monthly_url:localStorage.getItem("rsa_cfg_ls_monthly")||"https://truthofmarket.lemonsqueezy.com/checkout/buy/bad98d00-7175-41f6-9d58-eeb2471d0da4",ls_site1_ltd_url:localStorage.getItem("rsa_cfg_ls_ltd")||"https://truthofmarket.lemonsqueezy.com/checkout/buy/00c9f6e1-c8be-42a4-b5a5-e05af1a41ed9",tradingview_aff_id:localStorage.getItem("rsa_cfg_aff_tv")||"1173809",seekingalpha_source:localStorage.getItem("rsa_cfg_aff_sa")||"better_life333",broker_name:localStorage.getItem("rsa_cfg_broker_name")||"Bitget (7nja)",broker_referral_url:localStorage.getItem("rsa_cfg_broker_url")||"https://www.bitget.com/referral/register?clacCode=7nja",telegram_channel_url:localStorage.getItem("rsa_tg_channel_url")||"https://t.me/truthofmarketss",telegram_vip_channel_url:localStorage.getItem("rsa_tg_vip_channel_url")||"",telegram_chat_id:localStorage.getItem("rsa_tg_chat_id")||"@truthofmarketss",youtube_url:localStorage.getItem("rsa_cfg_youtube_url")||Ae,instagram_url:localStorage.getItem("rsa_cfg_instagram_url")||Re},get t(){return $e[this.lang]||$e.en}};function D(e){const t=document.getElementById("toastBox");t&&(t.textContent=e,t.style.display="block",clearTimeout(window.__toastTimer),window.__toastTimer=setTimeout(()=>{t.style.display="none"},3200))}function me(){const e=(l.searchQuery||"").trim().toLowerCase(),t=l.zoneFilter;let o=l.stocks.filter(a=>!(!a.ticker||String(a.ticker).includes(".")||t!=="ALL"&&a.zone_code!==t||e&&!(!l.isProUnlocked&&a.zone_code==="IGNITION_ZONE"&&a.ticker!=="CELH"?`vip ignition locked pro ${a.sector}`.toLowerCase():`${a.ticker} ${a.name_en} ${a.name_jp} ${a.name_kr} ${a.sector}`.toLowerCase()).includes(e)));const n=l.sortCol,s=l.sortAsc?1:-1;o.sort((a,f)=>{const r=a[n],d=f[n];return typeof r=="string"||typeof d=="string"?String(r??"").localeCompare(String(d??""))*s:((r??0)-(d??0))*s}),l.filteredStocks=o}function Vt(){const e=l.t;return`
+    ${It(l)}
+    ${Tt(l)}
+    <section class="screener-panel">
+      ${Lt(l)}
+      ${At(l)}
+    </section>
+    ${Ct(l)}
+    ${it(l)}
+
+    <!-- CROSS-PLATFORM BANNER TO SEMIFEARGREED -->
+    <section class="cross-banner">
+      <div>
+        <div style="font-size:0.72rem; font-family:var(--font-mono); font-weight:700; color:#f87171; text-transform:uppercase; letter-spacing:0.05em;" id="crossTitle">
+          ${e.crossTitle}
+        </div>
+        <h3 style="font-size:1.15rem; font-weight:800; margin:4px 0; color:#ffffff;" id="crossHeading">
+          ${e.crossHeading}
+        </h3>
+        <p style="font-size:0.84rem; color:var(--muted);" id="crossDesc">
+          ${e.crossDesc}
+        </p>
+      </div>
+      <button class="btn btn-primary" id="crossFunnelSwitchBtn" style="background:#dc2626; border-color:#ef4444;">
+        <span id="crossBtn">${e.crossBtn} →</span>
+      </button>
+    </section>
+  `}function Q(){const e=document.getElementById("app");if(!e)return;const t=l.t;e.innerHTML=`
+    ${kt(l)}
+    <main class="container">
+      ${l.activeView==="semi"?Ot(l):Vt()}
+
+      <footer style="border-top:1px solid var(--border); padding-top:20px; margin-top:28px; color:var(--muted); font-size:0.76rem; line-height:1.6;">
+        <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-bottom:12px;">
+          <span class="mono" style="font-size:0.72rem; color:var(--text); font-weight:700;">OFFICIAL CHANNELS:</span>
+          <a href="${l.config.youtube_url||Ae}" target="_blank" rel="noopener noreferrer" style="color:#fca5a5; text-decoration:none; font-weight:600;">
+            📺 YouTube (@rightsidealpha) ↗
+          </a>
+          <span style="color:var(--border);">|</span>
+          <a href="${l.config.instagram_url||Re}" target="_blank" rel="noopener noreferrer" style="color:#f9a8d4; text-decoration:none; font-weight:600;">
+            📸 Instagram (@rightsidealpha) ↗
+          </a>
+          <span style="color:var(--border);">|</span>
+          <a href="${l.config.x_url||"https://x.com/rightsidealpha"}" target="_blank" rel="noopener noreferrer" style="color:#e2e8f0; text-decoration:none; font-weight:600;">
+            𝕏 (@rightsidealpha) ↗
+          </a>
+          <span style="color:var(--border);">|</span>
+          <a
+            href="${ge(l.isProUnlocked)}"
+            class="${l.isProUnlocked?"":"btn-gated-vip-tg"}"
+            ${l.isProUnlocked?'target="_blank" rel="noopener noreferrer"':""}
+            style="color:#38bdf8; text-decoration:none; font-weight:600;"
+          >
+            ${l.isProUnlocked?"👑 Pro VIP Telegram Channel ↗":"🔒 Pro VIP Telegram ($SMH/$XLV & 72-Stock News)"}
+          </a>
+        </div>
+        <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-bottom:10px; font-size:0.74rem;">
+          <a href="#legal-terms" class="btn-open-legal" data-legal-tab="terms" style="color:#93c5fd; text-decoration:none; font-weight:600;">Terms of Service</a>
+          <span style="color:var(--border);">·</span>
+          <a href="#legal-privacy" class="btn-open-legal" data-legal-tab="privacy" style="color:#93c5fd; text-decoration:none; font-weight:600;">Privacy Policy</a>
+          <span style="color:var(--border);">·</span>
+          <a href="#legal-refund" class="btn-open-legal" data-legal-tab="refund" style="color:#93c5fd; text-decoration:none; font-weight:600;">Refund & Cancellation Policy</a>
+          <span style="color:var(--border);">·</span>
+          <a href="mailto:support@truthofmarket.com" style="color:#93c5fd; text-decoration:none; font-weight:600;">Support: support@truthofmarket.com</a>
+        </div>
+        <p id="disclaimerText">${t.disclaimer}</p>
+        <p style="margin-top:8px; font-family:var(--font-mono); font-size:0.72rem;" id="copyrightText">${t.copyright}</p>
+      </footer>
+    </main>
+    <canvas id="scoreCanvas" width="900" height="500" style="display:none;"></canvas>
+    ${Nt(l)}
+  `,Gt()}function ce(e){l.activeView=e==="semi"?"semi":"rightside";const t=window.location.pathname||"/";l.activeView==="semi"?window.history.replaceState(null,"",`${t}#semi`):window.history.replaceState(null,"",`${t}#rightside`),Q(),window.scrollTo({top:0,behavior:"smooth"})}function Gt(){if(typeof window.createLemonSqueezy=="function")try{window.createLemonSqueezy()}catch{}const e=document.getElementById("brandHomeBtn");e&&e.addEventListener("click",()=>{window.scrollTo({top:0,behavior:"smooth"})});const t=document.getElementById("navTabRightSide");t&&t.addEventListener("click",()=>ce("rightside"));const o=document.getElementById("navTabSemiFg");o&&o.addEventListener("click",()=>ce("semi"));const n=document.getElementById("ribbonSwitchSemi");n&&n.addEventListener("click",()=>ce("semi"));const s=document.getElementById("crossFunnelSwitchBtn");s&&s.addEventListener("click",()=>ce("semi"));const a=document.getElementById("btnSwitchToRightSide");a&&a.addEventListener("click",()=>ce("rightside")),document.querySelectorAll(".lang-btn").forEach(p=>{p.addEventListener("click",()=>{const m=p.getAttribute("data-lang");m&&$e[m]&&(l.lang=m,localStorage.setItem("rsa_lang",m),Q())})});const f=document.getElementById("searchInput");f&&f.addEventListener("input",p=>{l.searchQuery=p.target.value,me();const m=document.getElementById("tableBody");m&&(m.innerHTML=ke(l)),Se()}),document.querySelectorAll(".filter-tab").forEach(p=>{p.addEventListener("click",()=>{l.zoneFilter=p.getAttribute("data-zone")||"ALL",me(),Q()})}),document.querySelectorAll(".sort-header").forEach(p=>{p.addEventListener("click",()=>{const m=p.getAttribute("data-sort");if(!m)return;l.sortCol===m?l.sortAsc=!l.sortAsc:(l.sortCol=m,l.sortAsc=m==="ticker"),me();const g=document.getElementById("tableBody");g&&(g.innerHTML=ke(l)),Se()})});const r=document.getElementById("licenseModal"),d=(p=!1,m="")=>{if(!r)return;r.style.display="flex";const g=document.getElementById("licenseInput"),v=document.getElementById("licenseMsg");g&&!g.value.trim()&&(g.value=l.licenseKey||""),v&&m&&(v.style.color="#93c5fd",v.textContent=m)},i=()=>{r&&(r.style.display="none")},u=document.getElementById("btnOpenLicense");u&&u.addEventListener("click",()=>d(!1));const h=document.getElementById("proStatusBadge");h&&(h.style.cursor="pointer",h.addEventListener("click",()=>d(!1)));const _=document.getElementById("vaultUnlockBtn");_&&_.addEventListener("click",()=>d(!1));const x=document.getElementById("vaultOverlayUnlock");x&&x.addEventListener("click",()=>d(!1)),document.querySelectorAll(".btn-gated-vip-tg").forEach(p=>{p.addEventListener("click",m=>{l.isProUnlocked||(m.preventDefault(),d(!1,"🔒 Pro VIP Telegram Channel ($SMH/$XLV & 72-Stock Real-Time News + Unmasked Ignition Signals) is exclusively for Pro Subscribers ($29/mo or $199 Lifetime)."))})});const c=document.getElementById("btnCancelLicense");c&&c.addEventListener("click",i);const y=document.getElementById("btnLockLicense");y&&y.addEventListener("click",async()=>{l.isProUnlocked=!1,l.licenseKey="",localStorage.removeItem("rsa_pro_unlocked"),localStorage.removeItem("rsa_token"),await fe(),i(),Q(),D("Pro Terminal Locked — Reverted to Free Preview")});const E=async()=>{const p=document.getElementById("licenseInput"),m=document.getElementById("licenseMsg"),g=(p?p.value:"").trim();if(!g){m&&(m.style.color="var(--fin-down)",m.textContent="Please enter your Lemon Squeezy Pro license key.");return}try{const v=await bt(g);v.valid?(l.isProUnlocked=!0,l.licenseKey=g,localStorage.setItem("rsa_pro_unlocked","true"),localStorage.setItem("rsa_token",g),m&&(m.style.color="var(--fin-up)",m.textContent=v.message||"Pro Terminal Unlocked."),await fe(),setTimeout(()=>{i(),Q(),D("Pro Terminal Unlocked — All 72 US Equity Targets Active")},350)):m&&(m.style.color="var(--fin-down)",m.textContent=v.message||"Invalid or expired license key. Please verify your Lemon Squeezy receipt or subscribe below.")}catch{m&&(m.style.color="var(--fin-down)",m.textContent="Unable to verify license key. Please check your key and try again.")}},w=document.getElementById("btnVerifyLicense");w&&w.addEventListener("click",E);const $=document.getElementById("licenseInput");$&&$.addEventListener("keydown",p=>{p.key==="Enter"&&(p.preventDefault(),E())}),document.querySelectorAll(".lemonsqueezy-button").forEach(p=>{p.addEventListener("click",m=>{const g=p.getAttribute("href")||"",v=g.includes("rightsidealpha.lemonsqueezy.com");if(window.LemonSqueezy&&window.LemonSqueezy.Url&&typeof window.LemonSqueezy.Url.Open=="function"&&!v){m.preventDefault(),window.LemonSqueezy.Url.Open(g);return}v&&(m.preventDefault(),d(!0,"Instant Evaluation Mode: Click 'Verify & Unlock Terminal' with PRO-DEMO-2026 (or configure your live Lemon Squeezy store URL in Config)."))})});const I=document.getElementById("adminLoginModal"),T=document.getElementById("configModal"),b=document.getElementById("btnOpenConfig"),P=document.getElementById("btnCancelConfig"),O=document.getElementById("btnSaveConfig"),C=document.getElementById("btnCancelAdminLogin"),H=document.getElementById("btnSubmitAdminLogin"),N=document.getElementById("btnAdminLogout"),G=async()=>{const p=document.getElementById("adminIdInput"),m=document.getElementById("adminPwInput"),g=document.getElementById("adminLoginMsg"),v=(p?p.value:"").trim(),S=m?m.value:"";if(!v||!S){g&&(g.style.color="var(--fin-down)",g.textContent="Please enter both Admin ID and Password.");return}try{const k=await ht(v,S);if(k&&k.authenticated){l.isAdminAuthenticated=!0,sessionStorage.setItem("rsa_admin_auth","true"),l.isProUnlocked=!0,l.licenseKey=k.license_key||"RSA-ADMIN-SESSION",localStorage.setItem("rsa_pro_unlocked","true"),localStorage.setItem("rsa_token",l.licenseKey),g&&(g.style.color="var(--fin-up)",g.textContent=k.message||"Admin Authenticated!"),await fe(),I&&(I.style.display="none"),Q();const L=document.getElementById("configModal");L&&(L.style.display="flex"),D("Admin Authenticated — Terminal Config & Pro Access Unlocked")}else g&&(g.style.color="var(--fin-down)",g.textContent=k&&k.message||"Invalid Admin ID or Password.")}catch{g&&(g.style.color="var(--fin-down)",g.textContent="Authentication error. Please try again.")}};b&&b.addEventListener("click",()=>{if(l.isAdminAuthenticated)T&&(T.style.display="flex");else if(I){I.style.display="flex";const p=document.getElementById("adminIdInput");p&&p.focus()}}),C&&I&&C.addEventListener("click",()=>{I.style.display="none"}),H&&H.addEventListener("click",G);const j=document.getElementById("adminPwInput");j&&j.addEventListener("keydown",p=>{p.key==="Enter"&&(p.preventDefault(),G())}),N&&N.addEventListener("click",()=>{l.isAdminAuthenticated=!1,sessionStorage.removeItem("rsa_admin_auth"),T&&(T.style.display="none"),D("Admin Session Locked")}),P&&T&&P.addEventListener("click",()=>{T.style.display="none"}),O&&O.addEventListener("click",async()=>{var R,M,U,ee,K,ae,Xe,Ye,Qe,We;const p=((R=document.getElementById("cfgSite1Url"))==null?void 0:R.value.trim())||l.config.site1_url,m=((M=document.getElementById("cfgLsMonthly"))==null?void 0:M.value.trim())||l.config.ls_site1_monthly_url,g=((U=document.getElementById("cfgLsLtd"))==null?void 0:U.value.trim())||l.config.ls_site1_ltd_url,v=((ee=document.getElementById("cfgTgChannel"))==null?void 0:ee.value.trim())||l.config.telegram_channel_url||Le,S=((K=document.getElementById("cfgYoutubeUrl"))==null?void 0:K.value.trim())||l.config.youtube_url||Ae,k=((ae=document.getElementById("cfgInstagramUrl"))==null?void 0:ae.value.trim())||l.config.instagram_url||Re,L=((Xe=document.getElementById("cfgAffTv"))==null?void 0:Xe.value.trim())||"1173809",A=((Ye=document.getElementById("cfgAffSa"))==null?void 0:Ye.value.trim())||"better_life333",F=((Qe=document.getElementById("cfgBrokerName"))==null?void 0:Qe.value.trim())||"Bitget (7nja)",B=((We=document.getElementById("cfgBrokerUrl"))==null?void 0:We.value.trim())||"https://www.bitget.com/referral/register?clacCode=7nja";l.config.site1_url=p,l.config.ls_site1_monthly_url=m,l.config.ls_site1_ltd_url=g,l.config.telegram_channel_url=v,l.config.youtube_url=S,l.config.instagram_url=k,l.config.tradingview_aff_id=L,l.config.seekingalpha_source=A,l.config.broker_name=F,l.config.broker_referral_url=B,localStorage.setItem("rsa_cfg_site1_url",p),localStorage.setItem("rsa_cfg_ls_monthly",m),localStorage.setItem("rsa_cfg_ls_ltd",g),localStorage.setItem("rsa_tg_channel_url",v),localStorage.setItem("rsa_cfg_youtube_url",S),localStorage.setItem("rsa_cfg_instagram_url",k),localStorage.setItem("rsa_cfg_aff_tv",L),localStorage.setItem("rsa_cfg_aff_sa",A),localStorage.setItem("rsa_cfg_broker_name",F),localStorage.setItem("rsa_cfg_broker_url",B);try{await yt({tradingview_aff_id:L,seekingalpha_source:A,broker_name:F,broker_referral_url:B,ls_site1_monthly_url:m,ls_site1_ltd_url:g,site1_url:p,telegram_channel_url:v,youtube_url:S,instagram_url:k})}catch{}T&&(T.style.display="none"),Q(),D("Terminal & Affiliate Configuration Saved")});const X=document.getElementById("telegramModal"),Y=async p=>{var A,F,B;const m=document.getElementById("tgAlertTypeSelect"),g=p||(m==null?void 0:m.value)||l.telegramAlertType||"SEMI_BRIEFING";l.telegramAlertType=g;const v=document.getElementById("telegramPreviewBox"),S=(((A=document.getElementById("docTicker"))==null?void 0:A.value)||"CELH").trim().toUpperCase(),k=parseFloat(((F=document.getElementById("docEntry"))==null?void 0:F.value)||"27.93")||27.93,L=parseInt(((B=document.getElementById("docDays"))==null?void 0:B.value)||"42",10)||42;try{const R=await Ee({alert_type:g,lang:l.lang,ticker:S,entry_price:k,days_held:L,dry_run:!0});R&&R.message_preview&&(l.telegramPreviewText=R.message_preview,v&&(v.textContent=R.message_preview))}catch{}},W=async p=>{if(X){if(p){l.telegramAlertType=p;const m=document.getElementById("tgAlertTypeSelect");m&&(m.value=p)}X.style.display="flex",await Y(p);try{const m=await Ce(l.telegramBotToken,l.telegramChatId);if(m&&m.chatId&&m.chatId!==l.telegramChatId){l.telegramChatId=m.chatId;const g=document.getElementById("tgChatIdInput");g&&(g.value=m.chatId)}}catch{}}},z=document.getElementById("btnOpenTelegram");z&&z.addEventListener("click",()=>W(l.activeView==="semi"?"SEMI_BRIEFING":"RSA_IGNITION"));const q=document.getElementById("btnSendSemiTelegram");q&&q.addEventListener("click",()=>W("SEMI_BRIEFING"));const J=document.getElementById("btnOpenTelegramFromPricing");J&&J.addEventListener("click",()=>W("FULL_DAILY"));const Z=document.getElementById("btnCloseTelegram");Z&&X&&Z.addEventListener("click",()=>{X.style.display="none"});const oe=document.getElementById("tgAlertTypeSelect");oe&&oe.addEventListener("change",p=>{Y(p.target.value)});const ne=document.getElementById("btnPreviewTelegram");ne&&ne.addEventListener("click",()=>{Y(),D("Refreshed Live Telegram Briefing Preview")});const re=document.getElementById("btnCopyTelegramMsg");re&&re.addEventListener("click",async()=>{var m;const p=((m=document.getElementById("telegramPreviewBox"))==null?void 0:m.textContent)||l.telegramPreviewText||"";try{await navigator.clipboard.writeText(p),D("Telegram Briefing Copied to Clipboard")}catch{D("Briefing Text Ready to Copy")}});const Ne=async()=>{var S,k,L;const p=((S=document.getElementById("tgBotTokenInput"))==null?void 0:S.value.trim())??l.telegramBotToken,m=((k=document.getElementById("tgChatIdInput"))==null?void 0:k.value.trim())??l.telegramChatId,g=((L=document.getElementById("tgChannelUrlInput"))==null?void 0:L.value.trim())||l.config.telegram_channel_url||"https://t.me/SemiFearGreed";l.telegramBotToken=p,l.telegramChatId=m,l.telegramConfigured=!!(p&&m),l.config.telegram_channel_url=g,l.config.telegram_chat_id=m,localStorage.setItem("rsa_tg_bot_token",p),localStorage.setItem("rsa_tg_chat_id",m),localStorage.setItem("rsa_tg_channel_url",g);const v=document.getElementById("tgChannelLinkBtn");v&&v.setAttribute("href",g);try{await wt({bot_token:p,chat_id:m,channel_url:g,lang:l.lang})}catch{}return{tok:p,cid:m,chUrl:g}},Me=document.getElementById("btnVerifyTelegram");Me&&Me.addEventListener("click",async()=>{const p=document.getElementById("telegramStatusMsg"),{tok:m,cid:g}=await Ne();p&&(p.style.color="#93c5fd",p.textContent="Verifying Telegram Bot connection...");try{const v=await Et({bot_token:m,chat_id:g});p&&(p.style.color=v.valid?"var(--fin-up)":"var(--fin-amber)",p.textContent=v.message||"Bot configuration saved."),D(v.valid?"Telegram Bot Verified & Saved":"Saved Telegram Parameters")}catch{p&&(p.style.color="var(--fin-amber)",p.textContent="Saved locally. Ready for preview or direct dispatch.")}});const Pe=document.getElementById("btnSendTelegramNow");Pe&&Pe.addEventListener("click",async()=>{var F,B,R,M;const p=document.getElementById("telegramStatusMsg"),m=document.getElementById("telegramPreviewBox"),{tok:g,cid:v}=await Ne(),S=((F=document.getElementById("tgAlertTypeSelect"))==null?void 0:F.value)||l.telegramAlertType||"SEMI_BRIEFING",k=(((B=document.getElementById("docTicker"))==null?void 0:B.value)||"CELH").trim().toUpperCase(),L=parseFloat(((R=document.getElementById("docEntry"))==null?void 0:R.value)||"27.93")||27.93,A=parseInt(((M=document.getElementById("docDays"))==null?void 0:M.value)||"42",10)||42;p&&(p.style.color="#93c5fd",p.textContent="Dispatching briefing to Telegram...");try{const U=await Ee({alert_type:S,lang:l.lang,bot_token:g,chat_id:v,ticker:k,entry_price:L,days_held:A,dry_run:!1});U&&U.message_preview&&(l.telegramPreviewText=U.message_preview,m&&(m.textContent=U.message_preview)),p&&(p.style.color=U.delivered?"var(--fin-up)":"#38bdf8",p.textContent=U.status_detail||"Telegram briefing processed."),D(U.delivered?`Telegram Briefing Sent to ${U.chat_id}!`:"Briefing Preview Generated (Enter Live Bot Token & Chat ID to Push)")}catch{p&&(p.style.color="var(--fin-down)",p.textContent="Error sending Telegram alert.")}});const Be=document.getElementById("btnCalcProSizing");Be&&Be.addEventListener("click",()=>{var m;const p=parseFloat(((m=document.getElementById("proCapitalInput"))==null?void 0:m.value)||"30000");Number.isFinite(p)&&p>=1e3?(l.proPortfolioUsd=p,localStorage.setItem("rsa_pro_cap_usd",String(p)),Q(),D(`Updated Pro Position Sizing for $${p.toLocaleString()} Account`)):D("Please enter an account size of at least $1,000")}),document.querySelectorAll(".btn-quick-doc").forEach(p=>{p.addEventListener("click",async()=>{const m=p.getAttribute("data-ticker"),g=l.stocks.find(R=>R.ticker===m),v=document.getElementById("docTicker"),S=document.getElementById("docEntry"),k=document.getElementById("docDays"),L=document.getElementById("docOutput");v&&m&&(v.value=m);const A=g?Number(g.close):27.93;S&&(S.value=A.toFixed(2));const F=parseInt((k==null?void 0:k.value)||"42",10),B=Number.isFinite(F)&&F>=0?F:42;try{const R=await ue({ticker:m||"CELH",entry_price:A,days_held:B});l.docLastResult=R,L&&(L.innerHTML=Ie(R))}catch{}})});const Fe=document.getElementById("btnRunPositionDoctor");Fe&&Fe.addEventListener("click",async()=>{var S,k,L;const p=(((S=document.getElementById("docTicker"))==null?void 0:S.value)||"CELH").trim().toUpperCase(),m=parseFloat(((k=document.getElementById("docEntry"))==null?void 0:k.value)??""),g=parseInt(((L=document.getElementById("docDays"))==null?void 0:L.value)??"",10),v=document.getElementById("docOutput");if(!Number.isFinite(m)||m<=0||!Number.isFinite(g)||g<0){v&&(v.innerHTML='<div style="color:var(--fin-down);">Please enter a valid positive cost basis ($) and non-negative trading days.</div>');return}try{const A=await ue({ticker:p,entry_price:m,days_held:g});l.docLastResult=A,v&&(v.innerHTML=Ie(A))}catch{v&&(v.innerHTML='<div style="color:var(--fin-down);">Please enter a valid positive cost basis ($) and non-negative trading days.</div>')}});const le=document.getElementById("researchModal"),De=document.getElementById("btnCloseResearch");De&&le&&De.addEventListener("click",()=>{le.style.display="none"});const ie=document.getElementById("legalModal"),Oe=document.getElementById("btnCloseLegalModal");Oe&&ie&&Oe.addEventListener("click",()=>{ie.style.display="none"}),document.querySelectorAll(".btn-open-legal, .btn-legal-tab").forEach(p=>{p.addEventListener("click",m=>{m.preventDefault();const g=p.getAttribute("data-legal-tab")||"terms";if(ie){ie.style.display="flex";const v=ie.querySelector(`[data-legal-section="${g}"]`);v&&typeof v.scrollIntoView=="function"&&v.scrollIntoView({behavior:"smooth",block:"start"})}})}),[r,X,T,le,ie].forEach(p=>{p&&p.addEventListener("click",m=>{m.target===p&&(p.style.display="none")})});const st=p=>{const m=R=>String(R||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"),g=R=>m(R).replace(/\*\*([^*]+)\*\*/g,'<strong style="color:#ffffff;">$1</strong>').replace(/`([^`]+)`/g,'<code class="mono" style="background:#0f172a; padding:1px 5px; border-radius:3px; color:#93c5fd;">$1</code>'),v=String(p||"").split(/\r?\n/),S=[];let k=!1,L=[],A=!1;const F=()=>{if(!L.length)return;const R=L[0],M=L.slice(1).filter(K=>!K.every(ae=>/^[-:\s]+$/.test(ae))),U=R.map(K=>`<th style="padding:7px 10px; border-bottom:1px solid #334155; text-align:left; color:#93c5fd; font-size:0.76rem;">${g(K)}</th>`).join(""),ee=M.map(K=>`<tr>${K.map(ae=>`<td style="padding:7px 10px; border-bottom:1px solid #1e293b; font-size:0.78rem;">${g(ae)}</td>`).join("")}</tr>`).join("");S.push(`<div class="table-responsive-scroll" style="margin:10px 0;"><table style="width:100%; border-collapse:collapse; background:#090d16; border:1px solid #1e293b;"><thead><tr>${U}</tr></thead><tbody>${ee}</tbody></table></div>`),L=[],k=!1},B=()=>{A&&(S.push("</ul>"),A=!1)};for(const R of v){const M=R.trim();if(M.startsWith("|")&&M.endsWith("|")){B(),k=!0;const U=M.slice(1,-1).split("|").map(ee=>ee.trim());L.push(U);continue}else k&&F();if(!M){B();continue}/^---+$/.test(M)?(B(),S.push('<hr style="border:none; border-top:1px solid var(--border); margin:12px 0;" />')):M.startsWith("### ")?(B(),S.push(`<h4 style="color:#93c5fd; font-size:0.9rem; font-weight:800; margin:12px 0 6px;">${g(M.slice(4))}</h4>`)):M.startsWith("## ")?(B(),S.push(`<h3 style="color:#ffffff; font-size:0.98rem; font-weight:800; margin:14px 0 6px;">${g(M.slice(3))}</h3>`)):M.startsWith("# ")?(B(),S.push(`<h2 style="color:#ffffff; font-size:1.06rem; font-weight:800; margin:6px 0 10px;">${g(M.slice(2))}</h2>`)):/^([-*]|\d+\.)\s+/.test(M)?(A||(S.push('<ul style="margin:6px 0 10px 18px; padding:0; line-height:1.6;">'),A=!0),S.push(`<li style="margin-bottom:4px;">${g(M.replace(/^([-*]|\d+\.)\s+/,""))}</li>`)):(B(),S.push(`<p style="margin:6px 0;">${g(M)}</p>`))}return k&&F(),B(),S.join("")},_e=async p=>{if(!le)return;const m=document.getElementById("researchModalTitle"),g=document.getElementById("researchModalBody");le.style.display="flex",m&&(m.textContent=`SEC Primary Filing Turnaround Brief — $${p}`),g&&(g.innerHTML="Loading primary filing brief...");try{const v=await ft(p),S=l.stocks.find(M=>M.ticker===p),k=Number(v.current_price??(S==null?void 0:S.close)??29.12).toFixed(2),L=Number(v.stop_price??(S==null?void 0:S.stop_loss_price)??Number(k)*.91).toFixed(2),A=Number(v.target_price??(S==null?void 0:S.tp1_2x_price)??Number(k)*2).toFixed(2),F=v.as_of_date||(S==null?void 0:S.date)||v.report_date||"2026-10-30",R=v[`title_${l.lang}`]||v.title||`${v.company_name||p} ($${v.ticker||p}) — ${v.opinion||"STRONG_BUY"} | Latest Close $${k} (${F})`;if(m&&(m.textContent=R),g){const M=v[`content_${l.lang}`]||v.content||"",U=st(M),ee=String(v.opinion||"").includes("STOP"),K=`
+          <div style="display:flex; flex-wrap:wrap; gap:14px; background:#090d16; border:1px solid var(--border); border-left:3px solid ${ee?"var(--fin-down)":"var(--fin-up)"}; padding:10px 14px; border-radius:4px; margin-bottom:14px; font-family:var(--font-mono); font-size:0.76rem;">
+            <span>LATEST CLOSE (${F}): <b style="color:#ffffff;">$${k}</b></span>
+            <span>RULE 1 HARD STOP (-9%): <b style="color:var(--fin-down);">$${L}</b></span>
+            <span>TP1 TARGET (2x): <b style="color:var(--fin-up);">$${A}</b></span>
+            <span>STATUS / RRR: <b style="color:${ee?"#fca5a5":"#93c5fd"};">${v.rrr_ratio||"1 : 11.1"}</b></span>
+          </div>
+        `;g.innerHTML=`${K}<div style="font-family:var(--font-sans); line-height:1.65;">${U}</div>`}}catch{g&&(g.innerHTML="Failed to load research brief.")}};document.querySelectorAll(".btn-open-research").forEach(p=>{p.addEventListener("click",()=>{const m=p.getAttribute("data-ticker")||"CELH";_e(m)})}),document.querySelectorAll(".btn-open-research-modal").forEach(p=>{p.addEventListener("click",()=>_e("CELH"))}),document.querySelectorAll(".btn-switch-research").forEach(p=>{p.addEventListener("click",()=>{const m=p.getAttribute("data-ticker")||"CELH";_e(m)})});const Ue=document.getElementById("btnCopyPineScript");Ue&&Ue.addEventListener("click",async()=>{var m;const p=((m=document.getElementById("pineCodeBox"))==null?void 0:m.textContent)||"";try{await navigator.clipboard.writeText(p),D("TradingView Pine Script v5 Copied to Clipboard")}catch{D("Pine Script Ready to Copy")}});const He=document.getElementById("btnCopyTopProofCard");He&&He.addEventListener("click",()=>{at(null)}),document.querySelectorAll(".cnn-view-tab").forEach(p=>{p.addEventListener("click",()=>{l.semiGaugeTab=p.getAttribute("data-semi-tab")||"overview",Q()})}),document.querySelectorAll(".btn-semi-range").forEach(p=>{p.addEventListener("click",async()=>{const m=p.getAttribute("data-range")||"1Y";l.semiRange=m;try{l.semiHistory=await ot(m),Q()}catch{D("Failed to load selected history window")}})});const ze=document.getElementById("btnRunSemiRebalance");ze&&ze.addEventListener("click",async()=>{var L,A,F,B;const p=parseFloat(((L=document.getElementById("semiCapInput"))==null?void 0:L.value)??""),m=((A=document.getElementById("semiModeInput"))==null?void 0:A.value)||"AUTO_REGIME",g=((F=document.getElementById("semiFreqInput"))==null?void 0:F.value)||"ANNUAL",v=parseFloat(((B=document.getElementById("semiGainKrwInput"))==null?void 0:B.value)??"");if(!Number.isFinite(p)||p<100){D("Please enter a valid portfolio capital ($100 minimum)");return}const S=p,k=Number.isFinite(v)&&v>=0?v:0;l.semiCapUsd=S,l.semiMode=m,l.semiFreq=g,l.semiGainKrw=k;try{l.semiRebalanceResult=await Te({total_capital_usd:S,strategy_mode:m,rebalance_frequency:g,unrealized_gain_krw:k}),Q(),D("Updated $SMH / $XLV Rebalancing Orders")}catch{D("Please enter a valid positive capital amount")}});const Ve=async p=>{var k,L,A;const m=parseFloat(((k=document.getElementById("semiLumpCapInput"))==null?void 0:k.value)??""),g=p!==void 0?p:parseFloat(((L=document.getElementById("semiLumpScoreInput"))==null?void 0:L.value)??"");if(!Number.isFinite(m)||m<100){D("Please enter a valid lump-sum amount ($100 minimum)");return}const v=m,S=Number.isFinite(g)?Math.max(0,Math.min(100,g)):((A=l.semiOverview)==null?void 0:A.fg_score)??18;l.semiLumpCapUsd=v,l.semiLumpScore=S;try{l.semiLumpSumResult=await nt({capital_usd:v,override_fg_score:S}),Q()}catch{D("Invalid lump-sum input parameters")}},Ge=document.getElementById("btnRunSemiLumpSum");Ge&&Ge.addEventListener("click",()=>Ve()),document.querySelectorAll(".btn-sim-fg").forEach(p=>{p.addEventListener("click",()=>{const m=parseFloat(p.getAttribute("data-fg")||"18.0");Ve(m)})});const je=document.getElementById("btnExportSemiGauge");je&&je.addEventListener("click",()=>{jt()});const qe=document.getElementById("btnDownloadSemiCsv");qe&&qe.addEventListener("click",async()=>{if(!l.isProUnlocked){d(!1),D("Unlock Pro ($29/mo or $199 Lifetime) to download the 26-Year Daily CSV Dataset");return}const p=encodeURIComponent(l.licenseKey||"");try{const g=await fetch(`/api/semi/pro/csv?license_key=${p}`,{method:"HEAD",headers:{...pe()}});if(g.ok&&(g.headers.get("content-type")||"").includes("csv")){window.open(`/api/semi/pro/csv?license_key=${p}`,"_blank");return}}catch{}const m=document.createElement("a");m.href="./static_api/smh_xlv_fear_greed_history.csv",m.download="SemiFearGreed_SMH_XLV_2000_2026_History.csv",m.click()}),Se()}function Se(){document.querySelectorAll(".btn-unlock-row").forEach(e=>{e.addEventListener("click",()=>{const t=document.getElementById("licenseModal");if(t){t.style.display="flex";const o=document.getElementById("licenseInput");o&&!o.value.trim()&&(o.value=l.licenseKey||"")}})}),document.querySelectorAll(".btn-share-card").forEach(e=>{e.addEventListener("click",()=>{const t=e.getAttribute("data-ticker"),o=l.stocks.find(n=>n.ticker===t);at(o)})}),document.querySelectorAll('a[href^="/api/referral/redirect/"]').forEach(e=>{e.dataset.boundReferral!=="1"&&(e.dataset.boundReferral="1",e.addEventListener("click",t=>{const o=window.location.hostname;if(window.__STATIC_MODE__===!0||o&&o!=="localhost"&&o!=="127.0.0.1"){t.preventDefault();const n=e.getAttribute("href")||"",a=(new URL(n,window.location.origin).searchParams.get("ticker")||"SPY").toUpperCase();if(n.includes("tradingview")){const f=encodeURIComponent(l.config.tradingview_aff_id||"1173809");window.open(`https://www.tradingview.com/symbols/${a}/?aff_id=${f}`,"_blank","noopener")}else if(n.includes("broker")||n.includes("exchange")){const f=l.config.broker_referral_url||"https://www.bitget.com/referral/register?clacCode=7nja",r=f.includes("?")?"&":"?";window.open(`${f}${r}symbol=${encodeURIComponent(a)}`,"_blank","noopener")}else if(n.includes("trendspider")){const f=encodeURIComponent(l.config.trendspider_aff_id||"rightside");window.open(`https://trendspider.com/?_go=${f}&symbol=${a}`,"_blank","noopener")}else{const f=encodeURIComponent(l.config.seekingalpha_source||"better_life333");window.open(`https://seekingalpha.com/symbol/${a}/earnings?source=${f}`,"_blank","noopener")}}}))})}function at(e){const t=document.getElementById("scoreCanvas");if(!t)return;const o=t.getContext("2d");o.fillStyle="#090d16",o.fillRect(0,0,900,500),o.strokeStyle="#2962ff",o.lineWidth=3,o.strokeRect(16,16,868,468),o.fillStyle="#0ecb81",o.font="bold 20px Inter, sans-serif",o.fillText("RIGHTSIDEALPHA · US EQUITY TURNAROUND TERMINAL",45,62),e?(o.fillStyle="#ffffff",o.font="bold 42px JetBrains Mono, monospace",o.fillText(`$${e.ticker} (${e.name_en})`,45,125),o.fillStyle="#93c5fd",o.font="bold 24px JetBrains Mono, monospace",o.fillText(`Signal Regime: ${e.zone_label_en}  |  PW-RSI Score: ${e.score}/100`,45,175),o.fillStyle="#cbd5e1",o.font="20px JetBrains Mono, monospace",o.fillText(`Last Close: $${e.close.toFixed(2)}  |  52W High DD: ${e.dd_high52_pct}%  |  vs 52W Low: +${e.prox_low52_pct}%`,45,230),o.fillText(`vs MA20: ${e.vs_ma20_pct}%  |  vs MA60: ${e.vs_ma60_pct}%  |  10D Vol Ratio: ${e.vol_surge_10d}x`,45,270),o.fillText(`Historical 1Y 2x (+100%) Hit Rate after -40% Drawdown: ${e.hist_2x_rate}%`,45,315)):(o.fillStyle="#ffffff",o.font="bold 34px Inter, sans-serif",o.fillText("20-Year US Equity Backtest: Left-Side vs PW-RSI Right-Side",45,125),o.fillStyle="#f6465d",o.font="22px JetBrains Mono, monospace",o.fillText("Blind 52W-Low Dip Buy: 28.91% 2x Rate | -30.31% MDD | 81d Underwater",45,200),o.fillStyle="#0ecb81",o.font="bold 24px JetBrains Mono, monospace",o.fillText("PW-RSI Right-Side:     55.24% 2x Rate | -16.49% MDD | 29d Underwater",45,260)),o.fillStyle="#8492a6",o.font="bold 16px JetBrains Mono, monospace",o.fillText(`Verified Dataset (N=394,371 US Stock-Days) · ${l.config.site1_url}`,45,440),t.toBlob(n=>{if(!n)return;const s=URL.createObjectURL(n),a=document.createElement("a");a.href=s,a.download=e?`RightSideAlpha_${e.ticker}_TearSheet.png`:"RightSideAlpha_Benchmark.png",a.click(),URL.revokeObjectURL(s),D(e?`Downloaded $${e.ticker} Tear Sheet PNG`:"Downloaded Benchmark Tear Sheet PNG")})}function jt(){const e=document.getElementById("scoreCanvas");if(!e||!l.semiOverview)return;const t=e.getContext("2d"),o=l.semiOverview;t.fillStyle="#ffffff",t.fillRect(0,0,900,500),t.fillStyle="#cc0000",t.fillRect(0,0,900,10),t.fillStyle="#cc0000",t.font="bold 18px Inter, sans-serif",t.fillText("MARKETS · SEMICONDUCTOR FEAR & GREED INDEX",45,55),t.fillStyle="#111827",t.font="bold 40px Inter, sans-serif",t.fillText(`Score: ${o.fg_score.toFixed(1)} / 100 — ${o.regime_en.toUpperCase()}`,45,115),t.fillStyle="#374151",t.font="22px JetBrains Mono, monospace",t.fillText(`As of ${o.date}  |  $SMH: $${o.smh_close.toFixed(2)} (${o.smh_dd_pct}% DD)  |  $XLV: $${o.xlv_close.toFixed(2)}`,45,170),t.fillStyle="#b91c1c",t.font="bold 22px Inter, sans-serif",t.fillText(`Active Signal: ${o.action_headline_en}`,45,230),t.fillStyle="#4b5563",t.font="18px JetBrains Mono, monospace",t.fillText("26-Year Barbell (2000-2026): +10.60% CAGR (14.22x) vs QQQ +8.79% (9.21x)",45,300),t.fillText("10-Year AI Era (2016-2026):  +28.63% CAGR (15.07x) vs QQQ +20.74% (7.61x)",45,338),t.fillStyle="#6b7280",t.font="bold 16px JetBrains Mono, monospace",t.fillText(`SemiFearGreed Quantitative Barbell Engine · ${l.config.site2_url}`,45,445),e.toBlob(n=>{if(!n)return;const s=URL.createObjectURL(n),a=document.createElement("a");a.href=s,a.download=`SemiFearGreed_${o.date}.png`,a.click(),URL.revokeObjectURL(s),D("Downloaded Semiconductor Fear & Greed Index PNG")})}async function fe(){try{const[e,t,o,n,s]=await Promise.all([pt({limit:200}),mt().catch(()=>null),vt().catch(()=>null),xt().catch(()=>null),ot(l.semiRange).catch(()=>null)]);l.stocks=Array.isArray(e)?e.filter(_=>_.ticker&&!String(_.ticker).includes(".")):[],t&&t.kpis&&(l.backtestKpis=t.kpis),o&&typeof o=="object"&&Object.entries(o).forEach(([_,x])=>{x!=null&&x!==""&&(l.config[_]=x)}),n&&(l.semiOverview=n,l.semiLumpScore===null&&(l.semiLumpScore=n.fg_score)),s&&(l.semiHistory=s);const a=l.stocks.find(_=>_.ticker==="CELH"),f=a?Number(a.close):27.93,[r,d,i,u,h]=await Promise.all([Te({total_capital_usd:l.semiCapUsd,strategy_mode:l.semiMode,rebalance_frequency:l.semiFreq,unrealized_gain_krw:l.semiGainKrw}).catch(()=>null),nt({capital_usd:l.semiLumpCapUsd,override_fg_score:l.semiLumpScore}).catch(()=>null),ue({ticker:"CELH",entry_price:f,days_held:42}).catch(()=>null),$t().catch(()=>null),Ee({alert_type:"SEMI_BRIEFING",lang:l.lang,dry_run:!0}).catch(()=>null)]);if(r&&(l.semiRebalanceResult=r),d&&(l.semiLumpSumResult=d),i&&(l.docLastResult=i),u&&(l.telegramConfigured=!!(u.configured||l.telegramBotToken&&l.telegramChatId),u.chat_id&&!l.telegramChatId&&(l.telegramChatId=u.chat_id),u.channel_url&&(l.config.telegram_channel_url=u.channel_url)),h&&h.message_preview&&(l.telegramPreviewText=h.message_preview),l.isProUnlocked){const _=await _t().catch(()=>null);_&&_.code&&(l.pineCode=_.code)}me()}catch(e){console.error("Failed to load initial data:",e)}}async function qt(){window.addEventListener("keydown",e=>{e.key==="Escape"&&["licenseModal","telegramModal","configModal","researchModal"].forEach(t=>{const o=document.getElementById(t);o&&o.style.display==="flex"&&(o.style.display="none")})}),window.addEventListener("hashchange",()=>{const e=window.location.hash.toLowerCase();e.includes("rightside")&&l.activeView!=="rightside"?(l.activeView="rightside",Q()):e.includes("semi")&&l.activeView!=="semi"&&(l.activeView="semi",Q())}),await fe(),Q()}qt();(function(){try{if(typeof window>"u"||typeof navigator>"u"||window.__HQ_BEACON_SENT_tom_truthofmarket__)return;window.__HQ_BEACON_SENT_tom_truthofmarket__=!0;var e=navigator.userAgent||"";if(navigator.webdriver||/bot|crawl|spider|slurp|headless|lighthouse|gtmetrix|pingdom|uptimerobot|python|curl|node|axios/i.test(e))return;var t=location&&location.hostname||"";if(!t||t==="localhost"||t==="127.0.0.1")return;var o=new Date(Date.now()+9*3600*1e3).toISOString().slice(0,10),n="tom_truthofmarket";fetch("https://abacus.jasoncameron.dev/hit/"+n+"/pv_"+o,{mode:"cors",keepalive:!0}).catch(function(){}),fetch("https://abacus.jasoncameron.dev/hit/"+n+"/pv_total",{mode:"cors",keepalive:!0}).catch(function(){}),localStorage.getItem("hq_uv_"+n+"_"+o)!=="1"&&(localStorage.setItem("hq_uv_"+n+"_"+o,"1"),fetch("https://abacus.jasoncameron.dev/hit/"+n+"/uv_"+o,{mode:"cors",keepalive:!0}).catch(function(){})),localStorage.getItem("hq_uv_ever_"+n)!=="1"&&(localStorage.setItem("hq_uv_ever_"+n,"1"),fetch("https://abacus.jasoncameron.dev/hit/"+n+"/uv_total",{mode:"cors",keepalive:!0}).catch(function(){}))}catch{}})();

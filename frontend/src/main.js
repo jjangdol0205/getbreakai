@@ -1627,3 +1627,28 @@ async function init() {
 }
 
 init();
+
+/* === HQ Edge Real-Human Visitor Beacon (tom_truthofmarket) === */
+(function(){
+  try {
+    if (typeof window === 'undefined' || typeof navigator === 'undefined') return;
+    if (window.__HQ_BEACON_SENT_tom_truthofmarket__) return;
+    window.__HQ_BEACON_SENT_tom_truthofmarket__ = true;
+    var ua = navigator.userAgent || '';
+    if (navigator.webdriver || /bot|crawl|spider|slurp|headless|lighthouse|gtmetrix|pingdom|uptimerobot|python|curl|node|axios/i.test(ua)) return;
+    var host = (location && location.hostname) || '';
+    if (!host || host === 'localhost' || host === '127.0.0.1') return;
+    var kst = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
+    var ns = 'tom_truthofmarket';
+    fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/pv_' + kst, { mode: 'cors', keepalive: true }).catch(function(){});
+    fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/pv_total', { mode: 'cors', keepalive: true }).catch(function(){});
+    if (localStorage.getItem('hq_uv_' + ns + '_' + kst) !== '1') {
+      localStorage.setItem('hq_uv_' + ns + '_' + kst, '1');
+      fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/uv_' + kst, { mode: 'cors', keepalive: true }).catch(function(){});
+    }
+    if (localStorage.getItem('hq_uv_ever_' + ns) !== '1') {
+      localStorage.setItem('hq_uv_ever_' + ns, '1');
+      fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/uv_total', { mode: 'cors', keepalive: true }).catch(function(){});
+    }
+  } catch (e) {}
+})();

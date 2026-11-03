@@ -108,6 +108,10 @@ const HQ_KEYBOARD = {
     ],
     [
       { text: "📈 전사업부 방문자·서치콘솔 즉시조회", callback_data: "/visitors" },
+      { text: "🧠 새벽 강화학습(RL) 자가개선 실행", callback_data: "/rl" },
+    ],
+    [
+      { text: "🕒 24시간 1·2·3사업부 1시간 교대스케줄", callback_data: "/schedule24" },
     ],
   ],
 };
@@ -435,6 +439,34 @@ async function handleCommand(rawText, state, botToken = null) {
     return;
   }
 
+  if (text === "/schedule24" || text === "스케줄" || text === "24시간") {
+    enqueueTask(
+      {
+        division: DIVISIONS.TOM,
+        title: "24시간 1·2·3사업부 1시간 단위 순환 교대근무 실행 및 전체 스케줄표 브리핑",
+        run: async () => {
+          await runPythonScriptAsync("scripts/hq_24h_hourly_scheduler.py", ["--table", "--notify"], DIVISIONS.TOM.cwd);
+        },
+      },
+      botToken
+    );
+    return;
+  }
+
+  if (text === "/rl" || text === "강화학습" || text === "자가개선") {
+    enqueueTask(
+      {
+        division: DIVISIONS.TOM,
+        title: "전사업부(1·2·3사업부) 방문수·유튜브·인스타 수집 및 UCB1 강화학습(RL) 자가개선",
+        run: async () => {
+          await runPythonScriptAsync("scripts/hq_dawn_rl_self_improver.py", ["--notify"], DIVISIONS.TOM.cwd);
+        },
+      },
+      botToken
+    );
+    return;
+  }
+
   if (text === "/tom_news" || text === "뉴스") {
     enqueueTask(
       {
@@ -516,7 +548,27 @@ function checkDailyStaggeredSchedule(state) {
   const hhmm = `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
 
   if (!state.lastAutoRunDate) state.lastAutoRunDate = {};
+  const hourKey = `${ymd}_${String(now.getHours()).padStart(2, "0")}`;
+  if (now.getMinutes() === 0 && state.lastAutoRunDate.HOURLY_SLOT !== hourKey) {
+    state.lastAutoRunDate.HOURLY_SLOT = hourKey;
+    saveState(state);
+    enqueueTask(
+      {
+        division: DIVISIONS.TOM,
+        title: `[정각 교대근무 ${String(now.getHours()).padStart(2, "0")}:00] 24시간 순환 스케줄 자동 실행`,
+        run: async () => {
+          await runPythonScriptAsync("scripts/hq_24h_hourly_scheduler.py", ["--notify"], DIVISIONS.TOM.cwd);
+        },
+      },
+      PRIMARY_BOT_TOKEN
+    );
+  }
 
+  if (hhmm === "05:00" && state.lastAutoRunDate.DAWN_RL !== ymd) {
+    state.lastAutoRunDate.DAWN_RL = ymd;
+    saveState(state);
+    handleCommand("/rl", state);
+  }
   if (hhmm === "06:30" && state.lastAutoRunDate.TOM !== ymd) {
     state.lastAutoRunDate.TOM = ymd;
     saveState(state);

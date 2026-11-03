@@ -1,19 +1,30 @@
 #!/usr/bin/env node
 /**
  * scripts/hq_all_divisions_visitor_briefing.js
- * 1·2·3사업부 통합 홈페이지 실방문자(UV/PV) · 가동상태 · 구글 서치콘솔 정기 브리핑 엔진
- *
- * 추천 정기 보고 시각:
- *  - 매일 오전 08:30 KST (미국장 마감 후 1사업부 & 글로벌 시차 2사업부 야간 유입 브리핑)
- *  - 매일 밤 21:00 KST (3사업부 한국 학부모 골든타임 및 전 사업부 일일 마감 종합 브리핑)
- *  - 텔레그램에 '방문자' 또는 '/stats' 입력 시 즉시 조회
+ * 1·2·3사업부 통합 홈페이지 실방문자(UV/PV) & 사업부별 핵심 목표(1·2사업부: 유료회원 전환 / 3사업부: 상품 레퍼럴 클릭) 정기 브리핑 엔진
  */
 
 'use strict';
 
+const fs = require('fs');
 const https = require('https');
 
-const BOT_TOKEN = '8527029225:AAH82j101i23232541010539c0c806a5c7e';
+function loadPrimaryBotToken() {
+  const candidates = [
+    'D:\\키즈핏 영문\\.env',
+    'D:\\사업아이템\\.env',
+    'D:\\투자홈페이지\\1_RightSideAlpha_미국주식터미널\\.env'
+  ];
+  for (const fp of candidates) {
+    if (fs.existsSync(fp)) {
+      const m = fs.readFileSync(fp, 'utf8').match(/(?:TELEGRAM_BOT_TOKEN|RSA_TELEGRAM_BOT_TOKEN)=([^\r\n]+)/);
+      if (m && m[1]) return m[1].trim().replace(/^['"]|['"]$/g, '');
+    }
+  }
+  return '';
+}
+
+const BOT_TOKEN = loadPrimaryBotToken();
 const CHAT_ID = '755033799';
 
 function getKstDateString(offsetDays = 0) {
@@ -107,13 +118,33 @@ function sendTelegramHtml(text) {
 async function fetchDivisionMetrics(div) {
   const today = getKstDateString(0);
   const yesterday = getKstDateString(-1);
-  const [uvToday, pvToday, uvYest, pvYest, uvTotal, pvTotal, health] = await Promise.all([
+  const [
+    uvToday,
+    pvToday,
+    uvYest,
+    pvYest,
+    uvTotal,
+    pvTotal,
+    paidClickToday,
+    paidClickTotal,
+    paidMemberToday,
+    paidMemberTotal,
+    refClickToday,
+    refClickTotal,
+    health
+  ] = await Promise.all([
     getAbacusCount(div.ns, `uv_${today}`),
     getAbacusCount(div.ns, `pv_${today}`),
     getAbacusCount(div.ns, `uv_${yesterday}`),
     getAbacusCount(div.ns, `pv_${yesterday}`),
     getAbacusCount(div.ns, 'uv_total'),
     getAbacusCount(div.ns, 'pv_total'),
+    getAbacusCount(div.ns, `paid_click_${today}`),
+    getAbacusCount(div.ns, 'paid_click_total'),
+    getAbacusCount(div.ns, `paid_member_${today}`),
+    getAbacusCount(div.ns, 'paid_member_total'),
+    getAbacusCount(div.ns, `ref_click_${today}`),
+    getAbacusCount(div.ns, 'ref_click_total'),
     checkSiteHealth(div.url)
   ]);
 
@@ -123,8 +154,14 @@ async function fetchDivisionMetrics(div) {
     pvToday,
     uvYest,
     pvYest,
-    uvTotal: Math.max(uvTotal, uvToday + (div.baseHistoricalUv || 0)),
-    pvTotal: Math.max(pvTotal, pvToday + (div.baseHistoricalPv || 0)),
+    uvTotal: Math.max(uvTotal, uvToday),
+    pvTotal: Math.max(pvTotal, pvToday),
+    paidClickToday,
+    paidClickTotal: Math.max(paidClickTotal, paidClickToday),
+    paidMemberToday,
+    paidMemberTotal: Math.max(paidMemberTotal, paidMemberToday),
+    refClickToday,
+    refClickTotal: Math.max(refClickTotal, refClickToday),
     health
   };
 }
@@ -137,10 +174,10 @@ async function runVisitorBriefing(options = {}) {
       domain: 'truthofmarket.com',
       url: 'https://truthofmarket.com/',
       ns: 'tom_truthofmarket',
+      kpiType: 'PAID',
+      kpiGoal: '유료화 회원수 증대 (PRO 구독 & VIP 채널)',
       gscStatus: '소유권 인증 완료 · Sitemap 75개 URL 정상 등록',
-      channels: 'IG @rightsidealpha · X @rightsidealpha · TG @truthofmarketss',
-      baseHistoricalUv: 0,
-      baseHistoricalPv: 0
+      channels: 'IG @rightsidealpha · X @rightsidealpha · TG @truthofmarketss'
     },
     {
       code: '2사업부',
@@ -148,10 +185,10 @@ async function runVisitorBriefing(options = {}) {
       domain: 'kisfitglobal.com',
       url: 'https://kisfitglobal.com/',
       ns: 'kfg_kisfitglobal',
+      kpiType: 'PAID',
+      kpiGoal: '유료화 회원수 증대 ($8.99 단건 / $19.99 6개월 패스)',
       gscStatus: '소유권 인증 완료 · Sitemap 63p & RSS 31p 성공',
-      channels: 'IG @kisfitglobal · YT @kisfitglobal · LemonSqueezy Live',
-      baseHistoricalUv: 0,
-      baseHistoricalPv: 0
+      channels: 'IG @kisfitglobal · YT @kisfitglobal · LemonSqueezy Live'
     },
     {
       code: '3사업부',
@@ -159,10 +196,10 @@ async function runVisitorBriefing(options = {}) {
       domain: 'kidsfit.co.kr',
       url: 'https://kidsfit.co.kr/',
       ns: 'kfk_kidsfitkr',
+      kpiType: 'REFERRAL',
+      kpiGoal: '상품 구매 클릭으로 상품 레퍼럴(쿠팡/셀렉트샵) 확대',
       gscStatus: '소유권 인증 완료 · Sitemap 32p & RSS 27p 성공',
-      channels: 'IG @kids_fit1 · 100% 무료 + 쿠팡/셀렉트샵 제휴 잠금해제',
-      baseHistoricalUv: 0,
-      baseHistoricalPv: 0
+      channels: 'IG @kids_fit1 · YT @kidsfit01 · 무료진단 + 상품레퍼럴'
     }
   ];
 
@@ -170,30 +207,32 @@ async function runVisitorBriefing(options = {}) {
   const nowStr = getKstNowFormatted();
 
   const lines = [
-    `📊 <b>[1·2·3사업부 통합 홈페이지 방문 현황 &amp; 서치콘솔 브리핑]</b>`,
+    `📊 <b>[1·2·3사업부 방문 현황 &amp; 핵심 목표(유료회원·상품레퍼럴) 브리핑]</b>`,
     `⏰ <b>집계 시각</b>: <code>${nowStr}</code> (봇·크롤러 제외 순수 실방문자 기준)`,
     `━━━━━━━━━━━━━━━━━━`
   ];
 
   for (const r of results) {
     const statusBadge = r.health.ok ? `🟢 정상 (${r.health.ms}ms)` : `🔴 점검필요`;
+    const kpiLine =
+      r.kpiType === 'PAID'
+        ? `• <b>💳 [목표: 유료회원 증대]</b>: 오늘 결제창 클릭 <b>${r.paidClickToday}회</b> (누적 ${r.paidClickTotal}회) · 신규 유료전환 <b>${r.paidMemberToday}명</b> (누적 <b>${r.paidMemberTotal}명</b>)`
+        : `• <b>🛍️ [목표: 상품 레퍼럴 확대]</b>: 오늘 상품구매 클릭 <b>${r.refClickToday}회</b> (누적 레퍼럴 클릭 <b>${r.refClickTotal}회</b>)`;
+
     lines.push(
       `🏢 <b>${r.code} | ${r.name}</b> (<code>${r.domain}</code>)`,
-      `• <b>서버 상태</b>: ${statusBadge}`,
-      `• <b>오늘 실방문자(UV)</b>: <b>${r.uvToday.toLocaleString()}명</b> (페이지뷰 PV: <b>${r.pvToday.toLocaleString()}회</b>)`,
-      `• <b>어제 실방문자(UV)</b>: <code>${r.uvYest.toLocaleString()}명</code> (PV: <code>${r.pvYest.toLocaleString()}회</code>)`,
-      `• <b>누적 실방문자(UV)</b>: <b>${r.uvTotal.toLocaleString()}명</b> (누적 PV: <b>${r.pvTotal.toLocaleString()}회</b>)`,
-      `• <b>구글 서치콘솔</b>: ✅ <code>${r.gscStatus}</code>`,
-      `• <b>연동 채널</b>: <code>${r.channels}</code>`,
+      `• <b>핵심 목표</b>: 🎯 <b>${r.kpiGoal}</b>`,
+      kpiLine,
+      `• <b>오늘 실방문자(UV)</b>: <b>${r.uvToday.toLocaleString()}명</b> (페이지뷰 PV: <b>${r.pvToday.toLocaleString()}회</b> / 누적 UV: <b>${r.uvTotal.toLocaleString()}명</b>)`,
+      `• <b>서버 &amp; 서치콘솔</b>: ${statusBadge} | ✅ <code>${r.gscStatus}</code>`,
       `━━━━━━━━━━━━━━━━━━`
     );
   }
 
   lines.push(
-    `🔔 <b>정기 자동 브리핑 스케줄 (하루 2회 골든타임)</b>`,
-    `• <b>오전 08:30 KST</b>: 밤사이 1사업부(미국장 마감) &amp; 2사업부(글로벌 시차) 유입 브리핑`,
-    `• <b>밤 21:00 KST</b>: 3사업부(한국 학부모 저녁 피크) &amp; 전 사업부 일일 마감 종합 결산`,
-    `💡 <i>언제든 텔레그램에 <code>방문자</code> 또는 <code>/stats</code> 입력 시 1초 만에 실시간 현황을 브리핑합니다.</i>`
+    `🔔 <b>정기 자동 브리핑 &amp; 24시간 교대근무</b>`,
+    `• <b>새벽 05:00</b>: 유료전환(1·2사업부) &amp; 상품구매클릭(3사업부) 최우선 강화학습(RL) 자가개선`,
+    `• <b>오전 08:30 &amp; 밤 21:00</b>: 전 사업부 방문자·유료전환·상품레퍼럴 정기 결산 보고`
   );
 
   const html = lines.join('\n');

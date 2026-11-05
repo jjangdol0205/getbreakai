@@ -3,7 +3,7 @@
 <head>
   <script>window.__DEFAULT_VIEW__ = 'rightside';</script>
   <meta charset="UTF-8" />
-    <meta name="google-site-verification" content="nAGlJMEUUPifbzSd8X4PCaBIyr3DtTwaa1a-q9zkbBc" />
+  <meta name="google-site-verification" content="nAGlJMEUUPifbzSd8X4PCaBIyr3DtTwaa1a-q9zkbBc" />
   <meta name="google-site-verification" content="G99bl17UU6iKgNm5ndGcSWp0dHFpJ0MjJqBBp0Exfx0" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>RightSideAlpha × SemiFearGreed | 72 US Equity PW-RSI Turnaround Terminal & Semiconductor Fear & Greed Index</title>
@@ -25,6 +25,51 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;600;700;800&family=Noto+Sans+JP:wght@400;600;700&family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet" />
   <script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
+  <script>
+  /* === HQ Edge Real-Human Visitor & KPI Beacon (tom_truthofmarket) === */
+  (function(){
+    try {
+      if (typeof window === 'undefined' || typeof navigator === 'undefined') return;
+      if (window.__HQ_BEACON_SENT_tom_truthofmarket__ || window.__HQ_KPI_TOM__) return;
+      window.__HQ_BEACON_SENT_tom_truthofmarket__ = true;
+      window.__HQ_KPI_TOM__ = true;
+      var ua = navigator.userAgent || '';
+      if (navigator.webdriver || /bot|crawl|spider|slurp|headless|lighthouse|gtmetrix|pingdom|uptimerobot|python|curl|node|axios/i.test(ua)) return;
+      var host = (location && location.hostname) || '';
+      if (!host || host === 'localhost' || host === '127.0.0.1') return;
+      var kst = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
+      var ns = 'tom_truthofmarket';
+      fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/pv_' + kst, { mode: 'cors', keepalive: true }).catch(function(){});
+      fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/pv_total', { mode: 'cors', keepalive: true }).catch(function(){});
+      if (localStorage.getItem('hq_uv_' + ns + '_' + kst) !== '1') {
+        localStorage.setItem('hq_uv_' + ns + '_' + kst, '1');
+        fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/uv_' + kst, { mode: 'cors', keepalive: true }).catch(function(){});
+      }
+      if (localStorage.getItem('hq_uv_ever_' + ns) !== '1') {
+        localStorage.setItem('hq_uv_ever_' + ns, '1');
+        fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/uv_total', { mode: 'cors', keepalive: true }).catch(function(){});
+      }
+      if (location.search.indexOf('payment=success') !== -1 || location.search.indexOf('unlock=1') !== -1) {
+        if (localStorage.getItem('hq_paid_' + kst) !== '1') {
+          localStorage.setItem('hq_paid_' + kst, '1');
+          fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_member_' + kst, { mode: 'cors', keepalive: true }).catch(function(){});
+          fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_member_total', { mode: 'cors', keepalive: true }).catch(function(){});
+        }
+      }
+      document.addEventListener('click', function(e) {
+        var el = e.target && e.target.closest ? e.target.closest('a, button, [role="button"]') : null;
+        if (!el) return;
+        var href = (el.getAttribute('href') || '').toLowerCase();
+        var txt = (el.innerText || el.textContent || '').toLowerCase();
+        var cls = (el.className || '').toLowerCase();
+        if (href.indexOf('lemonsqueezy.com') !== -1 || href.indexOf('truthofmarketss') !== -1 || cls.indexOf('pro') !== -1 || cls.indexOf('paywall') !== -1 || /pro|vip|unlock|subscribe|upgrade|checkout|\$19|\$29|\$49|\$199|프리미엄|유료|구독/.test(txt)) {
+          fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_click_' + kst, { mode: 'cors', keepalive: true }).catch(function(){});
+          fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_click_total', { mode: 'cors', keepalive: true }).catch(function(){});
+        }
+      }, true);
+    } catch (e) {}
+  })();
+  </script>
 </head>
 <body>
   <div id="app"></div>

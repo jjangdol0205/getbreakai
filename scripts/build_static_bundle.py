@@ -6,6 +6,9 @@ and synchronizes identical outputs to:
   2. dist/
   3. ./ (repo root static files)
 """
+from datetime import datetime, timezone
+from email.utils import format_datetime
+import json
 import pathlib
 import re
 import shutil
@@ -37,6 +40,105 @@ def strip_imports_and_exports(code: str) -> str:
     code = re.sub(r"^\s*import\s+[\"'][^\"']+[\"'];?\s*$", "", code, flags=re.M)
     code = re.sub(r"^\s*export\s+(async\s+function|function|const|let|var)\s+", r"\1 ", code, flags=re.M)
     return code
+
+
+def refresh_health_and_rss() -> tuple[str, str]:
+    now_utc = datetime.now(timezone.utc)
+    iso_now = now_utc.strftime("%Y-%m-%dT%H:%M:%SZ")
+    rfc_now = format_datetime(now_utc)
+
+    semi_path = ROOT / "static_api" / "semi_overview.json"
+    stocks_path = ROOT / "static_api" / "stocks_free.json"
+    as_of_date = "2026-11-04"
+    fg_score = 18.0
+    regime_code = "EXTREME_FEAR"
+    smh_close = 504.48
+    smh_dd_pct = -24.58
+    celh_close = 30.75
+    celh_stop = 27.98
+    celh_tp1 = 61.50
+
+    if semi_path.exists():
+        try:
+            ov = json.loads(semi_path.read_text(encoding="utf-8"))
+            as_of_date = str(ov.get("date") or as_of_date)
+            fg_score = float(ov.get("fg_score") or fg_score)
+            regime_code = str(ov.get("regime_code") or regime_code)
+            smh_close = float(ov.get("smh_close") or smh_close)
+            smh_dd_pct = float(ov.get("smh_dd_pct") or smh_dd_pct)
+        except Exception:
+            pass
+
+    if stocks_path.exists():
+        try:
+            st = json.loads(stocks_path.read_text(encoding="utf-8"))
+            for row in st:
+                if row.get("ticker") == "CELH":
+                    celh_close = float(row.get("close") or celh_close)
+                    celh_stop = round(celh_close * 0.91, 2)
+                    celh_tp1 = round(celh_close * 2.0, 2)
+                    break
+        except Exception:
+            pass
+
+    health_obj = {
+        "status": "ok",
+        "mode": "static",
+        "as_of_date": as_of_date,
+        "updated_at": iso_now,
+        "services": ["RightSideAlpha", "SemiFearGreed"],
+    }
+    health_json = json.dumps(health_obj, indent=2) + "\n"
+
+    rss_xml = f"""<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>RightSideAlpha x SemiFearGreed | US Equity Quant Terminal &amp; Semiconductor Fear &amp; Greed Index</title>
+    <link>https://truthofmarket.com/</link>
+    <atom:link href="https://truthofmarket.com/rss.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://pubsubhubbub.appspot.com/" rel="hub" />
+    <description>Institutional US Equity Post-Washout Right-Side Ignition (PW-RSI) Quant Terminal covering 72 US equities, daily $SMH Semiconductor Fear &amp; Greed Index (0-100), and $SMH/$XLV contrarian barbell allocation.</description>
+    <language>en-US</language>
+    <lastBuildDate>{rfc_now}</lastBuildDate>
+    <item>
+      <title><![CDATA[RightSideAlpha x SemiFearGreed — 72 US Equity PW-RSI Turnaround Terminal & 26.8-Year Backtest (As of {as_of_date})]]></title>
+      <link>https://truthofmarket.com/</link>
+      <guid isPermaLink="true">https://truthofmarket.com/</guid>
+      <pubDate>{rfc_now}</pubDate>
+      <description><![CDATA[Live institutional US equity quant screener (as of {as_of_date}) tracking 72 liquid US stocks across 52-week washout bottoms, right-side SMA20/SMA60 turnaround ignition triggers, -9.0% mechanical hard-stop protection, and 2x (TP1 +100%) asymmetric profit targets.]]></description>
+    </item>
+    <item>
+      <title><![CDATA[CNN-Edition Semiconductor Fear & Greed Index ($SMH {fg_score:.1f} {regime_code}) & $SMH/$XLV 80:20 Contrarian Barbell Engine]]></title>
+      <link>https://truthofmarket.com/?view=semi</link>
+      <guid isPermaLink="true">https://truthofmarket.com/?view=semi</guid>
+      <pubDate>{rfc_now}</pubDate>
+      <description><![CDATA[Real-time 5-factor Semiconductor Fear & Greed Index ($SMH Close ${smh_close:.2f}, {smh_dd_pct:.2f}% from 52W High as of {as_of_date}) and regime-based $SMH (VanEck Semiconductor ETF) vs. $XLV (Health Care Select Sector SPDR) contrarian barbell rebalancing simulator.]]></description>
+    </item>
+    <item>
+      <title><![CDATA[Celsius Holdings ($CELH) Institutional Deep-Dive: 52W Bottom Re-Accumulation & PW-RSI Turnaround Analysis (${celh_close:.2f})]]></title>
+      <link>https://truthofmarket.com/?ticker=CELH</link>
+      <guid isPermaLink="true">https://truthofmarket.com/?ticker=CELH</guid>
+      <pubDate>{rfc_now}</pubDate>
+      <description><![CDATA[Comprehensive institutional audit of Celsius Holdings ($CELH, Close ${celh_close:.2f} as of {as_of_date}) following its PepsiCo inventory destocking washout: gross margin defense, international expansion catalysts, ${celh_stop:.2f} (-9.0%) hard stop floor, and ${celh_tp1:.2f} (+100% 2x) TP1 target.]]></description>
+    </item>
+    <item>
+      <title><![CDATA[Mobileye Global ($MBLY) Post-Mortem Risk Audit: Rule 1 (-9.0% Hard Stop @ $6.39) Execution & Capital Preservation]]></title>
+      <link>https://truthofmarket.com/?ticker=MBLY</link>
+      <guid isPermaLink="true">https://truthofmarket.com/?ticker=MBLY</guid>
+      <pubDate>{rfc_now}</pubDate>
+      <description><![CDATA[Transparent institutional post-mortem on Mobileye Global ($MBLY): how mechanical execution of Rule 1 (-9.0% Hard Stop at $6.39) prevented deeper drawdown after support breakdown and redeployed capital into confirmed right-side leaders.]]></description>
+    </item>
+    <item>
+      <title><![CDATA[Daily PW-RSI Right-Side Ignition Watchlist ({as_of_date}): $ON, $MCHP, $ENPH, $FSLR, $DVN, $OXY, $INTC, $BIIB]]></title>
+      <link>https://truthofmarket.com/?filter=ignition</link>
+      <guid isPermaLink="true">https://truthofmarket.com/?filter=ignition</guid>
+      <pubDate>{rfc_now}</pubDate>
+      <description><![CDATA[Daily quantitative screening ({as_of_date}) of 72 US equities identifying stocks emerging from 52-week extreme oversold washouts with bullish RSI divergence, volume dry-up (VDU) exhaustion, and 20-day moving average reclaim triggers.]]></description>
+    </item>
+  </channel>
+</rss>
+"""
+    return health_json, rss_xml
 
 
 def main() -> None:
@@ -84,8 +186,9 @@ def main() -> None:
   (function(){{
     try {{
       if (typeof window === 'undefined' || typeof navigator === 'undefined') return;
-      if (window.__HQ_BEACON_SENT_tom_truthofmarket__) return;
+      if (window.__HQ_BEACON_SENT_tom_truthofmarket__ || window.__HQ_KPI_TOM__) return;
       window.__HQ_BEACON_SENT_tom_truthofmarket__ = true;
+      window.__HQ_KPI_TOM__ = true;
       var ua = navigator.userAgent || '';
       if (navigator.webdriver || /bot|crawl|spider|slurp|headless|lighthouse|gtmetrix|pingdom|uptimerobot|python|curl|node|axios/i.test(ua)) return;
       var host = (location && location.hostname) || '';
@@ -93,17 +196,31 @@ def main() -> None:
       var kst = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
       var ns = 'tom_truthofmarket';
       fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/pv_' + kst, {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
+      fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/pv_total', {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
       if (localStorage.getItem('hq_uv_' + ns + '_' + kst) !== '1') {{
         localStorage.setItem('hq_uv_' + ns + '_' + kst, '1');
         fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/uv_' + kst, {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
+      }}
+      if (localStorage.getItem('hq_uv_ever_' + ns) !== '1') {{
+        localStorage.setItem('hq_uv_ever_' + ns, '1');
+        fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/uv_total', {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
+      }}
+      if (location.search.indexOf('payment=success') !== -1 || location.search.indexOf('unlock=1') !== -1) {{
+        if (localStorage.getItem('hq_paid_' + kst) !== '1') {{
+          localStorage.setItem('hq_paid_' + kst, '1');
+          fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_member_' + kst, {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
+          fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_member_total', {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
+        }}
       }}
       document.addEventListener('click', function(e) {{
         var el = e.target && e.target.closest ? e.target.closest('a, button, [role="button"]') : null;
         if (!el) return;
         var href = (el.getAttribute('href') || '').toLowerCase();
         var txt = (el.innerText || el.textContent || '').toLowerCase();
-        if (href.indexOf('lemonsqueezy.com') !== -1 || href.indexOf('truthofmarketss') !== -1 || /pro|vip|unlock|subscribe|upgrade|checkout|\$19|\$29|\$49/.test(txt)) {{
+        var cls = (el.className || '').toLowerCase();
+        if (href.indexOf('lemonsqueezy.com') !== -1 || href.indexOf('truthofmarketss') !== -1 || cls.indexOf('pro') !== -1 || cls.indexOf('paywall') !== -1 || /pro|vip|unlock|subscribe|upgrade|checkout|\\$19|\\$29|\\$49|\\$199|프리미엄|유료|구독/.test(txt)) {{
           fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_click_' + kst, {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
+          fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_click_total', {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
         }}
       }}, true);
     }} catch (e) {{}}
@@ -116,8 +233,14 @@ def main() -> None:
 </html>
 """
 
-    # Keep frontend/public/index.html in sync so it can never overwrite with stale tags
+    health_json, rss_xml = refresh_health_and_rss()
+
+    # Keep frontend/public/index.html, rss.xml, and health.json in sync
     (PUB / "index.html").write_text(index_html, encoding="utf-8")
+    (PUB / "rss.xml").write_text(rss_xml, encoding="utf-8")
+    (PUB / "static_api").mkdir(parents=True, exist_ok=True)
+    (PUB / "static_api" / "health.json").write_text(health_json, encoding="utf-8")
+    (ROOT / "static_api" / "health.json").write_text(health_json, encoding="utf-8")
 
     # Remove deprecated/leak files from public source before copying
     for stale_rel in ["instagram_us_setup.html", "static_api/stocks_pro.json", "static_api/smh_xlv_fear_greed_history.csv"]:
@@ -138,8 +261,11 @@ def main() -> None:
                 shutil.copytree(item, dest, dirs_exist_ok=True)
             else:
                 shutil.copy2(item, dest)
-        # Write index.html AFTER copying public files so it is never overwritten
+        # Write index.html, rss.xml, and static_api/health.json AFTER copying public files
         (target_dir / "index.html").write_text(index_html, encoding="utf-8")
+        (target_dir / "rss.xml").write_text(rss_xml, encoding="utf-8")
+        (target_dir / "static_api").mkdir(parents=True, exist_ok=True)
+        (target_dir / "static_api" / "health.json").write_text(health_json, encoding="utf-8")
         for stale_rel in ["instagram_us_setup.html", "static_api/stocks_pro.json", "static_api/smh_xlv_fear_greed_history.csv"]:
             tp = target_dir / stale_rel
             if tp.exists():

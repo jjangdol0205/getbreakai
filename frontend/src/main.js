@@ -68,7 +68,7 @@ const defaultView =
     if (
       oldM.includes("rightsidealpha.lemonsqueezy.com") ||
       oldM.includes("pro-monthly") ||
-      oldM.includes("d5e7e761")
+      oldM.includes("bad98d00")
     ) {
       localStorage.removeItem("rsa_cfg_ls_monthly");
     }
@@ -76,7 +76,7 @@ const defaultView =
     if (
       oldL.includes("rightsidealpha.lemonsqueezy.com") ||
       oldL.includes("lifetime-pass") ||
-      oldL.includes("667aa482")
+      oldL.includes("00c9f6e1")
     ) {
       localStorage.removeItem("rsa_cfg_ls_ltd");
     }
@@ -161,10 +161,10 @@ const state = {
     site2_url: "https://truthofmarket.com",
     ls_site1_monthly_url:
       localStorage.getItem("rsa_cfg_ls_monthly") ||
-      "https://truthofmarket.lemonsqueezy.com/checkout/buy/bad98d00-7175-41f6-9d58-eeb2471d0da4",
+      "https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8",
     ls_site1_ltd_url:
       localStorage.getItem("rsa_cfg_ls_ltd") ||
-      "https://truthofmarket.lemonsqueezy.com/checkout/buy/00c9f6e1-c8be-42a4-b5a5-e05af1a41ed9",
+      "https://truthofmarket.lemonsqueezy.com/checkout/buy/667aa482-f17c-47d1-b7f3-a2427c36516b",
     tradingview_aff_id: localStorage.getItem("rsa_cfg_aff_tv") || "1173809",
     seekingalpha_source: localStorage.getItem("rsa_cfg_aff_sa") || "better_life333",
     broker_name: localStorage.getItem("rsa_cfg_broker_name") || "Bitget (7nja)",
@@ -1684,7 +1684,7 @@ init();
 /* === HQ KPI Conversion Tracker (1사업부: 유료회원 전환 클릭 & 결제 추적) === */
 (function(){
   try {
-    if (typeof window === 'undefined' || window.__HQ_KPI_TOM__) return;
+    if (typeof window === 'undefined' || window.__HQ_KPI_TOM__ || window.__HQ_BEACON_SENT_tom_truthofmarket__) return;
     window.__HQ_KPI_TOM__ = true;
     var host = (location && location.hostname) || '';
     if (!host || host === 'localhost' || host === '127.0.0.1') return;

@@ -91,8 +91,8 @@ HOURLY_SCHEDULE = {
         "div": "3사업부 (kidsfit.co.kr)",
         "code": "KFK",
         "cwd": r"D:\사업아이템",
-        "title": "아침 출근 전사업부 홈페이지 방문자(UV/PV)·서치콘솔 정기 브리핑 및 한국판 퍼널 점검",
-        "action": "visitor_briefing",
+        "title": "아침 등원 시간대 한국판(kidsfit.co.kr) 무료 진단·셀렉트샵 퍼널 무결성 점검",
+        "action": "kfk_kb_audit",
     },
     9: {
         "div": "1사업부 (truthofmarket.com)",
@@ -112,8 +112,8 @@ HOURLY_SCHEDULE = {
         "div": "3사업부 (kidsfit.co.kr)",
         "code": "KFK",
         "cwd": r"D:\사업아이템",
-        "title": "한국 학부모 오전 피크타임 셀렉트샵(쿠팡/제휴) 링크 무결성 & 무료 워크북 잠금해제 점검",
-        "action": "kfk_kb_audit",
+        "title": "오전 피크타임 네이버 블로그·카페(아이교육+상품추천 ?ep=N) 발행 & 지식iN 답변",
+        "action": "kfk_naver_blog_and_kin",
     },
     12: {
         "div": "1사업부 (truthofmarket.com)",
@@ -133,8 +133,8 @@ HOURLY_SCHEDULE = {
         "div": "3사업부 (kidsfit.co.kr)",
         "code": "KFK",
         "cwd": r"D:\사업아이템",
-        "title": "한국판 32개 Q&A & 쇼츠 연동 랜딩(?ep=1~10) 페이지 응답속도·SEO 점검",
-        "action": "kfk_kb_audit",
+        "title": "네이버 지식iN 실시간 육아·교구 질문 자동 답변 & 육아 블로그 공감 투어",
+        "action": "kfk_naver_kin_only",
     },
     15: {
         "div": "1사업부 (truthofmarket.com)",
@@ -154,8 +154,8 @@ HOURLY_SCHEDULE = {
         "div": "3사업부 (kidsfit.co.kr)",
         "code": "KFK",
         "cwd": r"D:\사업아이템",
-        "title": "하원·저녁 육아 시간대 연령별 추천 교구·영양제 노출 가중치 강화학습 최적화",
-        "action": "kfk_kb_audit",
+        "title": "하원 시간대 네이버 카페(moneyfitlab) 육아템·워크북 칼럼 발행 & 지식iN 답변",
+        "action": "kfk_naver_cafe_and_kin",
     },
     18: {
         "div": "1사업부 (truthofmarket.com)",
@@ -175,15 +175,15 @@ HOURLY_SCHEDULE = {
         "div": "3사업부 (kidsfit.co.kr)",
         "code": "KFK",
         "cwd": r"D:\사업아이템",
-        "title": "한국 학부모 밤 8~10시 골든타임 서버 응답속도 & 레몬스퀴즈 0건·무료 인쇄 무결성 검증",
-        "action": "kfk_kb_audit",
+        "title": "밤 8시 골든타임 네이버 블로그·카페(아이교육+상품추천 ?ep=N) 발행 & 지식iN 답변",
+        "action": "kfk_naver_blog_and_kin",
     },
     21: {
         "div": "1사업부 (truthofmarket.com)",
         "code": "TOM",
         "cwd": r"D:\투자홈페이지\1_RightSideAlpha_미국주식터미널",
-        "title": "밤 21시 전사업부 일일 방문자(UV/PV) 마감 종합 결산 브리핑 & 미장 개장 대비 점검",
-        "action": "visitor_briefing",
+        "title": "미국 정규장 개장 대비 72종목 & SMH/XLV 실시간 시세·타점 점검",
+        "action": "tom_sync",
     },
     22: {
         "div": "2사업부 (kisfitglobal.com)",
@@ -267,6 +267,27 @@ def execute_hourly_action(slot, notify_override=False):
         if os.path.exists(idx_p):
             ls_zero = "lemonsqueezy" not in open(idx_p, encoding="utf-8", errors="ignore").read().lower()
         summary = f"kidsfit.co.kr(HTTP {st1}) · Sitemap(HTTP {st2}) · 무료/셀렉트샵 전용 무결성(LS 0건={ls_zero}) 확인 완료"
+
+    elif act == "kfk_naver_blog_and_kin":
+        runner = r"D:\사업아이템\scripts\naver_cdp_live_runner.py"
+        if os.path.exists(runner):
+            subprocess.run(["python", runner, "--all"], cwd=slot["cwd"], timeout=240, capture_output=True)
+        st1 = ping_url("https://kidsfit.co.kr/")
+        summary = f"네이버 블로그(expertise333)·카페(moneyfitlab) 교육+상품추천(?ep=N) 발행 & 지식iN 답변 완료 (HTTP {st1})"
+
+    elif act == "kfk_naver_cafe_and_kin":
+        runner = r"D:\사업아이템\scripts\naver_cdp_live_runner.py"
+        if os.path.exists(runner):
+            subprocess.run(["python", runner, "--cafe", "--kin"], cwd=slot["cwd"], timeout=180, capture_output=True)
+        st1 = ping_url("https://kidsfit.co.kr/")
+        summary = f"네이버 카페(moneyfitlab) 육아템·워크북 가이드 발행 & 지식iN 실시간 답변 완료 (HTTP {st1})"
+
+    elif act == "kfk_naver_kin_only":
+        runner = r"D:\사업아이템\scripts\naver_cdp_live_runner.py"
+        if os.path.exists(runner):
+            subprocess.run(["python", runner, "--kin"], cwd=slot["cwd"], timeout=120, capture_output=True)
+        st1 = ping_url("https://kidsfit.co.kr/")
+        summary = f"네이버 지식iN 실시간 육아 질문 자동 답변 & 육아 블로그 공감 투어 · kidsfit.co.kr(HTTP {st1}) 점검 완료"
 
     elif act == "dawn_rl":
         script = r"D:\투자홈페이지\1_RightSideAlpha_미국주식터미널\scripts\hq_dawn_rl_self_improver.py"

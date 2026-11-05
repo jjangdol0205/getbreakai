@@ -1,0 +1,81 @@
+{
+  "lastUpdatedKst": "2026-11-05 08:48:50 KST",
+  "lastTelegramSentMs": 1793836130391,
+  "divisions": {
+    "tom_truthofmarket": {
+      "days": {
+        "2026-11-04": {
+          "uv": 0,
+          "pv": 0,
+          "paidClick": 0,
+          "paidMember": 0,
+          "refClick": 0
+        },
+        "2026-11-05": {
+          "uv": 0,
+          "pv": 0,
+          "paidClick": 0,
+          "paidMember": 0,
+          "refClick": 0
+        }
+      }
+    },
+    "kfg_kisfitglobal": {
+      "days": {
+        "2026-11-02": {
+          "uv": 2,
+          "pv": 2,
+          "paidClick": 0,
+          "paidMember": 0,
+          "refClick": 0
+        },
+        "2026-11-03": {
+          "uv": 4,
+          "pv": 4,
+          "paidClick": 0,
+          "paidMember": 0,
+          "refClick": 0
+        },
+        "2026-11-04": {
+          "uv": 1,
+          "pv": 1,
+          "paidClick": 0,
+          "paidMember": 0,
+          "refClick": 0
+        },
+        "2026-11-05": {
+          "uv": 0,
+          "pv": 0,
+          "paidClick": 0,
+          "paidMember": 0,
+          "refClick": 0
+        }
+      }
+    },
+    "kfk_kidsfitkr": {
+      "days": {
+        "2026-11-03": {
+          "uv": 4,
+          "pv": 4,
+          "paidClick": 0,
+          "paidMember": 0,
+          "refClick": 0
+        },
+        "2026-11-04": {
+          "uv": 8,
+          "pv": 8,
+          "paidClick": 0,
+          "paidMember": 0,
+          "refClick": 0
+        },
+        "2026-11-05": {
+          "uv": 0,
+          "pv": 0,
+          "paidClick": 0,
+          "paidMember": 0,
+          "refClick": 0
+        }
+      }
+    }
+  }
+}

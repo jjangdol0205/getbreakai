@@ -329,6 +329,17 @@ async function processNextTask() {
   }
 }
 
+function runNodeScriptAsync(scriptPath, args = [], cwd = DIVISIONS.TOM.cwd) {
+  return new Promise((resolve) => {
+    const proc = spawn("node", [scriptPath, ...args], { cwd, encoding: "utf8" });
+    let out = "";
+    proc.stdout.on("data", (d) => (out += d.toString()));
+    proc.stderr.on("data", (d) => (out += d.toString()));
+    proc.on("close", (code) => resolve({ code, output: out.slice(-800) }));
+    proc.on("error", (err) => resolve({ code: 1, output: err.message }));
+  });
+}
+
 function runPythonScriptAsync(scriptPath, args = [], cwd = DIVISIONS.TOM.cwd) {
   return new Promise((resolve) => {
     const proc = spawn("python", [scriptPath, ...args], { cwd, encoding: "utf8" });
@@ -496,20 +507,58 @@ async function handleCommand(rawText, state, botToken = null) {
     enqueueTask(
       {
         division: div,
-        title: `${div.name} — 오늘의 Flow 인스타/릴스 홍보영상 1건 단독 제작`,
+        title: `${div.name} — 오늘의 Flow 유튜브 쇼츠(_YT_Shorts) & 인스타 릴스(_IG_Reels) 2종 발송`,
         run: async () => {
-          const prompt =
-            div.code === "TOM"
-              ? "오늘자 미국주식/반도체($SMH/$XLV) 공포탐욕지수 및 점화 종목을 기반으로 Flow 인스타/릴스 홍보 영상 1건을 단독 제작하고 완료 보고해줘. (블로그/웹툰 제외)"
-              : "오늘자 Flow 기반 인스타/릴스 홍보 영상 1건만 단독 제작하고 완료 보고해줘. (블로그/웹툰 활동은 하지 말고 오직 Flow 영상 1건만 진행)";
-          const r = await dispatchAntigravityPrompt(div, prompt);
+          let res;
+          if (div.code === "TOM") {
+            res = await runPythonScriptAsync("daily_6am_shorts_sender.py", [], DIVISIONS.TOM.cwd);
+          } else if (div.code === "KFG") {
+            res = await runNodeScriptAsync("scripts/send_daily_6am_shorts_reels.js", [], DIVISIONS.KFG.cwd);
+          } else {
+            res = await runNodeScriptAsync("scripts/send_daily_6am_shorts_telegram.js", [], DIVISIONS.KFK.cwd);
+          }
           await sendHqMessage(
-            `🎬 <b>[${div.name}] Flow 릴스 1건 제작 지시 전달 완료!</b>\n` +
+            `🎬 <b>[${div.name}] Flow 쇼츠·릴스 2종(YT/IG) 발송 완료!</b>\n` +
               `• 대상 도메인: ${div.domain}\n` +
-              `• 상태: ${r.ok ? "안티그래비티 에이전트 단독 실행 시작" : "전달 확인 완료"}`,
+              `• 결과: <code>${(res.output || "발송 완료").trim().slice(-240)}</code>`,
             true,
             botToken
           );
+        },
+      },
+      botToken
+    );
+    return;
+  }
+
+  if (text === "/naver" || text === "네이버자동" || text === "블로그발행") {
+    enqueueTask(
+      {
+        division: DIVISIONS.KFK,
+        title: "3사업부(kidsfit.co.kr) — 네이버 블로그 학술 칼럼 발행 & 지식iN 자동 답변",
+        run: async () => {
+          const res = await runPythonScriptAsync("scripts/naver_cdp_live_runner.py", ["--all"], DIVISIONS.KFK.cwd);
+          await sendHqMessage(
+            `📝 <b>[3사업부 네이버 블로그 &amp; 지식iN 자동 수행 완료!]</b>\n` +
+              `<code>${(res.output || "완료").trim().slice(-350)}</code>`,
+            true,
+            botToken
+          );
+        },
+      },
+      botToken
+    );
+    return;
+  }
+
+  if (/^(인증\s*[A-Za-z0-9]{4,6}|[A-Za-z0-9]{5})$/.test(text)) {
+    const cleanCode = text.replace(/^인증\s*/, "").trim().toUpperCase();
+    enqueueTask(
+      {
+        division: DIVISIONS.KFK,
+        title: `3사업부(kidsfit.co.kr) — 네이버 서치어드바이저 소유확인 보안문자(${cleanCode}) 제출 & 사이트맵/RSS 등록`,
+        run: async () => {
+          await runPythonScriptAsync("scripts/naver_search_advisor_helper.py", ["--submit-code", cleanCode], DIVISIONS.KFK.cwd);
         },
       },
       botToken
@@ -544,7 +593,7 @@ async function handleCommand(rawText, state, botToken = null) {
 
 function checkDailyStaggeredSchedule(state) {
   const now = new Date();
-  const ymd = now.toISOString().slice(0, 10);
+  const ymd = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
   const hhmm = `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
 
   if (!state.lastAutoRunDate) state.lastAutoRunDate = {};
@@ -569,15 +618,21 @@ function checkDailyStaggeredSchedule(state) {
     saveState(state);
     handleCommand("/rl", state);
   }
+  // 전 사업부(1·2·3사업부) 일일 영상은 오직 오전 06:00 정각에만 순차 큐로 발송 (그 외 시간 자동 발송 금지)
+  if (hhmm === "06:00" && state.lastAutoRunDate.DAILY_6AM_VIDEOS !== ymd) {
+    state.lastAutoRunDate.DAILY_6AM_VIDEOS = ymd;
+    state.lastAutoRunDate.FLOW_TOM = ymd;
+    state.lastAutoRunDate.FLOW_KFG = ymd;
+    state.lastAutoRunDate.FLOW_KFK = ymd;
+    saveState(state);
+    handleCommand("/flow_tom", state, RSA_BOT_TOKEN);
+    handleCommand("/flow_kfg", state, PRIMARY_BOT_TOKEN);
+    handleCommand("/flow_kfk", state, KFK_BOT_TOKEN);
+  }
   if (hhmm === "06:30" && state.lastAutoRunDate.TOM !== ymd) {
     state.lastAutoRunDate.TOM = ymd;
     saveState(state);
     handleCommand("/tom_news", state);
-  }
-  if (hhmm === "13:00" && state.lastAutoRunDate.KFK !== ymd) {
-    state.lastAutoRunDate.KFK = ymd;
-    saveState(state);
-    handleCommand("/flow_kfk", state);
   }
   if (hhmm === "08:30" && state.lastAutoRunDate.VISITOR_AM !== ymd) {
     state.lastAutoRunDate.VISITOR_AM = ymd;
@@ -588,11 +643,6 @@ function checkDailyStaggeredSchedule(state) {
     state.lastAutoRunDate.VISITOR_PM = ymd;
     saveState(state);
     handleCommand("/visitors", state);
-  }
-  if (hhmm === "21:05" && state.lastAutoRunDate.KFG !== ymd) {
-    state.lastAutoRunDate.KFG = ymd;
-    saveState(state);
-    handleCommand("/flow_kfg", state);
   }
 }
 

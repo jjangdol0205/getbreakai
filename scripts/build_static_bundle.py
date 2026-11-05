@@ -77,6 +77,36 @@ def main() -> None:
   <script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
   <script type="module" crossorigin src="./assets/{js_name}"></script>
   <link rel="stylesheet" crossorigin href="./assets/{css_name}" />
+  <script>
+  /* === HQ Edge Real-Human Visitor & KPI Beacon (tom_truthofmarket) === */
+  (function(){{
+    try {{
+      if (typeof window === 'undefined' || typeof navigator === 'undefined') return;
+      if (window.__HQ_BEACON_SENT_tom_truthofmarket__) return;
+      window.__HQ_BEACON_SENT_tom_truthofmarket__ = true;
+      var ua = navigator.userAgent || '';
+      if (navigator.webdriver || /bot|crawl|spider|slurp|headless|lighthouse|gtmetrix|pingdom|uptimerobot|python|curl|node|axios/i.test(ua)) return;
+      var host = (location && location.hostname) || '';
+      if (!host || host === 'localhost' || host === '127.0.0.1') return;
+      var kst = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
+      var ns = 'tom_truthofmarket';
+      fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/pv_' + kst, {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
+      if (localStorage.getItem('hq_uv_' + ns + '_' + kst) !== '1') {{
+        localStorage.setItem('hq_uv_' + ns + '_' + kst, '1');
+        fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/uv_' + kst, {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
+      }}
+      document.addEventListener('click', function(e) {{
+        var el = e.target && e.target.closest ? e.target.closest('a, button, [role="button"]') : null;
+        if (!el) return;
+        var href = (el.getAttribute('href') || '').toLowerCase();
+        var txt = (el.innerText || el.textContent || '').toLowerCase();
+        if (href.indexOf('lemonsqueezy.com') !== -1 || href.indexOf('truthofmarketss') !== -1 || /pro|vip|unlock|subscribe|upgrade|checkout|\$19|\$29|\$49/.test(txt)) {{
+          fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_click_' + kst, {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
+        }}
+      }}, true);
+    }} catch (e) {{}}
+  }})();
+  </script>
 </head>
 <body>
   <div id="app"></div>

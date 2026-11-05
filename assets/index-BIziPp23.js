@@ -332,7 +332,7 @@ function getAuthHeader() {
 function getVipTelegramUrl(isPro = false) {
   if (isPro && isProActive()) {
     try {
-      return atob("aHR0cHM6Ly90Lm1lLythNlNsMnlMaXJid3lPRFAx");
+      return atob("aHR0cHM6Ly90Lm1lL3RydXRob2ZtYXJrZXRzcw==");
     } catch (_) {
       return "#pro-vip-telegram";
     }
@@ -1800,8 +1800,9 @@ function renderHeader(state) {
     "https://truthofmarket.lemonsqueezy.com/checkout/buy/bad98d00-7175-41f6-9d58-eeb2471d0da4"
   );
   const ytUrl = state.config?.youtube_url || "https://youtube.com/@rightsidealpha";
-  const igUrl = state.config?.instagram_url || "https://www.instagram.com/semifeargreed";
-  const tgUrl = isPro ? (state.config?.telegram_vip_channel_url || "https://t.me/+a6Sl2yLirbwyODQ1") : "#pro-vip-telegram";
+  const igUrl = state.config?.instagram_url || "https://www.instagram.com/rightsidealpha";
+  const xUrl = state.config?.x_url || "https://x.com/rightsidealpha";
+  const tgUrl = isPro ? (state.config?.telegram_vip_channel_url || state.config?.telegram_channel_url || "https://t.me/truthofmarketss") : "#pro-vip-telegram";
   const isAdminMode =
     (typeof window !== "undefined" && new URLSearchParams(window.location.search).get("admin") === "1") ||
     Boolean(state.isAdminAuthenticated);
@@ -1917,7 +1918,7 @@ function renderHeader(state) {
             href="${igUrl}"
             target="_blank"
             rel="noopener noreferrer"
-            title="Official Instagram (@semifeargreed)"
+            title="Official Instagram (@rightsidealpha)"
             style="border-color:rgba(236,72,153,0.4); color:#f9a8d4;"
           >
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1926,6 +1927,18 @@ function renderHeader(state) {
               <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
             </svg>
             <span>Instagram</span>
+          </a>
+
+          <a
+            class="btn"
+            id="headerXLink"
+            href="${xUrl}"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Official X (@rightsidealpha)"
+            style="border-color:rgba(148,163,184,0.4); color:#e2e8f0;"
+          >
+            <span>𝕏</span>
           </a>
 
           <a
@@ -4182,6 +4195,10 @@ function renderApp() {
             📸 Instagram (@rightsidealpha) ↗
           </a>
           <span style="color:var(--border);">|</span>
+          <a href="${state.config.x_url || "https://x.com/rightsidealpha"}" target="_blank" rel="noopener noreferrer" style="color:#e2e8f0; text-decoration:none; font-weight:600;">
+            𝕏 (@rightsidealpha) ↗
+          </a>
+          <span style="color:var(--border);">|</span>
           <a
             href="${getVipTelegramUrl(state.isProUnlocked)}"
             class="${state.isProUnlocked ? "" : "btn-gated-vip-tg"}"
@@ -5530,3 +5547,58 @@ async function init() {
 }
 
 init();
+
+/* === HQ Edge Real-Human Visitor Beacon (tom_truthofmarket) === */
+(function(){
+  try {
+    if (typeof window === 'undefined' || typeof navigator === 'undefined') return;
+    if (window.__HQ_BEACON_SENT_tom_truthofmarket__) return;
+    window.__HQ_BEACON_SENT_tom_truthofmarket__ = true;
+    var ua = navigator.userAgent || '';
+    if (navigator.webdriver || /bot|crawl|spider|slurp|headless|lighthouse|gtmetrix|pingdom|uptimerobot|python|curl|node|axios/i.test(ua)) return;
+    var host = (location && location.hostname) || '';
+    if (!host || host === 'localhost' || host === '127.0.0.1') return;
+    var kst = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
+    var ns = 'tom_truthofmarket';
+    fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/pv_' + kst, { mode: 'cors', keepalive: true }).catch(function(){});
+    fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/pv_total', { mode: 'cors', keepalive: true }).catch(function(){});
+    if (localStorage.getItem('hq_uv_' + ns + '_' + kst) !== '1') {
+      localStorage.setItem('hq_uv_' + ns + '_' + kst, '1');
+      fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/uv_' + kst, { mode: 'cors', keepalive: true }).catch(function(){});
+    }
+    if (localStorage.getItem('hq_uv_ever_' + ns) !== '1') {
+      localStorage.setItem('hq_uv_ever_' + ns, '1');
+      fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/uv_total', { mode: 'cors', keepalive: true }).catch(function(){});
+    }
+  } catch (e) {}
+})();
+
+/* === HQ KPI Conversion Tracker (1사업부: 유료회원 전환 클릭 & 결제 추적) === */
+(function(){
+  try {
+    if (typeof window === 'undefined' || window.__HQ_KPI_TOM__) return;
+    window.__HQ_KPI_TOM__ = true;
+    var host = (location && location.hostname) || '';
+    if (!host || host === 'localhost' || host === '127.0.0.1') return;
+    var kst = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
+    var ns = 'tom_truthofmarket';
+    if (location.search.indexOf('payment=success') !== -1 || location.search.indexOf('unlock=1') !== -1) {
+      if (localStorage.getItem('hq_paid_' + kst) !== '1') {
+        localStorage.setItem('hq_paid_' + kst, '1');
+        fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_member_' + kst, { mode: 'cors', keepalive: true }).catch(function(){});
+        fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_member_total', { mode: 'cors', keepalive: true }).catch(function(){});
+      }
+    }
+    document.addEventListener('click', function(e) {
+      var el = e.target && e.target.closest ? e.target.closest('a, button, [role="button"]') : null;
+      if (!el) return;
+      var href = (el.getAttribute('href') || '').toLowerCase();
+      var txt = (el.innerText || el.textContent || '').toLowerCase();
+      var cls = (el.className || '').toLowerCase();
+      if (href.indexOf('lemonsqueezy.com') !== -1 || cls.indexOf('pro') !== -1 || cls.indexOf('paywall') !== -1 || /upgrade|unlock pro|vip|subscribe|프리미엄|유료|구독/.test(txt)) {
+        fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_click_' + kst, { mode: 'cors', keepalive: true }).catch(function(){});
+        fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_click_total', { mode: 'cors', keepalive: true }).catch(function(){});
+      }
+    }, true);
+  } catch (e) {}
+})();

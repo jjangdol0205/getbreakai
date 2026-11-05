@@ -7,40 +7,40 @@
     <atom:link href="https://pubsubhubbub.appspot.com/" rel="hub" />
     <description>Institutional US Equity Post-Washout Right-Side Ignition (PW-RSI) Quant Terminal covering 72 US equities, daily $SMH Semiconductor Fear &amp; Greed Index (0-100), and $SMH/$XLV contrarian barbell allocation.</description>
     <language>en-US</language>
-    <lastBuildDate>Thu, 05 Nov 2026 18:00:26 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 05 Nov 2026 21:00:34 +0000</lastBuildDate>
     <item>
       <title><![CDATA[RightSideAlpha x SemiFearGreed — 72 US Equity PW-RSI Turnaround Terminal & 26.8-Year Backtest (As of 2026-11-05)]]></title>
       <link>https://truthofmarket.com/</link>
       <guid isPermaLink="true">https://truthofmarket.com/</guid>
-      <pubDate>Thu, 05 Nov 2026 18:00:26 +0000</pubDate>
+      <pubDate>Thu, 05 Nov 2026 21:00:34 +0000</pubDate>
       <description><![CDATA[Live institutional US equity quant screener (as of 2026-11-05) tracking 72 liquid US stocks across 52-week washout bottoms, right-side SMA20/SMA60 turnaround ignition triggers, -9.0% mechanical hard-stop protection, and 2x (TP1 +100%) asymmetric profit targets.]]></description>
     </item>
     <item>
       <title><![CDATA[CNN-Edition Semiconductor Fear & Greed Index ($SMH 18.0 EXTREME_FEAR) & $SMH/$XLV 80:20 Contrarian Barbell Engine]]></title>
       <link>https://truthofmarket.com/?view=semi</link>
       <guid isPermaLink="true">https://truthofmarket.com/?view=semi</guid>
-      <pubDate>Thu, 05 Nov 2026 18:00:26 +0000</pubDate>
-      <description><![CDATA[Real-time 5-factor Semiconductor Fear & Greed Index ($SMH Close $452.49, -32.35% from 52W High as of 2026-11-05) and regime-based $SMH (VanEck Semiconductor ETF) vs. $XLV (Health Care Select Sector SPDR) contrarian barbell rebalancing simulator.]]></description>
+      <pubDate>Thu, 05 Nov 2026 21:00:34 +0000</pubDate>
+      <description><![CDATA[Real-time 5-factor Semiconductor Fear & Greed Index ($SMH Close $446.25, -33.29% from 52W High as of 2026-11-05) and regime-based $SMH (VanEck Semiconductor ETF) vs. $XLV (Health Care Select Sector SPDR) contrarian barbell rebalancing simulator.]]></description>
     </item>
     <item>
-      <title><![CDATA[Celsius Holdings ($CELH) Institutional Deep-Dive: 52W Bottom Re-Accumulation & PW-RSI Turnaround Analysis ($29.91)]]></title>
+      <title><![CDATA[Celsius Holdings ($CELH) Institutional Deep-Dive: 52W Bottom Re-Accumulation & PW-RSI Turnaround Analysis ($30.13)]]></title>
       <link>https://truthofmarket.com/?ticker=CELH</link>
       <guid isPermaLink="true">https://truthofmarket.com/?ticker=CELH</guid>
-      <pubDate>Thu, 05 Nov 2026 18:00:26 +0000</pubDate>
-      <description><![CDATA[Comprehensive institutional audit of Celsius Holdings ($CELH, Close $29.91 as of 2026-11-05) following its PepsiCo inventory destocking washout: gross margin defense, international expansion catalysts, $27.22 (-9.0%) hard stop floor, and $59.82 (+100% 2x) TP1 target.]]></description>
+      <pubDate>Thu, 05 Nov 2026 21:00:34 +0000</pubDate>
+      <description><![CDATA[Comprehensive institutional audit of Celsius Holdings ($CELH, Close $30.13 as of 2026-11-05) following its PepsiCo inventory destocking washout: gross margin defense, international expansion catalysts, $27.42 (-9.0%) hard stop floor, and $60.26 (+100% 2x) TP1 target.]]></description>
     </item>
     <item>
       <title><![CDATA[Mobileye Global ($MBLY) Post-Mortem Risk Audit: Rule 1 (-9.0% Hard Stop @ $6.39) Execution & Capital Preservation]]></title>
       <link>https://truthofmarket.com/?ticker=MBLY</link>
       <guid isPermaLink="true">https://truthofmarket.com/?ticker=MBLY</guid>
-      <pubDate>Thu, 05 Nov 2026 18:00:26 +0000</pubDate>
+      <pubDate>Thu, 05 Nov 2026 21:00:34 +0000</pubDate>
       <description><![CDATA[Transparent institutional post-mortem on Mobileye Global ($MBLY): how mechanical execution of Rule 1 (-9.0% Hard Stop at $6.39) prevented deeper drawdown after support breakdown and redeployed capital into confirmed right-side leaders.]]></description>
     </item>
     <item>
       <title><![CDATA[Daily PW-RSI Right-Side Ignition Watchlist (2026-11-05): $ON, $MCHP, $ENPH, $FSLR, $DVN, $OXY, $INTC, $BIIB]]></title>
       <link>https://truthofmarket.com/?filter=ignition</link>
       <guid isPermaLink="true">https://truthofmarket.com/?filter=ignition</guid>
-      <pubDate>Thu, 05 Nov 2026 18:00:26 +0000</pubDate>
+      <pubDate>Thu, 05 Nov 2026 21:00:34 +0000</pubDate>
       <description><![CDATA[Daily quantitative screening (2026-11-05) of 72 US equities identifying stocks emerging from 52-week extreme oversold washouts with bullish RSI divergence, volume dry-up (VDU) exhaustion, and 20-day moving average reclaim triggers.]]></description>
     </item>
   </channel>

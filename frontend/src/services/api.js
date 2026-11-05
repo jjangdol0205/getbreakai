@@ -76,12 +76,27 @@ let cachedProStocks = null;
 let cachedFreeStocks = null;
 let cachedSemiOverview = null;
 
-async function getStaticProStocks() {
-  if (!cachedProStocks) {
-    const r = await fetch("./static_api/stocks_pro.json");
-    cachedProStocks = await r.json();
+const VAULT_XOR_KEY = "RSA_PRO_VAULT_2026_KEY";
+
+function decodeProVaultRow(row) {
+  if (!row || !row._v) return row;
+  try {
+    const bin = atob(row._v);
+    const bytes = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) {
+      bytes[i] = bin.charCodeAt(i) ^ VAULT_XOR_KEY.charCodeAt(i % VAULT_XOR_KEY.length);
+    }
+    const jsonStr =
+      typeof TextDecoder !== "undefined"
+        ? new TextDecoder("utf-8").decode(bytes)
+        : decodeURIComponent(escape(String.fromCharCode(...bytes)));
+    const unlockedFields = JSON.parse(jsonStr);
+    const copy = { ...row, ...unlockedFields, is_pro_locked: false };
+    delete copy._v;
+    return copy;
+  } catch (_) {
+    return row;
   }
-  return cachedProStocks;
 }
 
 async function getStaticFreeStocks() {
@@ -90,6 +105,14 @@ async function getStaticFreeStocks() {
     cachedFreeStocks = await r.json();
   }
   return cachedFreeStocks;
+}
+
+async function getStaticProStocks() {
+  if (!cachedProStocks) {
+    const freeList = await getStaticFreeStocks();
+    cachedProStocks = freeList.map((row) => decodeProVaultRow(row));
+  }
+  return cachedProStocks;
 }
 
 async function getStaticStocksForCurrentUser() {
@@ -123,9 +146,7 @@ export async function fetchStocks(params = {}) {
       },
     },
     async () => {
-      const file = isProActive() ? "./static_api/stocks_pro.json" : "./static_api/stocks_free.json";
-      const r = await fetch(file);
-      let list = await r.json();
+      let list = [...(await getStaticStocksForCurrentUser())];
       if (params.search) {
         const q = String(params.search).trim().toLowerCase();
         list = list.filter(

@@ -15,7 +15,7 @@ import httpx
 BASE_DIR = Path(__file__).resolve().parent.parent
 TG_CONFIG_PATH = BASE_DIR / "data" / "telegram_config.json"
 SEMI_JSON_PATH = BASE_DIR / "frontend" / "public" / "static_api" / "semi_overview.json"
-STOCKS_PRO_PATH = BASE_DIR / "frontend" / "public" / "static_api" / "stocks_pro.json"
+STOCKS_PRO_PATH = BASE_DIR / "data" / "stocks_pro_master.json"
 
 
 def load_tg_credentials():

@@ -41,10 +41,12 @@ const initialPath = window.location.pathname.toLowerCase();
 const initialHash = window.location.hash.toLowerCase();
 const initialSearch = new URLSearchParams(window.location.search);
 const viewParam = (initialSearch.get("view") || "").toLowerCase();
+const initialTickerParam = (initialSearch.get("ticker") || "").trim().toUpperCase();
+const initialFilterParam = (initialSearch.get("filter") || "").trim().toLowerCase();
 const defaultView =
   viewParam === "semi" || initialHash.includes("semi") || initialPath.includes("/semi")
     ? "semi"
-    : viewParam === "rightside" || initialHash.includes("rightside") || initialPath.includes("/rightside")
+    : viewParam === "rightside" || initialHash.includes("rightside") || initialPath.includes("/rightside") || initialTickerParam || initialFilterParam
     ? "rightside"
     : window.__DEFAULT_VIEW__ === "semi"
     ? "semi"
@@ -130,8 +132,8 @@ const state = {
   filteredStocks: [],
   backtestKpis: null,
   pineCode: null,
-  searchQuery: "",
-  zoneFilter: "ALL",
+  searchQuery: initialTickerParam || "",
+  zoneFilter: initialFilterParam === "ignition" || initialFilterParam === "ignition_zone" ? "IGNITION_ZONE" : initialFilterParam === "washout" ? "WASHOUT_WATCH" : "ALL",
   sortCol: "score",
   sortAsc: false,
   // SemiFearGreed state
@@ -1336,10 +1338,24 @@ function bindEvents() {
       } catch (e) {
         // Fallback to static CSV file
       }
-      const a = document.createElement("a");
-      a.href = "./static_api/smh_xlv_fear_greed_history.csv";
-      a.download = "SemiFearGreed_SMH_XLV_2000_2026_History.csv";
-      a.click();
+      try {
+        const allHist = await fetchSemiHistory("ALL");
+        const rows = (allHist && Array.isArray(allHist.series)) ? allHist.series : (state.semiHistory?.series || []);
+        const csvLines = ["Date,FG_Score,SMH_Close,XLV_Close,Port73_Norm,QQQ_Norm,SMH_DD_Pct"];
+        rows.forEach((r) => {
+          csvLines.push(`${r.date},${r.fg_score},${r.smh_close},${r.xlv_close},${r.port73_norm},${r.qqq_norm},${r.smh_dd_pct}`);
+        });
+        const blob = new Blob([csvLines.join("\n")], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `SemiFearGreed_SMH_XLV_2000_2026_History_${state.semiOverview?.date || "latest"}.csv`;
+        a.click();
+        URL.revokeObjectURL(url);
+        showToast("Downloaded 26-Year Daily CSV Dataset");
+      } catch (err) {
+        showToast("Failed to generate CSV dataset");
+      }
     });
   }
 
@@ -1624,6 +1640,18 @@ async function init() {
 
   await loadAllData();
   renderApp();
+  if (initialTickerParam || initialFilterParam) {
+    setTimeout(() => {
+      const panel = document.querySelector(".screener-panel");
+      if (panel && panel.scrollIntoView) {
+        panel.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+      if (initialTickerParam === "CELH" || initialTickerParam === "MBLY") {
+        const rBtn = document.querySelector(`.btn-open-research[data-ticker="${initialTickerParam}"]`);
+        if (rBtn) rBtn.click();
+      }
+    }, 150);
+  }
 }
 
 init();

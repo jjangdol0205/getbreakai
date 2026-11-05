@@ -49,11 +49,5 @@ services:
         source: /api/semi/history
         destination: /static_api/semi_history_1Y.json
       - type: rewrite
-        source: /api/semi/pro/csv
-        destination: /static_api/smh_xlv_fear_greed_history.csv
-      - type: rewrite
-        source: /api/semi/download-csv
-        destination: /static_api/smh_xlv_fear_greed_history.csv
-      - type: rewrite
         source: /*
         destination: /index.html

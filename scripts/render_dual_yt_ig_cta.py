@@ -4,6 +4,12 @@ scripts/render_dual_yt_ig_cta.py
 Generates two platform-specific videos from a single master MP4 (zero extra Flow generation load):
   1) <base>_YT_Shorts.mp4 : YouTube Shorts edition (Profile Tap + Pinned Comment CTA)
   2) <base>_IG_Reels.mp4  : Instagram Reels edition (ManyChat Comment Keyword -> Auto-DM CTA)
+
+Harmonious Layout Rule:
+  - Existing voice subtitles occupy y = 1335..1530 (69.5%..79.7% of 1080x1920).
+  - The CTA pill is placed harmoniously right below the voice subtitles at y = 1558..1696 (81.1%..88.3%),
+    using NanumSquareRoundEB.ttf with stroked text and matching Mint/Yellow accents so it never covers
+    a single pixel of the voice subtitles and blends naturally with the video typography.
 """
 
 import os
@@ -16,16 +22,22 @@ from PIL import Image, ImageDraw, ImageFont
 
 FFMPEG_EXE = imageio_ffmpeg.get_ffmpeg_exe()
 
-FONT_CANDIDATES = [
+FONT_CANDIDATES_KR = [
+    r"D:\사업아이템\src\fonts\NanumSquareRoundEB.ttf",
     r"D:\사업아이템\src\fonts\Pretendard-ExtraBold.otf",
-    r"D:\사업아이템\src\fonts\BMJUA.ttf",
     r"C:\Windows\Fonts\malgunbd.ttf",
+]
+
+FONT_CANDIDATES_EN = [
+    r"D:\사업아이템\src\fonts\Pretendard-ExtraBold.otf",
+    r"D:\사업아이템\src\fonts\NanumSquareRoundEB.ttf",
     r"C:\Windows\Fonts\arialbd.ttf",
 ]
 
 
-def load_font(size):
-    for fp in FONT_CANDIDATES:
+def load_font(size, is_kr=True):
+    candidates = FONT_CANDIDATES_KR if is_kr else FONT_CANDIDATES_EN
+    for fp in candidates:
         if os.path.exists(fp):
             try:
                 return ImageFont.truetype(fp, size)
@@ -54,37 +66,55 @@ def get_video_info(video_path):
     return w, h, dur
 
 
-def create_cta_overlay_png(width, height, badge_title, badge_sub, accent_rgb):
+def create_cta_overlay_png(width, height, badge_title, badge_sub, border_rgb, title_rgb, is_kr=True):
     img = Image.new("RGBA", (width, height), (0, 0, 0, 0))
     draw = ImageDraw.Draw(img)
 
-    box_w = int(width * 0.90)
-    box_h = int(height * 0.115)
+    box_w = int(width * 0.855)
+    box_h = int(height * 0.072)
     x0 = (width - box_w) // 2
-    # Position safely above bottom player controls (around 74% down)
-    y0 = int(height * 0.73)
+    # Placed harmoniously below voice subtitles (which end at ~79.5% height) and above platform bottom UI
+    y0 = int(height * 0.812)
     x1 = x0 + box_w
     y1 = y0 + box_h
 
-    # Dark glass background with vibrant border
-    draw.rounded_rectangle([x0, y0, x1, y1], radius=24, fill=(10, 14, 26, 232), outline=accent_rgb + (255,), width=5)
+    # Soft translucent dark pill with harmonious border matching existing subtitle palette
+    draw.rounded_rectangle(
+        [x0, y0, x1, y1],
+        radius=int(box_h * 0.28),
+        fill=(12, 18, 32, 200),
+        outline=border_rgb + (235,),
+        width=4,
+    )
 
-    f_title = load_font(max(22, int(width * 0.035)))
-    f_sub = load_font(max(18, int(width * 0.028)))
+    f_title = load_font(max(20, int(width * 0.036)), is_kr=is_kr)
+    f_sub = load_font(max(16, int(width * 0.030)), is_kr=is_kr)
 
     tb1 = draw.textbbox((0, 0), badge_title, font=f_title)
     tw1 = tb1[2] - tb1[0]
-    th1 = tb1[3] - tb1[1]
 
     tb2 = draw.textbbox((0, 0), badge_sub, font=f_sub)
     tw2 = tb2[2] - tb2[0]
-    th2 = tb2[3] - tb2[1]
 
-    ty1 = y0 + int(box_h * 0.20)
-    ty2 = y0 + int(box_h * 0.58)
+    ty1 = y0 + int(box_h * 0.14)
+    ty2 = y0 + int(box_h * 0.56)
 
-    draw.text(((width - tw1) // 2, ty1), badge_title, font=f_title, fill=accent_rgb + (255,))
-    draw.text(((width - tw2) // 2, ty2), badge_sub, font=f_sub, fill=(255, 255, 255, 255))
+    draw.text(
+        ((width - tw1) // 2, ty1),
+        badge_title,
+        font=f_title,
+        fill=title_rgb + (255,),
+        stroke_width=4,
+        stroke_fill=(0, 0, 0, 230),
+    )
+    draw.text(
+        ((width - tw2) // 2, ty2),
+        badge_sub,
+        font=f_sub,
+        fill=(255, 255, 255, 255),
+        stroke_width=3,
+        stroke_fill=(0, 0, 0, 230),
+    )
 
     tmp = tempfile.NamedTemporaryFile(delete=False, suffix=".png")
     img.save(tmp.name, "PNG")
@@ -136,27 +166,31 @@ def ensure_dual_videos(src_video, division="KFG", force=False):
         return yt_out, ig_out
 
     w, h, dur = get_video_info(src_video)
-    start_sec = max(0.5, dur - 3.8)
+    # Show only during the final closing beat (~3.0 seconds) so it pairs naturally with the closing voice line
+    start_sec = max(0.5, dur - 3.0)
 
     div = division.upper()
     if div == "TOM":
-        yt_title = "📺 YOUTUBE SHORTS: TAP @rightsidealpha BELOW"
+        yt_title = "▶ YOUTUBE SHORTS: TAP @rightsidealpha BELOW"
         yt_sub = "Click Profile Link & Pinned Comment -> Free US Stock Terminal"
-        ig_title = '💬 INSTAGRAM REELS: COMMENT "ALPHA" BELOW'
+        ig_title = '▶ INSTAGRAM REELS: COMMENT "ALPHA" BELOW'
         ig_sub = "We'll DM You the Direct Live Terminal Link in 1 Second!"
+        png_yt = create_cta_overlay_png(w, h, yt_title, yt_sub, (110, 255, 210), (255, 232, 0), is_kr=False)
+        png_ig = create_cta_overlay_png(w, h, ig_title, ig_sub, (255, 232, 0), (110, 255, 210), is_kr=False)
     elif div == "KFK":
-        yt_title = "📺 유튜브 쇼츠: 아래 @키즈핏 프로필 아이콘 터치!"
-        yt_sub = "프로필 상단 링크 & 고정댓글에서 100% 무료 진단 바로가기"
-        ig_title = '💬 인스타 릴스: 댓글에 "진단" 또는 "키즈핏" 입력!'
-        ig_sub = "댓글 남기시면 1초 만에 DM으로 무료 진단 링크를 보내드려요!"
+        yt_title = "▶ 아래 @키즈핏 프로필 아이콘 터치!"
+        yt_sub = "프로필 상단 링크에서 100% 무료 진단 & 최저가 보기"
+        ig_title = '▶ 댓글에 "진단" 또는 "키즈핏" 입력!'
+        ig_sub = "댓글 남기시면 1초 만에 DM으로 무료 진단 링크 발송!"
+        png_yt = create_cta_overlay_png(w, h, yt_title, yt_sub, (110, 255, 210), (255, 232, 0), is_kr=True)
+        png_ig = create_cta_overlay_png(w, h, ig_title, ig_sub, (255, 232, 0), (110, 255, 210), is_kr=True)
     else:
-        yt_title = "📺 YOUTUBE SHORTS: TAP @kisfitglobal BELOW"
+        yt_title = "▶ YOUTUBE SHORTS: TAP @kisfitglobal BELOW"
         yt_sub = "Click Channel Bio Link -> Free 30-Sec US CDC Growth Scan!"
-        ig_title = '💬 INSTAGRAM REELS: COMMENT "GROWTH" BELOW'
+        ig_title = '▶ INSTAGRAM REELS: COMMENT "GROWTH" BELOW'
         ig_sub = "We'll DM You the Free 30-Sec CDC Growth Report Link Instantly!"
-
-    png_yt = create_cta_overlay_png(w, h, yt_title, yt_sub, (255, 75, 75))
-    png_ig = create_cta_overlay_png(w, h, ig_title, ig_sub, (255, 195, 40))
+        png_yt = create_cta_overlay_png(w, h, yt_title, yt_sub, (110, 255, 210), (255, 232, 0), is_kr=False)
+        png_ig = create_cta_overlay_png(w, h, ig_title, ig_sub, (255, 232, 0), (110, 255, 210), is_kr=False)
 
     try:
         render_overlay_video(src_video, yt_out, png_yt, start_sec)

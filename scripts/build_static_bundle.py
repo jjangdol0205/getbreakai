@@ -55,6 +55,8 @@ def main() -> None:
 <head>
   <script>window.__DEFAULT_VIEW__ = 'rightside';</script>
   <meta charset="UTF-8" />
+  <meta name="google-site-verification" content="nAGlJMEUUPifbzSd8X4PCaBIyr3DtTwaa1a-q9zkbBc" />
+  <meta name="google-site-verification" content="G99bl17UU6iKgNm5ndGcSWp0dHFpJ0MjJqBBp0Exfx0" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>RightSideAlpha × SemiFearGreed | 72 US Equity PW-RSI Turnaround Terminal & Semiconductor Fear & Greed Index</title>
   <meta name="description" content="Real-time CNN-Edition Semiconductor Fear & Greed Index (0-100), $SMH/$XLV 70:30 & 80:20 Contrarian Barbell Rebalancing Engine, and 72 US Equity Post-Washout Right-Side Ignition (PW-RSI) Terminal." />
@@ -114,18 +116,34 @@ def main() -> None:
 </html>
 """
 
+    # Keep frontend/public/index.html in sync so it can never overwrite with stale tags
+    (PUB / "index.html").write_text(index_html, encoding="utf-8")
+
+    # Remove deprecated/leak files from public source before copying
+    for stale_rel in ["instagram_us_setup.html", "static_api/stocks_pro.json", "static_api/smh_xlv_fear_greed_history.csv"]:
+        sp = PUB / stale_rel
+        if sp.exists():
+            sp.unlink()
+
     for target_dir in [DIST, ROOT_DIST, ROOT]:
         assets_d = target_dir / "assets"
         assets_d.mkdir(parents=True, exist_ok=True)
         (assets_d / js_name).write_text(bundled_js, encoding="utf-8")
         (assets_d / css_name).write_text(css_raw, encoding="utf-8")
-        (target_dir / "index.html").write_text(index_html, encoding="utf-8")
         for item in PUB.iterdir():
+            if item.name in ("index.html", "instagram_us_setup.html"):
+                continue
             dest = target_dir / item.name
             if item.is_dir():
                 shutil.copytree(item, dest, dirs_exist_ok=True)
             else:
                 shutil.copy2(item, dest)
+        # Write index.html AFTER copying public files so it is never overwritten
+        (target_dir / "index.html").write_text(index_html, encoding="utf-8")
+        for stale_rel in ["instagram_us_setup.html", "static_api/stocks_pro.json", "static_api/smh_xlv_fear_greed_history.csv"]:
+            tp = target_dir / stale_rel
+            if tp.exists():
+                tp.unlink()
 
     print(f"Built & synced frontend/dist, ./dist, and root static bundle ({js_name}, {css_name})")
 

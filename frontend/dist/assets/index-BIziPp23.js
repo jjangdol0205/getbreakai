@@ -380,12 +380,27 @@ let cachedProStocks = null;
 let cachedFreeStocks = null;
 let cachedSemiOverview = null;
 
-async function getStaticProStocks() {
-  if (!cachedProStocks) {
-    const r = await fetch("./static_api/stocks_pro.json");
-    cachedProStocks = await r.json();
+const VAULT_XOR_KEY = "RSA_PRO_VAULT_2026_KEY";
+
+function decodeProVaultRow(row) {
+  if (!row || !row._v) return row;
+  try {
+    const bin = atob(row._v);
+    const bytes = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) {
+      bytes[i] = bin.charCodeAt(i) ^ VAULT_XOR_KEY.charCodeAt(i % VAULT_XOR_KEY.length);
+    }
+    const jsonStr =
+      typeof TextDecoder !== "undefined"
+        ? new TextDecoder("utf-8").decode(bytes)
+        : decodeURIComponent(escape(String.fromCharCode(...bytes)));
+    const unlockedFields = JSON.parse(jsonStr);
+    const copy = { ...row, ...unlockedFields, is_pro_locked: false };
+    delete copy._v;
+    return copy;
+  } catch (_) {
+    return row;
   }
-  return cachedProStocks;
 }
 
 async function getStaticFreeStocks() {
@@ -394,6 +409,14 @@ async function getStaticFreeStocks() {
     cachedFreeStocks = await r.json();
   }
   return cachedFreeStocks;
+}
+
+async function getStaticProStocks() {
+  if (!cachedProStocks) {
+    const freeList = await getStaticFreeStocks();
+    cachedProStocks = freeList.map((row) => decodeProVaultRow(row));
+  }
+  return cachedProStocks;
 }
 
 async function getStaticStocksForCurrentUser() {
@@ -426,9 +449,7 @@ async function fetchStocks(params = {}) {
       },
     },
     async () => {
-      const file = isProActive() ? "./static_api/stocks_pro.json" : "./static_api/stocks_free.json";
-      const r = await fetch(file);
-      let list = await r.json();
+      let list = [...(await getStaticStocksForCurrentUser())];
       if (params.search) {
         const q = String(params.search).trim().toLowerCase();
         list = list.filter(
@@ -2709,7 +2730,7 @@ const PRICING_COPY = {
     tvBtn: "📈 TradingView 차트 터미널 열기 ↗",
     saBtn: "📊 Seeking Alpha 실적 컨센서스 열기 ↗",
     brokerBtn: "🏦 제휴 증권사 / 거래소 수수료 혜택 받기 ↗",
-    tgBtn: "🤖 텔레그램 실시간 알림 봇 연결 (@SemifearGreedbot) ↗",
+    tgBtn: "🔒 Pro 전용 VIP 텔레그램 ($SMH/$XLV & 72종목 실시간 월가 뉴스)",
   },
   jp: {
     t1Badge: "INSTITUTIONAL PRO",
@@ -2743,7 +2764,7 @@ const PRICING_COPY = {
     tvBtn: "📈 TradingView チャートを開く ↗",
     saBtn: "📊 Seeking Alpha EPSコンセンサス ↗",
     brokerBtn: "🏦 提携証券・取引所の手数料特典を見る ↗",
-    tgBtn: "🤖 TelegramアラートBot接続 (@SemifearGreedbot) ↗",
+    tgBtn: "🔒 Pro専用 VIP Telegram ($SMH/$XLV & 72銘柄リアルタイムニュース)",
   },
 };
 function renderPricing(state) {
@@ -3961,10 +3982,12 @@ const initialPath = window.location.pathname.toLowerCase();
 const initialHash = window.location.hash.toLowerCase();
 const initialSearch = new URLSearchParams(window.location.search);
 const viewParam = (initialSearch.get("view") || "").toLowerCase();
+const initialTickerParam = (initialSearch.get("ticker") || "").trim().toUpperCase();
+const initialFilterParam = (initialSearch.get("filter") || "").trim().toLowerCase();
 const defaultView =
   viewParam === "semi" || initialHash.includes("semi") || initialPath.includes("/semi")
     ? "semi"
-    : viewParam === "rightside" || initialHash.includes("rightside") || initialPath.includes("/rightside")
+    : viewParam === "rightside" || initialHash.includes("rightside") || initialPath.includes("/rightside") || initialTickerParam || initialFilterParam
     ? "rightside"
     : window.__DEFAULT_VIEW__ === "semi"
     ? "semi"
@@ -4050,8 +4073,8 @@ const state = {
   filteredStocks: [],
   backtestKpis: null,
   pineCode: null,
-  searchQuery: "",
-  zoneFilter: "ALL",
+  searchQuery: initialTickerParam || "",
+  zoneFilter: initialFilterParam === "ignition" || initialFilterParam === "ignition_zone" ? "IGNITION_ZONE" : initialFilterParam === "washout" ? "WASHOUT_WATCH" : "ALL",
   sortCol: "score",
   sortAsc: false,
   // SemiFearGreed state
@@ -5256,10 +5279,24 @@ function bindEvents() {
       } catch (e) {
         // Fallback to static CSV file
       }
-      const a = document.createElement("a");
-      a.href = "./static_api/smh_xlv_fear_greed_history.csv";
-      a.download = "SemiFearGreed_SMH_XLV_2000_2026_History.csv";
-      a.click();
+      try {
+        const allHist = await fetchSemiHistory("ALL");
+        const rows = (allHist && Array.isArray(allHist.series)) ? allHist.series : (state.semiHistory?.series || []);
+        const csvLines = ["Date,FG_Score,SMH_Close,XLV_Close,Port73_Norm,QQQ_Norm,SMH_DD_Pct"];
+        rows.forEach((r) => {
+          csvLines.push(`${r.date},${r.fg_score},${r.smh_close},${r.xlv_close},${r.port73_norm},${r.qqq_norm},${r.smh_dd_pct}`);
+        });
+        const blob = new Blob([csvLines.join("\n")], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `SemiFearGreed_SMH_XLV_2000_2026_History_${state.semiOverview?.date || "latest"}.csv`;
+        a.click();
+        URL.revokeObjectURL(url);
+        showToast("Downloaded 26-Year Daily CSV Dataset");
+      } catch (err) {
+        showToast("Failed to generate CSV dataset");
+      }
     });
   }
 
@@ -5544,6 +5581,18 @@ async function init() {
 
   await loadAllData();
   renderApp();
+  if (initialTickerParam || initialFilterParam) {
+    setTimeout(() => {
+      const panel = document.querySelector(".screener-panel");
+      if (panel && panel.scrollIntoView) {
+        panel.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+      if (initialTickerParam === "CELH" || initialTickerParam === "MBLY") {
+        const rBtn = document.querySelector(`.btn-open-research[data-ticker="${initialTickerParam}"]`);
+        if (rBtn) rBtn.click();
+      }
+    }, 150);
+  }
 }
 
 init();

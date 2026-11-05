@@ -1,3 +1,4 @@
+import re
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
@@ -43,12 +44,12 @@ EPISODE_COPY_KIT: List[Dict[str, Any]] = [
         "yt_desc": (
             "You bought a stock down 50% thinking it was cheap—and somehow it dropped another 40%.\n"
             "Wall Street quants never catch falling knives on the left side of a crash. They wait for Right-Side Ignition above the 60-day moving average (MA60) with institutional volume.\n\n"
-            "🖥️ Scan 72+ US Tech & Growth Stocks Live: https://getbreakai.com\n"
+            "🖥️ Scan 72+ US Tech & Growth Stocks Live: https://truthofmarket.com\n"
             "🤖 Free Real-Time Telegram Breakout Bot: https://t.me/RigjtsideAlphabot\n\n"
             "#usstocks #stockmarket #swingtrading #daytrading #nvda #tsla #celh #quanttrading #technicalanalysis #wallstreet"
         ),
         "yt_pin": (
-            "📌 Bagholding a crashed stock right now? Enter your ticker & avg price into our FREE Position Doctor (3s Stop-Loss & 2x Target diagnosis) 👉 https://getbreakai.com | Free Telegram Bot: https://t.me/RigjtsideAlphabot"
+            "📌 Bagholding a crashed stock right now? Enter your ticker & avg price into our FREE Position Doctor (3s Stop-Loss & 2x Target diagnosis) 👉 https://truthofmarket.com | Free Telegram Bot: https://t.me/RigjtsideAlphabot"
         ),
         "ig_caption": (
             'Comment "ALPHA" and I’ll DM you instant access to our Live US Quant Terminal & Free Telegram Breakout Bot 👇\n\n'
@@ -69,12 +70,12 @@ EPISODE_COPY_KIT: List[Dict[str, Any]] = [
         "yt_desc": (
             "Every massive -50% portfolio wipeout starts as a small dip that you refused to sell.\n"
             "Institutional quants survive every bear market using one ruthless rule: an automatic -9.0% hard stop loss.\n\n"
-            "🩺 Diagnose Your Stock in 3 Seconds (Position Doctor): https://getbreakai.com\n"
+            "🩺 Diagnose Your Stock in 3 Seconds (Position Doctor): https://truthofmarket.com\n"
             "🤖 Free Telegram Quant Alert Bot: https://t.me/RigjtsideAlphabot\n\n"
             "#stockmarket #usstocks #riskmanagement #swingtrading #daytrading #optionsflow #nvda #tsla #quanttrading"
         ),
         "yt_pin": (
-            "🛑 Stuck bagholding a losing US stock? Type your ticker & entry price into our free Position Doctor at https://getbreakai.com to see your exact mathematical -9% Stop & +100% Target!"
+            "🛑 Stuck bagholding a losing US stock? Type your ticker & entry price into our free Position Doctor at https://truthofmarket.com to see your exact mathematical -9% Stop & +100% Target!"
         ),
         "ig_caption": (
             'Comment "ALPHA" and I’ll DM you our free 3-second Position Doctor & Telegram Alert Bot 👇\n\n'
@@ -95,12 +96,12 @@ EPISODE_COPY_KIT: List[Dict[str, Any]] = [
         "yt_desc": (
             "The biggest hidden killer of your trading account isn't a crash—it's dead money.\n"
             "When you hold a sideways stock for 6 months, you miss every real institutional breakout. Our 26-year quant engine enforces a strict 55-Day Time Stop.\n\n"
-            "🖥️ Live 72-Stock Breakout Scanner & Position Doctor: https://getbreakai.com\n"
+            "🖥️ Live 72-Stock Breakout Scanner & Position Doctor: https://truthofmarket.com\n"
             "🤖 Free Telegram Breakout Bot: https://t.me/RigjtsideAlphabot\n\n"
             "#usstocks #stockmarket #tradingstrategy #quanttrading #daytrading #nvda #tsla #pltr #momentumtrading"
         ),
         "yt_pin": (
-            "⏱️ Holding a stock that refuses to move? Run your ticker + days held through our free Position Doctor at https://getbreakai.com to see if it triggered the 55-Day Dead Money Exit!"
+            "⏱️ Holding a stock that refuses to move? Run your ticker + days held through our free Position Doctor at https://truthofmarket.com to see if it triggered the 55-Day Dead Money Exit!"
         ),
         "ig_caption": (
             'Comment "ALPHA" and I’ll send you direct access to our Live US Quant Terminal & Telegram Bot 👇\n\n'
@@ -118,12 +119,12 @@ EPISODE_COPY_KIT: List[Dict[str, Any]] = [
         "yt_desc": (
             "Every time semiconductor stocks drop 20%, retail traders panic and sell at the exact bottom.\n"
             "Right now, our 7-Factor Semiconductor Fear & Greed Index plunged to 18.0 (Extreme Fear)—triggering the 80% $SMH : 20% $XLV Contrarian Barbell.\n\n"
-            "🧭 Live Semi Fear & Greed Terminal: https://getbreakai.com\n"
+            "🧭 Live Semi Fear & Greed Terminal: https://truthofmarket.com\n"
             "🤖 Free Telegram /semi & /ignition Alerts: https://t.me/RigjtsideAlphabot\n\n"
             "#semiconductors #nvda #amd #mu #smh #soxx #etf #usstocks #stockmarket #quanttrading"
         ),
         "yt_pin": (
-            "🧭 Check today's live Semiconductor 7-Factor Fear & Greed score (18.0 Extreme Fear) and exact $SMH : $XLV barbell weights at https://getbreakai.com | Free Telegram Bot: https://t.me/RigjtsideAlphabot"
+            "🧭 Check today's live Semiconductor 7-Factor Fear & Greed score (18.0 Extreme Fear) and exact $SMH : $XLV barbell weights at https://truthofmarket.com | Free Telegram Bot: https://t.me/RigjtsideAlphabot"
         ),
         "ig_caption": (
             'Comment "ALPHA" to get our live Semiconductor Fear & Greed Index + Telegram Alert Bot 👇\n\n'
@@ -142,12 +143,12 @@ EPISODE_COPY_KIT: List[Dict[str, Any]] = [
         "yt_desc": (
             "When a growth stock like Celsius ($CELH) crashes 71% from its high, how do you know if the bounce is a fakeout or a real institutional turnaround?\n"
             "We check 4 mathematical conditions: C1 Deep DD Washout, C2 Off 52W Low, C3 MA20/MA60 Reclamation, and C4 1.95x Volume Surge.\n\n"
-            "📑 Read the Full $CELH Institutional Quant Brief: https://getbreakai.com\n"
+            "📑 Read the Full $CELH Institutional Quant Brief: https://truthofmarket.com\n"
             "🤖 Free Telegram Bot (/stock CELH): https://t.me/RigjtsideAlphabot\n\n"
             "#celh #usstocks #growthstocks #stockmarket #breakoutstocks #swingtrading #quanttrading #technicalanalysis"
         ),
         "yt_pin": (
-            "📈 See the exact $CELH Entry Trigger ($27.93), -9% Hard Stop ($25.42), and +100% Target ($55.86) on our live terminal 👉 https://getbreakai.com"
+            "📈 See the exact $CELH Entry Trigger ($27.93), -9% Hard Stop ($25.42), and +100% Target ($55.86) on our live terminal 👉 https://truthofmarket.com"
         ),
         "ig_caption": (
             'Comment "ALPHA" and I’ll DM you the full $CELH Institutional Research Brief & Live Scanner 👇\n\n'
@@ -169,12 +170,12 @@ EPISODE_COPY_KIT: List[Dict[str, Any]] = [
         "yt_desc": (
             "Ever feel like market makers wait for you to sell $TSLA or $NVDA before ripping it 20% higher?\n"
             "That happens because retail traders buy inside the chop zone before price clears the institutional 60-day Entry Trigger (TRG).\n\n"
-            "🎯 Check Exact TRG Levels for 72+ US Stocks: https://getbreakai.com\n"
+            "🎯 Check Exact TRG Levels for 72+ US Stocks: https://truthofmarket.com\n"
             "🤖 Free Telegram Bot (/stock TSLA, /stock NVDA): https://t.me/RigjtsideAlphabot\n\n"
             "#tsla #nvda #usstocks #stockmarket #daytrading #swingtrading #breakouttrading #quanttrading"
         ),
         "yt_pin": (
-            "🎯 Stop getting shaken out in the chop zone! Check live Entry Trigger (TRG) prices for $TSLA, $NVDA, $AMD, and 72 US leaders 👉 https://getbreakai.com"
+            "🎯 Stop getting shaken out in the chop zone! Check live Entry Trigger (TRG) prices for $TSLA, $NVDA, $AMD, and 72 US leaders 👉 https://truthofmarket.com"
         ),
         "ig_caption": (
             'Comment "ALPHA" to get instant Telegram alerts when $TSLA, $NVDA & 72 US leaders hit their Entry Trigger 👇\n\n'
@@ -193,12 +194,12 @@ EPISODE_COPY_KIT: List[Dict[str, Any]] = [
         "yt_desc": (
             "The worst feeling in trading is watching an +80% gain round-trip all the way back into a loss.\n"
             "Wall Street quants prevent this with Rule 3: at +100% (TP1), sell 50% to recover 100% of your initial capital, and trail the rest on the 60-day moving average.\n\n"
-            "🖥️ Calculate Your Exact 2x Target & Stop Levels: https://getbreakai.com\n"
+            "🖥️ Calculate Your Exact 2x Target & Stop Levels: https://truthofmarket.com\n"
             "🤖 Free Telegram Quant Bot: https://t.me/RigjtsideAlphabot\n\n"
             "#usstocks #stockmarket #swingtrading #wealthbuilding #quanttrading #tradingpsychology #wallstreet"
         ),
         "yt_pin": (
-            "💰 Never round-trip a winning trade again. Get exact -9% Stop & +100% TP1 levels for your portfolio at https://getbreakai.com"
+            "💰 Never round-trip a winning trade again. Get exact -9% Stop & +100% TP1 levels for your portfolio at https://truthofmarket.com"
         ),
         "ig_caption": (
             'Comment "ALPHA" and I’ll DM you our Position Doctor calculator & Telegram Quant Bot 👇\n\n'
@@ -219,12 +220,12 @@ EPISODE_COPY_KIT: List[Dict[str, Any]] = [
         "yt_desc": (
             "We tested 126 US stocks across 26.78 years (2000 Dot-Com Crash, 2008 GFC, 2020 COVID, 2022 Bear Market).\n"
             "Blindly buying 52-week lows suffered -71% drawdowns. Waiting for Right-Side PW-RSI Ignition compounded at 24.48% CAGR (349.3x vs QQQ 14.3x).\n\n"
-            "📊 Explore the Full 26-Year Backtest & Live Scanner: https://getbreakai.com\n"
+            "📊 Explore the Full 26-Year Backtest & Live Scanner: https://truthofmarket.com\n"
             "🤖 Free Telegram Quant Bot: https://t.me/RigjtsideAlphabot\n\n"
             "#quanttrading #backtesting #usstocks #stockmarket #algotrading #qqq #spy #swingtrading #wallstreet"
         ),
         "yt_pin": (
-            "📊 Verify every year of our 26-year backtest (2000–2026) and see today's 5 Ignition stocks live at https://getbreakai.com"
+            "📊 Verify every year of our 26-year backtest (2000–2026) and see today's 5 Ignition stocks live at https://truthofmarket.com"
         ),
         "ig_caption": (
             'Comment "ALPHA" to explore our 26-Year Backtest & Live 72-Stock Scanner 👇\n\n'
@@ -243,12 +244,12 @@ EPISODE_COPY_KIT: List[Dict[str, Any]] = [
         "yt_desc": (
             "90% of retail breakout trades fail because traders only watch price candles and ignore institutional volume.\n"
             "When price crosses the 60-day moving average on weak volume, it's a Bull Trap. True institutional accumulation surges 1.5x–2.0x above 10-day average volume.\n\n"
-            "🔍 Scan Live Institutional Volume Surges: https://getbreakai.com\n"
+            "🔍 Scan Live Institutional Volume Surges: https://truthofmarket.com\n"
             "🤖 Free Telegram Breakout Bot: https://t.me/RigjtsideAlphabot\n\n"
             "#volumeanalysis #technicalanalysis #breakouttrading #usstocks #stockmarket #daytrading #swingtrading #quant"
         ),
         "yt_pin": (
-            "🔍 Filter out low-volume bull traps automatically with our live 72-stock institutional scanner 👉 https://getbreakai.com"
+            "🔍 Filter out low-volume bull traps automatically with our live 72-stock institutional scanner 👉 https://truthofmarket.com"
         ),
         "ig_caption": (
             'Comment "ALPHA" and I’ll DM you our Live Institutional Volume & Breakout Scanner 👇\n\n'
@@ -268,12 +269,12 @@ EPISODE_COPY_KIT: List[Dict[str, Any]] = [
         "yt_desc": (
             "Before the US market opens at 9:30 AM EST tomorrow, stop trading blind on social media hype.\n"
             "In 3 seconds, check whether any US stock is in an institutional Right-Side Ignition or a dangerous Trap—and audit your open positions with Position Doctor.\n\n"
-            "🖥️ Open Live US Quant Terminal: https://getbreakai.com\n"
+            "🖥️ Open Live US Quant Terminal: https://truthofmarket.com\n"
             "🤖 Free Morning Briefing Telegram Bot: https://t.me/RigjtsideAlphabot\n\n"
             "#premarket #usstocks #stockmarket #daytrading #swingtrading #nvda #tsla #pltr #quanttrading #wallstreet"
         ),
         "yt_pin": (
-            "🔔 Bookmark https://getbreakai.com and join our free Telegram Bot (https://t.me/RigjtsideAlphabot) for daily pre-market Ignition & Semi Fear & Greed briefings!"
+            "🔔 Bookmark https://truthofmarket.com and join our free Telegram Bot (https://t.me/RigjtsideAlphabot) for daily pre-market Ignition & Semi Fear & Greed briefings!"
         ),
         "ig_caption": (
             'Comment "ALPHA" and I’ll DM you our Pre-Market Quant Terminal + Free Telegram Alert Bot 👇\n\n'
@@ -309,136 +310,115 @@ def send_episode_package_to_telegram(ep_num: int, advance_state: bool = False) -
     real_num = kit["num"]
     mp4_path = VIDEOS_DIR / f"EP{real_num:02d}_US_Viral_Shorts.mp4"
 
-    token = os.environ.get("HQ_TELEGRAM_BOT_TOKEN") or telegram_service._resolve_token()
-    chat_id = os.environ.get("HQ_TELEGRAM_CHAT_ID") or telegram_service._resolve_chat_id() or "755033799"
+    def _read_env_tok(fp, key):
+        if os.path.exists(fp):
+            m = re.search(rf"^{key}=(.+)$", open(fp, encoding="utf-8", errors="ignore").read(), re.M)
+            if m:
+                return m.group(1).strip().strip("'\"")
+        return ""
+    rsa_tok = _read_env_tok(str(BASE_DIR / ".env"), "RSA_TELEGRAM_BOT_TOKEN")
+    kfg_tok = _read_env_tok(r"D:\키즈핏 영문\.env", "TELEGRAM_BOT_TOKEN")
+    token = os.environ.get("HQ_TELEGRAM_BOT_TOKEN") or rsa_tok or kfg_tok or telegram_service._resolve_token()
+    chat_id = os.environ.get("HQ_TELEGRAM_CHAT_ID") or "755033799"
     base = f"https://api.telegram.org/bot{token}"
 
     # Normalize all copy kit URLs to truthofmarket.com & @SemifearGreedbot
     yt_title = kit["yt_title"].replace("getbreakai.com", "truthofmarket.com")
     yt_desc = (
         kit["yt_desc"]
-        .replace("https://getbreakai.com", "https://truthofmarket.com")
+        .replace("https://truthofmarket.com", "https://truthofmarket.com")
         .replace("getbreakai.com", "truthofmarket.com")
         .replace("https://t.me/RigjtsideAlphabot", "https://t.me/SemifearGreedbot")
     )
     yt_pin = (
         kit["yt_pin"]
-        .replace("https://getbreakai.com", "https://truthofmarket.com")
+        .replace("https://truthofmarket.com", "https://truthofmarket.com")
         .replace("getbreakai.com", "truthofmarket.com")
         .replace("https://t.me/RigjtsideAlphabot", "https://t.me/SemifearGreedbot")
     )
     ig_caption = (
         kit["ig_caption"]
-        .replace("https://getbreakai.com", "https://truthofmarket.com")
+        .replace("https://truthofmarket.com", "https://truthofmarket.com")
         .replace("getbreakai.com", "truthofmarket.com")
         .replace("https://t.me/RigjtsideAlphabot", "https://t.me/SemifearGreedbot")
     )
 
     timeout_cfg = httpx.Timeout(connect=20.0, read=240.0, write=240.0, pool=30.0)
     with httpx.Client(timeout=timeout_cfg) as client:
-        # 1. Upload the mastered MP4 video so the user can save it directly on their phone
-        if mp4_path.exists():
-            upload_path = mp4_path
-            if mp4_path.stat().st_size > 8 * 1024 * 1024:
-                try:
-                    import subprocess
-                    import imageio_ffmpeg
-                    slim_path = VIDEOS_DIR / f"EP{real_num:02d}_TG_Fast.mp4"
-                    if not slim_path.exists():
-                        subprocess.run(
-                            [
-                                imageio_ffmpeg.get_ffmpeg_exe(),
-                                "-y",
-                                "-i",
-                                str(mp4_path),
-                                "-c:v",
-                                "libx264",
-                                "-preset",
-                                "veryfast",
-                                "-crf",
-                                "25",
-                                "-c:a",
-                                "copy",
-                                "-movflags",
-                                "+faststart",
-                                str(slim_path),
-                            ],
-                            stdout=subprocess.DEVNULL,
-                            stderr=subprocess.DEVNULL,
-                            check=False,
-                        )
-                    if slim_path.exists() and slim_path.stat().st_size > 100_000:
-                        upload_path = slim_path
-                except Exception:
-                    upload_path = mp4_path
-
-            video_bytes = upload_path.read_bytes()
-            caption = (
-                f"🇺🇸 <b>[1사업부: truthofmarket.com · 쇼츠/릴스 {real_num}/10편]</b>\n"
-                f"📌 주제: {kit['topic_kr']}\n\n"
-                "📺 업로드 유튜브: https://www.youtube.com/@rightsidealpha\n"
-                "📸 업로드 인스타: https://www.instagram.com/semifeargreed\n"
-                "🔗 공식 터미널: https://truthofmarket.com\n\n"
-                "👇 아래 4개 메시지(① 유튜브 제목 / ② 유튜브 설명글 / ③ 릴스 본문 / ④ 고정댓글·DM)의 코드박스를 터치하면 1초 만에 복사됩니다!"
-            )
-            try:
-                r_vid = client.post(
-                    f"{base}/sendVideo",
-                    data={
-                        "chat_id": chat_id,
-                        "caption": caption,
-                        "parse_mode": "HTML",
-                        "supports_streaming": "true",
-                    },
-                    files={"video": (mp4_path.name, video_bytes, "video/mp4")},
-                )
-                print(f"[DailyShorts] sendVideo EP{real_num:02d}: HTTP {r_vid.status_code}")
-            except Exception as vid_exc:
-                print(f"[DailyShorts] sendVideo warning: {vid_exc}")
-
-        # 2. Send 4 separate 1-Tap Copy HTML messages (<pre>...</pre>) matching 3사업부 format
+        # 1. Generate 2 platform-tailored videos from single master (YT Shorts + IG Reels ManyChat)
         import html
+        from scripts.render_dual_yt_ig_cta import ensure_dual_videos
+
+        yt_video_path = mp4_path
+        ig_video_path = mp4_path
+        if mp4_path.exists():
+            try:
+                yt_str, ig_str = ensure_dual_videos(str(mp4_path), "TOM", force=False)
+                yt_video_path = pathlib.Path(yt_str)
+                ig_video_path = pathlib.Path(ig_str)
+            except Exception as e_render:
+                print(f"[DailyShorts] Dual render warning: {e_render}")
+
+        yt_safe_pin = (
+            "📌 External links aren't clickable in Shorts comments!\n"
+            "👉 Just tap our channel icon (@rightsidealpha) right below and click the top link in our bio to run our FREE Position Doctor (-9% Stop / +100% Target) & Live 72-Stock Terminal! 📊🚀"
+        )
+
         yt_title_esc = html.escape(yt_title)
         yt_desc_esc = html.escape(yt_desc)
-        yt_pin_esc = html.escape(yt_pin)
+        yt_pin_esc = html.escape(yt_safe_pin)
         ig_cap_esc = html.escape(ig_caption)
 
-        messages = [
-            (
-                f"🔴 <b>[1/4] 유튜브 쇼츠 제목 (@rightsidealpha)</b> — 아래 박스 터치 시 바로 복사\n"
-                f"<pre>{yt_title_esc}</pre>"
-            ),
-            (
-                f"🟠 <b>[2/4] 유튜브 쇼츠 설명글 &amp; 고정댓글 (@rightsidealpha)</b> — 아래 박스 터치 시 바로 복사\n"
-                f"<pre>{yt_desc_esc}</pre>\n"
-                f"📌 <b>유튜브 고정댓글</b>:\n<pre>{yt_pin_esc}</pre>"
-            ),
-            (
-                f"🟣 <b>[3/4] 인스타그램 릴스 전체 본문 (@semifeargreed)</b> — 아래 박스 터치 시 바로 복사\n"
-                f"<pre>{ig_cap_esc}</pre>"
-            ),
-            (
-                f"💬 <b>[4/4] 인스타 릴스 고정댓글 &amp; 자동DM 답장 ({real_num}편)</b>\n"
-                f"📌 <b>릴스 고정댓글</b> (박스 터치 시 복사):\n"
-                f'<pre>📌 Comment "ALPHA" right here and I will instantly DM you the direct link to our Live US Quant Terminal (https://truthofmarket.com) + Free Telegram Alert Bot (@SemifearGreedbot)! 🚀</pre>\n'
-                f"📩 <b>댓글 달린 분께 보내는 자동DM 답장</b> (박스 터치 시 복사):\n"
-                f"<pre>Hey! 👋 Here is your instant access to the Right-Side Alpha &amp; Semiconductor Fear &amp; Greed Terminal:\n👉 Live Terminal: https://truthofmarket.com\n🤖 Free Telegram Bot: https://t.me/SemifearGreedbot</pre>"
-            ),
-        ]
+        # Send YT Shorts Video
+        if yt_video_path.exists():
+            yt_caption = (
+                f"🇺🇸 <b>[1사업부: truthofmarket.com · 1/2 영상: 유튜브 쇼츠 전용판 ({real_num}/10편)]</b>\n"
+                f"📌 주제: {kit['topic_kr']}\n"
+                "✅ 엔딩 자막: 유튜브 맞춤형 (@rightsidealpha 프로필 링크 &amp; 고정댓글 유도)\n"
+                "📺 업로드 유튜브: https://www.youtube.com/@rightsidealpha"
+            )
+            client.post(
+                f"{base}/sendVideo",
+                data={"chat_id": chat_id, "caption": yt_caption, "parse_mode": "HTML", "supports_streaming": "true"},
+                files={"video": (yt_video_path.name, yt_video_path.read_bytes(), "video/mp4")},
+            )
 
+        yt_messages = [
+            f"🔴 <b>[1/4] 1사업부 유튜브 쇼츠 제목 (@rightsidealpha)</b> — 아래 박스 터치 시 바로 복사\n<pre>{yt_title_esc}</pre>",
+            f"🟠 <b>[2/4] 1사업부 유튜브 쇼츠 설명란 (@rightsidealpha)</b> — 아래 박스 터치 시 바로 복사\n<pre>{yt_desc_esc}</pre>",
+            f"📌 <b>[3/4] 1사업부 유튜브 쇼츠 안전 고정댓글 (외부 URL 0% · 스팸위험 0%)</b> — 아래 박스 터치 시 복사 후 고정(Pin)\n<pre>{yt_pin_esc}</pre>",
+        ]
         ok = True
-        for m_html in messages:
+        for m_html in yt_messages:
             r_txt = client.post(
                 f"{base}/sendMessage",
-                json={
-                    "chat_id": chat_id,
-                    "text": m_html,
-                    "parse_mode": "HTML",
-                    "disable_web_page_preview": True,
-                },
+                json={"chat_id": chat_id, "text": m_html, "parse_mode": "HTML", "disable_web_page_preview": True},
             )
             ok = ok and (r_txt.status_code == 200 and r_txt.json().get("ok", False))
-        print(f"[DailyShorts] sendMessage EP{real_num:02d}: ok={ok}")
+
+        # Send IG Reels Video
+        if ig_video_path.exists():
+            ig_caption_vid = (
+                f"📸 <b>[1사업부: truthofmarket.com · 2/2 영상: 인스타 릴스 전용판 ({real_num}/10편)]</b>\n"
+                "✅ 엔딩 자막: 인스타 매니챗 맞춤형 (댓글에 'ALPHA' 입력 시 1초 만에 DM 자동 발송 유도)\n"
+                "📸 업로드 인스타: https://www.instagram.com/rightsidealpha"
+            )
+            client.post(
+                f"{base}/sendVideo",
+                data={"chat_id": chat_id, "caption": ig_caption_vid, "parse_mode": "HTML", "supports_streaming": "true"},
+                files={"video": (ig_video_path.name, ig_video_path.read_bytes(), "video/mp4")},
+            )
+
+        ig_msg = (
+            f"🟣 <b>[4/4] 1사업부 인스타그램 릴스 전체 본문 (@rightsidealpha · 매니챗 'ALPHA' 연동)</b> — 아래 박스 터치 시 바로 복사\n"
+            f"<pre>{ig_cap_esc}</pre>"
+        )
+        r_ig = client.post(
+            f"{base}/sendMessage",
+            json={"chat_id": chat_id, "text": ig_msg, "parse_mode": "HTML", "disable_web_page_preview": True},
+        )
+        ok = ok and (r_ig.status_code == 200 and r_ig.json().get("ok", False))
+        print(f"[DailyShorts] Sent Dual YT+IG Package EP{real_num:02d}: ok={ok}")
 
     if advance_state and ok:
         st = load_daily_state()

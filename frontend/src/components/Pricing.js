@@ -67,7 +67,7 @@ const PRICING_COPY = {
     tvBtn: "📈 TradingView 차트 터미널 열기 ↗",
     saBtn: "📊 Seeking Alpha 실적 컨센서스 열기 ↗",
     brokerBtn: "🏦 제휴 증권사 / 거래소 수수료 혜택 받기 ↗",
-    tgBtn: "🤖 텔레그램 실시간 알림 봇 연결 (@SemifearGreedbot) ↗",
+    tgBtn: "🔒 Pro 전용 VIP 텔레그램 ($SMH/$XLV & 72종목 실시간 월가 뉴스)",
   },
   jp: {
     t1Badge: "INSTITUTIONAL PRO",
@@ -101,7 +101,7 @@ const PRICING_COPY = {
     tvBtn: "📈 TradingView チャートを開く ↗",
     saBtn: "📊 Seeking Alpha EPSコンセンサス ↗",
     brokerBtn: "🏦 提携証券・取引所の手数料特典を見る ↗",
-    tgBtn: "🤖 TelegramアラートBot接続 (@SemifearGreedbot) ↗",
+    tgBtn: "🔒 Pro専用 VIP Telegram ($SMH/$XLV & 72銘柄リアルタイムニュース)",
   },
 };
 

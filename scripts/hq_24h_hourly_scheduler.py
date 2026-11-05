@@ -215,21 +215,31 @@ def execute_hourly_action(slot, notify_override=False):
     act = slot["action"]
     summary = "정상 완료"
 
+    def _sync_and_push_tom(cwd_path):
+        s_sync = os.path.join(cwd_path, "scripts", "sync_live_market_data.py")
+        s_build = os.path.join(cwd_path, "scripts", "build_static_bundle.py")
+        if os.path.exists(s_sync):
+            subprocess.run(["python", s_sync], cwd=cwd_path, timeout=150, capture_output=True)
+        if os.path.exists(s_build):
+            subprocess.run(["python", s_build], cwd=cwd_path, timeout=90, capture_output=True)
+        subprocess.run(["git", "add", "static_api", "dist", "frontend/public/static_api", "frontend/dist"], cwd=cwd_path, timeout=30, capture_output=True)
+        diff_res = subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=cwd_path, timeout=20, capture_output=True)
+        if diff_res.returncode != 0:
+            subprocess.run(["git", "commit", "-m", "chore(data): auto-sync live US market close & SemiFearGreed snapshots"], cwd=cwd_path, timeout=30, capture_output=True)
+            subprocess.run(["git", "push", "truthofmarket", "main"], cwd=cwd_path, timeout=60, capture_output=True)
+            subprocess.run(["git", "push", "origin", "main"], cwd=cwd_path, timeout=60, capture_output=True)
+
     if act == "tom_sync":
-        script = r"D:\투자홈페이지\1_RightSideAlpha_미국주식터미널\scripts\sync_live_market_data.py"
-        if os.path.exists(script):
-            subprocess.run(["python", script], cwd=slot["cwd"], timeout=120, capture_output=True)
+        _sync_and_push_tom(slot["cwd"])
         st = ping_url("https://truthofmarket.com/")
-        summary = f"truthofmarket.com 응답 HTTP {st} · 72종목 & SMH/XLV 데이터 동기화 완료"
+        summary = f"truthofmarket.com HTTP {st} - 72 US Equities & SMH/XLV Live Sync + Deploy Complete"
 
     elif act == "tom_morning_vip":
-        s1 = r"D:\투자홈페이지\1_RightSideAlpha_미국주식터미널\scripts\sync_live_market_data.py"
-        s2 = r"D:\투자홈페이지\1_RightSideAlpha_미국주식터미널\scripts\broadcast_telegram_channel.py"
-        if os.path.exists(s1):
-            subprocess.run(["python", s1], cwd=slot["cwd"], timeout=120, capture_output=True)
+        _sync_and_push_tom(slot["cwd"])
+        s2 = os.path.join(slot["cwd"], "scripts", "broadcast_telegram_channel.py")
         if os.path.exists(s2):
             subprocess.run(["python", s2, "--pin"], cwd=slot["cwd"], timeout=60, capture_output=True)
-        summary = "미장 마감 종가 동기화 & @truthofmarketss VIP 채널 오더북 발송 완료"
+        summary = "US Market Close Sync + Deploy & @truthofmarketss VIP Orderbook Broadcast Complete"
 
     elif act == "tom_seo_check":
         st1 = ping_url("https://truthofmarket.com/sitemap.xml")

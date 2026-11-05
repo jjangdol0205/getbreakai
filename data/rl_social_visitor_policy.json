@@ -1,0 +1,74 @@
+{
+  "updated_at_kst": "2026-11-05 09:00:09 KST",
+  "division": "1사업부",
+  "domain": "truthofmarket.com",
+  "website_visitors": {
+    "uv_today": 0,
+    "pv_today": 0,
+    "uv_yesterday": 0,
+    "uv_total": 0,
+    "pv_total": 0
+  },
+  "youtube_shorts": {
+    "handle": "@rightsidealpha",
+    "uploaded_count": 4,
+    "total_views": 6,
+    "total_likes": 0,
+    "top_video": {
+      "videoId": "xo4G1OgSZaI",
+      "title": "Semiconductor Fear & Greed Just Hit 18 (Extreme Fear) — The 80/20 Secret  #semiconductors #nvda #smh",
+      "views": 2,
+      "likes": 0
+    }
+  },
+  "instagram_reels": {
+    "handle": "@rightsidealpha",
+    "followers": 0,
+    "posts": 0,
+    "recent_views": 0,
+    "status": "manychat_webhook_active"
+  },
+  "rl_champion_arm": {
+    "id": "semi_fear_greed_barbell",
+    "name": "반도체 공포탐욕지수 18 & SMH:XLV 80:20 바벨 훅",
+    "views": 0,
+    "likes": 0,
+    "reward": 0.0,
+    "ucb1_score": 21.46
+  },
+  "all_arms": [
+    {
+      "id": "semi_fear_greed_barbell",
+      "name": "반도체 공포탐욕지수 18 & SMH:XLV 80:20 바벨 훅",
+      "views": 0,
+      "likes": 0,
+      "reward": 0.0,
+      "ucb1_score": 21.46
+    },
+    {
+      "id": "backtest_26yr_349x",
+      "name": "26년 126종목 백테스트 349배 수익 검증 훅",
+      "views": 0,
+      "likes": 0,
+      "reward": 0.0,
+      "ucb1_score": 21.46
+    },
+    {
+      "id": "stop_loss_9pct",
+      "name": "-9% 칼손절 vs -70% 비자발적 장기투자 훅",
+      "views": 2,
+      "likes": 0,
+      "reward": 2.0,
+      "ucb1_score": 16.17
+    },
+    {
+      "id": "dip_trap_vs_ignition",
+      "name": "폭락장 물타기 함정 vs 월가 우측 돌파(MA60) 훅",
+      "views": 0,
+      "likes": 0,
+      "reward": 0.0,
+      "ucb1_score": 15.17
+    }
+  ],
+  "self_improvement_directive": "승리 훅 [반도체 공포탐욕지수 18 & SMH:XLV 80:20 바벨 훅] (UCB1=21.46) 패턴을 다음 에피소드 제목·첫 3초 자막 및 유튜브 고정댓글/인스타 매니챗 캡션 최상단에 가중 배치 완료"
+}

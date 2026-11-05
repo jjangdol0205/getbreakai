@@ -57,20 +57,28 @@ export function renderScreenerControls(state) {
 export function renderStockTable(state) {
   const t = state.t;
 
+  const renderSortTh = (col, label, isNum = false) => {
+    const isAct = state.sortCol === col;
+    const chevron = isAct ? (state.sortAsc ? "▲" : "▼") : "↕";
+    const actClass = isAct ? `sort-active ${state.sortAsc ? "sort-asc" : "sort-desc"}` : "";
+    const numClass = isNum ? "col-num" : "";
+    return `<th data-sort="${col}" data-base-label="${label}" class="sort-header ${actClass} ${numClass}">${label} <span class="sort-chevron ${isAct ? "" : "muted"}">${chevron}</span></th>`;
+  };
+
   return `
     <div class="table-wrap">
       <table class="stock-table" id="stockTable">
         <thead>
           <tr>
-            <th data-sort="ticker" class="sort-header">${t.colTicker} ↕</th>
-            <th data-sort="zone_code" class="sort-header">${t.colZone} ↕</th>
-            <th data-sort="score" class="sort-header">${t.colScore} ↕</th>
-            <th data-sort="close" class="sort-header">${t.colClose} ↕</th>
-            <th data-sort="prox_low52_pct" class="sort-header">${t.colProx} ↕</th>
-            <th data-sort="dd_high52_pct" class="sort-header">${t.colDD} ↕</th>
-            <th data-sort="vs_ma20_pct" class="sort-header">${t.colMA} ↕</th>
-            <th data-sort="vol_surge_10d" class="sort-header">${t.colVol} ↕</th>
-            <th data-sort="hist_2x_rate" class="sort-header">${t.colHist} ↕</th>
+            ${renderSortTh("ticker", t.colTicker, false)}
+            ${renderSortTh("zone_code", t.colZone, false)}
+            ${renderSortTh("score", t.colScore, true)}
+            ${renderSortTh("close", t.colClose, true)}
+            ${renderSortTh("prox_low52_pct", t.colProx, true)}
+            ${renderSortTh("dd_high52_pct", t.colDD, true)}
+            ${renderSortTh("vs_ma20_pct", t.colMA, true)}
+            ${renderSortTh("vol_surge_10d", t.colVol, true)}
+            ${renderSortTh("hist_2x_rate", t.colHist, true)}
             <th>${t.colTrigger}</th>
             <th>${t.colActions}</th>
           </tr>
@@ -188,13 +196,14 @@ export function renderStockRows(state) {
           ? `<div class="mono btn-unlock-row" style="font-weight:700; color:#fbbf24; cursor:pointer;" title="Unlock Pro to reveal Last Close & 52W Range">🔒 VIP PRICE</div>
              <div style="font-size:0.68rem; color:var(--muted); margin-top:3px;">52W Range Locked</div>`
           : `<div class="mono" style="font-weight:700; color:#ffffff;" title="Latest Close Date: ${s.date || "2026-10-30"}">$${closeVal.toFixed(2)}</div>
-             <div class="range-52w-wrap" title="52W Range: $${low52.toFixed(2)} – $${high52.toFixed(2)}">
+             <div class="range-52w-wrap" title="52W Range: $${low52.toFixed(2)} – $${high52.toFixed(2)} | Current: $${closeVal.toFixed(2)}">
                <div class="range-52w-track">
-                 <div class="range-52w-fill" style="width:${rangePct}%;"></div>
+                 <div class="range-52w-pin" style="left:${rangePct}%;"></div>
                </div>
                <div class="range-52w-labels">
-                 <span>L:$${low52.toFixed(0)}</span>
-                 <span>H:$${high52.toFixed(0)}</span>
+                 <span>$${low52.toFixed(0)}</span>
+                 <span class="range-52w-curr">${rangePct}%</span>
+                 <span>$${high52.toFixed(0)}</span>
                </div>
              </div>`;
 
@@ -212,34 +221,34 @@ export function renderStockRows(state) {
             <span class="cond-chip ${(s.c4_vol_or_mom ?? s.c4_vol_washout) ? "pass" : ""}" title="10D Volume Washout >= 1.3x">VOL</span>
           </div>
         </td>
-        <td>
-          <div style="display:flex; align-items:center;">
-            <span class="mono" style="font-weight:800; font-size:0.9rem; width:26px;">${Number(s.score ?? 0)}</span>
+        <td class="col-num">
+          <div style="display:flex; align-items:center; justify-content:flex-end; gap:6px;">
             <div class="score-bar">
               <div class="score-fill" style="width:${Number(s.score ?? 0)}%; background:${
                 s.score >= 80 ? "var(--fin-up)" : s.score >= 55 ? "var(--fin-amber)" : "var(--fin-down)"
               };"></div>
             </div>
+            <span class="mono" style="font-weight:800; font-size:0.9rem; width:26px; text-align:right;">${Number(s.score ?? 0)}</span>
           </div>
         </td>
-        <td>
+        <td class="col-num">
           ${closeCellHtml}
         </td>
-        <td class="mono" style="color:${s.prox_low52_pct <= 40 && s.prox_low52_pct >= 10 ? "var(--fin-up)" : "var(--text-secondary)"}; font-weight:600;">
+        <td class="mono col-num" style="color:${s.prox_low52_pct <= 40 && s.prox_low52_pct >= 10 ? "var(--fin-up)" : "var(--text-secondary)"}; font-weight:600;">
           +${Number(s.prox_low52_pct ?? 0).toFixed(1)}%
         </td>
-        <td class="mono" style="color:var(--fin-down); font-weight:600;">
+        <td class="mono col-num" style="color:var(--fin-down); font-weight:600;">
           ${Number(s.dd_high52_pct ?? 0).toFixed(1)}%
         </td>
-        <td class="mono">
+        <td class="mono col-num">
           <span style="color:${ma20Color}; font-weight:600;">${Number(s.vs_ma20_pct ?? 0) >= 0 ? "+" : ""}${Number(s.vs_ma20_pct ?? 0).toFixed(1)}%</span>
           <span style="color:var(--muted);"> / </span>
           <span style="color:${ma60Color}; font-weight:600;">${Number(s.vs_ma60_pct ?? 0) >= 0 ? "+" : ""}${Number(s.vs_ma60_pct ?? 0).toFixed(1)}%</span>
         </td>
-        <td class="mono" style="color:${volColor}; font-weight:700;">
+        <td class="mono col-num" style="color:${volColor}; font-weight:700;">
           ${Number(s.vol_surge_10d ?? 1.0).toFixed(2)}x
         </td>
-        <td class="mono" style="font-weight:700; color:${s.hist_2x_rate >= 40 ? "var(--fin-up)" : "var(--text-secondary)"};">
+        <td class="mono col-num" style="font-weight:700; color:${s.hist_2x_rate >= 40 ? "var(--fin-up)" : "var(--text-secondary)"};">
           ${Number(s.hist_2x_rate ?? 0).toFixed(1)}%
         </td>
         <td>${triggerHtml}</td>

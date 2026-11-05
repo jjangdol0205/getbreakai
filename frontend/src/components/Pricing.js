@@ -123,79 +123,121 @@ export function renderPricing(state) {
   const directTvUrl = `https://www.tradingview.com/?aff_id=${tvAffId}`;
   const directSaUrl = `https://seekingalpha.com/symbol/SPY/earnings?source=${saSource}`;
 
+  const checkSvg = `
+    <span class="price-check">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+    </span>
+  `;
+
   return `
-    <section class="pricing-grid" id="pricingSection">
-      <!-- Tier 1: Pro Monthly -->
-      <div class="price-card featured">
-        <div>
-          <span class="badge badge-ignition">${c.t1Badge}</span>
-          <h3 style="font-size:1.12rem; font-weight:800; margin-top:10px; color:#ffffff;">
-            ${c.t1Title}
-          </h3>
-          <div class="price-num">$29 <span style="font-size:0.82rem; color:var(--muted); font-family:var(--font-sans); font-weight:500;">${c.t1Period}</span></div>
-          <ul class="price-list">
-            ${c.t1Items.map((item) => `<li><span>—</span> <span>${item}</span></li>`).join("")}
-          </ul>
+    <div id="pricingSection">
+      <div class="pricing-grid">
+        <!-- Tier 1: Pro Monthly -->
+        <div class="price-card featured">
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+              <span class="badge badge-ignition">${c.t1Badge}</span>
+              <span class="badge price-badge-popular">POPULAR</span>
+            </div>
+            <h3 style="font-size:1.12rem; font-weight:800; margin-top:10px; color:#ffffff;">
+              ${c.t1Title}
+            </h3>
+            <div class="price-num">$29 <span style="font-size:0.82rem; color:var(--muted); font-family:var(--font-sans); font-weight:500;">${c.t1Period}</span></div>
+            <div class="price-subtext">Billed monthly · Cancel anytime with 1 click</div>
+            <ul class="price-list">
+              ${c.t1Items.map((item) => `<li>${checkSvg}<span>${item}</span></li>`).join("")}
+            </ul>
+          </div>
+          <a class="btn btn-primary lemonsqueezy-button" id="cardMonthlyBtn" href="${lsMonthly}" target="_blank" rel="noopener noreferrer" style="justify-content:center; padding:10px;">
+            ${c.t1Btn}
+          </a>
         </div>
-        <a class="btn btn-primary lemonsqueezy-button" id="cardMonthlyBtn" href="${lsMonthly}" target="_blank" rel="noopener noreferrer" style="justify-content:center; padding:10px;">
-          ${c.t1Btn}
-        </a>
-      </div>
 
-      <!-- Tier 2: Lifetime Pass -->
-      <div class="price-card">
-        <div>
-          <span class="badge badge-watch">${c.t2Badge}</span>
-          <h3 style="font-size:1.12rem; font-weight:800; margin-top:10px; color:#ffffff;">
-            ${c.t2Title}
-          </h3>
-          <div class="price-num">$199 <span style="font-size:0.82rem; color:var(--muted); font-family:var(--font-sans); font-weight:500;">${c.t2Period}</span></div>
-          <ul class="price-list">
-            ${c.t2Items.map((item) => `<li><span>—</span> <span>${item}</span></li>`).join("")}
-          </ul>
+        <!-- Tier 2: Lifetime Pass -->
+        <div class="price-card best-value">
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+              <span class="badge badge-watch">${c.t2Badge}</span>
+              <span class="badge price-badge-lifetime">BEST VALUE · SAVE 43%</span>
+            </div>
+            <h3 style="font-size:1.12rem; font-weight:800; margin-top:10px; color:#ffffff;">
+              ${c.t2Title}
+            </h3>
+            <div class="price-num">$199 <span style="font-size:0.82rem; color:var(--muted); font-family:var(--font-sans); font-weight:500;">${c.t2Period}</span></div>
+            <div class="price-subtext">One-time payment · Instant permanent license delivery</div>
+            <div class="price-savings-pill">⚡ Breakeven in 6.8 Months vs $29/mo ($199 vs $348/yr) · 100% Free Thereafter</div>
+            <ul class="price-list">
+              ${c.t2Items.map((item) => `<li>${checkSvg}<span>${item}</span></li>`).join("")}
+            </ul>
+          </div>
+          <a class="btn btn-emerald lemonsqueezy-button" id="cardLtdBtn" href="${lsLtd}" target="_blank" rel="noopener noreferrer" style="justify-content:center; padding:10px;">
+            ${c.t2Btn}
+          </a>
         </div>
-        <a class="btn btn-emerald lemonsqueezy-button" id="cardLtdBtn" href="${lsLtd}" target="_blank" rel="noopener noreferrer" style="justify-content:center; padding:10px;">
-          ${c.t2Btn}
-        </a>
-      </div>
 
-      <!-- Tier 3: Institutional Charting, Consensus & Broker/Exchange Partners -->
-      <div class="price-card">
-        <div>
-          <span class="badge" style="background:rgba(41,98,255,0.14); color:#93c5fd; border:1px solid rgba(41,98,255,0.3);">${c.t3Badge}</span>
-          <h3 style="font-size:1.12rem; font-weight:800; margin-top:10px; color:#ffffff;">
-            ${c.t3Title}
-          </h3>
-          <p style="color:var(--muted); font-size:0.8rem; margin-top:8px; line-height:1.5;">
-            ${c.t3Desc}
-          </p>
-          <ul class="price-list">
-            ${c.t3Items.map((item) => `<li><span>—</span> <span>${item}</span></li>`).join("")}
-          </ul>
-        </div>
-        <div style="display:flex; flex-direction:column; gap:7px;">
-          <a class="btn" id="affTvBtn" href="${directTvUrl}" target="_blank" rel="noopener noreferrer" style="justify-content:center;">
-            ${c.tvBtn}
-          </a>
-          <a class="btn" id="affSaBtn" href="${directSaUrl}" target="_blank" rel="noopener noreferrer" style="justify-content:center;">
-            ${c.saBtn}
-          </a>
-          <a class="btn" id="affBrokerBtn" href="${rawBrkUrl}" target="_blank" rel="noopener noreferrer" style="justify-content:center; border-color:rgba(16,185,129,0.45); color:#34d399; font-weight:700;">
-            ${c.brokerBtn} (${brokerName})
-          </a>
-          <a class="btn ${state.isProUnlocked ? "" : "btn-gated-vip-tg"}" id="pricingTelegramChannelBtn" href="${getVipTelegramUrl(state.isProUnlocked)}" ${state.isProUnlocked ? 'target="_blank" rel="noopener noreferrer"' : ""} style="justify-content:center; border-color:rgba(56,189,248,0.45); color:#38bdf8; font-weight:700;">
-            ${state.isProUnlocked ? "👑 Enter Pro VIP Telegram Channel ↗" : c.tgBtn}
-          </a>
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
-            <a class="btn" id="pricingYoutubeBtn" href="${cfg.youtube_url || "https://youtube.com/@rightsidealpha"}" target="_blank" rel="noopener noreferrer" style="justify-content:center; border-color:rgba(239,68,68,0.4); color:#fca5a5;">
-              📺 YouTube (@rightsidealpha) ↗
+        <!-- Tier 3: Institutional Charting, Consensus & Broker/Exchange Partners -->
+        <div class="price-card">
+          <div>
+            <span class="badge" style="background:rgba(41,98,255,0.14); color:#93c5fd; border:1px solid rgba(41,98,255,0.3);">${c.t3Badge}</span>
+            <h3 style="font-size:1.12rem; font-weight:800; margin-top:10px; color:#ffffff;">
+              ${c.t3Title}
+            </h3>
+            <p style="color:var(--muted); font-size:0.8rem; margin-top:8px; line-height:1.5;">
+              ${c.t3Desc}
+            </p>
+            <ul class="price-list">
+              ${c.t3Items.map((item) => `<li>${checkSvg}<span>${item}</span></li>`).join("")}
+            </ul>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:7px;">
+            <a class="btn" id="affTvBtn" href="${directTvUrl}" target="_blank" rel="noopener noreferrer" style="justify-content:center;">
+              ${c.tvBtn}
             </a>
-            <a class="btn" id="pricingInstagramBtn" href="${cfg.instagram_url || "https://www.instagram.com/rightsidealpha"}" target="_blank" rel="noopener noreferrer" style="justify-content:center; border-color:rgba(236,72,153,0.4); color:#f9a8d4;">
-              📸 Instagram (@rightsidealpha) ↗
+            <a class="btn" id="affSaBtn" href="${directSaUrl}" target="_blank" rel="noopener noreferrer" style="justify-content:center;">
+              ${c.saBtn}
             </a>
+            <a class="btn" id="affBrokerBtn" href="${rawBrkUrl}" target="_blank" rel="noopener noreferrer" style="justify-content:center; border-color:rgba(16,185,129,0.45); color:#34d399; font-weight:700;">
+              ${c.brokerBtn} (${brokerName})
+            </a>
+            <a class="btn ${state.isProUnlocked ? "" : "btn-gated-vip-tg"}" id="pricingTelegramChannelBtn" href="${getVipTelegramUrl(state.isProUnlocked)}" ${state.isProUnlocked ? 'target="_blank" rel="noopener noreferrer"' : ""} style="justify-content:center; border-color:rgba(56,189,248,0.45); color:#38bdf8; font-weight:700;">
+              ${state.isProUnlocked ? "👑 Enter Pro VIP Telegram Channel ↗" : c.tgBtn}
+            </a>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+              <a class="btn" id="pricingYoutubeBtn" href="${cfg.youtube_url || "https://youtube.com/@rightsidealpha"}" target="_blank" rel="noopener noreferrer" style="justify-content:center; border-color:rgba(239,68,68,0.4); color:#fca5a5;">
+                📺 YouTube (@rightsidealpha) ↗
+              </a>
+              <a class="btn" id="pricingInstagramBtn" href="${cfg.instagram_url || "https://www.instagram.com/rightsidealpha"}" target="_blank" rel="noopener noreferrer" style="justify-content:center; border-color:rgba(236,72,153,0.4); color:#f9a8d4;">
+                📸 Instagram (@rightsidealpha) ↗
+              </a>
+            </div>
           </div>
         </div>
       </div>
-    </section>
+
+      <!-- Trust & Security Micro-Ribbon (Lemon Squeezy PCI-DSS & Instant Key Delivery) -->
+      <div class="pricing-trust-ribbon">
+        <div class="trust-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+          <span>Merchant of Record: <b>Lemon Squeezy, LLC</b></span>
+        </div>
+        <div class="trust-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+          <span>256-Bit SSL Encrypted Checkout</span>
+        </div>
+        <div class="trust-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <span>Instant Key Delivery &amp; VAT Invoicing</span>
+        </div>
+      </div>
+    </div>
   `;
 }

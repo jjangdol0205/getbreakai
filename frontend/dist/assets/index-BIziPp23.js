@@ -1918,49 +1918,49 @@ function renderHeader(state) {
             <span id="btnLicense">${t.btnLicense}</span>
           </button>
 
-          <a
-            class="btn"
-            id="headerYoutubeLink"
-            href="${ytUrl}"
-            target="_blank"
-            rel="noopener noreferrer"
-            title="Official YouTube (@rightsidealpha)"
-            style="border-color:rgba(239,68,68,0.4); color:#fca5a5;"
-          >
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/>
-            </svg>
-            <span>YouTube</span>
-          </a>
+          <div class="social-icon-cluster" aria-label="Official Social Channels">
+            <a
+              class="btn social-btn yt"
+              id="headerYoutubeLink"
+              href="${ytUrl}"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Official YouTube (@rightsidealpha)"
+              aria-label="Official YouTube"
+            >
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/>
+              </svg>
+            </a>
 
-          <a
-            class="btn"
-            id="headerInstagramLink"
-            href="${igUrl}"
-            target="_blank"
-            rel="noopener noreferrer"
-            title="Official Instagram (@rightsidealpha)"
-            style="border-color:rgba(236,72,153,0.4); color:#f9a8d4;"
-          >
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-            </svg>
-            <span>Instagram</span>
-          </a>
+            <a
+              class="btn social-btn ig"
+              id="headerInstagramLink"
+              href="${igUrl}"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Official Instagram (@rightsidealpha)"
+              aria-label="Official Instagram"
+            >
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
+            </a>
 
-          <a
-            class="btn"
-            id="headerXLink"
-            href="${xUrl}"
-            target="_blank"
-            rel="noopener noreferrer"
-            title="Official X (@rightsidealpha)"
-            style="border-color:rgba(148,163,184,0.4); color:#e2e8f0;"
-          >
-            <span>𝕏</span>
-          </a>
+            <a
+              class="btn social-btn x"
+              id="headerXLink"
+              href="${xUrl}"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Official X (@rightsidealpha)"
+              aria-label="Official X"
+            >
+              <span style="font-weight:700; font-size:0.8rem;">𝕏</span>
+            </a>
+          </div>
 
           <a
             class="btn ${isPro ? "" : "btn-gated-vip-tg"}"
@@ -2092,45 +2092,45 @@ function renderProofCard(state) {
           <thead>
             <tr>
               <th>${t.th_arch}</th>
-              <th>${t.th_2x}</th>
-              <th>${t.th_med}</th>
-              <th>${t.th_mdd}</th>
-              <th>${t.th_dead}</th>
-              <th>${t.th_trap}</th>
+              <th class="col-num">${t.th_2x}</th>
+              <th class="col-num">${t.th_med}</th>
+              <th class="col-num">${t.th_mdd}</th>
+              <th class="col-num">${t.th_dead}</th>
+              <th class="col-num">${t.th_trap}</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td style="font-family:var(--font-sans); color:var(--text-secondary);">0. Market Random Entry Baseline</td>
-              <td>18.20%</td>
-              <td>+13.24%</td>
-              <td>-19.35%</td>
-              <td>74.0d</td>
-              <td>19.20%</td>
+              <td class="col-num">18.20%</td>
+              <td class="col-num">+13.24%</td>
+              <td class="col-num">-19.35%</td>
+              <td class="col-num">74.0d</td>
+              <td class="col-num">19.20%</td>
             </tr>
             <tr>
               <td style="font-family:var(--font-sans); color:var(--fin-down);">1. Blind 52-Week Low Dip Buy (+0–10% off low, below MA20)</td>
-              <td>28.91%</td>
-              <td>+20.56%</td>
-              <td style="color:var(--fin-down);">-30.31%</td>
-              <td style="color:var(--fin-down);">81.0d</td>
-              <td style="color:var(--fin-down);">25.54%</td>
+              <td class="col-num">28.91%</td>
+              <td class="col-num">+20.56%</td>
+              <td class="col-num" style="color:var(--fin-down);">-30.31%</td>
+              <td class="col-num" style="color:var(--fin-down);">81.0d</td>
+              <td class="col-num" style="color:var(--fin-down);">25.54%</td>
             </tr>
             <tr>
               <td style="font-family:var(--font-sans); color:var(--text-secondary);">2. 52-Week Low + Earnings Filter (Left-Side Entry)</td>
-              <td>30.06%</td>
-              <td>+24.28%</td>
-              <td>-29.85%</td>
-              <td>81.0d</td>
-              <td>24.82%</td>
+              <td class="col-num">30.06%</td>
+              <td class="col-num">+24.28%</td>
+              <td class="col-num">-29.85%</td>
+              <td class="col-num">81.0d</td>
+              <td class="col-num">24.82%</td>
             </tr>
             <tr class="proof-highlight">
               <td style="font-family:var(--font-sans);">3. PW-RSI Right-Side Ignition (+14–35% off low + MA20/60 Breakout + 1.40x Vol + 55D Time-Stop)</td>
-              <td style="color:var(--fin-up);">55.24%</td>
-              <td style="color:var(--fin-up);">+80.47% (Mean +109.1%)</td>
-              <td style="color:var(--fin-up);">-16.49%</td>
-              <td style="color:var(--fin-up);">29.0d</td>
-              <td style="color:var(--fin-up);">0.93%</td>
+              <td class="col-num" style="color:var(--fin-up);">55.24%</td>
+              <td class="col-num" style="color:var(--fin-up);">+80.47% (Mean +109.1%)</td>
+              <td class="col-num" style="color:var(--fin-up);">-16.49%</td>
+              <td class="col-num" style="color:var(--fin-up);">29.0d</td>
+              <td class="col-num" style="color:var(--fin-up);">0.93%</td>
             </tr>
           </tbody>
         </table>
@@ -2199,20 +2199,28 @@ function renderScreenerControls(state) {
 function renderStockTable(state) {
   const t = state.t;
 
+  const renderSortTh = (col, label, isNum = false) => {
+    const isAct = state.sortCol === col;
+    const chevron = isAct ? (state.sortAsc ? "▲" : "▼") : "↕";
+    const actClass = isAct ? `sort-active ${state.sortAsc ? "sort-asc" : "sort-desc"}` : "";
+    const numClass = isNum ? "col-num" : "";
+    return `<th data-sort="${col}" data-base-label="${label}" class="sort-header ${actClass} ${numClass}">${label} <span class="sort-chevron ${isAct ? "" : "muted"}">${chevron}</span></th>`;
+  };
+
   return `
     <div class="table-wrap">
       <table class="stock-table" id="stockTable">
         <thead>
           <tr>
-            <th data-sort="ticker" class="sort-header">${t.colTicker} ↕</th>
-            <th data-sort="zone_code" class="sort-header">${t.colZone} ↕</th>
-            <th data-sort="score" class="sort-header">${t.colScore} ↕</th>
-            <th data-sort="close" class="sort-header">${t.colClose} ↕</th>
-            <th data-sort="prox_low52_pct" class="sort-header">${t.colProx} ↕</th>
-            <th data-sort="dd_high52_pct" class="sort-header">${t.colDD} ↕</th>
-            <th data-sort="vs_ma20_pct" class="sort-header">${t.colMA} ↕</th>
-            <th data-sort="vol_surge_10d" class="sort-header">${t.colVol} ↕</th>
-            <th data-sort="hist_2x_rate" class="sort-header">${t.colHist} ↕</th>
+            ${renderSortTh("ticker", t.colTicker, false)}
+            ${renderSortTh("zone_code", t.colZone, false)}
+            ${renderSortTh("score", t.colScore, true)}
+            ${renderSortTh("close", t.colClose, true)}
+            ${renderSortTh("prox_low52_pct", t.colProx, true)}
+            ${renderSortTh("dd_high52_pct", t.colDD, true)}
+            ${renderSortTh("vs_ma20_pct", t.colMA, true)}
+            ${renderSortTh("vol_surge_10d", t.colVol, true)}
+            ${renderSortTh("hist_2x_rate", t.colHist, true)}
             <th>${t.colTrigger}</th>
             <th>${t.colActions}</th>
           </tr>
@@ -2329,13 +2337,14 @@ function renderStockRows(state) {
           ? `<div class="mono btn-unlock-row" style="font-weight:700; color:#fbbf24; cursor:pointer;" title="Unlock Pro to reveal Last Close & 52W Range">🔒 VIP PRICE</div>
              <div style="font-size:0.68rem; color:var(--muted); margin-top:3px;">52W Range Locked</div>`
           : `<div class="mono" style="font-weight:700; color:#ffffff;" title="Latest Close Date: ${s.date || "2026-10-30"}">$${closeVal.toFixed(2)}</div>
-             <div class="range-52w-wrap" title="52W Range: $${low52.toFixed(2)} – $${high52.toFixed(2)}">
+             <div class="range-52w-wrap" title="52W Range: $${low52.toFixed(2)} – $${high52.toFixed(2)} | Current: $${closeVal.toFixed(2)}">
                <div class="range-52w-track">
-                 <div class="range-52w-fill" style="width:${rangePct}%;"></div>
+                 <div class="range-52w-pin" style="left:${rangePct}%;"></div>
                </div>
                <div class="range-52w-labels">
-                 <span>L:$${low52.toFixed(0)}</span>
-                 <span>H:$${high52.toFixed(0)}</span>
+                 <span>$${low52.toFixed(0)}</span>
+                 <span class="range-52w-curr">${rangePct}%</span>
+                 <span>$${high52.toFixed(0)}</span>
                </div>
              </div>`;
 
@@ -2353,34 +2362,34 @@ function renderStockRows(state) {
             <span class="cond-chip ${(s.c4_vol_or_mom ?? s.c4_vol_washout) ? "pass" : ""}" title="10D Volume Washout >= 1.3x">VOL</span>
           </div>
         </td>
-        <td>
-          <div style="display:flex; align-items:center;">
-            <span class="mono" style="font-weight:800; font-size:0.9rem; width:26px;">${Number(s.score ?? 0)}</span>
+        <td class="col-num">
+          <div style="display:flex; align-items:center; justify-content:flex-end; gap:6px;">
             <div class="score-bar">
               <div class="score-fill" style="width:${Number(s.score ?? 0)}%; background:${
                 s.score >= 80 ? "var(--fin-up)" : s.score >= 55 ? "var(--fin-amber)" : "var(--fin-down)"
               };"></div>
             </div>
+            <span class="mono" style="font-weight:800; font-size:0.9rem; width:26px; text-align:right;">${Number(s.score ?? 0)}</span>
           </div>
         </td>
-        <td>
+        <td class="col-num">
           ${closeCellHtml}
         </td>
-        <td class="mono" style="color:${s.prox_low52_pct <= 40 && s.prox_low52_pct >= 10 ? "var(--fin-up)" : "var(--text-secondary)"}; font-weight:600;">
+        <td class="mono col-num" style="color:${s.prox_low52_pct <= 40 && s.prox_low52_pct >= 10 ? "var(--fin-up)" : "var(--text-secondary)"}; font-weight:600;">
           +${Number(s.prox_low52_pct ?? 0).toFixed(1)}%
         </td>
-        <td class="mono" style="color:var(--fin-down); font-weight:600;">
+        <td class="mono col-num" style="color:var(--fin-down); font-weight:600;">
           ${Number(s.dd_high52_pct ?? 0).toFixed(1)}%
         </td>
-        <td class="mono">
+        <td class="mono col-num">
           <span style="color:${ma20Color}; font-weight:600;">${Number(s.vs_ma20_pct ?? 0) >= 0 ? "+" : ""}${Number(s.vs_ma20_pct ?? 0).toFixed(1)}%</span>
           <span style="color:var(--muted);"> / </span>
           <span style="color:${ma60Color}; font-weight:600;">${Number(s.vs_ma60_pct ?? 0) >= 0 ? "+" : ""}${Number(s.vs_ma60_pct ?? 0).toFixed(1)}%</span>
         </td>
-        <td class="mono" style="color:${volColor}; font-weight:700;">
+        <td class="mono col-num" style="color:${volColor}; font-weight:700;">
           ${Number(s.vol_surge_10d ?? 1.0).toFixed(2)}x
         </td>
-        <td class="mono" style="font-weight:700; color:${s.hist_2x_rate >= 40 ? "var(--fin-up)" : "var(--text-secondary)"};">
+        <td class="mono col-num" style="font-weight:700; color:${s.hist_2x_rate >= 40 ? "var(--fin-up)" : "var(--text-secondary)"};">
           ${Number(s.hist_2x_rate ?? 0).toFixed(1)}%
         </td>
         <td>${triggerHtml}</td>
@@ -2785,80 +2794,122 @@ function renderPricing(state) {
   const directTvUrl = `https://www.tradingview.com/?aff_id=${tvAffId}`;
   const directSaUrl = `https://seekingalpha.com/symbol/SPY/earnings?source=${saSource}`;
 
+  const checkSvg = `
+    <span class="price-check">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+    </span>
+  `;
+
   return `
-    <section class="pricing-grid" id="pricingSection">
-      <!-- Tier 1: Pro Monthly -->
-      <div class="price-card featured">
-        <div>
-          <span class="badge badge-ignition">${c.t1Badge}</span>
-          <h3 style="font-size:1.12rem; font-weight:800; margin-top:10px; color:#ffffff;">
-            ${c.t1Title}
-          </h3>
-          <div class="price-num">$29 <span style="font-size:0.82rem; color:var(--muted); font-family:var(--font-sans); font-weight:500;">${c.t1Period}</span></div>
-          <ul class="price-list">
-            ${c.t1Items.map((item) => `<li><span>—</span> <span>${item}</span></li>`).join("")}
-          </ul>
+    <div id="pricingSection">
+      <div class="pricing-grid">
+        <!-- Tier 1: Pro Monthly -->
+        <div class="price-card featured">
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+              <span class="badge badge-ignition">${c.t1Badge}</span>
+              <span class="badge price-badge-popular">POPULAR</span>
+            </div>
+            <h3 style="font-size:1.12rem; font-weight:800; margin-top:10px; color:#ffffff;">
+              ${c.t1Title}
+            </h3>
+            <div class="price-num">$29 <span style="font-size:0.82rem; color:var(--muted); font-family:var(--font-sans); font-weight:500;">${c.t1Period}</span></div>
+            <div class="price-subtext">Billed monthly · Cancel anytime with 1 click</div>
+            <ul class="price-list">
+              ${c.t1Items.map((item) => `<li>${checkSvg}<span>${item}</span></li>`).join("")}
+            </ul>
+          </div>
+          <a class="btn btn-primary lemonsqueezy-button" id="cardMonthlyBtn" href="${lsMonthly}" target="_blank" rel="noopener noreferrer" style="justify-content:center; padding:10px;">
+            ${c.t1Btn}
+          </a>
         </div>
-        <a class="btn btn-primary lemonsqueezy-button" id="cardMonthlyBtn" href="${lsMonthly}" target="_blank" rel="noopener noreferrer" style="justify-content:center; padding:10px;">
-          ${c.t1Btn}
-        </a>
-      </div>
 
-      <!-- Tier 2: Lifetime Pass -->
-      <div class="price-card">
-        <div>
-          <span class="badge badge-watch">${c.t2Badge}</span>
-          <h3 style="font-size:1.12rem; font-weight:800; margin-top:10px; color:#ffffff;">
-            ${c.t2Title}
-          </h3>
-          <div class="price-num">$199 <span style="font-size:0.82rem; color:var(--muted); font-family:var(--font-sans); font-weight:500;">${c.t2Period}</span></div>
-          <ul class="price-list">
-            ${c.t2Items.map((item) => `<li><span>—</span> <span>${item}</span></li>`).join("")}
-          </ul>
+        <!-- Tier 2: Lifetime Pass -->
+        <div class="price-card best-value">
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+              <span class="badge badge-watch">${c.t2Badge}</span>
+              <span class="badge price-badge-lifetime">BEST VALUE · SAVE 43%</span>
+            </div>
+            <h3 style="font-size:1.12rem; font-weight:800; margin-top:10px; color:#ffffff;">
+              ${c.t2Title}
+            </h3>
+            <div class="price-num">$199 <span style="font-size:0.82rem; color:var(--muted); font-family:var(--font-sans); font-weight:500;">${c.t2Period}</span></div>
+            <div class="price-subtext">One-time payment · Instant permanent license delivery</div>
+            <div class="price-savings-pill">⚡ Breakeven in 6.8 Months vs $29/mo ($199 vs $348/yr) · 100% Free Thereafter</div>
+            <ul class="price-list">
+              ${c.t2Items.map((item) => `<li>${checkSvg}<span>${item}</span></li>`).join("")}
+            </ul>
+          </div>
+          <a class="btn btn-emerald lemonsqueezy-button" id="cardLtdBtn" href="${lsLtd}" target="_blank" rel="noopener noreferrer" style="justify-content:center; padding:10px;">
+            ${c.t2Btn}
+          </a>
         </div>
-        <a class="btn btn-emerald lemonsqueezy-button" id="cardLtdBtn" href="${lsLtd}" target="_blank" rel="noopener noreferrer" style="justify-content:center; padding:10px;">
-          ${c.t2Btn}
-        </a>
-      </div>
 
-      <!-- Tier 3: Institutional Charting, Consensus & Broker/Exchange Partners -->
-      <div class="price-card">
-        <div>
-          <span class="badge" style="background:rgba(41,98,255,0.14); color:#93c5fd; border:1px solid rgba(41,98,255,0.3);">${c.t3Badge}</span>
-          <h3 style="font-size:1.12rem; font-weight:800; margin-top:10px; color:#ffffff;">
-            ${c.t3Title}
-          </h3>
-          <p style="color:var(--muted); font-size:0.8rem; margin-top:8px; line-height:1.5;">
-            ${c.t3Desc}
-          </p>
-          <ul class="price-list">
-            ${c.t3Items.map((item) => `<li><span>—</span> <span>${item}</span></li>`).join("")}
-          </ul>
-        </div>
-        <div style="display:flex; flex-direction:column; gap:7px;">
-          <a class="btn" id="affTvBtn" href="${directTvUrl}" target="_blank" rel="noopener noreferrer" style="justify-content:center;">
-            ${c.tvBtn}
-          </a>
-          <a class="btn" id="affSaBtn" href="${directSaUrl}" target="_blank" rel="noopener noreferrer" style="justify-content:center;">
-            ${c.saBtn}
-          </a>
-          <a class="btn" id="affBrokerBtn" href="${rawBrkUrl}" target="_blank" rel="noopener noreferrer" style="justify-content:center; border-color:rgba(16,185,129,0.45); color:#34d399; font-weight:700;">
-            ${c.brokerBtn} (${brokerName})
-          </a>
-          <a class="btn ${state.isProUnlocked ? "" : "btn-gated-vip-tg"}" id="pricingTelegramChannelBtn" href="${getVipTelegramUrl(state.isProUnlocked)}" ${state.isProUnlocked ? 'target="_blank" rel="noopener noreferrer"' : ""} style="justify-content:center; border-color:rgba(56,189,248,0.45); color:#38bdf8; font-weight:700;">
-            ${state.isProUnlocked ? "👑 Enter Pro VIP Telegram Channel ↗" : c.tgBtn}
-          </a>
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
-            <a class="btn" id="pricingYoutubeBtn" href="${cfg.youtube_url || "https://youtube.com/@rightsidealpha"}" target="_blank" rel="noopener noreferrer" style="justify-content:center; border-color:rgba(239,68,68,0.4); color:#fca5a5;">
-              📺 YouTube (@rightsidealpha) ↗
+        <!-- Tier 3: Institutional Charting, Consensus & Broker/Exchange Partners -->
+        <div class="price-card">
+          <div>
+            <span class="badge" style="background:rgba(41,98,255,0.14); color:#93c5fd; border:1px solid rgba(41,98,255,0.3);">${c.t3Badge}</span>
+            <h3 style="font-size:1.12rem; font-weight:800; margin-top:10px; color:#ffffff;">
+              ${c.t3Title}
+            </h3>
+            <p style="color:var(--muted); font-size:0.8rem; margin-top:8px; line-height:1.5;">
+              ${c.t3Desc}
+            </p>
+            <ul class="price-list">
+              ${c.t3Items.map((item) => `<li>${checkSvg}<span>${item}</span></li>`).join("")}
+            </ul>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:7px;">
+            <a class="btn" id="affTvBtn" href="${directTvUrl}" target="_blank" rel="noopener noreferrer" style="justify-content:center;">
+              ${c.tvBtn}
             </a>
-            <a class="btn" id="pricingInstagramBtn" href="${cfg.instagram_url || "https://www.instagram.com/rightsidealpha"}" target="_blank" rel="noopener noreferrer" style="justify-content:center; border-color:rgba(236,72,153,0.4); color:#f9a8d4;">
-              📸 Instagram (@rightsidealpha) ↗
+            <a class="btn" id="affSaBtn" href="${directSaUrl}" target="_blank" rel="noopener noreferrer" style="justify-content:center;">
+              ${c.saBtn}
             </a>
+            <a class="btn" id="affBrokerBtn" href="${rawBrkUrl}" target="_blank" rel="noopener noreferrer" style="justify-content:center; border-color:rgba(16,185,129,0.45); color:#34d399; font-weight:700;">
+              ${c.brokerBtn} (${brokerName})
+            </a>
+            <a class="btn ${state.isProUnlocked ? "" : "btn-gated-vip-tg"}" id="pricingTelegramChannelBtn" href="${getVipTelegramUrl(state.isProUnlocked)}" ${state.isProUnlocked ? 'target="_blank" rel="noopener noreferrer"' : ""} style="justify-content:center; border-color:rgba(56,189,248,0.45); color:#38bdf8; font-weight:700;">
+              ${state.isProUnlocked ? "👑 Enter Pro VIP Telegram Channel ↗" : c.tgBtn}
+            </a>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+              <a class="btn" id="pricingYoutubeBtn" href="${cfg.youtube_url || "https://youtube.com/@rightsidealpha"}" target="_blank" rel="noopener noreferrer" style="justify-content:center; border-color:rgba(239,68,68,0.4); color:#fca5a5;">
+                📺 YouTube (@rightsidealpha) ↗
+              </a>
+              <a class="btn" id="pricingInstagramBtn" href="${cfg.instagram_url || "https://www.instagram.com/rightsidealpha"}" target="_blank" rel="noopener noreferrer" style="justify-content:center; border-color:rgba(236,72,153,0.4); color:#f9a8d4;">
+                📸 Instagram (@rightsidealpha) ↗
+              </a>
+            </div>
           </div>
         </div>
       </div>
-    </section>
+
+      <!-- Trust & Security Micro-Ribbon (Lemon Squeezy PCI-DSS & Instant Key Delivery) -->
+      <div class="pricing-trust-ribbon">
+        <div class="trust-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+          <span>Merchant of Record: <b>Lemon Squeezy, LLC</b></span>
+        </div>
+        <div class="trust-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+          <span>256-Bit SSL Encrypted Checkout</span>
+        </div>
+        <div class="trust-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <span>Instant Key Delivery &amp; VAT Invoicing</span>
+        </div>
+      </div>
+    </div>
   `;
 }
 
@@ -3229,13 +3280,13 @@ function renderCnnDialSvg(score, regimeLabel) {
   const cy = 200;
   const r = 146;
 
-  // 5 CNN segments along 180° (left=0) to 0° (right=100)
+  // 5 CNN segments along 180° (left=0) to 0° (right=100) with dark-mode harmonious muted tints
   const segments = [
-    { code: "EXTREME_FEAR", min: 0, max: 24, a1: 180, a2: 136.5, activeColor: "#d92d20", mutedColor: "#fecaca", label: "EXTREME FEAR", midAngle: 158 },
-    { code: "FEAR", min: 25, max: 44, a1: 134, a2: 100.5, activeColor: "#f79009", mutedColor: "#fed7aa", label: "FEAR", midAngle: 117 },
-    { code: "NEUTRAL", min: 45, max: 55, a1: 98, a2: 82, activeColor: "#667085", mutedColor: "#e5e7eb", label: "NEUTRAL", midAngle: 90 },
-    { code: "GREED", min: 56, max: 74, a1: 79.5, a2: 46, activeColor: "#12b76a", mutedColor: "#bbf7d0", label: "GREED", midAngle: 63 },
-    { code: "EXTREME_GREED", min: 75, max: 100, a1: 43.5, a2: 0, activeColor: "#027a48", mutedColor: "#a7f3d0", label: "EXTREME GREED", midAngle: 22 },
+    { code: "EXTREME_FEAR", min: 0, max: 24, a1: 180, a2: 136.5, activeColor: "#ef4444", mutedColor: "rgba(239,68,68,0.22)", label: "EXTREME FEAR", midAngle: 158 },
+    { code: "FEAR", min: 25, max: 44, a1: 134, a2: 100.5, activeColor: "#f59e0b", mutedColor: "rgba(245,158,11,0.22)", label: "FEAR", midAngle: 117 },
+    { code: "NEUTRAL", min: 45, max: 55, a1: 98, a2: 82, activeColor: "#94a3b8", mutedColor: "rgba(148,163,184,0.20)", label: "NEUTRAL", midAngle: 90 },
+    { code: "GREED", min: 56, max: 74, a1: 79.5, a2: 46, activeColor: "#10b981", mutedColor: "rgba(16,185,129,0.22)", label: "GREED", midAngle: 63 },
+    { code: "EXTREME_GREED", min: 75, max: 100, a1: 43.5, a2: 0, activeColor: "#059669", mutedColor: "rgba(5,150,105,0.22)", label: "EXTREME GREED", midAngle: 22 },
   ];
 
   let activeSeg = segments[0];
@@ -3254,7 +3305,7 @@ function renderCnnDialSvg(score, regimeLabel) {
       return `
         <path d="${d}" fill="none" stroke="${stroke}" stroke-width="${width}" stroke-linecap="butt" />
         <text x="${lp.x.toFixed(1)}" y="${lp.y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle"
-              fill="${isAct ? seg.activeColor : "#6b7280"}"
+              fill="${isAct ? seg.activeColor : "#64748b"}"
               font-size="${isAct ? "9.5" : "8.5"}" font-weight="${isAct ? "800" : "700"}" font-family="Inter, sans-serif">
           ${seg.label}
         </text>
@@ -3269,9 +3320,9 @@ function renderCnnDialSvg(score, regimeLabel) {
       const pIn = polarToCartesian(cx, cy, r - 24, ang);
       const pTxt = polarToCartesian(cx, cy, r - 35, ang);
       return `
-        <circle cx="${pIn.x.toFixed(1)}" cy="${pIn.y.toFixed(1)}" r="1.8" fill="#6b7280" />
+        <circle cx="${pIn.x.toFixed(1)}" cy="${pIn.y.toFixed(1)}" r="1.8" fill="#94a3b8" />
         <text x="${pTxt.x.toFixed(1)}" y="${pTxt.y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle"
-              fill="#4b5563" font-size="10" font-weight="700" font-family="JetBrains Mono, monospace">
+              fill="#94a3b8" font-size="10" font-weight="700" font-family="JetBrains Mono, monospace">
           ${tVal}
         </text>
       `;
@@ -3287,23 +3338,28 @@ function renderCnnDialSvg(score, regimeLabel) {
   return `
     <div style="display:flex; flex-direction:column; align-items:center;">
       <svg viewBox="0 0 460 250" style="width:100%; max-width:440px; height:auto; overflow:visible;">
+        <defs>
+          <filter id="needleShadow" x="-25%" y="-25%" width="150%" height="150%">
+            <feDropShadow dx="0" dy="2.5" stdDeviation="3" flood-color="#000000" flood-opacity="0.65" />
+          </filter>
+        </defs>
         ${arcsHtml}
         ${ticks}
-        <!-- Needle Polygon -->
+        <!-- Needle Polygon with Elevation Shadow -->
         <polygon points="${tip.x.toFixed(1)},${tip.y.toFixed(1)} ${baseLeft.x.toFixed(1)},${baseLeft.y.toFixed(1)} ${baseRight.x.toFixed(1)},${baseRight.y.toFixed(1)}"
-                 fill="#111827" />
-        <circle cx="${cx}" cy="${cy}" r="14" fill="#111827" />
-        <circle cx="${cx}" cy="${cy}" r="5" fill="#ffffff" />
+                 fill="#f8fafc" filter="url(#needleShadow)" />
+        <circle cx="${cx}" cy="${cy}" r="14" fill="#f8fafc" filter="url(#needleShadow)" />
+        <circle cx="${cx}" cy="${cy}" r="5" fill="#090e18" />
       </svg>
 
       <!-- Score & Active Emotion Callout below Needle Hub -->
       <div style="text-align:center; margin-top:-18px;">
-        <div style="display:inline-flex; align-items:baseline; gap:6px; background:#111827; color:#ffffff; padding:6px 20px; border-radius:30px; box-shadow:0 4px 12px rgba(0,0,0,0.12);">
+        <div style="display:inline-flex; align-items:baseline; gap:6px; background:#070b14; color:#ffffff; padding:6px 22px; border-radius:30px; border:1px solid var(--border); box-shadow:var(--shadow-md);">
           <span class="mono" style="font-size:2rem; font-weight:900; letter-spacing:-0.03em;">${Math.round(s)}</span>
           <span class="mono" style="font-size:0.9rem; color:#9ca3af; font-weight:600;">(${s.toFixed(1)} / 100)</span>
         </div>
         <div style="margin-top:8px;">
-          <span style="font-size:0.78rem; color:#4b5563; font-weight:600; text-transform:uppercase; letter-spacing:0.04em;">
+          <span style="font-size:0.78rem; color:var(--muted); font-weight:600; text-transform:uppercase; letter-spacing:0.04em;">
             Market Emotion is driving:
           </span>
           <span class="cnn-pill cnn-pill-${activeSeg.code}" style="margin-left:6px; font-size:0.85rem;">
@@ -3346,8 +3402,8 @@ function renderTimelineSvg(historyData, activeRange) {
   return `
     <div>
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:8px;">
-        <div style="font-size:0.8rem; font-weight:700; color:#374151;">
-          Historical Semiconductor Fear & Greed Index (${firstDate} → ${lastDate})
+        <div style="font-size:0.8rem; font-weight:700; color:var(--text);">
+          Historical Semiconductor Fear &amp; Greed Index (${firstDate} → ${lastDate})
         </div>
         <div style="display:flex; gap:4px;">
           ${["3M", "1Y", "3Y", "5Y", "10Y", "ALL"]
@@ -3355,9 +3411,9 @@ function renderTimelineSvg(historyData, activeRange) {
               (r) => `
             <button class="btn-semi-range" data-range="${r}"
                     style="padding:3px 9px; border-radius:4px; font-size:0.72rem; font-weight:700; cursor:pointer; border:1px solid ${
-                      activeRange === r ? "#111827" : "#d1d5db"
-                    }; background:${activeRange === r ? "#111827" : "#ffffff"}; color:${
-                activeRange === r ? "#ffffff" : "#374151"
+                      activeRange === r ? "var(--fin-blue)" : "var(--border)"
+                    }; background:${activeRange === r ? "#141c2e" : "#060911"}; color:${
+                activeRange === r ? "#ffffff" : "var(--muted)"
               };">
               ${r}
             </button>
@@ -3367,28 +3423,28 @@ function renderTimelineSvg(historyData, activeRange) {
         </div>
       </div>
 
-      <svg viewBox="0 0 ${w} ${h}" style="width:100%; height:auto; background:#f9fafb; border:1px solid #e5e7eb; border-radius:4px;">
+      <svg viewBox="0 0 ${w} ${h}" style="width:100%; height:auto; background:#060911; border:1px solid var(--border); border-radius:4px;">
         <!-- Extreme Greed Band (>75) -->
-        <rect x="${padL}" y="${padT}" width="${plotW}" height="${0.25 * plotH}" fill="rgba(16,185,129,0.08)" />
+        <rect x="${padL}" y="${padT}" width="${plotW}" height="${0.25 * plotH}" fill="rgba(16,185,129,0.12)" />
         <!-- Extreme Fear Band (<25) -->
-        <rect x="${padL}" y="${y25}" width="${plotW}" height="${0.25 * plotH}" fill="rgba(239,68,68,0.09)" />
+        <rect x="${padL}" y="${y25}" width="${plotW}" height="${0.25 * plotH}" fill="rgba(239,68,68,0.12)" />
 
         <!-- Reference Lines -->
         <line x1="${padL}" y1="${y75}" x2="${w - padR}" y2="${y75}" stroke="#10b981" stroke-dasharray="3,3" stroke-width="1" />
-        <line x1="${padL}" y1="${y50}" x2="${w - padR}" y2="${y50}" stroke="#9ca3af" stroke-dasharray="3,3" stroke-width="1" />
+        <line x1="${padL}" y1="${y50}" x2="${w - padR}" y2="${y50}" stroke="#64748b" stroke-dasharray="3,3" stroke-width="1" />
         <line x1="${padL}" y1="${y25}" x2="${w - padR}" y2="${y25}" stroke="#ef4444" stroke-dasharray="3,3" stroke-width="1" />
 
-        <text x="6" y="${y75}" fill="#047857" font-size="9.5" font-weight="700" dominant-baseline="middle">75</text>
-        <text x="6" y="${y50}" fill="#6b7280" font-size="9.5" font-weight="700" dominant-baseline="middle">50</text>
-        <text x="6" y="${y25}" fill="#b91c1c" font-size="9.5" font-weight="700" dominant-baseline="middle">25</text>
+        <text x="6" y="${y75}" fill="#34d399" font-size="9.5" font-weight="700" dominant-baseline="middle">75</text>
+        <text x="6" y="${y50}" fill="#94a3b8" font-size="9.5" font-weight="700" dominant-baseline="middle">50</text>
+        <text x="6" y="${y25}" fill="#f87171" font-size="9.5" font-weight="700" dominant-baseline="middle">25</text>
 
         <!-- FG Line -->
-        <polyline fill="none" stroke="#111827" stroke-width="1.8" points="${coords.join(" ")}" />
+        <polyline fill="none" stroke="#38bdf8" stroke-width="2" points="${coords.join(" ")}" />
 
-        <!-- X-Axis Dates -->
-        <text x="${padL}" y="${h - 8}" fill="#6b7280" font-size="9.5" font-family="JetBrains Mono, monospace">${firstDate}</text>
-        <text x="${padL + plotW / 2}" y="${h - 8}" fill="#6b7280" font-size="9.5" text-anchor="middle" font-family="JetBrains Mono, monospace">${midDate}</text>
-        <text x="${w - padR}" y="${h - 8}" fill="#6b7280" font-size="9.5" text-anchor="end" font-family="JetBrains Mono, monospace">${lastDate}</text>
+        <!-- X-Axis Dates with mobile overlap protection -->
+        <text x="${padL}" y="${h - 8}" fill="var(--muted)" font-size="9.5" font-family="JetBrains Mono, monospace">${firstDate}</text>
+        <text class="timeline-mid-date" x="${padL + plotW / 2}" y="${h - 8}" fill="var(--muted)" font-size="9.5" text-anchor="middle" font-family="JetBrains Mono, monospace">${midDate}</text>
+        <text x="${w - padR}" y="${h - 8}" fill="var(--muted)" font-size="9.5" text-anchor="end" font-family="JetBrains Mono, monospace">${lastDate}</text>
       </svg>
     </div>
   `;
@@ -3407,17 +3463,17 @@ function renderMiniSparkline(values, regimeCode) {
     .join(" ");
 
   const colorMap = {
-    EXTREME_FEAR: "#dc2626",
-    FEAR: "#ea580c",
-    NEUTRAL: "#4b5563",
-    GREED: "#16a34a",
+    EXTREME_FEAR: "#ef4444",
+    FEAR: "#f59e0b",
+    NEUTRAL: "#94a3b8",
+    GREED: "#10b981",
     EXTREME_GREED: "#059669",
   };
-  const stroke = colorMap[regimeCode] || "#111827";
+  const stroke = colorMap[regimeCode] || "#94a3b8";
 
   return `
-    <svg viewBox="0 0 ${w} ${h}" style="width:160px; height:40px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:4px;">
-      <line x1="0" y1="${h / 2}" x2="${w}" y2="${h / 2}" stroke="#e2e8f0" stroke-dasharray="2,2" stroke-width="1" />
+    <svg viewBox="0 0 ${w} ${h}" style="width:160px; height:40px; background:#060911; border:1px solid var(--border); border-radius:4px;">
+      <line x1="0" y1="${h / 2}" x2="${w}" y2="${h / 2}" stroke="#1e293b" stroke-dasharray="2,2" stroke-width="1" />
       <polyline fill="none" stroke="${stroke}" stroke-width="1.8" points="${coords}" />
     </svg>
   `;
@@ -3578,7 +3634,7 @@ function renderSemiFearGreedView(state) {
         <!-- RIGHT COLUMN: CNN 4-ROW HISTORICAL STACK + BARBELL SIGNAL -->
         <div class="cnn-card" style="display:flex; flex-direction:column; justify-content:space-between;">
           <div>
-            <div style="font-size:0.78rem; font-weight:800; text-transform:uppercase; letter-spacing:0.05em; color:#6b7280; margin-bottom:8px;">
+            <div style="font-size:0.78rem; font-weight:800; text-transform:uppercase; letter-spacing:0.05em; color:var(--muted); margin-bottom:8px;">
               ${t.cnnHistoryTitle}
             </div>
             <div class="cnn-history-list">
@@ -3586,13 +3642,16 @@ function renderSemiFearGreedView(state) {
                 .map((c) => {
                   const lbl = lang === "jp" ? c.label_jp : lang === "kr" ? c.label_kr : c.label_en;
                   const reg = lang === "jp" ? c.regime_jp : lang === "kr" ? c.regime_kr : c.regime_en;
+                  const sVal = Math.round(c.score);
+                  const ringColor = sVal <= 24 ? "#ef4444" : sVal <= 44 ? "#f59e0b" : sVal <= 55 ? "#64748b" : sVal <= 74 ? "#10b981" : "#059669";
+                  const ringBg = sVal <= 24 ? "rgba(239,68,68,0.15)" : sVal <= 44 ? "rgba(245,158,11,0.15)" : sVal <= 55 ? "rgba(100,116,139,0.15)" : sVal <= 74 ? "rgba(16,185,129,0.15)" : "rgba(5,150,105,0.15)";
                   return `
                   <div class="cnn-history-row">
                     <div>
-                      <div class="cnn-hist-label">${lbl} <span class="mono" style="font-size:0.72rem; color:#9ca3af;">(${c.date})</span></div>
+                      <div class="cnn-hist-label">${lbl} <span class="mono" style="font-size:0.72rem; color:var(--muted);">(${c.date})</span></div>
                       <div class="cnn-hist-regime">${reg}</div>
                     </div>
-                    <div class="cnn-score-circle">${Math.round(c.score)}</div>
+                    <div class="cnn-score-circle" style="border-color:${ringColor}; background:${ringBg}; color:#ffffff;">${sVal}</div>
                   </div>
                 `;
                 })
@@ -3601,14 +3660,14 @@ function renderSemiFearGreedView(state) {
           </div>
 
           <!-- Active SMH:XLV Barbell Regime Box -->
-          <div style="margin-top:16px; padding:14px 16px; background:#fef2f2; border:1px solid #fecaca; border-left:4px solid #dc2626; border-radius:4px;">
-            <div style="font-size:0.68rem; font-weight:800; color:#991b1b; letter-spacing:0.05em; text-transform:uppercase;">
+          <div style="margin-top:16px; padding:14px 16px; background:rgba(220,38,38,0.1); border:1px solid rgba(220,38,38,0.3); border-left:4px solid #dc2626; border-radius:4px;">
+            <div style="font-size:0.68rem; font-weight:800; color:#fca5a5; letter-spacing:0.05em; text-transform:uppercase;">
               ${t.cnnActiveRuleLabel} · TARGET ${ov.recommended_smh_weight}% $SMH : ${ov.recommended_xlv_weight}% $XLV
             </div>
-            <div style="font-size:0.88rem; font-weight:800; color:#111827; margin-top:4px;">
+            <div style="font-size:0.88rem; font-weight:800; color:#ffffff; margin-top:4px;">
               ${actionHeadline}
             </div>
-            <p style="font-size:0.78rem; color:#374151; margin-top:4px; line-height:1.45;">
+            <p style="font-size:0.78rem; color:var(--text-secondary); margin-top:4px; line-height:1.45;">
               ${actionDetail}
             </p>
           </div>
@@ -3617,9 +3676,9 @@ function renderSemiFearGreedView(state) {
 
       <!-- CNN 7 FEAR & GREED INDICATORS BREAKDOWN -->
       <div style="margin-top:12px;">
-        <div style="border-bottom:2px solid #111827; padding-bottom:10px; margin-bottom:16px;">
-          <h2 style="font-size:1.35rem; font-weight:900; color:#111827;">${t.cnnIndicatorsHeading}</h2>
-          <p style="font-size:0.84rem; color:#4b5563; margin-top:2px;">${t.cnnIndicatorsSub}</p>
+        <div style="border-bottom:1px solid var(--border); padding-bottom:10px; margin-bottom:16px;">
+          <h2 style="font-size:1.35rem; font-weight:900; color:#ffffff;">${t.cnnIndicatorsHeading}</h2>
+          <p style="font-size:0.84rem; color:var(--muted); margin-top:2px;">${t.cnnIndicatorsSub}</p>
         </div>
 
         <div class="cnn-indicators-list">
@@ -3634,7 +3693,7 @@ function renderSemiFearGreedView(state) {
               <div class="cnn-indicator-item">
                 <div>
                   <div style="display:flex; align-items:center; gap:8px;">
-                    <span class="mono" style="font-size:0.7rem; font-weight:800; padding:2px 6px; background:#f3f4f6; border:1px solid #d1d5db; border-radius:3px; color:#374151;">
+                    <span class="mono" style="font-size:0.7rem; font-weight:800; padding:2px 6px; background:#141c2e; border:1px solid var(--border); border-radius:3px; color:#93c5fd;">
                       #${f.order} · ${f.weight_pct}% WEIGHT
                     </span>
                     <span class="cnn-ind-title">${title}</span>
@@ -3645,7 +3704,7 @@ function renderSemiFearGreedView(state) {
 
                 <div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
                   ${renderMiniSparkline(f.sparkline, f.regime_code)}
-                  <div class="mono" style="font-size:0.74rem; color:#374151; font-weight:700;">
+                  <div class="mono" style="font-size:0.74rem; color:#94a3b8; font-weight:700;">
                     Reading: ${f.raw_display} · Score ${f.score.toFixed(1)}/100
                   </div>
                 </div>
@@ -3662,7 +3721,7 @@ function renderSemiFearGreedView(state) {
     </section>
 
     <!-- SECTION 2: CORE ETF SNAPSHOT STRIP ($SMH, $XLV, $QQQ) -->
-    <section style="display:grid; grid-template-columns:repeat(auto-fit, minmax(310px, 1fr)); gap:14px; margin-bottom:22px;">
+    <section class="core-etf-grid">
       ${ov.etfs
         .map((etf) => {
           const name = lang === "jp" ? etf.name_jp : lang === "kr" ? etf.name_kr : etf.name_en;
@@ -4336,7 +4395,28 @@ function bindEvents() {
     });
   });
 
-  // Sort Headers
+  // Sort Headers with Dynamic Directional Chevrons & Active State
+  const updateSortHeaderIndicators = () => {
+    document.querySelectorAll(".sort-header").forEach((el) => {
+      const col = el.getAttribute("data-sort");
+      if (!col) return;
+      const isAct = state.sortCol === col;
+      el.classList.remove("sort-active", "sort-asc", "sort-desc");
+      if (isAct) {
+        el.classList.add("sort-active", state.sortAsc ? "sort-asc" : "sort-desc");
+      }
+      const chevronEl = el.querySelector(".sort-chevron");
+      if (chevronEl) {
+        chevronEl.textContent = isAct ? (state.sortAsc ? "▲" : "▼") : "↕";
+        if (isAct) {
+          chevronEl.classList.remove("muted");
+        } else {
+          chevronEl.classList.add("muted");
+        }
+      }
+    });
+  };
+
   document.querySelectorAll(".sort-header").forEach((th) => {
     th.addEventListener("click", () => {
       const col = th.getAttribute("data-sort");
@@ -4348,6 +4428,7 @@ function bindEvents() {
         state.sortAsc = col === "ticker";
       }
       applyClientFilterAndSort();
+      updateSortHeaderIndicators();
       const tbody = document.getElementById("tableBody");
       if (tbody) tbody.innerHTML = renderStockRows(state);
       bindRowEvents();

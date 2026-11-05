@@ -22,45 +22,45 @@ export function renderProofCard(state) {
           <thead>
             <tr>
               <th>${t.th_arch}</th>
-              <th>${t.th_2x}</th>
-              <th>${t.th_med}</th>
-              <th>${t.th_mdd}</th>
-              <th>${t.th_dead}</th>
-              <th>${t.th_trap}</th>
+              <th class="col-num">${t.th_2x}</th>
+              <th class="col-num">${t.th_med}</th>
+              <th class="col-num">${t.th_mdd}</th>
+              <th class="col-num">${t.th_dead}</th>
+              <th class="col-num">${t.th_trap}</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td style="font-family:var(--font-sans); color:var(--text-secondary);">0. Market Random Entry Baseline</td>
-              <td>18.20%</td>
-              <td>+13.24%</td>
-              <td>-19.35%</td>
-              <td>74.0d</td>
-              <td>19.20%</td>
+              <td class="col-num">18.20%</td>
+              <td class="col-num">+13.24%</td>
+              <td class="col-num">-19.35%</td>
+              <td class="col-num">74.0d</td>
+              <td class="col-num">19.20%</td>
             </tr>
             <tr>
               <td style="font-family:var(--font-sans); color:var(--fin-down);">1. Blind 52-Week Low Dip Buy (+0–10% off low, below MA20)</td>
-              <td>28.91%</td>
-              <td>+20.56%</td>
-              <td style="color:var(--fin-down);">-30.31%</td>
-              <td style="color:var(--fin-down);">81.0d</td>
-              <td style="color:var(--fin-down);">25.54%</td>
+              <td class="col-num">28.91%</td>
+              <td class="col-num">+20.56%</td>
+              <td class="col-num" style="color:var(--fin-down);">-30.31%</td>
+              <td class="col-num" style="color:var(--fin-down);">81.0d</td>
+              <td class="col-num" style="color:var(--fin-down);">25.54%</td>
             </tr>
             <tr>
               <td style="font-family:var(--font-sans); color:var(--text-secondary);">2. 52-Week Low + Earnings Filter (Left-Side Entry)</td>
-              <td>30.06%</td>
-              <td>+24.28%</td>
-              <td>-29.85%</td>
-              <td>81.0d</td>
-              <td>24.82%</td>
+              <td class="col-num">30.06%</td>
+              <td class="col-num">+24.28%</td>
+              <td class="col-num">-29.85%</td>
+              <td class="col-num">81.0d</td>
+              <td class="col-num">24.82%</td>
             </tr>
             <tr class="proof-highlight">
               <td style="font-family:var(--font-sans);">3. PW-RSI Right-Side Ignition (+14–35% off low + MA20/60 Breakout + 1.40x Vol + 55D Time-Stop)</td>
-              <td style="color:var(--fin-up);">55.24%</td>
-              <td style="color:var(--fin-up);">+80.47% (Mean +109.1%)</td>
-              <td style="color:var(--fin-up);">-16.49%</td>
-              <td style="color:var(--fin-up);">29.0d</td>
-              <td style="color:var(--fin-up);">0.93%</td>
+              <td class="col-num" style="color:var(--fin-up);">55.24%</td>
+              <td class="col-num" style="color:var(--fin-up);">+80.47% (Mean +109.1%)</td>
+              <td class="col-num" style="color:var(--fin-up);">-16.49%</td>
+              <td class="col-num" style="color:var(--fin-up);">29.0d</td>
+              <td class="col-num" style="color:var(--fin-up);">0.93%</td>
             </tr>
           </tbody>
         </table>

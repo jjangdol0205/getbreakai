@@ -395,7 +395,28 @@ function bindEvents() {
     });
   });
 
-  // Sort Headers
+  // Sort Headers with Dynamic Directional Chevrons & Active State
+  const updateSortHeaderIndicators = () => {
+    document.querySelectorAll(".sort-header").forEach((el) => {
+      const col = el.getAttribute("data-sort");
+      if (!col) return;
+      const isAct = state.sortCol === col;
+      el.classList.remove("sort-active", "sort-asc", "sort-desc");
+      if (isAct) {
+        el.classList.add("sort-active", state.sortAsc ? "sort-asc" : "sort-desc");
+      }
+      const chevronEl = el.querySelector(".sort-chevron");
+      if (chevronEl) {
+        chevronEl.textContent = isAct ? (state.sortAsc ? "▲" : "▼") : "↕";
+        if (isAct) {
+          chevronEl.classList.remove("muted");
+        } else {
+          chevronEl.classList.add("muted");
+        }
+      }
+    });
+  };
+
   document.querySelectorAll(".sort-header").forEach((th) => {
     th.addEventListener("click", () => {
       const col = th.getAttribute("data-sort");
@@ -407,6 +428,7 @@ function bindEvents() {
         state.sortAsc = col === "ticker";
       }
       applyClientFilterAndSort();
+      updateSortHeaderIndicators();
       const tbody = document.getElementById("tableBody");
       if (tbody) tbody.innerHTML = renderStockRows(state);
       bindRowEvents();

@@ -23,13 +23,13 @@ export function renderCnnDialSvg(score, regimeLabel) {
   const cy = 200;
   const r = 146;
 
-  // 5 CNN segments along 180° (left=0) to 0° (right=100)
+  // 5 CNN segments along 180° (left=0) to 0° (right=100) with dark-mode harmonious muted tints
   const segments = [
-    { code: "EXTREME_FEAR", min: 0, max: 24, a1: 180, a2: 136.5, activeColor: "#d92d20", mutedColor: "#fecaca", label: "EXTREME FEAR", midAngle: 158 },
-    { code: "FEAR", min: 25, max: 44, a1: 134, a2: 100.5, activeColor: "#f79009", mutedColor: "#fed7aa", label: "FEAR", midAngle: 117 },
-    { code: "NEUTRAL", min: 45, max: 55, a1: 98, a2: 82, activeColor: "#667085", mutedColor: "#e5e7eb", label: "NEUTRAL", midAngle: 90 },
-    { code: "GREED", min: 56, max: 74, a1: 79.5, a2: 46, activeColor: "#12b76a", mutedColor: "#bbf7d0", label: "GREED", midAngle: 63 },
-    { code: "EXTREME_GREED", min: 75, max: 100, a1: 43.5, a2: 0, activeColor: "#027a48", mutedColor: "#a7f3d0", label: "EXTREME GREED", midAngle: 22 },
+    { code: "EXTREME_FEAR", min: 0, max: 24, a1: 180, a2: 136.5, activeColor: "#ef4444", mutedColor: "rgba(239,68,68,0.22)", label: "EXTREME FEAR", midAngle: 158 },
+    { code: "FEAR", min: 25, max: 44, a1: 134, a2: 100.5, activeColor: "#f59e0b", mutedColor: "rgba(245,158,11,0.22)", label: "FEAR", midAngle: 117 },
+    { code: "NEUTRAL", min: 45, max: 55, a1: 98, a2: 82, activeColor: "#94a3b8", mutedColor: "rgba(148,163,184,0.20)", label: "NEUTRAL", midAngle: 90 },
+    { code: "GREED", min: 56, max: 74, a1: 79.5, a2: 46, activeColor: "#10b981", mutedColor: "rgba(16,185,129,0.22)", label: "GREED", midAngle: 63 },
+    { code: "EXTREME_GREED", min: 75, max: 100, a1: 43.5, a2: 0, activeColor: "#059669", mutedColor: "rgba(5,150,105,0.22)", label: "EXTREME GREED", midAngle: 22 },
   ];
 
   let activeSeg = segments[0];
@@ -48,7 +48,7 @@ export function renderCnnDialSvg(score, regimeLabel) {
       return `
         <path d="${d}" fill="none" stroke="${stroke}" stroke-width="${width}" stroke-linecap="butt" />
         <text x="${lp.x.toFixed(1)}" y="${lp.y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle"
-              fill="${isAct ? seg.activeColor : "#6b7280"}"
+              fill="${isAct ? seg.activeColor : "#64748b"}"
               font-size="${isAct ? "9.5" : "8.5"}" font-weight="${isAct ? "800" : "700"}" font-family="Inter, sans-serif">
           ${seg.label}
         </text>
@@ -63,9 +63,9 @@ export function renderCnnDialSvg(score, regimeLabel) {
       const pIn = polarToCartesian(cx, cy, r - 24, ang);
       const pTxt = polarToCartesian(cx, cy, r - 35, ang);
       return `
-        <circle cx="${pIn.x.toFixed(1)}" cy="${pIn.y.toFixed(1)}" r="1.8" fill="#6b7280" />
+        <circle cx="${pIn.x.toFixed(1)}" cy="${pIn.y.toFixed(1)}" r="1.8" fill="#94a3b8" />
         <text x="${pTxt.x.toFixed(1)}" y="${pTxt.y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle"
-              fill="#4b5563" font-size="10" font-weight="700" font-family="JetBrains Mono, monospace">
+              fill="#94a3b8" font-size="10" font-weight="700" font-family="JetBrains Mono, monospace">
           ${tVal}
         </text>
       `;
@@ -81,23 +81,28 @@ export function renderCnnDialSvg(score, regimeLabel) {
   return `
     <div style="display:flex; flex-direction:column; align-items:center;">
       <svg viewBox="0 0 460 250" style="width:100%; max-width:440px; height:auto; overflow:visible;">
+        <defs>
+          <filter id="needleShadow" x="-25%" y="-25%" width="150%" height="150%">
+            <feDropShadow dx="0" dy="2.5" stdDeviation="3" flood-color="#000000" flood-opacity="0.65" />
+          </filter>
+        </defs>
         ${arcsHtml}
         ${ticks}
-        <!-- Needle Polygon -->
+        <!-- Needle Polygon with Elevation Shadow -->
         <polygon points="${tip.x.toFixed(1)},${tip.y.toFixed(1)} ${baseLeft.x.toFixed(1)},${baseLeft.y.toFixed(1)} ${baseRight.x.toFixed(1)},${baseRight.y.toFixed(1)}"
-                 fill="#111827" />
-        <circle cx="${cx}" cy="${cy}" r="14" fill="#111827" />
-        <circle cx="${cx}" cy="${cy}" r="5" fill="#ffffff" />
+                 fill="#f8fafc" filter="url(#needleShadow)" />
+        <circle cx="${cx}" cy="${cy}" r="14" fill="#f8fafc" filter="url(#needleShadow)" />
+        <circle cx="${cx}" cy="${cy}" r="5" fill="#090e18" />
       </svg>
 
       <!-- Score & Active Emotion Callout below Needle Hub -->
       <div style="text-align:center; margin-top:-18px;">
-        <div style="display:inline-flex; align-items:baseline; gap:6px; background:#111827; color:#ffffff; padding:6px 20px; border-radius:30px; box-shadow:0 4px 12px rgba(0,0,0,0.12);">
+        <div style="display:inline-flex; align-items:baseline; gap:6px; background:#070b14; color:#ffffff; padding:6px 22px; border-radius:30px; border:1px solid var(--border); box-shadow:var(--shadow-md);">
           <span class="mono" style="font-size:2rem; font-weight:900; letter-spacing:-0.03em;">${Math.round(s)}</span>
           <span class="mono" style="font-size:0.9rem; color:#9ca3af; font-weight:600;">(${s.toFixed(1)} / 100)</span>
         </div>
         <div style="margin-top:8px;">
-          <span style="font-size:0.78rem; color:#4b5563; font-weight:600; text-transform:uppercase; letter-spacing:0.04em;">
+          <span style="font-size:0.78rem; color:var(--muted); font-weight:600; text-transform:uppercase; letter-spacing:0.04em;">
             Market Emotion is driving:
           </span>
           <span class="cnn-pill cnn-pill-${activeSeg.code}" style="margin-left:6px; font-size:0.85rem;">
@@ -141,8 +146,8 @@ export function renderTimelineSvg(historyData, activeRange) {
   return `
     <div>
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:8px;">
-        <div style="font-size:0.8rem; font-weight:700; color:#374151;">
-          Historical Semiconductor Fear & Greed Index (${firstDate} → ${lastDate})
+        <div style="font-size:0.8rem; font-weight:700; color:var(--text);">
+          Historical Semiconductor Fear &amp; Greed Index (${firstDate} → ${lastDate})
         </div>
         <div style="display:flex; gap:4px;">
           ${["3M", "1Y", "3Y", "5Y", "10Y", "ALL"]
@@ -150,9 +155,9 @@ export function renderTimelineSvg(historyData, activeRange) {
               (r) => `
             <button class="btn-semi-range" data-range="${r}"
                     style="padding:3px 9px; border-radius:4px; font-size:0.72rem; font-weight:700; cursor:pointer; border:1px solid ${
-                      activeRange === r ? "#111827" : "#d1d5db"
-                    }; background:${activeRange === r ? "#111827" : "#ffffff"}; color:${
-                activeRange === r ? "#ffffff" : "#374151"
+                      activeRange === r ? "var(--fin-blue)" : "var(--border)"
+                    }; background:${activeRange === r ? "#141c2e" : "#060911"}; color:${
+                activeRange === r ? "#ffffff" : "var(--muted)"
               };">
               ${r}
             </button>
@@ -162,28 +167,28 @@ export function renderTimelineSvg(historyData, activeRange) {
         </div>
       </div>
 
-      <svg viewBox="0 0 ${w} ${h}" style="width:100%; height:auto; background:#f9fafb; border:1px solid #e5e7eb; border-radius:4px;">
+      <svg viewBox="0 0 ${w} ${h}" style="width:100%; height:auto; background:#060911; border:1px solid var(--border); border-radius:4px;">
         <!-- Extreme Greed Band (>75) -->
-        <rect x="${padL}" y="${padT}" width="${plotW}" height="${0.25 * plotH}" fill="rgba(16,185,129,0.08)" />
+        <rect x="${padL}" y="${padT}" width="${plotW}" height="${0.25 * plotH}" fill="rgba(16,185,129,0.12)" />
         <!-- Extreme Fear Band (<25) -->
-        <rect x="${padL}" y="${y25}" width="${plotW}" height="${0.25 * plotH}" fill="rgba(239,68,68,0.09)" />
+        <rect x="${padL}" y="${y25}" width="${plotW}" height="${0.25 * plotH}" fill="rgba(239,68,68,0.12)" />
 
         <!-- Reference Lines -->
         <line x1="${padL}" y1="${y75}" x2="${w - padR}" y2="${y75}" stroke="#10b981" stroke-dasharray="3,3" stroke-width="1" />
-        <line x1="${padL}" y1="${y50}" x2="${w - padR}" y2="${y50}" stroke="#9ca3af" stroke-dasharray="3,3" stroke-width="1" />
+        <line x1="${padL}" y1="${y50}" x2="${w - padR}" y2="${y50}" stroke="#64748b" stroke-dasharray="3,3" stroke-width="1" />
         <line x1="${padL}" y1="${y25}" x2="${w - padR}" y2="${y25}" stroke="#ef4444" stroke-dasharray="3,3" stroke-width="1" />
 
-        <text x="6" y="${y75}" fill="#047857" font-size="9.5" font-weight="700" dominant-baseline="middle">75</text>
-        <text x="6" y="${y50}" fill="#6b7280" font-size="9.5" font-weight="700" dominant-baseline="middle">50</text>
-        <text x="6" y="${y25}" fill="#b91c1c" font-size="9.5" font-weight="700" dominant-baseline="middle">25</text>
+        <text x="6" y="${y75}" fill="#34d399" font-size="9.5" font-weight="700" dominant-baseline="middle">75</text>
+        <text x="6" y="${y50}" fill="#94a3b8" font-size="9.5" font-weight="700" dominant-baseline="middle">50</text>
+        <text x="6" y="${y25}" fill="#f87171" font-size="9.5" font-weight="700" dominant-baseline="middle">25</text>
 
         <!-- FG Line -->
-        <polyline fill="none" stroke="#111827" stroke-width="1.8" points="${coords.join(" ")}" />
+        <polyline fill="none" stroke="#38bdf8" stroke-width="2" points="${coords.join(" ")}" />
 
-        <!-- X-Axis Dates -->
-        <text x="${padL}" y="${h - 8}" fill="#6b7280" font-size="9.5" font-family="JetBrains Mono, monospace">${firstDate}</text>
-        <text x="${padL + plotW / 2}" y="${h - 8}" fill="#6b7280" font-size="9.5" text-anchor="middle" font-family="JetBrains Mono, monospace">${midDate}</text>
-        <text x="${w - padR}" y="${h - 8}" fill="#6b7280" font-size="9.5" text-anchor="end" font-family="JetBrains Mono, monospace">${lastDate}</text>
+        <!-- X-Axis Dates with mobile overlap protection -->
+        <text x="${padL}" y="${h - 8}" fill="var(--muted)" font-size="9.5" font-family="JetBrains Mono, monospace">${firstDate}</text>
+        <text class="timeline-mid-date" x="${padL + plotW / 2}" y="${h - 8}" fill="var(--muted)" font-size="9.5" text-anchor="middle" font-family="JetBrains Mono, monospace">${midDate}</text>
+        <text x="${w - padR}" y="${h - 8}" fill="var(--muted)" font-size="9.5" text-anchor="end" font-family="JetBrains Mono, monospace">${lastDate}</text>
       </svg>
     </div>
   `;
@@ -202,17 +207,17 @@ function renderMiniSparkline(values, regimeCode) {
     .join(" ");
 
   const colorMap = {
-    EXTREME_FEAR: "#dc2626",
-    FEAR: "#ea580c",
-    NEUTRAL: "#4b5563",
-    GREED: "#16a34a",
+    EXTREME_FEAR: "#ef4444",
+    FEAR: "#f59e0b",
+    NEUTRAL: "#94a3b8",
+    GREED: "#10b981",
     EXTREME_GREED: "#059669",
   };
-  const stroke = colorMap[regimeCode] || "#111827";
+  const stroke = colorMap[regimeCode] || "#94a3b8";
 
   return `
-    <svg viewBox="0 0 ${w} ${h}" style="width:160px; height:40px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:4px;">
-      <line x1="0" y1="${h / 2}" x2="${w}" y2="${h / 2}" stroke="#e2e8f0" stroke-dasharray="2,2" stroke-width="1" />
+    <svg viewBox="0 0 ${w} ${h}" style="width:160px; height:40px; background:#060911; border:1px solid var(--border); border-radius:4px;">
+      <line x1="0" y1="${h / 2}" x2="${w}" y2="${h / 2}" stroke="#1e293b" stroke-dasharray="2,2" stroke-width="1" />
       <polyline fill="none" stroke="${stroke}" stroke-width="1.8" points="${coords}" />
     </svg>
   `;
@@ -374,7 +379,7 @@ export function renderSemiFearGreedView(state) {
         <!-- RIGHT COLUMN: CNN 4-ROW HISTORICAL STACK + BARBELL SIGNAL -->
         <div class="cnn-card" style="display:flex; flex-direction:column; justify-content:space-between;">
           <div>
-            <div style="font-size:0.78rem; font-weight:800; text-transform:uppercase; letter-spacing:0.05em; color:#6b7280; margin-bottom:8px;">
+            <div style="font-size:0.78rem; font-weight:800; text-transform:uppercase; letter-spacing:0.05em; color:var(--muted); margin-bottom:8px;">
               ${t.cnnHistoryTitle}
             </div>
             <div class="cnn-history-list">
@@ -382,13 +387,16 @@ export function renderSemiFearGreedView(state) {
                 .map((c) => {
                   const lbl = lang === "jp" ? c.label_jp : lang === "kr" ? c.label_kr : c.label_en;
                   const reg = lang === "jp" ? c.regime_jp : lang === "kr" ? c.regime_kr : c.regime_en;
+                  const sVal = Math.round(c.score);
+                  const ringColor = sVal <= 24 ? "#ef4444" : sVal <= 44 ? "#f59e0b" : sVal <= 55 ? "#64748b" : sVal <= 74 ? "#10b981" : "#059669";
+                  const ringBg = sVal <= 24 ? "rgba(239,68,68,0.15)" : sVal <= 44 ? "rgba(245,158,11,0.15)" : sVal <= 55 ? "rgba(100,116,139,0.15)" : sVal <= 74 ? "rgba(16,185,129,0.15)" : "rgba(5,150,105,0.15)";
                   return `
                   <div class="cnn-history-row">
                     <div>
-                      <div class="cnn-hist-label">${lbl} <span class="mono" style="font-size:0.72rem; color:#9ca3af;">(${c.date})</span></div>
+                      <div class="cnn-hist-label">${lbl} <span class="mono" style="font-size:0.72rem; color:var(--muted);">(${c.date})</span></div>
                       <div class="cnn-hist-regime">${reg}</div>
                     </div>
-                    <div class="cnn-score-circle">${Math.round(c.score)}</div>
+                    <div class="cnn-score-circle" style="border-color:${ringColor}; background:${ringBg}; color:#ffffff;">${sVal}</div>
                   </div>
                 `;
                 })
@@ -397,14 +405,14 @@ export function renderSemiFearGreedView(state) {
           </div>
 
           <!-- Active SMH:XLV Barbell Regime Box -->
-          <div style="margin-top:16px; padding:14px 16px; background:#fef2f2; border:1px solid #fecaca; border-left:4px solid #dc2626; border-radius:4px;">
-            <div style="font-size:0.68rem; font-weight:800; color:#991b1b; letter-spacing:0.05em; text-transform:uppercase;">
+          <div style="margin-top:16px; padding:14px 16px; background:rgba(220,38,38,0.1); border:1px solid rgba(220,38,38,0.3); border-left:4px solid #dc2626; border-radius:4px;">
+            <div style="font-size:0.68rem; font-weight:800; color:#fca5a5; letter-spacing:0.05em; text-transform:uppercase;">
               ${t.cnnActiveRuleLabel} · TARGET ${ov.recommended_smh_weight}% $SMH : ${ov.recommended_xlv_weight}% $XLV
             </div>
-            <div style="font-size:0.88rem; font-weight:800; color:#111827; margin-top:4px;">
+            <div style="font-size:0.88rem; font-weight:800; color:#ffffff; margin-top:4px;">
               ${actionHeadline}
             </div>
-            <p style="font-size:0.78rem; color:#374151; margin-top:4px; line-height:1.45;">
+            <p style="font-size:0.78rem; color:var(--text-secondary); margin-top:4px; line-height:1.45;">
               ${actionDetail}
             </p>
           </div>
@@ -413,9 +421,9 @@ export function renderSemiFearGreedView(state) {
 
       <!-- CNN 7 FEAR & GREED INDICATORS BREAKDOWN -->
       <div style="margin-top:12px;">
-        <div style="border-bottom:2px solid #111827; padding-bottom:10px; margin-bottom:16px;">
-          <h2 style="font-size:1.35rem; font-weight:900; color:#111827;">${t.cnnIndicatorsHeading}</h2>
-          <p style="font-size:0.84rem; color:#4b5563; margin-top:2px;">${t.cnnIndicatorsSub}</p>
+        <div style="border-bottom:1px solid var(--border); padding-bottom:10px; margin-bottom:16px;">
+          <h2 style="font-size:1.35rem; font-weight:900; color:#ffffff;">${t.cnnIndicatorsHeading}</h2>
+          <p style="font-size:0.84rem; color:var(--muted); margin-top:2px;">${t.cnnIndicatorsSub}</p>
         </div>
 
         <div class="cnn-indicators-list">
@@ -430,7 +438,7 @@ export function renderSemiFearGreedView(state) {
               <div class="cnn-indicator-item">
                 <div>
                   <div style="display:flex; align-items:center; gap:8px;">
-                    <span class="mono" style="font-size:0.7rem; font-weight:800; padding:2px 6px; background:#f3f4f6; border:1px solid #d1d5db; border-radius:3px; color:#374151;">
+                    <span class="mono" style="font-size:0.7rem; font-weight:800; padding:2px 6px; background:#141c2e; border:1px solid var(--border); border-radius:3px; color:#93c5fd;">
                       #${f.order} · ${f.weight_pct}% WEIGHT
                     </span>
                     <span class="cnn-ind-title">${title}</span>
@@ -441,7 +449,7 @@ export function renderSemiFearGreedView(state) {
 
                 <div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
                   ${renderMiniSparkline(f.sparkline, f.regime_code)}
-                  <div class="mono" style="font-size:0.74rem; color:#374151; font-weight:700;">
+                  <div class="mono" style="font-size:0.74rem; color:#94a3b8; font-weight:700;">
                     Reading: ${f.raw_display} · Score ${f.score.toFixed(1)}/100
                   </div>
                 </div>
@@ -458,7 +466,7 @@ export function renderSemiFearGreedView(state) {
     </section>
 
     <!-- SECTION 2: CORE ETF SNAPSHOT STRIP ($SMH, $XLV, $QQQ) -->
-    <section style="display:grid; grid-template-columns:repeat(auto-fit, minmax(310px, 1fr)); gap:14px; margin-bottom:22px;">
+    <section class="core-etf-grid">
       ${ov.etfs
         .map((etf) => {
           const name = lang === "jp" ? etf.name_jp : lang === "kr" ? etf.name_kr : etf.name_en;

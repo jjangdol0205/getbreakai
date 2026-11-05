@@ -130,49 +130,49 @@ export function renderHeader(state) {
             <span id="btnLicense">${t.btnLicense}</span>
           </button>
 
-          <a
-            class="btn"
-            id="headerYoutubeLink"
-            href="${ytUrl}"
-            target="_blank"
-            rel="noopener noreferrer"
-            title="Official YouTube (@rightsidealpha)"
-            style="border-color:rgba(239,68,68,0.4); color:#fca5a5;"
-          >
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/>
-            </svg>
-            <span>YouTube</span>
-          </a>
+          <div class="social-icon-cluster" aria-label="Official Social Channels">
+            <a
+              class="btn social-btn yt"
+              id="headerYoutubeLink"
+              href="${ytUrl}"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Official YouTube (@rightsidealpha)"
+              aria-label="Official YouTube"
+            >
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/>
+              </svg>
+            </a>
 
-          <a
-            class="btn"
-            id="headerInstagramLink"
-            href="${igUrl}"
-            target="_blank"
-            rel="noopener noreferrer"
-            title="Official Instagram (@rightsidealpha)"
-            style="border-color:rgba(236,72,153,0.4); color:#f9a8d4;"
-          >
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-            </svg>
-            <span>Instagram</span>
-          </a>
+            <a
+              class="btn social-btn ig"
+              id="headerInstagramLink"
+              href="${igUrl}"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Official Instagram (@rightsidealpha)"
+              aria-label="Official Instagram"
+            >
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
+            </a>
 
-          <a
-            class="btn"
-            id="headerXLink"
-            href="${xUrl}"
-            target="_blank"
-            rel="noopener noreferrer"
-            title="Official X (@rightsidealpha)"
-            style="border-color:rgba(148,163,184,0.4); color:#e2e8f0;"
-          >
-            <span>𝕏</span>
-          </a>
+            <a
+              class="btn social-btn x"
+              id="headerXLink"
+              href="${xUrl}"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Official X (@rightsidealpha)"
+              aria-label="Official X"
+            >
+              <span style="font-weight:700; font-size:0.8rem;">𝕏</span>
+            </a>
+          </div>
 
           <a
             class="btn ${isPro ? "" : "btn-gated-vip-tg"}"

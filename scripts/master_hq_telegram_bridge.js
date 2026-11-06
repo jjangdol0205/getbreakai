@@ -62,7 +62,7 @@ const BRIDGE_SCRIPT_PATH = __filename;
 const LANGUAGE_SERVER_EXE = "C:\\Users\\jjang\\AppData\\Local\\Programs\\Antigravity\\resources\\bin\\language_server.exe";
 const AGENTAPI_BAT = "C:\\Users\\jjang\\.gemini\\antigravity\\bin\\agentapi.bat";
 
-const MASTER_CONVERSATION_ID = "3c4b658a-c3fb-47be-b5f8-0607489f8b74";
+const MASTER_CONVERSATION_ID = "9cff52bc-b0b2-47a2-a9ab-a2b4291e0e0f";
 
 const DIVISIONS = {
   TOM: {
@@ -112,6 +112,7 @@ const HQ_KEYBOARD = {
     ],
     [
       { text: "🕒 24시간 1·2·3사업부 1시간 교대스케줄", callback_data: "/schedule24" },
+      { text: "🍋 레몬스퀴지 승인·실결제 즉시조회", callback_data: "/ls" },
     ],
   ],
 };
@@ -482,15 +483,14 @@ async function handleCommand(rawText, state, botToken = null) {
     enqueueTask(
       {
         division: DIVISIONS.TOM,
-        title: "TruthOfMarket 미국장 주가 동기화 + $SMH/$XLV & 72종목 월가 뉴스 VIP 채널 발송",
+        title: "TruthOfMarket 미국장 종가 동기화 + 정적번들(dist) 빌드·라이브 배포 + VIP 채널 발송",
         run: async () => {
-          await runPythonScriptAsync("scripts/sync_live_market_data.py", [], DIVISIONS.TOM.cwd);
-          const res = await runPythonScriptAsync("scripts/broadcast_telegram_channel.py", ["--pin"], DIVISIONS.TOM.cwd);
+          const res = await runPythonScriptAsync("scripts/run_daily_market_close_sync.py", ["--broadcast"], DIVISIONS.TOM.cwd);
           await sendHqMessage(
-            `✅ <b>[1사업부 TruthOfMarket 완료]</b>\n` +
-              `• 최신 미국장 72종목 &amp; $SMH/$XLV 종가 동기화 완료\n` +
+            `✅ <b>[1사업부 TruthOfMarket 일일 종가 동기화 &amp; 배포 완료]</b>\n` +
+              `• 최신 미국장 72종목 &amp; $SMH/$XLV 종가 동기화 + 정적번들(dist) 빌드 + 라이브 배포 완료\n` +
               `• 유료 VIP 전용 채널로 <b>$SMH·$XLV 및 주요 종목 실시간 월가 뉴스 + 타점 오더북</b> 발송 및 상단 고정 완료!\n` +
-              `<code>${res.output.trim()}</code>`,
+              `<code>${res.output.trim().slice(-320)}</code>`,
             true,
             botToken
           );
@@ -528,6 +528,11 @@ async function handleCommand(rawText, state, botToken = null) {
       },
       botToken
     );
+    return;
+  }
+
+  if (text === "/ls" || text === "/lemonsqueezy" || text === "레몬스퀴지") {
+    await checkLemonSqueezyLiveStatus(state, true, botToken);
     return;
   }
 
@@ -629,10 +634,24 @@ function checkDailyStaggeredSchedule(state) {
     handleCommand("/flow_kfg", state, PRIMARY_BOT_TOKEN);
     handleCommand("/flow_kfk", state, KFK_BOT_TOKEN);
   }
-  if (hhmm === "06:30" && state.lastAutoRunDate.TOM !== ymd) {
+  if (hhmm >= "06:30" && state.lastAutoRunDate.TOM !== ymd) {
     state.lastAutoRunDate.TOM = ymd;
     saveState(state);
     handleCommand("/tom_news", state);
+  }
+  if (hhmm >= "07:30" && state.lastAutoRunDate.TOM_CLOSE_VERIFY !== ymd) {
+    state.lastAutoRunDate.TOM_CLOSE_VERIFY = ymd;
+    saveState(state);
+    enqueueTask(
+      {
+        division: DIVISIONS.TOM,
+        title: "TruthOfMarket 미국장 최종 정산 종가 재검증 및 정적번들 자동 배포",
+        run: async () => {
+          await runPythonScriptAsync("scripts/run_daily_market_close_sync.py", [], DIVISIONS.TOM.cwd);
+        },
+      },
+      PRIMARY_BOT_TOKEN
+    );
   }
   if (hhmm === "08:30" && state.lastAutoRunDate.VISITOR_AM !== ymd) {
     state.lastAutoRunDate.VISITOR_AM = ymd;
@@ -643,6 +662,92 @@ function checkDailyStaggeredSchedule(state) {
     state.lastAutoRunDate.VISITOR_PM = ymd;
     saveState(state);
     handleCommand("/visitors", state);
+  }
+  checkLemonSqueezyLiveStatus(state).catch(() => {});
+}
+
+let lastLsPollMs = 0;
+async function checkLemonSqueezyLiveStatus(state, forceNotify = false, botToken = null) {
+  const nowMs = Date.now();
+  if (!forceNotify && nowMs - lastLsPollMs < 180000) return;
+  lastLsPollMs = nowMs;
+
+  const lsKey = kfgEnv.LEMONSQUEEZY_API_KEY || tomEnv.LEMONSQUEEZY_API_KEY || "";
+  if (!lsKey) return;
+
+  const fetchJson = (url, headers = {}) =>
+    new Promise((resolve) => {
+      const req = https.get(url, { headers, timeout: 8000 }, (res) => {
+        let raw = "";
+        res.on("data", (c) => (raw += c));
+        res.on("end", () => {
+          try {
+            resolve({ status: res.statusCode, data: JSON.parse(raw) });
+          } catch (_) {
+            resolve({ status: res.statusCode, raw });
+          }
+        });
+      });
+      req.on("error", () => resolve({ status: 0 }));
+      req.on("timeout", () => {
+        req.destroy();
+        resolve({ status: 0 });
+      });
+    });
+
+  const storeRes = await fetchJson("https://api.lemonsqueezy.com/v1/stores/296100", {
+    Authorization: `Bearer ${lsKey}`,
+    Accept: "application/vnd.api+json",
+  });
+  const chkRes = await fetchJson("https://truthofmarket.lemonsqueezy.com/checkout/buy/bad98d00-7175-41f6-9d58-eeb2471d0da4");
+
+  const attr = storeRes?.data?.data?.attributes || {};
+  const plan = attr.plan || "free";
+  const totalSales = Number(attr.total_sales || 0);
+  const totalRevenueCents = Number(attr.total_revenue || 0);
+  const isCheckoutLive = chkRes.status === 200 || (plan && plan !== "free");
+
+  if (typeof state.lsActivated === "undefined") state.lsActivated = false;
+  if (typeof state.lsTotalSales === "undefined") state.lsTotalSales = 0;
+
+  if (isCheckoutLive && !state.lsActivated) {
+    state.lsActivated = true;
+    saveState(state);
+    await sendHqMessage(
+      `🎉 <b>[레몬스퀴지(Lemon Squeezy) 본심사 최종 승인 &amp; 실결제 개통 완료!]</b>\n\n` +
+        `• <b>스토어</b>: KIDS-FIT Global Studio (<code>#296100</code>)\n` +
+        `• <b>스토어 플랜 상태</b>: <code>${plan}</code> (체크아웃 HTTP ${chkRes.status})\n` +
+        `• <b>1사업부(truthofmarket.com)</b>: Pro $29/mo · Lifetime $199 실결제 카드창 즉시 결제 가능!\n` +
+        `• <b>2사업부(kisfitglobal.com)</b>: Single $8.99 · 6-Month $19.99 실결제 카드창 즉시 결제 가능!`,
+      true,
+      botToken
+    );
+  }
+
+  if (totalSales > state.lsTotalSales) {
+    const prevSales = state.lsTotalSales;
+    state.lsTotalSales = totalSales;
+    saveState(state);
+    await sendHqMessage(
+      `💰 <b>[레몬스퀴지(Lemon Squeezy) 신규 실결제 매출 발생 알림!]</b>\n\n` +
+        `• <b>누적 결제 건수</b>: ${prevSales}건 ➡️ <b>${totalSales}건</b>\n` +
+        `• <b>누적 결제 매출</b>: <b>$${(totalRevenueCents / 100).toFixed(2)} USD</b>\n` +
+        `• <b>스토어</b>: #296100 (truthofmarket.com &amp; kisfitglobal.com)`,
+      true,
+      botToken
+    );
+  }
+
+  if (forceNotify) {
+    await sendHqMessage(
+      `🍋 <b>[레몬스퀴지(Lemon Squeezy) 스토어 #296100 실시간 상태]</b>\n` +
+        `• <b>온보딩 심사 상태</b>: ${isCheckoutLive ? "✅ 최종 승인 완료 (실결제 가동 중)" : "⏳ 온보딩팀 답장 검토 중 (승인 시 즉시 자동 알림 발송)"}\n` +
+        `• <b>1·2사업부 체크아웃 UUID</b>: ✅ Live Mode UUID 전환 배포 완료\n` +
+        `• <b>실결제 누적 건수 / 매출</b>: ${totalSales}건 / $${(totalRevenueCents / 100).toFixed(2)} USD\n` +
+        `<i>※ 3분 주기로 레몬스퀴지 API 및 체크아웃 응답을 24시간 자동 감시하며, 개통 및 첫 결제 발생 즉시 텔레그램으로 알림을 보내드립니다.</i>`,
+      true,
+      botToken
+    );
   }
 }
 

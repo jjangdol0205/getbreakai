@@ -41,8 +41,8 @@ const initialPath = window.location.pathname.toLowerCase();
 const initialHash = window.location.hash.toLowerCase();
 const initialSearch = new URLSearchParams(window.location.search);
 const viewParam = (initialSearch.get("view") || "").toLowerCase();
-const initialTickerParam = (initialSearch.get("ticker") || "").trim().toUpperCase();
-const initialFilterParam = (initialSearch.get("filter") || "").trim().toLowerCase();
+const initialTickerParam = (initialSearch.get("ticker") || window.__INITIAL_TICKER__ || "").trim().toUpperCase();
+const initialFilterParam = (initialSearch.get("filter") || window.__INITIAL_FILTER__ || "").trim().toLowerCase();
 const defaultView =
   viewParam === "semi" || initialHash.includes("semi") || initialPath.includes("/semi")
     ? "semi"

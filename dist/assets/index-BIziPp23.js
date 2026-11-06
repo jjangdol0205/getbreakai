@@ -405,7 +405,7 @@ function decodeProVaultRow(row) {
 
 async function getStaticFreeStocks() {
   if (!cachedFreeStocks) {
-    const r = await fetch("./static_api/stocks_free.json");
+    const r = await fetch("/static_api/stocks_free.json");
     cachedFreeStocks = await r.json();
   }
   return cachedFreeStocks;
@@ -425,7 +425,7 @@ async function getStaticStocksForCurrentUser() {
 
 async function getStaticSemiOverview() {
   if (!cachedSemiOverview) {
-    const r = await fetch("./static_api/semi_overview.json");
+    const r = await fetch("/static_api/semi_overview.json");
     cachedSemiOverview = await r.json();
   }
   return cachedSemiOverview;
@@ -514,7 +514,7 @@ async function fetchBacktestSummary() {
     "/api/backtest",
     { headers: { Accept: "application/json" } },
     async () => {
-      const r = await fetch("./static_api/backtest.json");
+      const r = await fetch("/static_api/backtest.json");
       return r.json();
     }
   );
@@ -529,7 +529,7 @@ async function fetchResearchList() {
       },
     },
     async () => {
-      const r = await fetch("./static_api/research_list.json");
+      const r = await fetch("/static_api/research_list.json");
       return r.json();
     }
   );
@@ -546,7 +546,7 @@ async function fetchResearchBrief(ticker) {
     },
     async () => {
       const target = clean === "MBLY" ? "MBLY" : "CELH";
-      const r = await fetch(`./static_api/research_${target}.json`);
+      const r = await fetch(`/static_api/research_${target}.json`);
       return r.json();
     }
   );
@@ -766,7 +766,7 @@ async function fetchPineScript() {
       },
     },
     async () => {
-      const r = await fetch("./static_api/pinescript.json");
+      const r = await fetch("/static_api/pinescript.json");
       return r.json();
     }
   );
@@ -872,7 +872,7 @@ async function fetchReferralConfig() {
     "/api/referral/config",
     { headers: { Accept: "application/json" } },
     async () => {
-      const r = await fetch("./static_api/referral_config.json");
+      const r = await fetch("/static_api/referral_config.json");
       return r.json();
     }
   );
@@ -911,7 +911,7 @@ async function fetchSemiHistory(rangeCode = "1Y") {
     `/api/semi/history?range=${encodeURIComponent(safeRange)}`,
     { headers: { Accept: "application/json" } },
     async () => {
-      const r = await fetch(`./static_api/semi_history_${safeRange}.json`);
+      const r = await fetch(`/static_api/semi_history_${safeRange}.json`);
       return r.json();
     }
   );
@@ -4041,8 +4041,8 @@ const initialPath = window.location.pathname.toLowerCase();
 const initialHash = window.location.hash.toLowerCase();
 const initialSearch = new URLSearchParams(window.location.search);
 const viewParam = (initialSearch.get("view") || "").toLowerCase();
-const initialTickerParam = (initialSearch.get("ticker") || "").trim().toUpperCase();
-const initialFilterParam = (initialSearch.get("filter") || "").trim().toLowerCase();
+const initialTickerParam = (initialSearch.get("ticker") || window.__INITIAL_TICKER__ || "").trim().toUpperCase();
+const initialFilterParam = (initialSearch.get("filter") || window.__INITIAL_FILTER__ || "").trim().toLowerCase();
 const defaultView =
   viewParam === "semi" || initialHash.includes("semi") || initialPath.includes("/semi")
     ? "semi"

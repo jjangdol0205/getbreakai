@@ -12,8 +12,14 @@ import json
 import pathlib
 import re
 import shutil
+import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from scripts.generate_seo_stock_pages import generate_all_seo_pages
+
 FE = ROOT / "frontend"
 DIST = FE / "dist"
 ROOT_DIST = ROOT / "dist"
@@ -49,14 +55,14 @@ def refresh_health_and_rss() -> tuple[str, str]:
 
     semi_path = ROOT / "static_api" / "semi_overview.json"
     stocks_path = ROOT / "static_api" / "stocks_free.json"
-    as_of_date = "2026-11-04"
+    as_of_date = "2026-11-05"
     fg_score = 18.0
     regime_code = "EXTREME_FEAR"
     smh_close = 504.48
     smh_dd_pct = -24.58
-    celh_close = 30.75
-    celh_stop = 27.98
-    celh_tp1 = 61.50
+    celh_close = 30.04
+    celh_stop = 27.34
+    celh_tp1 = 60.08
 
     if semi_path.exists():
         try:
@@ -109,31 +115,31 @@ def refresh_health_and_rss() -> tuple[str, str]:
     </item>
     <item>
       <title><![CDATA[CNN-Edition Semiconductor Fear & Greed Index ($SMH {fg_score:.1f} {regime_code}) & $SMH/$XLV 80:20 Contrarian Barbell Engine]]></title>
-      <link>https://truthofmarket.com/?view=semi</link>
-      <guid isPermaLink="true">https://truthofmarket.com/?view=semi</guid>
+      <link>https://truthofmarket.com/semi-fear-greed.html</link>
+      <guid isPermaLink="true">https://truthofmarket.com/semi-fear-greed.html</guid>
       <pubDate>{rfc_now}</pubDate>
       <description><![CDATA[Real-time 5-factor Semiconductor Fear & Greed Index ($SMH Close ${smh_close:.2f}, {smh_dd_pct:.2f}% from 52W High as of {as_of_date}) and regime-based $SMH (VanEck Semiconductor ETF) vs. $XLV (Health Care Select Sector SPDR) contrarian barbell rebalancing simulator.]]></description>
     </item>
     <item>
       <title><![CDATA[Celsius Holdings ($CELH) Institutional Deep-Dive: 52W Bottom Re-Accumulation & PW-RSI Turnaround Analysis (${celh_close:.2f})]]></title>
-      <link>https://truthofmarket.com/?ticker=CELH</link>
-      <guid isPermaLink="true">https://truthofmarket.com/?ticker=CELH</guid>
+      <link>https://truthofmarket.com/stocks/celh.html</link>
+      <guid isPermaLink="true">https://truthofmarket.com/stocks/celh.html</guid>
       <pubDate>{rfc_now}</pubDate>
       <description><![CDATA[Comprehensive institutional audit of Celsius Holdings ($CELH, Close ${celh_close:.2f} as of {as_of_date}) following its PepsiCo inventory destocking washout: gross margin defense, international expansion catalysts, ${celh_stop:.2f} (-9.0%) hard stop floor, and ${celh_tp1:.2f} (+100% 2x) TP1 target.]]></description>
     </item>
     <item>
       <title><![CDATA[Mobileye Global ($MBLY) Post-Mortem Risk Audit: Rule 1 (-9.0% Hard Stop @ $6.39) Execution & Capital Preservation]]></title>
-      <link>https://truthofmarket.com/?ticker=MBLY</link>
-      <guid isPermaLink="true">https://truthofmarket.com/?ticker=MBLY</guid>
+      <link>https://truthofmarket.com/stocks/mbly.html</link>
+      <guid isPermaLink="true">https://truthofmarket.com/stocks/mbly.html</guid>
       <pubDate>{rfc_now}</pubDate>
       <description><![CDATA[Transparent institutional post-mortem on Mobileye Global ($MBLY): how mechanical execution of Rule 1 (-9.0% Hard Stop at $6.39) prevented deeper drawdown after support breakdown and redeployed capital into confirmed right-side leaders.]]></description>
     </item>
     <item>
-      <title><![CDATA[Daily PW-RSI Right-Side Ignition Watchlist ({as_of_date}): $ON, $MCHP, $ENPH, $FSLR, $DVN, $OXY, $INTC, $BIIB]]></title>
-      <link>https://truthofmarket.com/?filter=ignition</link>
-      <guid isPermaLink="true">https://truthofmarket.com/?filter=ignition</guid>
+      <title><![CDATA[NVIDIA ($NVDA) & VanEck Semiconductor ETF ($SMH) Institutional PW-RSI Support/Resistance Audit ({as_of_date})]]></title>
+      <link>https://truthofmarket.com/stocks/nvda.html</link>
+      <guid isPermaLink="true">https://truthofmarket.com/stocks/nvda.html</guid>
       <pubDate>{rfc_now}</pubDate>
-      <description><![CDATA[Daily quantitative screening ({as_of_date}) of 72 US equities identifying stocks emerging from 52-week extreme oversold washouts with bullish RSI divergence, volume dry-up (VDU) exhaustion, and 20-day moving average reclaim triggers.]]></description>
+      <description><![CDATA[Daily quantitative screening ({as_of_date}) of NVIDIA ($NVDA), $SMH, $SOXL, $AMD, and $AVGO across 52-week support/resistance levels, 20-day/60-day moving average reclaim triggers, and -9.0% hard-stop risk floors.]]></description>
     </item>
   </channel>
 </rss>
@@ -151,6 +157,9 @@ def main() -> None:
 
     js_name = "index-BIziPp23.js"
     css_name = "index-CaOpdap3.css"
+
+    # Generate all 76 static /stocks/<ticker>.html pages, /semi-fear-greed.html, and clean sitemap.xml
+    seo_dir_html = generate_all_seo_pages(js_name=js_name, css_name=css_name)
 
     index_html = f"""<!DOCTYPE html>
 <html lang="en">
@@ -229,6 +238,7 @@ def main() -> None:
 </head>
 <body>
   <div id="app"></div>
+{seo_dir_html}
 </body>
 </html>
 """

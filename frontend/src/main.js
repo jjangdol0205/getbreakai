@@ -298,6 +298,8 @@ function renderApp() {
           <a href="#legal-refund" class="btn-open-legal" data-legal-tab="refund" style="color:#93c5fd; text-decoration:none; font-weight:600;">Refund & Cancellation Policy</a>
           <span style="color:var(--border);">·</span>
           <a href="mailto:support@truthofmarket.com" style="color:#93c5fd; text-decoration:none; font-weight:600;">Support: support@truthofmarket.com</a>
+          <span style="color:var(--border);">·</span>
+          <span style="color:#cbd5e1; font-weight:600;">Operated by Yoonju Lee · KIDS-FIT Global Studio (Lemon Squeezy Store #296100 · <a href="https://kisfitglobal.com" target="_blank" rel="noopener noreferrer" style="color:#93c5fd; text-decoration:none;">kisfitglobal.com</a> &amp; <a href="https://truthofmarket.com" style="color:#93c5fd; text-decoration:none;">truthofmarket.com</a>)</span>
         </div>
         <p id="disclaimerText">${t.disclaimer}</p>
         <p style="margin-top:8px; font-family:var(--font-mono); font-size:0.72rem;" id="copyrightText">${t.copyright}</p>

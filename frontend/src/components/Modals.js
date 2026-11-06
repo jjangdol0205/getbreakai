@@ -43,29 +43,18 @@ export function renderModals(state) {
         <div id="instantVipBridgeBox" style="background:rgba(16,185,129,0.08); border:1px solid rgba(16,185,129,0.38); border-radius:6px; padding:12px; margin-bottom:12px;">
           <div style="display:flex; justify-content:space-between; align-items:center; gap:6px; flex-wrap:wrap;">
             <span style="font-size:0.7rem; font-family:var(--font-mono); color:#34d399; font-weight:800; text-transform:uppercase;">
-              ⚡ INSTANT 7-DAY PRO FOUNDING PASS · ZERO-BOUNCE FAST TRACK
+              ⚡ INTERACTIVE PRO TERMINAL PREVIEW &amp; 7-DAY TRIAL PASS
             </span>
-            <span class="badge badge-ignition" style="font-size:0.64rem; padding:2px 6px;">NO CARD REQUIRED</span>
+            <span class="badge badge-ignition" style="font-size:0.64rem; padding:2px 6px;">INSTANT SANDBOX KEY</span>
           </div>
           <p style="color:#cbd5e1; font-size:0.76rem; margin:6px 0 8px; line-height:1.45;">
-            While Lemon Squeezy completes final regional Merchant-of-Record gateway verification (or if you want to test Pro before billing), enter your email below for an <b>instant 7-Day Full Pro Terminal Key</b> (unmasks all 72 US Equity Triggers, Position Doctor &amp; 26Y CSV):
+            Want to test the unlocked Pro Terminal before subscribing (or reviewing our Store #296100 deliverables)? Enter your email below to generate an <b>instant 7-Day Pro Preview License Key</b> that unmasks our 6 VIP Ignition setups, Position Doctor, and the 26-year historical backtest CSV dataset:
           </p>
           <div style="display:flex; gap:6px; flex-wrap:wrap;">
-            <input type="email" id="vipTrialEmailInput" placeholder="Enter your email for instant 7-Day Pro Pass..." autocomplete="email" style="flex:1; min-width:200px; margin:0; padding:8px 10px; font-size:0.8rem;" />
+            <input type="email" id="vipTrialEmailInput" placeholder="Enter your email for instant 7-Day Pro Trial Key..." autocomplete="email" style="flex:1; min-width:200px; margin:0; padding:8px 10px; font-size:0.8rem;" />
             <button type="button" class="btn btn-emerald btn-sm" id="btnInstantVipTrialUnlock" style="font-weight:800; padding:8px 12px; white-space:nowrap;">
-              ⚡ Unlock 7-Day Pro Pass Now
+              ⚡ Issue 7-Day Pro Trial Key
             </button>
-          </div>
-          <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap; margin-top:8px; padding-top:8px; border-top:1px dashed rgba(148,163,184,0.2); font-size:0.72rem; color:#94a3b8;">
-            <span>Or unlock immediately via our official execution partners:</span>
-            <div style="display:flex; gap:6px; flex-wrap:wrap;">
-              <a href="https://www.tradingview.com/?aff_id=${cfg.tradingview_aff_id || "1173809"}" target="_blank" rel="noopener noreferrer" class="btn btn-sm" id="btnPartnerUnlockTv" style="font-size:0.7rem; padding:4px 8px; border-color:rgba(59,130,246,0.45); color:#93c5fd;">
-                📈 TradingView Partner Unlock ↗
-              </a>
-              <a href="${cfg.broker_referral_url || "https://www.bitget.com/referral/register?clacCode=7nja"}" target="_blank" rel="noopener noreferrer" class="btn btn-sm" id="btnPartnerUnlockBrk" style="font-size:0.7rem; padding:4px 8px; border-color:rgba(16,185,129,0.45); color:#34d399;">
-                🏦 Bitget Fee-Rebate Unlock ↗
-              </a>
-            </div>
           </div>
         </div>
         <input type="text" id="licenseInput" value="${state.licenseKey || ""}" placeholder="Enter Lemon Squeezy License Key (XXXX-XXXX-XXXX-XXXX)" autocomplete="off" />

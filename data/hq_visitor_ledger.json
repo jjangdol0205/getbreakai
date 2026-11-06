@@ -1,5 +1,5 @@
 {
-  "lastUpdatedKst": "2026-11-05 08:48:50 KST",
+  "lastUpdatedKst": "2026-11-06 08:41:56 KST",
   "lastTelegramSentMs": 1793836130391,
   "divisions": {
     "tom_truthofmarket": {
@@ -12,8 +12,15 @@
           "refClick": 0
         },
         "2026-11-05": {
-          "uv": 0,
-          "pv": 0,
+          "uv": 9,
+          "pv": 14,
+          "paidClick": 1,
+          "paidMember": 0,
+          "refClick": 0
+        },
+        "2026-11-06": {
+          "uv": 11,
+          "pv": 14,
           "paidClick": 0,
           "paidMember": 0,
           "refClick": 0
@@ -44,8 +51,15 @@
           "refClick": 0
         },
         "2026-11-05": {
-          "uv": 0,
-          "pv": 0,
+          "uv": 3,
+          "pv": 3,
+          "paidClick": 0,
+          "paidMember": 0,
+          "refClick": 0
+        },
+        "2026-11-06": {
+          "uv": 1,
+          "pv": 1,
           "paidClick": 0,
           "paidMember": 0,
           "refClick": 0
@@ -69,8 +83,15 @@
           "refClick": 0
         },
         "2026-11-05": {
-          "uv": 0,
-          "pv": 0,
+          "uv": 2,
+          "pv": 2,
+          "paidClick": 0,
+          "paidMember": 0,
+          "refClick": 0
+        },
+        "2026-11-06": {
+          "uv": 1,
+          "pv": 1,
           "paidClick": 0,
           "paidMember": 0,
           "refClick": 0

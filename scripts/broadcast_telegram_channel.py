@@ -17,8 +17,8 @@ TG_CONFIG_PATH = BASE_DIR / "data" / "telegram_config.json"
 SEMI_JSON_PATH = BASE_DIR / "frontend" / "public" / "static_api" / "semi_overview.json"
 STOCKS_PRO_PATH = BASE_DIR / "data" / "stocks_pro_master.json"
 
-LS_MONTHLY_URL = "https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8"
-LS_LTD_URL = "https://truthofmarket.lemonsqueezy.com/checkout/buy/667aa482-f17c-47d1-b7f3-a2427c36516b"
+LS_MONTHLY_URL = "https://truthofmarket.com/?checkout=monthly#pricingSection"
+LS_LTD_URL = "https://truthofmarket.com/?checkout=lifetime#pricingSection"
 
 
 def load_tg_credentials():

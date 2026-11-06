@@ -187,9 +187,11 @@ async function fetchDivisionMetricsSequential(div, ledger) {
     daysMap[yesterday] = { uv: 0, pv: 0, paidClick: 0, paidMember: 0, refClick: 0 };
   }
 
-  // Only query today's active counters sequentially (prevents Abacus HTTP 429)
+  // Query today's and yesterday's active counters sequentially (prevents Abacus HTTP 429 & captures late-night 21:00~24:00 KST traffic)
   const uvTodayRaw = await getAbacusCountSafe(div.ns, `uv_${today}`);
   const pvTodayRaw = await getAbacusCountSafe(div.ns, `pv_${today}`);
+  const uvYestRaw = await getAbacusCountSafe(div.ns, `uv_${yesterday}`);
+  const pvYestRaw = await getAbacusCountSafe(div.ns, `pv_${yesterday}`);
 
   if (uvTodayRaw !== null) {
     daysMap[today].uv = Math.max(daysMap[today].uv || 0, uvTodayRaw);
@@ -197,23 +199,37 @@ async function fetchDivisionMetricsSequential(div, ledger) {
   if (pvTodayRaw !== null) {
     daysMap[today].pv = Math.max(daysMap[today].pv || 0, pvTodayRaw);
   }
+  if (uvYestRaw !== null) {
+    daysMap[yesterday].uv = Math.max(daysMap[yesterday].uv || 0, uvYestRaw);
+  }
+  if (pvYestRaw !== null) {
+    daysMap[yesterday].pv = Math.max(daysMap[yesterday].pv || 0, pvYestRaw);
+  }
   // Mathematical consistency: PV is always >= UV
   daysMap[today].pv = Math.max(daysMap[today].pv || 0, daysMap[today].uv || 0);
   daysMap[yesterday].pv = Math.max(daysMap[yesterday].pv || 0, daysMap[yesterday].uv || 0);
 
   if (div.kpiType === 'PAID') {
     const paidClickRaw = await getAbacusCountSafe(div.ns, `paid_click_${today}`);
+    const paidClickYestRaw = await getAbacusCountSafe(div.ns, `paid_click_${yesterday}`);
     const paidMemberRaw = await getAbacusCountSafe(div.ns, `paid_member_${today}`);
     if (paidClickRaw !== null) {
       daysMap[today].paidClick = Math.max(daysMap[today].paidClick || 0, paidClickRaw);
+    }
+    if (paidClickYestRaw !== null) {
+      daysMap[yesterday].paidClick = Math.max(daysMap[yesterday].paidClick || 0, paidClickYestRaw);
     }
     if (paidMemberRaw !== null) {
       daysMap[today].paidMember = Math.max(daysMap[today].paidMember || 0, paidMemberRaw);
     }
   } else {
     const refClickRaw = await getAbacusCountSafe(div.ns, `ref_click_${today}`);
+    const refClickYestRaw = await getAbacusCountSafe(div.ns, `ref_click_${yesterday}`);
     if (refClickRaw !== null) {
       daysMap[today].refClick = Math.max(daysMap[today].refClick || 0, refClickRaw);
+    }
+    if (refClickYestRaw !== null) {
+      daysMap[yesterday].refClick = Math.max(daysMap[yesterday].refClick || 0, refClickYestRaw);
     }
   }
 

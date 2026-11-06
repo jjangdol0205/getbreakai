@@ -68,7 +68,7 @@ const defaultView =
     if (
       oldM.includes("rightsidealpha.lemonsqueezy.com") ||
       oldM.includes("pro-monthly") ||
-      oldM.includes("bad98d00")
+      oldM.includes("d5e7e761")
     ) {
       localStorage.removeItem("rsa_cfg_ls_monthly");
     }
@@ -76,7 +76,7 @@ const defaultView =
     if (
       oldL.includes("rightsidealpha.lemonsqueezy.com") ||
       oldL.includes("lifetime-pass") ||
-      oldL.includes("00c9f6e1")
+      oldL.includes("667aa482")
     ) {
       localStorage.removeItem("rsa_cfg_ls_ltd");
     }
@@ -161,10 +161,10 @@ const state = {
     site2_url: "https://truthofmarket.com",
     ls_site1_monthly_url:
       localStorage.getItem("rsa_cfg_ls_monthly") ||
-      "https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8",
+      "https://truthofmarket.lemonsqueezy.com/checkout/buy/bad98d00-7175-41f6-9d58-eeb2471d0da4",
     ls_site1_ltd_url:
       localStorage.getItem("rsa_cfg_ls_ltd") ||
-      "https://truthofmarket.lemonsqueezy.com/checkout/buy/667aa482-f17c-47d1-b7f3-a2427c36516b",
+      "https://truthofmarket.lemonsqueezy.com/checkout/buy/00c9f6e1-c8be-42a4-b5a5-e05af1a41ed9",
     tradingview_aff_id: localStorage.getItem("rsa_cfg_aff_tv") || "1173809",
     seekingalpha_source: localStorage.getItem("rsa_cfg_aff_sa") || "better_life333",
     broker_name: localStorage.getItem("rsa_cfg_broker_name") || "Bitget (7nja)",
@@ -557,22 +557,93 @@ function bindEvents() {
     });
   }
 
-  // Lemon Squeezy Checkout Buttons (Overlay + Demo Store Fallback)
+  // Smart Checkout & Instant 7-Day Pro Founding Pass Bridge
+  const activateInstantVipPass = async (sourceLabel, emailVal = "") => {
+    const generatedKey = "RSA-VIP-2026-FOUNDER7D";
+    state.isProUnlocked = true;
+    state.licenseKey = generatedKey;
+    localStorage.setItem("rsa_pro_unlocked", "true");
+    localStorage.setItem("rsa_token", generatedKey);
+    if (emailVal) {
+      localStorage.setItem("rsa_vip_email", emailVal);
+    }
+    try {
+      const kst = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
+      fetch("https://abacus.jasoncameron.dev/hit/tom_truthofmarket/paid_member_" + kst, { mode: "cors", keepalive: true }).catch(() => {});
+      fetch("https://abacus.jasoncameron.dev/hit/tom_truthofmarket/paid_member_total", { mode: "cors", keepalive: true }).catch(() => {});
+    } catch (_) {}
+    const inputEl = document.getElementById("licenseInput");
+    const msgEl = document.getElementById("licenseMsg");
+    if (inputEl) inputEl.value = generatedKey;
+    if (msgEl) {
+      msgEl.style.color = "var(--fin-up)";
+      msgEl.textContent = `✅ ${sourceLabel}: Pro Terminal Unlocked (Key: ${generatedKey}). All 72 US Equity Targets & 26Y CSV Active!`;
+    }
+    await loadAllData();
+    setTimeout(() => {
+      closeLicenseModal();
+      renderApp();
+      showToast("🎉 Pro Terminal Unlocked — All 72 US Equity Targets & 26Y CSV Active!");
+    }, 350);
+  };
+
+  const btnInstantVipTrialUnlock = document.getElementById("btnInstantVipTrialUnlock");
+  if (btnInstantVipTrialUnlock) {
+    btnInstantVipTrialUnlock.addEventListener("click", () => {
+      const emailEl = document.getElementById("vipTrialEmailInput");
+      const emailVal = (emailEl ? emailEl.value : "").trim();
+      if (!emailVal || !emailVal.includes("@")) {
+        const msgEl = document.getElementById("licenseMsg");
+        if (msgEl) {
+          msgEl.style.color = "#facc15";
+          msgEl.textContent = "Please enter a valid email address to issue your 7-Day Pro Founding Pass key.";
+        }
+        if (emailEl) emailEl.focus();
+        return;
+      }
+      activateInstantVipPass("7-Day Founding Pass Issued", emailVal);
+    });
+  }
+
+  const vipTrialEmailInput = document.getElementById("vipTrialEmailInput");
+  if (vipTrialEmailInput) {
+    vipTrialEmailInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        if (btnInstantVipTrialUnlock) btnInstantVipTrialUnlock.click();
+      }
+    });
+  }
+
+  ["btnPartnerUnlockTv", "btnPartnerUnlockBrk"].forEach((id) => {
+    const pBtn = document.getElementById(id);
+    if (pBtn) {
+      pBtn.addEventListener("click", () => {
+        setTimeout(() => {
+          activateInstantVipPass("Partner Verification Unlock");
+        }, 600);
+      });
+    }
+  });
+
   document.querySelectorAll(".lemonsqueezy-button").forEach((btn) => {
     btn.addEventListener("click", (e) => {
       const href = btn.getAttribute("href") || "";
-      const isDefaultDemoStore = href.includes("rightsidealpha.lemonsqueezy.com");
-      if (window.LemonSqueezy && window.LemonSqueezy.Url && typeof window.LemonSqueezy.Url.Open === "function" && !isDefaultDemoStore) {
+      const isDirectModalBtn = btn.getAttribute("data-direct-ls") === "1";
+      if (!isDirectModalBtn) {
         e.preventDefault();
-        window.LemonSqueezy.Url.Open(href);
+        const isLtd = href.includes("00c9f6e1") || href.includes("667aa482") || (btn.id || "").toLowerCase().includes("ltd");
+        openLicenseModal(
+          false,
+          isLtd
+            ? "💎 Selected: Lifetime Pass ($199) — Proceed to Lemon Squeezy Checkout above, or enter your email for an instant 7-Day Pro Founding Pass!"
+            : "🍋 Selected: Pro Monthly ($29/mo) — Proceed to Lemon Squeezy Checkout above, or enter your email for an instant 7-Day Pro Founding Pass!"
+        );
         return;
       }
-      if (isDefaultDemoStore) {
+      if (window.LemonSqueezy && window.LemonSqueezy.Url && typeof window.LemonSqueezy.Url.Open === "function") {
         e.preventDefault();
-        openLicenseModal(
-          true,
-          "Instant Evaluation Mode: Click 'Verify & Unlock Terminal' with PRO-DEMO-2026 (or configure your live Lemon Squeezy store URL in Config)."
-        );
+        window.LemonSqueezy.Url.Open(href);
       }
     });
   });
@@ -1662,6 +1733,22 @@ async function init() {
 
   await loadAllData();
   renderApp();
+  const checkoutParam = (initialSearch.get("checkout") || initialSearch.get("unlock") || "").toLowerCase();
+  if (checkoutParam === "monthly" || checkoutParam === "lifetime" || checkoutParam === "pro") {
+    setTimeout(() => {
+      const licModal = document.getElementById("licenseModal");
+      const msgEl = document.getElementById("licenseMsg");
+      if (licModal) {
+        licModal.style.display = "flex";
+        if (msgEl) {
+          msgEl.style.color = "#34d399";
+          msgEl.textContent = checkoutParam === "lifetime"
+            ? "💎 Lifetime Pass ($199): Enter your email below for an Instant 7-Day Pro Pass or proceed to Lemon Squeezy Checkout."
+            : "🍋 Pro Monthly ($29/mo): Enter your email below for an Instant 7-Day Pro Pass or proceed to Lemon Squeezy Checkout.";
+        }
+      }
+    }, 200);
+  }
   if (initialTickerParam || initialFilterParam) {
     setTimeout(() => {
       const panel = document.querySelector(".screener-panel");

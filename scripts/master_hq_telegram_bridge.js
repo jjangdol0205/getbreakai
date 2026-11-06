@@ -598,7 +598,7 @@ function checkDailyStaggeredSchedule(state) {
 
   if (!state.lastAutoRunDate) state.lastAutoRunDate = {};
   const hourKey = `${ymd}_${String(now.getHours()).padStart(2, "0")}`;
-  if (now.getMinutes() === 0 && state.lastAutoRunDate.HOURLY_SLOT !== hourKey) {
+  if (false && now.getMinutes() === 0 && state.lastAutoRunDate.HOURLY_SLOT !== hourKey) {
     state.lastAutoRunDate.HOURLY_SLOT = hourKey;
     saveState(state);
     enqueueTask(
@@ -613,7 +613,7 @@ function checkDailyStaggeredSchedule(state) {
     );
   }
 
-  if (hhmm === "05:00" && state.lastAutoRunDate.DAWN_RL !== ymd) {
+  if (false && hhmm === "05:00" && state.lastAutoRunDate.DAWN_RL !== ymd) {
     state.lastAutoRunDate.DAWN_RL = ymd;
     saveState(state);
     handleCommand("/rl", state);

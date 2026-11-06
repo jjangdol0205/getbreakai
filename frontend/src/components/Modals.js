@@ -33,12 +33,40 @@ export function renderModals(state) {
           Enter the license key issued upon Lemon Squeezy checkout to unlock all 72 US equity target levels, Daily VIP Ignition Order Book, Position Sizing Calculator, Position Doctor, and the 26-year Semiconductor CSV dataset.
         </p>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:12px 0 10px;">
-          <a class="btn btn-primary btn-sm lemonsqueezy-button" href="${cfg.ls_site1_monthly_url || "https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8"}?embed=1" target="_blank" rel="noopener noreferrer" style="justify-content:center; padding:8px 10px; font-weight:700;">
+          <a class="btn btn-primary btn-sm lemonsqueezy-button" data-direct-ls="1" href="${cfg.ls_site1_monthly_url || "https://truthofmarket.lemonsqueezy.com/checkout/buy/bad98d00-7175-41f6-9d58-eeb2471d0da4"}?embed=1" target="_blank" rel="noopener noreferrer" style="justify-content:center; padding:8px 10px; font-weight:700;">
             🍋 Subscribe Pro ($29/mo) ↗
           </a>
-          <a class="btn btn-emerald btn-sm lemonsqueezy-button" href="${cfg.ls_site1_ltd_url || "https://truthofmarket.lemonsqueezy.com/checkout/buy/667aa482-f17c-47d1-b7f3-a2427c36516b"}?embed=1" target="_blank" rel="noopener noreferrer" style="justify-content:center; padding:8px 10px; font-weight:700;">
+          <a class="btn btn-emerald btn-sm lemonsqueezy-button" data-direct-ls="1" href="${cfg.ls_site1_ltd_url || "https://truthofmarket.lemonsqueezy.com/checkout/buy/00c9f6e1-c8be-42a4-b5a5-e05af1a41ed9"}?embed=1" target="_blank" rel="noopener noreferrer" style="justify-content:center; padding:8px 10px; font-weight:700;">
             🏆 Lifetime Pass ($199) ↗
           </a>
+        </div>
+        <div id="instantVipBridgeBox" style="background:rgba(16,185,129,0.08); border:1px solid rgba(16,185,129,0.38); border-radius:6px; padding:12px; margin-bottom:12px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:6px; flex-wrap:wrap;">
+            <span style="font-size:0.7rem; font-family:var(--font-mono); color:#34d399; font-weight:800; text-transform:uppercase;">
+              ⚡ INSTANT 7-DAY PRO FOUNDING PASS · ZERO-BOUNCE FAST TRACK
+            </span>
+            <span class="badge badge-ignition" style="font-size:0.64rem; padding:2px 6px;">NO CARD REQUIRED</span>
+          </div>
+          <p style="color:#cbd5e1; font-size:0.76rem; margin:6px 0 8px; line-height:1.45;">
+            While Lemon Squeezy completes final regional Merchant-of-Record gateway verification (or if you want to test Pro before billing), enter your email below for an <b>instant 7-Day Full Pro Terminal Key</b> (unmasks all 72 US Equity Triggers, Position Doctor &amp; 26Y CSV):
+          </p>
+          <div style="display:flex; gap:6px; flex-wrap:wrap;">
+            <input type="email" id="vipTrialEmailInput" placeholder="Enter your email for instant 7-Day Pro Pass..." autocomplete="email" style="flex:1; min-width:200px; margin:0; padding:8px 10px; font-size:0.8rem;" />
+            <button type="button" class="btn btn-emerald btn-sm" id="btnInstantVipTrialUnlock" style="font-weight:800; padding:8px 12px; white-space:nowrap;">
+              ⚡ Unlock 7-Day Pro Pass Now
+            </button>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap; margin-top:8px; padding-top:8px; border-top:1px dashed rgba(148,163,184,0.2); font-size:0.72rem; color:#94a3b8;">
+            <span>Or unlock immediately via our official execution partners:</span>
+            <div style="display:flex; gap:6px; flex-wrap:wrap;">
+              <a href="https://www.tradingview.com/?aff_id=${cfg.tradingview_aff_id || "1173809"}" target="_blank" rel="noopener noreferrer" class="btn btn-sm" id="btnPartnerUnlockTv" style="font-size:0.7rem; padding:4px 8px; border-color:rgba(59,130,246,0.45); color:#93c5fd;">
+                📈 TradingView Partner Unlock ↗
+              </a>
+              <a href="${cfg.broker_referral_url || "https://www.bitget.com/referral/register?clacCode=7nja"}" target="_blank" rel="noopener noreferrer" class="btn btn-sm" id="btnPartnerUnlockBrk" style="font-size:0.7rem; padding:4px 8px; border-color:rgba(16,185,129,0.45); color:#34d399;">
+                🏦 Bitget Fee-Rebate Unlock ↗
+              </a>
+            </div>
+          </div>
         </div>
         <input type="text" id="licenseInput" value="${state.licenseKey || ""}" placeholder="Enter Lemon Squeezy License Key (XXXX-XXXX-XXXX-XXXX)" autocomplete="off" />
         <div id="licenseMsg" style="font-size:0.8rem; margin-bottom:12px; min-height:1.2em;"></div>
@@ -227,10 +255,10 @@ export function renderModals(state) {
         <input type="text" id="cfgSite1Url" value="${cfg.site1_url || "https://truthofmarket.com"}" />
 
         <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">LEMON SQUEEZY MONTHLY CHECKOUT URL ($29/MO)</label>
-        <input type="text" id="cfgLsMonthly" value="${cfg.ls_site1_monthly_url || "https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8"}" />
+        <input type="text" id="cfgLsMonthly" value="${cfg.ls_site1_monthly_url || "https://truthofmarket.lemonsqueezy.com/checkout/buy/bad98d00-7175-41f6-9d58-eeb2471d0da4"}" />
 
         <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">LEMON SQUEEZY LIFETIME CHECKOUT URL ($199)</label>
-        <input type="text" id="cfgLsLtd" value="${cfg.ls_site1_ltd_url || "https://truthofmarket.lemonsqueezy.com/checkout/buy/667aa482-f17c-47d1-b7f3-a2427c36516b"}" />
+        <input type="text" id="cfgLsLtd" value="${cfg.ls_site1_ltd_url || "https://truthofmarket.lemonsqueezy.com/checkout/buy/00c9f6e1-c8be-42a4-b5a5-e05af1a41ed9"}" />
 
         <label style="font-size:0.72rem; color:var(--muted); font-family:var(--font-mono);">TELEGRAM OFFICIAL CHANNEL / BOT URL</label>
         <input type="text" id="cfgTgChannel" value="${tgChannelUrl}" />

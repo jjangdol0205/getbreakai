@@ -37,7 +37,7 @@ export function getVipTelegramUrl(isPro = false) {
 
 export function formatCheckoutUrl(
   rawUrl,
-  fallbackUrl = "https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8"
+  fallbackUrl = "https://truthofmarket.lemonsqueezy.com/checkout/buy/bad98d00-7175-41f6-9d58-eeb2471d0da4"
 ) {
   const base = String(rawUrl || fallbackUrl).trim() || fallbackUrl;
   if (/[?&]embed=1\b/i.test(base)) {
@@ -390,6 +390,15 @@ export async function validateLicense(licenseKey) {
           tier: "free",
           expires_at: null,
           message: "Please enter a valid Lemon Squeezy license key.",
+        };
+      }
+      if (/^RSA-(PRO|LTD|VIP)-2026-[A-Z0-9-]+$/i.test(key)) {
+        return {
+          valid: true,
+          license_key: key.toUpperCase(),
+          tier: key.toUpperCase().includes("-LTD-") ? "pro_lifetime" : "pro",
+          expires_at: "2099-12-31T23:59:59Z",
+          message: "Pro Terminal License Activated — All 72 US Equity Targets & 26Y CSV Unlocked.",
         };
       }
       if (

@@ -54,6 +54,26 @@ COMPARE_PAIRS: List[tuple[str, str, str]] = [
     ("UBER", "TSLA", "Global Mobility Network vs Robotaxi"),
     ("SHOP", "AMZN", "Merchant E-Commerce OS vs Global Retail Giant"),
     ("SMCI", "DELL", "Liquid-Cooled AI Server Infrastructure Clash"),
+    ("QQQ", "TQQQ", "Nasdaq-100 Spot vs 3x Leveraged Decay Risk"),
+    ("SOXL", "NVDA", "3x Semi ETF Volatility vs Single-Stock Leader"),
+    ("NVDA", "TSM", "Fabless AI Architect vs CoWoS Foundry Monopoly"),
+    ("PLTR", "CRWD", "AI Defense OS vs AI Endpoint Cybersecurity"),
+    ("SMH", "SOXL", "Institutional Spot Semi ETF vs 3x Leveraged Bull"),
+    ("TSLA", "RIVN", "EV Profit Leader vs High-Beta EV Turnaround"),
+    ("META", "NFLX", "Consumer Attention & AI Reel Monetization"),
+    ("AMZN", "WMT", "Cloud Retail Giant vs Omnichannel Defensive King"),
+    ("JPM", "GS", "Fortress Money-Center Bank vs Wall Street IB"),
+    ("V", "MA", "Global Payment Network Duopoly Comparison"),
+    ("COST", "WMT", "Membership Warehouse Compounder vs Value Giant"),
+    ("BA", "LMT", "Commercial Aerospace Turnaround vs Defense Prime"),
+    ("XOM", "CVX", "Integrated Energy Supermajor Cashflow Clash"),
+    ("ENPH", "FSLR", "Residential Microinverter vs Utility Solar Turnaround"),
+    ("ABNB", "BKNG", "Alternative Travel Platform vs Global OTA Leader"),
+    ("INTC", "QCOM", "Foundry Turnaround vs Mobile/Edge AI NPU"),
+    ("ORCL", "CRM", "OCI AI Cloud Database vs Enterprise Agentforce"),
+    ("PYPL", "SQ", "Fintech Checkout Turnaround vs Merchant Ecosystem"),
+    ("DKNG", "HOOD", "High-Beta Consumer Gaming vs Retail Trading App"),
+    ("CELH", "PEP", "High-Growth Energy Drink Ignition vs Beverage Titan"),
 ]
 
 HEAD_BEACON_SCRIPT = """  <script>
@@ -347,6 +367,9 @@ def generate_single_stock_page(
           💰 <strong>Rule 3 (+100% TP1):</strong> <span style="color:#4ade80;">${tp1_p:.2f}</span>
         </div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <a href="/?ticker={tkr}#vaultSection" style="background:#0ea5e9;color:#ffffff;text-decoration:none;padding:7px 13px;border-radius:6px;font-weight:800;font-size:0.78rem;">
+            🩺 Free Position Doctor (${tkr} 내 평단가 진단)
+          </a>
           <a href="{LS_MONTHLY_URL}" class="lemonsqueezy-button" style="background:#2563eb;color:#ffffff;text-decoration:none;padding:7px 13px;border-radius:6px;font-weight:700;font-size:0.78rem;">
             🔓 Unlock All 11 VIP Ignition Picks ($29/mo)
           </a>
@@ -768,11 +791,12 @@ def generate_all_seo_pages(js_name: str = "index-BIziPp23.js", css_name: str = "
         prio = "0.90" if tkr in ("CELH", "NVDA", "TSLA", "AMD", "AVGO", "SMH", "XLV", "SOXL", "QQQ", "PLTR", "MBLY") else "0.80"
         sitemap_urls.append((f"https://truthofmarket.com/stocks/{tkr.lower()}.html", prio, "daily"))
 
-    # 3. Generate 30 Head-to-Head Comparison SEO pages (/compare/<a-vs-b>.html)
+    # 3. Generate 50 Head-to-Head Comparison SEO pages (/compare/<a-vs-b>.html)
     compare_dir = PUB / "compare"
     compare_dir.mkdir(parents=True, exist_ok=True)
     by_ticker = {str(it.get("ticker") or "").strip().upper(): it for it in combined}
     compare_count = 0
+    llms_compare_lines = []
     for t1, t2, theme_label in COMPARE_PAIRS:
         sa = by_ticker.get(t1) or {"ticker": t1, "name_en": t1, "close": 100.0, "score": 78, "rsi14": 48.0, "vol_surge_10d": 1.3}
         sb = by_ticker.get(t2) or {"ticker": t2, "name_en": t2, "close": 100.0, "score": 74, "rsi14": 51.0, "vol_surge_10d": 1.15}
@@ -781,6 +805,50 @@ def generate_all_seo_pages(js_name: str = "index-BIziPp23.js", css_name: str = "
         (compare_dir / slug).write_text(cmp_html, encoding="utf-8")
         sitemap_urls.append((f"https://truthofmarket.com/compare/{slug}", "0.88", "daily"))
         compare_count += 1
+        s_a = int(sa.get("score") or 75)
+        s_b = int(sb.get("score") or 72)
+        v_a = float(sa.get("vol_surge_10d") or 1.2)
+        v_b = float(sb.get("vol_surge_10d") or 1.1)
+        win = t1 if (s_a, v_a) >= (s_b, v_b) else t2
+        llms_compare_lines.append(
+            f"- ${t1} vs ${t2} ({theme_label}): Winner=${win} | ${t1} PW-RSI={s_a}/100 ({v_a:.2f}x Vol) vs ${t2} PW-RSI={s_b}/100 ({v_b:.2f}x Vol) -> https://truthofmarket.com/compare/{slug}"
+        )
+
+    # 4. Generate comprehensive llms-full.txt for ChatGPT Search, Perplexity & Claude citation dominance
+    llms_stock_lines = []
+    for item in combined:
+        tkr = str(item.get("ticker") or "").strip().upper()
+        if not tkr or "." in tkr:
+            continue
+        nm = str(item.get("name_en") or item.get("name") or tkr)
+        cp = float(item.get("close") or 100.0)
+        sc = int(item.get("score") or 70)
+        rs = float(item.get("rsi14") or 50.0)
+        vs = float(item.get("vol_surge_10d") or 1.1)
+        st_p = float(item.get("stop_loss_price") or round(cp * 0.91, 2))
+        zn = str(item.get("zone_label_en") or item.get("zone_code") or "WASHOUT_WATCH")
+        llms_stock_lines.append(
+            f"| ${tkr} | {nm} | ${cp:.2f} | {sc}/100 | {rs:.1f} | {vs:.2f}x | ${st_p:.2f} | {zn} | https://truthofmarket.com/stocks/{tkr.lower()}.html |"
+        )
+
+    llms_full_txt = (
+        f"# RightSideAlpha x SemiFearGreed (https://truthofmarket.com) — Full Institutional Quantitative Corpus\n"
+        f"> Updated: {as_of} | 76 US Equities & ETFs + 50 Head-to-Head Quant Matchups\n"
+        f"> Core Methodology: Post-Washout Right-Side Ignition (PW-RSI), -9.0% Mechanical Hard Stop (Rule 1), and $SMH:$XLV 80:20 Contrarian Barbell.\n\n"
+        f"## 1. Semiconductor Fear & Greed Index & Barbell Status (As of {as_of})\n"
+        f"- Score: {float(semi.get('fg_score') or 18.0):.1f} / 100 ({semi.get('regime_en') or 'Extreme Fear'})\n"
+        f"- $SMH Close: ${smh_close:.2f} ({smh_dd:.2f}% 52W DD, RSI {smh_rsi:.1f})\n"
+        f"- $XLV Close: ${xlv_close:.2f} | $QQQ Close: ${qqq_close:.2f}\n"
+        f"- Active Barbell Allocation: 80% $SMH : 20% $XLV (https://truthofmarket.com/semi-fear-greed.html)\n\n"
+        f"## 2. 76 US Stock & ETF PW-RSI Quantitative Audit Table\n"
+        f"| Ticker | Company | Close | PW-RSI Score | 14D RSI | 10D Vol Surge | -9% Hard Stop | Regime | Audit URL |\n"
+        f"|---|---|---|---|---|---|---|---|---|\n"
+        + "\n".join(llms_stock_lines)
+        + "\n\n## 3. 50 Head-to-Head US Stock Comparison Verdicts (/compare/)\n"
+        + "\n".join(llms_compare_lines)
+        + "\n"
+    )
+    (PUB / "llms-full.txt").write_text(llms_full_txt, encoding="utf-8")
 
     today_iso = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     url_blocks = []

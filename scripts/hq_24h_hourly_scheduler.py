@@ -305,15 +305,34 @@ def main():
     show_table = "--table" in sys.argv
     notify = "--notify" in sys.argv
 
-    slot = HOURLY_SCHEDULE[hour]
-    summary = execute_hourly_action(slot, notify_override=notify)
+    # 교대근무 폐지: 매시간 전 사업부(1사업부 -> 2사업부 -> 3사업부) 순차 홍보 가동 + 상호 교차 검열 및 자동 수리
+    tom_slot = HOURLY_SCHEDULE[6 if hour in (6, 21) else 0]
+    kfg_slot = HOURLY_SCHEDULE[1]
+    if 1 <= hour <= 5:
+        kfk_slot = HOURLY_SCHEDULE[2]  # 심야 네이버 계정 보호 휴식기 (정적 SEO)
+    elif hour in (11, 17, 20):
+        kfk_slot = HOURLY_SCHEDULE[11]  # 피크타임 블로그+카페+지식iN 풀코스
+    else:
+        kfk_slot = HOURLY_SCHEDULE[8]  # 주간 지식iN 답변 + 진성 육아맘 블로그 공감·이웃 투어
+
+    s_tom = execute_hourly_action(tom_slot, notify_override=False)
+    s_kfg = execute_hourly_action(kfg_slot, notify_override=False)
+    s_kfk = execute_hourly_action(kfk_slot, notify_override=False)
+
+    # 3개 사업부 상호 교차 검열 & 자동 개선 실행
+    from hq_hourly_cross_audit_healer import format_cross_audit_summary, run_all_cross_audits
+    audit_rep = run_all_cross_audits()
+    audit_html = format_cross_audit_summary(audit_rep)
+
+    summary = f"[1사업부] {s_tom} | [2사업부] {s_kfg} | [3사업부] {s_kfk} | [상호검열 자동수리 {audit_rep['total_healed']}건]"
 
     entry = {
         "timestamp_kst": kst_now.strftime("%Y-%m-%d %H:%M:%S KST"),
         "hour": f"{hour:02d}:00",
-        "division": slot["div"],
-        "task_title": slot["title"],
+        "division": "전사업부 동시순차가동 (1·2·3사업부 + 상호검열)",
+        "task_title": "매시간 전사업부 홈페이지 홍보 + 상호 교차 검열 및 자동 개선",
         "result_summary": summary,
+        "cross_audit_healed": audit_rep["total_healed"],
     }
     LOG_FILE.parent.mkdir(parents=True, exist_ok=True)
     with open(LOG_FILE, "a", encoding="utf-8") as f:
@@ -322,10 +341,11 @@ def main():
     if notify or show_table:
         bridge_js = r"D:\투자홈페이지\1_RightSideAlpha_미국주식터미널\scripts\master_hq_telegram_bridge.js"
         msg = (
-            f"✅ <b>[{hour:02d}:00 정각 무인 홍보 완료 — {slot['div']}]</b>\n"
-            f"• <b>수행 홍보</b>: {slot['title']}\n"
-            f"• <b>실행 결과</b>: <code>{summary}</code>\n\n"
-            + (format_24h_timetable_html(hour) if show_table else "")
+            f"🔥 <b>[{hour:02d}:00 정각 전사업부 무휴 홍보 + 상호 교차 검열·개선 완료]</b>\n"
+            f"• 🇺🇸 <b>1사업부</b>: {s_tom}\n"
+            f"• 🌍 <b>2사업부</b>: {s_kfg}\n"
+            f"• 🇰🇷 <b>3사업부</b>: {s_kfk}\n\n"
+            f"{audit_html}"
         )
         subprocess.run(["node", bridge_js, "--notify", msg], cwd=r"D:\투자홈페이지\1_RightSideAlpha_미국주식터미널")
 

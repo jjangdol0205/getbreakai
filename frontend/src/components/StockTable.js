@@ -1,3 +1,5 @@
+import { formatCheckoutUrl } from "../services/api.js";
+
 export function renderScreenerControls(state) {
   const t = state.t;
   const f = state.zoneFilter;
@@ -56,6 +58,10 @@ export function renderScreenerControls(state) {
 
 export function renderStockTable(state) {
   const t = state.t;
+  const isPro = state.isProUnlocked;
+  const stocks = (state.filteredStocks || []).filter((s) => !String(s.ticker).includes("."));
+  const cfg = state.config || {};
+  const monthlyUrl = cfg.ls_site1_monthly_url || "https://truthofmarket.lemonsqueezy.com/checkout/buy/bad98d00-7175-41f6-9d58-eeb2471d0da4";
 
   const renderSortTh = (col, label, isNum = false) => {
     const isAct = state.sortCol === col;
@@ -64,6 +70,23 @@ export function renderStockTable(state) {
     const numClass = isNum ? "col-num" : "";
     return `<th data-sort="${col}" data-base-label="${label}" class="sort-header ${actClass} ${numClass}">${label} <span class="sort-chevron ${isAct ? "" : "muted"}">${chevron}</span></th>`;
   };
+
+  const softPaywallBanner =
+    !isPro && stocks.length > 5
+      ? `
+    <div class="soft-paywall-barrier">
+      <div style="font-size:0.72rem; font-family:var(--font-mono); color:#93c5fd; font-weight:800; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:4px;">
+        ${t.softPaywallTitle || "🔒 67 Pro Ignition Setups Live Today"}
+      </div>
+      <p style="color:#cbd5e1; font-size:0.84rem; margin:0 0 14px; line-height:1.5;">
+        ${t.softPaywallDesc || "Tickers 1–5 are unlocked as featured ignition leaders. Unlock live institutional target levels, -9% stops, and real-time execution signals for all remaining 67 stocks."}
+      </p>
+      <a class="soft-paywall-btn lemonsqueezy-button btn-unlock-row" data-direct-ls="1" href="${monthlyUrl}?embed=1" target="_blank" rel="noopener noreferrer">
+        🍋 ${t.softPaywallUnlockCta || "Unlock 67 Pro Setups ($29/mo)"} →
+      </a>
+    </div>
+  `
+      : "";
 
   return `
     <div class="table-wrap">
@@ -87,15 +110,21 @@ export function renderStockTable(state) {
           ${renderStockRows(state)}
         </tbody>
       </table>
+      ${softPaywallBanner}
     </div>
   `;
 }
 
 export function renderStockRows(state) {
+  const t = state.t || {};
   const stocks = (state.filteredStocks || []).filter((s) => !String(s.ticker).includes("."));
   const lang = state.lang;
   const isPro = state.isProUnlocked;
   const cfg = state.config || {};
+  const lsMonthlyUrl = formatCheckoutUrl(
+    cfg.ls_site1_monthly_url,
+    "https://truthofmarket.lemonsqueezy.com/checkout/buy/bad98d00-7175-41f6-9d58-eeb2471d0da4"
+  );
   const tvAffId = encodeURIComponent(cfg.tradingview_aff_id || "1173809");
   const saSource = encodeURIComponent(cfg.seekingalpha_source || "better_life333");
   const rawBrokerUrl = cfg.broker_referral_url || "https://www.bitget.com/referral/register?clacCode=7nja";
@@ -135,15 +164,19 @@ export function renderStockRows(state) {
       const rangeSpan = Math.max(0.01, high52 - low52);
       const rangePct = Math.min(100, Math.max(2, Math.round(((closeVal - low52) / rangeSpan) * 100)));
 
-      // Clear Free vs. Pro differentiation:
-      // Free users get 1 full sample row (idx === 0 or CELH); all other rows require Pro license
-      const isFreeSample = idx === 0 || s.ticker === "CELH";
-      const isVipIgnitionLocked = !isPro && s.zone_code === "IGNITION_ZONE" && !isFreeSample;
-      const isLockedRow = isVipIgnitionLocked;
+      // Soft paywall rule:
+      // Tickers 1–5 (idx < 5) are featured free sample leaders and fully readable/interactive.
+      // Tickers 6–72 (idx >= 5) are softly blurred when user is not Pro.
+      const isFeaturedLeader = idx < 5;
+      const isFreeSample = isFeaturedLeader; // Free sample rows (1-5 open) for non-Pro users
+      const isReadable = isPro || isFreeSample;
+      const isSoftBlurred = !isReadable;
+      const blurClass = isSoftBlurred ? "blurred-cell" : "";
+
       const calcTrig = s.entry_trigger_price ?? s.ma60_price ?? Number((closeVal * 1.02).toFixed(2));
       const calcStop = s.stop_loss_price ?? Number((closeVal * 0.91).toFixed(2));
       const calcTp1 = s.tp1_2x_price ?? Number((closeVal * 2.0).toFixed(2));
-      const showTargets = isPro || isFreeSample;
+      const showTargets = isReadable;
 
       const ma60Disp = `$${Number(calcTrig).toFixed(2)}`;
       const stopDisp = `$${Number(calcStop).toFixed(2)}`;
@@ -152,8 +185,8 @@ export function renderStockRows(state) {
       const triggerHtml = showTargets
         ? `<div class="mono" style="font-size:0.75rem; line-height:1.45;">
              <div><span style="color:var(--muted);">TRG</span> <span style="color:#60a5fa; font-weight:700;">${ma60Disp}</span> ${
-               !isPro && isFreeSample
-                 ? `<span style="font-size:0.6rem; padding:1px 4px; background:rgba(14,203,129,0.18); color:var(--fin-up); border-radius:2px;">FREE SAMPLE</span>`
+               !isPro && isFeaturedLeader
+                 ? `<span style="font-size:0.6rem; padding:1px 4px; background:rgba(14,203,129,0.18); color:var(--fin-up); border-radius:2px; font-weight:700;">FEATURED #${idx + 1}</span>`
                  : ""
              }</div>
              <div><span style="color:var(--muted);">STP</span> <span style="color:var(--fin-down); font-weight:600;">${stopDisp}</span> · <span style="color:var(--fin-up);">TP ${tp1Disp}</span></div>
@@ -170,31 +203,26 @@ export function renderStockRows(state) {
       const saUrl = `https://seekingalpha.com/symbol/${encodeURIComponent(s.ticker)}/earnings?source=${saSource}`;
       const brokerUrl = `${rawBrokerUrl}${brokerSep}symbol=${encodeURIComponent(s.ticker)}`;
 
-      const tickerCellHtml = isLockedRow
-        ? `<div class="btn-unlock-row" style="cursor:pointer;" title="Click to unlock VIP Ignition Pick">
-             <div style="display:flex; align-items:center; gap:7px;">
-               <span class="mono" style="font-weight:800; font-size:0.86rem; color:#fbbf24; background:rgba(245,158,11,0.14); border:1px solid rgba(245,158,11,0.4); padding:2px 7px; border-radius:4px;">
-                 🔒 VIP IGNITION #${idx + 1}
-               </span>
-             </div>
-             <div style="font-size:0.72rem; color:var(--muted); margin-top:3px;">
-               🔒 VIP SECTOR · <span style="color:#93c5fd; text-decoration:underline;">Unlock Pro to Reveal Ticker</span>
-             </div>
-           </div>`
-        : `<div>
-             <div style="display:flex; align-items:center; gap:7px;">
-               <span class="mono" style="font-weight:800; font-size:0.9rem; color:#ffffff;">${s.ticker}</span>
-               <span style="font-size:0.62rem; font-family:var(--font-mono); padding:1px 4px; background:#141d2f; border:1px solid #24324d; color:#93c5fd; border-radius:2px;">US</span>
-             </div>
-             <div style="font-size:0.73rem; font-family:var(--font-sans); color:var(--muted); margin-top:2px;">
-               ${stockName} · <span style="color:var(--text-secondary);">${s.sector}</span>
-             </div>
-           </div>`;
+      const tickerCellHtml = `<div>
+        <div style="display:flex; align-items:center; gap:7px;">
+          <span class="mono" style="font-weight:800; font-size:0.9rem; color:#ffffff;">${s.ticker}</span>
+          <span style="font-size:0.62rem; font-family:var(--font-mono); padding:1px 4px; background:#141d2f; border:1px solid #24324d; color:#93c5fd; border-radius:2px;">US</span>
+          ${
+            !isPro
+              ? isFeaturedLeader
+                ? `<span style="font-size:0.6rem; padding:1px 4px; background:rgba(14,203,129,0.18); color:var(--fin-up); border-radius:2px; font-weight:700;">${idx === 0 || s.ticker === "CELH" ? "FREE SAMPLE #1 · FEATURED #1" : `FEATURED #${idx + 1}`}</span>`
+                : `<span style="font-size:0.6rem; padding:1px 5px; background:rgba(41,98,255,0.14); border:1px solid rgba(41,98,255,0.35); color:#93c5fd; border-radius:2px; font-family:var(--font-mono); font-weight:700;">PRO SETUP #${idx + 1}</span>`
+              : ""
+          }
+        </div>
+        <div style="font-size:0.73rem; font-family:var(--font-sans); color:var(--muted); margin-top:2px;">
+          ${stockName} · <span style="color:var(--text-secondary);">${s.sector}</span>
+        </div>
+      </div>`;
 
       const closeCellHtml =
-        isLockedRow || s.close === null || s.close === undefined
-          ? `<div class="mono btn-unlock-row" style="font-weight:700; color:#fbbf24; cursor:pointer;" title="Unlock Pro to reveal Last Close & 52W Range">🔒 VIP PRICE</div>
-             <div style="font-size:0.68rem; color:var(--muted); margin-top:3px;">52W Range Locked</div>`
+        s.close === null || s.close === undefined
+          ? `<div class="mono" style="font-weight:700; color:var(--muted);">$0.00</div>`
           : `<div class="mono" style="font-weight:700; color:#ffffff;" title="Latest Close Date: ${s.date || "2026-10-30"}">$${closeVal.toFixed(2)}</div>
              <div class="range-52w-wrap" title="52W Range: $${low52.toFixed(2)} – $${high52.toFixed(2)} | Current: $${closeVal.toFixed(2)}">
                <div class="range-52w-track">
@@ -208,7 +236,7 @@ export function renderStockRows(state) {
              </div>`;
 
       return `
-      <tr data-ticker="${isLockedRow ? "LOCKED" : s.ticker}">
+      <tr data-ticker="${s.ticker}" class="${isSoftBlurred ? "soft-paywall-row" : ""}">
         <td>
           ${tickerCellHtml}
         </td>
@@ -221,7 +249,7 @@ export function renderStockRows(state) {
             <span class="cond-chip ${(s.c4_vol_or_mom ?? s.c4_vol_washout) ? "pass" : ""}" title="10D Volume Washout >= 1.3x">VOL</span>
           </div>
         </td>
-        <td class="col-num">
+        <td class="col-num ${blurClass}">
           <div style="display:flex; align-items:center; justify-content:flex-end; gap:6px;">
             <div class="score-bar">
               <div class="score-fill" style="width:${Number(s.score ?? 0)}%; background:${
@@ -231,32 +259,34 @@ export function renderStockRows(state) {
             <span class="mono" style="font-weight:800; font-size:0.9rem; width:26px; text-align:right;">${Number(s.score ?? 0)}</span>
           </div>
         </td>
-        <td class="col-num">
+        <td class="col-num ${blurClass}">
           ${closeCellHtml}
         </td>
-        <td class="mono col-num" style="color:${s.prox_low52_pct <= 40 && s.prox_low52_pct >= 10 ? "var(--fin-up)" : "var(--text-secondary)"}; font-weight:600;">
+        <td class="mono col-num ${blurClass}" style="color:${s.prox_low52_pct <= 40 && s.prox_low52_pct >= 10 ? "var(--fin-up)" : "var(--text-secondary)"}; font-weight:600;">
           +${Number(s.prox_low52_pct ?? 0).toFixed(1)}%
         </td>
-        <td class="mono col-num" style="color:var(--fin-down); font-weight:600;">
+        <td class="mono col-num ${blurClass}" style="color:var(--fin-down); font-weight:600;">
           ${Number(s.dd_high52_pct ?? 0).toFixed(1)}%
         </td>
-        <td class="mono col-num">
+        <td class="mono col-num ${blurClass}">
           <span style="color:${ma20Color}; font-weight:600;">${Number(s.vs_ma20_pct ?? 0) >= 0 ? "+" : ""}${Number(s.vs_ma20_pct ?? 0).toFixed(1)}%</span>
           <span style="color:var(--muted);"> / </span>
           <span style="color:${ma60Color}; font-weight:600;">${Number(s.vs_ma60_pct ?? 0) >= 0 ? "+" : ""}${Number(s.vs_ma60_pct ?? 0).toFixed(1)}%</span>
         </td>
-        <td class="mono col-num" style="color:${volColor}; font-weight:700;">
+        <td class="mono col-num ${blurClass}" style="color:${volColor}; font-weight:700;">
           ${Number(s.vol_surge_10d ?? 1.0).toFixed(2)}x
         </td>
-        <td class="mono col-num" style="font-weight:700; color:${s.hist_2x_rate >= 40 ? "var(--fin-up)" : "var(--text-secondary)"};">
+        <td class="mono col-num ${blurClass}" style="font-weight:700; color:${s.hist_2x_rate >= 40 ? "var(--fin-up)" : "var(--text-secondary)"};">
           ${Number(s.hist_2x_rate ?? 0).toFixed(1)}%
         </td>
         <td>${triggerHtml}</td>
         <td>
           <div style="display:flex; gap:5px;">
             ${
-              isLockedRow
-                ? `<button class="btn btn-sm btn-unlock-row">🔒 Unlock Pro ($29/mo)</button>`
+              isSoftBlurred
+                ? `<a class="btn btn-primary btn-sm lemonsqueezy-button btn-unlock-row" data-direct-ls="1" href="${lsMonthlyUrl}" target="_blank" rel="noopener noreferrer" style="white-space:nowrap; font-weight:700;">
+                     🔒 ${t.softPaywallUnlockCta || "Unlock 67 Pro Setups ($29/mo)"}
+                   </a>`
                 : `
             <button class="btn btn-sm btn-share-card" data-ticker="${s.ticker}" title="Export Institutional Tear Sheet PNG">
               PNG

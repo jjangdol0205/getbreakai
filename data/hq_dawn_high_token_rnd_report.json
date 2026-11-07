@@ -1,0 +1,61 @@
+{
+  "generated_at_kst": "2026-11-07 21:25:09 KST",
+  "policy": "DYNAMIC_MAX_UTILIZATION_WITH_REALTIME_QUOTA_TELEMETRY",
+  "real_antigravity_telemetry": {
+    "convs_7d": 245,
+    "steps_7d": 47422,
+    "steps_24h": 23982,
+    "compact_mb_7d": 67.82,
+    "full_mb_7d": 110.91,
+    "full_mb_24h": 60.05,
+    "used_pct": 69.7,
+    "remaining_steps": 20578,
+    "owner_buffer_steps": 7500,
+    "max_burnable_rnd_steps": 13078,
+    "mode_label": "⚡ SMART MAX-PACE (주간 70%대 구간 ➡️ 안전마진 제외 잔여 한도 최대치 가동)",
+    "daily_max_tokens": "350,000 ~ 550,000 Tokens (약 3,269 Steps/일 · 11/12 대량 리셋 전 최대치)",
+    "by_day": {
+      "2026-11-07": {
+        "convs": 113,
+        "compact_mb": 35.1,
+        "steps": 23982
+      },
+      "2026-11-05": {
+        "convs": 62,
+        "compact_mb": 19.04,
+        "steps": 12936
+      },
+      "2026-11-06": {
+        "convs": 69,
+        "compact_mb": 12.35,
+        "steps": 8875
+      },
+      "2026-11-04": {
+        "convs": 1,
+        "compact_mb": 1.36,
+        "steps": 1629
+      }
+    }
+  },
+  "daily_max_allocation": {
+    "current_throttle": "⚡ SMART MAX-PACE (주간 70%대 구간 ➡️ 안전마진 제외 잔여 한도 최대치 가동)",
+    "daily_max_llm_budget": "350,000 ~ 550,000 Tokens (약 3,269 Steps/일 · 11/12 대량 리셋 전 최대치)",
+    "post_reset_boost_date": "2026-11-12 (11/05~11/07 대량 소모분 순차 소멸 시 일 1.0M~1.5M 토큰 풀스로틀 자동 복귀)"
+  },
+  "tracks": [
+    {
+      "track": "1. 고부가가치 AI R&D (실시간 가용 토큰 최대치 투입 — 일 35만~55만 토큰, 11/12 이후 일 100만~150만 토큰)",
+      "items": [
+        "1사업부(truthofmarket.com): 76개 종목 외 고검색 VS 비교 랜딩페이지($NVDA vs $AMD, $SOXL vs $SMH) & ChatGPT/Perplexity 인용용 llms-full.txt 심층 퀀트 해설 대량 증식",
+        "2사업부(kisfitglobal.com): 17개 보조 JS 모듈 잔여 한글 폴백 100% 소아내분비학 순수 영문화 & 미국 학부모 롱테일 임상 Q&A(92개 → 200+개) 확장",
+        "3사업부(kidsfit.co.kr): 2사업부 Khamis-Roche(±5.34cm 28행 행렬)·소아과 1장 요약 PDF 역이식 & 주간 피크타임용 네이버 블로그·카페·지식iN 고전환 임상 원고 대량 비축"
+      ]
+    },
+    {
+      "track": "2. 반복 운영/검열/배포 (로컬 Python/Node 0-Token 처리로 AI 토큰 낭비 차단)",
+      "items": [
+        "매시간 1·2·3사업부 순차 홍보 & 16개 전환/결제 퍼널 상호 교차검열·자가수리는 로컬 스크립트(0 토큰)로 처리해, 아낀 AI 토큰을 전부 1번 고부가가치 R&D에 몰아줍니다."
+      ]
+    }
+  ]
+}

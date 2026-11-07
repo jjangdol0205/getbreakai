@@ -385,7 +385,7 @@ def send_episode_package_to_telegram(ep_num: int, advance_state: bool = False) -
 
     rsa_tok = _read_env_tok(str(BASE_DIR / ".env"), "RSA_TELEGRAM_BOT_TOKEN")
     kfg_tok = _read_env_tok(r"D:\키즈핏 영문\.env", "TELEGRAM_BOT_TOKEN")
-    token = os.environ.get("HQ_TELEGRAM_BOT_TOKEN") or rsa_tok or kfg_tok or telegram_service._resolve_token()
+    token = os.environ.get("RSA_TELEGRAM_BOT_TOKEN") or rsa_tok or os.environ.get("HQ_TELEGRAM_BOT_TOKEN") or telegram_service._resolve_token() or kfg_tok
     chat_id = os.environ.get("HQ_TELEGRAM_CHAT_ID") or "755033799"
     base = f"https://api.telegram.org/bot{token}"
 

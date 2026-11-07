@@ -782,19 +782,23 @@ a {
 .badge-ignition {
   background: rgba(14, 203, 129, 0.12);
   color: #34d399;
-  border: 1px solid rgba(14, 203, 129, 0.35);
+  border: 1px solid rgba(14, 203, 129, 0.4);
+  box-shadow: 0 0 10px rgba(14, 203, 129, 0.35);
 }
 .badge-ignition::before {
   background: #0ecb81;
+  box-shadow: 0 0 6px #0ecb81;
 }
 
 .badge-watch {
   background: rgba(245, 158, 11, 0.12);
   color: #fbbf24;
-  border: 1px solid rgba(245, 158, 11, 0.35);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.35);
 }
 .badge-watch::before {
   background: #f59e0b;
+  box-shadow: 0 0 6px #f59e0b;
 }
 
 .badge-knife {
@@ -809,10 +813,65 @@ a {
 .badge-trap {
   background: rgba(148, 163, 184, 0.12);
   color: #94a3b8;
-  border: 1px solid rgba(148, 163, 184, 0.28);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  box-shadow: 0 0 8px rgba(148, 163, 184, 0.25);
 }
 .badge-trap::before {
   background: #64748b;
+  box-shadow: 0 0 4px #64748b;
+}
+
+/* Soft Paywall Glassmorphism Styles (Tickers 6–72) */
+.soft-paywall-row {
+  position: relative;
+  transition: background 0.2s ease;
+}
+
+.soft-paywall-row td.blurred-cell {
+  filter: blur(4px);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  user-select: none;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.soft-paywall-barrier {
+  position: relative;
+  background: rgba(9, 13, 22, 0.88);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(41, 98, 255, 0.35);
+  border-radius: 8px;
+  padding: 22px 20px;
+  margin: 16px auto;
+  text-align: center;
+  max-width: 800px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.55), 0 0 24px rgba(41, 98, 255, 0.2);
+}
+
+.soft-paywall-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  color: #ffffff;
+  border: 1px solid #3b82f6;
+  border-radius: 6px;
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: 0.95rem;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.soft-paywall-btn:hover {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.6);
+  transform: translateY(-1px);
 }
 
 /* 4-Condition Micro Tags */

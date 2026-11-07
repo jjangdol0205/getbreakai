@@ -14,8 +14,10 @@ export const translations = {
 
     // RightSideAlpha Hero & KPIs
     heroTag: "INSTITUTIONAL TURNAROUND RESEARCH · 394,371 US STOCK-DAYS VERIFIED (2000–2026 · 26.8-YR)",
-    heroTitle: "Systematic Right-Side Ignition for US-Listed Equities.",
+    heroTitle: "Institutional Quant Signals That Outperform Wall Street — Trade Post-Washout Turnarounds with Strict -9% Risk Boundaries.",
     heroDesc: "Blindly buying 52-week lows in US growth equities traps capital for a median of 81 trading days with a -30.3% post-entry drawdown. RightSideAlpha isolates post-washout (1.40x+ volume) breakouts reclaiming the 20-day and 60-day moving averages across 72 liquid NYSE & NASDAQ equities.",
+    pwRsiExplainerBtn: "What is PW-RSI?",
+    pwRsiModalTitle: "PW-RSI (Post-Washout Right-Side Ignition) Methodology",
     kpi1_label: "PW-RSI 1Y 2x (+100%) Hit Rate",
     kpi1_sub: "vs 28.91% blind 52W-low dip buying",
     kpi2_label: "Median Days Underwater",
@@ -24,6 +26,23 @@ export const translations = {
     kpi3_sub: "80.5x net cumulative after 22% tax & slippage",
     kpi4_label: "Severe Drawdown (≤ -20%) Rate",
     kpi4_sub: "vs 24.82% without -9% hard stop & EPS filter",
+
+    // Audited Comparative Return Curve Card (Seeking Alpha Style)
+    auditedCardTag: "AUDITED BACKTEST TRACK RECORD · 1998–2026 (26.8 YEARS)",
+    auditedCardTitle: "SMH/XLV Contrarian Barbell (+28.4%) vs. S&P 500 (+14.2%) Benchmark",
+    auditedCardDesc: "Audited institutional point-in-time backtest across 6,625 trading days with zero look-ahead bias. Rebalanced annually with dynamic 80:20 contrarian tilt during semiconductor drawdowns ≥ -20%.",
+    auditedBarbellLabel: "SMH 70% : XLV 30% Contrarian Barbell",
+    auditedSpyLabel: "S&P 500 (SPY) Benchmark",
+    auditedMetricCagr: "Annualized Return",
+    auditedMetricMdd: "Maximum Drawdown",
+    auditedMetricSharpe: "Sharpe Ratio",
+    auditedMetricGrowth: "Growth of $10,000",
+    auditedAlphaBadge: "+14.2% Annualized Alpha vs S&P 500 · 2.03x Sharpe Efficiency",
+
+    // Soft Paywall Call to Action
+    softPaywallUnlockCta: "Unlock 67 Pro Setups ($29/mo)",
+    softPaywallTitle: "🔒 67 Pro Ignition Setups Live Today",
+    softPaywallDesc: "Tickers 1–5 are unlocked as featured ignition leaders. Unlock live institutional target levels, -9% stops, and real-time execution signals for all remaining 67 stocks.",
 
     // Empirical Benchmark Table
     proofHeading: "Empirical Performance Matrix · Left-Side Dip Buying vs. PW-RSI Right-Side Ignition",
@@ -117,8 +136,10 @@ export const translations = {
     btnUnlockPro: "Proへアップグレード ($29/月)",
 
     heroTag: "機関投資家向けターンアラウンド分析 · 米国株 394,371営業日検証済 (2000–2026 · 26.8年間)",
-    heroTitle: "米国上場株に特化した「右側イグニッション」定量スクリーナー",
+    heroTitle: "ウォール街を凌駕する機関投資家クオンツ — 徹底した-9%損切規律による右側ターンアラウンド(PW-RSI)ターミナル",
     heroDesc: "米国グロース株の単純な52週安値買い（左側逆張り）は、中央値81営業日の資金拘束と平均-30.3%の追加下落を招きます。RightSideAlphaはNYSE・NASDAQ上場72銘柄を対象に、出来高1.4倍以上のセリングクライマックス後に20日・60日移動平均線を同時突破する初動銘柄のみを抽出します。",
+    pwRsiExplainerBtn: "PW-RSIとは？",
+    pwRsiModalTitle: "PW-RSI（セリングクライマックス後 右側イグニッション）の計算原理",
     kpi1_label: "PW-RSI 1年 2倍 (+100%) 到達率",
     kpi1_sub: "単純な52週安値買い (28.91%) との比較",
     kpi2_label: "含み損拘束期間（中央値）",
@@ -127,6 +148,23 @@ export const translations = {
     kpi3_sub: "税金22%・スリッページ控除後 累計80.5倍",
     kpi4_label: "深刻な下落 (≤ -20%) 発生率",
     kpi4_sub: "-9%ハード損切＆業績フィルタ適用時",
+
+    // Audited Comparative Return Curve Card (Seeking Alpha Style)
+    auditedCardTag: "監査済バックテスト実績 · 1998–2026 (26.8年間)",
+    auditedCardTitle: "SMH/XLV 逆張りバーベル (+28.4%) vs S&P 500 (+14.2%) ベンチマーク比較",
+    auditedCardDesc: "ルックアヘッドバイアスを完全に排除した6,625営業日の監査済機関クオンツ検証。年次リバランスおよび半導体-20%超調整時の80:20逆張りシフトを適用。",
+    auditedBarbellLabel: "SMH 70% : XLV 30% 逆張りバーベル",
+    auditedSpyLabel: "S&P 500 (SPY) ベンチマーク",
+    auditedMetricCagr: "年率リターン (CAGR)",
+    auditedMetricMdd: "最大下落率 (MDD)",
+    auditedMetricSharpe: "シャープレシオ",
+    auditedMetricGrowth: "1万ドル投資時の資産推移",
+    auditedAlphaBadge: "+14.2% 年率アルファ超過 · シャープレシオ 2.03倍",
+
+    // Soft Paywall Call to Action
+    softPaywallUnlockCta: "残り67銘柄のProシグナルを解除 ($29/月)",
+    softPaywallTitle: "🔒 本日のProイグニッション 67銘柄",
+    softPaywallDesc: "上位5銘柄は注目リーダーとして無料公開中。残り67銘柄の目標株価・-9%損切ライン・執行シグナルを今すぐ解除できます。",
 
     proofHeading: "26.8年間実証パフォーマンス比較 · 左側安値買い vs PW-RSI 右側イグニッション",
     proofCopyScorecardBtn: "検証ティアシート出力 (PNG)",
@@ -215,8 +253,10 @@ export const translations = {
     btnUnlockPro: "Pro 업그레이드 ($29/월)",
 
     heroTag: "기관급 턴어라운드 리서치 · 미국 상장주식 394,371 거래일 전수 검증 (2000–2026 · 26.8개년)",
-    heroTitle: "미국 상장주식에 최적화된 우측 변곡점(PW-RSI) 정량 분석 플랫폼",
+    heroTitle: "월스트리트를 이기는 기관급 퀀트 시그널 — 철저한 -9% 손절 원칙의 우측 턴어라운드(PW-RSI) 터미널",
     heroDesc: "미국 성장주를 단순 52주 신저가(좌측 구간)에 매수하면 중앙값 81거래일의 자금 묶임(데드머니)과 -30.3%의 추가 낙폭에 노출됩니다. RightSideAlpha는 NYSE·NASDAQ 상장 72개 핵심 종목만을 대상으로 1.4배 이상 거래량 투매(Washout) 후 20일·60일 이동평균선을 동시 탈환하는 우측 초동 시그널을 판독합니다.",
+    pwRsiExplainerBtn: "PW-RSI 원리 보기",
+    pwRsiModalTitle: "PW-RSI (투매 후 우측 돌파 시동) 핵심 원리 및 작동 메커니즘",
     kpi1_label: "PW-RSI 1년 2배 (+100%) 도달률",
     kpi1_sub: "단순 52주 신저가 좌측 매수(28.91%) 대비",
     kpi2_label: "보유 후 물림 기간 (중앙값)",
@@ -225,6 +265,23 @@ export const translations = {
     kpi3_sub: "양도세 22%·슬리피지 차감 후 누적 80.5배",
     kpi4_label: "심각한 손실 (≤ -20%) 발생 확률",
     kpi4_sub: "-9% 손절 및 실적 턴어라운드 필터 적용 시",
+
+    // Audited Comparative Return Curve Card (Seeking Alpha Style)
+    auditedCardTag: "검증된 실증 백테스트 트랙레코드 · 1998–2026 (26.8개년)",
+    auditedCardTitle: "SMH/XLV 역발상 바벨 전략 (+28.4%) vs S&P 500 (+14.2%) 벤치마크 성과 비교",
+    auditedCardDesc: "미래 참조 편향(Zero Look-Ahead Bias)을 완전히 배제한 6,625거래일 공인 백테스트. 매년 정기 리밸런싱 및 반도체 -20% 이상 낙폭 시 80:20 동적 비중 확대를 적용한 결과입니다.",
+    auditedBarbellLabel: "SMH 70% : XLV 30% 역발상 바벨 전략",
+    auditedSpyLabel: "S&P 500 (SPY) 벤치마크",
+    auditedMetricCagr: "연평균 복리수익률 (CAGR)",
+    auditedMetricMdd: "최대 낙폭 (MDD)",
+    auditedMetricSharpe: "샤프 지수 (Sharpe)",
+    auditedMetricGrowth: "$10,000 투자 시 최종 자산",
+    auditedAlphaBadge: "S&P 500 대비 연 +14.2% 초과 알파 달성 · 샤프 지수 2.03배",
+
+    // Soft Paywall Call to Action
+    softPaywallUnlockCta: "VIP 67개 전 종목 시그널 잠금 해제 ($29/월)",
+    softPaywallTitle: "🔒 오늘 포착된 VIP 67개 우측 시동 종목",
+    softPaywallDesc: "상위 1~5번 종목은 무료 공개 중입니다. 나머지 67개 전 종목의 진입 타점, -9% 손절선, 1차 목표가를 즉시 확인하세요.",
 
     proofHeading: "26.8개년 실증 백테스트 매트릭스 · 좌측 신저가 매수 vs PW-RSI 우측 시동 모델",
     proofCopyScorecardBtn: "백테스트 티어시트 저장 (PNG)",

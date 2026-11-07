@@ -1,4 +1,5 @@
 export function renderModals(state) {
+  const t = state.t || {};
   const cfg = state.config || {};
   const tgChannelUrl = cfg.telegram_channel_url || "https://t.me/truthofmarketss";
   const ytUrl = cfg.youtube_url || "https://youtube.com/@rightsidealpha";
@@ -345,6 +346,76 @@ export function renderModals(state) {
               • <b>Merchant of Record</b>: Lemon Squeezy, LLC (<a href="https://app.lemonsqueezy.com/my-orders" target="_blank" rel="noopener noreferrer" style="color:#60a5fa;">Manage Orders & Receipts ↗</a>)<br/>
               • <b>Public Broadcast Desk</b>: <a href="https://t.me/truthofmarketss" target="_blank" rel="noopener noreferrer" style="color:#38bdf8;">t.me/truthofmarketss (@truthofmarketss) ↗</a>
             </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PW-RSI METHODOLOGY EXPLAINER MODAL -->
+    <div class="modal-backdrop" id="pwRsiModal">
+      <div class="modal" style="max-width:680px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:12px; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:10px;">
+          <div>
+            <div style="font-size:0.68rem; font-family:var(--font-mono); color:#38bdf8; text-transform:uppercase; letter-spacing:0.06em; font-weight:800;">
+              QUANTITATIVE FOUNDATION · ZERO LOOK-AHEAD BIAS
+            </div>
+            <h3 style="font-size:1.15rem; font-weight:800; color:#ffffff; margin:3px 0 0;">
+              ${t.pwRsiModalTitle || "PW-RSI (Post-Washout Right-Side Ignition) Methodology"}
+            </h3>
+          </div>
+          <button class="btn btn-sm" id="btnClosePwRsiModal" style="padding:4px 8px;">✕ Close</button>
+        </div>
+
+        <div style="max-height:70vh; overflow-y:auto; padding-right:4px; font-size:0.83rem; line-height:1.55; color:#cbd5e1;">
+          <div style="background:#0b1322; border:1px solid rgba(56,189,248,0.25); border-radius:6px; padding:12px 14px; margin-bottom:12px;">
+            <div style="font-weight:800; color:#ffffff; margin-bottom:4px; font-size:0.88rem;">
+              Why "Catching the Falling Knife" Fails in Growth Equities
+            </div>
+            <p style="margin:0; color:var(--muted); font-size:0.78rem;">
+              Empirical analysis across 394,371 US stock-days (2000–2026) demonstrates that blindly buying stocks near 52-week lows traps investor capital for a median of <b>81.0 trading days</b> underwater, with an average post-entry additional drawdown of <b>-30.3%</b> and a <b>25.54% risk of severe loss (&le; -20%)</b>.
+            </p>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr; gap:10px; margin-bottom:12px;">
+            <div style="background:#090d16; border:1px solid #1e293b; border-radius:6px; padding:12px 14px;">
+              <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+                <span style="font-size:0.75rem; font-family:var(--font-mono); font-weight:900; color:#38bdf8; background:rgba(56,189,248,0.14); padding:2px 7px; border-radius:3px;">
+                  STEP 1: PW · POST-WASHOUT
+                </span>
+                <span style="font-weight:700; color:#ffffff;">Volume Exhaustion &amp; Capitulation</span>
+              </div>
+              <p style="margin:0; font-size:0.78rem; color:var(--muted);">
+                We demand at least <b>1.35x to 1.40x 10-day volume surge</b> on severe down-days, signaling institutional climax liquidation where retail hands capitulate and smart money absorbs liquidity.
+              </p>
+            </div>
+
+            <div style="background:#090d16; border:1px solid #1e293b; border-radius:6px; padding:12px 14px;">
+              <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+                <span style="font-size:0.75rem; font-family:var(--font-mono); font-weight:900; color:#34d399; background:rgba(14,203,129,0.14); padding:2px 7px; border-radius:3px;">
+                  STEP 2: RS · RIGHT-SIDE
+                </span>
+                <span style="font-weight:700; color:#ffffff;">Dual Moving Average Reclamation</span>
+              </div>
+              <p style="margin:0; font-size:0.78rem; color:var(--muted);">
+                Never enter while a stock is below declining moving averages. Entry is only permitted once price climbs <b>+10% to +45% off the 52-week low</b> and cleanly reclaims both the <b>20-day (short-term momentum)</b> and <b>60-day (intermediate institutional trend)</b> moving averages.
+              </p>
+            </div>
+
+            <div style="background:#090d16; border:1px solid #1e293b; border-radius:6px; padding:12px 14px;">
+              <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+                <span style="font-size:0.75rem; font-family:var(--font-mono); font-weight:900; color:#fbbf24; background:rgba(245,158,11,0.14); padding:2px 7px; border-radius:3px;">
+                  STEP 3: I · IGNITION
+                </span>
+                <span style="font-weight:700; color:#ffffff;">Strict 4-Tier Risk &amp; Harvest Rules</span>
+              </div>
+              <p style="margin:0; font-size:0.78rem; color:var(--muted);">
+                Every position is bounded by 4 mechanical exit rules: <b>Rule 1: -9.0% hard stop floor</b> (eliminates tail risk to 0.93%), <b>Rule 2: 55-day time stop</b> (+8% threshold cuts underwater time from 81 to 29 days), <b>Rule 3: +100% (2x) principal harvest</b>, and <b>Rule 4: Barbell capital preservation</b>.
+              </p>
+            </div>
+          </div>
+
+          <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:14px; border-top:1px solid var(--border); padding-top:10px;">
+            <button class="btn btn-primary btn-sm" id="btnUnderstandPwRsi">Got it, Explore 72 Setups</button>
           </div>
         </div>
       </div>

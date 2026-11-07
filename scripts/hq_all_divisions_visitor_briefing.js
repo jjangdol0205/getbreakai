@@ -22,13 +22,13 @@ const LEDGER_PATH = path.resolve(__dirname, '..', 'data', 'hq_visitor_ledger.jso
 
 function loadPrimaryBotToken() {
   const candidates = [
+    'D:\\투자홈페이지\\1_RightSideAlpha_미국주식터미널\\.env',
     'D:\\키즈핏 영문\\.env',
-    'D:\\사업아이템\\.env',
-    'D:\\투자홈페이지\\1_RightSideAlpha_미국주식터미널\\.env'
+    'D:\\사업아이템\\.env'
   ];
   for (const fp of candidates) {
     if (fs.existsSync(fp)) {
-      const m = fs.readFileSync(fp, 'utf8').match(/(?:TELEGRAM_BOT_TOKEN|RSA_TELEGRAM_BOT_TOKEN)=([^\r\n]+)/);
+      const m = fs.readFileSync(fp, 'utf8').match(/(?:RSA_TELEGRAM_BOT_TOKEN|TELEGRAM_BOT_TOKEN)=([^\r\n]+)/);
       if (m && m[1]) return m[1].trim().replace(/^['"]|['"]$/g, '');
     }
   }

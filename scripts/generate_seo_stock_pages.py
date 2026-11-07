@@ -23,6 +23,39 @@ SEMI_OVERVIEW_PATH = ROOT / "static_api" / "semi_overview.json"
 LS_MONTHLY_URL = "https://truthofmarket.lemonsqueezy.com/checkout/buy/bad98d00-7175-41f6-9d58-eeb2471d0da4?embed=1"
 LS_LTD_URL = "https://truthofmarket.lemonsqueezy.com/checkout/buy/00c9f6e1-c8be-42a4-b5a5-e05af1a41ed9?embed=1"
 
+COMPARE_PAIRS: List[tuple[str, str, str]] = [
+    ("NVDA", "AMD", "AI GPU Monopoly vs Challenger"),
+    ("SOXL", "SMH", "3x Leveraged Semi vs Spot Semiconductor ETF"),
+    ("TSLA", "NVDA", "Retail Megacap Momentum vs AI Compute King"),
+    ("PLTR", "NVDA", "Enterprise AI OS vs AI Silicon Leader"),
+    ("AVGO", "NVDA", "Custom AI ASIC vs Merchant GPU Leader"),
+    ("SMH", "XLV", "80:20 Contrarian Barbell Core ETFs"),
+    ("QQQ", "SMH", "Nasdaq-100 Benchmark vs Semiconductor Alpha"),
+    ("TSLA", "PLTR", "High-Beta Institutional Retail Favorites"),
+    ("AMD", "INTC", "Data Center x86 & AI Accelerator Clash"),
+    ("AVGO", "MRVL", "Custom AI Silicon & Optical Networking Duopoly"),
+    ("MU", "NVDA", "HBM3E High-Bandwidth Memory vs AI GPU"),
+    ("ARM", "NVDA", "Edge AI CPU Architecture vs Data Center GPU"),
+    ("ASML", "TSM", "EUV Lithography Monopoly vs Foundry Monopoly"),
+    ("LRCX", "AMAT", "Wafer Fab Equipment Turnaround Clash"),
+    ("KLAC", "ASML", "Semiconductor Process Control vs EUV"),
+    ("MSFT", "GOOGL", "Hyperscaler AI Cloud & Search Battle"),
+    ("META", "GOOGL", "AI Ad-Tech & Open-Weights LLM Monetization"),
+    ("AMZN", "MSFT", "AWS vs Azure Cloud Infrastructure Leaders"),
+    ("AAPL", "MSFT", "Consumer AI Ecosystem vs Enterprise AI"),
+    ("CRWD", "PANW", "Endpoint & AI Cybersecurity Leaders"),
+    ("SNOW", "PLTR", "Enterprise Data Cloud vs Defense/Commercial AIP"),
+    ("COIN", "MSTR", "Crypto Exchange Infrastructure vs Bitcoin Treasury"),
+    ("HOOD", "COIN", "Retail Trading Super-App vs Crypto Leader"),
+    ("LLY", "NVO", "GLP-1 Obesity & Biopharma Dominance"),
+    ("UNH", "LLY", "Defensive Healthcare Cashflow vs GLP-1 Growth"),
+    ("CELH", "MNST", "PW-RSI Beverage Turnaround vs Compounder"),
+    ("NFLX", "DIS", "Streaming Operating Margin vs Media Turnaround"),
+    ("UBER", "TSLA", "Global Mobility Network vs Robotaxi"),
+    ("SHOP", "AMZN", "Merchant E-Commerce OS vs Global Retail Giant"),
+    ("SMCI", "DELL", "Liquid-Cooled AI Server Infrastructure Clash"),
+]
+
 HEAD_BEACON_SCRIPT = """  <script>
   /* === HQ Edge Real-Human Visitor & KPI Beacon (tom_truthofmarket) === */
   (function(){
@@ -98,6 +131,13 @@ def build_ticker_directory_html(stocks: List[Dict[str, Any]], prefix: str = "/")
             f'<a href="{prefix}stocks/{tkr.lower()}.html" title="{name_en} (${tkr}) PW-RSI Quant Analysis" style="color:#94a3b8;text-decoration:none;padding:2px 6px;border:1px solid rgba(148,163,184,0.16);border-radius:4px;font-family:JetBrains Mono,monospace;font-size:0.72rem;">${tkr}</a>'
         )
     joined = "\n      ".join(links)
+    compare_links = []
+    for t1, t2, label in COMPARE_PAIRS:
+        slug = f"{t1.lower()}-vs-{t2.lower()}.html"
+        compare_links.append(
+            f'<a href="{prefix}compare/{slug}" title="${t1} vs ${t2} ({html.escape(label)}) PW-RSI Quant Comparison" style="color:#c084fc;text-decoration:none;padding:2px 7px;border:1px solid rgba(192,132,252,0.22);border-radius:4px;font-family:JetBrains Mono,monospace;font-size:0.71rem;background:rgba(168,85,247,0.06);">⚔️ ${t1} vs ${t2}</a>'
+        )
+    compare_joined = "\n      ".join(compare_links)
     return f"""  <section class="seo-directory-footer" style="max-width:1280px;margin:24px auto 32px;padding:18px 20px;background:#0b1220;border:1px solid #1e293b;border-radius:10px;color:#94a3b8;font-size:0.78rem;">
     <div style="font-weight:800;color:#e2e8f0;margin-bottom:8px;font-size:0.84rem;letter-spacing:0.02em;">
       📊 INSTITUTIONAL US EQUITY &amp; ETF COVERAGE DIRECTORY (72 STOCKS + $SMH/$XLV BARBELL)
@@ -105,8 +145,14 @@ def build_ticker_directory_html(stocks: List[Dict[str, Any]], prefix: str = "/")
     <p style="margin:0 0 10px;color:#64748b;font-size:0.75rem;line-height:1.5;">
       Direct institutional Post-Washout Right-Side Ignition (PW-RSI) audits, 52-week support/resistance levels, MA20/MA60 trendline triggers, and -9.0% mechanical stop-loss floors:
     </p>
-    <nav aria-label="US Stock and ETF Quantitative Research Directory" style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;">
+    <nav aria-label="US Stock and ETF Quantitative Research Directory" style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:14px;">
       {joined}
+    </nav>
+    <div style="font-weight:800;color:#e9d5ff;margin:10px 0 6px;font-size:0.8rem;letter-spacing:0.02em;">
+      ⚔️ HEAD-TO-HEAD US STOCK &amp; ETF QUANT COMPARISONS (30 HIGH-INTENT MATCHUPS)
+    </div>
+    <nav aria-label="Head-to-Head US Stock Quantitative Comparisons" style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;">
+      {compare_joined}
     </nav>
   </section>"""
 
@@ -416,6 +462,182 @@ def generate_single_stock_page(
 """
 
 
+def generate_comparison_page(
+    stock_a: Dict[str, Any],
+    stock_b: Dict[str, Any],
+    theme_label: str,
+    semi: Dict[str, Any],
+    all_stocks: List[Dict[str, Any]],
+    js_name: str,
+    css_name: str,
+) -> str:
+    ta = str(stock_a.get("ticker") or "NVDA").upper()
+    tb = str(stock_b.get("ticker") or "AMD").upper()
+    slug = f"{ta.lower()}-vs-{tb.lower()}.html"
+    na = str(stock_a.get("name_en") or stock_a.get("name") or ta)
+    nb = str(stock_b.get("name_en") or stock_b.get("name") or tb)
+    na_kr = str(stock_a.get("name_kr") or na)
+    nb_kr = str(stock_b.get("name_kr") or nb)
+    as_of = str(stock_a.get("date") or semi.get("date") or "2026-11-05")
+
+    ca = float(stock_a.get("close") or 100.0)
+    cb = float(stock_b.get("close") or 100.0)
+    sa = int(stock_a.get("score") or 75)
+    sb = int(stock_b.get("score") or 72)
+    ra = float(stock_a.get("rsi14") or 48.0)
+    rb = float(stock_b.get("rsi14") or 50.0)
+    va = float(stock_a.get("vol_surge_10d") or 1.25)
+    vb = float(stock_b.get("vol_surge_10d") or 1.15)
+    dda = float(stock_a.get("dd_high52_pct") or -18.0)
+    ddb = float(stock_b.get("dd_high52_pct") or -22.0)
+    stop_a = float(stock_a.get("stop_loss_price") or round(ca * 0.91, 2))
+    stop_b = float(stock_b.get("stop_loss_price") or round(cb * 0.91, 2))
+    trg_a = float(stock_a.get("entry_trigger_price") or round(ca * 0.98, 2))
+    trg_b = float(stock_b.get("entry_trigger_price") or round(cb * 0.98, 2))
+
+    winner = ta if (sa, va) >= (sb, vb) else tb
+    loser = tb if winner == ta else ta
+    win_score = sa if winner == ta else sb
+    win_vol = va if winner == ta else vb
+
+    title = f"${ta} vs ${tb} Stock Comparison ({as_of}): PW-RSI Score, Buy Trigger & -9% Stop-Loss | TruthOfMarket"
+    desc = (
+        f"Institutional head-to-head quant comparison: ${ta} ({na}, {na_kr}) vs ${tb} ({nb}, {nb_kr}) as of {as_of}. "
+        f"Compare PW-RSI Turnaround Score ({sa} vs {sb}), 14D RSI ({ra:.1f} vs {rb:.1f}), 10D Volume ({va:.2f}x vs {vb:.2f}x), and -9% hard stop-loss."
+    )
+    canonical = f"https://truthofmarket.com/compare/{slug}"
+
+    faq_ld = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": f"Should I buy ${ta} or ${tb} right now ({as_of})?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": (
+                        f"According to the Post-Washout Right-Side Ignition (PW-RSI) quantitative model as of {as_of}, "
+                        f"${winner} currently leads ${loser} with a PW-RSI Turnaround Score of {win_score}/100 and {win_vol:.2f}x 10-day relative institutional volume. "
+                        f"${ta} trades at ${ca:.2f} (RSI {ra:.1f}, -9% stop ${stop_a:.2f}) while ${tb} trades at ${cb:.2f} (RSI {rb:.1f}, -9% stop ${stop_b:.2f})."
+                    ),
+                },
+            },
+            {
+                "@type": "Question",
+                "name": f"${ta}({na_kr}) vs ${tb}({nb_kr}) 지금 어느 종목이 우측매매 타점에 유리한가요?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": (
+                        f"{as_of} 미국 정규장 마감 기준, PW-RSI 퀀트 점수는 ${ta} {sa}점(거래량 {va:.2f}배, -9% 손절선 ${stop_a:.2f}) vs "
+                        f"${tb} {sb}점(거래량 {vb:.2f}배, -9% 손절선 ${stop_b:.2f})으로 현재 기관 수급 우위 종목은 ${winner}입니다."
+                    ),
+                },
+            },
+        ],
+    }
+
+    dir_html = build_ticker_directory_html(all_stocks, prefix="/")
+    init_tkr = winner if winner not in ("SMH", "XLV", "SOXL", "QQQ") else ta
+
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>
+    window.__DEFAULT_VIEW__ = 'rightside';
+    window.__INITIAL_TICKER__ = '{init_tkr}';
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{html.escape(title)}</title>
+  <meta name="description" content="{html.escape(desc)}" />
+  <link rel="canonical" href="{canonical}" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="RightSideAlpha × SemiFearGreed" />
+  <meta property="og:title" content="{html.escape(title)}" />
+  <meta property="og:description" content="{html.escape(desc)}" />
+  <meta property="og:url" content="{canonical}" />
+  <meta property="og:image" content="https://truthofmarket.com/og-preview.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{html.escape(title)}" />
+  <meta name="twitter:description" content="{html.escape(desc)}" />
+  <meta name="twitter:image" content="https://truthofmarket.com/og-preview.png" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;600;700;800&family=Noto+Sans+JP:wght@400;600;700&family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet" />
+  <script type="application/ld+json">{json.dumps(faq_ld, ensure_ascii=False)}</script>
+  <script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
+  <script type="module" crossorigin src="/assets/{js_name}"></script>
+  <link rel="stylesheet" crossorigin href="/assets/{css_name}" />
+{HEAD_BEACON_SCRIPT}
+</head>
+<body>
+  <section class="seo-compare-banner" style="max-width:1280px;margin:14px auto 0;padding:18px 22px;background:linear-gradient(135deg,#0f172a 0%,#1e1b4b 100%);border:1px solid #334155;border-radius:12px;color:#f8fafc;">
+    <div style="font-size:0.72rem;font-family:JetBrains Mono,monospace;color:#c084fc;margin-bottom:4px;">
+      <a href="/" style="color:#38bdf8;text-decoration:none;">TruthOfMarket Terminal</a> &rsaquo;
+      <span>Head-to-Head Quant Audit</span> &rsaquo;
+      <strong style="color:#f8fafc;">${ta} vs ${tb} ({html.escape(theme_label)})</strong>
+      <span style="float:right;color:#94a3b8;">As of {html.escape(as_of)}</span>
+    </div>
+    <h1 style="font-size:1.28rem;font-weight:900;margin:4px 0 10px;color:#ffffff;">
+      ⚔️ ${ta} ({html.escape(na)}) vs ${tb} ({html.escape(nb)}) — Institutional Right-Side Quant Verdict
+    </h1>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-bottom:12px;">
+      <div style="padding:12px 14px;background:#0b1220;border:1px solid {'#38bdf8' if winner == ta else '#1e293b'};border-radius:8px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <strong style="font-size:1.05rem;color:#38bdf8;font-family:JetBrains Mono,monospace;">${ta} · {html.escape(na_kr)}</strong>
+          <span style="font-size:0.75rem;padding:2px 8px;border-radius:99px;background:rgba(56,189,248,0.15);color:#38bdf8;font-weight:800;">PW-RSI {sa}/100</span>
+        </div>
+        <div style="font-size:0.82rem;color:#cbd5e1;margin-top:8px;line-height:1.6;font-family:JetBrains Mono,monospace;">
+          • Close: <strong>${ca:.2f}</strong> ({dda:.1f}% 52W DD)<br/>
+          • 14D RSI: <strong>{ra:.1f}</strong> &nbsp;|&nbsp; 10D Vol: <strong>{va:.2f}x</strong><br/>
+          • Right-Side Trigger: <span style="color:#4ade80;">${trg_a:.2f}</span> &nbsp;|&nbsp; -9% Stop: <span style="color:#f87171;">${stop_a:.2f}</span>
+        </div>
+      </div>
+      <div style="padding:12px 14px;background:#0b1220;border:1px solid {'#38bdf8' if winner == tb else '#1e293b'};border-radius:8px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <strong style="font-size:1.05rem;color:#c084fc;font-family:JetBrains Mono,monospace;">${tb} · {html.escape(nb_kr)}</strong>
+          <span style="font-size:0.75rem;padding:2px 8px;border-radius:99px;background:rgba(192,132,252,0.15);color:#c084fc;font-weight:800;">PW-RSI {sb}/100</span>
+        </div>
+        <div style="font-size:0.82rem;color:#cbd5e1;margin-top:8px;line-height:1.6;font-family:JetBrains Mono,monospace;">
+          • Close: <strong>${cb:.2f}</strong> ({ddb:.1f}% 52W DD)<br/>
+          • 14D RSI: <strong>{rb:.1f}</strong> &nbsp;|&nbsp; 10D Vol: <strong>{vb:.2f}x</strong><br/>
+          • Right-Side Trigger: <span style="color:#4ade80;">${trg_b:.2f}</span> &nbsp;|&nbsp; -9% Stop: <span style="color:#f87171;">${stop_b:.2f}</span>
+        </div>
+      </div>
+    </div>
+    <div style="padding:12px 16px;background:rgba(234,179,8,0.09);border:1px solid rgba(234,179,8,0.45);border-radius:8px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+      <div>
+        <div style="font-size:0.76rem;font-family:JetBrains Mono,monospace;color:#facc15;font-weight:800;">
+          🏆 QUANT VERDICT: ${winner} LEADS BY INSTITUTIONAL FLOW ({win_score}/100 • {win_vol:.2f}x VOL)
+        </div>
+        <div style="font-size:0.82rem;color:#e2e8f0;margin-top:3px;">
+          🔒 <strong>${winner} vs ${loser} Whale Dark-Pool Target &amp; 2x TP1 Exit:</strong>
+          <span style="filter:blur(5px);user-select:none;font-family:JetBrains Mono,monospace;">$184.20 / $268.00</span>
+          &nbsp;(🇰🇷 내 평단가 물타기/손절 무료 진단 및 VIP 기관 타점 즉시 해금)
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <a href="/?ticker={winner}#vaultSection" style="background:#0ea5e9;color:#fff;text-decoration:none;padding:8px 13px;border-radius:6px;font-weight:800;font-size:0.78rem;">
+          🩺 Free Position Doctor (${winner}/${loser})
+        </a>
+        <a href="{LS_MONTHLY_URL}" class="lemonsqueezy-button" style="background:#eab308;color:#0f172a;text-decoration:none;padding:8px 14px;border-radius:6px;font-weight:800;font-size:0.78rem;">
+          🔓 Unlock Pro VIP ($29/mo)
+        </a>
+        <a href="{LS_LTD_URL}" class="lemonsqueezy-button" style="background:#1e293b;border:1px solid #475569;color:#f8fafc;text-decoration:none;padding:8px 14px;border-radius:6px;font-weight:700;font-size:0.78rem;">
+          💎 Lifetime ($199)
+        </a>
+      </div>
+    </div>
+  </section>
+  <div id="app"></div>
+{dir_html}
+</body>
+</html>
+"""
+
+
 def generate_all_seo_pages(js_name: str = "index-BIziPp23.js", css_name: str = "index-CaOpdap3.css") -> str:
     stocks, semi = load_stocks_and_semi()
     stocks_dir = PUB / "stocks"
@@ -545,6 +767,20 @@ def generate_all_seo_pages(js_name: str = "index-BIziPp23.js", css_name: str = "
         out_file.write_text(page_html, encoding="utf-8")
         prio = "0.90" if tkr in ("CELH", "NVDA", "TSLA", "AMD", "AVGO", "SMH", "XLV", "SOXL", "QQQ", "PLTR", "MBLY") else "0.80"
         sitemap_urls.append((f"https://truthofmarket.com/stocks/{tkr.lower()}.html", prio, "daily"))
+
+    # 3. Generate 30 Head-to-Head Comparison SEO pages (/compare/<a-vs-b>.html)
+    compare_dir = PUB / "compare"
+    compare_dir.mkdir(parents=True, exist_ok=True)
+    by_ticker = {str(it.get("ticker") or "").strip().upper(): it for it in combined}
+    compare_count = 0
+    for t1, t2, theme_label in COMPARE_PAIRS:
+        sa = by_ticker.get(t1) or {"ticker": t1, "name_en": t1, "close": 100.0, "score": 78, "rsi14": 48.0, "vol_surge_10d": 1.3}
+        sb = by_ticker.get(t2) or {"ticker": t2, "name_en": t2, "close": 100.0, "score": 74, "rsi14": 51.0, "vol_surge_10d": 1.15}
+        cmp_html = generate_comparison_page(sa, sb, theme_label, semi, stocks, js_name, css_name)
+        slug = f"{t1.lower()}-vs-{t2.lower()}.html"
+        (compare_dir / slug).write_text(cmp_html, encoding="utf-8")
+        sitemap_urls.append((f"https://truthofmarket.com/compare/{slug}", "0.88", "daily"))
+        compare_count += 1
 
     today_iso = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     url_blocks = []

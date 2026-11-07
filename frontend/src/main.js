@@ -1124,8 +1124,33 @@ function bindEvents() {
     });
   });
 
+  // PW-RSI Explainer Modal wiring (Feature F4)
+  const pwRsiModal = document.getElementById("pwRsiModal");
+  const btnOpenPwRsiExplainer = document.getElementById("btnOpenPwRsiExplainer");
+  const btnClosePwRsiModal = document.getElementById("btnClosePwRsiModal");
+  const btnUnderstandPwRsi = document.getElementById("btnUnderstandPwRsi");
+  if (btnOpenPwRsiExplainer && pwRsiModal) {
+    btnOpenPwRsiExplainer.addEventListener("click", () => {
+      pwRsiModal.style.display = "flex";
+    });
+  }
+  if (btnClosePwRsiModal && pwRsiModal) {
+    btnClosePwRsiModal.addEventListener("click", () => {
+      pwRsiModal.style.display = "none";
+    });
+  }
+  if (btnUnderstandPwRsi && pwRsiModal) {
+    btnUnderstandPwRsi.addEventListener("click", () => {
+      pwRsiModal.style.display = "none";
+      const tableEl = document.getElementById("stockTable");
+      if (tableEl && typeof tableEl.scrollIntoView === "function") {
+        tableEl.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    });
+  }
+
   // Backdrop click-to-close on all modals
-  [licenseModal, telegramModal, configModal, researchModal, legalModal].forEach((modalEl) => {
+  [licenseModal, telegramModal, configModal, researchModal, legalModal, pwRsiModal].forEach((modalEl) => {
     if (modalEl) {
       modalEl.addEventListener("click", (e) => {
         if (e.target === modalEl) {
@@ -1735,6 +1760,24 @@ async function init() {
 
   await loadAllData();
   renderApp();
+
+  // Auto-unlock Pro Terminal when returning from Lemon Squeezy checkout with ?license_key= or ?key=
+  const urlLicenseKey = (initialSearch.get("license_key") || initialSearch.get("key") || "").trim();
+  if (urlLicenseKey && !state.isProUnlocked) {
+    try {
+      const vRes = await validateLicense(urlLicenseKey);
+      if (vRes && vRes.valid) {
+        state.isProUnlocked = true;
+        state.licenseKey = urlLicenseKey;
+        localStorage.setItem("rsa_pro_unlocked", "true");
+        localStorage.setItem("rsa_token", urlLicenseKey);
+        await loadAllData();
+        renderApp();
+        showToast("🎉 Lemon Squeezy Pro License Verified — All 72 US Equity Targets Unlocked!");
+      }
+    } catch (_) {}
+  }
+
   const checkoutParam = (initialSearch.get("checkout") || initialSearch.get("unlock") || "").toLowerCase();
   if (checkoutParam === "monthly" || checkoutParam === "lifetime" || checkoutParam === "pro") {
     setTimeout(() => {

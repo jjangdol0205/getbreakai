@@ -6,7 +6,7 @@
 ================================================================================
 - Supports all 10 US Viral Promo Episodes (EP01 ~ EP10) for:
   * SemiFearGreed (https://truthofmarket.com)
-  * RightSideAlpha (https://getbreakai.com)
+  * RightSideAlpha (https://truthofmarket.com)
   * Telegram Bot (@SemifearGreedbot)
 - Automatically picks up downloaded Google Flow (.mp4) clips from:
   1) `d:/투자홈페이지/3_AI영상_홍보_스튜디오/ai_shorts_output/flow_clips/epXX_shot1.mp4` (or `epXX.mp4`)
@@ -84,7 +84,7 @@ EPISODES = {
             "You bought a famous stock down fifty percent thinking it was cheap, and then it dropped another forty percent.",
             "Buying the left side of a crash is called catching a falling knife, and it traps retail capital for years.",
             "Institutional quants never guess the bottom. They wait for Right-Side Ignition, when price reclaims the sixty-day moving average on surging volume.",
-            "Scan all seventy-two US momentum leaders and test your portfolio free at getbreakai dot com.",
+            "Scan all seventy-two US momentum leaders and test your portfolio free at truthofmarket dot com.",
         ],
     },
     3: {
@@ -128,7 +128,7 @@ EPISODES = {
             "Be honest. How many red stocks are sitting in your brokerage account right now because you hope they will bounce back?",
             "Hope is not a risk management strategy. Every institutional trade needs a hard nine-percent stop loss and a fifty-five day time stop.",
             "Instead of guessing whether to hold or cut, run your ticker, entry price, and holding days through our algorithmic Position Doctor.",
-            "Get an instant mathematical verdict on your stock right now at getbreakai dot com or on our free Telegram bot.",
+            "Get an instant mathematical verdict on your stock right now at truthofmarket dot com or on our free Telegram bot.",
         ],
     },
     5: {
@@ -150,7 +150,7 @@ EPISODES = {
             "Wall Street hedge funds cannot hide when they accumulate millions of shares in a turnaround stock.",
             "Before a stock doubles, it leaves four mathematical footprints: seller washout, higher lows, reclaiming the sixty-day moving average, and a ten-day volume surge.",
             "Our PW-RSI engine scans seventy-two US market leaders daily to catch that exact Right-Side Ignition before financial television even notices.",
-            "See today's top five US Ignition stocks unlocked right now at getbreakai dot com.",
+            "See today's top five US Ignition stocks unlocked right now at truthofmarket dot com.",
         ],
     },
     6: {
@@ -194,7 +194,7 @@ EPISODES = {
             "The biggest silent killer of your stock portfolio is not a sudden crash. It is dead money.",
             "When you hold a stagnant stock for months waiting for a bounce, you miss every real institutional breakout happening across the market.",
             "That is why our quantitative engine enforces Rule Two: if a position fails to gain eight percent within fifty-five trading days, you cut it and rotate into active Right-Side leaders.",
-            "Test if your stocks have triggered the fifty-five day time stop right now at getbreakai dot com.",
+            "Test if your stocks have triggered the fifty-five day time stop right now at truthofmarket dot com.",
         ],
     },
     8: {
@@ -216,7 +216,7 @@ EPISODES = {
             "Have you ever watched a winning stock double in your account, only to hold too long and watch the entire profit vanish?",
             "Professional momentum traders never ride a full position back down. At plus one hundred percent gain, you sell exactly half.",
             "That single move locks in one hundred percent of your original cash into your pocket, turning the remaining half into a stress-free runner trailed by the sixty-day moving average.",
-            "Get exact two-x target prices and trailing stop levels for seventy-two US stocks at getbreakai dot com.",
+            "Get exact two-x target prices and trailing stop levels for seventy-two US stocks at truthofmarket dot com.",
         ],
     },
     9: {

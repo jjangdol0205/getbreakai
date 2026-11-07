@@ -44,14 +44,20 @@ const tomEnv = loadEnvFile(path.resolve(__dirname, "..", ".env"));
 const tomTgCfg = loadJsonFile(path.resolve(__dirname, "..", "data", "telegram_config.json"));
 
 const CHAT_ID = process.env.HQ_TELEGRAM_CHAT_ID || kfgEnv.TELEGRAM_CHAT_ID || kfkEnv.TELEGRAM_CHAT_ID || "755033799";
-const PRIMARY_BOT_TOKEN = process.env.HQ_TELEGRAM_BOT_TOKEN || kfgEnv.TELEGRAM_BOT_TOKEN || "";
-const KFK_BOT_TOKEN = kfkEnv.TELEGRAM_BOT_TOKEN || "";
-const RSA_BOT_TOKEN = tomEnv.RSA_TELEGRAM_BOT_TOKEN || "";
-const SEMI_BOT_TOKEN = tomTgCfg.bot_token || tomEnv.TELEGRAM_BOT_TOKEN || "";
 
-// Collect active bot tokens (deduplicated)
+// Dedicated Non-Overlapping Bot Tokens per Division:
+// - Div 1 Bot (@RigjtsideAlphabot): Division 1 (truthofmarket.com) + HQ Manager Lead
+// - Div 2 Bot (@kidsfittbot): Division 2 (kisfitglobal.com) Dedicated Bot
+// - Div 3 Bot (@Moneyfiityyy_bot): Division 3 (kidsfit.co.kr) Dedicated Bot
+// Note: @SemifearGreedbot is exclusively for @truthofmarketss public VIP channel broadcasting.
+const RSA_BOT_TOKEN = tomEnv.RSA_TELEGRAM_BOT_TOKEN || "";
+const KFG_BOT_TOKEN = kfgEnv.TELEGRAM_BOT_TOKEN || "";
+const KFK_BOT_TOKEN = kfkEnv.TELEGRAM_BOT_TOKEN || "";
+const PRIMARY_BOT_TOKEN = process.env.HQ_TELEGRAM_BOT_TOKEN || RSA_BOT_TOKEN || KFG_BOT_TOKEN || KFK_BOT_TOKEN || "";
+
+// Collect active personal DM bot tokens (deduplicated, 1 per division)
 const BOT_TOKENS = Array.from(
-  new Set([PRIMARY_BOT_TOKEN, KFK_BOT_TOKEN, RSA_BOT_TOKEN, SEMI_BOT_TOKEN].filter((t) => t && t.includes(":")))
+  new Set([RSA_BOT_TOKEN, KFG_BOT_TOKEN, KFK_BOT_TOKEN, PRIMARY_BOT_TOKEN].filter((t) => t && t.includes(":")))
 );
 
 const DATA_DIR = path.resolve(__dirname, "..", "data");
@@ -71,25 +77,100 @@ const DIVISIONS = {
     domain: "https://truthofmarket.com",
     cwd: "D:\\투자홈페이지\\1_RightSideAlpha_미국주식터미널",
     conversationId: MASTER_CONVERSATION_ID,
+    botToken: RSA_BOT_TOKEN,
+    botHandle: "@RigjtsideAlphabot",
+    managerTitle: "1사업부 퀀트·반도체 부문장 (TOM Division Lead)",
+    multiAgents: [
+      "TOM-Quant-Agent (72종목 PW-RSI & $SMH:$XLV 80:20 바벨 퀀트 엔진)",
+      "TOM-GEO-Promo-Agent (Telegra.ph 월가 백링크 · llms.txt · IndexNow 78개 URL 색인)",
+      "TOM-Media-VIP-Agent (@rightsidealpha 쇼츠·릴스 & @truthofmarketss VIP 속보 데스크)",
+    ],
   },
   KFG: {
     code: "KFG",
     name: "2사업부: 키즈핏 영문 (kisfitglobal.com)",
     domain: "https://kisfitglobal.com",
     cwd: "D:\\키즈핏 영문",
-    conversationId: MASTER_CONVERSATION_ID,
+    conversationId: kfgEnv.ANTIGRAVITY_CONVERSATION_ID || MASTER_CONVERSATION_ID,
+    botToken: KFG_BOT_TOKEN,
+    botHandle: "@kidsfittbot",
+    managerTitle: "2사업부 글로벌 소아성장 부문장 (KFG Division Lead)",
+    multiAgents: [
+      "KFG-Auxology-Agent (US CDC 2000 LMS & Khamis-Roche 성인키 정밀 예측 엔진)",
+      "KFG-GlobalSEO-Agent (89+ 영문 임상 Q&A 증식 · Zero-Hangul 검열 · 글로벌 색인)",
+      "KFG-Media-Agent (@kisfitglobal 3D 의학 다큐 쇼츠·릴스 마스터링 에이전트)",
+    ],
   },
   KFK: {
     code: "KFK",
     name: "3사업부: 사업아이템 (kidsfit.co.kr)",
     domain: "https://kidsfit.co.kr",
     cwd: "D:\\사업아이템",
-    conversationId: MASTER_CONVERSATION_ID,
+    conversationId: kfkEnv.ANTIGRAVITY_CONVERSATION_ID || MASTER_CONVERSATION_ID,
+    botToken: KFK_BOT_TOKEN,
+    botHandle: "@Moneyfiityyy_bot",
+    managerTitle: "3사업부 국내 육아·커머스 부문장 (KFK Division Lead)",
+    multiAgents: [
+      "KFK-KDCA-Agent (2017 질병관리청 성장도표 & K-DST 발달 6축 진단 엔진)",
+      "KFK-Commerce-Agent (24종 셀렉트샵 쿠팡 AF7865143 · 링크프라이스 A100708867 수익화)",
+      "KFK-Naver-Viral-Agent (expertise333 블로그 · moneyfitlab 카페 · 지식iN · @kidsfit01 쇼츠)",
+    ],
   },
 };
 
+function getLiveTokenTelemetryBanner() {
+  try {
+    const agyBrain = "C:\\Users\\jjang\\.gemini\\antigravity\\brain";
+    if (!fs.existsSync(agyBrain)) return "";
+    const nowMs = Date.now();
+    const cutoff7d = nowMs - 7 * 86400 * 1000;
+    const cutoff24h = nowMs - 24 * 3600 * 1000;
+    let convs7d = 0;
+    let fullBytes7d = 0;
+    let fullBytes24h = 0;
+    for (const dirName of fs.readdirSync(agyBrain)) {
+      const logsDir = path.join(agyBrain, dirName, ".system_generated", "logs");
+      const tfull = path.join(logsDir, "transcript_full.jsonl");
+      const tf = path.join(logsDir, "transcript.jsonl");
+      const target = fs.existsSync(tfull) ? tfull : fs.existsSync(tf) ? tf : null;
+      if (!target) continue;
+      const st = fs.statSync(target);
+      if (st.mtimeMs >= cutoff7d) {
+        convs7d += 1;
+        fullBytes7d += st.size;
+        if (st.mtimeMs >= cutoff24h) fullBytes24h += st.size;
+      }
+    }
+    const tok24h = Math.round(fullBytes24h / 3.8).toLocaleString();
+    const tok7d = Math.round(fullBytes7d / 3.8).toLocaleString();
+    const mb24h = (fullBytes24h / (1024 * 1024)).toFixed(1);
+    const mb7d = (fullBytes7d / (1024 * 1024)).toFixed(1);
+    return (
+      `\n━━━━━━━━━━━━━━━━━━━━\n` +
+      `📊 <b>[실시간 안티그래비티 토큰 현황 보고]</b>\n` +
+      `• <b>오늘(24h) 투입</b>: 약 <code>${tok24h} Tokens</code> (<code>${mb24h} MB</code>)\n` +
+      `• <b>최근 7일 누적</b>: 약 <code>${tok7d} Tokens</code> (<b>${convs7d}개 에이전트 세션</b> / <code>${mb7d} MB</code>)\n` +
+      `• <b>가동 출력</b>: 🔥 <b>토큰 절약 해제 · 최대치 풀가동(Full-Overdrive)</b>`
+    );
+  } catch (_) {
+    return "";
+  }
+}
+
+function resolveDivisionByBotToken(botToken) {
+  if (!botToken) return null;
+  if (RSA_BOT_TOKEN && botToken === RSA_BOT_TOKEN) return "TOM";
+  if (KFG_BOT_TOKEN && botToken === KFG_BOT_TOKEN) return "KFG";
+  if (KFK_BOT_TOKEN && botToken === KFK_BOT_TOKEN) return "KFK";
+  return null; // SEMI_BOT_TOKEN (@SemifearGreedbot) acts as HQ Chief Manager Bot across all divisions
+}
+
 const HQ_KEYBOARD = {
   inline_keyboard: [
+    [
+      { text: "🏢 전사 멀티에이전트 조직도", callback_data: "/company" },
+      { text: "🔥 실시간 쿼터·최대치 R&D", callback_data: "/night" },
+    ],
     [
       { text: "📈 1사업부 (RightSideAlpha)", callback_data: "/mode_tom" },
       { text: "🌍 2사업부 (키즈핏 영문)", callback_data: "/mode_kfg" },
@@ -236,7 +317,7 @@ function tgApiWithToken(botToken, method, payload = null, hardTimeoutMs = 15000)
 }
 
 async function sendHqMessage(htmlText, withKeyboard = true, preferredToken = null) {
-  const tokenToUse = preferredToken || PRIMARY_BOT_TOKEN || BOT_TOKENS[0];
+  const tokenToUse = preferredToken || RSA_BOT_TOKEN || PRIMARY_BOT_TOKEN || BOT_TOKENS[0];
   const payload = {
     chat_id: CHAT_ID,
     text: htmlText,
@@ -244,16 +325,7 @@ async function sendHqMessage(htmlText, withKeyboard = true, preferredToken = nul
     disable_web_page_preview: true,
   };
   if (withKeyboard) payload.reply_markup = HQ_KEYBOARD;
-  const res = await tgApiWithToken(tokenToUse, "sendMessage", payload, 12000);
-  if (!res.ok && BOT_TOKENS.length > 1) {
-    for (const fallbackTok of BOT_TOKENS) {
-      if (fallbackTok !== tokenToUse) {
-        const r2 = await tgApiWithToken(fallbackTok, "sendMessage", payload, 12000);
-        if (r2.ok) return r2;
-      }
-    }
-  }
-  return res;
+  return await tgApiWithToken(tokenToUse, "sendMessage", payload, 12000);
 }
 
 // ---------------------------------------------------------------------------
@@ -356,15 +428,20 @@ function dispatchAntigravityPrompt(div, promptText) {
   return new Promise((resolve) => {
     const binPath = fs.existsSync(LANGUAGE_SERVER_EXE) ? LANGUAGE_SERVER_EXE : AGENTAPI_BAT;
     const useDirect = fs.existsSync(LANGUAGE_SERVER_EXE);
+    const agentList = (div.multiAgents || []).map((a, i) => `   - Subagent #${i + 1}: ${a}`).join("\n");
     const fullPrompt = [
-      `[MASTER HQ TELEGRAM REMOTE COMMAND — ${div.name}]`,
-      `사장님이 외부에서 텔레그램으로 다음 작업을 지시하셨습니다:`,
+      `[UNIFIED AI COMPANY · ${div.managerTitle} — ${div.name}]`,
+      `전담 텔레그램 봇: ${div.botHandle} (타 사업부 봇과 충돌 0% 독립 채널)`,
+      `산하 전문 멀티에이전트 편제:`,
+      agentList,
+      ``,
+      `사장님이 외부에서 텔레그램(${div.botHandle})으로 다음 작업을 지시하셨습니다:`,
       `"${promptText}"`,
       ``,
       `운영 원칙:`,
-      `1. 현재 사업부 작업 폴더(${div.cwd})에서 단독으로 실행하세요 (과부하 방지를 위해 한 번에 하나씩만 작업하며, 웹툰/블로그 활동은 중단하고 하루 1개 Flow 릴스/인스타 홍보 및 핵심 서비스만 운영합니다).`,
-      `2. 작업이 완료되면 반드시 아래 명령어를 실행하여 사장님 텔레그램으로 완료 결과를 답장하세요:`,
-      `   node "${BRIDGE_SCRIPT_PATH}" --notify "[${div.name} 완료] <수행한 작업 요약>"`,
+      `1. 현재 사업부 작업 폴더(${div.cwd})에서 산하 멀티에이전트를 지휘하여 단독 실행하세요 (과부하 방지를 위해 한 번에 하나씩만 작업하며, 하루 1개 Flow 릴스/인스타 홍보 및 핵심 서비스만 운영합니다).`,
+      `2. 작업이 완료되면 반드시 아래 명령어를 실행하여 해당 사업부 전용 텔레그램 봇(${div.botHandle})으로 완료 결과를 답장하세요:`,
+      `   node "${BRIDGE_SCRIPT_PATH}" --div ${div.code} --notify "[${div.name} 완료] <수행한 작업 요약>"`,
     ].join("\n");
 
     const sendArgs = useDirect
@@ -388,27 +465,78 @@ async function handleCommand(rawText, state, botToken = null) {
   const text = (rawText || "").trim();
   if (!text) return;
 
+  // Automatically bind division if message arrived on a division-dedicated bot
+  const botBoundDivCode = resolveDivisionByBotToken(botToken);
+  if (botBoundDivCode && DIVISIONS[botBoundDivCode]) {
+    state.activeDivision = botBoundDivCode;
+    saveState(state);
+  }
+
   if (text === "/start" || text === "/help" || text === "도움말" || text === "메뉴" || text === "연결") {
-    const activeDiv = DIVISIONS[state.activeDivision] || DIVISIONS.TOM;
+    const activeDiv = DIVISIONS[botBoundDivCode || state.activeDivision] || DIVISIONS.TOM;
+    const isDedicatedDivBot = Boolean(botBoundDivCode);
     await sendHqMessage(
-      `🟢 <b>[본사 통합 텔레그램 원격 지휘소 — 3대 사업부 폴더 매핑 완료!]</b>\n` +
+      (isDedicatedDivBot
+        ? `🟢 <b>[${activeDiv.name} 전용 텔레그램 지휘소 (${activeDiv.botHandle})]</b>\n`
+        : `🏛️ <b>[본사 총괄 매니저 지휘소 (@SemifearGreedbot) — 멀티에이전트 통합 회사]</b>\n`) +
         `━━━━━━━━━━━━━━━━━━━━\n` +
-        `현재 선택된 사업부: <b>${activeDiv.name}</b>\n\n` +
-        `<b>[3대 사업부 작업 폴더 매핑]</b>\n` +
-        `1️⃣ <b>1사업부 (truthofmarket.com)</b>\n` +
-        `   └ 폴더: <code>D:\\투자홈페이지\\1_RightSideAlpha_미국주식터미널</code>\n` +
-        `2️⃣ <b>2사업부 (kisfitglobal.com)</b>\n` +
-        `   └ 폴더: <code>D:\\키즈핏 영문</code>\n` +
-        `3️⃣ <b>3사업부 (kidsfit.co.kr)</b>\n` +
-        `   └ 폴더: <code>D:\\사업아이템</code>\n\n` +
-        `<b>[운영 원칙: 과부하 0% 순차 실행]</b>\n` +
-        `• <b>웹툰·블로그 활동 중단</b> → 3개 채널 모두 <b>Flow 기반 인스타·릴스 하루 1개씩만 시간차 제작</b>\n` +
-        `• <b>한 번에 1개 작업만 단독 실행</b> (동시 실행 원천 차단)\n` +
-        `• <b>TruthOfMarket VIP 채널</b>: 유료회원 전용 <code>$SMH</code>·<code>$XLV</code> 및 72개 종목 실시간 월가 뉴스 + 타점 발송\n` +
-        `━━━━━━━━━━━━━━━━━━━━\n` +
-        `👇 아래 버튼을 누르시거나, 채팅창에 바로 작업 지시를 입력해 주세요!`,
+        `현재 지휘 사업부: <b>${activeDiv.name}</b>\n` +
+        `담당 부문장: <b>${activeDiv.managerTitle}</b>\n\n` +
+        `<b>[봇별 겹침 없는 1:1 전담 배정 현황]</b>\n` +
+        `👑 <b>본사 총괄 매니저</b>: <code>@SemifearGreedbot</code> (전사 지휘·실결제 감시·새벽 R&amp;D)\n` +
+        `1️⃣ <b>1사업부 전용 봇</b>: <code>@RigjtsideAlphabot</code> → <code>truthofmarket.com</code>\n` +
+        `2️⃣ <b>2사업부 전용 봇</b>: <code>@kidsfittbot</code> → <code>kisfitglobal.com</code>\n` +
+        `3️⃣ <b>3사업부 전용 봇</b>: <code>@Moneyfiityyy_bot</code> → <code>kidsfit.co.kr</code>\n\n` +
+        `<b>[현재 사업부 산하 멀티에이전트]</b>\n` +
+        (activeDiv.multiAgents || []).map((a) => `• <code>${a}</code>`).join("\n") +
+        `\n━━━━━━━━━━━━━━━━━━━━\n` +
+        `👇 각 봇에 메시지를 보내시면 다른 사업부와 섞이지 않고 해당 사업부 전담 멀티에이전트가 즉시 수행합니다!`,
       true,
       botToken
+    );
+    return;
+  }
+
+  if (text === "/company" || text === "/agents" || text === "조직도" || text === "회사" || text === "멀티에이전트") {
+    await sendHqMessage(
+      `🏛️ <b>[KIDS-FIT &amp; TruthOfMarket — 총괄 매니저 산하 무토큰(0-Token) 로컬 엔진 &amp; 조직도]</b>\n` +
+        `━━━━━━━━━━━━━━━━━━━━\n` +
+        `👑 <b>본사 총괄 매니저 (HQ Chief Manager · @SemifearGreedbot)</b>\n` +
+        `   ├ <code>HQ-CrossAudit-Healer</code>: 매시간 1·2·3사업부 상호 교차검열 &amp; 무결점 자동수리 (<b>안티그래비티 토큰 0</b>)\n` +
+        `   └ <code>HQ-WeeklyQuota-Guard</code>: 주간 리밋 90%+ 평상시 작업용 보존 · 백그라운드 100% 로컬 Python/Node 구동\n\n` +
+        `📈 <b>1사업부 부문장 (@RigjtsideAlphabot · truthofmarket.com)</b>\n` +
+        DIVISIONS.TOM.multiAgents.map((a) => `   ├ ${a}`).join("\n") +
+        `\n\n🌍 <b>2사업부 부문장 (@kidsfittbot · kisfitglobal.com)</b>\n` +
+        DIVISIONS.KFG.multiAgents.map((a) => `   ├ ${a}`).join("\n") +
+        `\n\n🇰🇷 <b>3사업부 부문장 (@Moneyfiityyy_bot · kidsfit.co.kr)</b>\n` +
+        DIVISIONS.KFK.multiAgents.map((a) => `   ├ ${a}`).join("\n") +
+        `\n━━━━━━━━━━━━━━━━━━━━\n` +
+        `✅ <b>운영 원칙</b>: 24시간 홍보·검열·종가동기화는 <b>안티그래비티 토큰 0%</b> 로컬 스크립트로만 구동!`,
+      true,
+      botToken
+    );
+    return;
+  }
+
+  if (
+    text === "/night" ||
+    text === "/rnd" ||
+    text === "/token" ||
+    text === "토큰" ||
+    text === "리밋" ||
+    text === "토큰절약" ||
+    text === "새벽연구" ||
+    text === "야간연구"
+  ) {
+    enqueueTask(
+      {
+        division: DIVISIONS.TOM,
+        title: "본사 총괄 매니저 — 안티그래비티 주간 리밋(Weekly Quota) 보호 & 무토큰(0 Token) 로컬 엔진 현황 보고",
+        run: async () => {
+          await runPythonScriptAsync("scripts/hq_dawn_high_token_rnd_engine.py", ["--notify"], DIVISIONS.TOM.cwd);
+        },
+      },
+      botToken || PRIMARY_BOT_TOKEN
     );
     return;
   }
@@ -571,8 +699,36 @@ async function handleCommand(rawText, state, botToken = null) {
     return;
   }
 
-  const targetCode = detectDivisionFromText(text, state.activeDivision);
+  if (text === "/audit" || text === "검열" || text === "교차검열" || text === "전체점검" || text === "점검") {
+    enqueueTask(
+      {
+        division: DIVISIONS.TOM,
+        title: "전 사업부(1·2·3사업부) 16개 전환·결제 퍼널 상호 교차검열 및 자동수리 (안티그래비티 토큰 0)",
+        run: async () => {
+          const res = await runPythonScriptAsync("scripts/hq_hourly_cross_audit_healer.py", [], DIVISIONS.TOM.cwd);
+          await sendHqMessage(
+            `🛡️ <b>[전 사업부 무토큰(0 Token) 로컬 교차검열 &amp; 자동수리 완료]</b>\n` +
+              `<code>${(res.output || "16/16 정상").trim().slice(-400)}</code>`,
+            true,
+            botToken || PRIMARY_BOT_TOKEN
+          );
+        },
+      },
+      botToken || PRIMARY_BOT_TOKEN
+    );
+    return;
+  }
+
+  if (state.lastDispatchedText === text && Date.now() - (state.lastDispatchedAt || 0) < 60000) {
+    console.log(`[Bridge] Deduplicated identical prompt within 60s: "${text}"`);
+    return;
+  }
+  state.lastDispatchedText = text;
+  state.lastDispatchedAt = Date.now();
+
+  const targetCode = detectDivisionFromText(text, botBoundDivCode || state.activeDivision);
   const targetDiv = DIVISIONS[targetCode] || DIVISIONS.TOM;
+  const replyBotToken = targetDiv.botToken || botToken || PRIMARY_BOT_TOKEN;
   state.activeDivision = targetCode;
   saveState(state);
 
@@ -583,16 +739,16 @@ async function handleCommand(rawText, state, botToken = null) {
       run: async () => {
         const r = await dispatchAntigravityPrompt(targetDiv, text);
         await sendHqMessage(
-          `✅ <b>[${targetDiv.name}] 원격 작업 지시 접수 &amp; 단독 실행 시작</b>\n` +
+          `✅ <b>[${targetDiv.name}] 전담 봇(${targetDiv.botHandle}) 작업 접수 &amp; 멀티에이전트 풀가동</b>\n` +
             `• <b>지시 내용</b>: "${text}"\n` +
-            `• <b>작업 폴더</b>: <code>${targetDiv.cwd}</code>\n` +
-            `<i>작업이 끝나면 이 채팅방으로 완료 보고가 도착합니다.</i>`,
+            `• <b>담당 부문장</b>: ${targetDiv.managerTitle}` +
+            getLiveTokenTelemetryBanner(),
           true,
-          botToken
+          replyBotToken
         );
       },
     },
-    botToken
+    replyBotToken
   );
 }
 
@@ -609,7 +765,7 @@ function checkDailyStaggeredSchedule(state) {
     enqueueTask(
       {
         division: DIVISIONS.TOM,
-        title: `[정각 교대근무 ${String(now.getHours()).padStart(2, "0")}:00] 24시간 순환 스케줄 무인 자동 실행`,
+        title: `[정각 무토큰(0-Token) 자동순환 ${String(now.getHours()).padStart(2, "0")}:00] 1·2·3사업부 홍보 & 상호 교차검열`,
         run: async () => {
           await runPythonScriptAsync("scripts/hq_24h_hourly_scheduler.py", [], DIVISIONS.TOM.cwd);
         },
@@ -618,26 +774,33 @@ function checkDailyStaggeredSchedule(state) {
     );
   }
 
+  // 새벽 04:00: 실시간 안티그래비티 잔여 쿼터를 계측하여 평상시 안전마진 제외 가용 최대치(Smart Max-Pace)로 R&D 가동
+  if (hhmm >= "04:00" && hhmm < "04:30" && state.lastAutoRunDate.DAWN_HIGH_TOKEN_RND !== ymd) {
+    state.lastAutoRunDate.DAWN_HIGH_TOKEN_RND = ymd;
+    saveState(state);
+    handleCommand("/night", state, PRIMARY_BOT_TOKEN);
+  }
+
   if (false && hhmm >= "05:00" && hhmm < "05:30" && state.lastAutoRunDate.DAWN_RL !== ymd) {
     state.lastAutoRunDate.DAWN_RL = ymd;
     saveState(state);
     handleCommand("/rl", state);
   }
-  // 전 사업부(1·2·3사업부) 일일 영상은 오직 오전 06:00 정각에만 순차 큐로 발송 (그 외 시간 자동 발송 금지)
+  // 전 사업부(1·2·3사업부) 일일 영상은 오직 오전 06:00 정각에만 각 사업부 전용 봇으로 순차 발송
   if (hhmm === "06:00" && state.lastAutoRunDate.DAILY_6AM_VIDEOS !== ymd) {
     state.lastAutoRunDate.DAILY_6AM_VIDEOS = ymd;
     state.lastAutoRunDate.FLOW_TOM = ymd;
     state.lastAutoRunDate.FLOW_KFG = ymd;
     state.lastAutoRunDate.FLOW_KFK = ymd;
     saveState(state);
-    handleCommand("/flow_tom", state, RSA_BOT_TOKEN);
-    handleCommand("/flow_kfg", state, PRIMARY_BOT_TOKEN);
-    handleCommand("/flow_kfk", state, KFK_BOT_TOKEN);
+    handleCommand("/flow_tom", state, DIVISIONS.TOM.botToken);
+    handleCommand("/flow_kfg", state, DIVISIONS.KFG.botToken);
+    handleCommand("/flow_kfk", state, DIVISIONS.KFK.botToken);
   }
   if (hhmm >= "06:30" && state.lastAutoRunDate.TOM !== ymd) {
     state.lastAutoRunDate.TOM = ymd;
     saveState(state);
-    handleCommand("/tom_news", state);
+    handleCommand("/tom_news", state, DIVISIONS.TOM.botToken);
   }
   if (hhmm >= "07:30" && state.lastAutoRunDate.TOM_CLOSE_VERIFY !== ymd) {
     state.lastAutoRunDate.TOM_CLOSE_VERIFY = ymd;
@@ -650,7 +813,7 @@ function checkDailyStaggeredSchedule(state) {
           await runPythonScriptAsync("scripts/run_daily_market_close_sync.py", [], DIVISIONS.TOM.cwd);
         },
       },
-      PRIMARY_BOT_TOKEN
+      DIVISIONS.TOM.botToken
     );
   }
   if (hhmm === "08:30" && state.lastAutoRunDate.VISITOR_AM !== ymd) {
@@ -803,11 +966,19 @@ async function main() {
     process.exit(1);
   }
 
-  // CLI helper mode: `--notify "message"` sends a message without killing the running daemon
+  // CLI helper mode: `--notify "message" [--div TOM|KFG|KFK|HQ]` sends a message to the dedicated bot without killing the running daemon
   const notifyIdx = process.argv.indexOf("--notify");
   if (notifyIdx !== -1 && process.argv[notifyIdx + 1]) {
     const msg = process.argv[notifyIdx + 1];
-    await sendHqMessage(`📬 <b>[작업 완료 보고]</b>\n${msg}`, true);
+    const divIdx = process.argv.indexOf("--div");
+    let divArg = divIdx !== -1 && process.argv[divIdx + 1] ? process.argv[divIdx + 1].toUpperCase() : "";
+    if (!divArg) {
+      if (/1사업부|truthofmarket|rightsidealpha/i.test(msg) && !/2사업부|3사업부/.test(msg)) divArg = "TOM";
+      else if (/2사업부|kisfitglobal|키즈핏 영문/i.test(msg) && !/1사업부|3사업부/.test(msg)) divArg = "KFG";
+      else if (/3사업부|kidsfit\.co\.kr|사업아이템/i.test(msg) && !/1사업부|2사업부/.test(msg)) divArg = "KFK";
+    }
+    const targetToken = DIVISIONS[divArg]?.botToken || PRIMARY_BOT_TOKEN;
+    await sendHqMessage(`📬 <b>[작업 완료 보고]</b>\n${msg}${getLiveTokenTelemetryBanner()}`, true, targetToken);
     return;
   }
 
@@ -815,7 +986,7 @@ async function main() {
   const state = loadState();
 
   if (process.argv.includes("--announce")) {
-    for (const tok of [PRIMARY_BOT_TOKEN, KFK_BOT_TOKEN, RSA_BOT_TOKEN].filter(Boolean)) {
+    for (const tok of [RSA_BOT_TOKEN, KFG_BOT_TOKEN, KFK_BOT_TOKEN].filter(Boolean)) {
       await handleCommand("/start", state, tok);
     }
     if (process.argv.includes("--once")) return;

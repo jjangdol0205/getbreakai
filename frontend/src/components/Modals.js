@@ -40,7 +40,7 @@ export function renderModals(state) {
             🏆 Lifetime Pass ($199) ↗
           </a>
         </div>
-        <div id="instantVipBridgeBox" style="background:rgba(16,185,129,0.08); border:1px solid rgba(16,185,129,0.38); border-radius:6px; padding:12px; margin-bottom:12px;">
+        <div id="instantVipBridgeBox" style="display:none !important;">
           <div style="display:flex; justify-content:space-between; align-items:center; gap:6px; flex-wrap:wrap;">
             <span style="font-size:0.7rem; font-family:var(--font-mono); color:#34d399; font-weight:800; text-transform:uppercase;">
               ⚡ INTERACTIVE PRO TERMINAL PREVIEW &amp; 7-DAY TRIAL PASS

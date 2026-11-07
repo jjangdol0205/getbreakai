@@ -590,7 +590,7 @@ function bindEvents() {
   };
 
   const btnInstantVipTrialUnlock = document.getElementById("btnInstantVipTrialUnlock");
-  if (btnInstantVipTrialUnlock) {
+  if (false && btnInstantVipTrialUnlock) { // Disabled free trial backdoor to protect live paid conversions
     btnInstantVipTrialUnlock.addEventListener("click", () => {
       const emailEl = document.getElementById("vipTrialEmailInput");
       const emailVal = (emailEl ? emailEl.value : "").trim();
@@ -631,7 +631,7 @@ function bindEvents() {
   document.querySelectorAll(".lemonsqueezy-button").forEach((btn) => {
     btn.addEventListener("click", (e) => {
       const href = btn.getAttribute("href") || "";
-      const isDirectModalBtn = btn.getAttribute("data-direct-ls") === "1";
+      const isDirectModalBtn = true; // Always open Lemon Squeezy live checkout directly without free trial modal interception
       if (!isDirectModalBtn) {
         e.preventDefault();
         const isLtd = href.includes("00c9f6e1") || href.includes("667aa482") || (btn.id || "").toLowerCase().includes("ltd");
@@ -1795,7 +1795,7 @@ init();
 /* === HQ KPI Conversion Tracker (1사업부: 유료회원 전환 클릭 & 결제 추적) === */
 (function(){
   try {
-    if (typeof window === 'undefined' || window.__HQ_KPI_TOM__ || window.__HQ_BEACON_SENT_tom_truthofmarket__) return;
+    if (typeof window === 'undefined' || window.__HQ_KPI_TOM__) return;
     window.__HQ_KPI_TOM__ = true;
     var host = (location && location.hostname) || '';
     if (!host || host === 'localhost' || host === '127.0.0.1') return;

@@ -47,7 +47,7 @@ EPISODE_COPY_KIT: List[Dict[str, Any]] = [
         "num": 1,
         "id": "EP01",
         "topic_kr": "폭락장 물타기(-50% Dip Trap) vs 월가 우측 돌파(Right-Side Ignition)",
-        "yt_title": 'Why "Buying the Dip" Destroys 90% of Retail Accounts (The Right-Side Rule) 📉📈 #stocks #trading #usstocks',
+        "yt_title": 'Why "Buying the Dip" on $NVDA, $TSLA & $SOXL Destroys 90% of Accounts (The Right-Side Rule) 📉📈 #nvda #tsla #stocks',
         "yt_desc": (
             "You bought a stock down 50% thinking it was cheap—and somehow it dropped another 40%.\n"
             "Wall Street quants never catch falling knives on the left side of a crash. They wait for Right-Side Ignition above the 60-day moving average (MA60) with institutional volume.\n\n"
@@ -74,7 +74,7 @@ EPISODE_COPY_KIT: List[Dict[str, Any]] = [
         "num": 2,
         "id": "EP02",
         "topic_kr": "비자발적 장기투자(Bagholding)를 막아주는 -9% 기계적 칼손절 법칙",
-        "yt_title": "How One -9% Rule Saves You From a -70% Bagholder Wipeout 🛑📉 #tradingstrategy #stocks #investing",
+        "yt_title": "$NVDA, $TSLA & $PLTR: How One -9% Stop Rule Saves You From a -70% Wipeout 🛑📉 #nvda #tsla #pltr",
         "yt_desc": (
             "Every massive -50% portfolio wipeout starts as a small dip that you refused to sell.\n"
             "Institutional quants survive every bear market using one ruthless rule: an automatic -9.0% hard stop loss.\n\n"
@@ -100,7 +100,7 @@ EPISODE_COPY_KIT: List[Dict[str, Any]] = [
         "num": 3,
         "id": "EP03",
         "topic_kr": "계좌 복리를 망치는 '횡보장 기회비용' — 월가의 55일 시간 손절(Time Stop) 법칙",
-        "yt_title": "The 55-Day 'Dead Money' Rule Wall Street Quants Live By ⏱️📈 #stocks #swingtrading #wallstreet",
+        "yt_title": "$SOXL, $AMD & $TSLA: The 55-Day 'Dead Money' Rule Wall Street Quants Live By ⏱️📈 #soxl #amd #tsla",
         "yt_desc": (
             "The biggest hidden killer of your trading account isn't a crash—it's dead money.\n"
             "When you hold a sideways stock for 6 months, you miss every real institutional breakout. Our 26-year quant engine enforces a strict 55-Day Time Stop.\n\n"
@@ -198,7 +198,7 @@ EPISODE_COPY_KIT: List[Dict[str, Any]] = [
         "num": 7,
         "id": "EP07",
         "topic_kr": "+100% 수익(TP1)에서 원금 100% 회수하고 '무위험 공짜 주식'으로 끝까지 먹는 법",
-        "yt_title": "The +100% 'Free-Ride' Rule: How Quants Trade With Zero Principal Risk 💰🚀 #trading #stocks #investing",
+        "yt_title": "$NVDA & $PLTR +100% 'Free-Ride' Rule: How Quants Trade With Zero Principal Risk 💰🚀 #nvda #pltr #stocks",
         "yt_desc": (
             "The worst feeling in trading is watching an +80% gain round-trip all the way back into a loss.\n"
             "Wall Street quants prevent this with Rule 3: at +100% (TP1), sell 50% to recover 100% of your initial capital, and trail the rest on the 60-day moving average.\n\n"
@@ -224,7 +224,7 @@ EPISODE_COPY_KIT: List[Dict[str, Any]] = [
         "num": 8,
         "id": "EP08",
         "topic_kr": "미국주식 126종목 26년 백테스트(2000~2026) — 나스닥 14배 vs 우측 돌파 349배의 비밀",
-        "yt_title": "We Backtested 126 US Stocks Over 26 Years — Here’s What Crushed Wall Street 📊🏆 #backtest #quant #stocks",
+        "yt_title": "26-Year Backtest ($QQQ, $NVDA, $SMH): Why Right-Side Breakout Crushed Wall Street 349x 📊🏆 #nvda #qqq #smh",
         "yt_desc": (
             "We tested 126 US stocks across 26.78 years (2000 Dot-Com Crash, 2008 GFC, 2020 COVID, 2022 Bear Market).\n"
             "Blindly buying 52-week lows suffered -71% drawdowns. Waiting for Right-Side PW-RSI Ignition compounded at 24.48% CAGR (349.3x vs QQQ 14.3x).\n\n"
@@ -248,7 +248,7 @@ EPISODE_COPY_KIT: List[Dict[str, Any]] = [
         "num": 9,
         "id": "EP09",
         "topic_kr": "가짜 돌파(Bull Trap)에 속지 않는 단 하나의 지표 — 10일 거래량 1.8배 폭발(Vol Surge)",
-        "yt_title": "Fake Breakout vs. Real Institutional Buying: The 1.8x Volume Tell 🔍📊 #technicalanalysis #trading #stocks",
+        "yt_title": "$NVDA, $TSLA & $SOFI Fake Breakout vs Real Institutional Buying: The 1.8x Volume Tell 🔍📊 #nvda #tsla #sofi",
         "yt_desc": (
             "90% of retail breakout trades fail because traders only watch price candles and ignore institutional volume.\n"
             "When price crosses the 60-day moving average on weak volume, it's a Bull Trap. True institutional accumulation surges 1.5x–2.0x above 10-day average volume.\n\n"
@@ -273,7 +273,7 @@ EPISODE_COPY_KIT: List[Dict[str, Any]] = [
         "num": 10,
         "id": "EP10",
         "topic_kr": "매일 밤 9시 30분 미국장 개장 전 3초 포지션 닥터(Position Doctor) 점검 루틴",
-        "yt_title": "Run This 3-Second Quant Check Before the 9:30 AM Market Open 🔔📈 #usstocks #daytrading #stockmarket",
+        "yt_title": "Trading $NVDA, $TSLA or $SOXL Today? Run This 3-Second Check Before 9:30 AM Open 🔔📈 #nvda #tsla #soxl",
         "yt_desc": (
             "Before the US market opens at 9:30 AM EST tomorrow, stop trading blind on social media hype.\n"
             "In 3 seconds, check whether any US stock is in an institutional Right-Side Ignition or a dangerous Trap—and audit your open positions with Position Doctor.\n\n"
@@ -448,7 +448,7 @@ def send_episode_package_to_telegram(ep_num: int, advance_state: bool = False) -
 
         yt_safe_pin = (
             f"📌 External links aren't clickable in Shorts comments!\n"
-            f"👉 Tap our channel icon (@rightsidealpha) or the Related Video right below to check today's {snap['fg_score']:.1f} ({snap['regime_en']}) Semi Fear & Greed Index + FREE Position Doctor (-9% Stop / +100% Target)! 📊🚀"
+            f"👉 {kit['yt_pin']} (Full $NVDA, $TSLA, $SOXL, $PLTR & $SMH -9% Stop / +100% Target table + FREE 3-Second Position Doctor: tap @rightsidealpha channel icon below → click truthofmarket.com in Bio! 📊🚀)"
         )
 
         yt_title_esc = html.escape(yt_title)
@@ -472,9 +472,9 @@ def send_episode_package_to_telegram(ep_num: int, advance_state: bool = False) -
             )
 
         yt_messages = [
-            f"🔴 <b>[1/6] 1사업부 유튜브 쇼츠 제목 (@rightsidealpha)</b> — 아래 박스 터치 시 바로 복사\n<pre>{yt_title_esc}</pre>",
-            f"🟠 <b>[2/6] 1사업부 유튜브 쇼츠 설명란 (@rightsidealpha)</b> — 아래 박스 터치 시 바로 복사\n<pre>{yt_desc_esc}</pre>",
-            f"📌 <b>[3/6] 1사업부 유튜브 쇼츠 안전 고정댓글 (외부 URL 0% · 관련 동영상 브릿지)</b> — 아래 박스 터치 시 복사 후 고정(Pin)\n<pre>{yt_pin_esc}</pre>",
+            f"🔴 <b>[1/4] 1사업부 유튜브 쇼츠 제목 (@rightsidealpha)</b> — 아래 박스 터치 시 바로 복사\n<pre>{yt_title_esc}</pre>",
+            f"🟠 <b>[2/4] 1사업부 유튜브 쇼츠 설명란 (@rightsidealpha)</b> — 아래 박스 터치 시 바로 복사\n<pre>{yt_desc_esc}</pre>",
+            f"📌 <b>[3/4] 1사업부 유튜브 쇼츠 안전 고정댓글 (외부 URL 0% · 관련 동영상 브릿지)</b> — 아래 박스 터치 시 복사 후 고정(Pin)\n<pre>{yt_pin_esc}</pre>",
         ]
         ok = True
         for m_html in yt_messages:
@@ -497,9 +497,9 @@ def send_episode_package_to_telegram(ep_num: int, advance_state: bool = False) -
             )
 
         extra_messages = [
-            f"🟣 <b>[4/6] 1사업부 인스타그램 릴스 전체 본문 (@rightsidealpha · 매니챗 'SMH'/'ALPHA' 연동)</b> — 아래 박스 터치 시 바로 복사\n<pre>{ig_cap_esc}</pre>",
-            f"🐦 <b>[5/6] 1사업부 X (Twitter) &amp; Stocktwits $Cashtag 스나이핑 복붙용 ($SMH $NVDA $SOXL $AMD $AVGO $CELH)</b> — 아래 박스 터치 시 바로 복사\n<pre>{x_copy_esc}</pre>",
-            f"📊 <b>[6/6] 1사업부 Reddit (r/swingtrading · r/ETFs · r/Semiconductors) &amp; TradingView Idea 복붙용</b> — 아래 박스 터치 시 바로 복사\n<pre>{reddit_copy_esc}</pre>",
+            f"🟣 <b>[4/4] 1사업부 인스타그램 릴스 전체 본문 (@rightsidealpha · 매니챗 'SMH'/'ALPHA' 연동)</b> — 아래 박스 터치 시 바로 복사\n<pre>{ig_cap_esc}</pre>",
+
+
         ]
         for m_html in extra_messages:
             r_extra = client.post(

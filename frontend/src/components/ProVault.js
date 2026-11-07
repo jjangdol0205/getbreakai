@@ -59,6 +59,11 @@ plotshape(ignition and not ignition[1], "PW-RSI IGNITION", shape.labelup, locati
         </button>
       </div>
 
+      <!-- FREE INTERACTIVE BAIT: 3-SECOND POSITION DOCTOR (UNBLURRED FOR ALL VISITORS) -->
+      <div style="margin-bottom:18px;">
+        ${renderPositionDoctorForm(state)}
+      </div>
+
       <div style="position:relative;">
         ${
           !isPro
@@ -174,9 +179,8 @@ plotshape(ignition and not ignition[1], "PW-RSI IGNITION", shape.labelup, locati
         </div>
       </div>
 
-      <div id="vaultContentWrap" class="${isPro ? "" : "blur-locked"}" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(330px, 1fr)); gap:16px;">
-        <!-- Module 01: Position Doctor -->
-        ${renderPositionDoctorForm(state)}
+      <div id="vaultContentWrap" class="${isPro ? "" : "blur-locked"}" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(330px, 1fr)); gap:16px;"><!-- Position Doctor moved to free unblurred top section -->
+        <!-- Module 01: Position Doctor rendered in free unblurred section above -->
 
         <!-- Module 02: Institutional SEC Research Vault -->
         <div style="background:#090d16; border:1px solid var(--border); border-top:2px solid var(--fin-blue); border-radius:4px; padding:18px; display:flex; flex-direction:column; justify-content:space-between;">

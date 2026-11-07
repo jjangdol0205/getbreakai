@@ -168,8 +168,8 @@ def run_single_division_rl(div):
     ref_click_today = fetch_abacus_val(div["abacus_ns"], f"ref_click_{today}")
     ref_click_total = max(ref_click_today, fetch_abacus_val(div["abacus_ns"], "ref_click_total"))
 
-    # 2. If 2사업부 (KFG), also trigger its dedicated rl_shorts_reels_view_optimizer.py
-    if div["key"] == "KFG":
+    # 2. RL paused until actual sales occur (per owner directive)
+    if False and div["key"] == "KFG":
         kfg_script = r"D:\키즈핏 영문\scripts\rl_shorts_reels_view_optimizer.py"
         if os.path.exists(kfg_script):
             try:
@@ -265,28 +265,25 @@ def main():
         f.write(json.dumps({"timestamp_kst": now_kst, "results": results}, ensure_ascii=False) + "\n")
 
     lines = [
-        f"🌅 <b>[새벽 정기 1·2·3사업부 방문수·유튜브·인스타 점검 &amp; 강화학습(RL) 자가개선 보고]</b>",
-        f"⏰ <b>실행 시각</b>: <code>{now_kst}</code> (1→2→3사업부 순차 실행 완료)",
+        f"📺 <b>[1·2·3사업부 유튜브 쇼츠 · 인스타 릴스 · 실방문/전환 실시간 모니터링 보고]</b>",
+        f"⏰ <b>점검 시각</b>: <code>{now_kst}</code> (강화학습은 실매출 발생 전까지 보류 · 100% 홍보 집중 모드)",
         "━━━━━━━━━━━━━━━━━━",
     ]
     for r in results:
         wv = r["website_visitors"]
         yt = r["youtube_shorts"]
         ig = r["instagram_reels"]
-        ch = r["rl_champion_arm"]
-        top_v_str = f"{yt['top_video']['title'][:28]}... ({yt['top_video']['views']}회)" if yt["top_video"] else "수집 대기/초기화"
+        top_v_str = f"{yt['top_video']['title'][:32]}... ({yt['top_video']['views']}회 / 좋아요 {yt['top_video']['likes']})" if yt["top_video"] else "최근 쇼츠 집계 중"
         lines.extend([
             f"🏢 <b>{r['division']} ({r['domain']})</b>",
             f"• <b>홈페이지 실방문</b>: 오늘 UV <b>{wv['uv_today']}명</b> (PV {wv['pv_today']}회) / 누적 UV <b>{wv['uv_total']}명</b>",
-            f"• <b>유튜브 쇼츠({yt['handle']})</b>: 업로드 <b>{yt['uploaded_count']}편</b> · 총 조회수 <b>{yt['total_views']}회</b> (좋아요 {yt['total_likes']})",
-            f"  └ 1위 영상: <code>{top_v_str}</code>",
-            f"• <b>인스타그램(@{ig['handle'].lstrip('@')})</b>: 게시물 <code>{ig['posts']}건</code> · 매니챗 자동DM <code>LIVE</code>",
-            f"• <b>🧠 RL 챔피언 훅 (UCB1={ch['ucb1_score']})</b>: <b>{ch['name']}</b>",
-            f"• <b>🔧 자가개선 반영</b>: <code>{r['self_improvement_directive']}</code>",
+            f"• <b>유튜브 쇼츠({yt['handle']})</b>: 최근 쇼츠 <b>{yt['uploaded_count']}편</b> · 조회수 합계 <b>{yt['total_views']}회</b> (좋아요 {yt['total_likes']})",
+            f"  └ 최고 조회 영상: <code>{top_v_str}</code>",
+            f"• <b>인스타그램(@{ig['handle'].lstrip('@')})</b>: 게시물 <code>{ig['posts']}건</code> · 팔로워 <code>{ig['followers']}명</code> · 매니챗 DM <code>LIVE</code>",
             "━━━━━━━━━━━━━━━━━━",
         ])
 
-    lines.append("✅ <b>자동 스케줄</b>: 매일 새벽 <b>05:00 KST</b> 전 사업부 순차 크롤링 &amp; 강화학습 자가개선 자동 수행 (언제든 <code>강화학습</code> 또는 <code>/rl</code> 입력 시 즉시 실행)")
+    lines.append("🚀 <b>현재 모드</b>: 강화학습(RL) 보류 완료 · 실매출 발생까지 전방위 홍보 100% 집중 가동 중")
     report_msg = "\n".join(lines)
 
     if notify:

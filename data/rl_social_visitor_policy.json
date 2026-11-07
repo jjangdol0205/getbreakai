@@ -1,18 +1,18 @@
 {
-  "updated_at_kst": "2026-11-06 09:00:24 KST",
+  "updated_at_kst": "2026-11-07 13:14:21 KST",
   "division": "1사업부",
   "domain": "truthofmarket.com",
   "website_visitors": {
-    "uv_today": 11,
-    "pv_today": 14,
-    "uv_yesterday": 9,
-    "uv_total": 15,
-    "pv_total": 19
+    "uv_today": 4,
+    "pv_today": 5,
+    "uv_yesterday": 18,
+    "uv_total": 26,
+    "pv_total": 48
   },
   "youtube_shorts": {
     "handle": "@rightsidealpha",
-    "uploaded_count": 5,
-    "total_views": 10,
+    "uploaded_count": 6,
+    "total_views": 12,
     "total_likes": 0,
     "top_video": {
       "videoId": "xo4G1OgSZaI",
@@ -34,7 +34,7 @@
     "views": 0,
     "likes": 0,
     "reward": 290.0,
-    "ucb1_score": 311.9
+    "ucb1_score": 312.29
   },
   "all_arms": [
     {
@@ -43,7 +43,7 @@
       "views": 0,
       "likes": 0,
       "reward": 290.0,
-      "ucb1_score": 311.9
+      "ucb1_score": 312.29
     },
     {
       "id": "backtest_26yr_349x",
@@ -51,7 +51,7 @@
       "views": 0,
       "likes": 0,
       "reward": 290.0,
-      "ucb1_score": 311.9
+      "ucb1_score": 312.29
     },
     {
       "id": "stop_loss_9pct",
@@ -59,7 +59,7 @@
       "views": 6,
       "likes": 0,
       "reward": 296.0,
-      "ucb1_score": 163.49
+      "ucb1_score": 163.76
     },
     {
       "id": "dip_trap_vs_ignition",
@@ -67,8 +67,8 @@
       "views": 0,
       "likes": 0,
       "reward": 290.0,
-      "ucb1_score": 160.49
+      "ucb1_score": 160.76
     }
   ],
-  "self_improvement_directive": "승리 훅 [반도체 공포탐욕지수 18 & SMH:XLV 80:20 바벨 훅] (UCB1=311.9) 패턴을 다음 에피소드 제목·첫 3초 자막 및 유튜브 고정댓글/인스타 매니챗 캡션 최상단에 가중 배치 완료"
+  "self_improvement_directive": "승리 훅 [반도체 공포탐욕지수 18 & SMH:XLV 80:20 바벨 훅] (UCB1=312.29) 패턴을 다음 에피소드 제목·첫 3초 자막 및 유튜브 고정댓글/인스타 매니챗 캡션 최상단에 가중 배치 완료"
 }

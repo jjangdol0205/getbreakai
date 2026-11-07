@@ -78,12 +78,12 @@ def create_cta_overlay_png(width, height, badge_title, badge_sub, border_rgb, ti
     x1 = x0 + box_w
     y1 = y0 + box_h
 
-    # Soft translucent dark pill with harmonious border matching existing subtitle palette
+    # 100% opaque Midnight Navy pill (alpha=255) to guarantee zero ghosting over underlying text/video
     draw.rounded_rectangle(
         [x0, y0, x1, y1],
         radius=int(box_h * 0.28),
-        fill=(12, 18, 32, 200),
-        outline=border_rgb + (235,),
+        fill=(10, 16, 28, 255),
+        outline=border_rgb + (255,),
         width=4,
     )
 
@@ -179,7 +179,7 @@ def ensure_dual_videos(src_video, division="KFG", force=False):
         png_ig = create_cta_overlay_png(w, h, ig_title, ig_sub, (255, 232, 0), (110, 255, 210), is_kr=False)
     elif div == "KFK":
         yt_title = "▶ 아래 @키즈핏 프로필 아이콘 터치!"
-        yt_sub = "프로필 상단 링크에서 100% 무료 진단 & 최저가 보기"
+        yt_sub = "프로필 상단 링크에서 100% 무료 진단 & 공식 혜택가 보기"
         ig_title = '▶ 댓글에 "진단" 또는 "키즈핏" 입력!'
         ig_sub = "댓글 남기시면 1초 만에 DM으로 무료 진단 링크 발송!"
         png_yt = create_cta_overlay_png(w, h, yt_title, yt_sub, (110, 255, 210), (255, 232, 0), is_kr=True)

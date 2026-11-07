@@ -108,7 +108,7 @@ const HQ_KEYBOARD = {
     ],
     [
       { text: "📈 전사업부 방문자·서치콘솔 즉시조회", callback_data: "/visitors" },
-      { text: "🧠 새벽 강화학습(RL) 자가개선 실행", callback_data: "/rl" },
+      { text: "📺 3대 유튜브·인스타 실시간 모니터링", callback_data: "/rl" },
     ],
     [
       { text: "🕒 24시간 1·2·3사업부 1시간 교대스케줄", callback_data: "/schedule24" },
@@ -465,11 +465,11 @@ async function handleCommand(rawText, state, botToken = null) {
     return;
   }
 
-  if (text === "/rl" || text === "강화학습" || text === "자가개선") {
+  if (text === "/rl" || text === "모니터링" || text === "유튜브" || text === "인스타") {
     enqueueTask(
       {
         division: DIVISIONS.TOM,
-        title: "전사업부(1·2·3사업부) 방문수·유튜브·인스타 수집 및 UCB1 강화학습(RL) 자가개선",
+        title: "전사업부(1·2·3사업부) 유튜브 쇼츠·인스타 릴스·방문수·결제전환 실시간 모니터링 (강화학습 보류)",
         run: async () => {
           await runPythonScriptAsync("scripts/hq_dawn_rl_self_improver.py", ["--notify"], DIVISIONS.TOM.cwd);
         },
@@ -603,22 +603,22 @@ function checkDailyStaggeredSchedule(state) {
 
   if (!state.lastAutoRunDate) state.lastAutoRunDate = {};
   const hourKey = `${ymd}_${String(now.getHours()).padStart(2, "0")}`;
-  if (false && now.getMinutes() === 0 && state.lastAutoRunDate.HOURLY_SLOT !== hourKey) {
+  if (now.getMinutes() === 0 && state.lastAutoRunDate.HOURLY_SLOT !== hourKey) {
     state.lastAutoRunDate.HOURLY_SLOT = hourKey;
     saveState(state);
     enqueueTask(
       {
         division: DIVISIONS.TOM,
-        title: `[정각 교대근무 ${String(now.getHours()).padStart(2, "0")}:00] 24시간 순환 스케줄 자동 실행`,
+        title: `[정각 교대근무 ${String(now.getHours()).padStart(2, "0")}:00] 24시간 순환 스케줄 무인 자동 실행`,
         run: async () => {
-          await runPythonScriptAsync("scripts/hq_24h_hourly_scheduler.py", ["--notify"], DIVISIONS.TOM.cwd);
+          await runPythonScriptAsync("scripts/hq_24h_hourly_scheduler.py", [], DIVISIONS.TOM.cwd);
         },
       },
       PRIMARY_BOT_TOKEN
     );
   }
 
-  if (false && hhmm === "05:00" && state.lastAutoRunDate.DAWN_RL !== ymd) {
+  if (false && hhmm >= "05:00" && hhmm < "05:30" && state.lastAutoRunDate.DAWN_RL !== ymd) {
     state.lastAutoRunDate.DAWN_RL = ymd;
     saveState(state);
     handleCommand("/rl", state);

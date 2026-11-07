@@ -319,7 +319,7 @@ async function runVisitorBriefing(options = {}) {
   const nowStr = getKstNowFormatted();
 
   const lines = [
-    `📊 <b>[1·2·3사업부 방문 현황 &amp; 핵심 목표(유료회원·상품레퍼럴) 브리핑]</b>`,
+    `🎯 <b>[전사업부 최우선 목표 — 1순위: 홈페이지 유입 | 2순위: 유료결제 브리핑]</b>`,
     `⏰ <b>집계 시각</b>: <code>${nowStr}</code> (봇·크롤러 제외 순수 실방문자 · 영구원장 동기화)`,
     `━━━━━━━━━━━━━━━━━━`
   ];
@@ -328,14 +328,14 @@ async function runVisitorBriefing(options = {}) {
     const statusBadge = r.health.ok ? `🟢 정상 (${r.health.ms}ms)` : `🔴 점검필요`;
     const kpiLine =
       r.kpiType === 'PAID'
-        ? `• <b>💳 [목표: 유료회원 증대]</b>: 오늘 결제창 클릭 <b>${r.paidClickToday}회</b> (누적 ${r.paidClickTotal}회) · 신규 유료전환 <b>${r.paidMemberToday}명</b> (누적 <b>${r.paidMemberTotal}명</b>)`
-        : `• <b>🛍️ [목표: 상품 레퍼럴 확대]</b>: 오늘 상품구매 클릭 <b>${r.refClickToday}회</b> (누적 레퍼럴 클릭 <b>${r.refClickTotal}회</b>)`;
+        ? `• <b>🥈 [2순위 목표: 유료결제]</b>: 오늘 결제창 클릭 <b>${r.paidClickToday}회</b> (누적 ${r.paidClickTotal}회) · 실결제 완료 <b>${r.paidMemberToday}건</b> (누적 <b>${r.paidMemberTotal}건</b>)`
+        : `• <b>🥈 [2순위 목표: 구매전환]</b>: 오늘 상품구매 클릭 <b>${r.refClickToday}회</b> (누적 레퍼럴 클릭 <b>${r.refClickTotal}회</b>)`;
 
     lines.push(
       `🏢 <b>${r.code} | ${r.name}</b> (<code>${r.domain}</code>)`,
-      `• <b>핵심 목표</b>: 🎯 <b>${r.kpiGoal}</b>`,
+      `• <b>🥇 [1순위 목표: 홈페이지 유입]</b>: 오늘 UV <b>${r.uvToday.toLocaleString()}명</b> (PV ${r.pvToday.toLocaleString()}회) ｜ 어제 <b>${r.uvYest.toLocaleString()}명</b> (PV ${r.pvYest.toLocaleString()}회) ｜ 누적 <b>${r.uvTotal.toLocaleString()}명</b> (PV ${r.pvTotal.toLocaleString()}회)`,
       kpiLine,
-      `• <b>👥 실방문자(UV)</b>: 오늘 <b>${r.uvToday.toLocaleString()}명</b> (PV ${r.pvToday.toLocaleString()}회) ｜ 어제 <b>${r.uvYest.toLocaleString()}명</b> (PV ${r.pvYest.toLocaleString()}회) ｜ 누적 <b>${r.uvTotal.toLocaleString()}명</b> (누적 PV ${r.pvTotal.toLocaleString()}회)`,
+      `• <b>🎯 핵심 KPI</b>: <b>1. 홈페이지 유입 확대 → 2. ${r.kpiGoal}</b>`,
       `• <b>서버 &amp; 서치콘솔</b>: ${statusBadge} | ✅ <code>${r.gscStatus}</code>`,
       `━━━━━━━━━━━━━━━━━━`
     );
@@ -343,7 +343,7 @@ async function runVisitorBriefing(options = {}) {
 
   lines.push(
     `🔔 <b>정기 자동 브리핑 &amp; 24시간 교대근무</b>`,
-    `• <b>새벽 05:00</b>: 유료전환(1·2사업부) &amp; 상품구매클릭(3사업부) 최우선 강화학습(RL) 자가개선`,
+    `• <b>최우선 순위 고정</b>: 🥇 1순위 홈페이지 유입(UV/PV) ➡️ 🥈 2순위 유료결제·구매전환 (강화학습 보류 · 홍보 100% 집중)`,
     `• <b>오전 08:30 &amp; 밤 21:00</b>: 전 사업부 방문자·유료전환·상품레퍼럴 정기 결산 보고`
   );
 

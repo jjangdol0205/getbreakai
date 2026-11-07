@@ -2490,6 +2490,11 @@ plotshape(ignition and not ignition[1], "PW-RSI IGNITION", shape.labelup, locati
         </button>
       </div>
 
+      <!-- FREE INTERACTIVE BAIT: 3-SECOND POSITION DOCTOR (UNBLURRED FOR ALL VISITORS) -->
+      <div style="margin-bottom:18px;">
+        ${renderPositionDoctorForm(state)}
+      </div>
+
       <div style="position:relative;">
         ${
           !isPro
@@ -2605,9 +2610,8 @@ plotshape(ignition and not ignition[1], "PW-RSI IGNITION", shape.labelup, locati
         </div>
       </div>
 
-      <div id="vaultContentWrap" class="${isPro ? "" : "blur-locked"}" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(330px, 1fr)); gap:16px;">
-        <!-- Module 01: Position Doctor -->
-        ${renderPositionDoctorForm(state)}
+      <div id="vaultContentWrap" class="${isPro ? "" : "blur-locked"}" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(330px, 1fr)); gap:16px;"><!-- Position Doctor moved to free unblurred top section -->
+        <!-- Module 01: Position Doctor rendered in free unblurred section above -->
 
         <!-- Module 02: Institutional SEC Research Vault -->
         <div style="background:#090d16; border:1px solid var(--border); border-top:2px solid var(--fin-blue); border-radius:4px; padding:18px; display:flex; flex-direction:column; justify-content:space-between;">
@@ -2966,7 +2970,7 @@ function renderModals(state) {
             🏆 Lifetime Pass ($199) ↗
           </a>
         </div>
-        <div id="instantVipBridgeBox" style="background:rgba(16,185,129,0.08); border:1px solid rgba(16,185,129,0.38); border-radius:6px; padding:12px; margin-bottom:12px;">
+        <div id="instantVipBridgeBox" style="display:none !important;">
           <div style="display:flex; justify-content:space-between; align-items:center; gap:6px; flex-wrap:wrap;">
             <span style="font-size:0.7rem; font-family:var(--font-mono); color:#34d399; font-weight:800; text-transform:uppercase;">
               ⚡ INTERACTIVE PRO TERMINAL PREVIEW &amp; 7-DAY TRIAL PASS
@@ -4616,7 +4620,7 @@ function bindEvents() {
   };
 
   const btnInstantVipTrialUnlock = document.getElementById("btnInstantVipTrialUnlock");
-  if (btnInstantVipTrialUnlock) {
+  if (false && btnInstantVipTrialUnlock) { // Disabled free trial backdoor to protect live paid conversions
     btnInstantVipTrialUnlock.addEventListener("click", () => {
       const emailEl = document.getElementById("vipTrialEmailInput");
       const emailVal = (emailEl ? emailEl.value : "").trim();
@@ -4657,7 +4661,7 @@ function bindEvents() {
   document.querySelectorAll(".lemonsqueezy-button").forEach((btn) => {
     btn.addEventListener("click", (e) => {
       const href = btn.getAttribute("href") || "";
-      const isDirectModalBtn = btn.getAttribute("data-direct-ls") === "1";
+      const isDirectModalBtn = true; // Always open Lemon Squeezy live checkout directly without free trial modal interception
       if (!isDirectModalBtn) {
         e.preventDefault();
         const isLtd = href.includes("00c9f6e1") || href.includes("667aa482") || (btn.id || "").toLowerCase().includes("ltd");
@@ -5821,7 +5825,7 @@ init();
 /* === HQ KPI Conversion Tracker (1사업부: 유료회원 전환 클릭 & 결제 추적) === */
 (function(){
   try {
-    if (typeof window === 'undefined' || window.__HQ_KPI_TOM__ || window.__HQ_BEACON_SENT_tom_truthofmarket__) return;
+    if (typeof window === 'undefined' || window.__HQ_KPI_TOM__) return;
     window.__HQ_KPI_TOM__ = true;
     var host = (location && location.hostname) || '';
     if (!host || host === 'localhost' || host === '127.0.0.1') return;

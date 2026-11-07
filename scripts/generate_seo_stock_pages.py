@@ -320,7 +320,7 @@ def generate_single_stock_page(
 
     title = f"${tkr} ({name_en}) PW-RSI Turnaround Score ({score}/100) & Support/Resistance Audit | TruthOfMarket"
     desc = (
-        f"Institutional PW-RSI quantitative analysis for {name_en} (${tkr}, {name_kr}) as of {as_of}: "
+        f"Institutional PW-RSI quantitative analysis for {name_en} (${tkr}) as of {as_of}: "
         f"Close ${close_p:.2f}, 52W Range ${low52:.2f}–${high52:.2f} ({dd_pct:.1f}% DD), RSI {rsi14:.1f}, "
         f"10D Volume {vol_surge:.2f}x, and {zone_label} status."
     )
@@ -368,7 +368,7 @@ def generate_single_stock_page(
         </div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
           <a href="/?ticker={tkr}#vaultSection" style="background:#0ea5e9;color:#ffffff;text-decoration:none;padding:7px 13px;border-radius:6px;font-weight:800;font-size:0.78rem;">
-            🩺 Free Position Doctor (${tkr} 내 평단가 진단)
+            🩺 Free Position Doctor (${tkr} Cost-Basis Audit)
           </a>
           <a href="{LS_MONTHLY_URL}" class="lemonsqueezy-button" style="background:#2563eb;color:#ffffff;text-decoration:none;padding:7px 13px;border-radius:6px;font-weight:700;font-size:0.78rem;">
             🔓 Unlock All 11 VIP Ignition Picks ($29/mo)
@@ -444,7 +444,7 @@ def generate_single_stock_page(
     <div style="font-size:0.72rem;font-family:JetBrains Mono,monospace;color:#94a3b8;margin-bottom:4px;">
       <a href="/" style="color:#38bdf8;text-decoration:none;">TruthOfMarket Terminal</a> &rsaquo;
       <span>{html.escape(sector)}</span> &rsaquo;
-      <strong style="color:#f8fafc;">${tkr} ({html.escape(name_en)} · {html.escape(name_kr)} · {html.escape(name_jp)})</strong>
+      <strong style="color:#f8fafc;">${tkr} ({html.escape(name_en)})</strong>
       <span style="float:right;color:#64748b;">As of {html.escape(as_of)}</span>
     </div>
     <h1 style="font-size:1.22rem;font-weight:800;margin:4px 0 8px;color:#ffffff;">
@@ -525,7 +525,7 @@ def generate_comparison_page(
 
     title = f"${ta} vs ${tb} Stock Comparison ({as_of}): PW-RSI Score, Buy Trigger & -9% Stop-Loss | TruthOfMarket"
     desc = (
-        f"Institutional head-to-head quant comparison: ${ta} ({na}, {na_kr}) vs ${tb} ({nb}, {nb_kr}) as of {as_of}. "
+        f"Institutional head-to-head quant comparison: ${ta} ({na}) vs ${tb} ({nb}) as of {as_of}. "
         f"Compare PW-RSI Turnaround Score ({sa} vs {sb}), 14D RSI ({ra:.1f} vs {rb:.1f}), 10D Volume ({va:.2f}x vs {vb:.2f}x), and -9% hard stop-loss."
     )
     canonical = f"https://truthofmarket.com/compare/{slug}"
@@ -548,12 +548,12 @@ def generate_comparison_page(
             },
             {
                 "@type": "Question",
-                "name": f"${ta}({na_kr}) vs ${tb}({nb_kr}) 지금 어느 종목이 우측매매 타점에 유리한가요?",
+                "name": f"What are the exact entry triggers and -9% stop-loss levels for ${ta} vs ${tb}?",
                 "acceptedAnswer": {
                     "@type": "Answer",
                     "text": (
-                        f"{as_of} 미국 정규장 마감 기준, PW-RSI 퀀트 점수는 ${ta} {sa}점(거래량 {va:.2f}배, -9% 손절선 ${stop_a:.2f}) vs "
-                        f"${tb} {sb}점(거래량 {vb:.2f}배, -9% 손절선 ${stop_b:.2f})으로 현재 기관 수급 우위 종목은 ${winner}입니다."
+                        f"As of the {as_of} US market close, ${ta} ({na}) has a right-side entry trigger at ${trg_a:.2f} with a -9.0% mechanical stop-loss floor at ${stop_a:.2f} (PW-RSI {sa}/100, {va:.2f}x volume), "
+                        f"while ${tb} ({nb}) has an entry trigger at ${trg_b:.2f} with a -9.0% hard stop at ${stop_b:.2f} (PW-RSI {sb}/100, {vb:.2f}x volume). Institutional flow currently favors ${winner}."
                     ),
                 },
             },
@@ -609,7 +609,7 @@ def generate_comparison_page(
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-bottom:12px;">
       <div style="padding:12px 14px;background:#0b1220;border:1px solid {'#38bdf8' if winner == ta else '#1e293b'};border-radius:8px;">
         <div style="display:flex;justify-content:space-between;align-items:center;">
-          <strong style="font-size:1.05rem;color:#38bdf8;font-family:JetBrains Mono,monospace;">${ta} · {html.escape(na_kr)}</strong>
+          <strong style="font-size:1.05rem;color:#38bdf8;font-family:JetBrains Mono,monospace;">${ta} · {html.escape(na)}</strong>
           <span style="font-size:0.75rem;padding:2px 8px;border-radius:99px;background:rgba(56,189,248,0.15);color:#38bdf8;font-weight:800;">PW-RSI {sa}/100</span>
         </div>
         <div style="font-size:0.82rem;color:#cbd5e1;margin-top:8px;line-height:1.6;font-family:JetBrains Mono,monospace;">
@@ -620,7 +620,7 @@ def generate_comparison_page(
       </div>
       <div style="padding:12px 14px;background:#0b1220;border:1px solid {'#38bdf8' if winner == tb else '#1e293b'};border-radius:8px;">
         <div style="display:flex;justify-content:space-between;align-items:center;">
-          <strong style="font-size:1.05rem;color:#c084fc;font-family:JetBrains Mono,monospace;">${tb} · {html.escape(nb_kr)}</strong>
+          <strong style="font-size:1.05rem;color:#c084fc;font-family:JetBrains Mono,monospace;">${tb} · {html.escape(nb)}</strong>
           <span style="font-size:0.75rem;padding:2px 8px;border-radius:99px;background:rgba(192,132,252,0.15);color:#c084fc;font-weight:800;">PW-RSI {sb}/100</span>
         </div>
         <div style="font-size:0.82rem;color:#cbd5e1;margin-top:8px;line-height:1.6;font-family:JetBrains Mono,monospace;">
@@ -638,7 +638,7 @@ def generate_comparison_page(
         <div style="font-size:0.82rem;color:#e2e8f0;margin-top:3px;">
           🔒 <strong>${winner} vs ${loser} Whale Dark-Pool Target &amp; 2x TP1 Exit:</strong>
           <span style="filter:blur(5px);user-select:none;font-family:JetBrains Mono,monospace;">$184.20 / $268.00</span>
-          &nbsp;(🇰🇷 내 평단가 물타기/손절 무료 진단 및 VIP 기관 타점 즉시 해금)
+          &nbsp;(Free Position Doctor Cost-Basis Audit &amp; Instant VIP Target Unlock)
         </div>
       </div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">

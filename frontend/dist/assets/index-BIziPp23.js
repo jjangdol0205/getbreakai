@@ -885,7 +885,7 @@ async function evaluatePositionDoctor(data) {
         return {
           ticker: tClean,
           status_code: "TIME_STOP",
-          status_label: "⏳ 55-Day Time Stop Triggered (55일 시간 손절)",
+          status_label: "⏳ 55-Day Time Stop Triggered",
           return_pct: retPct,
           rule_triggered: "Rule 2 (55-Day Dead-Money Exit)",
           action_plan:
@@ -1967,9 +1967,7 @@ function renderHeader(state) {
 
         <div class="nav-actions">
           <div class="lang-switch" aria-label="Language Selector">
-            <button class="lang-btn ${lang === "en" ? "active" : ""}" data-lang="en">EN</button>
-            <button class="lang-btn ${lang === "jp" ? "active" : ""}" data-lang="jp">JP</button>
-            <button class="lang-btn ${lang === "kr" ? "active" : ""}" data-lang="kr">KR</button>
+            <button class="lang-btn active" data-lang="en">US · EN</button>
           </div>
 
           <span class="badge ${isPro ? "badge-ignition" : "badge-watch"}" id="proStatusBadge">
@@ -4376,10 +4374,10 @@ const defaultView =
 // Auto-migrate any stale legacy placeholder URLs stored in localStorage
 (function migrateLegacyLocalStorage() {
   try {
-    if (localStorage.getItem("rsa_lang_v3_en") && !localStorage.getItem("rsa_lang_v4_auto")) {
-      localStorage.removeItem("rsa_lang");
-      localStorage.removeItem("rsa_lang_v3_en");
-      localStorage.setItem("rsa_lang_v4_auto", "1");
+    if (!localStorage.getItem("rsa_lang_v5_pure_en")) {
+      localStorage.setItem("rsa_lang", "en");
+      localStorage.removeItem("rsa_lang_explicit");
+      localStorage.setItem("rsa_lang_v5_pure_en", "1");
     }
     const oldSite1 = localStorage.getItem("rsa_cfg_site1_url") || "";
     if (oldSite1.includes("getbreakai.com")) {
@@ -4431,13 +4429,7 @@ const defaultView =
 
 function detectInitialLang() {
   try {
-    const saved = localStorage.getItem("rsa_lang");
-    if (saved && (saved === "kr" || saved === "en" || saved === "jp")) {
-      return saved;
-    }
-    const navLang = (navigator.language || navigator.userLanguage || "en").toLowerCase();
-    if (navLang.startsWith("ko")) return "kr";
-    if (navLang.startsWith("ja")) return "jp";
+    localStorage.setItem("rsa_lang", "en");
   } catch (_) {}
   return "en";
 }
@@ -4692,6 +4684,7 @@ function bindEvents() {
       if (newLang && translations[newLang]) {
         state.lang = newLang;
         localStorage.setItem("rsa_lang", newLang);
+        localStorage.setItem("rsa_lang_explicit", "1");
         renderApp();
       }
     });

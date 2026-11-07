@@ -534,7 +534,7 @@ export async function evaluatePositionDoctor(data) {
         return {
           ticker: tClean,
           status_code: "TIME_STOP",
-          status_label: "⏳ 55-Day Time Stop Triggered (55일 시간 손절)",
+          status_label: "⏳ 55-Day Time Stop Triggered",
           return_pct: retPct,
           rule_triggered: "Rule 2 (55-Day Dead-Money Exit)",
           action_plan:

@@ -113,9 +113,7 @@ export function renderHeader(state) {
 
         <div class="nav-actions">
           <div class="lang-switch" aria-label="Language Selector">
-            <button class="lang-btn ${lang === "en" ? "active" : ""}" data-lang="en">EN</button>
-            <button class="lang-btn ${lang === "jp" ? "active" : ""}" data-lang="jp">JP</button>
-            <button class="lang-btn ${lang === "kr" ? "active" : ""}" data-lang="kr">KR</button>
+            <button class="lang-btn active" data-lang="en">US · EN</button>
           </div>
 
           <span class="badge ${isPro ? "badge-ignition" : "badge-watch"}" id="proStatusBadge">

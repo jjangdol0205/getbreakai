@@ -55,10 +55,10 @@ const defaultView =
 // Auto-migrate any stale legacy placeholder URLs stored in localStorage
 (function migrateLegacyLocalStorage() {
   try {
-    if (localStorage.getItem("rsa_lang_v3_en") && !localStorage.getItem("rsa_lang_v4_auto")) {
-      localStorage.removeItem("rsa_lang");
-      localStorage.removeItem("rsa_lang_v3_en");
-      localStorage.setItem("rsa_lang_v4_auto", "1");
+    if (!localStorage.getItem("rsa_lang_v5_pure_en")) {
+      localStorage.setItem("rsa_lang", "en");
+      localStorage.removeItem("rsa_lang_explicit");
+      localStorage.setItem("rsa_lang_v5_pure_en", "1");
     }
     const oldSite1 = localStorage.getItem("rsa_cfg_site1_url") || "";
     if (oldSite1.includes("getbreakai.com")) {
@@ -110,13 +110,7 @@ const defaultView =
 
 function detectInitialLang() {
   try {
-    const saved = localStorage.getItem("rsa_lang");
-    if (saved && (saved === "kr" || saved === "en" || saved === "jp")) {
-      return saved;
-    }
-    const navLang = (navigator.language || navigator.userLanguage || "en").toLowerCase();
-    if (navLang.startsWith("ko")) return "kr";
-    if (navLang.startsWith("ja")) return "jp";
+    localStorage.setItem("rsa_lang", "en");
   } catch (_) {}
   return "en";
 }
@@ -371,6 +365,7 @@ function bindEvents() {
       if (newLang && translations[newLang]) {
         state.lang = newLang;
         localStorage.setItem("rsa_lang", newLang);
+        localStorage.setItem("rsa_lang_explicit", "1");
         renderApp();
       }
     });

@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GetBreakAI — Institutional Momentum Breakout & Risk Management Terminal</title>
+  <meta name="description" content="AI-Powered Quantitative Breakout Detection, PW-RSI Ignition Scorer, and Non-Negotiable -9% Hard Stop Loss Architecture.">
+  <link rel="canonical" href="https://getbreakai.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://getbreakai.com/">
+  <meta property="og:title" content="GetBreakAI — Institutional Momentum Breakout & Risk Management Terminal">
+  <meta property="og:description" content="AI-Powered Quantitative Breakout Detection, PW-RSI Ignition Scorer, and Non-Negotiable -9% Hard Stop Loss Architecture.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="GetBreakAI — Institutional Momentum Breakout & Risk Management Terminal">
+  <meta name="twitter:description" content="AI-Powered Quantitative Breakout Detection, PW-RSI Ignition Scorer, and Non-Negotiable -9% Hard Stop Loss Architecture.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #07090e;
+      --bg-card: #0d121d;
+      --bg-card-hover: #131a29;
+      --border-color: #1e293b;
+      --border-accent: #334155;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-sub: #64748b;
+      --accent-cyan: #06b6d4;
+      --accent-emerald: #10b981;
+      --accent-crimson: #ef4444;
+      --accent-amber: #f59e0b;
+      --glow-cyan: rgba(6, 182, 212, 0.25);
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Header */
+    header {
+      border-bottom: 1px solid var(--border-color);
+      background: rgba(7, 9, 14, 0.85);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 72px;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 1.3rem;
+      letter-spacing: -0.5px;
+      color: var(--text-main);
+      text-decoration: none;
+    }
+
+    .brand-dot {
+      width: 10px;
+      height: 10px;
+      background: var(--accent-cyan);
+      border-radius: 50%;
+      box-shadow: 0 0 12px var(--accent-cyan);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent-cyan);
+    }
+
+    .btn-header {
+      background: linear-gradient(135deg, var(--accent-cyan), #0284c7);
+      color: #000;
+      font-weight: 700;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: transform 0.15s, box-shadow 0.2s;
+    }
+
+    .btn-header:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px var(--glow-cyan);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 80px 0 60px;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(6, 182, 212, 0.1);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      padding: 6px 14px;
+      border-radius: 100px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent-cyan);
+      margin-bottom: 24px;
+      font-family: var(--font-mono);
+    }
+
+    .hero-title {
+      font-size: 3.2rem;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -1.5px;
+      margin-bottom: 24px;
+      max-width: 960px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-title span.highlight-cyan {
+      color: var(--accent-cyan);
+      background: linear-gradient(90deg, #38bdf8, #06b6d4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      max-width: 760px;
+      margin: 0 auto 36px;
+      font-weight: 400;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-cyan), #0284c7);
+      color: #040810;
+      font-weight: 800;
+      padding: 16px 36px;
+      border-radius: 10px;
+      font-size: 1.05rem;
+      text-decoration: none;
+      transition: all 0.2s;
+      box-shadow: 0 4px 20px var(--glow-cyan);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(6, 182, 212, 0.4);
+    }
+
+    .btn-secondary {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      font-weight: 600;
+      padding: 16px 28px;
+      border-radius: 10px;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent-cyan);
+      background: var(--bg-card-hover);
+    }
+
+    /* Interactive Simulator Terminal */
+    .terminal-container {
+      background: #090d16;
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      overflow: hidden;
+      margin-bottom: 80px;
+      text-align: left;
+    }
+
+    .terminal-header {
+      background: #0d121d;
+      border-bottom: 1px solid var(--border-color);
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+    }
+
+    .terminal-dots {
+      display: flex;
+      gap: 8px;
+    }
+
+    .dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+    }
+
+    .dot-red { background: #ef4444; }
+    .dot-yellow { background: #f59e0b; }
+    .dot-green { background: #10b981; }
+
+    .terminal-body {
+      padding: 24px;
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 32px;
+    }
+
+    @media (max-width: 900px) {
+      .terminal-body {
+        grid-template-columns: 1fr;
+      }
+      .hero-title {
+        font-size: 2.2rem;
+      }
+    }
+
+    .ticker-selector {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .ticker-btn {
+      background: #131a29;
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .ticker-btn.active, .ticker-btn:hover {
+      background: rgba(6, 182, 212, 0.15);
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .metric-box {
+      background: #0e1422;
+      border: 1px solid var(--border-accent);
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .metric-label {
+      font-size: 0.8rem;
+      color: var(--text-sub);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      font-family: var(--font-mono);
+    }
+
+    .metric-val {
+      font-size: 1.4rem;
+      font-weight: 800;
+      font-family: var(--font-mono);
+    }
+
+    .metric-val.stop { color: var(--accent-crimson); }
+    .metric-val.target { color: var(--accent-emerald); }
+    .metric-val.pwrsi { color: var(--accent-cyan); }
+    .metric-val.price { color: var(--text-main); }
+
+    .slider-group {
+      background: #0e1422;
+      border: 1px solid var(--border-accent);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 0.85rem;
+      font-family: var(--font-mono);
+    }
+
+    input[type=range] {
+      width: 100%;
+      accent-color: var(--accent-cyan);
+    }
+
+    .terminal-viz {
+      background: #07090e;
+      border: 1px solid var(--border-accent);
+      border-radius: 12px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .viz-band {
+      margin-bottom: 16px;
+    }
+
+    .viz-bar {
+      height: 12px;
+      border-radius: 6px;
+      position: relative;
+      margin-top: 6px;
+    }
+
+    .viz-bar-stop { background: var(--accent-crimson); width: 100%; }
+    .viz-bar-target { background: var(--accent-emerald); width: 100%; }
+    .viz-bar-pwrsi { background: linear-gradient(90deg, #0284c7, var(--accent-cyan)); }
+
+    /* 3 Disciplines Section */
+    .section-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 16px;
+      letter-spacing: -0.5px;
+    }
+
+    .section-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 56px;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-bottom: 80px;
+    }
+
+    @media (max-width: 860px) {
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 32px 24px;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent-cyan);
+    }
+
+    .card-icon {
+      font-size: 2rem;
+      margin-bottom: 18px;
+      display: inline-block;
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .card-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* Pricing Section */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-bottom: 80px;
+      align-items: stretch;
+    }
+
+    @media (max-width: 860px) {
+      .pricing-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .price-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 36px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .price-card.featured {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 10px 40px rgba(6, 182, 212, 0.15);
+      background: #0f172a;
+    }
+
+    .badge-popular {
+      position: absolute;
+      top: -12px;
+      right: 24px;
+      background: var(--accent-cyan);
+      color: #040810;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: 100px;
+      text-transform: uppercase;
+      font-family: var(--font-mono);
+    }
+
+    .price-name {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .price-amount {
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: var(--text-main);
+      font-family: var(--font-mono);
+      margin-bottom: 8px;
+    }
+
+    .price-amount span {
+      font-size: 1rem;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    .price-desc {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 24px;
+      min-height: 42px;
+    }
+
+    .feature-list {
+      list-style: none;
+      margin-bottom: 32px;
+    }
+
+    .feature-list li {
+      padding: 8px 0;
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .feature-list li span.check {
+      color: var(--accent-emerald);
+      font-weight: bold;
+    }
+
+    .btn-checkout {
+      width: 100%;
+      text-align: center;
+      padding: 14px 20px;
+      border-radius: 10px;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: all 0.2s;
+    }
+
+    .btn-checkout-primary {
+      background: linear-gradient(135deg, var(--accent-cyan), #0284c7);
+      color: #040810;
+    }
+
+    .btn-checkout-secondary {
+      background: #1e293b;
+      color: var(--text-main);
+    }
+
+    .btn-checkout:hover {
+      opacity: 0.92;
+      transform: translateY(-2px);
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border-color);
+      padding: 60px 0 40px;
+      background: #04060a;
+      color: var(--text-sub);
+      font-size: 0.85rem;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .footer-col h4 {
+      color: var(--text-main);
+      font-size: 0.95rem;
+      margin-bottom: 16px;
+    }
+
+    .footer-col a {
+      color: var(--text-sub);
+      text-decoration: none;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .footer-col a:hover {
+      color: var(--accent-cyan);
+    }
+
+    .legal-box {
+      border-top: 1px solid #141c2c;
+      padding-top: 24px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header>
+    <div class="container nav-inner">
+      <a href="/" class="brand-logo">
+        <div class="brand-dot"></div>
+        GetBreakAI
+      </a>
+      <ul class="nav-links">
+        <li><a href="#features">Engine</a></li>
+        <li><a href="#simulator">Live Terminal</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="mailto:beable9489@gmail.com">Contact</a></li>
+      </ul>
+      <a href="#pricing" class="btn-header">Get Access →</a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-badge">⚡ QUANTITATIVE BREAKOUT DETECTOR & ASYMMETRIC RISK ENGINE</div>
+      <h1 class="hero-title">
+        Stop Catching Falling Knives.<br>
+        Trade Right-Side Breakouts with <span class="highlight-cyan">Mechanical Asymmetry</span>.
+      </h1>
+      <p class="hero-subtitle">
+        Over 90% of traders fail because they buy falling knives and hold losers down to -40%. 
+        GetBreakAI enforces an absolute -9.0% hard stop-loss, dynamic 2x profit targets, and Price-Weighted RSI volume ignition.
+      </p>
+      <div class="hero-cta-group">
+        <a href="#pricing" class="btn-primary">Start Pro Membership ($49/mo)</a>
+        <a href="#simulator" class="btn-secondary">Test Interactive Terminal Simulator ↓</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Live Terminal Simulator -->
+  <section id="simulator" class="container">
+    <div class="terminal-container">
+      <div class="terminal-header">
+        <div class="terminal-dots">
+          <div class="dot dot-red"></div>
+          <div class="dot dot-yellow"></div>
+          <div class="dot dot-green"></div>
+        </div>
+        <div>GETBREAKAI QUANT ENGINE v1.0.0 — REAL-TIME RISK AUDIT</div>
+        <div style="color: var(--accent-emerald);">● LIVE FEED CONNECTED</div>
+      </div>
+      <div class="terminal-body">
+        
+        <!-- Controls & Metrics -->
+        <div>
+          <div class="ticker-selector">
+            <button class="ticker-btn active" onclick="loadSampleTicker('NVDA', 142.50, 1.85, 96.4)">$NVDA</button>
+            <button class="ticker-btn" onclick="loadSampleTicker('SMH', 268.00, 2.10, 112.0)">$SMH</button>
+            <button class="ticker-btn" onclick="loadSampleTicker('PLTR', 54.20, 2.40, 134.5)">$PLTR</button>
+            <button class="ticker-btn" onclick="loadSampleTicker('TSM', 198.80, 1.60, 88.2)">$TSM</button>
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-header">
+              <span>SIMULATED ENTRY PRICE:</span>
+              <span id="priceDisplay" style="color: var(--accent-cyan); font-weight: 700;">$142.50</span>
+            </div>
+            <input type="range" id="priceSlider" min="20" max="500" step="0.5" value="142.50" oninput="updateCalculations(this.value)">
+          </div>
+
+          <div class="metric-grid">
+            <div class="metric-box">
+              <div class="metric-label">Hard Stop-Loss (-9.0%)</div>
+              <div class="metric-val stop" id="stopLossVal">$129.68</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-label">2x Target Price (+18.0%)</div>
+              <div class="metric-val target" id="takeProfitVal">$168.15</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-label">PW-RSI Score</div>
+              <div class="metric-val pwrsi" id="pwRsiVal">96.4</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-label">Volume Accumulation</div>
+              <div class="metric-val price" id="volFactorVal">1.85x</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Visual Risk Map -->
+        <div class="terminal-viz">
+          <div>
+            <div style="font-family: var(--font-mono); font-size: 0.9rem; font-weight: 700; margin-bottom: 20px; color: var(--accent-cyan);">
+              // ASYMMETRIC EXECUTION TRAJECTORY
+            </div>
+
+            <div class="viz-band">
+              <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-family: var(--font-mono);">
+                <span>TAKE-PROFIT (2:1 R:R)</span>
+                <span id="tpPctBadge" style="color: var(--accent-emerald);">+18.0%</span>
+              </div>
+              <div class="viz-bar viz-bar-target"></div>
+            </div>
+
+            <div class="viz-band" style="margin: 24px 0;">
+              <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-family: var(--font-mono);">
+                <span>TRAILING BREAKEVEN TRIGGER</span>
+                <span style="color: var(--accent-cyan);">+15.0%</span>
+              </div>
+              <div style="height: 2px; border-top: 1px dashed var(--accent-cyan); margin-top: 6px;"></div>
+            </div>
+
+            <div class="viz-band">
+              <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-family: var(--font-mono);">
+                <span>NON-NEGOTIABLE HARD STOP</span>
+                <span id="slPctBadge" style="color: var(--accent-crimson);">-9.0%</span>
+              </div>
+              <div class="viz-bar viz-bar-stop"></div>
+            </div>
+          </div>
+
+          <div style="background: #0e1422; border: 1px solid var(--border-accent); border-radius: 8px; padding: 14px; font-family: var(--font-mono); font-size: 0.85rem;">
+            <span style="color: var(--accent-emerald);">● STATUS: INSTITUTIONAL_IGNITION</span><br>
+            <span style="color: var(--text-sub);">Donchian 20-Day High breached with 1.85x volume surge. Trade valid.</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 Disciplines -->
+  <section id="features" class="container" style="padding-bottom: 60px;">
+    <h2 class="section-title">Why Subjective Discretion Fails in Modern Markets</h2>
+    <p class="section-subtitle">
+      Automated quantitative rules remove the cognitive bias of fear, greed, and the disposition effect.
+    </p>
+
+    <div class="cards-grid">
+      <div class="feature-card">
+        <div class="card-icon">🛡️</div>
+        <h3 class="card-title">1. Mandatory -9.0% Hard Stop</h3>
+        <p class="card-desc">
+          No averaging down. No "I'll wait for the next rebound." The engine automatically enforces an unbending -9.0% cut-off. 
+          If a trade fails, loss is strictly capped before capital destruction begins.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="card-icon">🚀</div>
+        <h3 class="card-title">2. Price-Weighted RSI (PW-RSI)</h3>
+        <p class="card-desc">
+          Standard RSI ignores institutional accumulation. PW-RSI multiplies relative price velocity by the 20-day volume expansion factor, 
+          identifying explosive institutional dark-pool ignition.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="card-icon">⚖️</div>
+        <h3 class="card-title">3. Dynamic 2x Take-Profit (2:1 R:R)</h3>
+        <p class="card-desc">
+          Never exit winners at +3%. The engine targets a minimum 2:1 reward-to-risk ratio (+18%), raising stop-loss to breakeven once price expands +15%, 
+          allowing the rest of the position to trend indefinitely.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section id="pricing" class="container" style="padding-bottom: 100px;">
+    <h2 class="section-title">Institutional Pricing Architecture</h2>
+    <p class="section-subtitle">
+      USD SaaS billing powered by Lemon Squeezy Merchant of Record (Store ID #296100). Cancel anytime with zero friction.
+    </p>
+
+    <div class="pricing-grid">
+      <!-- Starter -->
+      <div class="price-card">
+        <div>
+          <h3 class="price-name">Starter Scanner</h3>
+          <div class="price-amount">$29 <span>/ month</span></div>
+          <p class="price-desc">For individual part-time traders seeking daily mechanical breakout screens.</p>
+          <ul class="feature-list">
+            <li><span class="check">✓</span> Daily Top 10 Breakout Scanner</li>
+            <li><span class="check">✓</span> -9.0% Hard Stop-Loss Calculator</li>
+            <li><span class="check">✓</span> End-of-Day Watchlist CSV Download</li>
+            <li><span class="check">✓</span> Unified Email Support Desk</li>
+          </ul>
+        </div>
+        <a href="https://kidsfit.lemonsqueezy.com/checkout/buy/bad98d00-7175-41f6-9d58-eeb2471d0da4?embed=1" class="btn-checkout btn-checkout-secondary lemonsqueezy-button">Start Starter Plan</a>
+      </div>
+
+      <!-- Pro -->
+      <div class="price-card featured">
+        <div class="badge-popular">MOST POPULAR</div>
+        <div>
+          <h3 class="price-name">Pro Breakout (Lifetime VIP)</h3>
+          <div class="price-amount">$199 <span>/ lifetime</span></div>
+          <p class="price-desc">For serious active momentum traders demanding real-time ignition feeds with zero recurring fees.</p>
+          <ul class="feature-list">
+            <li><span class="check">✓</span> <strong>All Starter Features Included</strong></li>
+            <li><span class="check">✓</span> Real-Time Intraday PW-RSI Ignition Alerts</li>
+            <li><span class="check">✓</span> Dynamic 2x Take-Profit Trajectory Tracker</li>
+            <li><span class="check">✓</span> Direct Telegram VIP Signal Webhook</li>
+            <li><span class="check">✓</span> TradingView Pine Script v5 Indicator Source</li>
+          </ul>
+        </div>
+        <a href="https://kidsfit.lemonsqueezy.com/checkout/buy/00c9f6e1-c8be-42a4-b5a5-e05af1a41ed9?embed=1" class="btn-checkout btn-checkout-primary lemonsqueezy-button">Start Pro Membership →</a>
+      </div>
+
+      <!-- Institutional -->
+      <div class="price-card">
+        <div>
+          <h3 class="price-name">Institutional Alpha</h3>
+          <div class="price-amount">$1,499 <span>/ year</span></div>
+          <p class="price-desc">For quantitative hedge funds, family offices, and systematic asset managers ($125/mo equivalent).</p>
+          <ul class="feature-list">
+            <li><span class="check">✓</span> Full REST & WebSocket Signal API Feed</li>
+            <li><span class="check">✓</span> SEC 10-K Forensic Accounting Risk Feed</li>
+            <li><span class="check">✓</span> Dark-Pool Block Trade Flow Imbalance</li>
+            <li><span class="check">✓</span> Multi-Seat Team License (Up to 5 seats)</li>
+            <li><span class="check">✓</span> Dedicated Priority Support Desk</li>
+          </ul>
+        </div>
+        <a href="mailto:beable9489@gmail.com?subject=GetBreakAI%20Institutional%20Alpha%20Inquiry" class="btn-checkout btn-checkout-secondary">Contact Desk / Subscribe</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-col" style="max-width: 380px;">
+          <div class="brand-logo" style="margin-bottom: 12px;">
+            <div class="brand-dot"></div>
+            GetBreakAI
+          </div>
+          <p>
+            An institutional quant technology platform by Dream Company. Built to remove emotional bias and enforce algorithmic risk asymmetry.
+          </p>
+          <p style="margin-top: 10px;">
+            Official Desk: <a href="mailto:beable9489@gmail.com" style="color: var(--accent-cyan); display: inline;">beable9489@gmail.com</a>
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Platform</h4>
+          <a href="#simulator">Terminal Simulator</a>
+          <a href="#features">Algorithmic Disciplines</a>
+          <a href="#pricing">Pricing Plans</a>
+          <a href="https://truthofmarket.lemonsqueezy.com">Billing Portal</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Legal & Compliance</h4>
+          <a href="#">Terms of Service</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Refund Policy (14-Day Guarantee)</a>
+          <a href="#">Safe Harbor & Risk Disclaimer</a>
+        </div>
+      </div>
+
+      <div class="legal-box">
+        <strong>SAFE HARBOR & REGULATORY COMPLIANCE NOTICE:</strong><br>
+        GetBreakAI is automated financial technology software and an analytical tool, not a registered investment advisor, broker-dealer, or financial planner under FINRA/SEC regulations. All quantitative metrics, breakout signals, and backtest trajectories provided through GetBreakAI are strictly for educational and informational purposes. Trading equities and derivative instruments involves substantial risk of financial loss. Past breakout performance does not guarantee future results.
+        <br><br>
+        © 2026 Dream Company & GetBreakAI. Merchant of Record: Lemon Squeezy Store ID #296100. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateCalculations(entryVal) {
+      const entry = parseFloat(entryVal);
+      document.getElementById('priceDisplay').innerText = '$' + entry.toFixed(2);
+
+      const stop = (entry * 0.910).toFixed(2);
+      const target = (entry + (entry * 0.090 * 2.0)).toFixed(2);
+
+      document.getElementById('stopLossVal').innerText = '$' + stop;
+      document.getElementById('takeProfitVal').innerText = '$' + target;
+    }
+
+    function loadSampleTicker(symbol, price, volFactor, pwRsi) {
+      document.querySelectorAll('.ticker-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      document.getElementById('priceSlider').value = price;
+      document.getElementById('volFactorVal').innerText = volFactor.toFixed(2) + 'x';
+      document.getElementById('pwRsiVal').innerText = pwRsi.toFixed(1);
+
+      updateCalculations(price);
+    }
+  </script>
+  <script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
+</body>
+</html>

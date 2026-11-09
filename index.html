@@ -43,6 +43,11 @@
       padding: 0;
     }
 
+    html, body {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
     body {
       background-color: var(--bg-dark);
       background-image:
@@ -51,11 +56,13 @@
       color: var(--text-main);
       font-family: var(--font-sans);
       line-height: 1.6;
-      overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
+      word-break: keep-all;
+      overflow-wrap: break-word;
     }
 
     .container {
+      width: 100%;
       max-width: 1220px;
       margin: 0 auto;
       padding: 0 24px;
@@ -316,12 +323,67 @@
       gap: 0;
     }
 
+    .terminal-grid > *,
+    .features-grid > *,
+    .pricing-grid > *,
+    .radar-metrics > *,
+    .sizer-grid > *,
+    .vip-two-col-grid > *,
+    .vip-btn-pair-grid > *,
+    .feature-card > *,
+    .price-card > * {
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    #gbPineBox {
+      max-width: 100%;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .vip-two-col-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 24px;
+    }
+
+    .vip-btn-pair-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 10px;
+    }
+
+    .mobile-nav-cta {
+      display: none;
+      background: linear-gradient(135deg, var(--accent-violet), #6d28d9);
+      color: #fff;
+      text-decoration: none;
+      padding: 7px 13px;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 0.78rem;
+      white-space: nowrap;
+    }
+
     @media (max-width: 940px) {
       .terminal-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
       }
       .nav-links {
         display: none;
+      }
+      .mobile-nav-cta {
+        display: inline-flex;
+        align-items: center;
+      }
+      .pane-left {
+        border-right: none !important;
+        border-bottom: 1px solid var(--border-color);
+      }
+      .vip-two-col-grid {
+        grid-template-columns: minmax(0, 1fr) !important;
       }
     }
 
@@ -339,12 +401,14 @@
       font-family: var(--font-mono);
       font-size: 0.82rem;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
       color: var(--accent-amber);
       margin-bottom: 14px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
     }
 
     .catalyst-headline {
@@ -644,6 +708,150 @@
       font-size: 0.8rem;
       color: var(--text-sub);
     }
+
+    @media (max-width: 640px) {
+      .container {
+        padding: 0 14px;
+      }
+      .nav-inner {
+        height: 62px;
+        gap: 8px;
+      }
+      .brand-logo {
+        font-size: 1.12rem;
+        gap: 7px;
+      }
+      .brand-tag {
+        font-size: 0.62rem;
+        padding: 2px 6px;
+      }
+      .catalyst-tape {
+        font-size: 0.7rem;
+        padding: 7px 0;
+      }
+      .tape-inner {
+        gap: 8px;
+        justify-content: flex-start;
+      }
+      .tape-item {
+        flex-wrap: wrap;
+        line-height: 1.35;
+      }
+      .hero {
+        padding: 36px 0 28px;
+      }
+      .hero-pill {
+        font-size: 0.68rem;
+        padding: 6px 12px;
+        text-align: center;
+        line-height: 1.4;
+        max-width: 100%;
+        flex-wrap: wrap;
+        justify-content: center;
+        border-radius: 14px;
+      }
+      .hero h1 {
+        font-size: 1.82rem;
+        letter-spacing: -0.7px;
+        line-height: 1.18;
+      }
+      .hero p {
+        font-size: 0.94rem;
+        margin-bottom: 22px;
+      }
+      .hero-actions {
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 28px;
+      }
+      .btn-primary, .btn-secondary {
+        width: 100%;
+        padding: 13px 16px;
+        font-size: 0.93rem;
+        text-align: center;
+      }
+      #gbEasyPlaybookBanner {
+        padding: 14px !important;
+      }
+      .terminal-shell {
+        margin-bottom: 48px;
+        border-radius: 14px;
+      }
+      .terminal-topbar {
+        padding: 12px 14px;
+      }
+      .terminal-dots {
+        font-size: 0.7rem;
+        flex-wrap: wrap;
+        word-break: break-word;
+        overflow-wrap: anywhere;
+      }
+      .ticker-bar {
+        width: 100%;
+      }
+      .ticker-btn {
+        flex: 1 1 calc(50% - 6px);
+        text-align: center;
+        font-size: 0.73rem;
+        padding: 7px 8px;
+      }
+      .pane-left, .pane-right, .vip-vault-inner {
+        padding: 16px 14px !important;
+      }
+      .catalyst-headline {
+        font-size: 1.06rem;
+        line-height: 1.35;
+      }
+      .catalyst-summary {
+        font-size: 0.84rem;
+        padding: 9px 11px;
+      }
+      .radar-metrics, .sizer-grid, .vip-btn-pair-grid {
+        grid-template-columns: 1fr !important;
+        gap: 10px;
+      }
+      .metric-box, .sizer-card {
+        padding: 11px 12px;
+      }
+      .metric-val, .sizer-card strong {
+        font-size: 1.12rem;
+        word-break: break-word;
+      }
+      .control-header {
+        flex-wrap: wrap;
+        gap: 4px;
+        font-size: 0.76rem;
+      }
+      .section {
+        padding: 44px 0;
+      }
+      .section-title {
+        font-size: 1.55rem;
+      }
+      .section-subtitle {
+        font-size: 0.92rem;
+        margin-bottom: 28px;
+      }
+      .feature-card, .price-card {
+        padding: 20px 16px;
+      }
+      .price-amount {
+        font-size: 2rem;
+      }
+      .comp-table-wrap {
+        padding: 10px;
+        -webkit-overflow-scrolling: touch;
+      }
+      table.comp-table th, table.comp-table td {
+        padding: 9px 10px;
+        font-size: 0.76rem;
+      }
+      .vip-exec-row {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 2px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -673,6 +881,7 @@
         <li><a href="#pricing">Pricing</a></li>
         <li><a href="#pricing" class="btn-nav">Launch Radar →</a></li>
       </ul>
+      <a href="#radar" class="mobile-nav-cta">Radar ↓</a>
     </div>
   </header>
 
@@ -943,15 +1152,15 @@
           <span class="dot dot-r"></span>
           <span class="dot dot-y"></span>
           <span class="dot dot-g"></span>
-          <span id="vipStatusBadge" class="tape-badge bg-whale" style="margin-left:8px;">🔒 VIP VAULT PREVIEW (1 SAMPLE UNLOCKED · ENTER LICENSE KEY FOR FULL ACCESS)</span>
+          <span id="vipStatusBadge" class="tape-badge bg-whale" style="margin-left:4px; white-space:normal; line-height:1.35;">🔒 VIP VAULT PREVIEW (1 SAMPLE UNLOCKED · ENTER LICENSE KEY FOR FULL ACCESS)</span>
         </div>
-        <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
-          <input type="text" id="gbLicenseKeyInput" placeholder="Enter Lemon Squeezy License Key..." style="background:#090612; border:1px solid var(--border-accent); color:#fff; padding:7px 12px; border-radius:7px; font-family:var(--font-mono); font-size:0.8rem; width:250px;">
+        <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap; width:100%; max-width:440px;">
+          <input type="text" id="gbLicenseKeyInput" placeholder="Enter Lemon Squeezy License Key..." style="background:#090612; border:1px solid var(--border-accent); color:#fff; padding:7px 12px; border-radius:7px; font-family:var(--font-mono); font-size:0.8rem; flex:1; min-width:150px; max-width:100%;">
           <button type="button" class="ticker-btn active" onclick="unlockGbVipVault()">🔑 Activate VIP Key</button>
         </div>
       </div>
 
-      <div style="padding: 26px;">
+      <div class="vip-vault-inner" style="padding: 26px;">
         <!-- VIP Deliverable 1: Pre-Earnings Whisper, Gamma Flip & 2.0x ATR Order Book -->
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:14px;">
           <div>
@@ -960,7 +1169,7 @@
             </div>
             <h3 style="font-size:1.15rem; font-weight:800; color:#fff;">High-Conviction Event Setups (Updated Pre-Market 08:00 EST)</h3>
           </div>
-          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <div style="display:flex; gap:8px; flex-wrap:wrap; width:100%; max-width:520px;">
             <button type="button" class="ticker-btn active" onclick="downloadGbCatalystCsv()">📥 Download Full Catalyst Order Book (.CSV)</button>
             <button type="button" class="ticker-btn" onclick="copyGbTvWatchlist()">📋 Copy TradingView Catalyst Watchlist</button>
           </div>
@@ -1026,7 +1235,7 @@
         </div>
 
         <!-- VIP Deliverable 2 & 3 Grid -->
-        <div class="features-grid" style="grid-template-columns: 1fr 1fr;">
+        <div class="vip-two-col-grid">
           <!-- VIP Deliverable 2: Exclusive GetBreakAI Pine Script v5 -->
           <div class="feature-card" style="background:#120d22;">
             <div style="font-family:var(--font-mono); font-size:0.75rem; color:#c4b5fd; font-weight:800; margin-bottom:6px;">
@@ -1036,7 +1245,7 @@
             <p class="card-desc" style="margin-bottom:12px;">
               Plots dynamic 2.0x ATR trailing stops, 5-day Options Implied Volatility (±1 SD) Gamma Walls, and Dark-Pool volume spikes directly on your TradingView chart.
             </p>
-            <pre id="gbPineBox" style="background:#070510; border:1px solid var(--border-color); border-radius:8px; padding:12px; font-family:var(--font-mono); font-size:0.73rem; color:#c4b5fd; overflow-x:auto; max-height:150px; margin-bottom:12px;">//@version=5
+            <pre id="gbPineBox" style="background:#070510; border:1px solid var(--border-color); border-radius:8px; padding:12px; font-family:var(--font-mono); font-size:0.73rem; color:#c4b5fd; overflow-x:auto; max-width:100%; max-height:150px; margin-bottom:12px;">//@version=5
 indicator("GetBreakAI Catalyst ATR & IV Gamma Cone v2.4", overlay=true)
 atrLen = input.int(14, "ATR Period")
 atrMult = input.float(2.0, "ATR Stop Multiplier")
@@ -1063,21 +1272,21 @@ plotshape(volSpike, "Whale Block Spike", shape.diamond, location.belowbar, color
                 Track exact executive open-market purchase prices and connect GetBreakAI's JSON webhook stream directly to your Telegram, Discord, or automated execution desk.
               </p>
               <div style="background:#070510; border:1px solid var(--border-color); border-radius:8px; padding:12px; font-family:var(--font-mono); font-size:0.78rem; margin-bottom:14px;">
-                <div style="display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px solid var(--border-color);">
+                <div class="vip-exec-row" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:4px; padding:4px 0; border-bottom:1px solid var(--border-color);">
                   <span>$LLY (3 Execs · CEO/CFO/EVP)</span>
                   <strong class="val-emerald">$4.82M Cash Buy @ $804.50</strong>
                 </div>
-                <div style="display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px solid var(--border-color);">
+                <div class="vip-exec-row" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:4px; padding:4px 0; border-bottom:1px solid var(--border-color);">
                   <span>$PLTR (DoD 8-K + Dark Pool)</span>
                   <strong class="val-violet">64.2% Off-Exchange Print</strong>
                 </div>
-                <div style="display:flex; justify-content:space-between; padding:4px 0;">
+                <div class="vip-exec-row" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:4px; padding:4px 0;">
                   <span>$ANET (Cloud AI Switch 8-K)</span>
                   <strong class="val-amber">Call/Put 2.9x Gamma Flip</strong>
                 </div>
               </div>
             </div>
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+            <div class="vip-btn-pair-grid">
               <button type="button" class="btn-checkout btn-checkout-secondary" style="cursor:pointer;" onclick="downloadGbInsiderCsv()">📥 Form-4 Insider (.CSV)</button>
               <button type="button" class="btn-checkout btn-checkout-secondary" style="cursor:pointer;" onclick="copyGbWebhookJson()">🔔 Copy Webhook JSON</button>
             </div>

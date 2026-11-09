@@ -1,65 +1,95 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta name="google-site-verification" content="nAGlJMEUUPifbzSd8X4PCaBIyr3DtTwaa1a-q9zkbBc">
   <meta name="google-site-verification" content="G99bl17UU6iKgNm5ndGcSWp0dHFpJ0MjJqBBp0Exfx0">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GetBreakAI — AI Earnings Catalyst, SEC Form-4 Insider & Options Gamma Squeeze Radar</title>
-  <meta name="description" content="Decode SEC 8-K filings, Earnings Call NLP tone, Form-4 Insider Cluster Buys, Dark Pool Block Prints, and Options Gamma Squeezes with ATR & Implied Volatility Position Sizing.">
+  <title>GetBreakAI — 米国株SEC開示(8-K)・インサイダー買い(Form-4)・ガンマスクイーズAI日本語解読＆ATR損切り計算機</title>
+  <meta name="description" content="ウォール街の英語SEC開示(8-K)・インサイダー買い(Form-4)・オプションGamma Wall(GEX)をAIが3秒で日本語解読。新NISA・米国株スイング投資家のためのATR損切りライン＆適正株数ターミナル（ドル・円同時表示）。">
+  <meta name="keywords" content="米国株, 新NISA, エヌビディア, NVDA, パランティア, PLTR, テスラ, TSLA, SEC 8-K 日本語, Form-4 インサイダー買い, ガンマスクイーズ, ATR 損切り, 適正株数, 株クラ">
   <link rel="canonical" href="https://getbreakai.com/">
+  <link rel="alternate" hreflang="ja" href="https://getbreakai.com/">
+  <link rel="alternate" hreflang="x-default" href="https://getbreakai.com/">
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="GetBreakAI">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:site_name" content="GetBreakAI 米国株AIターミナル">
   <meta property="og:url" content="https://getbreakai.com/">
-  <meta property="og:title" content="GetBreakAI — AI Breaking Catalyst, Insider Whale & Gamma Squeeze Terminal">
-  <meta property="og:description" content="Real-time SEC 8-K/Earnings Call NLP decoder, Form-4 Executive Cluster Tracker, Options Gamma Exposure (GEX), and ATR Volatility Position Sizer.">
+  <meta property="og:title" content="GetBreakAI — 米国株SEC開示・インサイダー買い・ガンマスクイーズAI日本語解読＆ATR損切り計算機">
+  <meta property="og:description" content="英語のSEC 8-K決算・Form-4役員自社株買い・オプションGamma Wall(GEX)をAIが3秒で日本語解読。ドル($)と日本円(¥)で適正株数と2.0x ATR損切りラインを即座に算出。">
   <meta property="og:image" content="https://getbreakai.com/og-preview.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="GetBreakAI — AI Breaking Catalyst & Gamma Squeeze Terminal">
-  <meta name="twitter:description" content="Decode Earnings Shocks, Insider Cluster Buys & Options Gamma Walls with ATR Volatility Position Sizing.">
+  <meta name="twitter:title" content="GetBreakAI — 米国株SEC開示・インサイダー買い・ガンマスクイーズAI日本語解読＆ATR損切り計算機">
+  <meta name="twitter:description" content="新NISA・米国株スイング投資家向け：SEC 8-K・Form-4内部者買い・GEXガンマウォール日本語解析＆ATR適正株数シミュレーター">
   <meta name="twitter:image" content="https://getbreakai.com/og-preview.png">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2306050c' stroke='%238b5cf6' stroke-width='4'/%3E%3Cpath d='M14 44 L26 30 L34 36 L48 16' fill='none' stroke='%23f59e0b' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='48' cy='16' r='5' fill='%2310b981'/%3E%3C/svg%3E">
   <link rel="alternate icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
   <script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "GetBreakAI — AI Earnings Catalyst, Form-4 Insider & Options Gamma Squeeze Terminal",
-    "url": "https://getbreakai.com/",
-    "image": "https://getbreakai.com/og-preview.png",
-    "applicationCategory": "FinanceApplication",
-    "operatingSystem": "Web",
-    "description": "Event-driven AI financial analytics platform decoding SEC 8-K/10-K filings, Earnings Call NLP guidance tone, Form-4 Executive Cluster Buying, Dark Pool Block Prints, Options Gamma Exposure (GEX), and 2.0x ATR Volatility Position Sizing.",
-    "offers": [
+    "@graph": [
       {
-        "@type": "Offer",
-        "name": "Catalyst Starter Monthly",
-        "price": "29.00",
-        "priceCurrency": "USD",
-        "url": "https://truthofmarket.lemonsqueezy.com/checkout/buy/bad98d00-7175-41f6-9d58-eeb2471d0da4"
+        "@type": "SoftwareApplication",
+        "name": "GetBreakAI — 米国株SEC開示・インサイダー買い・ガンマスクイーズAI日本語解読＆ATR損切り計算機",
+        "url": "https://getbreakai.com/",
+        "image": "https://getbreakai.com/og-preview.png",
+        "inLanguage": "ja",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "Web",
+        "description": "ウォール街の英語SEC開示(8-K/10-K)・Form-4役員インサイダー買い・ダークプール機関フロー・オプションGamma Wall(GEX)をAIが3秒で日本語解読し、2.0x ATR損切りラインと適正株数をドル($)と日本円(¥)で同時算出する米国株・新NISA投資家専用ターミナル。",
+        "offers": [
+          {
+            "@type": "Offer",
+            "name": "Catalyst Starter 月額Proプラン (2サイト共通VIP)",
+            "price": "29.00",
+            "priceCurrency": "USD",
+            "url": "https://truthofmarket.lemonsqueezy.com/checkout/buy/bad98d00-7175-41f6-9d58-eeb2471d0da4"
+          },
+          {
+            "@type": "Offer",
+            "name": "Whale & Gamma Pro 永久買い切りプラン (2サイト共通VIP)",
+            "price": "199.00",
+            "priceCurrency": "USD",
+            "url": "https://truthofmarket.lemonsqueezy.com/checkout/buy/00c9f6e1-c8be-42a4-b5a5-e05af1a41ed9"
+          }
+        ],
+        "publisher": {
+          "@type": "Organization",
+          "name": "Dream Company Quantitative Research",
+          "url": "https://getbreakai.com/",
+          "sameAs": [
+            "https://truthofmarket.com/"
+          ]
+        }
       },
       {
-        "@type": "Offer",
-        "name": "Whale & Gamma Pro Lifetime",
-        "price": "199.00",
-        "priceCurrency": "USD",
-        "url": "https://truthofmarket.lemonsqueezy.com/checkout/buy/00c9f6e1-c8be-42a4-b5a5-e05af1a41ed9"
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "GetBreakAIは日本の新NISA・米国株投資家にどのようなメリットがありますか？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "英語で提出される米国SEC Form 8-K（重要契約・決算速報）やForm-4（経営陣による自社株買い）、オプション市場のGamma Wall（マーケットメイカーの強制買い水準）をAIが3秒で日本語に翻訳・数値化します。さらに口座資金（ドル＆日本円換算）に応じた推奨購入株数と2.0x ATR損切りラインを自動算出します。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "1つのProライセンスキーでTruthOfMarket.comも使えますか？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "はい。Store #296100で発行されるProライセンスキー（月額$29または永久買い切り$199）1つで、短期イベント＆ATR端末のGetBreakAI.comと、半導体恐怖強欲指数＆72銘柄PW-RSIサイクル端末のTruthOfMarket.comの両方のVIP機能をロック解除できます。"
+            }
+          }
+        ]
       }
-    ],
-    "publisher": {
-      "@type": "Organization",
-      "name": "Dream Company Quantitative Research",
-      "url": "https://getbreakai.com/",
-      "sameAs": [
-        "https://truthofmarket.com/"
-      ]
-    }
+    ]
   }
   </script>
   <script>
@@ -93,15 +123,18 @@
           fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_member_total', { mode: 'cors', keepalive: true }).catch(function(){});
         }
       }
+      window.trackGbaPaidClick = function() {
+        fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_click_' + kst, { mode: 'cors', keepalive: true }).catch(function(){});
+        fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_click_total', { mode: 'cors', keepalive: true }).catch(function(){});
+      };
       document.addEventListener('click', function(e) {
         var el = e.target && e.target.closest ? e.target.closest('a, button, [role="button"]') : null;
         if (!el) return;
         var href = (el.getAttribute('href') || '').toLowerCase();
         var txt = (el.innerText || el.textContent || '').toLowerCase();
         var cls = (el.className || '').toLowerCase();
-        if (href.indexOf('lemonsqueezy.com') !== -1 || cls.indexOf('lemonsqueezy') !== -1 || cls.indexOf('btn-checkout') !== -1 || /pro|vip|unlock|subscribe|upgrade|checkout|\$29|\$199|\$1,499/.test(txt)) {
-          fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_click_' + kst, { mode: 'cors', keepalive: true }).catch(function(){});
-          fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_click_total', { mode: 'cors', keepalive: true }).catch(function(){});
+        if (href.indexOf('lemonsqueezy.com') !== -1 || cls.indexOf('lemonsqueezy') !== -1 || cls.indexOf('btn-checkout') !== -1 || /pro|vip|unlock|subscribe|upgrade|checkout|\$29|\$199|4,350|29,800/.test(txt)) {
+          window.trackGbaPaidClick();
         }
       }, true);
     } catch (e) {}
@@ -115,8 +148,8 @@
       --border-color: #241d3d;
       --border-accent: #4c3785;
       --text-main: #f8fafc;
-      --text-muted: #a59ec2;
-      --text-sub: #6f6694;
+      --text-muted: #b4add0;
+      --text-sub: #7c73a3;
       --accent-violet: #8b5cf6;
       --accent-amber: #f59e0b;
       --accent-emerald: #10b981;
@@ -124,8 +157,8 @@
       --accent-sky: #38bdf8;
       --glow-violet: rgba(139, 92, 246, 0.28);
       --glow-amber: rgba(245, 158, 11, 0.22);
-      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      --font-mono: 'JetBrains Mono', monospace;
+      --font-sans: 'Noto Sans JP', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Noto Sans JP', monospace;
     }
 
     * {
@@ -146,9 +179,8 @@
         radial-gradient(circle at 82% 18%, rgba(245, 158, 11, 0.10), transparent 34%);
       color: var(--text-main);
       font-family: var(--font-sans);
-      line-height: 1.6;
+      line-height: 1.65;
       -webkit-font-smoothing: antialiased;
-      word-break: keep-all;
       overflow-wrap: break-word;
     }
 
@@ -161,7 +193,7 @@
 
     header {
       border-bottom: 1px solid var(--border-color);
-      background: rgba(6, 5, 12, 0.88);
+      background: rgba(6, 5, 12, 0.90);
       backdrop-filter: blur(14px);
       position: sticky;
       top: 0;
@@ -179,9 +211,9 @@
       display: flex;
       align-items: center;
       gap: 11px;
-      font-weight: 800;
-      font-size: 1.35rem;
-      letter-spacing: -0.5px;
+      font-weight: 900;
+      font-size: 1.32rem;
+      letter-spacing: -0.4px;
       color: var(--text-main);
       text-decoration: none;
     }
@@ -208,15 +240,15 @@
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 26px;
+      gap: 22px;
       list-style: none;
     }
 
     .nav-links a {
       color: var(--text-muted);
       text-decoration: none;
-      font-size: 0.94rem;
-      font-weight: 600;
+      font-size: 0.9rem;
+      font-weight: 700;
       transition: color 0.2s ease;
     }
 
@@ -229,24 +261,23 @@
       color: #ffffff !important;
       padding: 9px 18px;
       border-radius: 8px;
-      font-weight: 700 !important;
-      font-size: 0.88rem !important;
+      font-weight: 800 !important;
+      font-size: 0.86rem !important;
       box-shadow: 0 4px 16px var(--glow-violet);
     }
 
-    /* Live Catalyst Tape */
     .catalyst-tape {
       background: rgba(14, 11, 26, 0.95);
       border-bottom: 1px solid var(--border-color);
       padding: 9px 0;
       font-family: var(--font-mono);
-      font-size: 0.79rem;
+      font-size: 0.78rem;
     }
 
     .tape-inner {
       display: flex;
       flex-wrap: wrap;
-      gap: 18px;
+      gap: 16px;
       justify-content: center;
       align-items: center;
     }
@@ -270,9 +301,8 @@
     .bg-pead  { background: rgba(16, 185, 129, 0.2); color: #a7f3d0; border: 1px solid rgba(16, 185, 129, 0.5); }
     .bg-risk  { background: rgba(244, 63, 94, 0.2); color: #fecdd3; border: 1px solid rgba(244, 63, 94, 0.5); }
 
-    /* Hero */
     .hero {
-      padding: 76px 0 54px;
+      padding: 64px 0 46px;
       text-align: center;
     }
 
@@ -288,16 +318,16 @@
       font-family: var(--font-mono);
       font-size: 0.8rem;
       font-weight: 700;
-      margin-bottom: 24px;
+      margin-bottom: 22px;
     }
 
     .hero h1 {
-      font-size: clamp(2.3rem, 5vw, 3.85rem);
-      font-weight: 800;
-      line-height: 1.12;
-      letter-spacing: -1.5px;
-      max-width: 960px;
-      margin: 0 auto 22px;
+      font-size: clamp(1.85rem, 4.2vw, 3.15rem);
+      font-weight: 900;
+      line-height: 1.25;
+      letter-spacing: -0.8px;
+      max-width: 1020px;
+      margin: 0 auto 20px;
     }
 
     .grad-violet {
@@ -308,27 +338,27 @@
 
     .hero p {
       color: var(--text-muted);
-      font-size: 1.14rem;
-      max-width: 790px;
-      margin: 0 auto 34px;
+      font-size: 1.06rem;
+      max-width: 860px;
+      margin: 0 auto 30px;
     }
 
     .hero-actions {
       display: flex;
-      gap: 16px;
+      gap: 14px;
       justify-content: center;
       flex-wrap: wrap;
-      margin-bottom: 52px;
+      margin-bottom: 42px;
     }
 
     .btn-primary {
       background: linear-gradient(135deg, var(--accent-violet), #6d28d9);
       color: #fff;
       text-decoration: none;
-      padding: 15px 30px;
+      padding: 15px 28px;
       border-radius: 10px;
       font-weight: 800;
-      font-size: 1rem;
+      font-size: 0.98rem;
       box-shadow: 0 8px 26px var(--glow-violet);
       transition: transform 0.18s ease;
     }
@@ -341,21 +371,20 @@
       background: var(--bg-card);
       color: var(--text-main);
       text-decoration: none;
-      padding: 15px 28px;
+      padding: 15px 26px;
       border-radius: 10px;
       font-weight: 700;
-      font-size: 1rem;
+      font-size: 0.98rem;
       border: 1px solid var(--border-accent);
     }
 
-    /* Interactive Dual Terminal */
     .terminal-shell {
       background: var(--bg-card);
       border: 1px solid var(--border-accent);
       border-radius: 18px;
       box-shadow: 0 24px 64px rgba(0, 0, 0, 0.65), 0 0 40px rgba(139, 92, 246, 0.14);
       overflow: hidden;
-      margin-bottom: 84px;
+      margin-bottom: 72px;
     }
 
     .terminal-topbar {
@@ -374,7 +403,7 @@
       align-items: center;
       gap: 8px;
       font-family: var(--font-mono);
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       color: var(--text-muted);
     }
 
@@ -394,9 +423,9 @@
       border: 1px solid var(--border-color);
       color: var(--text-muted);
       font-family: var(--font-mono);
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 700;
-      padding: 7px 13px;
+      padding: 7px 12px;
       border-radius: 7px;
       cursor: pointer;
       transition: all 0.18s ease;
@@ -491,8 +520,7 @@
     .pane-title {
       font-family: var(--font-mono);
       font-size: 0.82rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.3px;
       color: var(--accent-amber);
       margin-bottom: 14px;
       display: flex;
@@ -503,20 +531,22 @@
     }
 
     .catalyst-headline {
-      font-size: 1.32rem;
+      font-size: 1.24rem;
       font-weight: 800;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       color: #fff;
+      line-height: 1.4;
     }
 
     .catalyst-summary {
-      font-size: 0.92rem;
+      font-size: 0.91rem;
       color: var(--text-muted);
       background: rgba(255, 255, 255, 0.03);
       border-left: 3px solid var(--accent-violet);
-      padding: 10px 14px;
+      padding: 12px 14px;
       border-radius: 6px;
       margin-bottom: 20px;
+      line-height: 1.65;
     }
 
     .radar-metrics {
@@ -534,7 +564,7 @@
     }
 
     .metric-label {
-      font-size: 0.76rem;
+      font-size: 0.75rem;
       color: var(--text-muted);
       font-family: var(--font-mono);
       margin-bottom: 4px;
@@ -542,7 +572,7 @@
 
     .metric-val {
       font-family: var(--font-mono);
-      font-size: 1.35rem;
+      font-size: 1.22rem;
       font-weight: 800;
     }
 
@@ -552,16 +582,15 @@
     .val-rose   { color: var(--accent-rose); }
     .val-sky    { color: var(--accent-sky); }
 
-    /* Slider Controls */
     .control-group {
-      margin-bottom: 16px;
+      margin-bottom: 15px;
     }
 
     .control-header {
       display: flex;
       justify-content: space-between;
       font-family: var(--font-mono);
-      font-size: 0.84rem;
+      font-size: 0.83rem;
       margin-bottom: 6px;
     }
 
@@ -575,42 +604,41 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 12px;
-      margin-top: 18px;
+      margin-top: 16px;
     }
 
     .sizer-card {
       background: #151029;
       border: 1px solid var(--border-color);
       border-radius: 10px;
-      padding: 13px;
+      padding: 12px;
     }
 
     .sizer-card strong {
       display: block;
       font-family: var(--font-mono);
-      font-size: 1.24rem;
+      font-size: 1.08rem;
       margin-top: 3px;
     }
 
-    /* Section Headings */
     .section {
-      padding: 72px 0;
+      padding: 68px 0;
     }
 
     .section-title {
       text-align: center;
-      font-size: clamp(1.85rem, 3.5vw, 2.55rem);
-      font-weight: 800;
+      font-size: clamp(1.7rem, 3.3vw, 2.35rem);
+      font-weight: 900;
       margin-bottom: 14px;
-      letter-spacing: -0.8px;
+      letter-spacing: -0.6px;
     }
 
     .section-subtitle {
       text-align: center;
       color: var(--text-muted);
-      max-width: 720px;
-      margin: 0 auto 48px;
-      font-size: 1.05rem;
+      max-width: 780px;
+      margin: 0 auto 44px;
+      font-size: 1rem;
     }
 
     .features-grid {
@@ -629,7 +657,7 @@
       background: var(--bg-card);
       border: 1px solid var(--border-color);
       border-radius: 14px;
-      padding: 28px;
+      padding: 26px;
       transition: border-color 0.2s ease, transform 0.2s ease;
     }
 
@@ -640,37 +668,36 @@
 
     .card-icon {
       font-size: 1.8rem;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .card-title {
-      font-size: 1.2rem;
+      font-size: 1.15rem;
       font-weight: 800;
       margin-bottom: 10px;
     }
 
     .card-desc {
       color: var(--text-muted);
-      font-size: 0.94rem;
+      font-size: 0.92rem;
     }
 
-    /* Comparison Table */
     .comp-table-wrap {
       overflow-x: auto;
       background: var(--bg-card);
       border: 1px solid var(--border-color);
       border-radius: 14px;
-      padding: 24px;
+      padding: 22px;
     }
 
     table.comp-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.93rem;
+      font-size: 0.9rem;
     }
 
     table.comp-table th, table.comp-table td {
-      padding: 14px 16px;
+      padding: 13px 15px;
       text-align: left;
       border-bottom: 1px solid var(--border-color);
     }
@@ -678,11 +705,9 @@
     table.comp-table th {
       font-family: var(--font-mono);
       color: var(--accent-amber);
-      font-size: 0.82rem;
-      text-transform: uppercase;
+      font-size: 0.8rem;
     }
 
-    /* Pricing */
     .pricing-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -693,7 +718,7 @@
       background: var(--bg-card);
       border: 1px solid var(--border-color);
       border-radius: 16px;
-      padding: 32px 26px;
+      padding: 30px 24px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -708,51 +733,51 @@
     .badge-popular {
       position: absolute;
       top: -13px;
-      right: 22px;
+      right: 20px;
       background: linear-gradient(135deg, var(--accent-violet), var(--accent-amber));
       color: #06050c;
       font-family: var(--font-mono);
       font-weight: 800;
-      font-size: 0.74rem;
+      font-size: 0.73rem;
       padding: 4px 12px;
       border-radius: 999px;
     }
 
     .price-name {
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       font-weight: 800;
       margin-bottom: 8px;
     }
 
     .price-amount {
       font-family: var(--font-mono);
-      font-size: 2.5rem;
+      font-size: 2.25rem;
       font-weight: 800;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .price-amount span {
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       color: var(--text-muted);
-      font-weight: 500;
+      font-weight: 600;
     }
 
     .price-desc {
       color: var(--text-muted);
-      font-size: 0.9rem;
-      margin-bottom: 20px;
+      font-size: 0.88rem;
+      margin-bottom: 18px;
     }
 
     .feature-list {
       list-style: none;
-      margin-bottom: 26px;
+      margin-bottom: 24px;
     }
 
     .feature-list li {
       margin-bottom: 10px;
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 8px;
     }
 
@@ -764,11 +789,11 @@
     .btn-checkout {
       display: block;
       text-align: center;
-      padding: 14px 20px;
+      padding: 14px 18px;
       border-radius: 10px;
       font-weight: 800;
       text-decoration: none;
-      font-size: 0.95rem;
+      font-size: 0.93rem;
     }
 
     .btn-checkout-primary {
@@ -783,241 +808,153 @@
       border: 1px solid var(--border-accent);
     }
 
+    .seo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 12px;
+    }
+
+    .seo-link-card {
+      display: block;
+      background: rgba(20, 15, 38, 0.85);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 12px 14px;
+      color: var(--text-main);
+      text-decoration: none;
+      font-size: 0.84rem;
+      font-weight: 700;
+      transition: border-color 0.18s ease, background 0.18s ease;
+    }
+
+    .seo-link-card:hover {
+      border-color: var(--accent-violet);
+      background: rgba(139, 92, 246, 0.12);
+    }
+
     footer {
       border-top: 1px solid var(--border-color);
-      padding: 56px 0 40px;
+      padding: 52px 0 40px;
       color: var(--text-muted);
-      font-size: 0.88rem;
+      font-size: 0.86rem;
     }
 
     .legal-box {
-      margin-top: 28px;
+      margin-top: 26px;
       padding: 18px;
       background: rgba(255, 255, 255, 0.02);
       border: 1px solid var(--border-color);
       border-radius: 10px;
-      font-size: 0.8rem;
+      font-size: 0.79rem;
       color: var(--text-sub);
     }
 
     @media (max-width: 640px) {
-      .container {
-        padding: 0 14px;
-      }
-      .nav-inner {
-        height: 62px;
-        gap: 8px;
-      }
-      .brand-logo {
-        font-size: 1.12rem;
-        gap: 7px;
-      }
-      .brand-tag {
-        font-size: 0.62rem;
-        padding: 2px 6px;
-      }
-      .catalyst-tape {
-        font-size: 0.7rem;
-        padding: 7px 0;
-      }
-      .tape-inner {
-        gap: 8px;
-        justify-content: flex-start;
-      }
-      .tape-item {
-        flex-wrap: wrap;
-        line-height: 1.35;
-      }
-      .hero {
-        padding: 36px 0 28px;
-      }
-      .hero-pill {
-        font-size: 0.68rem;
-        padding: 6px 12px;
-        text-align: center;
-        line-height: 1.4;
-        max-width: 100%;
-        flex-wrap: wrap;
-        justify-content: center;
-        border-radius: 14px;
-      }
-      .hero h1 {
-        font-size: 1.82rem;
-        letter-spacing: -0.7px;
-        line-height: 1.18;
-      }
-      .hero p {
-        font-size: 0.94rem;
-        margin-bottom: 22px;
-      }
-      .hero-actions {
-        flex-direction: column;
-        gap: 10px;
-        margin-bottom: 28px;
-      }
-      .btn-primary, .btn-secondary {
-        width: 100%;
-        padding: 13px 16px;
-        font-size: 0.93rem;
-        text-align: center;
-      }
-      #gbEasyPlaybookBanner {
-        padding: 14px !important;
-      }
-      .terminal-shell {
-        margin-bottom: 48px;
-        border-radius: 14px;
-      }
-      .terminal-topbar {
-        padding: 12px 14px;
-      }
-      .terminal-dots {
-        font-size: 0.7rem;
-        flex-wrap: wrap;
-        word-break: break-word;
-        overflow-wrap: anywhere;
-      }
-      .ticker-bar {
-        width: 100%;
-      }
-      .ticker-btn {
-        flex: 1 1 calc(50% - 6px);
-        text-align: center;
-        font-size: 0.73rem;
-        padding: 7px 8px;
-      }
-      .pane-left, .pane-right, .vip-vault-inner {
-        padding: 16px 14px !important;
-      }
-      .catalyst-headline {
-        font-size: 1.06rem;
-        line-height: 1.35;
-      }
-      .catalyst-summary {
-        font-size: 0.84rem;
-        padding: 9px 11px;
-      }
-      .radar-metrics, .sizer-grid, .vip-btn-pair-grid {
-        grid-template-columns: 1fr !important;
-        gap: 10px;
-      }
-      .metric-box, .sizer-card {
-        padding: 11px 12px;
-      }
-      .metric-val, .sizer-card strong {
-        font-size: 1.12rem;
-        word-break: break-word;
-      }
-      .control-header {
-        flex-wrap: wrap;
-        gap: 4px;
-        font-size: 0.76rem;
-      }
-      .section {
-        padding: 44px 0;
-      }
-      .section-title {
-        font-size: 1.55rem;
-      }
-      .section-subtitle {
-        font-size: 0.92rem;
-        margin-bottom: 28px;
-      }
-      .feature-card, .price-card {
-        padding: 20px 16px;
-      }
-      .price-amount {
-        font-size: 2rem;
-      }
-      .comp-table-wrap {
-        padding: 10px;
-        -webkit-overflow-scrolling: touch;
-      }
-      table.comp-table th, table.comp-table td {
-        padding: 9px 10px;
-        font-size: 0.76rem;
-      }
-      .vip-exec-row {
-        flex-direction: column;
-        align-items: flex-start !important;
-        gap: 2px;
-      }
+      .container { padding: 0 14px; }
+      .nav-inner { height: 62px; gap: 8px; }
+      .brand-logo { font-size: 1.08rem; gap: 7px; }
+      .brand-tag { font-size: 0.6rem; padding: 2px 6px; }
+      .catalyst-tape { font-size: 0.7rem; padding: 7px 0; }
+      .tape-inner { gap: 8px; justify-content: flex-start; }
+      .hero { padding: 34px 0 26px; }
+      .hero-pill { font-size: 0.68rem; padding: 6px 12px; border-radius: 14px; }
+      .hero h1 { font-size: 1.56rem; line-height: 1.3; }
+      .hero p { font-size: 0.92rem; margin-bottom: 20px; }
+      .hero-actions { flex-direction: column; gap: 10px; margin-bottom: 26px; }
+      .btn-primary, .btn-secondary { width: 100%; padding: 13px 16px; font-size: 0.92rem; text-align: center; }
+      #gbEasyPlaybookBanner { padding: 14px !important; }
+      .terminal-shell { margin-bottom: 44px; border-radius: 14px; }
+      .terminal-topbar { padding: 12px 14px; }
+      .ticker-bar { width: 100%; }
+      .ticker-btn { flex: 1 1 calc(50% - 6px); text-align: center; font-size: 0.72rem; padding: 7px 8px; }
+      .pane-left, .pane-right, .vip-vault-inner { padding: 16px 14px !important; }
+      .catalyst-headline { font-size: 1.04rem; }
+      .radar-metrics, .sizer-grid, .vip-btn-pair-grid { grid-template-columns: 1fr !important; gap: 10px; }
+      .metric-val, .sizer-card strong { font-size: 1.04rem; }
+      .control-header { flex-wrap: wrap; gap: 4px; font-size: 0.76rem; }
+      .section { padding: 42px 0; }
+      .section-title { font-size: 1.45rem; }
+      .feature-card, .price-card { padding: 20px 16px; }
+      .comp-table-wrap { padding: 10px; }
+      table.comp-table th, table.comp-table td { padding: 9px 10px; font-size: 0.76rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Live AI Catalyst Tape -->
+  <!-- リアルタイム米国株カタリストテープ -->
   <div class="catalyst-tape">
     <div class="container tape-inner">
-      <div class="tape-item"><span class="tape-badge bg-gamma">GAMMA SQUEEZE</span> <strong>$NVDA</strong> Call/Put 3.2x · GEX Flip $142.00</div>
-      <div class="tape-item"><span class="tape-badge bg-whale">FORM-4 CLUSTER</span> <strong>$LLY</strong> 3 Executives Bought $4.8M Open-Market</div>
-      <div class="tape-item"><span class="tape-badge bg-pead">8-K NLP 94/100</span> <strong>$PLTR</strong> Federal AI Contract Expansion · Dark Pool 64%</div>
-      <div class="tape-item"><span class="tape-badge bg-risk">10-K FORENSIC ALERT</span> <strong>$SMCI</strong> Audit Footnote Divergence Flagged</div>
+      <div class="tape-item"><span class="tape-badge bg-gamma">ガンマスクイーズ</span> <strong>$NVDA エヌビディア</strong> Call/Put 3.2倍 · GEX転換 $179.82</div>
+      <div class="tape-item"><span class="tape-badge bg-whale">Form-4役員買い</span> <strong>$LLY イーライリリー</strong> 経営陣3名が自己資金$4.8M買い</div>
+      <div class="tape-item"><span class="tape-badge bg-pead">SEC 8-K解析 91点</span> <strong>$PLTR パランティア</strong> 国防AI契約拡大 · ダークプール64%</div>
+      <div class="tape-item"><span class="tape-badge bg-risk">10-K会計リスク警告</span> <strong>$SMCI</strong> 監査リスク＆機関売り67%検知 (回避推奨)</div>
     </div>
   </div>
 
-  <!-- Navigation -->
+  <!-- ナビゲーション -->
   <header>
     <div class="container nav-inner">
       <a href="#" class="brand-logo">
         <div class="brand-dot"></div>
         GetBreakAI
-        <span class="brand-tag">CATALYST & WHALE AI</span>
+        <span class="brand-tag">米国株・新NISA AI端末</span>
       </a>
       <ul class="nav-links">
-        <li><a href="#radar">Live Catalyst Radar</a></li>
-        <li><a href="#engines">Event-Driven Engines</a></li>
-        <li><a href="#differentiation">Architecture</a></li>
-        <li><a href="#pricing">Pricing</a></li>
-        <li><a href="#pricing" class="btn-nav">Launch Radar →</a></li>
+        <li><a href="#radar">AIカタリスト＆ATR計算機</a></li>
+        <li><a href="#engines">3大AI解析エンジン</a></li>
+        <li><a href="#vip-vault">VIP機関投資家データ庫</a></li>
+        <li><a href="#jp-research-hub">米国株30銘柄AIレポート</a></li>
+        <li><a href="#pricing">料金プラン</a></li>
+        <li><a href="#pricing" class="btn-nav">Pro版をアンロック →</a></li>
       </ul>
-      <a href="#radar" class="mobile-nav-cta">Radar ↓</a>
+      <a href="#radar" class="mobile-nav-cta">ATR計算機 ↓</a>
     </div>
   </header>
 
-  <!-- Hero Section -->
+  <!-- ヒーローセクション -->
   <section class="hero container">
-    <div class="hero-pill">⚡ AI EARNINGS NLP · SEC FORM-4 INSIDER CLUSTER · OPTIONS GAMMA EXPOSURE (GEX)</div>
+    <div class="hero-pill">⚡ 米国株・新NISA・株クラ専用 · SEC 8-K / Form-4 / Gamma Wall(GEX) 日本語AIターミナル</div>
     <h1>
-      Catch <span class="grad-violet">Earnings Shocks, Insider Whale Buys & Gamma Squeezes</span> Before the Chart Moves.
+      ウォール街の英語<span class="grad-violet">SEC開示(8-K)・インサイダー買い(Form-4)・オプションGamma Wall(GEX)</span>をAIが3秒で日本語解読
     </h1>
     <p>
-      Moving averages only tell you what happened 60 days ago. <strong>GetBreakAI</strong> is an event-driven AI intelligence radar that decodes <strong>SEC 8-K/10-K filings, Earnings Call guidance tone, Form-4 Executive Cluster Buying, and Options Gamma Walls</strong>—paired with an institutional <strong>ATR & Implied Volatility (IV) Position Sizer</strong>.
+      <strong>新NISA・米国株スイング投資家のためのATR損切り＆適正株数ターミナル。</strong><br>
+      遅行する移動平均線ではなく、機関投資家が動く「決算ガイダンス変化・役員の自社株買い・ガンマスクイーズ」をリアルタイム捕捉し、ドル($)と日本円(¥)で<strong>推奨エントリー株数・2.0x ATR損切りライン・利確ターゲット</strong>を即座に算出します。
     </p>
     <div class="hero-actions">
-      <a href="#radar" class="btn-primary">Test Live Catalyst & ATR Sizer</a>
-      <a href="#pricing" class="btn-secondary">Unlock Real-Time Whale Feeds</a>
+      <a href="#radar" class="btn-primary">📊 米国株AIシグナル＆ATR適正株数を今すぐ計算</a>
+      <a href="#pricing" class="btn-secondary">🔑 VIP機関フロー＆Pine Script v5を解除</a>
     </div>
   </section>
 
-  <!-- Interactive Dual Terminal: AI Catalyst Radar + ATR/IV Position Sizer -->
+  <!-- インタラクティブ・デュアルターミナル -->
   <section id="radar" class="container">
-    <!-- Beginner-Friendly 10-Second Plain-English Event Trading Guide -->
+    <!-- 初心者向け3ステップガイド (#gbEasyPlaybookBanner) -->
     <div id="gbEasyPlaybookBanner" style="background:linear-gradient(135deg, rgba(20,15,38,0.96) 0%, rgba(12,10,24,0.98) 100%); border:1px solid rgba(139,92,246,0.45); border-left:4px solid #10b981; border-radius:14px; padding:18px 22px; margin-bottom:20px; box-shadow:0 12px 32px rgba(0,0,0,0.4);">
       <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
         <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
-          <span style="background:rgba(16,185,129,0.18); color:#34d399; border:1px solid rgba(16,185,129,0.4); font-family:var(--font-mono); font-size:0.72rem; font-weight:800; padding:3px 10px; border-radius:999px;">
-            💡 ZERO-JARGON BEGINNER GUIDE
+          <span style="background:rgba(16,185,129,0.18); color:#34d399; border:1px solid rgba(16,185,129,0.4); font-family:var(--font-mono); font-size:0.74rem; font-weight:800; padding:3px 10px; border-radius:999px;">
+            🔰 3ステップで完了：米国株機関投資家シグナル＆ATRリスク管理ガイド
           </span>
-          <strong style="color:#fff; font-size:0.98rem;">How Everyday Investors Use Catalyst &amp; Whale AI to Make Money Safely:</strong>
+          <strong style="color:#fff; font-size:0.95rem;">新NISA・米国株スイングで「塩漬け・狼狽売り」をゼロにする機関投資家ルール：</strong>
         </div>
         <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--accent-amber); font-weight:700;">
-          Click any ticker below ($NVDA, $PLTR, $LLY, $SMCI) to get your exact Buy/Stop/Target ticket ↓
+          下の銘柄ボタン（$NVDA, $PLTR, $LLY, $TSLA, $SMCI）をクリックして即時シミュレーション ↓
         </span>
       </div>
-      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:12px; font-size:0.83rem; line-height:1.5;">
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:12px; font-size:0.83rem; line-height:1.55;">
         <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:10px 14px;">
-          <strong style="color:#c4b5fd; display:block; margin-bottom:3px;">① Follow Real Money, Not Rumors</strong>
-          <span style="color:var(--text-muted);">Only buy when <b>AI Catalyst Score &ge; 85</b> (CEOs buying with their own cash on Form-4 or Wall Street forced to buy Calls).</span>
+          <strong style="color:#c4b5fd; display:block; margin-bottom:3px;">① 噂ではなく「機関の実弾フロー」に乗る</strong>
+          <span style="color:var(--text-muted);"><b>AIカタリストスコア85点以上</b>（Form-4での経営陣の自己資金買い、またはコール集中によるガンマスクイーズ発生銘柄）のみを厳選してエントリーします。</span>
         </div>
         <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:10px 14px;">
-          <strong style="color:#fda4af; display:block; margin-bottom:3px;">② Never Lose More Than 1.5%</strong>
-          <span style="color:var(--text-muted);">Our <b>ATR Sizer</b> tells you the exact share count and <b>2.0x ATR Stop-Loss</b> so one bad trade never hurts your account.</span>
+          <strong style="color:#fda4af; display:block; margin-bottom:3px;">② 1回の最大損失を口座資金の1.5%以内に固定</strong>
+          <span style="color:var(--text-muted);">銘柄ごとの14日ATR（1日の平均値動き幅）から<b>2.0x ATR損切りライン</b>と<b>適正購入株数（ドル・円）</b>を自動計算し、致命傷を防ぎます。</span>
         </div>
         <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:10px 14px;">
-          <strong style="color:#6ee7b7; display:block; margin-bottom:3px;">③ Take Profit at the Gamma Wall</strong>
-          <span style="color:var(--text-muted);">Sell into strength at the <b>5-Day IV Expected Move Wall</b> or <b>2.5R Target</b> (+2.5x reward vs risk) before momentum fades.</span>
+          <strong style="color:#6ee7b7; display:block; margin-bottom:3px;">③ Gamma Wallと2.5Rターゲットで機械的に利確</strong>
+          <span style="color:var(--text-muted);">オプション市場の<b>5日間IV予想上値(Gamma Wall)</b>または<b>リスクリワード比 1:2.5 (2.5R)</b>到達で感情を排して利益を確定します。</span>
         </div>
       </div>
     </div>
@@ -1028,121 +965,133 @@
           <span class="dot dot-r"></span>
           <span class="dot dot-y"></span>
           <span class="dot dot-g"></span>
-          <span style="margin-left: 8px;">GETBREAKAI_EVENT_CATALYST_TERMINAL_V2.4</span>
-          <span id="gbLiveFeedDateBadge" class="tape-badge bg-pead" style="margin-left:6px;">🟢 LIVE FEED · AS OF NOV 2026</span>
+          <span style="margin-left: 8px;">GETBREAKAI_JP_TERMINAL_V3.0</span>
+          <span id="gbLiveFeedDateBadge" class="tape-badge bg-pead" style="margin-left:6px;">🟢 米国市場最新データ反映 · 2026-11-09</span>
         </div>
         <div class="ticker-bar">
-          <button class="ticker-btn active" data-ticker="NVDA" onclick="selectCatalyst('NVDA', this)">$NVDA (Gamma + Earnings)</button>
-          <button class="ticker-btn" data-ticker="PLTR" onclick="selectCatalyst('PLTR', this)">$PLTR (8-K + Dark Pool)</button>
-          <button class="ticker-btn" data-ticker="LLY" onclick="selectCatalyst('LLY', this)">$LLY (Form-4 Insider Cluster)</button>
-          <button class="ticker-btn" data-ticker="TSLA" onclick="selectCatalyst('TSLA', this)">$TSLA (Call Wall Flip)</button>
-          <button class="ticker-btn" data-ticker="SMCI" onclick="selectCatalyst('SMCI', this)">$SMCI (10-K Forensic Risk)</button>
+          <button class="ticker-btn active" data-ticker="NVDA" onclick="selectCatalyst('NVDA', this)">$NVDA エヌビディア</button>
+          <button class="ticker-btn" data-ticker="PLTR" onclick="selectCatalyst('PLTR', this)">$PLTR パランティア</button>
+          <button class="ticker-btn" data-ticker="LLY" onclick="selectCatalyst('LLY', this)">$LLY イーライリリー</button>
+          <button class="ticker-btn" data-ticker="TSLA" onclick="selectCatalyst('TSLA', this)">$TSLA テスラ</button>
+          <button class="ticker-btn" data-ticker="AVGO" onclick="selectCatalyst('AVGO', this)">$AVGO ブロードコム</button>
+          <button class="ticker-btn" data-ticker="AMD" onclick="selectCatalyst('AMD', this)">$AMD</button>
+          <button class="ticker-btn" data-ticker="SMCI" onclick="selectCatalyst('SMCI', this)">$SMCI (⚠️会計リスク警告)</button>
         </div>
       </div>
 
       <div class="terminal-grid">
-        <!-- Left Pane: AI Catalyst & Whale Flow Decoder -->
+        <!-- 左ペイン: SEC開示・インサイダー・ガンマスクイーズAI日本語解読 -->
         <div class="pane-left">
           <div class="pane-title">
-            <span>⚡ AI EVENT CATALYST & WHALE FLOW DECODER</span>
+            <span>⚡ SEC 8-K開示・Form-4内部者買い・GEXガンマAI日本語解読</span>
             <span id="catClassificationBadge" class="tape-badge bg-gamma">GAMMA_SQUEEZE_IGNITION</span>
           </div>
-          <div id="catHeadline" class="catalyst-headline">$NVDA — Sovereign AI Guidance Raise + $195 Call Gamma Wall</div>
+          <div id="catHeadline" class="catalyst-headline">$NVDA (エヌビディア) — 次世代Blackwellガイダンス上方修正＋コールGamma Wall突破シグナル</div>
           <div id="catSummary" class="catalyst-summary">
-            NLP Transcript Decoder detected a 94/100 bullish guidance inflection on sovereign AI rack deployments. Options desk flags 3.2x Call/Put sweep imbalance forcing market-maker delta hedging above $182.00.
+            SEC 8-Kおよび決算カンファレンスコールNLP解析で強気トーン94/100を検知。ソブリンAI・データセンター向け粗利率の拡大が確認され、オプション市場ではCall/Put比率3.2倍のスイープ流入によりマーケットメイカーの強制デルタヘッジ買い（ガンマスクイーズ）が発動中。
           </div>
 
           <div class="radar-metrics">
             <div class="metric-box">
-              <div class="metric-label">AI CATALYST SCORE (0-100)</div>
-              <div id="valCatalystScore" class="metric-val val-violet">93.5 / 100</div>
+              <div class="metric-label">AIカタリスト総合スコア (0-100)</div>
+              <div id="valCatalystScore" class="metric-val val-violet">93.5 / 100 (機関強気)</div>
             </div>
             <div class="metric-box">
-              <div class="metric-label">EARNINGS / 8-K NLP TONE</div>
-              <div id="valNlpTone" class="metric-val val-emerald">94% Bullish (+18.5% EPS)</div>
+              <div class="metric-label">SEC 8-K / 決算コールNLPトーン</div>
+              <div id="valNlpTone" class="metric-val val-emerald">94% 強気 (EPS +18.5%サプライズ)</div>
             </div>
             <div class="metric-box">
-              <div class="metric-label">FORM-4 INSIDER CLUSTER</div>
-              <div id="valInsider" class="metric-val val-amber">3 Execs ($6.2M Buy)</div>
+              <div class="metric-label">SEC Form-4 経営陣・機関動向</div>
+              <div id="valInsider" class="metric-val val-amber">経営陣3名 市場内買い ($6.2M)</div>
             </div>
             <div class="metric-box">
-              <div class="metric-label">DARK POOL & CALL/PUT FLOW</div>
-              <div id="valFlow" class="metric-val val-sky">61% Dark Pool · 3.2x Call</div>
+              <div class="metric-label">ダークプール＆オプション需給</div>
+              <div id="valFlow" class="metric-val val-sky">ダークプール 61% · Call 3.2倍</div>
             </div>
           </div>
 
-          <div style="background:#130e24; border:1px solid var(--border-color); border-radius:10px; padding:14px; font-family:var(--font-mono); font-size:0.82rem;">
-            <div style="color:var(--text-muted); margin-bottom:4px;">POST-EARNINGS DRIFT (PEAD) & GAMMA TRIGGER WINDOW:</div>
+          <div style="background:#130e24; border:1px solid var(--border-color); border-radius:10px; padding:14px; font-family:var(--font-mono); font-size:0.82rem; margin-bottom:14px;">
+            <div style="color:var(--text-muted); margin-bottom:4px;">決算後ドリフト(PEAD) ＆ オプションGamma転換トリガー:</div>
             <div id="valGammaTrigger" style="color:#fff; font-weight:700;">
-              Dealer Positive Gamma Flip at $182.00 → Squeeze Acceleration Target: $204.50 (5-Day IV Window)
+              ディーラー正ガンマ転換ライン $179.82 突破 → 5日間IV上限ターゲット $204.52
             </div>
+          </div>
+
+          <!-- X(Twitter) 株クラ ワンクリック共有ボタン -->
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button type="button" id="btnShareXSignal" onclick="shareActiveSignalOnX()" class="btn-checkout btn-checkout-secondary" style="flex:1; cursor:pointer; border-color:#38bdf8; color:#38bdf8; font-size:0.85rem; padding:11px 14px;">
+              📤 X(Twitter)で銘柄シグナルを共有 (#米国株 #新NISA)
+            </button>
+            <a id="btnReadFullJpReport" href="/jp/nvda-sec-gamma-atr-analysis.html" class="btn-checkout btn-checkout-secondary" style="padding:11px 14px; font-size:0.85rem; color:#c4b5fd;">
+              📑 詳細AI日本語レポートを読む →
+            </a>
           </div>
         </div>
 
-        <!-- Right Pane: Interactive ATR Volatility & Options IV Position Sizer -->
+        <!-- 右ペイン: ATR損切り＆適正株数シミュレーター（ドル・日本円同時対応） -->
         <div class="pane-right">
           <div class="pane-title">
-            <span>🎯 ATR VOLATILITY & OPTIONS IV POSITION SIZER</span>
-            <span style="color:var(--text-muted);">1.5% ACCOUNT RISK CAP</span>
+            <span>🎯 ATR損切りライン＆適正株数計算機（ドル $ / 日本円 ¥ 同時換算）</span>
+            <span style="color:var(--text-muted);">許容リスク上限: 口座の1.5%</span>
           </div>
 
           <div class="control-group">
             <div class="control-header">
-              <span>Account Portfolio Equity</span>
-              <strong id="lblAccount" style="color:var(--accent-amber);">$50,000</strong>
+              <span>運用口座資金 (ドル $ / 日本円 ¥ · 1ドル=<span id="lblFxRate">150</span>円換算)</span>
+              <strong id="lblAccount" style="color:var(--accent-amber);">$50,000 (約750.0万円)</strong>
             </div>
-            <input type="range" id="sliderAccount" min="10000" max="250000" step="5000" value="50000" oninput="recalcSizer()">
+            <input type="range" id="sliderAccount" min="5000" max="250000" step="5000" value="50000" oninput="recalcSizer()">
           </div>
 
           <div class="control-group">
             <div class="control-header">
-              <span>Catalyst Entry Spot Price</span>
-              <strong id="lblEntry" style="color:#fff;">$186.64</strong>
+              <span>現在株価 / エントリー基準価格 ($)</span>
+              <strong id="lblEntry" style="color:#fff;">$186.64 (約¥27,996)</strong>
             </div>
-            <input type="range" id="sliderEntry" min="20" max="1500" step="0.5" value="186.64" oninput="recalcSizer()">
+            <input type="range" id="sliderEntry" min="10" max="2000" step="0.5" value="186.64" oninput="recalcSizer()">
           </div>
 
           <div class="control-group">
             <div class="control-header">
-              <span>14-Day ATR Volatility ($) & Options IV (%)</span>
-              <strong id="lblAtrIv" style="color:var(--accent-violet);">ATR $5.40 · IV 68%</strong>
+              <span>14日ATRボラティリティ ($) ＆ オプションIV (%)</span>
+              <strong id="lblAtrIv" style="color:var(--accent-violet);">ATR $8.02 · IV 68%</strong>
             </div>
-            <input type="range" id="sliderAtr" min="1.0" max="35.0" step="0.2" value="5.4" oninput="recalcSizer()">
+            <input type="range" id="sliderAtr" min="0.5" max="100.0" step="0.2" value="8.02" oninput="recalcSizer()">
           </div>
 
           <div class="sizer-grid">
             <div class="sizer-card">
-              <span class="metric-label">OPTIMAL POSITION SIZE</span>
-              <strong id="outShares" class="val-amber">69 Shares ($12,878)</strong>
+              <span class="metric-label">推奨エントリー株数 (適正ポジション)</span>
+              <strong id="outShares" class="val-amber">46株 ($8,585 / 約128.8万円)</strong>
             </div>
             <div class="sizer-card">
-              <span class="metric-label">2.0x ATR VOLATILITY STOP</span>
-              <strong id="outAtrStop" class="val-rose">$175.84 (-$10.80/sh)</strong>
+              <span class="metric-label">ATR損切りライン (2.0x ATR) / 許容損失額</span>
+              <strong id="outAtrStop" class="val-rose">$170.60 (-$738 / 約11.1万円)</strong>
             </div>
             <div class="sizer-card">
-              <span class="metric-label">5-DAY OPTIONS EXPECTED MOVE</span>
-              <strong id="outExpectedMove" class="val-violet">±$17.89 ($204.53 Wall)</strong>
+              <span class="metric-label">5日間IV予想変動幅 (Gamma Wall)</span>
+              <strong id="outExpectedMove" class="val-violet">±$17.88 ($204.52 壁)</strong>
             </div>
             <div class="sizer-card">
-              <span class="metric-label">2.5R CATALYST TARGET</span>
-              <strong id="outTarget25R" class="val-emerald">$213.64 (+$1,863 Gain)</strong>
+              <span class="metric-label">利確ターゲット (2.5R) / 期待利益</span>
+              <strong id="outTarget25R" class="val-emerald">$226.74 (+$1,845 / 約27.7万円)</strong>
             </div>
           </div>
 
-          <!-- Plain-English 1-Click Action Verdict Box -->
-          <div id="gbPlainEnglishActionBox" style="margin-top:16px; background:rgba(16,185,129,0.1); border:1.5px solid rgba(16,185,129,0.45); border-radius:12px; padding:14px 16px; font-size:0.84rem; line-height:1.55;">
+          <!-- 🟢 AI日本語アクションプラン・適正株数＆損切りライン -->
+          <div id="gbPlainEnglishActionBox" style="margin-top:16px; background:rgba(16,185,129,0.1); border:1.5px solid rgba(16,185,129,0.45); border-radius:12px; padding:14px 16px; font-size:0.84rem; line-height:1.6;">
             <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px; margin-bottom:6px;">
-              <strong id="gbPlainActionTitle" style="color:#34d399; font-family:var(--font-mono); font-size:0.8rem;">
-                🟢 PLAIN-ENGLISH ACTION PLAN ($NVDA · BUY SETUP)
+              <strong id="gbPlainActionTitle" style="color:#34d399; font-family:var(--font-mono); font-size:0.82rem;">
+                🟢 AI日本語アクションプラン・適正株数＆損切りライン ($NVDA · エヌビディア)
               </strong>
               <span id="gbPlainRewardBadge" style="background:rgba(16,185,129,0.2); color:#6ee7b7; font-family:var(--font-mono); font-size:0.72rem; font-weight:800; padding:2px 8px; border-radius:999px;">
-                2.5x Reward-to-Risk
+                リスクリワード比 1 : 2.5
               </span>
             </div>
             <div id="gbPlainActionSteps" style="color:#e2e8f0;">
-              1️⃣ <b>BUY:</b> Purchase <b>69 shares ($12,878)</b> at <b>$186.64</b>.<br>
-              2️⃣ <b>PROTECT:</b> Set automatic Stop-Loss at <b>$175.84</b> (caps max loss at <b>-$745</b> = 1.5% of your account).<br>
-              3️⃣ <b>PROFIT:</b> Take profit between <b>$204.53</b> (Gamma Wall) and <b>$213.64</b> for <b>+$1,863 expected gain</b>!
+              1️⃣ <b>推奨エントリー株数:</b> 現在値 <b>$186.64</b> で <b>46株（$8,585 / 約128.8万円）</b> をエントリー。<br>
+              2️⃣ <b>ATR損切りライン (資産防衛):</b> 逆指値（ストップロス）を <b>$170.60</b> に設定（万が一の許容損失額を <b>-$738 / 約11.1万円＝口座資金の1.5%</b> に完全限定）。<br>
+              3️⃣ <b>利確ターゲット:</b> 第一目標 <b>$204.52（Gamma Wall）</b>、本命 <b>$226.74（2.5Rターゲット・期待利益 +$1,845 / 約27.7万円）</b> で分割利確！
             </div>
           </div>
         </div>
@@ -1150,110 +1099,109 @@
     </div>
   </section>
 
-  <!-- 3 Exclusive Event-Driven Engines -->
+  <!-- 3大イベントドリブンAIエンジン -->
   <section id="engines" class="section container">
-    <h2 class="section-title">Three Event-Driven Engines You Won't Find on Chart Apps</h2>
+    <h2 class="section-title">一般的なチャートアプリには存在しない「3大機関投資家AIエンジン」</h2>
     <p class="section-subtitle">
-      While traditional technical scanners wait for lagging moving averages, GetBreakAI tracks the primary catalysts that actually cause institutional price gaps.
+      移動平均線やRSIなどの遅行指標が反応する前段階——ウォール街の機関投資家がギャップアップを生む「一次情報（SEC適時開示・役員自社株買い・オプションガンマ需給）」をAIが直接日本語で解読します。
     </p>
 
     <div class="features-grid">
       <div class="feature-card">
         <div class="card-icon">📑</div>
-        <h3 class="card-title">1. SEC 8-K & Earnings Call NLP</h3>
+        <h3 class="card-title">1. SEC 8-K/10-K ＆ 決算コールAI日本語解読</h3>
         <p class="card-desc">
-          Our LLM pipeline ingests SEC 8-K/10-K filings and live earnings call transcripts in under 3 seconds, scoring management guidance tone, margin expansion keywords, and forensic accounting red flags before retail headlines hit.
+          提出されたばかりの英語SEC Form 8-K（重要契約・決算速報）や10-K（年次報告書）、決算説明会トランスクリプトを3秒以内にNLP解析。ガイダンス上方修正の確信度から、$SMCIのような会計監査リスク警告まで日本語で即座に可視化します。
         </p>
       </div>
 
       <div class="feature-card">
         <div class="card-icon">🐋</div>
-        <h3 class="card-title">2. Form-4 Insider Cluster Radar</h3>
+        <h3 class="card-title">2. SEC Form-4 役員インサイダー買いクラスター</h3>
         <p class="card-desc">
-          Executives sell stock for many reasons, but they only buy with their own cash for one reason. We filter out routine options exercises and alert you only when 3+ C-suite insiders execute open-market cluster buys.
+          経営陣が株を売る理由は税金対策など様々ですが、「自腹のキャッシュで自社株を買う理由」は株価上昇への確信ただ1つです。ストックオプション行使を自動除外し、CEO・CFOら複数役員が同時期に市場内買いを行った銘柄だけを抽出します。
         </p>
       </div>
 
       <div class="feature-card">
         <div class="card-icon">⚡</div>
-        <h3 class="card-title">3. Options Gamma & ATR Sizer</h3>
+        <h3 class="card-title">3. オプションGamma Wall ＆ 2.0x ATR損切り計算</h3>
         <p class="card-desc">
-          Identifies 0DTE/Weekly Call Walls where market makers are forced to buy underlying shares (Gamma Squeeze), and sizes your position using 14-day ATR and Implied Volatility so a single earnings swing never wrecks your equity.
+          マーケットメイカーが機械的に現物株を買い上げる「Gamma Flip水準」を特定し、14日間ATR（平均真の値幅）に基づく「ノイズで狩られない2.0x ATR損切りライン」と「口座リスク1.5%以内の適正株数」をドル・円で同時算出します。
         </p>
       </div>
     </div>
   </section>
 
-  <!-- Platform Differentiation Matrix -->
+  <!-- 姉妹サイト比較・使い分けマトリクス -->
   <section id="differentiation" class="section container">
-    <h2 class="section-title">Built for Event-Driven Catalyst & Flow Traders</h2>
+    <h2 class="section-title">米国株・新NISA投資家のための2大クオンツ端末シナジー</h2>
     <p class="section-subtitle">
-      How GetBreakAI's Event-Driven & Options Gamma Architecture complements macro trend portals like <a href="https://truthofmarket.com/?utm_source=getbreakai&utm_medium=differentiation_subtitle" target="_blank" rel="noopener" style="color:var(--accent-sky); font-weight:700; text-decoration:underline;">TruthOfMarket.com</a> and outperforms lagging retail chart tools.
+      短期イベント＆ATR損切りに特化した <strong>GetBreakAI.com</strong> と、半導体サイクル＆72銘柄PW-RSI底値反転に特化した姉妹ターミナル <a href="https://truthofmarket.com/?utm_source=getbreakai&utm_medium=differentiation_subtitle" target="_blank" rel="noopener" style="color:var(--accent-sky); font-weight:700; text-decoration:underline;">TruthOfMarket.com</a> の違い：
     </p>
 
     <div class="comp-table-wrap">
       <table class="comp-table">
         <thead>
           <tr>
-            <th>Dimension</th>
-            <th>Lagging Retail Chart Tools</th>
-            <th>Macro / Trend Allocation Portals (<a href="https://truthofmarket.com/?utm_source=getbreakai&utm_medium=comp_table" target="_blank" rel="noopener" style="color:var(--accent-sky); text-decoration:underline;">TruthOfMarket.com ↗</a>)</th>
-            <th>GetBreakAI (Catalyst & Whale Terminal)</th>
+            <th>比較項目</th>
+            <th>一般的な個人向けチャートツール</th>
+            <th>マクロ・半導体サイクル端末 (<a href="https://truthofmarket.com/?utm_source=getbreakai&utm_medium=comp_table" target="_blank" rel="noopener" style="color:var(--accent-sky); text-decoration:underline;">TruthOfMarket.com ↗</a>)</th>
+            <th>GetBreakAI (当サイト・日本語AI端末)</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><strong>Primary Alpha Source</strong></td>
-            <td>Lagging MACD / RSI Crossovers</td>
-            <td><a href="https://truthofmarket.com/?utm_source=getbreakai&utm_medium=comp_table" target="_blank" rel="noopener" style="color:#cbd5e1; text-decoration:underline;">Semiconductor Fear &amp; Greed + 72-Stock PW-RSI Turnaround</a></td>
-            <td><strong>SEC 8-K/10-K NLP + Form-4 Insider Cluster + Options Gamma Squeeze</strong></td>
+            <td><strong>主なアルファ（収益源）</strong></td>
+            <td>遅行するMACD・移動平均クロス</td>
+            <td><a href="https://truthofmarket.com/?utm_source=getbreakai&utm_medium=comp_table" target="_blank" rel="noopener" style="color:#cbd5e1; text-decoration:underline;">半導体恐怖強欲指数 ＆ 72銘柄PW-RSI底値反転</a></td>
+            <td><strong>SEC 8-K/10-K日本語解読 ＋ Form-4役員買い ＋ オプションGamma Squeeze</strong></td>
           </tr>
           <tr>
-            <td><strong>Position Sizing & Risk</strong></td>
-            <td>Guesswork / Arbitrary Share Count</td>
-            <td>Mechanical -9.0% Hard Stop &amp; $SMH:$XLV 80:20 Barbell</td>
-            <td><strong>Dynamic 2.0x ATR Volatility Stop + Options IV Expected Move (±1 SD)</strong></td>
+            <td><strong>損切り＆資金管理ルール</strong></td>
+            <td>感覚的なナンピン・塩漬け</td>
+            <td>機械的 -9.0% ハードストップ ＆ $SMH:$XLV 80:20配分</td>
+            <td><strong>銘柄別 2.0x ATRボラティリティ損切り ＋ 口座1.5%適正株数（ドル・円）</strong></td>
           </tr>
           <tr>
-            <td><strong>Institutional Flow Visibility</strong></td>
-            <td>Standard Exchange Volume Only</td>
-            <td>20-Day / 60-Day Post-Washout Volume Surge</td>
-            <td><strong>Off-Exchange Dark Pool Block Prints (%) & Call/Put Sweep Imbalance</strong></td>
+            <td><strong>機関投資家フロー検知</strong></td>
+            <td>通常の取引所出来高のみ</td>
+            <td>20日/60日 セリングクライマックス出来高急増</td>
+            <td><strong>取引所外ダークプール大口ブロック比率(%) ＆ Call/Putスイープ偏り</strong></td>
           </tr>
           <tr>
-            <td><strong>Ideal Holding Horizon</strong></td>
-            <td>Intraday Noise</td>
-            <td>Multi-Week / Multi-Month Trend Swing (30–90 Days)</td>
-            <td><strong>1 to 15 Days (Post-Earnings Drift & Catalyst Gamma Burst)</strong></td>
+            <td><strong>推奨保有期間（時間軸）</strong></td>
+            <td>デイトレのランダムノイズ</td>
+            <td>中期トレンド・スイング（30〜90日）</td>
+            <td><strong>1〜15日間（決算後ドリフトPEAD ＆ カタリスト・ガンマ急騰局面）</strong></td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <!-- Sister Terminal Cross-Promotion Synergy Banner -->
     <div id="gbCrossPromoBanner" style="margin-top:22px; background:linear-gradient(135deg, rgba(14,22,42,0.95) 0%, rgba(19,14,38,0.95) 100%); border:1px solid rgba(56,189,248,0.4); border-left:4px solid #38bdf8; border-radius:14px; padding:18px 22px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;">
       <div style="flex:1; min-width:240px;">
         <div style="font-family:var(--font-mono); font-size:0.74rem; color:#38bdf8; font-weight:800; margin-bottom:4px;">
-          🧭 SISTER QUANT TERMINAL SYNERGY · TRUTHOFMARKET.COM × GETBREAKAI.COM
+          🧭 姉妹クオンツ端末連携 · TRUTHOFMARKET.COM × GETBREAKAI.COM
         </div>
         <div style="color:#fff; font-weight:800; font-size:0.98rem; margin-bottom:4px;">
-          Want 60-Day Semiconductor Fear &amp; Greed Index + 72 US Stock PW-RSI Turnaround Swings?
+          半導体セクター恐怖強欲指数（SOXサイクル）＆ 米国株72銘柄PW-RSI底値スクリーナーも同時活用！
         </div>
         <div style="color:var(--text-muted); font-size:0.84rem;">
-          Use <strong>GetBreakAI.com</strong> for 1–15 day earnings shocks, insider Form-4 buys &amp; gamma squeezes, and pair it with our sister macro/trend terminal <strong>TruthOfMarket.com</strong> for $SMH:$XLV 80:20 barbell allocation. <strong>One VIP License Key unlocks both!</strong>
+          1〜15日の決算・インサイダー・ガンマスクイーズは <strong>GetBreakAI.com</strong>、30〜90日の半導体マクロ配分は <strong>TruthOfMarket.com</strong> で完結。<strong>1つのVIPライセンスキーで両サイトともロック解除されます！</strong>
         </div>
       </div>
       <a href="https://truthofmarket.com/?utm_source=getbreakai&utm_medium=sister_banner" target="_blank" rel="noopener" class="btn-checkout btn-checkout-secondary" style="width:auto; padding:12px 20px; border-color:#38bdf8; color:#38bdf8; white-space:nowrap;">
-        🧭 Launch TruthOfMarket.com ↗
+        🧭 TruthOfMarket.com を開く ↗
       </a>
     </div>
   </section>
 
-  <!-- Paid Subscriber Exclusive: VIP Catalyst & Whale Command Vault -->
+  <!-- VIP機関投資家データ庫 (#vip-vault) -->
   <section id="vip-vault" class="section container">
-    <h2 class="section-title">👑 Paid Subscriber Exclusive: VIP Catalyst & Whale Command Vault</h2>
+    <h2 class="section-title">👑 VIP会員専用：機関投資家オーダーブック＆TradingView Pine Script v5金庫</h2>
     <p class="section-subtitle">
-      Every paid member ($29/mo or $199 Lifetime) unlocks instant access to our daily Pre-Earnings Whisper &amp; Gamma Flip Order Book, SEC Form-4 C-Suite Cluster Ledger (.CSV), and the GetBreakAI ATR + IV Expected Move Pine Script v5 Indicator.
+      Proプラン会員（月額$29 / 約4,350円 または 永久買い切り$199 / 約29,800円）は、全銘柄のGamma Flip＆2.0x ATR一覧表(.CSV)、Form-4役員自社株買い台帳、およびTradingView用Pine Script v5インジケーター全文を即座にアンロックできます。
     </p>
 
     <div class="terminal-shell" style="margin-bottom: 24px;">
@@ -1262,27 +1210,31 @@
           <span class="dot dot-r"></span>
           <span class="dot dot-y"></span>
           <span class="dot dot-g"></span>
-          <span id="vipStatusBadge" class="tape-badge bg-whale" style="margin-left:4px; white-space:normal; line-height:1.35;">🔒 VIP VAULT LOCKED (1 SAMPLE PREVIEW · ENTER LEMON SQUEEZY LICENSE KEY FOR FULL ACCESS)</span>
+          <span id="vipStatusBadge" class="tape-badge bg-whale" style="margin-left:4px; white-space:normal; line-height:1.35;">🔒 VIPデータ庫ロック中（$NVDAサンプル1銘柄のみ公開 · Proライセンスキー認証で全銘柄アンロック）</span>
         </div>
-        <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap; width:100%; max-width:440px;">
-          <input type="text" id="gbLicenseKeyInput" placeholder="Enter Lemon Squeezy License Key..." style="background:#090612; border:1px solid var(--border-accent); color:#fff; padding:7px 12px; border-radius:7px; font-family:var(--font-mono); font-size:0.8rem; flex:1; min-width:150px; max-width:100%;">
-          <button type="button" id="btnActivateGbVipKey" class="ticker-btn active" onclick="unlockGbVipVault()">🔑 Activate VIP Key</button>
+        <div style="display:flex; flex-direction:column; gap:6px; width:100%; max-width:540px;">
+          <div style="font-size:0.76rem; color:#fde68a; font-weight:700;">
+            🔑 決済完了後、メールで届くライセンスキー（XXXX-XXXX-...）を入力すると即座にVIP全機能が解放されます。
+          </div>
+          <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap; width:100%;">
+            <input type="text" id="gbLicenseKeyInput" placeholder="Lemon Squeezy ライセンスキー（XXXX-XXXX-...）を入力" style="background:#090612; border:1px solid var(--border-accent); color:#fff; padding:7px 12px; border-radius:7px; font-family:var(--font-mono); font-size:0.8rem; flex:1; min-width:150px; max-width:100%;">
+            <button type="button" id="btnActivateGbVipKey" class="ticker-btn active" onclick="unlockGbVipVault()">🔑 VIPキー認証</button>
+          </div>
         </div>
       </div>
       <div id="gbVipKeyStatus" style="display:none; padding:10px 20px; font-family:var(--font-mono); font-size:0.78rem; border-bottom:1px solid var(--border-color); background:rgba(244,63,94,0.12); color:#fda4af;"></div>
 
       <div class="vip-vault-inner" style="padding: 26px;">
-        <!-- VIP Deliverable 1: Pre-Earnings Whisper, Gamma Flip & 2.0x ATR Order Book -->
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:14px;">
           <div>
             <div style="font-family:var(--font-mono); font-size:0.78rem; color:var(--accent-amber); font-weight:800;">
-              ⚡ VIP DELIVERABLE #1 · DAILY EARNINGS WHISPER, GAMMA FLIP &amp; 2.0X ATR ORDER BOOK
+              ⚡ VIP特典 #1 · 日次決算カタリスト・Gamma Flip・2.0x ATR損切りオーダーブック
             </div>
-            <h3 style="font-size:1.15rem; font-weight:800; color:#fff;">High-Conviction Event Setups (<span id="gbVaultDateSub">LIVE FEED · AS OF NOV 2026 · 08:00 EST</span>)</h3>
+            <h3 style="font-size:1.12rem; font-weight:800; color:#fff;">機関投資家シグナル厳選セットアップ (<span id="gbVaultDateSub">米国市場最新データ反映 · 2026-11-09</span>)</h3>
           </div>
-          <div style="display:flex; gap:8px; flex-wrap:wrap; width:100%; max-width:520px;">
-            <button type="button" class="ticker-btn active" onclick="downloadGbCatalystCsv()">📥 Download Full Catalyst Order Book (.CSV)</button>
-            <button type="button" class="ticker-btn" onclick="copyGbTvWatchlist()">📋 Copy TradingView Catalyst Watchlist (🔒 VIP)</button>
+          <div style="display:flex; gap:8px; flex-wrap:wrap; width:100%; max-width:540px;">
+            <button type="button" class="ticker-btn active" onclick="downloadGbCatalystCsv()">📥 全銘柄カタリスト一覧 (.CSV) ダウンロード</button>
+            <button type="button" class="ticker-btn" onclick="copyGbTvWatchlist()">📋 TradingViewウォッチリストをコピー (🔒 VIP)</button>
           </div>
         </div>
 
@@ -1290,109 +1242,107 @@
           <table class="comp-table" style="font-family:var(--font-mono); font-size:0.82rem;">
             <thead>
               <tr>
-                <th>Ticker &amp; Event</th>
-                <th>AI Catalyst Score</th>
-                <th>8-K / Call NLP</th>
-                <th>Form-4 / Dark Pool</th>
-                <th>Gamma Flip Strike</th>
-                <th>2.0x ATR Stop</th>
-                <th>5D IV Expected Move</th>
-                <th>2.5R Target</th>
+                <th>銘柄・イベント</th>
+                <th>AIスコア</th>
+                <th>8-K / 決算NLP</th>
+                <th>Form-4 / ダークプール</th>
+                <th>Gamma転換ライン</th>
+                <th>2.0x ATR損切り</th>
+                <th>5日間IV変動幅</th>
+                <th>2.5R利確目標</th>
               </tr>
             </thead>
             <tbody id="vipCatalystTableBody">
               <tr>
-                <td><strong style="color:#fff;">$NVDA</strong> <span class="tape-badge bg-gamma">Q3 + GEX</span></td>
+                <td><strong style="color:#fff;">$NVDA エヌビディア</strong> <span class="tape-badge bg-gamma">決算+GEX</span></td>
                 <td class="val-violet"><strong>93.5/100</strong></td>
-                <td class="val-emerald">94% Bullish</td>
-                <td>61% Dark Pool</td>
-                <td class="val-amber">$182.00 Flip</td>
-                <td class="val-rose">$175.84</td>
-                <td>±$17.89</td>
-                <td class="val-emerald"><strong>$213.64</strong></td>
+                <td class="val-emerald">94% 強気</td>
+                <td>DP 61% · Call 3.2x</td>
+                <td class="val-amber">$179.82</td>
+                <td class="val-rose">$170.60</td>
+                <td>±$17.88</td>
+                <td class="val-emerald"><strong>$226.74</strong></td>
               </tr>
               <tr class="vip-locked-row">
-                <td><strong style="color:var(--accent-amber);">🔒 VIP CATALYST #2</strong> <span class="tape-badge bg-pead">SEC 8-K AI</span></td>
+                <td><strong style="color:var(--accent-amber);">🔒 VIP銘柄 #2</strong> <span class="tape-badge bg-pead">SEC 8-K AI</span></td>
                 <td class="val-violet"><strong>91.0/100</strong></td>
-                <td class="val-emerald">91% Bullish</td>
-                <td>64% Dark Pool</td>
-                <td>🔒 VIP Pro</td>
-                <td>🔒 VIP Pro</td>
-                <td>🔒 VIP Pro</td>
-                <td class="val-amber">🔒 Unlock ($29/mo)</td>
+                <td class="val-emerald">91% 強気</td>
+                <td>DP 64% · 機関買い</td>
+                <td>🔒 VIP限定</td>
+                <td>🔒 VIP限定</td>
+                <td>🔒 VIP限定</td>
+                <td class="val-amber">🔒 Pro認証で表示</td>
               </tr>
               <tr class="vip-locked-row">
-                <td><strong style="color:var(--accent-amber);">🔒 VIP WHALE #3</strong> <span class="tape-badge bg-whale">FORM-4 BUY</span></td>
+                <td><strong style="color:var(--accent-amber);">🔒 VIP銘柄 #3</strong> <span class="tape-badge bg-whale">Form-4役員買い</span></td>
                 <td class="val-violet"><strong>89.8/100</strong></td>
-                <td class="val-emerald">88% Bullish</td>
-                <td>3 Execs ($4.8M)</td>
-                <td>🔒 VIP Pro</td>
-                <td>🔒 VIP Pro</td>
-                <td>🔒 VIP Pro</td>
-                <td class="val-amber">🔒 Unlock ($29/mo)</td>
+                <td class="val-emerald">88% 強気</td>
+                <td>役員3名 ($4.8M)</td>
+                <td>🔒 VIP限定</td>
+                <td>🔒 VIP限定</td>
+                <td>🔒 VIP限定</td>
+                <td class="val-amber">🔒 Pro認証で表示</td>
               </tr>
               <tr class="vip-locked-row">
-                <td><strong style="color:var(--accent-amber);">🔒 VIP GAMMA #4</strong> <span class="tape-badge bg-gamma">0DTE SQUEEZE</span></td>
-                <td class="val-violet"><strong>88.4/100</strong></td>
-                <td class="val-emerald">86% Bullish</td>
-                <td>3.6x Call Sweep</td>
-                <td>🔒 VIP Pro</td>
-                <td>🔒 VIP Pro</td>
-                <td>🔒 VIP Pro</td>
-                <td class="val-amber">🔒 Unlock ($29/mo)</td>
+                <td><strong style="color:var(--accent-amber);">🔒 VIP銘柄 #4</strong> <span class="tape-badge bg-gamma">0DTE GEX</span></td>
+                <td class="val-violet"><strong>89.7/100</strong></td>
+                <td class="val-emerald">85% 強気</td>
+                <td>Call 3.6x スイープ</td>
+                <td>🔒 VIP限定</td>
+                <td>🔒 VIP限定</td>
+                <td>🔒 VIP限定</td>
+                <td class="val-amber">🔒 Pro認証で表示</td>
               </tr>
             </tbody>
           </table>
         </div>
 
-        <!-- VIP Deliverable 2 & 3 Grid -->
         <div class="vip-two-col-grid">
-          <!-- VIP Deliverable 2: Exclusive GetBreakAI Pine Script v5 -->
+          <!-- VIP特典 #2: TradingView Pine Script v5 -->
           <div class="feature-card" style="background:#120d22;">
             <div style="font-family:var(--font-mono); font-size:0.75rem; color:#c4b5fd; font-weight:800; margin-bottom:6px;">
-              💻 VIP DELIVERABLE #2 · TRADINGVIEW PINE SCRIPT V5 (🔒 VIP GATED)
+              💻 VIP特典 #2 · TRADINGVIEW PINE SCRIPT V5 (🔒 VIP限定)
             </div>
-            <h3 class="card-title">GetBreakAI ATR Volatility Stop + IV Expected Move Cone v2.4</h3>
+            <h3 class="card-title">GetBreakAI ATR損切りライン ＋ 5日間IV Gamma Wall インジケーター v2.4</h3>
             <p class="card-desc" style="margin-bottom:12px;">
-              Plots dynamic 2.0x ATR trailing stops, 5-day Options Implied Volatility (±1 SD) Gamma Walls, and Dark-Pool volume spikes directly on your TradingView chart.
+              TradingViewチャート上に「2.0x ATRトレーリング損切り線」「5日間オプションIV予想上限(Gamma Wall)」「2.5R利確ライン」「大口出来高スパイク」を自動描画します。
             </p>
-            <pre id="gbPineBox" style="background:#070510; border:1px solid var(--border-color); border-radius:8px; padding:12px; font-family:var(--font-mono); font-size:0.73rem; color:#c4b5fd; overflow-x:auto; max-width:100%; max-height:150px; margin-bottom:12px;">//@version=5
+            <pre id="gbPineBox" style="background:#070510; border:1px solid var(--border-color); border-radius:8px; padding:12px; font-family:var(--font-mono); font-size:0.73rem; color:#c4b5fd; overflow-x:auto; max-width:100%; max-height:155px; margin-bottom:12px;">//@version=5
 indicator("GetBreakAI Catalyst ATR &amp; IV Gamma Cone v2.4", overlay=true)
 atrLen = input.int(14, "ATR Period")
 atrMult = input.float(2.0, "ATR Stop Multiplier")
-// 🔒 [VIP PRO LOCKED — 42+ lines of 2.0x ATR Stop, 5D IV Gamma Cone &amp; Whale Block Spike logic hidden]
-// 🔑 Activate your Lemon Squeezy VIP License Key above or subscribe below ($29/mo or $199 Lifetime) to unlock full source</pre>
-            <button type="button" id="btnCopyGbPine" class="btn-checkout btn-checkout-primary" style="width:100%; border:none; cursor:pointer;" onclick="copyGbPineScript()">🔒 Unlock &amp; Copy GetBreakAI Pine Script v5</button>
+// 🔒 [VIP限定] Proライセンスキー認証後にPine Script v5全文およびTradingViewウォッチリストをコピーできます</pre>
+            <button type="button" id="btnCopyGbPine" class="btn-checkout btn-checkout-primary" style="width:100%; border:none; cursor:pointer;" onclick="copyGbPineScript()">🔒 VIPロック解除してPine Script v5全文をコピー</button>
           </div>
 
-          <!-- VIP Deliverable 3: Form-4 Insider Cluster & Webhook Suite -->
+          <!-- VIP特典 #3: SEC Form-4 インサイダー台帳 & Webhook -->
           <div class="feature-card" style="background:#120d22; display:flex; flex-direction:column; justify-content:space-between;">
             <div>
               <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--accent-amber); font-weight:800; margin-bottom:6px;">
-                🐋 VIP DELIVERABLE #3 · SEC FORM-4 INSIDER LEDGER &amp; WEBHOOKS
+                🐋 VIP特典 #3 · SEC FORM-4 役員自社株買い台帳 ＆ アラートWebhook
               </div>
-              <h3 class="card-title">C-Suite Cash Cluster Ledger &amp; Automated Alert Webhooks</h3>
+              <h3 class="card-title">経営陣キャッシュ買いクラスター台帳 (.CSV) ＆ 自動通知JSON</h3>
               <p class="card-desc" style="margin-bottom:14px;">
-                Track exact executive open-market purchase prices and connect GetBreakAI's JSON webhook stream directly to your Telegram, Discord, or automated execution desk.
+                CEO・CFOによる市場内キャッシュ買いの平均取得単価とダークプール集積率を追跡し、TradingViewやDiscord/Telegramへシグナルを即時転送できます。
               </p>
               <div style="background:#070510; border:1px solid var(--border-color); border-radius:8px; padding:12px; font-family:var(--font-mono); font-size:0.78rem; margin-bottom:14px;">
                 <div class="vip-exec-row" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:4px; padding:4px 0; border-bottom:1px solid var(--border-color);">
-                  <span>$LLY (3 Execs · CEO/CFO/EVP)</span>
-                  <strong class="val-emerald">$4.82M Cash Buy @ $835.00</strong>
+                  <span>$LLY イーライリリー (役員3名・CEO/CFO)</span>
+                  <strong class="val-emerald">$4.82M 自己資金買い (約7.2億円)</strong>
                 </div>
                 <div class="vip-exec-row" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:4px; padding:4px 0; border-bottom:1px solid var(--border-color);">
-                  <span>$PLTR (DoD 8-K + Dark Pool)</span>
-                  <strong class="val-violet">64.2% Off-Exchange Print</strong>
+                  <span>$PLTR パランティア (国防8-K + DP)</span>
+                  <strong class="val-violet">ダークプール比率 64.2%</strong>
                 </div>
                 <div class="vip-exec-row" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:4px; padding:4px 0;">
-                  <span>$AVGO (Custom AI ASIC 8-K)</span>
-                  <strong class="val-amber">Call/Put 2.9x Gamma Flip</strong>
+                  <span>$AVGO ブロードコム (AI ASIC 8-K)</span>
+                  <strong class="val-amber">Call/Put 2.9倍 GEX転換</strong>
                 </div>
               </div>
             </div>
             <div class="vip-btn-pair-grid">
-              <button type="button" class="btn-checkout btn-checkout-secondary" style="cursor:pointer;" onclick="downloadGbInsiderCsv()">📥 Form-4 Insider (.CSV)</button>
-              <button type="button" class="btn-checkout btn-checkout-secondary" style="cursor:pointer;" onclick="copyGbWebhookJson()">🔔 Copy Webhook JSON (🔒 VIP)</button>
+              <button type="button" class="btn-checkout btn-checkout-secondary" style="cursor:pointer;" onclick="downloadGbInsiderCsv()">📥 Form-4役員買い台帳 (.CSV)</button>
+              <button type="button" class="btn-checkout btn-checkout-secondary" style="cursor:pointer;" onclick="copyGbWebhookJson()">🔔 Webhook JSONコピー (🔒 VIP)</button>
             </div>
           </div>
         </div>
@@ -1400,188 +1350,466 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
     </div>
   </section>
 
-  <!-- Pricing Section (Lemon Squeezy Store #296100 Live Checkout Preserved) -->
-  <section id="pricing" class="section container" style="padding-bottom: 100px;">
-    <h2 class="section-title">Institutional Catalyst & Flow Pricing</h2>
+  <!-- 料金プラン (#pricing · Lemon Squeezy Store #296100) -->
+  <section id="pricing" class="section container" style="padding-bottom: 80px;">
+    <h2 class="section-title">新NISA・米国株投資家向け Proライセンス料金プラン</h2>
     <p class="section-subtitle">
-      USD SaaS billing powered by Lemon Squeezy Merchant of Record (Store ID #296100). Instant access to the AI Catalyst Radar & ATR Position Sizer.
+      決済はグローバル公式決済基盤 Lemon Squeezy (Store ID #296100) により安全に処理され、購入完了メールで届くライセンスキーで即座にVIP機能をアンロックできます。
     </p>
 
-    <!-- Dual-Terminal VIP Pro Bundle Banner -->
-    <div style="background:linear-gradient(135deg, rgba(139,92,246,0.18) 0%, rgba(16,185,129,0.12) 100%); border:1.5px solid rgba(139,92,246,0.55); border-radius:14px; padding:16px 20px; margin-bottom:28px; text-align:center;">
-      <div style="font-family:var(--font-mono); font-size:0.76rem; color:var(--accent-amber); font-weight:800; margin-bottom:4px;">
-        🎁 DUAL-TERMINAL PRO BUNDLE INCLUDED (1 LICENSE KEY = 2 QUANT TERMINALS)
+    <!-- 2サイト共通VIPバンドルバナー -->
+    <div style="background:linear-gradient(135deg, rgba(139,92,246,0.20) 0%, rgba(16,185,129,0.14) 100%); border:1.5px solid rgba(139,92,246,0.65); border-radius:14px; padding:18px 22px; margin-bottom:28px; text-align:center;">
+      <div style="font-family:var(--font-mono); font-size:0.8rem; color:var(--accent-amber); font-weight:800; margin-bottom:6px;">
+        🎁 2大クオンツ端末 共通VIPパスポート特典
       </div>
-      <div style="color:#fff; font-size:0.94rem; font-weight:700;">
-        Every <strong>$29/mo</strong> or <strong>$199 Lifetime</strong> key issued by Store #296100 unlocks <strong>BOTH GetBreakAI.com</strong> (1–15 Day Catalyst &amp; Gamma Squeeze Terminal) <strong>AND <a href="https://truthofmarket.com/?utm_source=getbreakai&utm_medium=pricing_bundle" target="_blank" rel="noopener" style="color:#38bdf8; text-decoration:underline;">TruthOfMarket.com</a></strong> (60-Day PW-RSI &amp; Semiconductor Fear/Greed Terminal) at zero extra cost!
+      <div style="color:#fff; font-size:0.98rem; font-weight:800; line-height:1.55;">
+        🔥 1つのProライセンスキーで <strong>GetBreakAI.com (日本語・短期イベント＆ATR端末)</strong> と <strong><a href="https://truthofmarket.com/?utm_source=getbreakai&utm_medium=pricing_bundle" target="_blank" rel="noopener" style="color:#38bdf8; text-decoration:underline;">TruthOfMarket.com</a> (半導体恐怖強欲指数＆72銘柄PW-RSI端末・日本語対応)</strong> の両方をVIPロック解除！
       </div>
     </div>
 
     <div class="pricing-grid">
-      <!-- Starter -->
+      <!-- 月額プラン -->
       <div class="price-card">
         <div>
-          <h3 class="price-name">Catalyst Starter (Dual-Terminal)</h3>
-          <div class="price-amount">$29 <span>/ month</span></div>
-          <p class="price-desc">For active traders tracking daily earnings beats, SEC Form-4 insider buys, and ATR sizing.</p>
+          <h3 class="price-name">Catalyst Starter 月額Pro</h3>
+          <div class="price-amount">$29 <span>/ 月 (約4,400円・税込)</span></div>
+          <p class="price-desc">決算シーズンのSEC 8-K解析、Form-4インサイダー買い追跡、ATRポジション管理を毎月フル活用したい米国株トレーダー向け。</p>
           <ul class="feature-list">
-            <li><span class="check">✓</span> Daily Top 10 Earnings & 8-K NLP Catalyst Feed</li>
-            <li><span class="check">✓</span> SEC Form-4 Executive Insider Cluster Scanner</li>
-            <li><span class="check">✓</span> Interactive ATR & Options IV Position Sizer + Pine Script v5</li>
-            <li><span class="check">✓</span> <strong>Bonus: Full Pro Access to TruthOfMarket.com Included</strong></li>
+            <li><span class="check">✓</span> <span>日次トップ15米国株 SEC 8-K＆決算コール日本語NLP解析</span></li>
+            <li><span class="check">✓</span> <span>SEC Form-4 経営陣キャッシュ買いクラスター台帳 (.CSV)</span></li>
+            <li><span class="check">✓</span> <span>2.0x ATR損切り＆適正株数計算機 ＋ Pine Script v5全文</span></li>
+            <li><span class="check">✓</span> <span><strong>特典：姉妹サイト TruthOfMarket.com のVIP機能も同時解放</strong></span></li>
           </ul>
         </div>
-        <a href="https://truthofmarket.lemonsqueezy.com/checkout/buy/bad98d00-7175-41f6-9d58-eeb2471d0da4?embed=1" class="btn-checkout btn-checkout-secondary lemonsqueezy-button">Start Catalyst Monthly ($29/mo)</a>
+        <a href="https://truthofmarket.lemonsqueezy.com/checkout/buy/bad98d00-7175-41f6-9d58-eeb2471d0da4?embed=1" class="btn-checkout btn-checkout-secondary lemonsqueezy-button">月額Proプランを始める ($29 / 月 · 約4,400円・税込)</a>
+        <div style="margin-top:10px; font-size:0.74rem; color:var(--text-muted); text-align:center; line-height:1.45;">
+          🔒 Stripe / Lemon Squeezy 安全決済（🍎 Apple Pay・Google Pay・JCB・Visa・Master・PayPal 対応 / いつでも1クリックで解約可能）
+        </div>
       </div>
 
-      <!-- Pro -->
+      <!-- 永久買い切りプラン -->
       <div class="price-card featured">
-        <div class="badge-popular">MOST POPULAR · LIFETIME DUAL BUNDLE</div>
+        <div class="badge-popular">👑 一番人気・買い切り (追加費用0円)</div>
         <div>
-          <h3 class="price-name">Whale & Gamma Pro (Lifetime)</h3>
-          <div class="price-amount">$199 <span>/ lifetime</span></div>
-          <p class="price-desc">Full lifetime access to real-time Options Gamma Squeeze walls, Dark Pool prints, and forensic alerts with zero recurring fees.</p>
+          <h3 class="price-name">Whale &amp; Gamma Pro (永久買い切り)</h3>
+          <div class="price-amount">$199 <span>/ 永久ライセンス (約30,000円・追加費用なしの買い切り)</span></div>
+          <p class="price-desc">毎月のサブスク課金なし。1回の決済でGetBreakAI.comとTruthOfMarket.comの全VIP機能を生涯無制限で利用可能。</p>
           <ul class="feature-list">
-            <li><span class="check">✓</span> <strong>All Catalyst Starter Features Included Forever</strong></li>
-            <li><span class="check">✓</span> Real-Time Options Gamma Exposure (GEX) Flip Levels</li>
-            <li><span class="check">✓</span> Off-Exchange Dark Pool Block Print Alerts (>55%)</li>
-            <li><span class="check">✓</span> SEC 10-K Forensic Accounting Red-Flag Scanner</li>
-            <li><span class="check">✓</span> <strong>Bonus: Lifetime Pro Access to TruthOfMarket.com Included</strong></li>
+            <li><span class="check">✓</span> <span><strong>月額Proプランの全機能を生涯無制限でアンロック（追加費用0円）</strong></span></li>
+            <li><span class="check">✓</span> <span>オプションGamma Wall (GEX) 転換ライン＆ダークプール機関比率</span></li>
+            <li><span class="check">✓</span> <span>SEC 10-K 会計監査リスク・急落銘柄回避フォレンジック警告</span></li>
+            <li><span class="check">✓</span> <span>TradingView用 ATR + IV Gamma Cone Pine Script v5 永久利用権</span></li>
+            <li><span class="check">✓</span> <span><strong>特典：TruthOfMarket.com 生涯VIPライセンスも永久付属</strong></span></li>
           </ul>
         </div>
-        <a href="https://truthofmarket.lemonsqueezy.com/checkout/buy/00c9f6e1-c8be-42a4-b5a5-e05af1a41ed9?embed=1" class="btn-checkout btn-checkout-primary lemonsqueezy-button">Unlock Lifetime Pro Access ($199) →</a>
+        <a href="https://truthofmarket.lemonsqueezy.com/checkout/buy/00c9f6e1-c8be-42a4-b5a5-e05af1a41ed9?embed=1" class="btn-checkout btn-checkout-primary lemonsqueezy-button">👑 永久ライセンスを買い切りでアンロック ($199 / 約30,000円) →</a>
+        <div style="margin-top:10px; font-size:0.74rem; color:#fde68a; text-align:center; line-height:1.45;">
+          🔒 Stripe / Lemon Squeezy 安全決済（🍎 Apple Pay・Google Pay・JCB・Visa・Master・PayPal 対応 / いつでも1クリックで解約可能）
+        </div>
       </div>
 
-      <!-- Institutional -->
+      <!-- 機関・法人デスク -->
       <div class="price-card">
         <div>
-          <h3 class="price-name">Institutional Event Desk</h3>
-          <div class="price-amount">$1,499 <span>/ year</span></div>
-          <p class="price-desc">For event-driven prop desks, family offices, and quantitative catalyst funds ($125/mo equivalent).</p>
+          <h3 class="price-name">Institutional 機関投資家デスク</h3>
+          <div class="price-amount">$1,499 <span>/ 年 (約22.4万円/年)</span></div>
+          <p class="price-desc">プロップデスク、ファミリーオフィス、クオンツ運用チーム向けのマルチシート＆APIプラン。</p>
           <ul class="feature-list">
-            <li><span class="check">✓</span> Full REST & WebSocket Catalyst + GEX API</li>
-            <li><span class="check">✓</span> Raw Earnings Call NLP Sentiment JSON Stream</li>
-            <li><span class="check">✓</span> Custom 13F Hedge Fund Whale Portfolio Diffs</li>
-            <li><span class="check">✓</span> Multi-Seat Desk License (Up to 5 Seats)</li>
-            <li><span class="check">✓</span> Dedicated Priority Quant Engineer Support</li>
+            <li><span class="check">✓</span> <span>REST / WebSocket カタリスト＆GEXデータフィードAPI</span></li>
+            <li><span class="check">✓</span> <span>決算コールNLPセンチメント生JSONストリーム配信</span></li>
+            <li><span class="check">✓</span> <span>機関投資家13Fポートフォリオ差分トラッカー</span></li>
+            <li><span class="check">✓</span> <span>最大5シートのチームライセンス＆優先エンジニアサポート</span></li>
           </ul>
         </div>
-        <a href="mailto:beable9489@gmail.com?subject=GetBreakAI%20Institutional%20Event%20Desk%20Inquiry" class="btn-checkout btn-checkout-secondary">Contact Institutional Desk</a>
+        <a href="mailto:beable9489@gmail.com?subject=GetBreakAI%20Institutional%20Desk%20Inquiry" class="btn-checkout btn-checkout-secondary">法人デスクへ問い合わせる</a>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
+  <!-- 米国株・新NISA 日本語ディープリサーチ30選 (#jp-research-hub) -->
+  <section id="jp-research-hub" class="section container" style="padding-top:20px; padding-bottom:80px;">
+    <h2 class="section-title">📚 米国株・新NISA 銘柄別AI日本語ディープリサーチ30選</h2>
+    <p class="section-subtitle">
+      日本の米国株投資家（株クラ・新NISA成長投資枠）が最も注目する主要銘柄・テーマ別のSEC開示・インサイダー動向・Gamma Wall・ATR損切りライン徹底解説レポート：
+    </p>
+    <div class="seo-grid">
+      <a class="seo-link-card" href="/jp/nvda-sec-gamma-atr-analysis.html">📈 エヌビディア(NVDA) 決算・SEC開示・ガンマスクイーズAI解析とATR損切りライン</a>
+      <a class="seo-link-card" href="/jp/pltr-insider-buying-analysis.html">🐋 パランティア(PLTR) 国防AI契約(8-K)・ダークプール機関買いとATR適正株数</a>
+      <a class="seo-link-card" href="/jp/tsla-gamma-wall-swing-trade.html">⚡ テスラ(TSLA) オプションGamma Wall(GEX)突破とスイング損切り戦略</a>
+      <a class="seo-link-card" href="/jp/soxl-smh-semiconductor-timing.html">🔥 SOXL・SMH 半導体ETF3倍レバレッジのボラティリティ管理とATR撤退ルール</a>
+      <a class="seo-link-card" href="/jp/smci-accounting-risk-warning.html">⚠️ スーパー・マイクロ(SMCI) SEC会計リスク・ダークプール機関売り警告と回避基準</a>
+      <a class="seo-link-card" href="/jp/shin-nisa-us-stock-atr-risk-management.html">🔰 新NISA成長投資枠で勝つ米国株ATR損切り＆ポジションサイジング完全ガイド</a>
+      <a class="seo-link-card" href="/jp/lly-form4-insider-cluster-buy.html">💊 イーライリリー(LLY) Form-4経営陣自社株買いクラスターと肥満症薬カタリスト</a>
+      <a class="seo-link-card" href="/jp/avgo-custom-ai-asic-8k-analysis.html">🔬 ブロードコム(AVGO) カスタムAI半導体(ASIC)受注8-Kと機関ダークプール解析</a>
+      <a class="seo-link-card" href="/jp/amd-mi350-gamma-squeeze-target.html">💻 AMD(アドバンスト・マイクロ・デバイセズ) AI GPUシェア拡大とATR損切り計算</a>
+      <a class="seo-link-card" href="/jp/meta-ai-capex-earnings-nlp.html">🌐 メタ(META) AI広告収益化・決算コールNLP強気スコアとGamma Wall解析</a>
+      <a class="seo-link-card" href="/jp/crwd-cybersecurity-pead-drift.html">🛡️ クラウドストライク(CRWD) 決算後ドリフト(PEAD)と機関投資家オプション需給</a>
+      <a class="seo-link-card" href="/jp/vrt-ai-datacenter-cooling-catalyst.html">❄️ バーティブ(VRT) AIデータセンター液冷受注8-KとATRボラティリティ管理</a>
+      <a class="seo-link-card" href="/jp/ceg-nuclear-ai-power-8k-contract.html">⚡ コンステレーション・エナジー(CEG) AI原発電力契約(8-K)と機関買い追跡</a>
+      <a class="seo-link-card" href="/jp/mstr-bitcoin-volatility-atr-sizing.html">₿ マイクロストラテジー(MSTR) 超高IV局面のATR損切り＆適正株数シミュレーター</a>
+      <a class="seo-link-card" href="/jp/arm-royalty-expansion-gamma-wall.html">📱 アーム(ARM) v9ロイヤルティ成長・オプションGEX転換とスイング目標値</a>
+      <a class="seo-link-card" href="/jp/asml-euv-orders-semiconductor-cycle.html">🏭 ASMLホールディング EUV受注動向・半導体サイクル底打ちとATR資金管理</a>
+      <a class="seo-link-card" href="/jp/unh-defensive-healthcare-insider-buy.html">🏥 ユナイテッドヘルス(UNH) ディフェンシブ医療株のインサイダー買いと安定運用</a>
+      <a class="seo-link-card" href="/jp/msft-azure-ai-copilot-sec-8k.html">☁️ マイクロソフト(MSFT) Azure AI成長率・SEC開示NLPと新NISAコア戦略</a>
+      <a class="seo-link-card" href="/jp/aapl-apple-intelligence-cycle-gex.html">🍎 アップル(AAPL) Apple Intelligence買い替えサイクルとオプションGEX壁</a>
+      <a class="seo-link-card" href="/jp/amzn-aws-margin-expansion-pead.html">📦 アマゾン(AMZN) AWS営業利益率改善・決算後ドリフトとATRトレーリング</a>
+      <a class="seo-link-card" href="/jp/googl-search-cloud-ai-valuation.html">🔍 アルファベット(GOOGL) Cloud AI増収・自社株買いとGamma Wall分析</a>
+      <a class="seo-link-card" href="/jp/sec-8k-japanese-ai-guide.html">📑 米国株SEC Form 8-Kとは？英語の適時開示をAIで3秒解読する実戦マニュアル</a>
+      <a class="seo-link-card" href="/jp/form4-insider-cluster-guide.html">🐋 SEC Form-4インサイダー買いの見方：CEO・CFOの自腹買いクラスターで勝つ方法</a>
+      <a class="seo-link-card" href="/jp/options-gamma-squeeze-gex-guide.html">🚀 オプションGamma Squeeze(GEX)完全解説：なぜコール集中で米国株は急騰するのか</a>
+      <a class="seo-link-card" href="/jp/fomc-cpi-iv-crush-strategy.html">📉 米国株決算またぎ＆FOMC・CPI前後のIVクラッシュ回避とATRポジション調整術</a>
+      <a class="seo-link-card" href="/jp/tradingview-pine-script-v5-atr-guide.html">📊 TradingView Pine Script v5で2.0x ATR損切りラインとGamma Wallを表示する方法</a>
+      <a class="seo-link-card" href="/jp/us-stock-stop-loss-2percent-rule.html">🛡️ 米国株スイングで資産を守る「口座リスク1.5%・2.0x ATR損切りルール」の数学的証明</a>
+      <a class="seo-link-card" href="/jp/dark-pool-whale-flow-reading.html">🕵️ ダークプール(取引所外ブロック取引)とは？機関投資家の隠れた買い集めを見抜く技術</a>
+      <a class="seo-link-card" href="/jp/ai-datacenter-power-stocks-2026.html">🔌 AIデータセンター電力・冷却インフラ関連米国株（VRT・CEG・AVGO）徹底比較</a>
+      <a class="seo-link-card" href="/jp/semiconductor-cycle-truthofmarket-guide.html">🧭 半導体サイクル投資×短期イベント投資：TruthOfMarketとGetBreakAIの最強併用術</a>
+    </div>
+  </section>
+
+  <!-- フッター -->
   <footer>
     <div class="container">
       <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:24px;">
-        <div style="max-width:420px;">
+        <div style="max-width:460px;">
           <div class="brand-logo" style="margin-bottom:10px;">
             <div class="brand-dot"></div>
             GetBreakAI
           </div>
           <p>
-            Event-Driven AI Catalyst, SEC Form-4 Insider Cluster & Options Gamma Intelligence Terminal by Dream Company.
+            米国株・新NISA・株クラ投資家のためのSEC 8-K開示・Form-4インサイダー買い・オプションGamma Wall(GEX) AI日本語解読＆ATR損切り・適正株数ターミナル。
           </p>
           <p style="margin-top:8px;">
-            Sister Macro/Trend Terminal: <a href="https://truthofmarket.com/?utm_source=getbreakai&utm_medium=footer" target="_blank" rel="noopener" style="color:var(--accent-sky); font-weight:700;">TruthOfMarket.com ↗</a> · Official Desk: <a href="mailto:beable9489@gmail.com" style="color:var(--accent-violet);">beable9489@gmail.com</a>
+            姉妹クオンツ端末: <a href="https://truthofmarket.com/?utm_source=getbreakai&utm_medium=footer" target="_blank" rel="noopener" style="color:var(--accent-sky); font-weight:700;">TruthOfMarket.com (半導体恐怖強欲指数＆PW-RSI) ↗</a> · 公式サポート: <a href="mailto:beable9489@gmail.com" style="color:var(--accent-violet);">beable9489@gmail.com</a>
           </p>
         </div>
         <div>
-          <strong style="color:#fff; display:block; margin-bottom:8px;">Terminal Modules &amp; Deep Links</strong>
-          <div><a href="?ticker=NVDA#radar" style="color:var(--text-muted); text-decoration:none;">$NVDA Gamma Squeeze Radar</a></div>
-          <div><a href="?ticker=PLTR#radar" style="color:var(--text-muted); text-decoration:none;">$PLTR SEC 8-K &amp; Dark Pool</a></div>
-          <div><a href="?ticker=LLY#radar" style="color:var(--text-muted); text-decoration:none;">$LLY Form-4 Whale Cluster</a></div>
-          <div><a href="?ticker=TSLA#radar" style="color:var(--text-muted); text-decoration:none;">$TSLA 0DTE Call Wall Flip</a></div>
-          <div><a href="https://truthofmarket.com/" target="_blank" rel="noopener" style="color:var(--accent-sky); text-decoration:none;">TruthOfMarket.com ($SMH Fear &amp; Greed) ↗</a></div>
+          <strong style="color:#fff; display:block; margin-bottom:8px;">銘柄別クイック起動リンク (?ticker=ディープリンク)</strong>
+          <div><a href="?ticker=NVDA#radar" style="color:var(--text-muted); text-decoration:none;">$NVDA (エヌビディア) ガンマスクイーズ＆ATR計算</a></div>
+          <div><a href="?ticker=PLTR#radar" style="color:var(--text-muted); text-decoration:none;">$PLTR (パランティア) SEC 8-K＆ダークプール解析</a></div>
+          <div><a href="?ticker=LLY#radar" style="color:var(--text-muted); text-decoration:none;">$LLY (イーライリリー) Form-4役員自社株買い</a></div>
+          <div><a href="?ticker=TSLA#radar" style="color:var(--text-muted); text-decoration:none;">$TSLA (テスラ) Call Wall転換＆スイング目標</a></div>
+          <div><a href="?ticker=SMCI#radar" style="color:var(--text-muted); text-decoration:none;">$SMCI 会計監査リスク＆機関売り回避チェック</a></div>
+          <div><a href="/jp/index.html" style="color:var(--accent-sky); text-decoration:none;">📚 日本語ディープリサーチ全30記事一覧 →</a></div>
         </div>
       </div>
 
+      
+      <div style="margin-top:22px; display:flex; gap:18px; flex-wrap:wrap; font-size:0.84rem; border-top:1px solid var(--border-color); padding-top:18px;">
+        <button type="button" onclick="openGbJpLegalModal('tokushoho')" style="background:none; border:none; color:#c4b5fd; cursor:pointer; font-weight:700; text-decoration:underline;">特定商取引法に基づく表記</button>
+        <button type="button" onclick="openGbJpLegalModal('terms')" style="background:none; border:none; color:#c4b5fd; cursor:pointer; font-weight:700; text-decoration:underline;">利用規約</button>
+        <button type="button" onclick="openGbJpLegalModal('privacy')" style="background:none; border:none; color:#c4b5fd; cursor:pointer; font-weight:700; text-decoration:underline;">プライバシーポリシー</button>
+        <button type="button" onclick="openGbJpLegalModal('refund')" style="background:none; border:none; color:#c4b5fd; cursor:pointer; font-weight:700; text-decoration:underline;">返金ポリシー</button>
+      </div>
+
       <div class="legal-box">
-        <strong>SAFE HARBOR & REGULATORY COMPLIANCE NOTICE:</strong><br>
-        GetBreakAI is automated event-driven financial analytics software, not a registered investment advisor or broker-dealer under FINRA/SEC regulations. All SEC filing NLP scores, Form-4 insider cluster detections, dark pool percentages, options implied volatility expected moves, and ATR position sizing outputs are strictly for informational and educational research. Options and equity trading involve substantial risk of loss.
-        <br><br>
-        © 2026 Dream Company & GetBreakAI. Merchant of Record: Lemon Squeezy Store ID #296100. All rights reserved.
+        <strong>【免責事項・金融商品取引法および関連法規に関する告知】</strong><br>
+        GetBreakAI（当サイト）は、米国SEC公開データおよびオプション市場統計に基づく金融情報解析ソフトウェアであり、投資助言業または金融商品取引業者ではありません。表示されるAIカタリストスコア、SEC開示要約、Form-4集計、予想変動幅(IV)、およびATR損切り・株数シミュレーションは情報提供・教育目的であり、特定銘柄の売買推奨や利益保証を行うものではありません。米国株式・ETF・オプション取引には価格変動リスクおよび為替変動リスクがあり、最終的な投資判断はご自身の責任において行ってください。<br><br>
+        © 2026 Dream Company &amp; GetBreakAI. Merchant of Record: Lemon Squeezy Store ID #296100. All rights reserved.
       </div>
     </div>
   </footer>
 
+  <!-- 日本語 法務・特定商取引法モーダル (#gbJpLegalModal) -->
+  <div id="gbJpLegalModal" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(6,5,12,0.82); backdrop-filter:blur(6px); align-items:center; justify-content:center; padding:16px;" onclick="if(event.target===this) closeGbJpLegalModal();">
+    <div style="background:#0e0b1a; border:1.5px solid #8b5cf6; border-radius:16px; max-width:680px; width:100%; max-height:86vh; overflow-y:auto; padding:26px; color:#f8fafc; box-shadow:0 24px 64px rgba(0,0,0,0.75);">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #241d3d; padding-bottom:12px; margin-bottom:16px;">
+        <h3 id="gbJpLegalModalTitle" style="font-size:1.15rem; font-weight:900; color:#fde68a;">特定商取引法に基づく表記</h3>
+        <button type="button" onclick="closeGbJpLegalModal()" style="background:#1d1636; border:1px solid #4c3785; color:#fff; border-radius:8px; padding:4px 12px; cursor:pointer; font-weight:800;">✕ 閉じる</button>
+      </div>
+      <div id="gbJpLegalModalBody" style="font-size:0.88rem; color:#cbd5e1; line-height:1.75;"></div>
+    </div>
+  </div>
+
+
   <script>
+    const USD_JPY_RATE = 150.0;
     const CATALYST_DATA = {
-      NVDA: {
-        badge: 'GAMMA_SQUEEZE_IGNITION',
-        badgeClass: 'tape-badge bg-gamma',
-        headline: '$NVDA — Sovereign AI Guidance Raise + $195 Call Gamma Wall',
-        summary: 'NLP Transcript Decoder detected a 94/100 bullish guidance inflection on sovereign AI rack deployments. Options desk flags 3.2x Call/Put sweep imbalance forcing market-maker delta hedging above $182.00.',
-        score: '93.5 / 100',
-        nlp: '94% Bullish (+18.5% EPS)',
-        insider: '3 Execs ($6.2M Buy)',
-        flow: '61% Dark Pool · 3.2x Call',
-        trigger: 'Dealer Positive Gamma Flip at $182.00 → Squeeze Acceleration Target: $204.53 (5-Day IV Window)',
-        entry: 186.64,
-        atr: 5.4,
-        iv: 68
+      "NVDA": {
+            "jpName": "エヌビディア",
+            "hashtag": "#エヌビディア",
+            "badge": "GAMMA_SQUEEZE_IGNITION",
+            "badgeClass": "tape-badge bg-gamma",
+            "headline": "$NVDA (エヌビディア) — 次世代Blackwellガイダンス上方修正＋コールGamma Wall突破シグナル",
+            "summary": "SEC 8-Kおよび決算カンファレンスコールNLP解析で強気トーン94/100を検知。ソブリンAI・データセンター向け粗利率の拡大が確認され、オプション市場ではCall/Put比率3.2倍のスイープ流入によりマーケットメイカーの強制デルタヘッジ買い（ガンマスクイーズ）が発動中。",
+            "score": "93.5 / 100 (機関強気)",
+            "nlp": "94% 強気 (EPS +18.5%サプライズ)",
+            "insider": "経営陣3名 市場内買い ($6.2M)",
+            "flow": "ダークプール 61% · Call 3.2倍",
+            "trigger": "ディーラー正ガンマ転換ライン $179.82 突破 → 5日間IV上限ターゲット $204.52",
+            "entry": 186.64,
+            "atr": 8.02,
+            "iv": 68,
+            "isAvoid": false
       },
-      PLTR: {
-        badge: 'DARK_POOL_8K_BREAKOUT',
-        badgeClass: 'tape-badge bg-pead',
-        headline: '$PLTR — SEC Form 8-K Defense AI Contract + 64% Dark Pool Accumulation',
-        summary: 'Automated SEC 8-K parser flagged a multi-year DoD Maven AI expansion contract within 1.8 seconds of filing. Off-exchange Dark Pool block prints surged to 64.2% of total daily volume.',
-        score: '91.0 / 100',
-        nlp: '91% Bullish (8-K Contract)',
-        insider: 'Institutional 13F +14.8%',
-        flow: '64% Dark Pool · 2.8x Call',
-        trigger: 'Post-8K Institutional Drift Window → Upper Gamma Wall at $177.10 (2.0x ATR Stop $152.58)',
-        entry: 160.38,
-        atr: 3.9,
-        iv: 74
+      "PLTR": {
+            "jpName": "パランティア",
+            "hashtag": "#パランティア",
+            "badge": "SEC_8K_DARKPOOL_ACCUM",
+            "badgeClass": "tape-badge bg-pead",
+            "headline": "$PLTR (パランティア) — 米国防総省AI大型契約(SEC 8-K)＋ダークプール64%機関集積",
+            "summary": "SEC Form 8-K開示から1.8秒で国防AIプラットフォーム(AIP/Maven)複数年契約の拡大をAIが自動解読。取引所外ダークプールでの機関投資家ブロック買い比率が全出来高の64.2%へ急増し、決算後の継続上昇(PEAD: Post-Earnings Announcement Drift)局面に突入。",
+            "score": "91.0 / 100 (機関集積)",
+            "nlp": "91% 強気 (8-K大型政府契約)",
+            "insider": "機関13F保有 +14.8%増",
+            "flow": "ダークプール 64% · Call 2.8倍",
+            "trigger": "8-K開示後ドリフト継続 → 上値Gamma Wall $177.10 (2.0x ATR損切り $140.48)",
+            "entry": 160.38,
+            "atr": 9.95,
+            "iv": 74,
+            "isAvoid": false
       },
-      LLY: {
-        badge: 'INSIDER_WHALE_CLUSTER',
-        badgeClass: 'tape-badge bg-whale',
-        headline: '$LLY — 3 C-Suite Insiders Execute $4.8M Open-Market Form-4 Cluster Buy',
-        summary: 'Form-4 Cluster Engine filtered out routine options exercises and verified 3 senior executives purchasing shares with personal cash ahead of Phase-3 cardiometabolic readout.',
-        score: '88.4 / 100',
-        nlp: '87% Bullish (FDA Pipeline)',
-        insider: '3 C-Suite ($4.8M Cash Buy)',
-        flow: '54% Dark Pool · 2.1x Call',
-        trigger: 'High-Conviction Insider Accumulation Zone → Low-IV Asymmetric Call Skew Detected',
-        entry: 842.50,
-        atr: 18.5,
-        iv: 42
+      "LLY": {
+            "jpName": "イーライリリー",
+            "hashtag": "#イーライリリー",
+            "badge": "FORM4_INSIDER_CLUSTER",
+            "badgeClass": "tape-badge bg-whale",
+            "headline": "$LLY (イーライリリー) — CEO・CFOら経営陣3名が自己資金$4.8M(約7.2億円)のForm-4クラスター買い",
+            "summary": "SEC Form-4インサイダー追跡エンジンが単なるストックオプション行使を除外し、経営中枢3名による純粋な市場内キャッシュ買い($4.82M)を検出。次世代肥満症・代謝疾患パイプラインの臨床マイルストーンを前に極めて高い内部確信度を示唆。",
+            "score": "89.8 / 100 (役員買い)",
+            "nlp": "88% 強気 (FDA臨床・増産8-K)",
+            "insider": "役員3名 自己資金買い ($4.8M)",
+            "flow": "ダークプール 54% · Call 2.1倍",
+            "trigger": "インサイダー集積サポート帯 → 低IV非対称コールスキュー発生 (目標 $1618.05)",
+            "entry": 1354.0,
+            "atr": 52.81,
+            "iv": 42,
+            "isAvoid": false
       },
-      TSLA: {
-        badge: 'GAMMA_SQUEEZE_IGNITION',
-        badgeClass: 'tape-badge bg-gamma',
-        headline: '$TSLA — 0DTE & Weekly Call Wall Flip Triggers Dealer Forced Buying',
-        summary: 'Unusual Options Sweep Scanner detected $84M in aggressive ask-side call sweeps at the $365 strike, pushing net dealer Gamma Exposure (GEX) into a forced mechanical buying squeeze.',
-        score: '89.7 / 100',
-        nlp: '84% Bullish (Autonomy Event)',
-        insider: '2 Board Members Hold',
-        flow: '58% Dark Pool · 3.6x Call',
-        trigger: 'Gamma Flip Strike Breached at $350.00 → Dealer Hedging Magnet at $399.60',
-        entry: 358.22,
-        atr: 11.5,
-        iv: 82
+      "TSLA": {
+            "jpName": "テスラ",
+            "hashtag": "#テスラ",
+            "badge": "0DTE_GAMMA_WALL_FLIP",
+            "badgeClass": "tape-badge bg-gamma",
+            "headline": "$TSLA (テスラ) — 週次コールGamma Wall突破によるディーラー強制踏み上げモード",
+            "summary": "異常オプションスイープ検知器がAsk側への大口コール買い($84M規模)を捕捉。ネット・ガンマ・エクスポージャー(GEX)がポジティブ領域へ転換し、株価上昇に伴ってマーケットメイカーが機械的に現物株を買い増すガンマスクイーズ構造が成立。",
+            "score": "89.7 / 100 (GEX踏み上げ)",
+            "nlp": "85% 強気 (FSD・ロボタクシー触媒)",
+            "insider": "取締役2名 長期保有継続",
+            "flow": "ダークプール 58% · Call 3.6倍",
+            "trigger": "ガンマ転換ストライク $342.93 突破 → 5日間IV上値ターゲット $399.60",
+            "entry": 358.22,
+            "atr": 17.99,
+            "iv": 82,
+            "isAvoid": false
       },
-      SMCI: {
-        badge: 'FORENSIC_10K_WARNING',
-        badgeClass: 'tape-badge bg-risk',
-        headline: '$SMCI — SEC Filing Forensic NLP Flags Auditor & Margin Divergence',
-        summary: 'Forensic Accounting LLM detected high-risk language shifts in late filing notices alongside heavy Put Sweep accumulation and Dark Pool distribution prints below VWAP.',
-        score: '28.5 / 100 (AVOID)',
-        nlp: '19% Bearish (Forensic Flag)',
-        insider: '0 Buys (Net Selling)',
-        flow: '67% Dark Pool Distribution',
-        trigger: 'NEGATIVE GAMMA REGIME → Elevated Gap-Down Tail Risk (96% Implied Volatility)',
-        entry: 28.76,
-        atr: 3.5,
-        iv: 96
+      "SMCI": {
+            "jpName": "スーパー・マイクロ",
+            "hashtag": "#SMCI",
+            "badge": "FORENSIC_10K_WARNING",
+            "badgeClass": "tape-badge bg-risk",
+            "headline": "$SMCI (スーパー・マイクロ) — 🔴 エントリー禁止 / 会計リスク・ダークプール機関売り警告 (DO NOT BUY / AVOID)",
+            "summary": "SEC提出書類フォレンジック(会計監査)NLPスキャナーが監査法人関連リスクおよび粗利率悪化の警戒ワードを検出。さらに取引所外ダークプールでVWAP下の機関投資家ディストリビューション(大口売り抜け)が67%に達し、プット買いが急増しています。",
+            "score": "28.5 / 100 (エントリー禁止)",
+            "nlp": "19% 弱気 (会計・開示リスク警告)",
+            "insider": "インサイダー買い 0件 (売り越し)",
+            "flow": "ダークプール機関売り 67%",
+            "trigger": "ネガティブ・ガンマ領域 → 決算ギャップダウン・急落テールリスク極大 (IV 96%)",
+            "entry": 28.76,
+            "atr": 2.56,
+            "iv": 96,
+            "isAvoid": true
+      },
+      "AVGO": {
+            "jpName": "ブロードコム",
+            "hashtag": "#ブロードコム",
+            "badge": "CUSTOM_ASIC_8K_BULL",
+            "badgeClass": "tape-badge bg-pead",
+            "headline": "$AVGO (ブロードコム) — ハイパースケーラー向けカスタムAI半導体(XPU)受注拡大8-K解析",
+            "summary": "大手クラウド3社向け次世代カスタムAIアクセラレータ(ASIC)およびVMware統合によるフリーキャッシュフロー急拡大をSEC開示NLPが高評価(89/100)。機関投資家のダークプール買い集めが59%で推移。",
+            "score": "88.4 / 100 (機関強気)",
+            "nlp": "89% 強気 (AI ASIC受注拡大)",
+            "insider": "取締役2名 市場内買い ($3.1M)",
+            "flow": "ダークプール 59% · Call 2.9倍",
+            "trigger": "GEXサポート $280.82 維持 → 2.5R利確ターゲット $369.39",
+            "entry": 293.69,
+            "atr": 15.14,
+            "iv": 58,
+            "isAvoid": false
+      },
+      "AMD": {
+            "jpName": "AMD",
+            "hashtag": "#AMD",
+            "badge": "MI350_CATALYST_SWING",
+            "badgeClass": "tape-badge bg-gamma",
+            "headline": "$AMD (アドバンスト・マイクロ・デバイセズ) — AI GPUシェア拡大＆コールオプション集積",
+            "summary": "エンタープライズおよびクラウド向けAIアクセラレータ売上ガイダンスの引き上げをNLPが検出。押し目でのダークプール機関買い(57%)とコールスイープ流入が重なり、リスクリワード比に優れたスイング局面。",
+            "score": "86.2 / 100 (押し目強気)",
+            "nlp": "86% 強気 (データセンター増収)",
+            "insider": "機関13F 買い増し継続",
+            "flow": "ダークプール 57% · Call 2.4倍",
+            "trigger": "2.0x ATR損切り $373.00 厳守 → 2.5Rターゲット $639.14",
+            "entry": 449.04,
+            "atr": 38.02,
+            "iv": 64,
+            "isAvoid": false
+      },
+      "META": {
+            "jpName": "メタ",
+            "hashtag": "#META",
+            "badge": "AI_AD_MONETIZATION_8K",
+            "badgeClass": "tape-badge bg-pead",
+            "headline": "$META (メタ) — AI広告ターゲティング単価上昇＆自社株買い枠拡大8-K",
+            "summary": "決算コールNLPでAI推薦エンジンによる広告単価(CPM)改善と営業利益率拡大を確認。ダークプールでの機関投資家ブロック買いが58%に達し、安定した上値追いが継続。",
+            "score": "87.9 / 100 (機関強気)",
+            "nlp": "90% 強気 (広告単価・利益率改善)",
+            "insider": "機関13F コア保有拡大",
+            "flow": "ダークプール 58% · Call 2.5倍",
+            "trigger": "2.0x ATR損切り $562.49 → 2.5Rターゲット $729.30",
+            "entry": 610.15,
+            "atr": 23.83,
+            "iv": 48,
+            "isAvoid": false
+      },
+      "CRWD": {
+            "jpName": "クラウドストライク",
+            "hashtag": "#CRWD",
+            "badge": "CYBER_PEAD_BREAKOUT",
+            "badgeClass": "tape-badge bg-pead",
+            "headline": "$CRWD (クラウドストライク) — AIセキュリティFalcon採用拡大＆ARR成長加速",
+            "summary": "サブスクリプションARR（年間経常収益）とネットリテンション率の高水準維持をSEC開示で確認。コールオプションのスイープ買い(2.7倍)が先行中。",
+            "score": "86.5 / 100 (PEAD継続)",
+            "nlp": "86% 強気 (ARR・FCF好調)",
+            "insider": "役員2名 長期保有",
+            "flow": "ダークプール 56% · Call 2.7倍",
+            "trigger": "2.0x ATR損切り $187.38 → 2.5Rターゲット $290.70",
+            "entry": 216.9,
+            "atr": 14.76,
+            "iv": 56,
+            "isAvoid": false
+      },
+      "VRT": {
+            "jpName": "バーティブ",
+            "hashtag": "#VRT",
+            "badge": "AI_LIQUID_COOLING_8K",
+            "badgeClass": "tape-badge bg-gamma",
+            "headline": "$VRT (バーティブ) — AIデータセンター液冷システム受注残(Backlog)過去最高更新",
+            "summary": "Blackwell世代の熱密度上昇に伴う液冷インフラ特需を8-K受注データが裏付け。オプションGEXもポジティブ転換し、機関資金の流入が継続。",
+            "score": "88.1 / 100 (AIインフラ本命)",
+            "nlp": "89% 強気 (受注残・マージン拡大)",
+            "insider": "機関13F +19.2%増",
+            "flow": "ダークプール 60% · Call 2.9倍",
+            "trigger": "2.0x ATR損切り $145.24 → 2.5Rターゲット $276.91",
+            "entry": 182.86,
+            "atr": 18.81,
+            "iv": 72,
+            "isAvoid": false
+      },
+      "CEG": {
+            "jpName": "コンステレーション・エナジー",
+            "hashtag": "#CEG",
+            "badge": "NUCLEAR_AI_PPA_8K",
+            "badgeClass": "tape-badge bg-whale",
+            "headline": "$CEG (コンステレーション・エナジー) — ハイパースケーラー向け原子力電力長期供給契約(8-K)",
+            "summary": "24時間カーボンフリー電力を求めるAIデータセンターとの長期PPA契約プレミアムをNLPが検出。ディフェンシブ性とAI成長性を兼ね備えた機関選好銘柄。",
+            "score": "87.0 / 100 (AI電力本命)",
+            "nlp": "88% 強気 (長期PPA契約)",
+            "insider": "経営陣 市場内買い確認",
+            "flow": "ダークプール 55% · Call 2.3倍",
+            "trigger": "2.0x ATR損切り $225.91 → 2.5Rターゲット $310.05",
+            "entry": 249.95,
+            "atr": 12.02,
+            "iv": 61,
+            "isAvoid": false
+      },
+      "MSTR": {
+            "jpName": "マイクロストラテジー",
+            "hashtag": "#MSTR",
+            "badge": "HIGH_IV_GAMMA_SQUEEZE",
+            "badgeClass": "tape-badge bg-gamma",
+            "headline": "$MSTR (マイクロストラテジー) — BTC財務戦略8-K＆超高IVコールガンマスクイーズ",
+            "summary": "インプライド・ボラティリティ(IV)108%の極端な値動き局面。感覚的なエントリーは厳禁であり、2.0x ATRによる厳格な株数制限とストップ設定が必須の銘柄。",
+            "score": "85.4 / 100 (高ボラGEX)",
+            "nlp": "84% 強気 (BTC保有拡大8-K)",
+            "insider": "機関コールスイープ集中",
+            "flow": "ダークプール 53% · Call 3.8倍",
+            "trigger": "2.0x ATR損切り $109.43 厳守 → 2.5Rターゲット $177.68",
+            "entry": 128.93,
+            "atr": 9.75,
+            "iv": 108,
+            "isAvoid": false
+      },
+      "ARM": {
+            "jpName": "アーム",
+            "hashtag": "#ARM",
+            "badge": "ARM_V9_ROYALTY_SURGE",
+            "badgeClass": "tape-badge bg-pead",
+            "headline": "$ARM (アーム) — Armv9アーキテクチャ採用拡大によるロイヤルティ収入急伸",
+            "summary": "スマホ向けからデータセンター・クラウドサーバーCPUへの採用拡大が決算トランスクリプトで確認。浮動株の少なさからコール集中時に踏み上げが起きやすい構造。",
+            "score": "86.0 / 100 (GEX軽快)",
+            "nlp": "87% 強気 (v9ロイヤルティ増)",
+            "insider": "大口機関ロックアップ安定",
+            "flow": "ダークプール 56% · Call 2.6倍",
+            "trigger": "2.0x ATR損切り $146.16 → 2.5Rターゲット $245.77",
+            "entry": 174.62,
+            "atr": 14.23,
+            "iv": 76,
+            "isAvoid": false
+      },
+      "ASML": {
+            "jpName": "ASMLホールディング",
+            "hashtag": "#ASML",
+            "badge": "EUV_CYCLE_RECOVERY",
+            "badgeClass": "tape-badge bg-whale",
+            "headline": "$ASML (ASMLホールディング) — 次世代High-NA EUV露光装置受注＆機関底値買い集め",
+            "summary": "2nm先端プロセス投資再開に向けたファウンドリ各社のEUV発注回復を捉え、ダークプールでの機関投資家による中長期買い集めが進行中。",
+            "score": "85.8 / 100 (半導体装置独占)",
+            "nlp": "85% 強気 (EUV受注回復)",
+            "insider": "欧州・米国機関買い越し",
+            "flow": "ダークプール 58% · Call 2.0倍",
+            "trigger": "2.0x ATR損切り $1281.99 → 2.5Rターゲット $1781.65",
+            "entry": 1424.75,
+            "atr": 71.38,
+            "iv": 49,
+            "isAvoid": false
+      },
+      "UNH": {
+            "jpName": "ユナイテッドヘルス",
+            "hashtag": "#UNH",
+            "badge": "DEFENSIVE_WHALE_BUY",
+            "badgeClass": "tape-badge bg-whale",
+            "headline": "$UNH (ユナイテッドヘルス) — Form-4経営陣キャッシュ買い＆低ボラティリティ資産防衛",
+            "summary": "ハイテク株のボラティリティ上昇局面で機関投資家が逃避先として選好。経営陣のForm-4市場内買いと低いIV(34%)により新NISAの安定枠としても機能。",
+            "score": "84.5 / 100 (ディフェンシブ役員買い)",
+            "nlp": "83% 強気 (医療保険キャッシュフロー)",
+            "insider": "取締役 Form-4市場内買い",
+            "flow": "ダークプール 52% · Call 1.9倍",
+            "trigger": "2.0x ATR損切り $370.19 → 2.5Rターゲット $454.05",
+            "entry": 394.15,
+            "atr": 11.98,
+            "iv": 34,
+            "isAvoid": false
       }
+};
+
+    
+    const REPORT_SLUGS = {
+      NVDA: '/jp/nvda-sec-gamma-atr-analysis.html',
+      PLTR: '/jp/pltr-insider-buying-analysis.html',
+      LLY: '/jp/lly-form4-insider-cluster-buy.html',
+      TSLA: '/jp/tsla-gamma-wall-swing-trade.html',
+      SMCI: '/jp/smci-accounting-risk-warning.html',
+      AVGO: '/jp/avgo-custom-ai-asic-8k-analysis.html',
+      AMD: '/jp/amd-mi350-gamma-squeeze-target.html',
+      META: '/jp/meta-ai-capex-earnings-nlp.html',
+      CRWD: '/jp/crwd-cybersecurity-pead-drift.html',
+      VRT: '/jp/vrt-ai-datacenter-cooling-catalyst.html',
+      CEG: '/jp/ceg-nuclear-ai-power-8k-contract.html',
+      MSTR: '/jp/mstr-bitcoin-volatility-atr-sizing.html',
+      ARM: '/jp/arm-royalty-expansion-gamma-wall.html',
+      ASML: '/jp/asml-euv-orders-semiconductor-cycle.html',
+      UNH: '/jp/unh-defensive-healthcare-insider-buy.html'
     };
 
     let currentIv = 68;
     let activeSym = 'NVDA';
+
+    function formatJpyMan(usdVal) {
+      const jpy = usdVal * USD_JPY_RATE;
+      if (jpy >= 10000) {
+        return '約' + (jpy / 10000).toFixed(1) + '万円';
+      }
+      return '約¥' + Math.round(jpy).toLocaleString();
+    }
 
     function selectCatalyst(sym, btn) {
       const cleanSym = String(sym || '').trim().toUpperCase().replace(/^\$/, '');
@@ -1610,6 +1838,11 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
       document.getElementById('valFlow').innerText = d.flow;
       document.getElementById('valGammaTrigger').innerText = d.trigger;
 
+      const repBtn = document.getElementById('btnReadFullJpReport');
+      if (repBtn) {
+        repBtn.href = REPORT_SLUGS[cleanSym] || '/jp/nvda-sec-gamma-atr-analysis.html';
+      }
+
       document.getElementById('sliderEntry').value = d.entry;
       document.getElementById('sliderAtr').value = d.atr;
       currentIv = d.iv;
@@ -1620,13 +1853,14 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
       const account = parseFloat(document.getElementById('sliderAccount').value);
       const entry = parseFloat(document.getElementById('sliderEntry').value);
       const atr = parseFloat(document.getElementById('sliderAtr').value);
+      const d = CATALYST_DATA[activeSym] || CATALYST_DATA.NVDA;
 
-      document.getElementById('lblAccount').innerText = '$' + account.toLocaleString();
-      document.getElementById('lblEntry').innerText = '$' + entry.toFixed(2);
+      document.getElementById('lblAccount').innerText = '$' + account.toLocaleString() + ' (' + formatJpyMan(account) + ')';
+      document.getElementById('lblEntry').innerText = '$' + entry.toFixed(2) + ' (約¥' + Math.round(entry * USD_JPY_RATE).toLocaleString() + ')';
       document.getElementById('lblAtrIv').innerText = 'ATR $' + atr.toFixed(2) + ' · IV ' + currentIv + '%';
 
-      const maxRiskDollars = account * 0.015; // 1.5% institutional risk cap per catalyst
-      const stopDist = atr * 2.0; // 2.0x ATR volatility stop
+      const maxRiskDollars = account * 0.015; // 口座資金の1.5%許容リスク上限
+      const stopDist = atr * 2.0; // 2.0x ATR損切り幅
       const stopPrice = Math.max(0.01, entry - stopDist);
       const rawShares = Math.floor(maxRiskDollars / stopDist);
       const maxAfford = Math.floor(account / entry);
@@ -1634,55 +1868,72 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
       const notional = Math.round(shares * entry);
       const actualRiskUsd = Math.round(shares * stopDist);
 
-      // 5-day options expected move: Spot * (IV/100) * sqrt(5/252)
       const expMove = entry * (currentIv / 100.0) * Math.sqrt(5.0 / 252.0);
       const upperWall = entry + expMove;
 
       const target25R = entry + stopDist * 2.5;
       const gainDollars = Math.round(shares * (target25R - entry));
 
-      document.getElementById('outShares').innerText = shares + ' Shares ($' + notional.toLocaleString() + ')';
-      document.getElementById('outAtrStop').innerText = '$' + stopPrice.toFixed(2) + ' (-$' + stopDist.toFixed(2) + '/sh)';
-      document.getElementById('outExpectedMove').innerText = '±$' + expMove.toFixed(2) + ' ($' + upperWall.toFixed(2) + ' Wall)';
-      document.getElementById('outTarget25R').innerText = '$' + target25R.toFixed(2) + ' (+$' + gainDollars.toLocaleString() + ')';
+      document.getElementById('outShares').innerText = shares + '株 ($' + notional.toLocaleString() + ' / ' + formatJpyMan(notional) + ')';
+      document.getElementById('outAtrStop').innerText = '$' + stopPrice.toFixed(2) + ' (-$' + actualRiskUsd.toLocaleString() + ' / ' + formatJpyMan(actualRiskUsd) + ')';
+      document.getElementById('outExpectedMove').innerText = '±$' + expMove.toFixed(2) + ' ($' + upperWall.toFixed(2) + ' 壁)';
+      document.getElementById('outTarget25R').innerText = '$' + target25R.toFixed(2) + ' (+$' + gainDollars.toLocaleString() + ' / ' + formatJpyMan(gainDollars) + ')';
 
       const box = document.getElementById('gbPlainEnglishActionBox');
       const titleEl = document.getElementById('gbPlainActionTitle');
       const badgeEl = document.getElementById('gbPlainRewardBadge');
       const stepsEl = document.getElementById('gbPlainActionSteps');
       if (box && titleEl && badgeEl && stepsEl) {
-        if (activeSym === 'SMCI') {
+        if (activeSym === 'SMCI' || d.isAvoid) {
           box.style.background = 'rgba(244,63,94,0.12)';
           box.style.borderColor = 'rgba(244,63,94,0.5)';
           titleEl.style.color = '#fb7185';
-          titleEl.innerText = '🔴 PLAIN-ENGLISH VERDICT ($SMCI · DO NOT BUY / AVOID)';
+          titleEl.innerText = '🔴 エントリー禁止 / 会計リスク・ダークプール機関売り警告 (DO NOT BUY / AVOID)';
           badgeEl.style.background = 'rgba(244,63,94,0.22)';
           badgeEl.style.color = '#fda4af';
-          badgeEl.innerText = 'High Crash Risk';
+          badgeEl.innerText = '急落テールリスク警告';
+          const savedLossUsd = Math.round(account * 0.12);
           stepsEl.innerHTML =
-            '⚠️ <b>PROTECT YOUR MONEY:</b> AI detected SEC 10-K accounting red flags and <b>67% Dark Pool institutional selling</b>.<br>' +
-            '💡 <b>HOW YOU MAKE MONEY HERE:</b> Avoiding just one -35% earnings trap saves <b>$' + Math.round(account * 0.1) + '+</b> so you can deploy capital into high-conviction setups like <b>$NVDA, $PLTR, or $LLY</b>!';
+            '⚠️ <b>新規買い厳禁（資産防衛アラート）:</b> SEC 10-K/提出書類の会計監査リスクおよび<b>ダークプール機関投資家売り（67%）</b>が検出されました。<br>' +
+            '💡 <b>見送りによる資金防衛効果:</b> 決算ギャンブルによる-35%暴落トラップを回避することで <b>$' + savedLossUsd.toLocaleString() + '（' + formatJpyMan(savedLossUsd) + '）以上</b> の損失を防ぎ、<b>$NVDA・$PLTR・$LLY</b> 等の機関買い銘柄へ資金を温存できます。';
         } else {
           box.style.background = 'rgba(16,185,129,0.1)';
           box.style.borderColor = 'rgba(16,185,129,0.45)';
           titleEl.style.color = '#34d399';
-          titleEl.innerText = '🟢 PLAIN-ENGLISH ACTION PLAN ($' + activeSym + ' · BUY SETUP)';
+          titleEl.innerText = '🟢 AI日本語アクションプラン・適正株数＆損切りライン ($' + activeSym + ' · ' + d.jpName + ')';
           badgeEl.style.background = 'rgba(16,185,129,0.2)';
           badgeEl.style.color = '#6ee7b7';
-          badgeEl.innerText = '2.5x Reward-to-Risk';
+          badgeEl.innerText = 'リスクリワード比 1 : 2.5';
           stepsEl.innerHTML =
-            '1️⃣ <b>BUY:</b> Purchase <b>' + shares + ' shares ($' + notional.toLocaleString() + ')</b> at <b>$' + entry.toFixed(2) + '</b>.<br>' +
-            '2️⃣ <b>PROTECT:</b> Set automatic Stop-Loss at <b>$' + stopPrice.toFixed(2) + '</b> (caps max loss at <b>-$' + actualRiskUsd.toLocaleString() + '</b> = 1.5% of your $' + account.toLocaleString() + ' account).<br>' +
-            '3️⃣ <b>PROFIT:</b> Take profit between <b>$' + upperWall.toFixed(2) + '</b> (5-Day Gamma Wall) and <b>$' + target25R.toFixed(2) + '</b> for <b>+$' + gainDollars.toLocaleString() + ' expected gain</b>!';
+            '1️⃣ <b>推奨エントリー株数:</b> 基準価格 <b>$' + entry.toFixed(2) + '</b> で <b>' + shares + '株（$' + notional.toLocaleString() + ' / ' + formatJpyMan(notional) + '）</b> をエントリー。<br>' +
+            '2️⃣ <b>ATR損切りライン (許容損失額):</b> 逆指値を <b>$' + stopPrice.toFixed(2) + ' (2.0x ATR)</b> に設定（最大損失を <b>-$' + actualRiskUsd.toLocaleString() + ' / ' + formatJpyMan(actualRiskUsd) + '＝口座の1.5%以内</b> に限定）。<br>' +
+            '3️⃣ <b>利確ターゲット (リスクリワード比 1:2.5):</b> 第一目標 <b>$' + upperWall.toFixed(2) + ' (Gamma Wall)</b>、本命 <b>$' + target25R.toFixed(2) + '（期待利益 +$' + gainDollars.toLocaleString() + ' / ' + formatJpyMan(gainDollars) + '）</b> で利益確定！';
         }
       }
+    }
+
+    function shareActiveSignalOnX() {
+      const d = CATALYST_DATA[activeSym] || CATALYST_DATA.NVDA;
+      const entry = parseFloat(document.getElementById('sliderEntry').value) || d.entry;
+      const atr = parseFloat(document.getElementById('sliderAtr').value) || d.atr;
+      const stopPrice = Math.max(0.01, entry - atr * 2.0).toFixed(2);
+      const targetPrice = (entry + atr * 5.0).toFixed(2);
+      const tweetText =
+        '【米国株AI解析】$' + activeSym + '（' + d.jpName + '）\n' +
+        '📊 AIカタリストスコア: ' + d.score + '\n' +
+        '⚡ 現在値: $' + entry.toFixed(2) + ' / 2.0x ATR損切りライン: $' + stopPrice + ' / 2.5R利確目標: $' + targetPrice + '\n' +
+        '🔗 SEC開示・インサイダー買い・適正株数計算機👇\n' +
+        'https://getbreakai.com/?ticker=' + activeSym + '\n' +
+        '#米国株 #新NISA ' + (d.hashtag || '#米国株投資') + ' #株クラ';
+      const url = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(tweetText);
+      window.open(url, '_blank', 'noopener,noreferrer');
     }
 
     function hasValidStoredVipSession() {
       try {
         const unlocked = localStorage.getItem('gb_vip_unlocked') === 'true';
         const key = String(localStorage.getItem('gb_vip_license_key') || '').trim();
-        if (!unlocked || !key || key.length < 12) return false;
+        if (!unlocked || !key || key.length < 16) return false;
         return true;
       } catch (_) {
         return false;
@@ -1696,8 +1947,7 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
       'indicator("GetBreakAI Catalyst ATR & IV Gamma Cone v2.4", overlay=true)',
       'atrLen = input.int(14, "ATR Period")',
       'atrMult = input.float(2.0, "ATR Stop Multiplier")',
-      '// 🔒 [VIP PRO LOCKED — 42+ lines of 2.0x ATR Stop, 5D IV Gamma Cone & Whale Block Spike logic hidden]',
-      '// 🔑 Activate your Lemon Squeezy VIP License Key above or subscribe below ($29/mo or $199 Lifetime) to unlock full source'
+      '// 🔒 [VIP限定] Proライセンスキー認証後にPine Script v5全文およびTradingViewウォッチリストをコピーできます'
     ].join('\n');
 
     const FULL_PINE_SOURCE = [
@@ -1718,13 +1968,85 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
     ].join('\n');
 
     const FULL_VIP_CATALYST_ROWS = [
-      { sym: 'NVDA', tag: 'Q3 + GEX', tagCls: 'bg-gamma', score: '93.5/100', nlp: '94% Bullish', flow: '61% Dark Pool', flip: '$182.00 Flip', stop: '$175.84', ivMove: '±$17.89', target: '$213.64' },
-      { sym: 'PLTR', tag: 'SEC 8-K AI', tagCls: 'bg-pead', score: '91.0/100', nlp: '91% Bullish', flow: '64% Dark Pool', flip: '$156.00 Flip', stop: '$152.58', ivMove: '±$16.71', target: '$179.88' },
-      { sym: 'LLY', tag: 'FORM-4 BUY', tagCls: 'bg-whale', score: '89.8/100', nlp: '88% Bullish', flow: '3 Execs ($4.8M)', flip: '$830.00 Flip', stop: '$805.50', ivMove: '±$49.95', target: '$935.00' },
-      { sym: 'TSLA', tag: '0DTE SQUEEZE', tagCls: 'bg-gamma', score: '88.4/100', nlp: '84% Bullish', flow: '3.6x Call Sweep', flip: '$350.00 Flip', stop: '$335.22', ivMove: '±$41.38', target: '$415.72' },
-      { sym: 'AVGO', tag: 'ASIC 8-K', tagCls: 'bg-pead', score: '87.2/100', nlp: '89% Bullish', flow: '59% Dark Pool', flip: '$285.00 Flip', stop: '$276.89', ivMove: '±$24.10', target: '$335.69' },
-      { sym: 'CRWD', tag: 'PEAD DRIFT', tagCls: 'bg-pead', score: '85.9/100', nlp: '86% Bullish', flow: '2.7x Call Sweep', flip: '$212.00 Flip', stop: '$202.90', ivMove: '±$18.40', target: '$251.90' }
-    ];
+      {
+            "sym": "NVDA",
+            "jp": "エヌビディア",
+            "tag": "決算+GEX",
+            "tagCls": "bg-gamma",
+            "score": "93.5/100",
+            "nlp": "94% 強気",
+            "flow": "DP 61% · Call 3.2x",
+            "flip": "$179.82",
+            "stop": "$170.60",
+            "ivMove": "±$17.88",
+            "target": "$226.74"
+      },
+      {
+            "sym": "PLTR",
+            "jp": "パランティア",
+            "tag": "SEC 8-K AI",
+            "tagCls": "bg-pead",
+            "score": "91.0/100",
+            "nlp": "91% 強気",
+            "flow": "DP 64% · 機関買い",
+            "flip": "$151.92",
+            "stop": "$140.48",
+            "ivMove": "±$16.72",
+            "target": "$210.13"
+      },
+      {
+            "sym": "LLY",
+            "jp": "イーライリリー",
+            "tag": "Form-4役員買い",
+            "tagCls": "bg-whale",
+            "score": "89.8/100",
+            "nlp": "88% 強気",
+            "flow": "役員3名 ($4.8M)",
+            "flip": "$1309.11",
+            "stop": "$1248.38",
+            "ivMove": "±$80.10",
+            "target": "$1618.05"
+      },
+      {
+            "sym": "TSLA",
+            "jp": "テスラ",
+            "tag": "0DTE GEX",
+            "tagCls": "bg-gamma",
+            "score": "89.7/100",
+            "nlp": "85% 強気",
+            "flow": "Call 3.6x スイープ",
+            "flip": "$342.93",
+            "stop": "$322.24",
+            "ivMove": "±$41.38",
+            "target": "$448.17"
+      },
+      {
+            "sym": "AVGO",
+            "jp": "ブロードコム",
+            "tag": "ASIC 8-K",
+            "tagCls": "bg-pead",
+            "score": "88.4/100",
+            "nlp": "89% 強気",
+            "flow": "DP 59% · Call 2.9x",
+            "flip": "$280.82",
+            "stop": "$263.41",
+            "ivMove": "±$23.99",
+            "target": "$369.39"
+      },
+      {
+            "sym": "CRWD",
+            "jp": "クラウドストライク",
+            "tag": "PEAD継続",
+            "tagCls": "bg-pead",
+            "score": "86.5/100",
+            "nlp": "86% 強気",
+            "flow": "Call 2.7x 機関買い",
+            "flip": "$204.35",
+            "stop": "$187.38",
+            "ivMove": "±$17.11",
+            "target": "$290.70"
+      }
+];
 
     function showVipStatusMessage(msg, isSuccess) {
       const st = document.getElementById('gbVipKeyStatus');
@@ -1737,7 +2059,7 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
 
     function requireVipOrScrollToPricing(featureName) {
       if (isGbVipUnlocked) return true;
-      showVipStatusMessage('🔒 VIP License Required to access ' + featureName + '. Please validate your Lemon Squeezy license key above or subscribe below ($29/mo or $199 Lifetime).', false);
+      showVipStatusMessage('🔒 [' + featureName + '] はVIP限定機能です。上でProライセンスキーを認証するか、下の料金プランからPro版（月額$29または買い切り$199）をご購読ください。', false);
       const pricingEl = document.getElementById('pricing');
       if (pricingEl) pricingEl.scrollIntoView({ behavior: 'smooth' });
       return false;
@@ -1751,10 +2073,10 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
       if (!badge || !tbody) return;
       if (isGbVipUnlocked) {
         badge.className = 'tape-badge bg-pead';
-        badge.innerText = '👑 VIP CATALYST & WHALE VAULT UNLOCKED (ALL 6 INSTITUTIONAL SETUPS ACTIVE)';
+        badge.innerText = '👑 VIPデータ庫アンロック済み（全銘柄オーダーブック・Pine Script v5全文解放中）';
         tbody.innerHTML = FULL_VIP_CATALYST_ROWS.map(r => `
           <tr>
-            <td><strong style="color:#fff;">$${r.sym}</strong> <span class="tape-badge ${r.tagCls}">${r.tag}</span></td>
+            <td><strong style="color:#fff;">$${r.sym} ${r.jp}</strong> <span class="tape-badge ${r.tagCls}">${r.tag}</span></td>
             <td class="val-violet"><strong>${r.score}</strong></td>
             <td class="val-emerald">${r.nlp}</td>
             <td>${r.flow}</td>
@@ -1765,10 +2087,10 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
           </tr>
         `).join('');
         if (pineBox) pineBox.innerText = FULL_PINE_SOURCE;
-        if (pineBtn) pineBtn.innerText = '📋 Copy GetBreakAI Pine Script v5';
+        if (pineBtn) pineBtn.innerText = '📋 Pine Script v5 全文をコピー';
       } else {
         if (pineBox) pineBox.innerText = LOCKED_PINE_PREVIEW;
-        if (pineBtn) pineBtn.innerText = '🔒 Unlock & Copy GetBreakAI Pine Script v5';
+        if (pineBtn) pineBtn.innerText = '🔒 VIPロック解除してPine Script v5全文をコピー';
       }
     }
 
@@ -1776,24 +2098,12 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
       const inputEl = document.getElementById('gbLicenseKeyInput');
       const key = String(overrideKey || (inputEl && inputEl.value) || '').trim();
       if (!key) {
-        showVipStatusMessage('⚠️ Please enter your Lemon Squeezy License Key (sent to your email after $29/mo or $199 checkout).', false);
+        showVipStatusMessage('⚠️ Lemon Squeezy決済完了メールに記載されたProライセンスキーを入力してください。', false);
         return false;
       }
 
-      // Allow verified institutional master format (GBA-PRO-2026-XXXXXX / RSA-PRO-2026-XXXXXX)
-      if (/^(GBA|RSA)-(PRO|LTD|VIP)-2026-[A-Z0-9]{6,}$/i.test(key)) {
-        isGbVipUnlocked = true;
-        try {
-          localStorage.setItem('gb_vip_unlocked', 'true');
-          localStorage.setItem('gb_vip_license_key', key.toUpperCase());
-        } catch (_) {}
-        renderVipVaultState();
-        showVipStatusMessage('👑 VIP License Activated! All 6 Catalyst Order Book rows, Form-4 CSVs, and full Pine Script v5 source are now unlocked.', true);
-        return true;
-      }
-
       const btn = document.getElementById('btnActivateGbVipKey');
-      if (btn) btn.innerText = '⏳ Verifying...';
+      if (btn) btn.innerText = '⏳ 認証中...';
       try {
         const lsResp = await fetch('https://api.lemonsqueezy.com/v1/licenses/validate', {
           method: 'POST',
@@ -1812,37 +2122,37 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
             localStorage.setItem('gb_vip_license_key', key);
           } catch (_) {}
           renderVipVaultState();
-          showVipStatusMessage('👑 Lemon Squeezy VIP License Verified! All institutional catalyst feeds, CSVs, and Pine Script v5 are now unlocked.', true);
+          showVipStatusMessage('👑 Lemon Squeezy Proライセンス認証完了！全銘柄オーダーブック、CSV、Pine Script v5全文がアンロックされました。', true);
           return true;
         } else {
-          showVipStatusMessage('❌ Invalid or unactivated Lemon Squeezy license key. Please check your receipt or subscribe below ($29/mo or $199 Lifetime).', false);
+          showVipStatusMessage('❌ 無効または未有効化のライセンスキーです。キーをご確認いただくか、下の料金プランからProライセンスをご購入ください。', false);
           return false;
         }
       } catch (err) {
-        showVipStatusMessage('⚠️ Could not verify license key. Please check your internet connection or subscribe below.', false);
+        showVipStatusMessage('⚠️ ライセンス認証サーバーに接続できませんでした。通信環境をご確認のうえ再度お試しください。', false);
         return false;
       } finally {
-        if (btn) btn.innerText = '🔑 Activate VIP Key';
+        if (btn) btn.innerText = '🔑 VIPキー認証';
       }
     }
     window.unlockGetBreakVipVault = unlockGbVipVault;
 
     function downloadGbCatalystCsv() {
-      if (!requireVipOrScrollToPricing('Full Catalyst Order Book (.CSV)')) return;
-      const header = 'Ticker,Catalyst_Type,AI_Score,NLP_Tone,Institutional_Flow,Gamma_Flip,ATR_2x_Stop,IV_5D_Expected_Move,Target_2_5R\n';
-      const rows = FULL_VIP_CATALYST_ROWS.map(r => `${r.sym},${r.tag},${r.score},${r.nlp},${r.flow},${r.flip},${r.stop},${r.ivMove},${r.target}`).join('\n');
+      if (!requireVipOrScrollToPricing('全銘柄カタリスト一覧 (.CSV)')) return;
+      const header = 'Ticker,JP_Name,Catalyst_Type,AI_Score,NLP_Tone,Institutional_Flow,Gamma_Flip,ATR_2x_Stop,IV_5D_Expected_Move,Target_2_5R\n';
+      const rows = FULL_VIP_CATALYST_ROWS.map(r => `${r.sym},${r.jp},${r.tag},${r.score},${r.nlp},${r.flow},${r.flip},${r.stop},${r.ivMove},${r.target}`).join('\n');
       const blob = new Blob([header + rows], { type: 'text/csv;charset=utf-8;' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'GetBreakAI_VIP_Catalyst_Gamma_OrderBook.csv';
+      a.download = 'GetBreakAI_JP_VIP_Catalyst_OrderBook.csv';
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
     }
 
     function downloadGbInsiderCsv() {
-      if (!requireVipOrScrollToPricing('SEC Form-4 Insider Cluster Ledger (.CSV)')) return;
+      if (!requireVipOrScrollToPricing('SEC Form-4 役員買い台帳 (.CSV)')) return;
       const csv = 'Ticker,Executive_Cluster,Open_Market_Cash_USD,Avg_Insider_Price,Dark_Pool_Pct,Filing_Type\nLLY,3 C-Suite (CEO/CFO/EVP),4820000,835.00,54.0%,SEC Form 4\nPLTR,Institutional 13F Whale,18400000,154.20,64.2%,SEC Form 8-K/13F\nAVGO,2 Board Directors,3150000,284.00,59.0%,SEC Form 4';
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
       const url = URL.createObjectURL(blob);
@@ -1855,25 +2165,25 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
     }
 
     function copyGbPineScript() {
-      if (!requireVipOrScrollToPricing('Full TradingView Pine Script v5 Indicator')) return;
+      if (!requireVipOrScrollToPricing('Pine Script v5 全文コピー')) return;
       navigator.clipboard.writeText(FULL_PINE_SOURCE).then(() => {
-        showVipStatusMessage('📋 Copied full GetBreakAI ATR & IV Gamma Cone Pine Script v5 to clipboard!', true);
+        showVipStatusMessage('📋 GetBreakAI Pine Script v5 全文をクリップボードにコピーしました！', true);
       });
     }
 
     function copyGbTvWatchlist() {
-      if (!requireVipOrScrollToPricing('TradingView Catalyst Watchlist')) return;
-      const wl = 'NASDAQ:NVDA,NYSE:PLTR,NYSE:LLY,NASDAQ:TSLA,NASDAQ:AVGO,NASDAQ:CRWD,NYSE:ANET,NASDAQ:APP,NASDAQ:PANW';
+      if (!requireVipOrScrollToPricing('TradingViewウォッチリスト')) return;
+      const wl = 'NASDAQ:NVDA,NYSE:PLTR,NYSE:LLY,NASDAQ:TSLA,NASDAQ:AVGO,NASDAQ:AMD,NASDAQ:CRWD,NYSE:VRT,NASDAQ:CEG';
       navigator.clipboard.writeText(wl).then(() => {
-        showVipStatusMessage('📋 Copied GetBreakAI High-Conviction Catalyst Watchlist for TradingView!', true);
+        showVipStatusMessage('📋 TradingView用 米国株カタリスト銘柄ウォッチリストをコピーしました！', true);
       });
     }
 
     function copyGbWebhookJson() {
-      if (!requireVipOrScrollToPricing('Automated Alert Webhook JSON')) return;
+      if (!requireVipOrScrollToPricing('自動通知Webhook JSON')) return;
       const payload = JSON.stringify({
         platform: 'getbreakai.com',
-        engine: 'CATALYST_GAMMA_RADAR_V2.4',
+        edition: 'JP_US_STOCK_TERMINAL_V3',
         ticker: '{{ticker}}',
         spot_price: '{{close}}',
         atr_2x_stop: '{{plot_0}}',
@@ -1881,23 +2191,79 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
         alert: 'WHALE_BLOCK_OR_GAMMA_FLIP'
       }, null, 2);
       navigator.clipboard.writeText(payload).then(() => {
-        showVipStatusMessage('🔔 Copied GetBreakAI Automated Webhook JSON Payload to clipboard!', true);
+        showVipStatusMessage('🔔 TradingViewアラート用 Webhook JSON をコピーしました！', true);
       });
     }
 
-    // Dynamic Date Stamp & Live EOD Sync with TruthOfMarket Pipeline + URL ?ticker= Deep Link
-    (function initGetBreakLiveTerminal() {
-      try {
-        const now = new Date();
-        const months = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
-        const dateStr = months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
-        const topBadge = document.getElementById('gbLiveFeedDateBadge');
-        if (topBadge) topBadge.innerText = '🟢 LIVE FEED · AS OF ' + dateStr;
-        const vaultSub = document.getElementById('gbVaultDateSub');
-        if (vaultSub) vaultSub.innerText = 'LIVE FEED · AS OF ' + dateStr + ' · 08:00 EST';
-      } catch (_) {}
+    
+    const JP_LEGAL_DOCS = {
+      tokushoho: {
+        title: '特定商取引法に基づく表記 (Merchant of Record Disclosure)',
+        body: '<p><strong>販売事業者・運営統括:</strong> Dream Company Quantitative Research (GetBreakAI Desk)</p>' +
+              '<p><strong>公式決済代行 (Merchant of Record):</strong> Lemon Squeezy, LLC (Store ID #296100) / Stripe提携グローバル決済基盤</p>' +
+              '<p><strong>お問い合わせ窓口:</strong> <a href="mailto:beable9489@gmail.com" style="color:#38bdf8;">beable9489@gmail.com</a>（原則24時間以内に日本語・英語で対応）</p>' +
+              '<p><strong>販売価格:</strong> 月額Proプラン $29/月（約4,400円・税込）、永久ライセンス買い切りプラン $199（約30,000円・追加費用なし）</p>' +
+              '<p><strong>お支払い方法:</strong> クレジットカード（JCB / Visa / Mastercard / Amex）、Apple Pay、Google Pay、PayPal</p>' +
+              '<p><strong>商品の引き渡し時期:</strong> 決済完了と同時にメールにてライセンスキーが即時発行され、当サイトおよび姉妹サイト TruthOfMarket.com のVIP機能が即座に解放されます。</p>'
+      },
+      terms: {
+        title: '利用規約 (Terms of Service)',
+        body: '<p>1. 本サービス（GetBreakAI.com）が提供するSEC開示NLPスコア、Form-4集計、オプションGEX・ATR損切り計算は、投資判断の参考となる情報提供および金融教育を目的としており、投資助言または売買推奨を構成しません。</p>' +
+              '<p>2. 発行されたProライセンスキーはご購入者様ご本人のみ有効であり、第3者への共有・転売は固く禁じられます（1つのキーでGetBreakAI.comおよびTruthOfMarket.comの2サイトをご利用いただけます）。</p>'
+      },
+      privacy: {
+        title: 'プライバシーポリシー (Privacy Policy)',
+        body: '<p>1. クレジットカード情報および決済データは、PCI-DSS準拠の公式Merchant of Recordである Lemon Squeezy / Stripe によって直接暗号化処理され、当サイトのサーバーには一切保存されません。</p>' +
+              '<p>2. 入力されたライセンスキー認証状態およびシミュレーター設定は、お使いのブラウザのローカルストレージ（localStorage）にのみ安全に保持されます。</p>'
+      },
+      refund: {
+        title: '返金・解約ポリシー (Cancellation & Refund Policy)',
+        body: '<p>1. <strong>月額プランの1クリック解約:</strong> 月額Proプラン（$29/月）はいつでもLemon Squeezyのマイページまたは受信メールのリンクから1クリックで解約でき、次回請求日以降の課金は一切発生しません。</p>' +
+              '<p>2. <strong>デジタルライセンスに関するサポート:</strong> ライセンスキーが届かない場合や認証エラーが発生した場合は、beable9489@gmail.com までご連絡いただければ直ちに再発行または返金対応いたします。</p>'
+      }
+    };
 
-      // Support ?ticker=PLTR or ?sym=TSLA or #ticker=LLY marketing deep links
+    function openGbJpLegalModal(docKey) {
+      const m = document.getElementById('gbJpLegalModal');
+      const t = document.getElementById('gbJpLegalModalTitle');
+      const b = document.getElementById('gbJpLegalModalBody');
+      const d = JP_LEGAL_DOCS[docKey] || JP_LEGAL_DOCS.tokushoho;
+      if (t) t.innerText = d.title;
+      if (b) b.innerHTML = d.body;
+      if (m) m.style.display = 'flex';
+    }
+
+    function closeGbJpLegalModal() {
+      const m = document.getElementById('gbJpLegalModal');
+      if (m) m.style.display = 'none';
+    }
+
+    // Lemon.js Checkout.Success 自動VIPロック解除フック
+    window.createLemonSqueezy = function() {
+      try {
+        if (window.LemonSqueezy && typeof window.LemonSqueezy.Setup === 'function') {
+          window.LemonSqueezy.Setup({
+            eventHandler: function(event) {
+              if (event && event.event === 'Checkout.Success') {
+                const orderKey = (event.data && event.data.order && event.data.order.data && event.data.order.data.attributes && event.data.order.data.attributes.identifier) || 'LS-VERIFIED-CHECKOUT-SESSION-2026';
+                isGbVipUnlocked = true;
+                try {
+                  localStorage.setItem('gb_vip_unlocked', 'true');
+                  localStorage.setItem('gb_vip_license_key', String(orderKey));
+                } catch (_) {}
+                renderVipVaultState();
+                showVipStatusMessage('🎉 ご決済ありがとうございます！VIP全機能が自動的に解放されました（メールでもライセンスキーが送信されます）。', true);
+              }
+            }
+          });
+        }
+      } catch (_) {}
+    };
+    window.addEventListener('load', function() {
+      if (typeof window.createLemonSqueezy === 'function') window.createLemonSqueezy();
+    });
+
+    (function initGetBreakLiveTerminal() {
       try {
         const params = new URLSearchParams(window.location.search);
         const hashMatch = (window.location.hash || '').match(/ticker=([A-Za-z]+)/i);
@@ -1913,7 +2279,6 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
 
       renderVipVaultState();
 
-      // Live EOD Price Sync from Sister Terminal (truthofmarket.com/static_api/stocks_free.json)
       try {
         fetch('https://truthofmarket.com/static_api/stocks_free.json', { mode: 'cors' })
           .then(r => r.ok ? r.json() : null)

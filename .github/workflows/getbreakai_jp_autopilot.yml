@@ -1,0 +1,56 @@
+name: GetBreakAI Japan US-Stock Autopilot (Daily EOD + 30 SEO + Shorts/X)
+
+on:
+  schedule:
+    # Runs at 21:00 UTC (06:00 JST / KST) Tuesday-Saturday right after US Market Close
+    - cron: '0 21 * * 2-6'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  jp-autopilot-pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install system dependencies (ffmpeg & Japanese Noto CJK fonts)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg fonts-noto-cjk
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests yfinance pillow edge-tts imageio-ffmpeg
+
+      - name: Step 1 - Sync Live US Market Prices & 14-Day ATR
+        run: |
+          python scripts/sync_getbreakai_live_data.py
+
+      - name: Step 2 - Rebuild 30 Japanese Static SEO Pages, Sitemap & Ping IndexNow
+        run: |
+          python scripts/build_jp_seo_pages.py --ping-indexnow
+
+      - name: Step 3 - Generate Daily Japanese Shorts (.mp4), Summary Cards & 10 X Posts
+        run: |
+          python scripts/generate_jp_daily_shorts_and_x.py
+
+      - name: Step 4 - Commit & Push Updated Market Data, SEO Pages & Outbox Assets
+        run: |
+          git config user.name "GetBreakAI Autopilot Bot"
+          git config user.email "autopilot@getbreakai.com"
+          git add index.html sitemap.xml data/live_market_snapshot.json jp/ marketing_outbox_jp/
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "chore(autopilot): daily US market EOD sync, 30 JP SEO pages & X/Shorts outbox"
+            git push origin HEAD:main
+          fi

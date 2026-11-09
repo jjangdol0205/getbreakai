@@ -7,27 +7,189 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://getbreakai.com/?ticker=NVDA</loc>
+    <loc>https://getbreakai.com/jp/index.html</loc>
     <lastmod>2026-11-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://getbreakai.com/?ticker=PLTR</loc>
+    <loc>https://getbreakai.com/jp/nvda-sec-gamma-atr-analysis.html</loc>
     <lastmod>2026-11-09</lastmod>
     <changefreq>daily</changefreq>
-    <priority>0.9</priority>
+    <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://getbreakai.com/?ticker=LLY</loc>
+    <loc>https://getbreakai.com/jp/pltr-insider-buying-analysis.html</loc>
     <lastmod>2026-11-09</lastmod>
     <changefreq>daily</changefreq>
-    <priority>0.9</priority>
+    <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://getbreakai.com/?ticker=TSLA</loc>
+    <loc>https://getbreakai.com/jp/tsla-gamma-wall-swing-trade.html</loc>
     <lastmod>2026-11-09</lastmod>
     <changefreq>daily</changefreq>
-    <priority>0.9</priority>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://getbreakai.com/jp/soxl-smh-semiconductor-timing.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://getbreakai.com/jp/smci-accounting-risk-warning.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://getbreakai.com/jp/shin-nisa-us-stock-atr-risk-management.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://getbreakai.com/jp/lly-form4-insider-cluster-buy.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://getbreakai.com/jp/avgo-custom-ai-asic-8k-analysis.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://getbreakai.com/jp/amd-mi350-gamma-squeeze-target.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://getbreakai.com/jp/meta-ai-capex-earnings-nlp.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://getbreakai.com/jp/crwd-cybersecurity-pead-drift.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://getbreakai.com/jp/vrt-ai-datacenter-cooling-catalyst.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://getbreakai.com/jp/ceg-nuclear-ai-power-8k-contract.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://getbreakai.com/jp/mstr-bitcoin-volatility-atr-sizing.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://getbreakai.com/jp/arm-royalty-expansion-gamma-wall.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://getbreakai.com/jp/asml-euv-orders-semiconductor-cycle.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://getbreakai.com/jp/unh-defensive-healthcare-insider-buy.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://getbreakai.com/jp/msft-azure-ai-copilot-sec-8k.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://getbreakai.com/jp/aapl-apple-intelligence-cycle-gex.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://getbreakai.com/jp/amzn-aws-margin-expansion-pead.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://getbreakai.com/jp/googl-search-cloud-ai-valuation.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://getbreakai.com/jp/sec-8k-japanese-ai-guide.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://getbreakai.com/jp/form4-insider-cluster-guide.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://getbreakai.com/jp/options-gamma-squeeze-gex-guide.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://getbreakai.com/jp/fomc-cpi-iv-crush-strategy.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://getbreakai.com/jp/tradingview-pine-script-v5-atr-guide.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://getbreakai.com/jp/us-stock-stop-loss-2percent-rule.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://getbreakai.com/jp/dark-pool-whale-flow-reading.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://getbreakai.com/jp/ai-datacenter-power-stocks-2026.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://getbreakai.com/jp/semiconductor-cycle-truthofmarket-guide.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
   </url>
 </urlset>

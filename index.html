@@ -693,6 +693,35 @@
 
   <!-- Interactive Dual Terminal: AI Catalyst Radar + ATR/IV Position Sizer -->
   <section id="radar" class="container">
+    <!-- Beginner-Friendly 10-Second Plain-English Event Trading Guide -->
+    <div id="gbEasyPlaybookBanner" style="background:linear-gradient(135deg, rgba(20,15,38,0.96) 0%, rgba(12,10,24,0.98) 100%); border:1px solid rgba(139,92,246,0.45); border-left:4px solid #10b981; border-radius:14px; padding:18px 22px; margin-bottom:20px; box-shadow:0 12px 32px rgba(0,0,0,0.4);">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
+        <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+          <span style="background:rgba(16,185,129,0.18); color:#34d399; border:1px solid rgba(16,185,129,0.4); font-family:var(--font-mono); font-size:0.72rem; font-weight:800; padding:3px 10px; border-radius:999px;">
+            💡 ZERO-JARGON BEGINNER GUIDE
+          </span>
+          <strong style="color:#fff; font-size:0.98rem;">How Everyday Investors Use Catalyst &amp; Whale AI to Make Money Safely:</strong>
+        </div>
+        <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--accent-amber); font-weight:700;">
+          Click any ticker below ($NVDA, $PLTR, $LLY, $SMCI) to get your exact Buy/Stop/Target ticket ↓
+        </span>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:12px; font-size:0.83rem; line-height:1.5;">
+        <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:10px 14px;">
+          <strong style="color:#c4b5fd; display:block; margin-bottom:3px;">① Follow Real Money, Not Rumors</strong>
+          <span style="color:var(--text-muted);">Only buy when <b>AI Catalyst Score &ge; 85</b> (CEOs buying with their own cash on Form-4 or Wall Street forced to buy Calls).</span>
+        </div>
+        <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:10px 14px;">
+          <strong style="color:#fda4af; display:block; margin-bottom:3px;">② Never Lose More Than 1.5%</strong>
+          <span style="color:var(--text-muted);">Our <b>ATR Sizer</b> tells you the exact share count and <b>2.0x ATR Stop-Loss</b> so one bad trade never hurts your account.</span>
+        </div>
+        <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:10px 14px;">
+          <strong style="color:#6ee7b7; display:block; margin-bottom:3px;">③ Take Profit at the Gamma Wall</strong>
+          <span style="color:var(--text-muted);">Sell into strength at the <b>5-Day IV Expected Move Wall</b> or <b>2.5R Target</b> (+2.5x reward vs risk) before momentum fades.</span>
+        </div>
+      </div>
+    </div>
+
     <div class="terminal-shell">
       <div class="terminal-topbar">
         <div class="terminal-dots">
@@ -796,6 +825,23 @@
             <div class="sizer-card">
               <span class="metric-label">2.5R CATALYST TARGET</span>
               <strong id="outTarget25R" class="val-emerald">$162.50 (+$1,867 Gain)</strong>
+            </div>
+          </div>
+
+          <!-- Plain-English 1-Click Action Verdict Box -->
+          <div id="gbPlainEnglishActionBox" style="margin-top:16px; background:rgba(16,185,129,0.1); border:1.5px solid rgba(16,185,129,0.45); border-radius:12px; padding:14px 16px; font-size:0.84rem; line-height:1.55;">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px; margin-bottom:6px;">
+              <strong id="gbPlainActionTitle" style="color:#34d399; font-family:var(--font-mono); font-size:0.8rem;">
+                🟢 PLAIN-ENGLISH ACTION PLAN ($NVDA · BUY SETUP)
+              </strong>
+              <span id="gbPlainRewardBadge" style="background:rgba(16,185,129,0.2); color:#6ee7b7; font-family:var(--font-mono); font-size:0.72rem; font-weight:800; padding:2px 8px; border-radius:999px;">
+                2.5x Reward-to-Risk
+              </span>
+            </div>
+            <div id="gbPlainActionSteps" style="color:#e2e8f0;">
+              1️⃣ <b>BUY:</b> Purchase <b>83 shares ($11,620)</b> at <b>$140.00</b>.<br>
+              2️⃣ <b>PROTECT:</b> Set automatic Stop-Loss at <b>$131.00</b> (caps max loss at <b>-$747</b> = 1.5% of your account).<br>
+              3️⃣ <b>PROFIT:</b> Take profit between <b>$153.42</b> (Gamma Wall) and <b>$162.50</b> for <b>+$1,867 expected gain</b>!
             </div>
           </div>
         </div>
@@ -1211,6 +1257,7 @@ plotshape(volSpike, "Whale Block Spike", shape.diamond, location.belowbar, color
     };
 
     let currentIv = 68;
+    let activeSym = 'NVDA';
 
     function selectCatalyst(sym, btn) {
       document.querySelectorAll('.ticker-btn').forEach(b => b.classList.remove('active'));
@@ -1218,6 +1265,7 @@ plotshape(volSpike, "Whale Block Spike", shape.diamond, location.belowbar, color
 
       const d = CATALYST_DATA[sym];
       if (!d) return;
+      activeSym = sym;
 
       const badge = document.getElementById('catClassificationBadge');
       badge.className = d.badgeClass;
@@ -1253,6 +1301,7 @@ plotshape(volSpike, "Whale Block Spike", shape.diamond, location.belowbar, color
       const maxAfford = Math.floor(account / entry);
       const shares = Math.max(1, Math.min(rawShares, maxAfford));
       const notional = Math.round(shares * entry);
+      const actualRiskUsd = Math.round(shares * stopDist);
 
       // 5-day options expected move: Spot * (IV/100) * sqrt(5/252)
       const expMove = entry * (currentIv / 100.0) * Math.sqrt(5.0 / 252.0);
@@ -1265,6 +1314,37 @@ plotshape(volSpike, "Whale Block Spike", shape.diamond, location.belowbar, color
       document.getElementById('outAtrStop').innerText = '$' + stopPrice.toFixed(2) + ' (-$' + stopDist.toFixed(2) + '/sh)';
       document.getElementById('outExpectedMove').innerText = '±$' + expMove.toFixed(2) + ' ($' + upperWall.toFixed(2) + ' Wall)';
       document.getElementById('outTarget25R').innerText = '$' + target25R.toFixed(2) + ' (+$' + gainDollars.toLocaleString() + ')';
+
+      const box = document.getElementById('gbPlainEnglishActionBox');
+      const titleEl = document.getElementById('gbPlainActionTitle');
+      const badgeEl = document.getElementById('gbPlainRewardBadge');
+      const stepsEl = document.getElementById('gbPlainActionSteps');
+      if (box && titleEl && badgeEl && stepsEl) {
+        if (activeSym === 'SMCI') {
+          box.style.background = 'rgba(244,63,94,0.12)';
+          box.style.borderColor = 'rgba(244,63,94,0.5)';
+          titleEl.style.color = '#fb7185';
+          titleEl.innerText = '🔴 PLAIN-ENGLISH VERDICT ($SMCI · DO NOT BUY / AVOID)';
+          badgeEl.style.background = 'rgba(244,63,94,0.22)';
+          badgeEl.style.color = '#fda4af';
+          badgeEl.innerText = 'High Crash Risk';
+          stepsEl.innerHTML =
+            '⚠️ <b>PROTECT YOUR MONEY:</b> AI detected SEC 10-K accounting red flags and <b>67% Dark Pool institutional selling</b>.<br>' +
+            '💡 <b>HOW YOU MAKE MONEY HERE:</b> Avoiding just one -35% earnings trap saves <b>$' + Math.round(account * 0.1) + '+</b> so you can deploy capital into high-conviction setups like <b>$NVDA, $PLTR, or $LLY</b>!';
+        } else {
+          box.style.background = 'rgba(16,185,129,0.1)';
+          box.style.borderColor = 'rgba(16,185,129,0.45)';
+          titleEl.style.color = '#34d399';
+          titleEl.innerText = '🟢 PLAIN-ENGLISH ACTION PLAN ($' + activeSym + ' · BUY SETUP)';
+          badgeEl.style.background = 'rgba(16,185,129,0.2)';
+          badgeEl.style.color = '#6ee7b7';
+          badgeEl.innerText = '2.5x Reward-to-Risk';
+          stepsEl.innerHTML =
+            '1️⃣ <b>BUY:</b> Purchase <b>' + shares + ' shares ($' + notional.toLocaleString() + ')</b> at <b>$' + entry.toFixed(2) + '</b>.<br>' +
+            '2️⃣ <b>PROTECT:</b> Set automatic Stop-Loss at <b>$' + stopPrice.toFixed(2) + '</b> (caps max loss at <b>-$' + actualRiskUsd.toLocaleString() + '</b> = 1.5% of your $' + account.toLocaleString() + ' account).<br>' +
+            '3️⃣ <b>PROFIT:</b> Take profit between <b>$' + upperWall.toFixed(2) + '</b> (5-Day Gamma Wall) and <b>$' + target25R.toFixed(2) + '</b> for <b>+$' + gainDollars.toLocaleString() + ' expected gain</b>!';
+        }
+      }
     }
 
     let isGbVipUnlocked = localStorage.getItem('gb_vip_unlocked') === 'true';

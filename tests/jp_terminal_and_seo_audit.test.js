@@ -13,7 +13,7 @@ const WORKFLOW_PATH = path.join(ROOT, '.github', 'workflows', 'getbreakai_jp_aut
 
 test('STEP 1: 100% Native Japanese Localization & USD/JPY Dual Sizer in index.html', () => {
   const html = fs.readFileSync(INDEX_PATH, 'utf8');
-  assert.match(html, /<html lang="ja">/);
+  assert.match(html, /<html lang="ja"/);
   assert.match(html, /Noto\+Sans\+JP/);
   assert.ok(html.includes('ウォール街の英語'));
   assert.ok(html.includes('新NISA・米国株スイング投資家のためのATR損切り＆適正株数ターミナル'));
@@ -22,6 +22,19 @@ test('STEP 1: 100% Native Japanese Localization & USD/JPY Dual Sizer in index.ht
   assert.ok(html.includes('🔴 エントリー禁止 / 会計リスク・ダークプール機関売り警告 (DO NOT BUY / AVOID)'));
   assert.ok(html.includes('📤 X(Twitter)で銘柄シグナルを共有'));
   assert.ok(html.includes('USD_JPY_RATE = 150.0'));
+});
+
+test('STEP 5: Japanese Securities (SBI/Kabutan/Buffett-Code) High-Trust Fintech UI/UX', () => {
+  const html = fs.readFileSync(INDEX_PATH, 'utf8');
+  assert.ok(html.includes('data-jp-theme="light"'), 'Default theme must be High-Trust Japanese Financial Light/Navy');
+  assert.ok(html.includes('id="btnToggleJpTheme"'), 'Must include 1-click Dark/Light theme switcher');
+  assert.ok(html.includes('SBI証券・楽天証券・マネックス対応'), 'Must include Japanese brokerage compatibility badge');
+  assert.ok(html.includes('id="gbQuickMatrixTable"'), 'Must include Kabutan-style at-a-glance quick matrix table');
+  assert.ok(html.includes('setJpAccountPreset('), 'Must include 1-tap Japanese Yen capital preset buttons (100万円~1,200万円 新NISA枠)');
+  assert.ok(html.includes('setJpFxRate('), 'Must include 1-tap USD/JPY exchange rate preset buttons (145円~160円)');
+  assert.ok(html.includes('id="gbVisualRangeBar"'), 'Must include visual price range thermometer bar');
+  assert.ok(html.includes('id="jp-faq"'), 'Must include Japanese buyer Q&A section');
+  assert.ok(html.includes('class="jp-mobile-bottom-nav"'), 'Must include smartphone one-handed sticky bottom navigation bar');
 });
 
 test('STEP 2: Japanese 3x Checkout Conversion Boosters & Store #296100 Live Checkout Links', () => {

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" data-jp-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="google-site-verification" content="nAGlJMEUUPifbzSd8X4PCaBIyr3DtTwaa1a-q9zkbBc">
@@ -908,7 +908,7 @@
         <li><a href="#pricing">料金プラン</a></li>
         <li><a href="#pricing" class="btn-nav">Pro版をアンロック →</a></li>
       </ul>
-      <a href="#radar" class="mobile-nav-cta">ATR計算機 ↓</a>
+      <div style="display:flex; align-items:center; gap:8px;"><button type="button" id="btnToggleJpTheme" onclick="toggleJpTheme()" style="background:#17325c; color:#fde68a; border:1px solid #3b5998; padding:6px 11px; border-radius:7px; font-size:0.75rem; font-weight:800; cursor:pointer;">🌙 ダーク切替</button><a href="#radar" class="mobile-nav-cta">ATR計算 ↓</a></div>
     </div>
   </header>
 
@@ -931,6 +931,111 @@
   <!-- インタラクティブ・デュアルターミナル -->
   <section id="radar" class="container">
     <!-- 初心者向け3ステップガイド (#gbEasyPlaybookBanner) -->
+    
+    <!-- 🇯🇵 日本の個人投資家向け「3大安心・証券口座対応バッジ」 -->
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:10px; margin-bottom:18px;">
+      <div style="background:var(--bg-card); border:1.5px solid var(--border-color); border-top:3px solid #1d4ed8; border-radius:10px; padding:10px 14px; display:flex; align-items:center; gap:10px;">
+        <span style="font-size:1.35rem;">🏦</span>
+        <div style="font-size:0.8rem; line-height:1.4;">
+          <strong style="display:block; color:var(--text-main);">SBI証券・楽天証券・マネックス対応</strong>
+          <span style="color:var(--text-muted);">新NISA成長投資枠・特定口座の逆指値にそのまま使えるドル/円計算</span>
+        </div>
+      </div>
+      <div style="background:var(--bg-card); border:1.5px solid var(--border-color); border-top:3px solid #047857; border-radius:10px; padding:10px 14px; display:flex; align-items:center; gap:10px;">
+        <span style="font-size:1.35rem;">📑</span>
+        <div style="font-size:0.8rem; line-height:1.4;">
+          <strong style="display:block; color:var(--text-main);">米国SEC EDGAR公式開示を3秒で日本語化</strong>
+          <span style="color:var(--text-muted);">英語の8-K決算・Form-4役員自社株買い・Gamma壁を図解で要約</span>
+        </div>
+      </div>
+      <div style="background:var(--bg-card); border:1.5px solid var(--border-color); border-top:3px solid #b45309; border-radius:10px; padding:10px 14px; display:flex; align-items:center; gap:10px;">
+        <span style="font-size:1.35rem;">🛡️</span>
+        <div style="font-size:0.8rem; line-height:1.4;">
+          <strong style="display:block; color:var(--text-main);">塩漬け・大損を防ぐ「2.0x ATR損切り」</strong>
+          <span style="color:var(--text-muted);">1回の許容損失を口座資金の1.5%以内に自動ロックする機関投資家式</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 📊 本日の米国株AIシグナル早見表（株探・四季報スタイルの高一覧性テーブル） -->
+    <div id="gbQuickMatrixSection" class="comp-table-wrap" style="margin-bottom:20px; padding:16px 18px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:10px;">
+        <div style="font-weight:900; font-size:0.96rem;">
+          📊 本日の米国株 主要銘柄AIシグナル＆ATR損切りライン早見表 <span style="font-size:0.76rem; font-weight:700; color:var(--accent-amber);">（行をクリックすると下の計算機に自動反映されます）</span>
+        </div>
+        <span style="font-size:0.74rem; font-family:var(--font-mono); color:var(--text-sub);">※1ドル＝150円基準・リアルタイム連動</span>
+      </div>
+      <table class="comp-table" id="gbQuickMatrixTable" style="font-size:0.82rem;">
+        <thead>
+          <tr>
+            <th>銘柄コード・日本名</th>
+            <th>AI総合判定</th>
+            <th>一次情報カタリスト要約</th>
+            <th>現在株価</th>
+            <th>2.0x ATR損切り</th>
+            <th>2.5R 利確目標</th>
+            <th>シミュレーター</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="cursor:pointer;" onclick="selectCatalyst('NVDA'); document.getElementById('radar').scrollIntoView({behavior:'smooth'});">
+            <td><strong>$NVDA エヌビディア</strong></td>
+            <td><span class="tape-badge bg-pead">🟢 強気 93.5点</span></td>
+            <td>Blackwell増産8-K・Call 3.2倍GEX</td>
+            <td class="jp-num">$186.64</td>
+            <td class="val-rose jp-num">$170.60</td>
+            <td class="val-emerald jp-num"><strong>$226.74</strong></td>
+            <td><button type="button" class="ticker-btn active" style="padding:4px 9px; font-size:0.72rem;">計算機に反映 ↓</button></td>
+          </tr>
+          <tr style="cursor:pointer;" onclick="selectCatalyst('PLTR'); document.getElementById('radar').scrollIntoView({behavior:'smooth'});">
+            <td><strong>$PLTR パランティア</strong></td>
+            <td><span class="tape-badge bg-pead">🟢 強気 91.0点</span></td>
+            <td>国防AI大型契約(8-K)・DP機関買い64%</td>
+            <td class="jp-num">$160.38</td>
+            <td class="val-rose jp-num">$140.48</td>
+            <td class="val-emerald jp-num"><strong>$210.13</strong></td>
+            <td><button type="button" class="ticker-btn" style="padding:4px 9px; font-size:0.72rem;">計算機に反映 ↓</button></td>
+          </tr>
+          <tr style="cursor:pointer;" onclick="selectCatalyst('LLY'); document.getElementById('radar').scrollIntoView({behavior:'smooth'});">
+            <td><strong>$LLY イーライリリー</strong></td>
+            <td><span class="tape-badge bg-whale">🐋 役員買い 89.8点</span></td>
+            <td>CEO/CFOら3名が自腹$4.8M市場内買い</td>
+            <td class="jp-num">$1,354.00</td>
+            <td class="val-rose jp-num">$1,248.38</td>
+            <td class="val-emerald jp-num"><strong>$1,618.05</strong></td>
+            <td><button type="button" class="ticker-btn" style="padding:4px 9px; font-size:0.72rem;">計算機に反映 ↓</button></td>
+          </tr>
+          <tr style="cursor:pointer;" onclick="selectCatalyst('TSLA'); document.getElementById('radar').scrollIntoView({behavior:'smooth'});">
+            <td><strong>$TSLA テスラ</strong></td>
+            <td><span class="tape-badge bg-gamma">⚡ GEX 89.7点</span></td>
+            <td>Call 3.6倍スイープ流入・踏み上げ点火</td>
+            <td class="jp-num">$358.22</td>
+            <td class="val-rose jp-num">$322.24</td>
+            <td class="val-emerald jp-num"><strong>$448.17</strong></td>
+            <td><button type="button" class="ticker-btn" style="padding:4px 9px; font-size:0.72rem;">計算機に反映 ↓</button></td>
+          </tr>
+          <tr style="cursor:pointer;" onclick="selectCatalyst('AVGO'); document.getElementById('radar').scrollIntoView({behavior:'smooth'});">
+            <td><strong>$AVGO ブロードコム</strong></td>
+            <td><span class="tape-badge bg-pead">🟢 強気 88.4点</span></td>
+            <td>カスタムAI半導体(ASIC)受注・DP 59%</td>
+            <td class="jp-num">$293.69</td>
+            <td class="val-rose jp-num">$263.41</td>
+            <td class="val-emerald jp-num"><strong>$369.39</strong></td>
+            <td><button type="button" class="ticker-btn" style="padding:4px 9px; font-size:0.72rem;">計算機に反映 ↓</button></td>
+          </tr>
+          <tr style="cursor:pointer; background:rgba(244,63,94,0.06);" onclick="selectCatalyst('SMCI'); document.getElementById('radar').scrollIntoView({behavior:'smooth'});">
+            <td><strong>$SMCI スーパーマイクロ</strong></td>
+            <td><span class="tape-badge bg-risk">🔴 禁止 28.5点</span></td>
+            <td>10-K会計監査リスク＆機関売り67%検知</td>
+            <td class="jp-num">$28.76</td>
+            <td class="val-rose jp-num">新規買い禁止</td>
+            <td class="val-rose jp-num"><strong>見送り推奨</strong></td>
+            <td><button type="button" class="ticker-btn" style="padding:4px 9px; font-size:0.72rem;">警告詳細 ↓</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
     <div id="gbEasyPlaybookBanner" style="background:linear-gradient(135deg, rgba(20,15,38,0.96) 0%, rgba(12,10,24,0.98) 100%); border:1px solid rgba(139,92,246,0.45); border-left:4px solid #10b981; border-radius:14px; padding:18px 22px; margin-bottom:20px; box-shadow:0 12px 32px rgba(0,0,0,0.4);">
       <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
         <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
@@ -1040,7 +1145,23 @@
               <span>運用口座資金 (ドル $ / 日本円 ¥ · 1ドル=<span id="lblFxRate">150</span>円換算)</span>
               <strong id="lblAccount" style="color:var(--accent-amber);">$50,000 (約750.0万円)</strong>
             </div>
-            <input type="range" id="sliderAccount" min="5000" max="250000" step="5000" value="50000" oninput="recalcSizer()">
+            <input type="range" id="sliderAccount" min="5000" max="250000" step="100" value="50000" oninput="recalcSizer()">
+            <div class="jp-preset-row">
+              <span style="font-size:0.72rem; color:var(--text-sub); align-self:center; font-weight:700;">ワンタッチ資金選択:</span>
+              <button type="button" class="jp-preset-btn" onclick="setJpAccountPreset(6700)">100万円</button>
+              <button type="button" class="jp-preset-btn" onclick="setJpAccountPreset(20000)">300万円</button>
+              <button type="button" class="jp-preset-btn" onclick="setJpAccountPreset(33300)">500万円</button>
+              <button type="button" class="jp-preset-btn active" onclick="setJpAccountPreset(50000)">750万円 ($5万)</button>
+              <button type="button" class="jp-preset-btn" onclick="setJpAccountPreset(66700)">1,000万円</button>
+              <button type="button" class="jp-preset-btn" onclick="setJpAccountPreset(80000)">1,200万円 (新NISA枠)</button>
+            </div>
+            <div class="jp-preset-row" style="margin-top:4px;">
+              <span style="font-size:0.72rem; color:var(--text-sub); align-self:center; font-weight:700;">為替レート試算:</span>
+              <button type="button" class="jp-preset-btn" onclick="setJpFxRate(145)">145円(円高)</button>
+              <button type="button" class="jp-preset-btn active" onclick="setJpFxRate(150)">150円(標準)</button>
+              <button type="button" class="jp-preset-btn" onclick="setJpFxRate(155)">155円(円安)</button>
+              <button type="button" class="jp-preset-btn" onclick="setJpFxRate(160)">160円</button>
+            </div>
           </div>
 
           <div class="control-group">
@@ -1075,6 +1196,21 @@
             <div class="sizer-card">
               <span class="metric-label">利確ターゲット (2.5R) / 期待利益</span>
               <strong id="outTarget25R" class="val-emerald">$226.74 (+$1,845 / 約27.7万円)</strong>
+            </div>
+          </div>
+
+          
+          <!-- 📏 株価位置ビジュアル温度計（損切り ── 現在値 ── Gamma壁 ── 2.5R利確） -->
+          <div id="gbVisualRangeBar" class="jp-range-box">
+            <div style="font-size:0.76rem; font-weight:800; color:var(--text-main);">
+              📏 価格帯ビジュアルマップ（逆指値・現在値・利確目標の位置関係）
+            </div>
+            <div class="jp-range-track"></div>
+            <div class="jp-range-labels">
+              <span style="color:var(--accent-rose);">🛑 2.0x ATR損切り: <b id="barStopVal">$170.60</b></span>
+              <span style="color:var(--text-main);">📍 現在値: <b id="barEntryVal">$186.64</b></span>
+              <span style="color:var(--accent-violet);">⚡ 5日Gamma壁: <b id="barWallVal">$204.52</b></span>
+              <span style="color:var(--accent-emerald);">🎯 2.5R利確: <b id="barTargetVal">$226.74</b></span>
             </div>
           </div>
 
@@ -1466,6 +1602,39 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
     </div>
   </section>
 
+  
+  <!-- ❓ よくあるご質問（日本の個人投資家向けQ&A） -->
+  <section id="jp-faq" class="section container" style="padding-top:10px; padding-bottom:60px;">
+    <h2 class="section-title">❓ よくあるご質問（新NISA・米国株投資家向けQ&amp;A）</h2>
+    <p class="section-subtitle">ご購入前やご利用中によくいただくご質問をまとめました。</p>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:16px;">
+      <div class="feature-card">
+        <h3 class="card-title" style="font-size:1.02rem;">Q1. 英語が全く読めなくても米国株の一次情報を理解できますか？</h3>
+        <p class="card-desc">はい。米国SECに提出される英語の8-K（重要契約・決算）やForm-4（役員の自社株買い）をAIが3秒で日本語の点数（0〜100点）と3ステップの具体的な行動プランに変換するため、英語力は一切不要です。</p>
+      </div>
+      <div class="feature-card">
+        <h3 class="card-title" style="font-size:1.02rem;">Q2. 楽天証券やSBI証券の注文画面でどう使えばいいですか？</h3>
+        <p class="card-desc">当サイトの計算機に表示される「推奨エントリー株数」を購入し、証券アプリの逆指値（ストップロス）注文に「2.0x ATR損切りライン（$○○）」をそのまま入力するだけで、機関投資家と同じリスク管理が完了します。</p>
+      </div>
+      <div class="feature-card">
+        <h3 class="card-title" style="font-size:1.02rem;">Q3. 永久ライセンス買い切り（$199 / 約30,000円）は本当に追加費用0円ですか？</h3>
+        <p class="card-desc">はい。1回のお支払いのみで、毎月のサブスク課金は一切発生しません。さらに姉妹サイト TruthOfMarket.com（半導体恐怖強欲指数＆72銘柄PW-RSI）の生涯VIP権も無料で付属します。</p>
+      </div>
+      <div class="feature-card">
+        <h3 class="card-title" style="font-size:1.02rem;">Q4. JCBカードやApple Payでの決済、月額プランの1クリック解約は可能ですか？</h3>
+        <p class="card-desc">はい。公式決済基盤 Lemon Squeezy / Stripe により、JCB・Visa・Mastercard・Apple Pay・Google Pay・PayPalすべてに対応しており、月額プランもマイページからいつでも1クリックで解約可能です。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 📱 スマホ片手操作用・下部固定クイックバー -->
+  <nav class="jp-mobile-bottom-nav" aria-label="モバイルクイックメニュー">
+    <a href="#gbQuickMatrixSection">📊 銘柄早見表</a>
+    <a href="#radar">🧮 ATR株数計算</a>
+    <a href="#vip-vault">👑 VIPデータ庫</a>
+    <a href="#pricing">💎 Pro購入</a>
+  </nav>
+
   <!-- フッター -->
   <footer>
     <div class="container">
@@ -1522,7 +1691,7 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
 
 
   <script>
-    const USD_JPY_RATE = 150.0;
+    let USD_JPY_RATE = 150.0;
     const CATALYST_DATA = {
       "NVDA": {
             "jpName": "エヌビディア",
@@ -1803,6 +1972,33 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
     let currentIv = 68;
     let activeSym = 'NVDA';
 
+    
+    function setJpAccountPreset(usdVal) {
+      const s = document.getElementById('sliderAccount');
+      if (s) {
+        s.value = usdVal;
+        recalcSizer();
+      }
+    }
+
+    function setJpFxRate(rate) {
+      USD_JPY_RATE = Number(rate) || 150.0;
+      const fxEl = document.getElementById('lblFxRate');
+      if (fxEl) fxEl.innerText = String(USD_JPY_RATE);
+      recalcSizer();
+    }
+
+    function toggleJpTheme() {
+      const root = document.documentElement;
+      const cur = root.getAttribute('data-jp-theme') || 'light';
+      const next = cur === 'light' ? 'dark' : 'light';
+      root.setAttribute('data-jp-theme', next);
+      const btn = document.getElementById('btnToggleJpTheme');
+      if (btn) {
+        btn.innerText = next === 'light' ? '🌙 ダーク切替' : '🌞 証券ライト切替';
+      }
+    }
+
     function formatJpyMan(usdVal) {
       const jpy = usdVal * USD_JPY_RATE;
       if (jpy >= 10000) {
@@ -1877,6 +2073,16 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
       document.getElementById('outShares').innerText = shares + '株 ($' + notional.toLocaleString() + ' / ' + formatJpyMan(notional) + ')';
       document.getElementById('outAtrStop').innerText = '$' + stopPrice.toFixed(2) + ' (-$' + actualRiskUsd.toLocaleString() + ' / ' + formatJpyMan(actualRiskUsd) + ')';
       document.getElementById('outExpectedMove').innerText = '±$' + expMove.toFixed(2) + ' ($' + upperWall.toFixed(2) + ' 壁)';
+      
+      const bStop = document.getElementById('barStopVal');
+      const bEntry = document.getElementById('barEntryVal');
+      const bWall = document.getElementById('barWallVal');
+      const bTarget = document.getElementById('barTargetVal');
+      if (bStop) bStop.innerText = '$' + stopPrice.toFixed(2);
+      if (bEntry) bEntry.innerText = '$' + entry.toFixed(2);
+      if (bWall) bWall.innerText = '$' + upperWall.toFixed(2);
+      if (bTarget) bTarget.innerText = '$' + target25R.toFixed(2);
+
       document.getElementById('outTarget25R').innerText = '$' + target25R.toFixed(2) + ' (+$' + gainDollars.toLocaleString() + ' / ' + formatJpyMan(gainDollars) + ')';
 
       const box = document.getElementById('gbPlainEnglishActionBox');

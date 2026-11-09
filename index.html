@@ -1162,6 +1162,11 @@
               <button type="button" class="jp-preset-btn" onclick="setJpFxRate(155)">155円(円安)</button>
               <button type="button" class="jp-preset-btn" onclick="setJpFxRate(160)">160円</button>
             </div>
+            <div class="jp-preset-row" style="margin-top:4px;">
+              <span style="font-size:0.72rem; color:var(--text-sub); align-self:center; font-weight:700;">日本の税制・口座区分:</span>
+              <button type="button" id="btnTaxNisa" class="jp-preset-btn active" onclick="setJpTaxMode('nisa')">🌱 新NISA (非課税0%・買付手数料0円)</button>
+              <button type="button" id="btnTaxTokutei" class="jp-preset-btn" onclick="setJpTaxMode('tokutei')">🏦 特定口座 (源泉20.315%・損益通算可)</button>
+            </div>
           </div>
 
           <div class="control-group">
@@ -1211,6 +1216,35 @@
               <span style="color:var(--text-main);">📍 現在値: <b id="barEntryVal">$186.64</b></span>
               <span style="color:var(--accent-violet);">⚡ 5日Gamma壁: <b id="barWallVal">$204.52</b></span>
               <span style="color:var(--accent-emerald);">🎯 2.5R利確: <b id="barTargetVal">$226.74</b></span>
+            </div>
+          </div>
+
+          
+          <!-- 🇯🇵 日本国内の米国株税制（新NISA 0% vs 特定口座 20.315%）・売買手数料（上限$22）・為替変動（円高/円安）手取り純利益シミュレーター -->
+          <div id="gbJpTaxAndFxBox" style="margin-top:14px; background:var(--bg-card); border:1.5px solid var(--border-color); border-left:5px solid #1d4ed8; border-radius:12px; padding:14px 16px; font-size:0.8rem; line-height:1.6;">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px; margin-bottom:8px;">
+              <strong style="color:var(--text-main); font-size:0.84rem;">
+                🇯🇵 日本の米国株 税制・売買手数料・為替変動（円高/円安）手取り純利益シミュレーション
+              </strong>
+              <span id="badgeJpTaxMode" class="tape-badge bg-pead" style="font-size:0.7rem;">🌱 新NISA（成長投資枠：非課税 0%）適用中</span>
+            </div>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:10px; margin-bottom:10px;">
+              <div style="background:rgba(16,185,129,0.06); border:1px solid rgba(16,185,129,0.28); border-radius:8px; padding:9px 11px;">
+                <span style="display:block; font-size:0.71rem; color:var(--text-muted); font-weight:700;">🎯 2.5R利確時の「税・手数料引後 手取り純利益」</span>
+                <strong id="valNetProfitJpy" class="val-emerald jp-num" style="font-size:0.95rem;">+約27.4万円 (手取り +$1,829)</strong>
+                <span id="valTaxSavedNote" style="display:block; font-size:0.71rem; color:var(--accent-emerald); margin-top:2px;">✨ 新NISA非課税メリット: +約5.6万円 節税！</span>
+              </div>
+              <div style="background:rgba(29,78,216,0.05); border:1px solid rgba(29,78,216,0.22); border-radius:8px; padding:9px 11px;">
+                <span style="display:block; font-size:0.71rem; color:var(--text-muted); font-weight:700;">🏦 証券手数料(0.495%上限$22)＋為替スプレッド(25銭)</span>
+                <strong id="valBrokerFeeJpy" class="jp-num" style="font-size:0.9rem; color:var(--text-main);">往復コスト 約¥4,596 ($30.64)</strong>
+                <span style="display:block; font-size:0.71rem; color:var(--text-sub); margin-top:2px;">SBI・楽天・マネックス米国株標準コスト反映</span>
+              </div>
+            </div>
+            <div id="valFxSensitivity" style="font-size:0.76rem; color:var(--text-muted); margin-bottom:6px;">
+              💱 <b>為替変動シミュレーション（円換算課税対応）:</b> 利確時に<b>5円円安(155円)</b>なら手取り <b>+約28.3万円</b> ／ <b>5円円高(145円)</b>なら手取り <b>+約26.5万円</b>
+            </div>
+            <div id="valLossTaxNote" style="font-size:0.75rem; color:var(--text-sub); background:rgba(245,158,11,0.08); border:1px solid rgba(245,158,11,0.28); border-radius:7px; padding:7px 10px;">
+              ⚠️ <b>新NISAの重要注意点（損益通算不可）:</b> 新NISA口座で発生した損失は特定口座の利益と<b>損益通算（相殺）できません</b>。含み損を塩漬けにすると非課税枠が死に金になるため、<b>2.0x ATR損切りラインでの機械的撤退</b>が新NISA資産防衛の鉄則です。
             </div>
           </div>
 
@@ -1973,6 +2007,15 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
     let activeSym = 'NVDA';
 
     
+    let JP_TAX_MODE = 'nisa';
+    function setJpTaxMode(mode) {
+      JP_TAX_MODE = mode === 'tokutei' ? 'tokutei' : 'nisa';
+      const bNisa = document.getElementById('btnTaxNisa');
+      const bTok = document.getElementById('btnTaxTokutei');
+      if (bNisa) bNisa.classList.toggle('active', JP_TAX_MODE === 'nisa');
+      if (bTok) bTok.classList.toggle('active', JP_TAX_MODE === 'tokutei');
+      recalcSizer();
+    }
     function setJpAccountPreset(usdVal) {
       const s = document.getElementById('sliderAccount');
       if (s) {
@@ -2082,6 +2125,58 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
       if (bEntry) bEntry.innerText = '$' + entry.toFixed(2);
       if (bWall) bWall.innerText = '$' + upperWall.toFixed(2);
       if (bTarget) bTarget.innerText = '$' + target25R.toFixed(2);
+
+      // 🇯🇵 日本国内の米国株税制（新NISA 0% vs 特定口座 20.315%）・売買手数料（0.495%上限$22）・為替スプレッド（25銭）計算
+      const buyCommUsd = (typeof JP_TAX_MODE !== 'undefined' && JP_TAX_MODE === 'nisa') ? 0 : Math.min(22.0, notional * 0.00495);
+      const sellNotional = shares * target25R;
+      const sellCommUsd = Math.min(22.0, sellNotional * 0.00495);
+      const fxSpreadJpy = (notional + sellNotional) * 0.25; // 往復為替スプレッド（片道25銭基準）
+      const totalFeeUsd = buyCommUsd + sellCommUsd + (fxSpreadJpy / USD_JPY_RATE);
+      const totalFeeJpy = Math.round(totalFeeUsd * USD_JPY_RATE);
+
+      const grossProfitUsd = Math.max(0, gainDollars - totalFeeUsd);
+      const grossProfitJpy = grossProfitUsd * USD_JPY_RATE;
+      const jpTaxRate = 0.20315; // 所得税15.315% + 住民税5%
+      const taxSavedJpy = grossProfitJpy * jpTaxRate;
+      const isTokutei = (typeof JP_TAX_MODE !== 'undefined' && JP_TAX_MODE === 'tokutei');
+      const netProfitJpy = isTokutei ? (grossProfitJpy * (1 - jpTaxRate)) : grossProfitJpy;
+      const netProfitUsd = netProfitJpy / USD_JPY_RATE;
+
+      const elNetJpy = document.getElementById('valNetProfitJpy');
+      const elTaxNote = document.getElementById('valTaxSavedNote');
+      const elFeeJpy = document.getElementById('valBrokerFeeJpy');
+      const elFxSens = document.getElementById('valFxSensitivity');
+      const elLossNote = document.getElementById('valLossTaxNote');
+      const elTaxBadge = document.getElementById('badgeJpTaxMode');
+
+      if (elTaxBadge) {
+        elTaxBadge.className = isTokutei ? 'tape-badge bg-whale' : 'tape-badge bg-pead';
+        elTaxBadge.innerText = isTokutei ? '🏦 特定口座（源泉徴収 20.315%・損益通算可）適用中' : '🌱 新NISA（成長投資枠：非課税 0%）適用中';
+      }
+      if (elNetJpy) {
+        elNetJpy.innerText = '+約' + (netProfitJpy / 10000).toFixed(1) + '万円 (手取り +$' + Math.round(netProfitUsd).toLocaleString() + ')';
+      }
+      if (elTaxNote) {
+        elTaxNote.innerText = isTokutei
+          ? ('🏦 譲渡益税(20.315%) 源泉徴収額: -約' + (taxSavedJpy / 10000).toFixed(1) + '万円（確定申告不要）')
+          : ('✨ 新NISA非課税メリット: 特定口座より +約' + (taxSavedJpy / 10000).toFixed(1) + '万円 お得！');
+      }
+      if (elFeeJpy) {
+        elFeeJpy.innerText = '往復コスト 約¥' + totalFeeJpy.toLocaleString() + ' ($' + totalFeeUsd.toFixed(2) + ')';
+      }
+      if (elFxSens) {
+        const rateWeak = USD_JPY_RATE + 5;
+        const rateStrong = Math.max(100, USD_JPY_RATE - 5);
+        const netWeakMan = ((grossProfitUsd * rateWeak) * (isTokutei ? (1 - jpTaxRate) : 1) / 10000).toFixed(1);
+        const netStrongMan = ((grossProfitUsd * rateStrong) * (isTokutei ? (1 - jpTaxRate) : 1) / 10000).toFixed(1);
+        elFxSens.innerHTML = '💱 <b>為替変動シミュレーション（円換算課税対応）:</b> 利確時に<b>5円円安(' + rateWeak + '円)</b>なら手取り <b>+約' + netWeakMan + '万円</b> ／ <b>5円円高(' + rateStrong + '円)</b>なら手取り <b>+約' + netStrongMan + '万円</b>';
+      }
+      if (elLossNote) {
+        const lossRefundMan = ((actualRiskUsd * USD_JPY_RATE * jpTaxRate) / 10000).toFixed(1);
+        elLossNote.innerHTML = isTokutei
+          ? ('💡 <b>特定口座の損益通算メリット:</b> 万が一 2.0x ATR（-$' + actualRiskUsd.toLocaleString() + '）で損切りとなっても、他銘柄の利益や配当と<b>損益通算（＋3年間繰越控除）</b>することで<b>約' + lossRefundMan + '万円（20.315%）の税金還付効果</b>があり、実質ダメージを軽減できます。')
+          : ('⚠️ <b>新NISAの重要注意点（損益通算不可）:</b> 新NISA口座の損失は特定口座と<b>損益通算できません</b>。含み損を放置（塩漬け）すると貴重な非課税枠が死に金になるため、<b>2.0x ATR損切りライン（$' + stopPrice.toFixed(2) + '）での機械的撤退</b>が新NISA枠を守る鉄則です。');
+      }
 
       document.getElementById('outTarget25R').innerText = '$' + target25R.toFixed(2) + ' (+$' + gainDollars.toLocaleString() + ' / ' + formatJpyMan(gainDollars) + ')';
 

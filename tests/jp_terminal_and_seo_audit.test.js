@@ -33,6 +33,8 @@ test('STEP 5: Japanese Securities (SBI/Kabutan/Buffett-Code) High-Trust Fintech 
   assert.ok(html.includes('setJpAccountPreset('), 'Must include 1-tap Japanese Yen capital preset buttons (100万円~1,200万円 新NISA枠)');
   assert.ok(html.includes('setJpFxRate('), 'Must include 1-tap USD/JPY exchange rate preset buttons (145円~160円)');
   assert.ok(html.includes('id="gbVisualRangeBar"'), 'Must include visual price range thermometer bar');
+  assert.ok(html.includes('id="gbJpTaxAndFxBox"'), 'Must include Japanese US-stock Tax (NISA 0% vs Tokutei 20.315%), Commission & FX simulator');
+  assert.ok(html.includes("setJpTaxMode('nisa')") && html.includes("setJpTaxMode('tokutei')"), 'Must include NISA vs Tokutei tax mode toggle');
   assert.ok(html.includes('id="jp-faq"'), 'Must include Japanese buyer Q&A section');
   assert.ok(html.includes('class="jp-mobile-bottom-nav"'), 'Must include smartphone one-handed sticky bottom navigation bar');
 });

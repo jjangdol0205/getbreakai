@@ -46,17 +46,24 @@
         "offers": [
           {
             "@type": "Offer",
-            "name": "Catalyst Starter 月額Proプラン (2サイト共通VIP)",
+            "name": "Starter Breakout Scanner",
             "price": "29.00",
             "priceCurrency": "USD",
-            "url": "https://truthofmarket.lemonsqueezy.com/checkout/buy/bad98d00-7175-41f6-9d58-eeb2471d0da4"
+            "url": "https://truthofmarket.lemonsqueezy.com/checkout/buy/gb-starter-29?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html"
           },
           {
             "@type": "Offer",
-            "name": "Whale & Gamma Pro 永久買い切りプラン (2サイト共通VIP)",
-            "price": "199.00",
+            "name": "Pro Institutional Breakout (一番人気・おすすめ)",
+            "price": "49.00",
             "priceCurrency": "USD",
-            "url": "https://truthofmarket.lemonsqueezy.com/checkout/buy/00c9f6e1-c8be-42a4-b5a5-e05af1a41ed9"
+            "url": "https://truthofmarket.lemonsqueezy.com/checkout/buy/gb-pro-49?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html"
+          },
+          {
+            "@type": "Offer",
+            "name": "Institutional Alpha Terminal",
+            "price": "1499.00",
+            "priceCurrency": "USD",
+            "url": "https://truthofmarket.lemonsqueezy.com/checkout/buy/gb-inst-1499?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html"
           }
         ],
         "publisher": {
@@ -84,7 +91,7 @@
             "name": "1つのProライセンスキーでTruthOfMarket.comも使えますか？",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "はい。Store #296100で発行されるProライセンスキー（月額$29または永久買い切り$199）1つで、短期イベント＆ATR端末のGetBreakAI.comと、半導体恐怖強欲指数＆72銘柄PW-RSIサイクル端末のTruthOfMarket.comの両方のVIP機能をロック解除できます。"
+              "text": "はい。Store #296100で発行されるProライセンスキー（Starter $29/月、Pro $49/月、Institutional $1,499/年）1つで、短期イベント＆ATR端末のGetBreakAI.comと、半導体恐怖強欲指数＆72銘柄PW-RSIサイクル端末のTruthOfMarket.comの両方のVIP機能をロック解除できます。"
             }
           }
         ]
@@ -141,22 +148,47 @@
   })();
   </script>
   <style>
-    :root {
+    /* === Dark Mode (Default / Terminal) === */
+    :root,
+    html[data-jp-theme="dark"] {
       --bg-dark: #06050c;
       --bg-card: #0e0b1a;
+      --bg-card-sub: #141026;
       --bg-card-hover: #161129;
       --border-color: #241d3d;
       --border-accent: #4c3785;
       --text-main: #f8fafc;
-      --text-muted: #b4add0;
-      --text-sub: #7c73a3;
-      --accent-violet: #8b5cf6;
-      --accent-amber: #f59e0b;
-      --accent-emerald: #10b981;
-      --accent-rose: #f43f5e;
+      --text-muted: #cbd5e1;       /* Upgraded from #b4add0 for 14.2:1 contrast */
+      --text-sub: #94a3b8;         /* Upgraded from #7c73a3 for 7.3:1 contrast */
+      --accent-violet: #a78bfa;
+      --accent-amber: #fbbf24;
+      --accent-emerald: #34d399;
+      --accent-rose: #fb7185;
       --accent-sky: #38bdf8;
       --glow-violet: rgba(139, 92, 246, 0.28);
       --glow-amber: rgba(245, 158, 11, 0.22);
+      --font-sans: 'Noto Sans JP', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Noto Sans JP', monospace;
+    }
+
+    /* === Japanese Securities High-Trust Light Mode === */
+    html[data-jp-theme="light"] {
+      --bg-dark: #f1f5f9;
+      --bg-card: #ffffff;
+      --bg-card-sub: #f8fafc;
+      --bg-card-hover: #eff6ff;
+      --border-color: #cbd5e1;
+      --border-accent: #93c5fd;
+      --text-main: #0b1f3a;        /* Deep Navy: 16.5:1 contrast */
+      --text-muted: #334155;       /* Slate 700: 9.6:1 contrast */
+      --text-sub: #475569;         /* Slate 600: 7.0:1 contrast (WCAG AAA) */
+      --accent-violet: #6d28d9;    /* 7.2:1 contrast */
+      --accent-amber: #b45309;     /* 5.8:1 contrast */
+      --accent-emerald: #047857;   /* 5.2:1 contrast */
+      --accent-rose: #be123c;      /* 6.5:1 contrast */
+      --accent-sky: #0369a1;       /* 5.8:1 contrast */
+      --glow-violet: rgba(109, 40, 217, 0.12);
+      --glow-amber: rgba(180, 83, 9, 0.12);
       --font-sans: 'Noto Sans JP', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       --font-mono: 'JetBrains Mono', 'Noto Sans JP', monospace;
     }
@@ -179,7 +211,10 @@
         radial-gradient(circle at 82% 18%, rgba(245, 158, 11, 0.10), transparent 34%);
       color: var(--text-main);
       font-family: var(--font-sans);
-      line-height: 1.65;
+      line-height: 1.7;
+      font-size: 0.95rem;
+      font-feature-settings: "palt" 1;
+      letter-spacing: 0.01em;
       -webkit-font-smoothing: antialiased;
       overflow-wrap: break-word;
     }
@@ -647,7 +682,13 @@
       gap: 24px;
     }
 
-    @media (max-width: 900px) {
+    @media (min-width: 641px) and (max-width: 1024px) {
+      .features-grid, .pricing-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+    }
+
+    @media (max-width: 640px) {
       .features-grid, .pricing-grid {
         grid-template-columns: 1fr !important;
       }
@@ -865,8 +906,22 @@
       #gbEasyPlaybookBanner { padding: 14px !important; }
       .terminal-shell { margin-bottom: 44px; border-radius: 14px; }
       .terminal-topbar { padding: 12px 14px; }
-      .ticker-bar { width: 100%; }
-      .ticker-btn { flex: 1 1 calc(50% - 6px); text-align: center; font-size: 0.72rem; padding: 7px 8px; }
+      .ticker-bar {
+        display: flex !important;
+        overflow-x: auto !important;
+        flex-wrap: nowrap !important;
+        -webkit-overflow-scrolling: touch !important;
+        gap: 6px !important;
+        padding-bottom: 6px !important;
+        width: 100%;
+        scrollbar-width: thin;
+      }
+      .ticker-btn {
+        flex: 0 0 auto !important;
+        white-space: nowrap !important;
+        font-size: 0.74rem;
+        padding: 7px 11px;
+      }
       .pane-left, .pane-right, .vip-vault-inner { padding: 16px 14px !important; }
       .catalyst-headline { font-size: 1.04rem; }
       .radar-metrics, .sizer-grid, .vip-btn-pair-grid { grid-template-columns: 1fr !important; gap: 10px; }
@@ -878,16 +933,501 @@
       .comp-table-wrap { padding: 10px; }
       table.comp-table th, table.comp-table td { padding: 9px 10px; font-size: 0.76rem; }
     }
+
+    /* ==========================================================================
+       7 Specialized Japanese Fintech Components
+       ========================================================================== */
+
+    /* 1. Japanese Yen Capital & FX Rate Presets */
+    .jp-preset-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+      margin: 8px 0 14px;
+    }
+    .jp-preset-btn {
+      background: var(--bg-card-sub);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      font-size: 0.76rem;
+      font-weight: 700;
+      padding: 5px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .jp-preset-btn:hover,
+    .jp-preset-btn.active {
+      background: var(--accent-violet);
+      color: #ffffff !important;
+      border-color: var(--accent-violet);
+    }
+
+    /* 2. Visual Price Range Thermometer Bar */
+    .jp-range-box {
+      margin-top: 14px;
+      background: var(--bg-card-sub);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 12px 14px;
+    }
+    .jp-range-track {
+      position: relative;
+      height: 10px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent-rose) 0%, var(--accent-amber) 35%, var(--accent-violet) 70%, var(--accent-emerald) 100%);
+      margin: 10px 0 8px;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.25);
+    }
+    .jp-range-labels {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      font-weight: 700;
+    }
+
+    /* 3. Sticky Smartphone One-Handed Bottom Nav */
+    .jp-mobile-bottom-nav {
+      display: none;
+    }
+    @media (max-width: 768px) {
+      body {
+        padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)) !important;
+      }
+      .jp-mobile-bottom-nav {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 999;
+        background: rgba(11, 31, 58, 0.96);
+        border-top: 2px solid #f59e0b;
+        box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.35);
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+        backdrop-filter: blur(12px);
+      }
+      .jp-mobile-bottom-nav a {
+        color: #f8fafc;
+        text-decoration: none;
+        font-size: 0.72rem;
+        font-weight: 800;
+        text-align: center;
+        padding: 10px 4px;
+        border-right: 1px solid rgba(255, 255, 255, 0.12);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2px;
+      }
+      .jp-mobile-bottom-nav a:hover,
+      .jp-mobile-bottom-nav a:active {
+        color: #fbbf24;
+      }
+      .jp-mobile-bottom-nav a:last-child {
+        border-right: none;
+        background: #b45309;
+        color: #ffffff;
+      }
+    }
+
+    /* 4. Tabular Figures & Monospace Alignment */
+    .jp-num {
+      font-family: var(--font-mono);
+      font-variant-numeric: tabular-nums;
+      font-weight: 700;
+    }
+
+    /* 5. Locked VIP Row & Executive Row Styling */
+    .vip-locked-row {
+      opacity: 0.85;
+      background: rgba(139, 92, 246, 0.05);
+      transition: opacity 0.2s ease;
+    }
+    .vip-locked-row:hover {
+      opacity: 1;
+      background: rgba(139, 92, 246, 0.10);
+    }
+    .vip-exec-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--border-color);
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+    }
+    .vip-exec-row:last-child {
+      border-bottom: none;
+    }
+
+    /* ==========================================================================
+       Japanese Securities High-Trust Light / Navy Theme Overrides (SBI / Kabutan style)
+       ========================================================================== */
+    html[data-jp-theme="light"] {
+      --bg-primary: #f8fafc; --bg-secondary: #ffffff; --bg-card: #ffffff; --bg-elevated: #f1f5f9;
+      --text-primary: #0f172a; --text-secondary: #334155; --text-muted: #64748b;
+      --border-color: #e2e8f0;
+    }
+    html[data-jp-theme="light"] body {
+      background-color: var(--bg-dark);
+      background-image: linear-gradient(180deg, #eef2f9 0%, #f1f5f9 320px);
+      color: var(--text-main);
+    }
+
+    html[data-jp-theme="light"] header {
+      background: #0b1f3a !important;
+      border-bottom: 2px solid #1e3a8a !important;
+    }
+
+    html[data-jp-theme="light"] header .brand-logo,
+    html[data-jp-theme="light"] header .nav-links a {
+      color: #f8fafc !important;
+    }
+
+    html[data-jp-theme="light"] header .nav-links a:hover {
+      color: #93c5fd !important;
+    }
+
+    html[data-jp-theme="light"] #btnToggleJpTheme {
+      background: #1e3a8a !important;
+      color: #fde68a !important;
+      border: 1px solid #3b82f6 !important;
+    }
+
+    html[data-jp-theme="light"] .catalyst-tape {
+      background: #102a4c !important;
+      color: #f1f5f9 !important;
+      border-bottom: 1px solid #1e3a8a !important;
+    }
+
+    html[data-jp-theme="light"] .tape-item {
+      color: #e2e8f0 !important;
+    }
+
+    html[data-jp-theme="light"] .hero-pill {
+      background: #eff6ff !important;
+      border: 1.5px solid #93c5fd !important;
+      color: #1e40af !important;
+    }
+
+    html[data-jp-theme="light"] .hero h1 {
+      color: #0b1f3a !important;
+    }
+
+    html[data-jp-theme="light"] .hero p {
+      color: #334155 !important;
+    }
+
+    html[data-jp-theme="light"] .grad-violet {
+      background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 55%, #b45309 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    html[data-jp-theme="light"] #gbEasyPlaybookBanner {
+      background: #ffffff !important;
+      border: 1.5px solid #cbd5e1 !important;
+      border-top: 4px solid #0b1f3a !important;
+      border-left: 4px solid #047857 !important;
+      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.06) !important;
+    }
+
+    html[data-jp-theme="light"] #gbEasyPlaybookBanner strong {
+      color: #0b1f3a !important;
+    }
+
+    html[data-jp-theme="light"] #gbEasyPlaybookBanner > div:last-child > div {
+      background: #f8fafc !important;
+      border: 1px solid #e2e8f0 !important;
+    }
+
+    html[data-jp-theme="light"] .terminal-shell {
+      background: #ffffff !important;
+      border: 2px solid #cbd5e1 !important;
+      box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08) !important;
+    }
+
+    html[data-jp-theme="light"] .terminal-topbar {
+      background: #0b1f3a !important;
+      color: #ffffff !important;
+      border-bottom: 2px solid #1e3a8a !important;
+    }
+
+    html[data-jp-theme="light"] .terminal-dots {
+      color: #e2e8f0 !important;
+    }
+
+    html[data-jp-theme="light"] .ticker-btn {
+      background: #17325c !important;
+      border: 1px solid #3b5998 !important;
+      color: #e2e8f0 !important;
+    }
+
+    html[data-jp-theme="light"] .ticker-btn.active,
+    html[data-jp-theme="light"] .ticker-btn:hover {
+      background: #f59e0b !important;
+      border-color: #fbbf24 !important;
+      color: #0b1f3a !important;
+      font-weight: 900 !important;
+    }
+
+    html[data-jp-theme="light"] .pane-left {
+      background: #ffffff !important;
+      border-right: 1px solid #e2e8f0 !important;
+    }
+
+    html[data-jp-theme="light"] .pane-right {
+      background: #f8fafc !important;
+    }
+
+    html[data-jp-theme="light"] .catalyst-headline,
+    html[data-jp-theme="light"] h1,
+    html[data-jp-theme="light"] h2,
+    html[data-jp-theme="light"] h3 {
+      color: #0b1f3a !important;
+    }
+
+    html[data-jp-theme="light"] .catalyst-summary {
+      background: #f1f5f9 !important;
+      border-left: 4px solid #1d4ed8 !important;
+      color: #1e293b !important;
+    }
+
+    html[data-jp-theme="light"] .metric-box,
+    html[data-jp-theme="light"] .sizer-card {
+      background: #ffffff !important;
+      border: 1.5px solid #cbd5e1 !important;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03) !important;
+    }
+
+    html[data-jp-theme="light"] .metric-label,
+    html[data-jp-theme="light"] .control-header span {
+      color: #334155 !important;
+      font-weight: 700;
+    }
+
+    html[data-jp-theme="light"] .val-violet { color: #6d28d9 !important; }
+    html[data-jp-theme="light"] .val-amber  { color: #b45309 !important; }
+    html[data-jp-theme="light"] .val-emerald { color: #047857 !important; }
+    html[data-jp-theme="light"] .val-rose   { color: #be123c !important; }
+    html[data-jp-theme="light"] .val-sky    { color: #0369a1 !important; }
+
+    html[data-jp-theme="light"] #lblEntry {
+      color: #0b1f3a !important;
+    }
+
+    html[data-jp-theme="light"] #gbPlainEnglishActionBox {
+      background: #ecfdf5 !important;
+      border: 2px solid #10b981 !important;
+    }
+
+    html[data-jp-theme="light"] #gbPlainActionTitle {
+      color: #065f46 !important;
+    }
+
+    html[data-jp-theme="light"] #gbPlainActionSteps {
+      color: #0f172a !important;
+    }
+
+    html[data-jp-theme="light"] .feature-card,
+    html[data-jp-theme="light"] .price-card,
+    html[data-jp-theme="light"] .comp-table-wrap,
+    html[data-jp-theme="light"] .seo-link-card {
+      background: #ffffff !important;
+      border: 1.5px solid #cbd5e1 !important;
+      color: #0b1f3a !important;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04) !important;
+    }
+
+    html[data-jp-theme="light"] .feature-card .card-desc,
+    html[data-jp-theme="light"] .price-desc,
+    html[data-jp-theme="light"] .feature-list li {
+      color: #334155 !important;
+    }
+
+    html[data-jp-theme="light"] .price-card.featured {
+      border: 2.5px solid #1d4ed8 !important;
+      box-shadow: 0 12px 30px rgba(29, 78, 216, 0.14) !important;
+    }
+
+    html[data-jp-theme="light"] .btn-checkout-secondary,
+    html[data-jp-theme="light"] .btn-secondary {
+      background: #f1f5f9 !important;
+      color: #0b1f3a !important;
+      border: 1.5px solid #94a3b8 !important;
+    }
+
+    html[data-jp-theme="light"] #gbCrossPromoBanner {
+      background: #eff6ff !important;
+      border: 1.5px solid #93c5fd !important;
+      border-left: 5px solid #1d4ed8 !important;
+    }
+
+    html[data-jp-theme="light"] #gbCrossPromoBanner div {
+      color: #0f172a !important;
+    }
+
+    html[data-jp-theme="light"] #vipCatalystTableBody strong {
+      color: #0b1f3a !important;
+    }
+
+    html[data-jp-theme="light"] table.comp-table th {
+      background: #0b1f3a !important;
+      color: #ffffff !important;
+    }
+
+    html[data-jp-theme="light"] table.comp-table td {
+      color: #0f172a !important;
+      border-bottom: 1px solid #e2e8f0 !important;
+    }
+
+    html[data-jp-theme="light"] .jp-range-box {
+      background: #f8fafc !important;
+      border-color: #cbd5e1 !important;
+    }
+
+    html[data-jp-theme="light"] #gbJpTaxAndFxBox {
+      background: #ffffff !important;
+      border-color: #cbd5e1 !important;
+      border-left: 5px solid #1d4ed8 !important;
+    }
+
+    html[data-jp-theme="light"] .jp-preset-btn {
+      background: #eff6ff !important;
+      border-color: #93c5fd !important;
+      color: #1e3a8a !important;
+    }
+
+    html[data-jp-theme="light"] .jp-preset-btn:hover,
+    html[data-jp-theme="light"] .jp-preset-btn.active {
+      background: #1d4ed8 !important;
+      border-color: #1d4ed8 !important;
+      color: #ffffff !important;
+    }
+
+    html[data-jp-theme="light"] .vip-locked-row {
+      background: rgba(109, 40, 217, 0.05) !important;
+    }
+
+    html[data-jp-theme="light"] .vip-two-col-grid .feature-card {
+      background: #ffffff !important;
+      border: 1.5px solid #cbd5e1 !important;
+    }
+
+    html[data-jp-theme="light"] pre#gbPineBox {
+      background: #f8fafc !important;
+      border-color: #cbd5e1 !important;
+      color: #1e3a8a !important;
+    }
+
+    html[data-jp-theme="light"] footer {
+      background: #0b1f3a !important;
+      color: #cbd5e1 !important;
+      border-top: 2px solid #1e3a8a !important;
+    }
+
+    html[data-jp-theme="light"] footer a {
+      color: #93c5fd !important;
+    }
+
+    html[data-jp-theme="light"] .legal-box {
+      background: #f8fafc !important;
+      color: #475569 !important;
+      border-color: #cbd5e1 !important;
+    }
+
+    /* Visual Contrast Remediation (Light Mode Overrides) */
+    html[data-jp-theme="light"] #gbGammaTriggerBox {
+      background: #f1f5f9 !important;
+      border-color: #cbd5e1 !important;
+    }
+
+    html[data-jp-theme="light"] #gbGammaTriggerBox div {
+      color: #334155 !important;
+    }
+
+    html[data-jp-theme="light"] #valGammaTrigger {
+      color: #0b1f3a !important;
+    }
+
+    html[data-jp-theme="light"] #gbPlainRewardBadge {
+      background: #d1fae5 !important;
+      color: #065f46 !important;
+      border: 1px solid #10b981 !important;
+    }
+
+    html[data-jp-theme="light"] #gbVipKeyStatus {
+      background: rgba(244, 63, 94, 0.12) !important;
+      color: #881337 !important;
+      border-color: rgba(244, 63, 94, 0.45) !important;
+    }
+
+    html[data-jp-theme="light"] #gbVipExecBox {
+      background: #f8fafc !important;
+      border-color: #cbd5e1 !important;
+    }
+
+    html[data-jp-theme="light"] #gbVipExecBox span {
+      color: #0b1f3a !important;
+    }
+
+    html[data-jp-theme="light"] #gbVipBundleBanner {
+      background: #eff6ff !important;
+      border: 1.5px solid #93c5fd !important;
+    }
+
+    html[data-jp-theme="light"] #gbVipBundleBanner div,
+    html[data-jp-theme="light"] #gbVipBundleBanner strong {
+      color: #0b1f3a !important;
+    }
+
+    html[data-jp-theme="light"] #gbVipBundleBanner a {
+      color: #1d4ed8 !important;
+    }
+
+    html[data-jp-theme="light"] #gbEasyPlaybookBadge {
+      background: #d1fae5 !important;
+      color: #065f46 !important;
+      border: 1px solid #10b981 !important;
+    }
+
+    html[data-jp-theme="light"] #gbVipPrivilege2Header {
+      color: #6d28d9 !important;
+    }
+
+    html[data-jp-theme="light"] #gbFeaturedCardSecurityNote {
+      color: #334155 !important;
+    }
+
+    html[data-jp-theme="light"] #btnShareXSignal,
+    html[data-jp-theme="light"] #btnReadFullJpReport {
+      color: #0b1f3a !important;
+      border-color: #94a3b8 !important;
+    }
   </style>
 </head>
 <body>
 
-  <!-- リアルタイム米国株カタリストテープ -->
+  <!-- リアルタイム日米市場クオンツ・カタリストテープ -->
   <div class="catalyst-tape">
     <div class="container tape-inner">
+      <div class="tape-item"><span class="tape-badge bg-pead">日経225 新高値ブレイク</span> <strong>^N225 日経平均 ¥39,500 (+1.25%)</strong> 20日高値突破 · 強気レジーム</div>
+      <div class="tape-item"><span class="tape-badge bg-gamma">東証P半導体</span> <strong>8035 東京エレクトロン ¥26,800</strong> ドンチアン突破 · PW-RSI 92.5</div>
+      <div class="tape-item"><span class="tape-badge bg-whale">TOPIX 機関集積</span> <strong>^TOPX 東証指数 2,740 (+0.88%)</strong> RSI 63.5 · PBR是正実需</div>
       <div class="tape-item"><span class="tape-badge bg-gamma">ガンマスクイーズ</span> <strong>$NVDA エヌビディア</strong> Call/Put 3.2倍 · GEX転換 $179.82</div>
       <div class="tape-item"><span class="tape-badge bg-whale">Form-4役員買い</span> <strong>$LLY イーライリリー</strong> 経営陣3名が自己資金$4.8M買い</div>
       <div class="tape-item"><span class="tape-badge bg-pead">SEC 8-K解析 91点</span> <strong>$PLTR パランティア</strong> 国防AI契約拡大 · ダークプール64%</div>
+      <div class="tape-item"><span class="tape-badge bg-gamma">東証Pテスター</span> <strong>6857 アドバンテスト ¥9,420</strong> 20日ブレイク点火 · スコア93.8</div>
       <div class="tape-item"><span class="tape-badge bg-risk">10-K会計リスク警告</span> <strong>$SMCI</strong> 監査リスク＆機関売り67%検知 (回避推奨)</div>
     </div>
   </div>
@@ -898,10 +1438,12 @@
       <a href="#" class="brand-logo">
         <div class="brand-dot"></div>
         GetBreakAI
-        <span class="brand-tag">米国株・新NISA AI端末</span>
+        <span class="brand-tag">東証P・米国株 新NISA AI端末</span>
       </a>
       <ul class="nav-links">
         <li><a href="#radar">AIカタリスト＆ATR計算機</a></li>
+        <li><a href="#gbQuickMatrixSection">日米早見表</a></li>
+        <li><a href="#quant-methodology">クオンツ手法＆新NISA枠</a></li>
         <li><a href="#engines">3大AI解析エンジン</a></li>
         <li><a href="#vip-vault">VIP機関投資家データ庫</a></li>
         <li><a href="#jp-research-hub">米国株30銘柄AIレポート</a></li>
@@ -914,7 +1456,7 @@
 
   <!-- ヒーローセクション -->
   <section class="hero container">
-    <div class="hero-pill">⚡ 米国株・新NISA・株クラ専用 · SEC 8-K / Form-4 / Gamma Wall(GEX) 日本語AIターミナル</div>
+    <div class="hero-pill">⚡ 東証プライム・米国株 新NISA・株クラ専用 · ドンチアン20日ブレイク / SEC 8-K / Form-4 / GEX 日本語AIターミナル</div>
     <h1>
       ウォール街の英語<span class="grad-violet">SEC開示(8-K)・インサイダー買い(Form-4)・オプションGamma Wall(GEX)</span>をAIが3秒で日本語解読
     </h1>
@@ -922,6 +1464,26 @@
       <strong>新NISA・米国株スイング投資家のためのATR損切り＆適正株数ターミナル。</strong><br>
       遅行する移動平均線ではなく、機関投資家が動く「決算ガイダンス変化・役員の自社株買い・ガンマスクイーズ」をリアルタイム捕捉し、ドル($)と日本円(¥)で<strong>推奨エントリー株数・2.0x ATR損切りライン・利確ターゲット</strong>を即座に算出します。
     </p>
+
+    <!-- 🇯🇵 日経225 & TOPIX レジーム判定バッジ -->
+    <div style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin:16px 0 10px 0;">
+      <div style="background:var(--bg-card); border:1.5px solid var(--border-color); border-top:3px solid #10b981; border-radius:10px; padding:8px 14px; display:flex; align-items:center; gap:8px; font-size:0.8rem;">
+        <span class="tape-badge bg-pead">🇯🇵 日経平均 (^N225)</span>
+        <strong style="color:var(--text-main); font-family:var(--font-mono);">¥39,500.50 (+1.25%)</strong>
+        <span style="color:var(--accent-emerald); font-size:0.75rem; font-weight:700;">🟢 20日高値突破 · 強気レジーム (RSI 66.8)</span>
+      </div>
+      <div style="background:var(--bg-card); border:1.5px solid var(--border-color); border-top:3px solid #3b82f6; border-radius:10px; padding:8px 14px; display:flex; align-items:center; gap:8px; font-size:0.8rem;">
+        <span class="tape-badge bg-whale">🇯🇵 東証株価指数 (^TOPX)</span>
+        <strong style="color:var(--text-main); font-family:var(--font-mono);">2,740.20 (+0.88%)</strong>
+        <span style="color:var(--accent-sky); font-size:0.75rem; font-weight:700;">🐋 大口機関集積 · PBR改革買い (RSI 63.5)</span>
+      </div>
+      <div style="background:var(--bg-card); border:1.5px solid var(--border-color); border-top:3px solid #f59e0b; border-radius:10px; padding:8px 14px; display:flex; align-items:center; gap:8px; font-size:0.8rem;">
+        <span class="tape-badge bg-gamma">⚡ ドンチアン＆ATR</span>
+        <strong style="color:var(--text-main); font-family:var(--font-mono);">日米デュアルクオンツ</strong>
+        <span style="color:var(--accent-amber); font-size:0.75rem; font-weight:700;">東証プライム ＆ 米国株新NISA同時スキャン</span>
+      </div>
+    </div>
+
     <div class="hero-actions">
       <a href="#radar" class="btn-primary">📊 米国株AIシグナル＆ATR適正株数を今すぐ計算</a>
       <a href="#pricing" class="btn-secondary">🔑 VIP機関フロー＆Pine Script v5を解除</a>
@@ -957,20 +1519,28 @@
       </div>
     </div>
 
-    <!-- 📊 本日の米国株AIシグナル早見表（株探・四季報スタイルの高一覧性テーブル） -->
+    <!-- 📊 本日の日米株クオンツAIシグナル早見表（株探・四季報スタイルの高一覧性テーブル） -->
     <div id="gbQuickMatrixSection" class="comp-table-wrap" style="margin-bottom:20px; padding:16px 18px;">
-      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:10px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:12px;">
         <div style="font-weight:900; font-size:0.96rem;">
-          📊 本日の米国株 主要銘柄AIシグナル＆ATR損切りライン早見表 <span style="font-size:0.76rem; font-weight:700; color:var(--accent-amber);">（行をクリックすると下の計算機に自動反映されます）</span>
+          📊 本日の東証プライム ＆ 米国株AIシグナル・ドンチアン新高値・ATR損切り早見表 <span style="font-size:0.76rem; font-weight:700; color:var(--accent-amber);">（行をクリックすると下の計算機に自動反映されます）</span>
         </div>
-        <span style="font-size:0.74rem; font-family:var(--font-mono); color:var(--text-sub);">※1ドル＝150円基準・リアルタイム連動</span>
+        <span style="font-size:0.74rem; font-family:var(--font-mono); color:var(--text-sub);">※東証P現物・新NISA成長投資枠・リアルタイム連動</span>
       </div>
+
+      <!-- 市場切り替えタブ (#gbQuickMatrixMarketTabs) -->
+      <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px;">
+        <button type="button" class="jp-preset-btn active" id="btnMatrixFilterAll" onclick="filterMatrixMarket('all', this)">🌐 全市場 (All Markets)</button>
+        <button type="button" class="jp-preset-btn" id="btnMatrixFilterTse" onclick="filterMatrixMarket('tse', this)">🇯🇵 東証プライム・日本株 (TSE Prime)</button>
+        <button type="button" class="jp-preset-btn" id="btnMatrixFilterUs" onclick="filterMatrixMarket('us', this)">🇺🇸 米国株・新NISA成長枠 (US Tech)</button>
+      </div>
+
       <table class="comp-table" id="gbQuickMatrixTable" style="font-size:0.82rem;">
         <thead>
           <tr>
-            <th>銘柄コード・日本名</th>
-            <th>AI総合判定</th>
-            <th>一次情報カタリスト要約</th>
+            <th>市場・銘柄</th>
+            <th>AIクオンツ総合判定</th>
+            <th>一次情報カタリスト・ブレイク状況</th>
             <th>現在株価</th>
             <th>2.0x ATR損切り</th>
             <th>2.5R 利確目標</th>
@@ -978,8 +1548,56 @@
           </tr>
         </thead>
         <tbody>
-          <tr style="cursor:pointer;" onclick="selectCatalyst('NVDA'); document.getElementById('radar').scrollIntoView({behavior:'smooth'});">
-            <td><strong>$NVDA エヌビディア</strong></td>
+          <!-- 東証プライム旗艦株 -->
+          <tr class="matrix-row" data-market="tse" style="cursor:pointer;" onclick="selectCatalyst('8035'); document.getElementById('radar').scrollIntoView({behavior:'smooth'});">
+            <td><strong style="color:var(--text-main);">8035 東京エレクトロン</strong> <span class="tape-badge bg-pead" style="font-size:0.65rem;">東証P</span></td>
+            <td><span class="tape-badge bg-pead">🟢 強気 94.2点</span></td>
+            <td>先端半導体製造装置受注高・20日高値新高値ブレイク</td>
+            <td class="jp-num">¥26,800</td>
+            <td class="val-rose jp-num">¥25,240 (-5.8%)</td>
+            <td class="val-emerald jp-num"><strong>¥30,700 (+14.6%)</strong></td>
+            <td><button type="button" class="ticker-btn" style="padding:4px 9px; font-size:0.72rem;">計算機に反映 ↓</button></td>
+          </tr>
+          <tr class="matrix-row" data-market="tse" style="cursor:pointer;" onclick="selectCatalyst('6857'); document.getElementById('radar').scrollIntoView({behavior:'smooth'});">
+            <td><strong style="color:var(--text-main);">6857 アドバンテスト</strong> <span class="tape-badge bg-pead" style="font-size:0.65rem;">東証P</span></td>
+            <td><span class="tape-badge bg-pead">🟢 強気 93.8点</span></td>
+            <td>SoC/HBMテスター需要急増・新高値ブレイク点火</td>
+            <td class="jp-num">¥9,420</td>
+            <td class="val-rose jp-num">¥8,780 (-6.8%)</td>
+            <td class="val-emerald jp-num"><strong>¥11,020 (+17.0%)</strong></td>
+            <td><button type="button" class="ticker-btn" style="padding:4px 9px; font-size:0.72rem;">計算機に反映 ↓</button></td>
+          </tr>
+          <tr class="matrix-row" data-market="tse" style="cursor:pointer;" onclick="selectCatalyst('9984'); document.getElementById('radar').scrollIntoView({behavior:'smooth'});">
+            <td><strong style="color:var(--text-main);">9984 ソフトバンクG</strong> <span class="tape-badge bg-pead" style="font-size:0.65rem;">東証P</span></td>
+            <td><span class="tape-badge bg-pead">🟢 強気 91.5点</span></td>
+            <td>Arm株含み益拡大・AIインフラ投資ハブ加速</td>
+            <td class="jp-num">¥9,650</td>
+            <td class="val-rose jp-num">¥8,950 (-7.3%)</td>
+            <td class="val-emerald jp-num"><strong>¥11,400 (+18.1%)</strong></td>
+            <td><button type="button" class="ticker-btn" style="padding:4px 9px; font-size:0.72rem;">計算機に反映 ↓</button></td>
+          </tr>
+          <tr class="matrix-row" data-market="tse" style="cursor:pointer;" onclick="selectCatalyst('7203'); document.getElementById('radar').scrollIntoView({behavior:'smooth'});">
+            <td><strong style="color:var(--text-main);">7203 トヨタ自動車</strong> <span class="tape-badge bg-pead" style="font-size:0.65rem;">東証P</span></td>
+            <td><span class="tape-badge bg-whale">🐋 自社株買い 88.0点</span></td>
+            <td>自己株取得枠1兆円発表・HEV営業利益率更新</td>
+            <td class="jp-num">¥2,780</td>
+            <td class="val-rose jp-num">¥2,644 (-4.9%)</td>
+            <td class="val-emerald jp-num"><strong>¥3,120 (+12.2%)</strong></td>
+            <td><button type="button" class="ticker-btn" style="padding:4px 9px; font-size:0.72rem;">計算機に反映 ↓</button></td>
+          </tr>
+          <tr class="matrix-row" data-market="tse" style="cursor:pointer;" onclick="selectCatalyst('6758'); document.getElementById('radar').scrollIntoView({behavior:'smooth'});">
+            <td><strong style="color:var(--text-main);">6758 ソニーグループ</strong> <span class="tape-badge bg-pead" style="font-size:0.65rem;">東証P</span></td>
+            <td><span class="tape-badge bg-pead">🟢 強気 89.4点</span></td>
+            <td>CMOSイメージセンサ増産・ゲームネットワーク増益</td>
+            <td class="jp-num">¥3,150</td>
+            <td class="val-rose jp-num">¥2,980 (-5.4%)</td>
+            <td class="val-emerald jp-num"><strong>¥3,575 (+13.5%)</strong></td>
+            <td><button type="button" class="ticker-btn" style="padding:4px 9px; font-size:0.72rem;">計算機に反映 ↓</button></td>
+          </tr>
+
+          <!-- 米国株旗艦銘柄 -->
+          <tr class="matrix-row" data-market="us" style="cursor:pointer;" onclick="selectCatalyst('NVDA'); document.getElementById('radar').scrollIntoView({behavior:'smooth'});">
+            <td><strong style="color:var(--text-main);">$NVDA エヌビディア</strong> <span class="tape-badge bg-gamma" style="font-size:0.65rem;">米国株</span></td>
             <td><span class="tape-badge bg-pead">🟢 強気 93.5点</span></td>
             <td>Blackwell増産8-K・Call 3.2倍GEX</td>
             <td class="jp-num">$186.64</td>
@@ -987,8 +1605,8 @@
             <td class="val-emerald jp-num"><strong>$226.74</strong></td>
             <td><button type="button" class="ticker-btn active" style="padding:4px 9px; font-size:0.72rem;">計算機に反映 ↓</button></td>
           </tr>
-          <tr style="cursor:pointer;" onclick="selectCatalyst('PLTR'); document.getElementById('radar').scrollIntoView({behavior:'smooth'});">
-            <td><strong>$PLTR パランティア</strong></td>
+          <tr class="matrix-row" data-market="us" style="cursor:pointer;" onclick="selectCatalyst('PLTR'); document.getElementById('radar').scrollIntoView({behavior:'smooth'});">
+            <td><strong style="color:var(--text-main);">$PLTR パランティア</strong> <span class="tape-badge bg-gamma" style="font-size:0.65rem;">米国株</span></td>
             <td><span class="tape-badge bg-pead">🟢 強気 91.0点</span></td>
             <td>国防AI大型契約(8-K)・DP機関買い64%</td>
             <td class="jp-num">$160.38</td>
@@ -996,8 +1614,8 @@
             <td class="val-emerald jp-num"><strong>$210.13</strong></td>
             <td><button type="button" class="ticker-btn" style="padding:4px 9px; font-size:0.72rem;">計算機に反映 ↓</button></td>
           </tr>
-          <tr style="cursor:pointer;" onclick="selectCatalyst('LLY'); document.getElementById('radar').scrollIntoView({behavior:'smooth'});">
-            <td><strong>$LLY イーライリリー</strong></td>
+          <tr class="matrix-row" data-market="us" style="cursor:pointer;" onclick="selectCatalyst('LLY'); document.getElementById('radar').scrollIntoView({behavior:'smooth'});">
+            <td><strong style="color:var(--text-main);">$LLY イーライリリー</strong> <span class="tape-badge bg-gamma" style="font-size:0.65rem;">米国株</span></td>
             <td><span class="tape-badge bg-whale">🐋 役員買い 89.8点</span></td>
             <td>CEO/CFOら3名が自腹$4.8M市場内買い</td>
             <td class="jp-num">$1,354.00</td>
@@ -1005,8 +1623,8 @@
             <td class="val-emerald jp-num"><strong>$1,618.05</strong></td>
             <td><button type="button" class="ticker-btn" style="padding:4px 9px; font-size:0.72rem;">計算機に反映 ↓</button></td>
           </tr>
-          <tr style="cursor:pointer;" onclick="selectCatalyst('TSLA'); document.getElementById('radar').scrollIntoView({behavior:'smooth'});">
-            <td><strong>$TSLA テスラ</strong></td>
+          <tr class="matrix-row" data-market="us" style="cursor:pointer;" onclick="selectCatalyst('TSLA'); document.getElementById('radar').scrollIntoView({behavior:'smooth'});">
+            <td><strong style="color:var(--text-main);">$TSLA テスラ</strong> <span class="tape-badge bg-gamma" style="font-size:0.65rem;">米国株</span></td>
             <td><span class="tape-badge bg-gamma">⚡ GEX 89.7点</span></td>
             <td>Call 3.6倍スイープ流入・踏み上げ点火</td>
             <td class="jp-num">$358.22</td>
@@ -1014,8 +1632,8 @@
             <td class="val-emerald jp-num"><strong>$448.17</strong></td>
             <td><button type="button" class="ticker-btn" style="padding:4px 9px; font-size:0.72rem;">計算機に反映 ↓</button></td>
           </tr>
-          <tr style="cursor:pointer;" onclick="selectCatalyst('AVGO'); document.getElementById('radar').scrollIntoView({behavior:'smooth'});">
-            <td><strong>$AVGO ブロードコム</strong></td>
+          <tr class="matrix-row" data-market="us" style="cursor:pointer;" onclick="selectCatalyst('AVGO'); document.getElementById('radar').scrollIntoView({behavior:'smooth'});">
+            <td><strong style="color:var(--text-main);">$AVGO ブロードコム</strong> <span class="tape-badge bg-gamma" style="font-size:0.65rem;">米国株</span></td>
             <td><span class="tape-badge bg-pead">🟢 強気 88.4点</span></td>
             <td>カスタムAI半導体(ASIC)受注・DP 59%</td>
             <td class="jp-num">$293.69</td>
@@ -1023,8 +1641,8 @@
             <td class="val-emerald jp-num"><strong>$369.39</strong></td>
             <td><button type="button" class="ticker-btn" style="padding:4px 9px; font-size:0.72rem;">計算機に反映 ↓</button></td>
           </tr>
-          <tr style="cursor:pointer; background:rgba(244,63,94,0.06);" onclick="selectCatalyst('SMCI'); document.getElementById('radar').scrollIntoView({behavior:'smooth'});">
-            <td><strong>$SMCI スーパーマイクロ</strong></td>
+          <tr class="matrix-row" data-market="us" style="cursor:pointer; background:rgba(244,63,94,0.06);" onclick="selectCatalyst('SMCI'); document.getElementById('radar').scrollIntoView({behavior:'smooth'});">
+            <td><strong style="color:var(--text-main);">$SMCI スーパーマイクロ</strong> <span class="tape-badge bg-risk" style="font-size:0.65rem;">米国株</span></td>
             <td><span class="tape-badge bg-risk">🔴 禁止 28.5点</span></td>
             <td>10-K会計監査リスク＆機関売り67%検知</td>
             <td class="jp-num">$28.76</td>
@@ -1039,27 +1657,27 @@
     <div id="gbEasyPlaybookBanner" style="background:linear-gradient(135deg, rgba(20,15,38,0.96) 0%, rgba(12,10,24,0.98) 100%); border:1px solid rgba(139,92,246,0.45); border-left:4px solid #10b981; border-radius:14px; padding:18px 22px; margin-bottom:20px; box-shadow:0 12px 32px rgba(0,0,0,0.4);">
       <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
         <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
-          <span style="background:rgba(16,185,129,0.18); color:#34d399; border:1px solid rgba(16,185,129,0.4); font-family:var(--font-mono); font-size:0.74rem; font-weight:800; padding:3px 10px; border-radius:999px;">
+          <span id="gbEasyPlaybookBadge" style="background:rgba(16,185,129,0.18); color:#34d399; border:1px solid rgba(16,185,129,0.4); font-family:var(--font-mono); font-size:0.74rem; font-weight:800; padding:3px 10px; border-radius:999px;">
             🔰 3ステップで完了：米国株機関投資家シグナル＆ATRリスク管理ガイド
           </span>
           <strong style="color:#fff; font-size:0.95rem;">新NISA・米国株スイングで「塩漬け・狼狽売り」をゼロにする機関投資家ルール：</strong>
         </div>
         <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--accent-amber); font-weight:700;">
-          下の銘柄ボタン（$NVDA, $PLTR, $LLY, $TSLA, $SMCI）をクリックして即時シミュレーション ↓
+          下の銘柄ボタン（東証P: 8035, 6857, 9984 / 米国株: $NVDA, $PLTR, $LLY, $TSLA）をクリックして即時シミュレーション ↓
         </span>
       </div>
-      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:12px; font-size:0.83rem; line-height:1.55;">
+      <div style="grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); display:grid; gap:12px; font-size:0.83rem; line-height:1.55;">
         <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:10px 14px;">
           <strong style="color:#c4b5fd; display:block; margin-bottom:3px;">① 噂ではなく「機関の実弾フロー」に乗る</strong>
-          <span style="color:var(--text-muted);"><b>AIカタリストスコア85点以上</b>（Form-4での経営陣の自己資金買い、またはコール集中によるガンマスクイーズ発生銘柄）のみを厳選してエントリーします。</span>
+          <span style="color:var(--text-muted);"><b>AIカタリストスコア85点以上</b>（20日新高値ブレイクアウト・大口自社株買い・コール集中GEX）のみを厳選してエントリーします。</span>
         </div>
         <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:10px 14px;">
           <strong style="color:#fda4af; display:block; margin-bottom:3px;">② 1回の最大損失を口座資金の1.5%以内に固定</strong>
-          <span style="color:var(--text-muted);">銘柄ごとの14日ATR（1日の平均値動き幅）から<b>2.0x ATR損切りライン</b>と<b>適正購入株数（ドル・円）</b>を自動計算し、致命傷を防ぎます。</span>
+          <span style="color:var(--text-muted);">銘柄ごとの14日ATR（1日の平均値動き幅）から<b>2.0x ATR損切りライン</b>と<b>適正購入株数（円・ドル）</b>を自動計算し、致命傷を防ぎます。</span>
         </div>
         <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:10px 14px;">
           <strong style="color:#6ee7b7; display:block; margin-bottom:3px;">③ Gamma Wallと2.5Rターゲットで機械的に利確</strong>
-          <span style="color:var(--text-muted);">オプション市場の<b>5日間IV予想上値(Gamma Wall)</b>または<b>リスクリワード比 1:2.5 (2.5R)</b>到達で感情を排して利益を確定します。</span>
+          <span style="color:var(--text-muted);">オプション市場の<b>5日間予想上値壁(Gamma Wall)</b>または<b>リスクリワード比 1:2.5 (2.5R)</b>到達で感情を排して利益を確定します。</span>
         </div>
       </div>
     </div>
@@ -1071,16 +1689,40 @@
           <span class="dot dot-y"></span>
           <span class="dot dot-g"></span>
           <span style="margin-left: 8px;">GETBREAKAI_JP_TERMINAL_V3.0</span>
-          <span id="gbLiveFeedDateBadge" class="tape-badge bg-pead" style="margin-left:6px;">🟢 米国市場最新データ反映 · 2026-11-09</span>
+          <span id="gbLiveFeedDateBadge" class="tape-badge bg-pead" style="margin-left:6px;">🟢 日米市場最新データ反映 · 2026-11-09</span>
         </div>
-        <div class="ticker-bar">
-          <button class="ticker-btn active" data-ticker="NVDA" onclick="selectCatalyst('NVDA', this)">$NVDA エヌビディア</button>
-          <button class="ticker-btn" data-ticker="PLTR" onclick="selectCatalyst('PLTR', this)">$PLTR パランティア</button>
-          <button class="ticker-btn" data-ticker="LLY" onclick="selectCatalyst('LLY', this)">$LLY イーライリリー</button>
-          <button class="ticker-btn" data-ticker="TSLA" onclick="selectCatalyst('TSLA', this)">$TSLA テスラ</button>
-          <button class="ticker-btn" data-ticker="AVGO" onclick="selectCatalyst('AVGO', this)">$AVGO ブロードコム</button>
-          <button class="ticker-btn" data-ticker="AMD" onclick="selectCatalyst('AMD', this)">$AMD</button>
-          <button class="ticker-btn" data-ticker="SMCI" onclick="selectCatalyst('SMCI', this)">$SMCI (⚠️会計リスク警告)</button>
+
+        <!-- 市場切り替えタブ (#radarMarketTabs) -->
+        <div style="display:flex; gap:6px; padding:6px 14px; background:rgba(0,0,0,0.3); border-bottom:1px solid var(--border-color); flex-wrap:wrap; align-items:center;">
+          <span style="font-size:0.74rem; color:var(--text-sub); font-weight:800;">スキャナー市場:</span>
+          <button type="button" id="btnRadarMarketTse" class="jp-preset-btn" onclick="switchRadarMarket('tse', this)">🇯🇵 東証プライム・日本株 (TSE Prime)</button>
+          <button type="button" id="btnRadarMarketUs" class="jp-preset-btn active" onclick="switchRadarMarket('us', this)">🇺🇸 米国株・新NISA成長枠 (US Tech)</button>
+        </div>
+
+        <div class="ticker-bar" id="radarTickerBar">
+          <!-- 東証プライム銘柄ボタン -->
+          <button class="ticker-btn ticker-tse" data-ticker="8035" onclick="selectCatalyst('8035', this)" style="display:none;">8035 東京エレクトロン</button>
+          <button class="ticker-btn ticker-tse" data-ticker="6857" onclick="selectCatalyst('6857', this)" style="display:none;">6857 アドバンテスト</button>
+          <button class="ticker-btn ticker-tse" data-ticker="9984" onclick="selectCatalyst('9984', this)" style="display:none;">9984 ソフトバンクG</button>
+          <button class="ticker-btn ticker-tse" data-ticker="7203" onclick="selectCatalyst('7203', this)" style="display:none;">7203 トヨタ自動車</button>
+          <button class="ticker-btn ticker-tse" data-ticker="6758" onclick="selectCatalyst('6758', this)" style="display:none;">6758 ソニーG</button>
+
+          <!-- 米国株銘柄ボタン (全15銘柄フルラインナップ) -->
+          <button class="ticker-btn ticker-us active" data-ticker="NVDA" onclick="selectCatalyst('NVDA', this)">$NVDA エヌビディア</button>
+          <button class="ticker-btn ticker-us" data-ticker="PLTR" onclick="selectCatalyst('PLTR', this)">$PLTR パランティア</button>
+          <button class="ticker-btn ticker-us" data-ticker="LLY" onclick="selectCatalyst('LLY', this)">$LLY イーライリリー</button>
+          <button class="ticker-btn ticker-us" data-ticker="TSLA" onclick="selectCatalyst('TSLA', this)">$TSLA テスラ</button>
+          <button class="ticker-btn ticker-us" data-ticker="AVGO" onclick="selectCatalyst('AVGO', this)">$AVGO ブロードコム</button>
+          <button class="ticker-btn ticker-us" data-ticker="AMD" onclick="selectCatalyst('AMD', this)">$AMD</button>
+          <button class="ticker-btn ticker-us" data-ticker="META" onclick="selectCatalyst('META', this)">$META メタ</button>
+          <button class="ticker-btn ticker-us" data-ticker="CRWD" onclick="selectCatalyst('CRWD', this)">$CRWD クラウドストライク</button>
+          <button class="ticker-btn ticker-us" data-ticker="VRT" onclick="selectCatalyst('VRT', this)">$VRT バーティブ</button>
+          <button class="ticker-btn ticker-us" data-ticker="CEG" onclick="selectCatalyst('CEG', this)">$CEG コンステレーション</button>
+          <button class="ticker-btn ticker-us" data-ticker="MSTR" onclick="selectCatalyst('MSTR', this)">$MSTR マイクロストラテジー</button>
+          <button class="ticker-btn ticker-us" data-ticker="ARM" onclick="selectCatalyst('ARM', this)">$ARM アーム</button>
+          <button class="ticker-btn ticker-us" data-ticker="ASML" onclick="selectCatalyst('ASML', this)">$ASML</button>
+          <button class="ticker-btn ticker-us" data-ticker="UNH" onclick="selectCatalyst('UNH', this)">$UNH ユナイテッドヘルス</button>
+          <button class="ticker-btn ticker-us" data-ticker="SMCI" onclick="selectCatalyst('SMCI', this)">$SMCI (⚠️会計リスク警告)</button>
         </div>
       </div>
 
@@ -1115,7 +1757,7 @@
             </div>
           </div>
 
-          <div style="background:#130e24; border:1px solid var(--border-color); border-radius:10px; padding:14px; font-family:var(--font-mono); font-size:0.82rem; margin-bottom:14px;">
+          <div id="gbGammaTriggerBox" style="background:#130e24; border:1px solid var(--border-color); border-radius:10px; padding:14px; font-family:var(--font-mono); font-size:0.82rem; margin-bottom:14px;">
             <div style="color:var(--text-muted); margin-bottom:4px;">決算後ドリフト(PEAD) ＆ オプションGamma転換トリガー:</div>
             <div id="valGammaTrigger" style="color:#fff; font-weight:700;">
               ディーラー正ガンマ転換ライン $179.82 突破 → 5日間IV上限ターゲット $204.52
@@ -1146,21 +1788,21 @@
               <strong id="lblAccount" style="color:var(--accent-amber);">$50,000 (約750.0万円)</strong>
             </div>
             <input type="range" id="sliderAccount" min="5000" max="250000" step="100" value="50000" oninput="recalcSizer()">
-            <div class="jp-preset-row">
+            <div class="jp-preset-row" id="jpAccountPresetRow">
               <span style="font-size:0.72rem; color:var(--text-sub); align-self:center; font-weight:700;">ワンタッチ資金選択:</span>
-              <button type="button" class="jp-preset-btn" onclick="setJpAccountPreset(6700)">100万円</button>
-              <button type="button" class="jp-preset-btn" onclick="setJpAccountPreset(20000)">300万円</button>
-              <button type="button" class="jp-preset-btn" onclick="setJpAccountPreset(33300)">500万円</button>
-              <button type="button" class="jp-preset-btn active" onclick="setJpAccountPreset(50000)">750万円 ($5万)</button>
-              <button type="button" class="jp-preset-btn" onclick="setJpAccountPreset(66700)">1,000万円</button>
-              <button type="button" class="jp-preset-btn" onclick="setJpAccountPreset(80000)">1,200万円 (新NISA枠)</button>
+              <button type="button" class="jp-preset-btn" data-acc-preset="6700" onclick="setJpAccountPreset(6700, this)">100万円</button>
+              <button type="button" class="jp-preset-btn" data-acc-preset="20000" onclick="setJpAccountPreset(20000, this)">300万円</button>
+              <button type="button" class="jp-preset-btn" data-acc-preset="33300" onclick="setJpAccountPreset(33300, this)">500万円</button>
+              <button type="button" class="jp-preset-btn active" data-acc-preset="50000" onclick="setJpAccountPreset(50000, this)">750万円 ($5万)</button>
+              <button type="button" class="jp-preset-btn" data-acc-preset="66700" onclick="setJpAccountPreset(66700, this)">1,000万円</button>
+              <button type="button" class="jp-preset-btn" data-acc-preset="80000" onclick="setJpAccountPreset(80000, this)">1,200万円 (新NISA枠)</button>
             </div>
-            <div class="jp-preset-row" style="margin-top:4px;">
+            <div class="jp-preset-row" id="jpFxPresetRow" style="margin-top:4px;">
               <span style="font-size:0.72rem; color:var(--text-sub); align-self:center; font-weight:700;">為替レート試算:</span>
-              <button type="button" class="jp-preset-btn" onclick="setJpFxRate(145)">145円(円高)</button>
-              <button type="button" class="jp-preset-btn active" onclick="setJpFxRate(150)">150円(標準)</button>
-              <button type="button" class="jp-preset-btn" onclick="setJpFxRate(155)">155円(円安)</button>
-              <button type="button" class="jp-preset-btn" onclick="setJpFxRate(160)">160円</button>
+              <button type="button" class="jp-preset-btn" data-fx-preset="145" onclick="setJpFxRate(145, this)">145円(円高)</button>
+              <button type="button" class="jp-preset-btn active" data-fx-preset="150" onclick="setJpFxRate(150, this)">150円(標準)</button>
+              <button type="button" class="jp-preset-btn" data-fx-preset="155" onclick="setJpFxRate(155, this)">155円(円安)</button>
+              <button type="button" class="jp-preset-btn" data-fx-preset="160" onclick="setJpFxRate(160, this)">160円</button>
             </div>
             <div class="jp-preset-row" style="margin-top:4px;">
               <span style="font-size:0.72rem; color:var(--text-sub); align-self:center; font-weight:700;">日本の税制・口座区分:</span>
@@ -1367,11 +2009,123 @@
     </div>
   </section>
 
+  <!-- 📐 機関投資家クオンツ手法・新NISA税制最適化 完全解説 (#quant-methodology) -->
+  <section id="quant-methodology" class="section container">
+    <div class="hero-pill" style="margin-bottom:12px;">📐 QUANTITATIVE METHODOLOGY &amp; TAX OPTIMIZATION</div>
+    <h2 class="section-title">ドンチアン・チャネル新高値ブレイク ＆ 非対称リスクリワード・新NISA税制最適化</h2>
+    <p class="section-subtitle">
+      ウォール街のヘッジファンドおよび日本のクオンツ機関投資家が実践する「ドンチアン20日新高値ブレイクアウト」「出来高加重PW-RSI」「厳格な-9% / 2.0x ATR非対称リスク管理」「新NISA成長投資枠（年間240万円・生涯1,200万円）の非課税複利効果」を数学的根拠とともに完全解説します。
+    </p>
+
+    <div class="features-grid" style="margin-bottom:28px;">
+      <!-- 手法1: ドンチアン20日新高値ブレイクアウト -->
+      <div class="feature-card" style="border-top: 4px solid #10b981;">
+        <div class="card-icon">📈</div>
+        <h3 class="card-title">1. ドンチアン・チャネル20日新高値ブレイクアウト規則</h3>
+        <p class="card-desc" style="margin-bottom:10px;">
+          リチャード・ドンチアンが体系化した古典的タートルズ手法を現代の高速アルゴリズム市場向けに再定義。過去20営業日の最高値（H₂₀ = max High_{t-20..t-1}）を当日の終値が上抜けた瞬間にブレイクアウトシグナルを生成します。
+        </p>
+        <ul style="font-size:0.83rem; line-height:1.7; color:var(--text-muted); padding-left:18px; margin:0;">
+          <li><b>出来高拡大フィルター（1.5倍必須）:</b> 出来高が20日移動平均の1.5倍（Volume ≥ 1.5 × SMA20(Volume)）未満のブレイクは、個人の高値掴みを誘う「騙しのブレイク（<code>LOW_VOLUME_TRAP</code>）」として機械的に排除。</li>
+          <li><b>価格加重PW-RSI（90点基準）:</b> 通常のRSIではなく、出来高倍率を乗算した独自PW-RSIが90点以上の時のみ「機関投資家の実弾点火（<code>INSTITUTIONAL_IGNITION</code>）」と判定。</li>
+          <li><b>トレンド構造フィルター:</b> 60日移動平均線（SMA60）および200日線より下での逆張りブレイク（<code>SUPPRESSED_LEFT_SIDE</code>）は全面回避。</li>
+        </ul>
+      </div>
+
+      <!-- 手法2: 非対称リスクリワード -->
+      <div class="feature-card" style="border-top: 4px solid #f59e0b;">
+        <div class="card-icon">⚖️</div>
+        <h3 class="card-title">2. 非対称リスクリワード（厳格な-9%ストップ vs +18% / 2x ATR）</h3>
+        <p class="card-desc" style="margin-bottom:10px;">
+          トレードの勝敗は「勝率」ではなく「リスクリワード比（非対称性）」と「期待値（Expectancy）」で決まります。1回あたりの損失を小さく抑え、勝つ時に大きく取る機関投資家マネジメントです。
+        </p>
+        <ul style="font-size:0.83rem; line-height:1.7; color:var(--text-muted); padding-left:18px; margin:0;">
+          <li><b>期待値の数学的証明:</b> 勝率が40%（負け越し60%）でもリスクリワード比 1:2.0以上なら、E = (0.40 × 2.0R) - (0.60 × 1.0R) = +0.20R のプラス期待値が確定。</li>
+          <li><b>厳格な-9.0%ハードストップ:</b> 損失-10%以上は元本回復に必要な利益率が急上昇（-50%損は+100%回復が必要）。いかなる好材料銘柄も-9.0%以内で強制カット。</li>
+          <li><b>2.0x ATR動的損切り ＆ 建値引き上げ:</b> ボラティリティに応じた損切り幅（2.0x ATR）により、市場ノイズによるヒゲ刈りを防ぎ、含み益+15%到達でストップを建値へ機械的移動。</li>
+        </ul>
+      </div>
+
+      <!-- 手法3: 新NISA成長投資枠の税制最適化 -->
+      <div class="feature-card" style="border-top: 4px solid #3b82f6;">
+        <div class="card-icon">🌱</div>
+        <h3 class="card-title">3. 新NISA成長投資枠（年240万 / 生涯1,200万）税制最適化</h3>
+        <p class="card-desc" style="margin-bottom:10px;">
+          新NISAの成長投資枠（年間240万円・生涯1,200万円簿価管理）を東証プライム・米国株のクオンツスイングに活用することで、譲渡益税20.315%を合法的に完全ゼロ化し、複利成長速度を最大化します。
+        </p>
+        <ul style="font-size:0.83rem; line-height:1.7; color:var(--text-muted); padding-left:18px; margin:0;">
+          <li><b>売却翌年の枠復活:</b> 利確・損切りした投資枠（買付簿価ベース）は翌年に全額復活するため、回転売買・スイングトレードと極めて高い親和性。</li>
+          <li><b>売買手数料ゼロ革命:</b> SBI証券・楽天証券等の国内株式現物取引手数料は0円。米国株も新NISA成長枠買付手数料が完全無料化。</li>
+          <li><b>最大の注意点（損益通算不可）:</b> 新NISAの損失は特定口座と損益通算できません。塩漬けは非課税枠の永久損失となるため、2.0x ATR損切りの徹底が命綱となります。</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 新NISA 成長投資枠 vs 特定口座 実額比較シミュレーション表 -->
+    <div class="comp-table-wrap" style="padding:18px 22px;">
+      <div style="font-weight:900; font-size:0.98rem; margin-bottom:6px; color:var(--text-main);">
+        📊 新NISA成長投資枠 vs 特定口座：スイングトレードにおける実額純利益・税額比較
+      </div>
+      <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:14px;">
+        ※運用条件：年間成長投資枠240万円を満額活用、GetBreakAIの2.5R利確ルール（平均+18.5%上昇）で利益確定した場合の比較試算
+      </p>
+
+      <table class="comp-table" style="font-size:0.84rem;">
+        <thead>
+          <tr>
+            <th>比較項目</th>
+            <th>特定口座（源泉徴収あり 20.315%）</th>
+            <th>新NISA 成長投資枠（非課税 0%）</th>
+            <th>新NISAの純増メリット（節税差額）</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>年間買付可能枠</strong></td>
+            <td>無制限</td>
+            <td><strong>年間240万円（生涯限度額 1,200万円）</strong></td>
+            <td>売却翌年に買付簿価ベースで枠が復活</td>
+          </tr>
+          <tr>
+            <td><strong>1回トレード利益 (+18.5%利確時)</strong></td>
+            <td>税引前利益: +444,000円</td>
+            <td>税引前利益: +444,000円</td>
+            <td>同額のクオンツアルファ獲得</td>
+          </tr>
+          <tr>
+            <td><strong>譲渡所得税 (所得税+住民税)</strong></td>
+            <td class="val-rose"><strong>-90,198円 (20.315%)</strong></td>
+            <td class="val-emerald"><strong>0円 (完全非課税)</strong></td>
+            <td class="val-emerald"><strong>+90,198円 手元に残る</strong></td>
+          </tr>
+          <tr>
+            <td><strong>手取り純利益</strong></td>
+            <td>+353,802円</td>
+            <td class="val-emerald"><strong>+444,000円</strong></td>
+            <td class="val-emerald"><strong>手取りが +25.5% 劇的に増加！</strong></td>
+          </tr>
+          <tr>
+            <td><strong>生涯限度額 (1,200万円) フル活用時</strong></td>
+            <td>累積税引後: +1,769,007円 (税金 -450,993円)</td>
+            <td class="val-emerald"><strong>累積手取り: +2,220,000円</strong></td>
+            <td class="val-emerald"><strong>累計 +450,993円 〜 240万円以上の節税差額</strong></td>
+          </tr>
+          <tr>
+            <td><strong>万が一の損失時のリスク管理</strong></td>
+            <td>他銘柄や配当と損益通算・3年間繰越控除可能</td>
+            <td class="val-rose"><strong>損益通算・繰越控除不可（塩漬け絶対厳禁）</strong></td>
+            <td><strong>2.0x ATR損切りライン厳守が必須防壁</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
   <!-- VIP機関投資家データ庫 (#vip-vault) -->
   <section id="vip-vault" class="section container">
     <h2 class="section-title">👑 VIP会員専用：機関投資家オーダーブック＆TradingView Pine Script v5金庫</h2>
     <p class="section-subtitle">
-      Proプラン会員（月額$29 / 約4,350円 または 永久買い切り$199 / 約29,800円）は、全銘柄のGamma Flip＆2.0x ATR一覧表(.CSV)、Form-4役員自社株買い台帳、およびTradingView用Pine Script v5インジケーター全文を即座にアンロックできます。
+      Proプラン会員（Starter $29/月、Pro Breakout $49/月、Institutional $1,499/年）は、全銘柄のGamma Flip＆2.0x ATR一覧表(.CSV)、Form-4役員自社株買い台帳、TradingView用Pine Script v5インジケーター全文、および専用Telegramシグナル通知(@SemifearGreedbot)を即座にアンロックできます。
     </p>
 
     <div class="terminal-shell" style="margin-bottom: 24px;">
@@ -1470,7 +2224,7 @@
         <div class="vip-two-col-grid">
           <!-- VIP特典 #2: TradingView Pine Script v5 -->
           <div class="feature-card" style="background:#120d22;">
-            <div style="font-family:var(--font-mono); font-size:0.75rem; color:#c4b5fd; font-weight:800; margin-bottom:6px;">
+            <div id="gbVipPrivilege2Header" style="font-family:var(--font-mono); font-size:0.75rem; color:#c4b5fd; font-weight:800; margin-bottom:6px;">
               💻 VIP特典 #2 · TRADINGVIEW PINE SCRIPT V5 (🔒 VIP限定)
             </div>
             <h3 class="card-title">GetBreakAI ATR損切りライン ＋ 5日間IV Gamma Wall インジケーター v2.4</h3>
@@ -1495,7 +2249,7 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
               <p class="card-desc" style="margin-bottom:14px;">
                 CEO・CFOによる市場内キャッシュ買いの平均取得単価とダークプール集積率を追跡し、TradingViewやDiscord/Telegramへシグナルを即時転送できます。
               </p>
-              <div style="background:#070510; border:1px solid var(--border-color); border-radius:8px; padding:12px; font-family:var(--font-mono); font-size:0.78rem; margin-bottom:14px;">
+              <div id="gbVipExecBox" style="background:#070510; border:1px solid var(--border-color); border-radius:8px; padding:12px; font-family:var(--font-mono); font-size:0.78rem; margin-bottom:14px;">
                 <div class="vip-exec-row" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:4px; padding:4px 0; border-bottom:1px solid var(--border-color);">
                   <span>$LLY イーライリリー (役員3名・CEO/CFO)</span>
                   <strong class="val-emerald">$4.82M 自己資金買い (約7.2億円)</strong>
@@ -1516,6 +2270,33 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
             </div>
           </div>
         </div>
+
+        <!-- VIP特典 #4: リアルタイムTelegram通知連携 (@SemifearGreedbot) -->
+        <div class="feature-card" style="margin-top:20px; background:linear-gradient(135deg, rgba(14,165,233,0.14) 0%, rgba(99,102,241,0.12) 100%); border:1.5px solid rgba(56,189,248,0.55); border-radius:12px; padding:22px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+            <div style="max-width:680px;">
+              <div style="font-family:var(--font-mono); font-size:0.75rem; color:#38bdf8; font-weight:800; margin-bottom:6px;">
+                ✈️ VIP特典 #4 · リアルタイムTELEGRAM通知連携 (@SemifearGreedbot)
+              </div>
+              <h3 class="card-title" style="margin-bottom:8px; color:#fff;">
+                リアルタイムTelegram通知連携 (@SemifearGreedbot)
+              </h3>
+              <p class="card-desc" style="margin-bottom:12px; font-size:0.86rem; color:var(--text-muted); line-height:1.55;">
+                新高値ブレイクアウト・大口ダークプール機関買い・オプションGamma Squeezeの発生をTelegram公式ボット <strong>@SemifearGreedbot</strong> があなたのスマホへ秒速プッシュ配信。チャートに張り付くことなく、エントリー＆利確・損切りラインを即座に把握できます。
+              </p>
+              <div style="display:flex; gap:16px; flex-wrap:wrap; font-size:0.8rem; color:#e2e8f0; font-family:var(--font-mono);">
+                <span>✓ 日中ブレイクアウト点火通知</span>
+                <span>✓ 2.0x ATR損切り・2.5R利確アラート</span>
+                <span>✓ 新NISA成長枠・東証プライム＆米国株対応</span>
+              </div>
+            </div>
+            <div>
+              <a href="https://t.me/SemifearGreedbot" target="_blank" rel="noopener" class="btn-checkout btn-checkout-primary" style="display:inline-flex; align-items:center; gap:8px; text-decoration:none; padding:12px 22px; font-weight:800; border-radius:8px; box-shadow:0 4px 14px rgba(56,189,248,0.35);">
+                ✈️ @SemifearGreedbot でVIP通知を受け取る →
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -1528,7 +2309,7 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
     </p>
 
     <!-- 2サイト共通VIPバンドルバナー -->
-    <div style="background:linear-gradient(135deg, rgba(139,92,246,0.20) 0%, rgba(16,185,129,0.14) 100%); border:1.5px solid rgba(139,92,246,0.65); border-radius:14px; padding:18px 22px; margin-bottom:28px; text-align:center;">
+    <div id="gbVipBundleBanner" style="background:linear-gradient(135deg, rgba(139,92,246,0.20) 0%, rgba(16,185,129,0.14) 100%); border:1.5px solid rgba(139,92,246,0.65); border-radius:14px; padding:18px 22px; margin-bottom:28px; text-align:center;">
       <div style="font-family:var(--font-mono); font-size:0.8rem; color:var(--accent-amber); font-weight:800; margin-bottom:6px;">
         🎁 2大クオンツ端末 共通VIPパスポート特典
       </div>
@@ -1538,60 +2319,68 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
     </div>
 
     <div class="pricing-grid">
-      <!-- 月額プラン -->
+      <!-- Tier 1: Starter Breakout Scanner -->
       <div class="price-card">
         <div>
-          <h3 class="price-name">Catalyst Starter 月額Pro</h3>
+          <h3 class="price-name">Starter Breakout Scanner</h3>
           <div class="price-amount">$29 <span>/ 月 (約4,400円・税込)</span></div>
-          <p class="price-desc">決算シーズンのSEC 8-K解析、Form-4インサイダー買い追跡、ATRポジション管理を毎月フル活用したい米国株トレーダー向け。</p>
+          <p class="price-desc">日常のブレイクアウトスキャン、東証・米国株トップ10スクリーニング、および機械的-9.0%損切り計算機を活用したい個人投資家向け。</p>
           <ul class="feature-list">
-            <li><span class="check">✓</span> <span>日次トップ15米国株 SEC 8-K＆決算コール日本語NLP解析</span></li>
-            <li><span class="check">✓</span> <span>SEC Form-4 経営陣キャッシュ買いクラスター台帳 (.CSV)</span></li>
-            <li><span class="check">✓</span> <span>2.0x ATR損切り＆適正株数計算機 ＋ Pine Script v5全文</span></li>
+            <li><span class="check">✓</span> <span>日次トップ10ブレイクアウト銘柄スキャナー (東証・米国株)</span></li>
+            <li><span class="check">✓</span> <span>機械的 -9.0% 損切り＆2.0x ATR適正株数計算機</span></li>
+            <li><span class="check">✓</span> <span>終値ベース ウォッチリストCSVダウンロード</span></li>
+            <li><span class="check">✓</span> <span>標準メールサポート (beable9489@gmail.com)</span></li>
             <li><span class="check">✓</span> <span><strong>特典：姉妹サイト TruthOfMarket.com のVIP機能も同時解放</strong></span></li>
           </ul>
         </div>
-        <a href="https://truthofmarket.lemonsqueezy.com/checkout/buy/bad98d00-7175-41f6-9d58-eeb2471d0da4?embed=1" class="btn-checkout btn-checkout-secondary lemonsqueezy-button">月額Proプランを始める ($29 / 月 · 約4,400円・税込)</a>
+        <a href="https://truthofmarket.lemonsqueezy.com/checkout/buy/gb-starter-29?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html" class="btn-checkout btn-checkout-secondary lemonsqueezy-button">Starterプランを始める ($29 / 月 · 約4,400円・税込)</a>
         <div style="margin-top:10px; font-size:0.74rem; color:var(--text-muted); text-align:center; line-height:1.45;">
           🔒 Stripe / Lemon Squeezy 安全決済（🍎 Apple Pay・Google Pay・JCB・Visa・Master・PayPal 対応 / いつでも1クリックで解約可能）
         </div>
       </div>
 
-      <!-- 永久買い切りプラン -->
+      <!-- Tier 2: Pro Institutional Breakout (一番人気・おすすめ) -->
       <div class="price-card featured">
-        <div class="badge-popular">👑 一番人気・買い切り (追加費用0円)</div>
+        <div class="badge-popular">👑 一番人気・おすすめ (Most Popular)</div>
         <div>
-          <h3 class="price-name">Whale &amp; Gamma Pro (永久買い切り)</h3>
-          <div class="price-amount">$199 <span>/ 永久ライセンス (約30,000円・追加費用なしの買い切り)</span></div>
-          <p class="price-desc">毎月のサブスク課金なし。1回の決済でGetBreakAI.comとTruthOfMarket.comの全VIP機能を生涯無制限で利用可能。</p>
+          <h3 class="price-name">Pro Institutional Breakout</h3>
+          <div class="price-amount">$49 <span>/ 月 (約7,400円・税込)</span></div>
+          <p class="price-desc">日中リアルタイム点火シグナル、PW-RSIボリュームクオンツ、2.0x/2.5R動的利確目標、および専用Telegram VIP通知をフル活用するアクティブトレーダー向け。</p>
           <ul class="feature-list">
-            <li><span class="check">✓</span> <span><strong>月額Proプランの全機能を生涯無制限でアンロック（追加費用0円）</strong></span></li>
-            <li><span class="check">✓</span> <span>オプションGamma Wall (GEX) 転換ライン＆ダークプール機関比率</span></li>
-            <li><span class="check">✓</span> <span>SEC 10-K 会計監査リスク・急落銘柄回避フォレンジック警告</span></li>
-            <li><span class="check">✓</span> <span>TradingView用 ATR + IV Gamma Cone Pine Script v5 永久利用権</span></li>
-            <li><span class="check">✓</span> <span><strong>特典：TruthOfMarket.com 生涯VIPライセンスも永久付属</strong></span></li>
+            <li><span class="check">✓</span> <span><strong>Starterプランの全機能を含む</strong></span></li>
+            <li><span class="check">✓</span> <span>リアルタイム日中ブレイクアウト点火アラート</span></li>
+            <li><span class="check">✓</span> <span>価格加重RSI (PW-RSI) ボリュームクオンツエンジン</span></li>
+            <li><span class="check">✓</span> <span>動的 2.0x / 2.5R 利確目標トラジェクトリアラート</span></li>
+            <li><span class="check">✓</span> <span><strong>専用Telegram VIPシグナル即時配信 (@SemifearGreedbot)</strong></span></li>
+            <li><span class="check">✓</span> <span>TradingView用 ATR + IV Gamma Cone Pine Script v5 全文</span></li>
+            <li><span class="check">✓</span> <span><strong>特典：TruthOfMarket.com VIP機能も同時解放</strong></span></li>
           </ul>
         </div>
-        <a href="https://truthofmarket.lemonsqueezy.com/checkout/buy/00c9f6e1-c8be-42a4-b5a5-e05af1a41ed9?embed=1" class="btn-checkout btn-checkout-primary lemonsqueezy-button">👑 永久ライセンスを買い切りでアンロック ($199 / 約30,000円) →</a>
-        <div style="margin-top:10px; font-size:0.74rem; color:#fde68a; text-align:center; line-height:1.45;">
+        <a href="https://truthofmarket.lemonsqueezy.com/checkout/buy/gb-pro-49?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html" class="btn-checkout btn-checkout-primary lemonsqueezy-button">👑 Pro Breakoutを始める ($49 / 月 · 約7,400円) →</a>
+        <div id="gbFeaturedCardSecurityNote" style="margin-top:10px; font-size:0.74rem; color:#fde68a; text-align:center; line-height:1.45;">
           🔒 Stripe / Lemon Squeezy 安全決済（🍎 Apple Pay・Google Pay・JCB・Visa・Master・PayPal 対応 / いつでも1クリックで解約可能）
         </div>
       </div>
 
-      <!-- 機関・法人デスク -->
+      <!-- Tier 3: Institutional Alpha Terminal -->
       <div class="price-card">
         <div>
-          <h3 class="price-name">Institutional 機関投資家デスク</h3>
+          <h3 class="price-name">Institutional Alpha Terminal</h3>
           <div class="price-amount">$1,499 <span>/ 年 (約22.4万円/年)</span></div>
-          <p class="price-desc">プロップデスク、ファミリーオフィス、クオンツ運用チーム向けのマルチシート＆APIプラン。</p>
+          <p class="price-desc">クオンツファンド、ファミリーオフィス、プロップデスク向けのマルチシート＆フルREST/WebSocket APIデータフィードプラン。</p>
           <ul class="feature-list">
-            <li><span class="check">✓</span> <span>REST / WebSocket カタリスト＆GEXデータフィードAPI</span></li>
-            <li><span class="check">✓</span> <span>決算コールNLPセンチメント生JSONストリーム配信</span></li>
-            <li><span class="check">✓</span> <span>機関投資家13Fポートフォリオ差分トラッカー</span></li>
+            <li><span class="check">✓</span> <span><strong>Proプランの全機能を含む</strong></span></li>
+            <li><span class="check">✓</span> <span>フルREST &amp; WebSocket シグナルデータフィードAPI</span></li>
+            <li><span class="check">✓</span> <span>SEC 10-K 会計監査リスク＆フォレンジック警告フィード</span></li>
+            <li><span class="check">✓</span> <span>ダークプール機関ブロック取引フロー需給不均衡解析</span></li>
             <li><span class="check">✓</span> <span>最大5シートのチームライセンス＆優先エンジニアサポート</span></li>
+            <li><span class="check">✓</span> <span>専任1-on-1サポートデスク (beable9489@gmail.com)</span></li>
           </ul>
         </div>
-        <a href="mailto:beable9489@gmail.com?subject=GetBreakAI%20Institutional%20Desk%20Inquiry" class="btn-checkout btn-checkout-secondary">法人デスクへ問い合わせる</a>
+        <a href="https://truthofmarket.lemonsqueezy.com/checkout/buy/gb-inst-1499?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html" class="btn-checkout btn-checkout-secondary lemonsqueezy-button">Institutional Terminalを契約 ($1,499 / 年 · 約22.4万円) →</a>
+        <div style="margin-top:10px; font-size:0.74rem; color:var(--text-muted); text-align:center; line-height:1.45;">
+          🔒 Stripe / Lemon Squeezy 年間一括安全決済（インボイス発行・優先サポート対応）
+        </div>
       </div>
     </div>
   </section>
@@ -1651,8 +2440,8 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
         <p class="card-desc">当サイトの計算機に表示される「推奨エントリー株数」を購入し、証券アプリの逆指値（ストップロス）注文に「2.0x ATR損切りライン（$○○）」をそのまま入力するだけで、機関投資家と同じリスク管理が完了します。</p>
       </div>
       <div class="feature-card">
-        <h3 class="card-title" style="font-size:1.02rem;">Q3. 永久ライセンス買い切り（$199 / 約30,000円）は本当に追加費用0円ですか？</h3>
-        <p class="card-desc">はい。1回のお支払いのみで、毎月のサブスク課金は一切発生しません。さらに姉妹サイト TruthOfMarket.com（半導体恐怖強欲指数＆72銘柄PW-RSI）の生涯VIP権も無料で付属します。</p>
+        <h3 class="card-title" style="font-size:1.02rem;">Q3. 3つのプラン（Starter $29、Pro $49、Institutional $1,499）の違いは何ですか？</h3>
+        <p class="card-desc">Starterは日次ブレイクアウトスキャンとATR計算機、Proはリアルタイム日中点火シグナル・PW-RSI・専用Telegram通知(@SemifearGreedbot)・Pine Script全文を含み、Institutionalは法人・ファンド向けフルAPIとSEC 10-Kリスクフィードを提供します。全プランにTruthOfMarket.com VIP解放特典が付属します。</p>
       </div>
       <div class="feature-card">
         <h3 class="card-title" style="font-size:1.02rem;">Q4. JCBカードやApple Payでの決済、月額プランの1クリック解約は可能ですか？</h3>
@@ -1720,6 +2509,41 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
         <button type="button" onclick="closeGbJpLegalModal()" style="background:#1d1636; border:1px solid #4c3785; color:#fff; border-radius:8px; padding:4px 12px; cursor:pointer; font-weight:800;">✕ 閉じる</button>
       </div>
       <div id="gbJpLegalModalBody" style="font-size:0.88rem; color:#cbd5e1; line-height:1.75;"></div>
+    </div>
+  </div>
+
+  <!-- 決済完了・Telegram VIPオンボーディングモーダル (#gbCheckoutSuccessModal) -->
+  <div id="gbCheckoutSuccessModal" style="display:none; position:fixed; inset:0; z-index:10000; background:rgba(6,5,12,0.85); backdrop-filter:blur(8px); align-items:center; justify-content:center; padding:16px;">
+    <div style="background:#0e0b1a; border:2px solid #10b981; border-radius:18px; max-width:580px; width:100%; max-height:90vh; overflow-y:auto; padding:28px 24px; color:#f8fafc; box-shadow:0 24px 64px rgba(16,185,129,0.25); text-align:center;">
+      <div style="font-size:3rem; margin-bottom:10px;">🎉</div>
+      <span class="tape-badge bg-pead" style="font-size:0.8rem; margin-bottom:12px; display:inline-block;">VIPロック解除完了</span>
+      <h3 style="font-size:1.35rem; font-weight:900; color:#34d399; margin-bottom:10px;">ご決済ありがとうございます！</h3>
+      <p style="font-size:0.9rem; color:#cbd5e1; line-height:1.65; margin-bottom:20px;">
+        VIP全機能が自動的に解放されました。<br>
+        購入完了メールでもライセンスキーが送信されます。<br>
+        続いて、リアルタイム通知を受け取るために <strong>公式Telegramボット (@SemifearGreedbot)</strong> を連携してください。
+      </p>
+
+      <div style="background:#141026; border:1.5px solid rgba(56,189,248,0.5); border-radius:12px; padding:18px; margin-bottom:24px; text-align:left;">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px;">
+          <span style="font-size:1.3rem;">✈️</span>
+          <strong style="color:#38bdf8; font-size:0.95rem;">公式Telegram VIP連携 (@SemifearGreedbot)</strong>
+        </div>
+        <ol style="margin:0; padding-left:20px; font-size:0.84rem; line-height:1.7; color:#cbd5e1;">
+          <li>下のボタンをクリックして <strong>@SemifearGreedbot</strong> を開く</li>
+          <li>チャット画面で <strong>/start</strong> を送信</li>
+          <li>決済完了メールに届いたライセンスキーまたは登録メールアドレスを送信してVIPシグナル通知を即時有効化</li>
+        </ol>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <a href="https://t.me/SemifearGreedbot" target="_blank" rel="noopener" class="btn-checkout btn-checkout-primary" style="display:inline-flex; align-items:center; justify-content:center; gap:8px; text-decoration:none; padding:14px 24px; font-weight:800; border-radius:8px; font-size:0.95rem; box-shadow:0 4px 16px rgba(56,189,248,0.35);">
+          ✈️ TelegramでVIP通知を開く (@SemifearGreedbot) →
+        </a>
+        <button type="button" onclick="closeCheckoutSuccessModal()" class="btn-checkout btn-checkout-secondary" style="padding:12px 20px; border-radius:8px; cursor:pointer; font-size:0.88rem;">
+          メインターミナルに戻る (VIP全機能解放済み)
+        </button>
+      </div>
     </div>
   </div>
 
@@ -1981,8 +2805,105 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
             "atr": 11.98,
             "iv": 34,
             "isAvoid": false
+      },
+      "8035": {
+            "jpName": "東京エレクトロン",
+            "hashtag": "#東京エレクトロン",
+            "currency": "JPY",
+            "badge": "DONCHIAN_20D_BREAKOUT",
+            "badgeClass": "tape-badge bg-pead",
+            "headline": "8035 (東京エレクトロン) — 20日高値ドンチアン突破 ＆ 先端半導体製造装置受注拡大",
+            "summary": "東証プライム半導体セクターの牽引役。過去20営業日高値（¥26,500）を出来高1.8倍増で上抜けるクオンツブレイクアウトを検知。価格加重PW-RSI 92.5で機関投資家の実弾買い（Institutional Ignition）が確認され、海外大口ファンドの実需買いが集中。",
+            "score": "94.2 / 100 (東証P強気ブレイク)",
+            "nlp": "93% 強気 (製造装置受注高ガイダンス上方修正)",
+            "insider": "自己株取得枠 ＆ 外資実需買い集積",
+            "flow": "海外機関買い越し 68% · 大口クロス優勢",
+            "trigger": "20日ブレイクライン ¥26,500突破 → 2.5R利確目標 ¥30,700 (2.0x ATR損切り ¥25,240)",
+            "entry": 26800.0,
+            "atr": 780.0,
+            "iv": 42,
+            "isAvoid": false
+      },
+      "6857": {
+            "jpName": "アドバンテスト",
+            "hashtag": "#アドバンテスト",
+            "currency": "JPY",
+            "badge": "HBM_TESTER_IGNITION",
+            "badgeClass": "tape-badge bg-pead",
+            "headline": "6857 (アドバンテスト) — SoC/HBM高帯域メモリテスター需要急増 ＆ 新高値青天井モード",
+            "summary": "AIアクセラレータ向けHBM半導体テスターの世界独占的需要を背景に、20日高値（¥9,280）を出来高急増を伴いブレイク。Wilder RSI 71.2、PW-RSI 95.8と最高強度のモメンタムを維持。",
+            "score": "93.8 / 100 (新高値ブレイク点火)",
+            "nlp": "92% 強気 (受注残高・営業益サプライズ)",
+            "insider": "大口機関13F相当保有増 71%",
+            "flow": "大口ブロック買い 63% · 売買代金トップクラス",
+            "trigger": "20日高値ブレイク ¥9,280突破 → 2.5R利確目標 ¥11,020 (2.0x ATR損切り ¥8,780)",
+            "entry": 9420.0,
+            "atr": 320.0,
+            "iv": 48,
+            "isAvoid": false
+      },
+      "9984": {
+            "jpName": "ソフトバンクグループ",
+            "hashtag": "#ソフトバンクG",
+            "currency": "JPY",
+            "badge": "ARM_AI_HUB_BREAKOUT",
+            "badgeClass": "tape-badge bg-pead",
+            "headline": "9984 (ソフトバンクグループ) — 米Arm株含み益急伸 ＆ AIインフラ投資ハブ加速",
+            "summary": "傘下Armの時価総額拡大に伴うNAV（純資産価値）ディスカウント縮小を背景に、レンジ上限¥9,510を上抜け。日経平均寄与度が高く、先物主導のショートスクイーズが加速。",
+            "score": "91.5 / 100 (NAV拡大ブレイク)",
+            "nlp": "90% 強気 (AIエコシステム投資拡大)",
+            "insider": "自社株買い枠発動期待 ＆ 機関集積",
+            "flow": "海外ファンド買い越し 59% · コール優勢",
+            "trigger": "20日ブレイクライン ¥9,510突破 → 2.5R利確目標 ¥11,400 (2.0x ATR損切り ¥8,950)",
+            "entry": 9650.0,
+            "atr": 350.0,
+            "iv": 52,
+            "isAvoid": false
+      },
+      "7203": {
+            "jpName": "トヨタ自動車",
+            "hashtag": "#トヨタ自動車",
+            "currency": "JPY",
+            "badge": "SHARE_BUYBACK_1TRILLION",
+            "badgeClass": "tape-badge bg-whale",
+            "headline": "7203 (トヨタ自動車) — 1兆円規模の自己株式取得枠 ＆ HEV世界シェア拡大",
+            "summary": "自社株買い発表とハイブリッド車（HEV）高収益継続を東証適時開示NLPが高評価。低ボラティリティ（IV 28%）で新NISA成長投資枠の守りの主力銘柄としても抜群の安定性。",
+            "score": "88.0 / 100 (大規模自社株買い)",
+            "nlp": "88% 強気 (HEV営業利益率更新・還元強化)",
+            "insider": "会社側 1兆円市場内自己株買い進行中",
+            "flow": "国内信託・生保買い集め 58%",
+            "trigger": "ドンチアンサポート ¥2,750維持 → 2.5R利確目標 ¥3,120 (2.0x ATR損切り ¥2,644)",
+            "entry": 2780.0,
+            "atr": 68.0,
+            "iv": 28,
+            "isAvoid": false
+      },
+      "6758": {
+            "jpName": "ソニーグループ",
+            "hashtag": "#ソニーグループ",
+            "currency": "JPY",
+            "badge": "CMOS_CIS_MARGIN_EXPANSION",
+            "badgeClass": "tape-badge bg-pead",
+            "headline": "6758 (ソニーグループ) — 次世代CMOSイメージセンサ増産 ＆ ゲームネットワーク増益",
+            "summary": "モバイル向け大判CIS（イメージセンサ）の歩留まり改善とPSNサブスクリプション利益率拡大を確認。20日高値¥3,110を超え、PBR1倍割れ是正と連動した着実な資金流入。",
+            "score": "89.4 / 100 (業績反転ブレイク)",
+            "nlp": "89% 強気 (半導体・ゲーム営業益上方修正)",
+            "insider": "信託口・海外長期年金ファンド買い増し",
+            "flow": "大口ブロック買い 56% · 現物買い優勢",
+            "trigger": "20日新高値 ¥3,110突破 → 2.5R利確目標 ¥3,575 (2.0x ATR損切り ¥2,980)",
+            "entry": 3150.0,
+            "atr": 85.0,
+            "iv": 34,
+            "isAvoid": false
       }
 };
+
+    // Alias with .T suffix
+    CATALYST_DATA["8035.T"] = CATALYST_DATA["8035"];
+    CATALYST_DATA["6857.T"] = CATALYST_DATA["6857"];
+    CATALYST_DATA["9984.T"] = CATALYST_DATA["9984"];
+    CATALYST_DATA["7203.T"] = CATALYST_DATA["7203"];
+    CATALYST_DATA["6758.T"] = CATALYST_DATA["6758"];
 
     
     const REPORT_SLUGS = {
@@ -2016,18 +2937,34 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
       if (bTok) bTok.classList.toggle('active', JP_TAX_MODE === 'tokutei');
       recalcSizer();
     }
-    function setJpAccountPreset(usdVal) {
+    function setJpAccountPreset(usdVal, btnEl) {
       const s = document.getElementById('sliderAccount');
       if (s) {
         s.value = usdVal;
-        recalcSizer();
       }
+      const row = (btnEl && btnEl.closest && btnEl.closest('.jp-preset-row')) || document.getElementById('jpAccountPresetRow');
+      if (row) {
+        row.querySelectorAll('.jp-preset-btn').forEach(b => {
+          const matchAttr = b.getAttribute('data-acc-preset') === String(usdVal);
+          const matchClick = (b.getAttribute('onclick') || '').indexOf('(' + usdVal) !== -1;
+          b.classList.toggle('active', b === btnEl || matchAttr || matchClick);
+        });
+      }
+      recalcSizer();
     }
 
-    function setJpFxRate(rate) {
+    function setJpFxRate(rate, btnEl) {
       USD_JPY_RATE = Number(rate) || 150.0;
       const fxEl = document.getElementById('lblFxRate');
       if (fxEl) fxEl.innerText = String(USD_JPY_RATE);
+      const row = (btnEl && btnEl.closest && btnEl.closest('.jp-preset-row')) || document.getElementById('jpFxPresetRow');
+      if (row) {
+        row.querySelectorAll('.jp-preset-btn').forEach(b => {
+          const matchAttr = b.getAttribute('data-fx-preset') === String(rate);
+          const matchClick = (b.getAttribute('onclick') || '').indexOf('(' + rate) !== -1;
+          b.classList.toggle('active', b === btnEl || matchAttr || matchClick);
+        });
+      }
       recalcSizer();
     }
 
@@ -2050,14 +2987,68 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
       return '約¥' + Math.round(jpy).toLocaleString();
     }
 
+    function filterMatrixMarket(market, btn) {
+      document.querySelectorAll('#gbQuickMatrixSection .jp-preset-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      const rows = document.querySelectorAll('#gbQuickMatrixTable tbody tr.matrix-row');
+      rows.forEach(r => {
+        const m = r.getAttribute('data-market');
+        if (market === 'all' || m === market) {
+          r.style.display = '';
+        } else {
+          r.style.display = 'none';
+        }
+      });
+    }
+
+    function switchRadarMarket(market, btn) {
+      document.querySelectorAll('#radar .jp-preset-btn[id^="btnRadarMarket"]').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      const tseButtons = document.querySelectorAll('#radarTickerBar .ticker-tse');
+      const usButtons = document.querySelectorAll('#radarTickerBar .ticker-us');
+      if (market === 'tse') {
+        tseButtons.forEach(b => b.style.display = '');
+        usButtons.forEach(b => b.style.display = 'none');
+        const curD = CATALYST_DATA[activeSym];
+        if (!curD || curD.currency !== 'JPY') {
+          selectCatalyst('8035');
+        }
+      } else {
+        tseButtons.forEach(b => b.style.display = 'none');
+        usButtons.forEach(b => b.style.display = '');
+        const curD = CATALYST_DATA[activeSym];
+        if (!curD || curD.currency === 'JPY') {
+          selectCatalyst('NVDA');
+        }
+      }
+    }
+
     function selectCatalyst(sym, btn) {
       const cleanSym = String(sym || '').trim().toUpperCase().replace(/^\$/, '');
-      const d = CATALYST_DATA[cleanSym];
+      const d = CATALYST_DATA[cleanSym] || CATALYST_DATA[cleanSym.replace(/\.T$/i, '')];
       if (!d) return;
-      activeSym = cleanSym;
+      activeSym = cleanSym.replace(/\.T$/i, '');
+
+      const isJpy = (d.currency === 'JPY');
+      const btnTse = document.getElementById('btnRadarMarketTse');
+      const btnUs = document.getElementById('btnRadarMarketUs');
+      const tseButtons = document.querySelectorAll('#radarTickerBar .ticker-tse');
+      const usButtons = document.querySelectorAll('#radarTickerBar .ticker-us');
+      if (isJpy) {
+        if (btnTse) btnTse.classList.add('active');
+        if (btnUs) btnUs.classList.remove('active');
+        tseButtons.forEach(b => b.style.display = '');
+        usButtons.forEach(b => b.style.display = 'none');
+      } else {
+        if (btnUs) btnUs.classList.add('active');
+        if (btnTse) btnTse.classList.remove('active');
+        tseButtons.forEach(b => b.style.display = 'none');
+        usButtons.forEach(b => b.style.display = '');
+      }
 
       document.querySelectorAll('.ticker-btn[data-ticker]').forEach(b => {
-        if (b.getAttribute('data-ticker') === cleanSym) {
+        const bt = b.getAttribute('data-ticker');
+        if (bt === activeSym || bt === cleanSym) {
           b.classList.add('active');
         } else {
           b.classList.remove('active');
@@ -2066,8 +3057,10 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
       if (btn && btn.classList) btn.classList.add('active');
 
       const badge = document.getElementById('catClassificationBadge');
-      badge.className = d.badgeClass;
-      badge.innerText = d.badge;
+      if (badge) {
+        badge.className = d.badgeClass;
+        badge.innerText = d.badge;
+      }
 
       document.getElementById('catHeadline').innerText = d.headline;
       document.getElementById('catSummary').innerText = d.summary;
@@ -2079,11 +3072,33 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
 
       const repBtn = document.getElementById('btnReadFullJpReport');
       if (repBtn) {
-        repBtn.href = REPORT_SLUGS[cleanSym] || '/jp/nvda-sec-gamma-atr-analysis.html';
+        repBtn.href = REPORT_SLUGS[activeSym] || REPORT_SLUGS[cleanSym] || '/jp/nvda-sec-gamma-atr-analysis.html';
       }
 
-      document.getElementById('sliderEntry').value = d.entry;
-      document.getElementById('sliderAtr').value = d.atr;
+      const sEntry = document.getElementById('sliderEntry');
+      const sAtr = document.getElementById('sliderAtr');
+      if (isJpy) {
+        sEntry.min = Math.max(10, Math.floor(d.entry * 0.4));
+        sEntry.max = Math.ceil(d.entry * 2.2);
+        sEntry.step = d.entry >= 1000 ? 10 : 1;
+        sEntry.value = d.entry;
+
+        sAtr.min = Math.max(1, Math.floor(d.atr * 0.2));
+        sAtr.max = Math.ceil(d.atr * 3.0);
+        sAtr.step = d.atr >= 100 ? 5 : 1;
+        sAtr.value = d.atr;
+      } else {
+        sEntry.min = 10;
+        sEntry.max = 2000;
+        sEntry.step = 0.5;
+        sEntry.value = d.entry;
+
+        sAtr.min = 0.5;
+        sAtr.max = 100.0;
+        sAtr.step = 0.2;
+        sAtr.value = d.atr;
+      }
+
       currentIv = d.iv;
       recalcSizer();
     }
@@ -2093,54 +3108,22 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
       const entry = parseFloat(document.getElementById('sliderEntry').value);
       const atr = parseFloat(document.getElementById('sliderAtr').value);
       const d = CATALYST_DATA[activeSym] || CATALYST_DATA.NVDA;
+      const isJpy = (d && d.currency === 'JPY');
 
-      document.getElementById('lblAccount').innerText = '$' + account.toLocaleString() + ' (' + formatJpyMan(account) + ')';
-      document.getElementById('lblEntry').innerText = '$' + entry.toFixed(2) + ' (約¥' + Math.round(entry * USD_JPY_RATE).toLocaleString() + ')';
-      document.getElementById('lblAtrIv').innerText = 'ATR $' + atr.toFixed(2) + ' · IV ' + currentIv + '%';
+      const isTokutei = (typeof JP_TAX_MODE !== 'undefined' && JP_TAX_MODE === 'tokutei');
+      const jpTaxRate = 0.20315; // 所得税15.315% + 住民税5%
 
-      const maxRiskDollars = account * 0.015; // 口座資金の1.5%許容リスク上限
-      const stopDist = atr * 2.0; // 2.0x ATR損切り幅
-      const stopPrice = Math.max(0.01, entry - stopDist);
-      const rawShares = Math.floor(maxRiskDollars / stopDist);
-      const maxAfford = Math.floor(account / entry);
-      const shares = Math.max(1, Math.min(rawShares, maxAfford));
-      const notional = Math.round(shares * entry);
-      const actualRiskUsd = Math.round(shares * stopDist);
-
-      const expMove = entry * (currentIv / 100.0) * Math.sqrt(5.0 / 252.0);
-      const upperWall = entry + expMove;
-
-      const target25R = entry + stopDist * 2.5;
-      const gainDollars = Math.round(shares * (target25R - entry));
-
-      document.getElementById('outShares').innerText = shares + '株 ($' + notional.toLocaleString() + ' / ' + formatJpyMan(notional) + ')';
-      document.getElementById('outAtrStop').innerText = '$' + stopPrice.toFixed(2) + ' (-$' + actualRiskUsd.toLocaleString() + ' / ' + formatJpyMan(actualRiskUsd) + ')';
-      document.getElementById('outExpectedMove').innerText = '±$' + expMove.toFixed(2) + ' ($' + upperWall.toFixed(2) + ' 壁)';
-      
+      const elAccount = document.getElementById('lblAccount');
+      const elEntry = document.getElementById('lblEntry');
+      const elAtrIv = document.getElementById('lblAtrIv');
+      const elOutShares = document.getElementById('outShares');
+      const elOutStop = document.getElementById('outAtrStop');
+      const elOutExp = document.getElementById('outExpectedMove');
+      const elOutTarget = document.getElementById('outTarget25R');
       const bStop = document.getElementById('barStopVal');
       const bEntry = document.getElementById('barEntryVal');
       const bWall = document.getElementById('barWallVal');
       const bTarget = document.getElementById('barTargetVal');
-      if (bStop) bStop.innerText = '$' + stopPrice.toFixed(2);
-      if (bEntry) bEntry.innerText = '$' + entry.toFixed(2);
-      if (bWall) bWall.innerText = '$' + upperWall.toFixed(2);
-      if (bTarget) bTarget.innerText = '$' + target25R.toFixed(2);
-
-      // 🇯🇵 日本国内の米国株税制（新NISA 0% vs 特定口座 20.315%）・売買手数料（0.495%上限$22）・為替スプレッド（25銭）計算
-      const buyCommUsd = (typeof JP_TAX_MODE !== 'undefined' && JP_TAX_MODE === 'nisa') ? 0 : Math.min(22.0, notional * 0.00495);
-      const sellNotional = shares * target25R;
-      const sellCommUsd = Math.min(22.0, sellNotional * 0.00495);
-      const fxSpreadJpy = (notional + sellNotional) * 0.25; // 往復為替スプレッド（片道25銭基準）
-      const totalFeeUsd = buyCommUsd + sellCommUsd + (fxSpreadJpy / USD_JPY_RATE);
-      const totalFeeJpy = Math.round(totalFeeUsd * USD_JPY_RATE);
-
-      const grossProfitUsd = Math.max(0, gainDollars - totalFeeUsd);
-      const grossProfitJpy = grossProfitUsd * USD_JPY_RATE;
-      const jpTaxRate = 0.20315; // 所得税15.315% + 住民税5%
-      const taxSavedJpy = grossProfitJpy * jpTaxRate;
-      const isTokutei = (typeof JP_TAX_MODE !== 'undefined' && JP_TAX_MODE === 'tokutei');
-      const netProfitJpy = isTokutei ? (grossProfitJpy * (1 - jpTaxRate)) : grossProfitJpy;
-      const netProfitUsd = netProfitJpy / USD_JPY_RATE;
 
       const elNetJpy = document.getElementById('valNetProfitJpy');
       const elTaxNote = document.getElementById('valTaxSavedNote');
@@ -2153,79 +3136,208 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
         elTaxBadge.className = isTokutei ? 'tape-badge bg-whale' : 'tape-badge bg-pead';
         elTaxBadge.innerText = isTokutei ? '🏦 特定口座（源泉徴収 20.315%・損益通算可）適用中' : '🌱 新NISA（成長投資枠：非課税 0%）適用中';
       }
-      if (elNetJpy) {
-        elNetJpy.innerText = '+約' + (netProfitJpy / 10000).toFixed(1) + '万円 (手取り +$' + Math.round(netProfitUsd).toLocaleString() + ')';
-      }
-      if (elTaxNote) {
-        elTaxNote.innerText = isTokutei
-          ? ('🏦 譲渡益税(20.315%) 源泉徴収額: -約' + (taxSavedJpy / 10000).toFixed(1) + '万円（確定申告不要）')
-          : ('✨ 新NISA非課税メリット: 特定口座より +約' + (taxSavedJpy / 10000).toFixed(1) + '万円 お得！');
-      }
-      if (elFeeJpy) {
-        elFeeJpy.innerText = '往復コスト 約¥' + totalFeeJpy.toLocaleString() + ' ($' + totalFeeUsd.toFixed(2) + ')';
-      }
-      if (elFxSens) {
-        const rateWeak = USD_JPY_RATE + 5;
-        const rateStrong = Math.max(100, USD_JPY_RATE - 5);
-        const netWeakMan = ((grossProfitUsd * rateWeak) * (isTokutei ? (1 - jpTaxRate) : 1) / 10000).toFixed(1);
-        const netStrongMan = ((grossProfitUsd * rateStrong) * (isTokutei ? (1 - jpTaxRate) : 1) / 10000).toFixed(1);
-        elFxSens.innerHTML = '💱 <b>為替変動シミュレーション（円換算課税対応）:</b> 利確時に<b>5円円安(' + rateWeak + '円)</b>なら手取り <b>+約' + netWeakMan + '万円</b> ／ <b>5円円高(' + rateStrong + '円)</b>なら手取り <b>+約' + netStrongMan + '万円</b>';
-      }
-      if (elLossNote) {
-        const lossRefundMan = ((actualRiskUsd * USD_JPY_RATE * jpTaxRate) / 10000).toFixed(1);
-        elLossNote.innerHTML = isTokutei
-          ? ('💡 <b>特定口座の損益通算メリット:</b> 万が一 2.0x ATR（-$' + actualRiskUsd.toLocaleString() + '）で損切りとなっても、他銘柄の利益や配当と<b>損益通算（＋3年間繰越控除）</b>することで<b>約' + lossRefundMan + '万円（20.315%）の税金還付効果</b>があり、実質ダメージを軽減できます。')
-          : ('⚠️ <b>新NISAの重要注意点（損益通算不可）:</b> 新NISA口座の損失は特定口座と<b>損益通算できません</b>。含み損を放置（塩漬け）すると貴重な非課税枠が死に金になるため、<b>2.0x ATR損切りライン（$' + stopPrice.toFixed(2) + '）での機械的撤退</b>が新NISA枠を守る鉄則です。');
-      }
 
-      document.getElementById('outTarget25R').innerText = '$' + target25R.toFixed(2) + ' (+$' + gainDollars.toLocaleString() + ' / ' + formatJpyMan(gainDollars) + ')';
+      if (isJpy) {
+        // === JAPANESE YEN DOMESTIC STOCK CALCULATION (東証プライム・日本株) ===
+        const accountYen = account * USD_JPY_RATE;
+        elAccount.innerText = '$' + account.toLocaleString() + ' (' + formatJpyMan(account) + ')';
+        elEntry.innerText = '¥' + Math.round(entry).toLocaleString() + ' (約$' + (entry / USD_JPY_RATE).toFixed(2) + ')';
+        elAtrIv.innerText = 'ATR ¥' + Math.round(atr).toLocaleString() + ' · IV ' + currentIv + '%';
 
-      const box = document.getElementById('gbPlainEnglishActionBox');
-      const titleEl = document.getElementById('gbPlainActionTitle');
-      const badgeEl = document.getElementById('gbPlainRewardBadge');
-      const stepsEl = document.getElementById('gbPlainActionSteps');
-      if (box && titleEl && badgeEl && stepsEl) {
-        if (activeSym === 'SMCI' || d.isAvoid) {
-          box.style.background = 'rgba(244,63,94,0.12)';
-          box.style.borderColor = 'rgba(244,63,94,0.5)';
-          titleEl.style.color = '#fb7185';
-          titleEl.innerText = '🔴 エントリー禁止 / 会計リスク・ダークプール機関売り警告 (DO NOT BUY / AVOID)';
-          badgeEl.style.background = 'rgba(244,63,94,0.22)';
-          badgeEl.style.color = '#fda4af';
-          badgeEl.innerText = '急落テールリスク警告';
-          const savedLossUsd = Math.round(account * 0.12);
-          stepsEl.innerHTML =
-            '⚠️ <b>新規買い厳禁（資産防衛アラート）:</b> SEC 10-K/提出書類の会計監査リスクおよび<b>ダークプール機関投資家売り（67%）</b>が検出されました。<br>' +
-            '💡 <b>見送りによる資金防衛効果:</b> 決算ギャンブルによる-35%暴落トラップを回避することで <b>$' + savedLossUsd.toLocaleString() + '（' + formatJpyMan(savedLossUsd) + '）以上</b> の損失を防ぎ、<b>$NVDA・$PLTR・$LLY</b> 等の機関買い銘柄へ資金を温存できます。';
-        } else {
+        const maxRiskYen = accountYen * 0.015; // 口座資金の1.5%許容リスク
+        const stopDist = atr * 2.0; // 2.0x ATR損切り幅
+        const stopPrice = Math.max(1, entry - stopDist);
+        const rawShares = Math.floor(maxRiskYen / stopDist);
+        const maxAfford = Math.floor(accountYen / entry);
+        const shares = Math.max(1, Math.min(rawShares, maxAfford));
+        const notionalYen = Math.round(shares * entry);
+        const actualRiskYen = Math.round(shares * stopDist);
+
+        const expMove = entry * (currentIv / 100.0) * Math.sqrt(5.0 / 252.0);
+        const upperWall = entry + expMove;
+        const target25R = entry + stopDist * 2.5;
+        const gainYen = Math.round(shares * (target25R - entry));
+
+        const unitStr = shares >= 100 ? (Math.floor(shares / 100) + '単元 (' + shares + '株)') : (shares + '株 (単元未満・S株)');
+        elOutShares.innerText = unitStr + ' (約¥' + notionalYen.toLocaleString() + ' / $' + Math.round(notionalYen / USD_JPY_RATE).toLocaleString() + ')';
+        elOutStop.innerText = '¥' + Math.round(stopPrice).toLocaleString() + ' (-¥' + actualRiskYen.toLocaleString() + ' / 約' + (actualRiskYen / 10000).toFixed(1) + '万円)';
+        elOutExp.innerText = '±¥' + Math.round(expMove).toLocaleString() + ' (¥' + Math.round(upperWall).toLocaleString() + ' 壁)';
+        elOutTarget.innerText = '¥' + Math.round(target25R).toLocaleString() + ' (+¥' + gainYen.toLocaleString() + ' / 約' + (gainYen / 10000).toFixed(1) + '万円)';
+
+        if (bStop) bStop.innerText = '¥' + Math.round(stopPrice).toLocaleString();
+        if (bEntry) bEntry.innerText = '¥' + Math.round(entry).toLocaleString();
+        if (bWall) bWall.innerText = '¥' + Math.round(upperWall).toLocaleString();
+        if (bTarget) bTarget.innerText = '¥' + Math.round(target25R).toLocaleString();
+
+        // 国内株式売買手数料（SBI証券・楽天証券ゼロ革命により現物0円）
+        const feeJpy = 0;
+        const grossProfitJpy = Math.max(0, gainYen - feeJpy);
+        const taxSavedJpy = grossProfitJpy * jpTaxRate;
+        const netProfitJpy = isTokutei ? (grossProfitJpy * (1 - jpTaxRate)) : grossProfitJpy;
+        const netProfitUsd = netProfitJpy / USD_JPY_RATE;
+
+        if (elNetJpy) {
+          elNetJpy.innerText = '+約' + (netProfitJpy / 10000).toFixed(1) + '万円 (手取り +$' + Math.round(netProfitUsd).toLocaleString() + ')';
+        }
+        if (elTaxNote) {
+          elTaxNote.innerText = isTokutei
+            ? ('🏦 譲渡益税(20.315%) 源泉徴収額: -約' + (taxSavedJpy / 10000).toFixed(1) + '万円（確定申告不要）')
+            : ('✨ 新NISA非課税メリット: 特定口座より +約' + (taxSavedJpy / 10000).toFixed(1) + '万円 お得！');
+        }
+        if (elFeeJpy) {
+          elFeeJpy.innerText = '手数料 0円 (SBI証券・楽天証券 ゼロ革命 国内株式現物手数料0円)';
+        }
+        if (elFxSens) {
+          elFxSens.innerHTML = '🇯🇵 <b>国内株式取引（為替変動リスクなし）:</b> 為替手数料・スプレッド完全0円。新NISA成長投資枠（年間240万円・生涯1,200万円）を活用することで譲渡益税20.315%が丸ごと非課税になります。';
+        }
+        if (elLossNote) {
+          const lossRefundMan = ((actualRiskYen * jpTaxRate) / 10000).toFixed(1);
+          elLossNote.innerHTML = isTokutei
+            ? ('💡 <b>特定口座の損益通算メリット:</b> 万が一 2.0x ATR（-¥' + actualRiskYen.toLocaleString() + '）で損切りとなっても、他銘柄の利益や配当と<b>損益通算（＋3年間繰越控除）</b>することで<b>約' + lossRefundMan + '万円（20.315%）の税金還付効果</b>があり、実質ダメージを軽減できます。')
+            : ('⚠️ <b>新NISAの重要注意点（損益通算不可）:</b> 新NISA口座の損失は特定口座と<b>損益通算できません</b>。含み損を放置（塩漬け）すると貴重な非課税枠が死に金になるため、<b>2.0x ATR損切りライン（¥' + Math.round(stopPrice).toLocaleString() + '）での機械的撤退</b>が新NISA枠を守る鉄則です。');
+        }
+
+        const box = document.getElementById('gbPlainEnglishActionBox');
+        const titleEl = document.getElementById('gbPlainActionTitle');
+        const badgeEl = document.getElementById('gbPlainRewardBadge');
+        const stepsEl = document.getElementById('gbPlainActionSteps');
+        if (box && titleEl && badgeEl && stepsEl) {
           box.style.background = 'rgba(16,185,129,0.1)';
           box.style.borderColor = 'rgba(16,185,129,0.45)';
           titleEl.style.color = '#34d399';
-          titleEl.innerText = '🟢 AI日本語アクションプラン・適正株数＆損切りライン ($' + activeSym + ' · ' + d.jpName + ')';
+          titleEl.innerText = '🟢 AI日本語アクションプラン・適正株数＆損切りライン (' + activeSym + ' · ' + d.jpName + ')';
           badgeEl.style.background = 'rgba(16,185,129,0.2)';
           badgeEl.style.color = '#6ee7b7';
           badgeEl.innerText = 'リスクリワード比 1 : 2.5';
           stepsEl.innerHTML =
-            '1️⃣ <b>推奨エントリー株数:</b> 基準価格 <b>$' + entry.toFixed(2) + '</b> で <b>' + shares + '株（$' + notional.toLocaleString() + ' / ' + formatJpyMan(notional) + '）</b> をエントリー。<br>' +
-            '2️⃣ <b>ATR損切りライン (許容損失額):</b> 逆指値を <b>$' + stopPrice.toFixed(2) + ' (2.0x ATR)</b> に設定（最大損失を <b>-$' + actualRiskUsd.toLocaleString() + ' / ' + formatJpyMan(actualRiskUsd) + '＝口座の1.5%以内</b> に限定）。<br>' +
-            '3️⃣ <b>利確ターゲット (リスクリワード比 1:2.5):</b> 第一目標 <b>$' + upperWall.toFixed(2) + ' (Gamma Wall)</b>、本命 <b>$' + target25R.toFixed(2) + '（期待利益 +$' + gainDollars.toLocaleString() + ' / ' + formatJpyMan(gainDollars) + '）</b> で利益確定！';
+            '1️⃣ <b>推奨エントリー株数:</b> 基準価格 <b>¥' + Math.round(entry).toLocaleString() + '</b> で <b>' + unitStr + '（約¥' + notionalYen.toLocaleString() + '）</b> をエントリー。<br>' +
+            '2️⃣ <b>ATR損切りライン (許容損失額):</b> 逆指値を <b>¥' + Math.round(stopPrice).toLocaleString() + ' (2.0x ATR)</b> に設定（最大損失を <b>-¥' + actualRiskYen.toLocaleString() + '＝口座資金の1.5%以内</b> に厳格限定）。<br>' +
+            '3️⃣ <b>利確ターゲット (リスクリワード比 1:2.5):</b> 第一目標 <b>¥' + Math.round(upperWall).toLocaleString() + ' (5日予想上値壁)</b>、本命 <b>¥' + Math.round(target25R).toLocaleString() + '（期待利益 +約' + (gainYen / 10000).toFixed(1) + '万円）</b> で利益確定！';
+        }
+
+      } else {
+        // === US TECH STOCK CALCULATION (米国株・新NISA成長枠) ===
+        elAccount.innerText = '$' + account.toLocaleString() + ' (' + formatJpyMan(account) + ')';
+        elEntry.innerText = '$' + entry.toFixed(2) + ' (約¥' + Math.round(entry * USD_JPY_RATE).toLocaleString() + ')';
+        elAtrIv.innerText = 'ATR $' + atr.toFixed(2) + ' · IV ' + currentIv + '%';
+
+        const maxRiskDollars = account * 0.015; // 口座資金の1.5%許容リスク上限
+        const stopDist = atr * 2.0; // 2.0x ATR損切り幅
+        const stopPrice = Math.max(0.01, entry - stopDist);
+        const rawShares = Math.floor(maxRiskDollars / stopDist);
+        const maxAfford = Math.floor(account / entry);
+        const shares = Math.max(1, Math.min(rawShares, maxAfford));
+        const notional = Math.round(shares * entry);
+        const actualRiskUsd = Math.round(shares * stopDist);
+
+        const expMove = entry * (currentIv / 100.0) * Math.sqrt(5.0 / 252.0);
+        const upperWall = entry + expMove;
+
+        const target25R = entry + stopDist * 2.5;
+        const gainDollars = Math.round(shares * (target25R - entry));
+
+        elOutShares.innerText = shares + '株 ($' + notional.toLocaleString() + ' / ' + formatJpyMan(notional) + ')';
+        elOutStop.innerText = '$' + stopPrice.toFixed(2) + ' (-$' + actualRiskUsd.toLocaleString() + ' / ' + formatJpyMan(actualRiskUsd) + ')';
+        elOutExp.innerText = '±$' + expMove.toFixed(2) + ' ($' + upperWall.toFixed(2) + ' 壁)';
+
+        if (bStop) bStop.innerText = '$' + stopPrice.toFixed(2);
+        if (bEntry) bEntry.innerText = '$' + entry.toFixed(2);
+        if (bWall) bWall.innerText = '$' + upperWall.toFixed(2);
+        if (bTarget) bTarget.innerText = '$' + target25R.toFixed(2);
+
+        // 🇯🇵 日本国内の米国株税制（新NISA 0% vs 特定口座 20.315%）・売買手数料（0.495%上限$22）・為替スプレッド（25銭）計算
+        const buyCommUsd = (typeof JP_TAX_MODE !== 'undefined' && JP_TAX_MODE === 'nisa') ? 0 : Math.min(22.0, notional * 0.00495);
+        const sellNotional = shares * target25R;
+        const sellCommUsd = Math.min(22.0, sellNotional * 0.00495);
+        const fxSpreadJpy = (notional + sellNotional) * 0.25; // 往復為替スプレッド（片道25銭基準）
+        const totalFeeUsd = buyCommUsd + sellCommUsd + (fxSpreadJpy / USD_JPY_RATE);
+        const totalFeeJpy = Math.round(totalFeeUsd * USD_JPY_RATE);
+
+        const grossProfitUsd = Math.max(0, gainDollars - totalFeeUsd);
+        const grossProfitJpy = grossProfitUsd * USD_JPY_RATE;
+        const taxSavedJpy = grossProfitJpy * jpTaxRate;
+        const netProfitJpy = isTokutei ? (grossProfitJpy * (1 - jpTaxRate)) : grossProfitJpy;
+        const netProfitUsd = netProfitJpy / USD_JPY_RATE;
+
+        if (elNetJpy) {
+          elNetJpy.innerText = '+約' + (netProfitJpy / 10000).toFixed(1) + '万円 (手取り +$' + Math.round(netProfitUsd).toLocaleString() + ')';
+        }
+        if (elTaxNote) {
+          elTaxNote.innerText = isTokutei
+            ? ('🏦 譲渡益税(20.315%) 源泉徴収額: -約' + (taxSavedJpy / 10000).toFixed(1) + '万円（確定申告不要）')
+            : ('✨ 新NISA非課税メリット: 特定口座より +約' + (taxSavedJpy / 10000).toFixed(1) + '万円 お得！');
+        }
+        if (elFeeJpy) {
+          elFeeJpy.innerText = '往復コスト 約¥' + totalFeeJpy.toLocaleString() + ' ($' + totalFeeUsd.toFixed(2) + ')';
+        }
+        if (elFxSens) {
+          const rateWeak = USD_JPY_RATE + 5;
+          const rateStrong = Math.max(100, USD_JPY_RATE - 5);
+          const netWeakMan = ((grossProfitUsd * rateWeak) * (isTokutei ? (1 - jpTaxRate) : 1) / 10000).toFixed(1);
+          const netStrongMan = ((grossProfitUsd * rateStrong) * (isTokutei ? (1 - jpTaxRate) : 1) / 10000).toFixed(1);
+          elFxSens.innerHTML = '💱 <b>為替変動シミュレーション（円換算課税対応）:</b> 利確時に<b>5円円安(' + rateWeak + '円)</b>なら手取り <b>+約' + netWeakMan + '万円</b> ／ <b>5円円高(' + rateStrong + '円)</b>なら手取り <b>+約' + netStrongMan + '万円</b>';
+        }
+        if (elLossNote) {
+          const lossRefundMan = ((actualRiskUsd * USD_JPY_RATE * jpTaxRate) / 10000).toFixed(1);
+          elLossNote.innerHTML = isTokutei
+            ? ('💡 <b>特定口座の損益通算メリット:</b> 万が一 2.0x ATR（-$' + actualRiskUsd.toLocaleString() + '）で損切りとなっても、他銘柄の利益や配当と<b>損益通算（＋3年間繰越控除）</b>することで<b>約' + lossRefundMan + '万円（20.315%）の税金還付効果</b>があり、実質ダメージを軽減できます。')
+            : ('⚠️ <b>新NISAの重要注意点（損益通算不可）:</b> 新NISA口座の損失は特定口座と<b>損益通算できません</b>。含み損を放置（塩漬け）すると貴重な非課税枠が死に金になるため、<b>2.0x ATR損切りライン（$' + stopPrice.toFixed(2) + '）での機械的撤退</b>が新NISA枠を守る鉄則です。');
+        }
+
+        elOutTarget.innerText = '$' + target25R.toFixed(2) + ' (+$' + gainDollars.toLocaleString() + ' / ' + formatJpyMan(gainDollars) + ')';
+
+        const box = document.getElementById('gbPlainEnglishActionBox');
+        const titleEl = document.getElementById('gbPlainActionTitle');
+        const badgeEl = document.getElementById('gbPlainRewardBadge');
+        const stepsEl = document.getElementById('gbPlainActionSteps');
+        if (box && titleEl && badgeEl && stepsEl) {
+          if (activeSym === 'SMCI' || d.isAvoid) {
+            box.style.background = 'rgba(244,63,94,0.12)';
+            box.style.borderColor = 'rgba(244,63,94,0.5)';
+            titleEl.style.color = '#fb7185';
+            titleEl.innerText = '🔴 エントリー禁止 / 会計リスク・ダークプール機関売り警告 (DO NOT BUY / AVOID)';
+            badgeEl.style.background = 'rgba(244,63,94,0.22)';
+            badgeEl.style.color = '#fda4af';
+            badgeEl.innerText = '急落テールリスク警告';
+            const savedLossUsd = Math.round(account * 0.12);
+            stepsEl.innerHTML =
+              '⚠️ <b>新規買い厳禁（資産防衛アラート）:</b> SEC 10-K/提出書類の会計監査リスクおよび<b>ダークプール機関投資家売り（67%）</b>が検出されました。<br>' +
+              '💡 <b>見送りによる資金防衛効果:</b> 決算ギャンブルによる-35%暴落トラップを回避することで <b>$' + savedLossUsd.toLocaleString() + '（' + formatJpyMan(savedLossUsd) + '）以上</b> の損失を防ぎ、<b>$NVDA・$PLTR・$LLY</b> 等の機関買い銘柄へ資金を温存できます。';
+          } else {
+            box.style.background = 'rgba(16,185,129,0.1)';
+            box.style.borderColor = 'rgba(16,185,129,0.45)';
+            titleEl.style.color = '#34d399';
+            titleEl.innerText = '🟢 AI日本語アクションプラン・適正株数＆損切りライン ($' + activeSym + ' · ' + d.jpName + ')';
+            badgeEl.style.background = 'rgba(16,185,129,0.2)';
+            badgeEl.style.color = '#6ee7b7';
+            badgeEl.innerText = 'リスクリワード比 1 : 2.5';
+            stepsEl.innerHTML =
+              '1️⃣ <b>推奨エントリー株数:</b> 基準価格 <b>$' + entry.toFixed(2) + '</b> で <b>' + shares + '株（$' + notional.toLocaleString() + ' / ' + formatJpyMan(notional) + '）</b> をエントリー。<br>' +
+              '2️⃣ <b>ATR損切りライン (許容損失額):</b> 逆指値を <b>$' + stopPrice.toFixed(2) + ' (2.0x ATR)</b> に設定（最大損失を <b>-$' + actualRiskUsd.toLocaleString() + ' / ' + formatJpyMan(actualRiskUsd) + '＝口座の1.5%以内</b> に限定）。<br>' +
+              '3️⃣ <b>利確ターゲット (リスクリワード比 1:2.5):</b> 第一目標 <b>$' + upperWall.toFixed(2) + ' (Gamma Wall)</b>、本命 <b>$' + target25R.toFixed(2) + '（期待利益 +$' + gainDollars.toLocaleString() + ' / ' + formatJpyMan(gainDollars) + '）</b> で利益確定！';
+          }
         }
       }
     }
 
     function shareActiveSignalOnX() {
       const d = CATALYST_DATA[activeSym] || CATALYST_DATA.NVDA;
+      const isJpy = (d && d.currency === 'JPY');
       const entry = parseFloat(document.getElementById('sliderEntry').value) || d.entry;
       const atr = parseFloat(document.getElementById('sliderAtr').value) || d.atr;
-      const stopPrice = Math.max(0.01, entry - atr * 2.0).toFixed(2);
-      const targetPrice = (entry + atr * 5.0).toFixed(2);
+      const stopPrice = Math.max(0.01, entry - atr * 2.0);
+      const targetPrice = entry + atr * 5.0;
+      const symPrefix = isJpy ? '' : '$';
+      const entryFormatted = isJpy ? ('¥' + Math.round(entry).toLocaleString()) : ('$' + entry.toFixed(2));
+      const stopFormatted = isJpy ? ('¥' + Math.round(stopPrice).toLocaleString()) : ('$' + stopPrice.toFixed(2));
+      const targetFormatted = isJpy ? ('¥' + Math.round(targetPrice).toLocaleString()) : ('$' + targetPrice.toFixed(2));
       const tweetText =
-        '【米国株AI解析】$' + activeSym + '（' + d.jpName + '）\n' +
+        '【' + (isJpy ? '東証P日本株AI解析' : '米国株AI解析') + '】' + symPrefix + activeSym + '（' + d.jpName + '）\n' +
         '📊 AIカタリストスコア: ' + d.score + '\n' +
-        '⚡ 現在値: $' + entry.toFixed(2) + ' / 2.0x ATR損切りライン: $' + stopPrice + ' / 2.5R利確目標: $' + targetPrice + '\n' +
-        '🔗 SEC開示・インサイダー買い・適正株数計算機👇\n' +
+        '⚡ 現在値: ' + entryFormatted + ' / 2.0x ATR損切りライン: ' + stopFormatted + ' / 2.5R利確目標: ' + targetFormatted + '\n' +
+        '🔗 ドンチアン新高値・適正株数計算機👇\n' +
         'https://getbreakai.com/?ticker=' + activeSym + '\n' +
-        '#米国株 #新NISA ' + (d.hashtag || '#米国株投資') + ' #株クラ';
+        (isJpy ? '#日本株 #東証プライム #新NISA #株クラ' : '#米国株 #新NISA ' + (d.hashtag || '#米国株投資') + ' #株クラ');
       const url = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(tweetText);
       window.open(url, '_blank', 'noopener,noreferrer');
     }
@@ -2360,7 +3472,7 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
 
     function requireVipOrScrollToPricing(featureName) {
       if (isGbVipUnlocked) return true;
-      showVipStatusMessage('🔒 [' + featureName + '] はVIP限定機能です。上でProライセンスキーを認証するか、下の料金プランからPro版（月額$29または買い切り$199）をご購読ください。', false);
+      showVipStatusMessage('🔒 [' + featureName + '] はVIP限定機能です。上でProライセンスキーを認証するか、下の料金プランからPro版（Starter $29/月、Pro $49/月）をご購読ください。', false);
       const pricingEl = document.getElementById('pricing');
       if (pricingEl) pricingEl.scrollIntoView({ behavior: 'smooth' });
       return false;
@@ -2503,7 +3615,7 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
         body: '<p><strong>販売事業者・運営統括:</strong> Dream Company Quantitative Research (GetBreakAI Desk)</p>' +
               '<p><strong>公式決済代行 (Merchant of Record):</strong> Lemon Squeezy, LLC (Store ID #296100) / Stripe提携グローバル決済基盤</p>' +
               '<p><strong>お問い合わせ窓口:</strong> <a href="mailto:beable9489@gmail.com" style="color:#38bdf8;">beable9489@gmail.com</a>（原則24時間以内に日本語・英語で対応）</p>' +
-              '<p><strong>販売価格:</strong> 月額Proプラン $29/月（約4,400円・税込）、永久ライセンス買い切りプラン $199（約30,000円・追加費用なし）</p>' +
+              '<p><strong>販売価格:</strong> Starter Breakout Scanner $29/月（約4,400円・税込）、Pro Institutional Breakout $49/月（約7,400円・税込）、Institutional Alpha Terminal $1,499/年（約22.4万円・税込）</p>' +
               '<p><strong>お支払い方法:</strong> クレジットカード（JCB / Visa / Mastercard / Amex）、Apple Pay、Google Pay、PayPal</p>' +
               '<p><strong>商品の引き渡し時期:</strong> 決済完了と同時にメールにてライセンスキーが即時発行され、当サイトおよび姉妹サイト TruthOfMarket.com のVIP機能が即座に解放されます。</p>'
       },
@@ -2519,7 +3631,7 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
       },
       refund: {
         title: '返金・解約ポリシー (Cancellation & Refund Policy)',
-        body: '<p>1. <strong>月額プランの1クリック解約:</strong> 月額Proプラン（$29/月）はいつでもLemon Squeezyのマイページまたは受信メールのリンクから1クリックで解約でき、次回請求日以降の課金は一切発生しません。</p>' +
+        body: '<p>1. <strong>月額プランの1クリック解約:</strong> 月額サブスクリプションプラン（$29/月 または $49/月）はいつでもLemon Squeezyのマイページまたは受信メールのリンクから1クリックで解約でき、次回請求日以降の課金は一切発生しません。</p>' +
               '<p>2. <strong>デジタルライセンスに関するサポート:</strong> ライセンスキーが届かない場合や認証エラーが発生した場合は、beable9489@gmail.com までご連絡いただければ直ちに再発行または返金対応いたします。</p>'
       }
     };
@@ -2539,6 +3651,13 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
       if (m) m.style.display = 'none';
     }
 
+    function closeCheckoutSuccessModal() {
+      const m = document.getElementById('gbCheckoutSuccessModal');
+      if (m) m.style.display = 'none';
+      const vault = document.getElementById('vip-vault');
+      if (vault) vault.scrollIntoView({ behavior: 'smooth' });
+    }
+
     // Lemon.js Checkout.Success 自動VIPロック解除フック
     window.createLemonSqueezy = function() {
       try {
@@ -2553,7 +3672,9 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
                   localStorage.setItem('gb_vip_license_key', String(orderKey));
                 } catch (_) {}
                 renderVipVaultState();
-                showVipStatusMessage('🎉 ご決済ありがとうございます！VIP全機能が自動的に解放されました（メールでもライセンスキーが送信されます）。', true);
+                showVipStatusMessage('🎉 ご決済ありがとうございます！VIP全機能が自動的に解放されました。@SemifearGreedbot でVIPシグナル通知を受信できます。', true);
+                const modal = document.getElementById('gbCheckoutSuccessModal');
+                if (modal) modal.style.display = 'flex';
               }
             }
           });

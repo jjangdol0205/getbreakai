@@ -335,6 +335,10 @@ def build_page_html(item, date_str, all_specs):
 
     canonical_url = f"https://getbreakai.com/jp/{slug}"
 
+    banner_bg = "rgba(244,63,94,0.12)" if is_avoid else "#ecfdf5"
+    banner_border = "rgba(244,63,94,0.45)" if is_avoid else "rgba(16,185,129,0.45)"
+    banner_color = "#881337" if is_avoid else "#065f46"
+
     verdict_banner = (
         f"🔴 【AI緊急警告】{jp_name} は現在 AIカタリストスコア {score}/100（会計監査リスク・ダークプール機関売り {dp}）のため、新規買いエントリー禁止（DO NOT BUY / AVOID）と判定されています。"
         if is_avoid else
@@ -342,7 +346,7 @@ def build_page_html(item, date_str, all_specs):
     )
 
     related_links_html = "\n".join([
-        f'<li><a href="/jp/{s["slug"]}" style="color:#c4b5fd; text-decoration:none;">📈 {s["title"]}</a></li>'
+        f'<li><a href="/jp/{s["slug"]}" style="color:#1d4ed8; text-decoration:none; font-weight:700;">📈 {s["title"]}</a></li>'
         for s in all_specs if s["slug"] != slug
     ][:10])
 
@@ -445,41 +449,45 @@ def build_page_html(item, date_str, all_specs):
   </script>
   <style>
     :root {{
-      --bg-dark: #06050c;
-      --bg-card: #0e0b1a;
-      --border-color: #241d3d;
-      --border-accent: #4c3785;
-      --text-main: #f8fafc;
-      --text-muted: #b4add0;
-      --accent-violet: #8b5cf6;
-      --accent-amber: #f59e0b;
-      --accent-emerald: #10b981;
-      --accent-rose: #f43f5e;
-      --accent-sky: #38bdf8;
-      --font-sans: 'Noto Sans JP', sans-serif;
-      --font-mono: 'JetBrains Mono', monospace;
+      --bg-dark: #f4f6fa;
+      --bg-card: #ffffff;
+      --border-color: #cbd5e1;
+      --border-accent: #93c5fd;
+      --text-main: #0b1f3a;
+      --text-muted: #334155;
+      --text-sub: #475569;
+      --accent-violet: #1d4ed8;
+      --accent-amber: #b45309;
+      --accent-emerald: #047857;
+      --accent-rose: #be123c;
+      --accent-sky: #0369a1;
+      --font-sans: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Noto Sans JP', monospace;
     }}
     * {{ box-sizing: border-box; margin: 0; padding: 0; }}
     body {{
-      background: var(--bg-dark);
-      color: var(--text-main);
+      background: #f4f6fa;
+      color: #0f172a;
       font-family: var(--font-sans);
-      line-height: 1.8;
+      line-height: 1.75;
+      font-size: 0.95rem;
+      font-feature-settings: "palt" 1;
+      letter-spacing: 0.01em;
       padding-bottom: 60px;
     }}
     .container {{ max-width: 960px; margin: 0 auto; padding: 0 20px; }}
     header {{
-      background: rgba(6,5,12,0.92);
-      border-bottom: 1px solid var(--border-color);
+      background: #0b1f3a;
+      border-bottom: 2px solid #1e3a8a;
       padding: 16px 0;
       position: sticky;
       top: 0;
       z-index: 50;
     }}
     .nav-bar {{ display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }}
-    .brand {{ color: #fff; font-weight: 900; font-size: 1.2rem; text-decoration: none; }}
+    .brand {{ color: #f8fafc; font-weight: 900; font-size: 1.2rem; text-decoration: none; }}
     .btn-cta {{
-      background: linear-gradient(135deg, var(--accent-violet), #6d28d9);
+      background: linear-gradient(135deg, #1d4ed8, #1e3a8a);
       color: #fff;
       text-decoration: none;
       padding: 9px 18px;
@@ -488,16 +496,17 @@ def build_page_html(item, date_str, all_specs):
       font-size: 0.86rem;
     }}
     .article-box {{
-      background: var(--bg-card);
-      border: 1px solid var(--border-accent);
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      box-shadow: 0 8px 24px rgba(15,23,42,0.06);
       border-radius: 16px;
       padding: 32px;
       margin-top: 28px;
     }}
-    h1 {{ font-size: clamp(1.5rem, 3.2vw, 2.15rem); line-height: 1.35; margin-bottom: 16px; font-weight: 900; }}
-    h2 {{ font-size: 1.32rem; color: #c4b5fd; margin: 32px 0 12px; border-left: 4px solid var(--accent-violet); padding-left: 12px; }}
-    h3 {{ font-size: 1.08rem; color: var(--accent-amber); margin: 22px 0 8px; }}
-    p {{ color: var(--text-muted); margin-bottom: 16px; font-size: 0.97rem; }}
+    h1 {{ font-size: clamp(1.5rem, 3.2vw, 2.15rem); line-height: 1.35; margin-bottom: 16px; font-weight: 900; color: #0b1f3a; }}
+    h2 {{ font-size: 1.32rem; color: #1e3a8a; margin: 32px 0 12px; border-left: 5px solid #1d4ed8; background: #eff6ff; padding: 8px 12px; border-radius: 0 8px 8px 0; }}
+    h3 {{ font-size: 1.08rem; color: #b45309; margin: 22px 0 8px; }}
+    p, li {{ color: #1e293b; margin-bottom: 16px; font-size: 0.95rem; line-height: 1.75; }}
     .kpi-grid {{
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(195px, 1fr));
@@ -505,23 +514,42 @@ def build_page_html(item, date_str, all_specs):
       margin: 22px 0;
     }}
     .kpi-card {{
-      background: #141026;
-      border: 1px solid var(--border-color);
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
       border-radius: 10px;
       padding: 14px;
     }}
-    .kpi-label {{ font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono); }}
-    .kpi-val {{ font-size: 1.22rem; font-weight: 800; font-family: var(--font-mono); margin-top: 4px; }}
+    .kpi-label {{ font-size: 0.75rem; color: #475569; font-weight: 700; font-family: var(--font-mono); }}
+    .kpi-val {{ font-size: 1.22rem; font-weight: 800; font-family: var(--font-mono); margin-top: 4px; color: #0b1f3a; }}
     .widget-box {{
-      background: #130e24;
-      border: 1.5px solid var(--accent-violet);
+      background: #f8fafc;
+      border: 2px solid #1d4ed8;
       border-radius: 14px;
       padding: 22px;
       margin: 26px 0;
     }}
+    .widget-box h3 {{ color: #0b1f3a; }}
+    .widget-box p {{ color: #334155; }}
+    a {{ color: #1d4ed8; }}
     @media (max-width: 640px) {{
       .article-box {{ padding: 20px 16px; }}
     }}
+
+    /* 日本証券ライト・高信頼テーマ (標準) */
+    body {{ background: #f4f6fa !important; color: #0f172a !important; font-feature-settings: "palt" 1; }}
+    header {{ background: #0b1f3a !important; border-bottom: 2px solid #1e3a8a !important; }}
+    .article-box {{ background: #ffffff !important; border: 1.5px solid #cbd5e1 !important; box-shadow: 0 8px 24px rgba(15,23,42,0.06) !important; }}
+    h1 {{ color: #0b1f3a !important; }}
+    h2 {{ color: #1e3a8a !important; border-left: 5px solid #1d4ed8 !important; background: #eff6ff; padding: 8px 12px !important; border-radius: 0 8px 8px 0; }}
+    h3 {{ color: #b45309 !important; }}
+    p, li {{ color: #1e293b !important; }}
+    .kpi-card {{ background: #f8fafc !important; border: 1.5px solid #cbd5e1 !important; }}
+    .kpi-label {{ color: #475569 !important; font-weight: 700; }}
+    .kpi-val {{ color: #0b1f3a !important; }}
+    .widget-box {{ background: #f8fafc !important; border: 2px solid #1d4ed8 !important; }}
+    .article-box div[style*="rgba(16,185,129"] {{ color: #065f46 !important; background: #ecfdf5 !important; }}
+    .widget-box h3 {{ color: #0b1f3a !important; }}
+    a {{ color: #1d4ed8; }}
   </style>
 </head>
 <body>
@@ -529,7 +557,7 @@ def build_page_html(item, date_str, all_specs):
     <div class="container nav-bar">
       <a href="https://getbreakai.com/" class="brand">⚡ GetBreakAI 米国株・新NISA AIターミナル</a>
       <div style="display:flex; gap:10px; flex-wrap:wrap;">
-        <a href="/jp/index.html" style="color:var(--text-muted); text-decoration:none; font-size:0.86rem; padding:8px;">📚 全30銘柄レポート一覧</a>
+        <a href="/jp/index.html" style="color:#cbd5e1; text-decoration:none; font-size:0.86rem; padding:8px;">📚 全30銘柄レポート一覧</a>
         <a href="https://getbreakai.com/?ticker={ticker}#radar" class="btn-cta">🎯 {jp_name}をメイン端末で起動 →</a>
       </div>
     </div>
@@ -541,18 +569,18 @@ def build_page_html(item, date_str, all_specs):
         🟢 米国市場最新データ反映 · {date_str} ｜ 対象銘柄・テーマ: {jp_name} (${ticker})
       </div>
       <h1>{title}</h1>
-      <div style="background:rgba(16,185,129,0.12); border:1px solid rgba(16,185,129,0.45); border-radius:10px; padding:14px 16px; margin-bottom:22px; color:#e2e8f0; font-weight:700; font-size:0.93rem;">
+      <div style="background:{banner_bg}; border:1px solid {banner_border}; border-radius:10px; padding:14px 16px; margin-bottom:22px; color:{banner_color}; font-weight:700; font-size:0.93rem; line-height:1.65;">
         {verdict_banner}
       </div>
 
       <div class="kpi-grid">
         <div class="kpi-card">
           <div class="kpi-label">現在値 / 基準株価</div>
-          <div class="kpi-val" style="color:#fff;">${entry:.2f} <span style="font-size:0.8rem; color:var(--text-muted);">(約¥{int(round(entry*150)):,})</span></div>
+          <div class="kpi-val" style="color:#0b1f3a;">${entry:.2f} <span style="font-size:0.8rem; color:#475569; font-weight:700;">(約¥{int(round(entry*150)):,})</span></div>
         </div>
         <div class="kpi-card">
           <div class="kpi-label">AIカタリスト総合スコア</div>
-          <div class="kpi-val" style="color:#c4b5fd;">{score} / 100</div>
+          <div class="kpi-val" style="color:#1d4ed8;">{score} / 100</div>
         </div>
         <div class="kpi-card">
           <div class="kpi-label">2.0x ATR損切りライン</div>
@@ -566,12 +594,12 @@ def build_page_html(item, date_str, all_specs):
 
       <!-- インタラクティブ・ミニATR損切り＆適正株数計算機 -->
       <div class="widget-box">
-        <h3 style="margin-top:0; color:#fff;">🧮 {jp_name} 専用：ATR損切りライン＆適正株数ミニ計算機（ドル $ / 日本円 ¥ 同時換算）</h3>
-        <p style="font-size:0.86rem; margin-bottom:14px;">
+        <h3 style="margin-top:0; color:#0b1f3a;">🧮 {jp_name} 専用：ATR損切りライン＆適正株数ミニ計算機（ドル $ / 日本円 ¥ 同時換算）</h3>
+        <p style="font-size:0.88rem; color:#334155; margin-bottom:14px;">
           ご自身の運用資金（スライダー）を動かすと、1回の最大損失を口座の1.5%以内に抑える「推奨エントリー株数」と「許容損失額（ドル・円）」がリアルタイムで計算されます。
         </p>
         <div style="margin-bottom:14px;">
-          <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.85rem; margin-bottom:6px;">
+          <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.85rem; margin-bottom:6px; color:#334155;">
             <span>口座資金 (1ドル=150円換算):</span>
             <strong id="miniAccLbl" style="color:var(--accent-amber);">$50,000 (約750.0万円)</strong>
           </div>
@@ -593,7 +621,7 @@ def build_page_html(item, date_str, all_specs):
         </div>
         <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap;">
           <a href="https://getbreakai.com/?ticker={ticker}#radar" class="btn-cta">⚡ フル機能ターミナルで ${ticker} を詳細シミュレーション →</a>
-          <button type="button" onclick="shareMiniPageOnX()" style="background:#1a1430; color:#38bdf8; border:1px solid #38bdf8; padding:9px 16px; border-radius:8px; font-weight:800; cursor:pointer;">📤 X(Twitter)でこの記事とシグナルを共有</button>
+          <button type="button" onclick="shareMiniPageOnX()" style="background:#eff6ff; color:#0369a1; border:1px solid #93c5fd; padding:9px 16px; border-radius:8px; font-weight:800; cursor:pointer;">📤 X(Twitter)でこの記事とシグナルを共有</button>
         </div>
       </div>
 
@@ -634,10 +662,10 @@ def build_page_html(item, date_str, all_specs):
         さらに勝率と資金効率を高めるために、1〜15日間のイベント・ガンマスクイーズ・ATR損切りを管理する当サイト <strong>GetBreakAI.com</strong> と、30〜90日間の半導体セクター恐怖強欲指数および米国株72銘柄のPW-RSI（出来高加重RSI）底値反転を捉える姉妹ターミナル <a href="https://truthofmarket.com/?utm_source=getbreakai_jp_seo&utm_medium={slug}" target="_blank" rel="noopener" style="color:var(--accent-sky); font-weight:700;">TruthOfMarket.com</a> を併用してください。<strong>Store #296100で発行されるProライセンスキー（月額$29＝約4,350円、または永久買い切り$199＝約29,800円）1つで、両方のサイトのVIP機能がすべてアンロックされます。</strong>
       </p>
 
-      <div style="margin-top:32px; padding:22px; background:linear-gradient(135deg, rgba(139,92,246,0.18), rgba(16,185,129,0.12)); border:1px solid var(--accent-violet); border-radius:14px; text-align:center;">
-        <h3 style="margin-top:0; color:#fff;">🚀 今すぐ GetBreakAI メインターミナルで {jp_name} の最新シグナルを確認</h3>
-        <p style="margin-bottom:16px;">Pine Script v5インジケーター全文、Form-4役員自社株買いCSV、全銘柄オーダーブックを即時解放できます。</p>
-        <a href="https://getbreakai.com/?ticker={ticker}#radar" class="btn-cta" style="display:inline-block; padding:13px 26px; font-size:0.98rem;">📊 GetBreakAI メインターミナルを開く（${ticker} 自動選択） →</a>
+      <div style="margin-top:32px; padding:22px; background:#eff6ff; border:1.5px solid #93c5fd; border-radius:14px; text-align:center;">
+        <h3 style="margin-top:0; color:#0b1f3a;">🚀 今すぐ GetBreakAI メインターミナルで {jp_name} の最新シグナルを確認</h3>
+        <p style="margin-bottom:16px; color:#334155;">Pine Script v5インジケーター全文、Form-4役員自社株買いCSV、全銘柄オーダーブックを即時解放できます。</p>
+        <a href="https://getbreakai.com/?ticker={ticker}#radar" class="btn-cta" style="display:inline-block; padding:13px 26px; font-size:0.98rem; background:linear-gradient(135deg, #1d4ed8, #1e3a8a); color:#ffffff; font-weight:800; border-radius:8px; text-decoration:none;">📊 GetBreakAI メインターミナルを開く（${ticker} 自動選択） →</a>
       </div>
 
       <h2>📚 関連する米国株・新NISA AI日本語ディープリサーチ記事</h2>
@@ -684,10 +712,10 @@ def build_page_html(item, date_str, all_specs):
 
 def build_hub_html(date_str, all_specs):
     cards_html = "\n".join([
-        f'<a href="/jp/{s["slug"]}" style="display:block; background:#141026; border:1px solid #241d3d; border-radius:12px; padding:16px; color:#f8fafc; text-decoration:none;">'
-        f'<div style="font-family:monospace; font-size:0.76rem; color:#f59e0b; margin-bottom:4px;">${s["ticker"]} · AIスコア {s["score"]}/100</div>'
-        f'<div style="font-weight:800; font-size:0.98rem; margin-bottom:6px; color:#c4b5fd;">{s["title"]}</div>'
-        f'<div style="font-size:0.84rem; color:#b4add0;">{s["focus"]}</div>'
+        f'<a href="/jp/{s["slug"]}" style="display:block; background:#ffffff; border:1.5px solid #cbd5e1; border-radius:12px; padding:18px; color:#0f172a; text-decoration:none; box-shadow:0 4px 12px rgba(15,23,42,0.04); transition:all 0.18s ease;">'
+        f'<div style="font-family:monospace; font-size:0.76rem; color:#b45309; font-weight:700; margin-bottom:4px;">${s["ticker"]} · AIスコア {s["score"]}/100</div>'
+        f'<div style="font-weight:800; font-size:0.98rem; margin-bottom:6px; color:#0b1f3a;">{s["title"]}</div>'
+        f'<div style="font-size:0.85rem; color:#475569; line-height:1.6;">{s["focus"]}</div>'
         f'</a>'
         for s in all_specs
     ])
@@ -701,19 +729,20 @@ def build_hub_html(date_str, all_specs):
   <link rel="canonical" href="https://getbreakai.com/jp/index.html">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <style>
-    body {{ background:#06050c; color:#f8fafc; font-family:'Noto Sans JP',sans-serif; line-height:1.7; margin:0; padding:0 0 60px; }}
+    body {{ background:#f4f6fa; color:#0f172a; font-family:'Noto Sans JP',sans-serif; line-height:1.7; margin:0; padding:0 0 60px; font-feature-settings: "palt" 1; }}
     .container {{ max-width:1100px; margin:0 auto; padding:24px 20px; }}
     .grid {{ display:grid; grid-template-columns:repeat(auto-fill, minmax(310px, 1fr)); gap:16px; margin-top:24px; }}
+    .grid a:hover {{ border-color:#1d4ed8 !important; transform:translateY(-2px); box-shadow:0 8px 20px rgba(29,78,216,0.12) !important; }}
   </style>
 </head>
 <body>
   <div class="container">
-    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; border-bottom:1px solid #241d3d; padding-bottom:16px;">
-      <a href="https://getbreakai.com/" style="color:#fff; font-weight:900; font-size:1.25rem; text-decoration:none;">⚡ GetBreakAI 米国株・新NISA AIターミナル</a>
-      <a href="https://getbreakai.com/#radar" style="background:#8b5cf6; color:#fff; padding:9px 18px; border-radius:8px; text-decoration:none; font-weight:800;">🎯 メインATR計算機へ戻る →</a>
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; border-bottom:1px solid #cbd5e1; padding-bottom:16px;">
+      <a href="https://getbreakai.com/" style="color:#0b1f3a; font-weight:900; font-size:1.25rem; text-decoration:none;">⚡ GetBreakAI 米国株・新NISA AIターミナル</a>
+      <a href="https://getbreakai.com/#radar" style="background:#1d4ed8; color:#ffffff; padding:9px 18px; border-radius:8px; text-decoration:none; font-weight:800;">🎯 メインATR計算機へ戻る →</a>
     </div>
-    <h1 style="margin-top:24px; font-size:1.8rem;">📚 米国株・新NISA 銘柄別AI日本語ディープリサーチ全30選（{date_str} 最新版）</h1>
-    <p style="color:#b4add0;">SEC 8-K決算・契約開示、Form-4経営陣インサイダー買い、オプションGamma Wall(GEX)、2.0x ATR損切りライン＆適正株数を完全網羅。</p>
+    <h1 style="margin-top:24px; font-size:1.8rem; color:#0b1f3a;">📚 米国株・新NISA 銘柄別AI日本語ディープリサーチ全30選（{date_str} 最新版）</h1>
+    <p style="color:#334155; font-size:0.95rem;">SEC 8-K決算・契約開示、Form-4経営陣インサイダー買い、オプションGamma Wall(GEX)、2.0x ATR損切りライン＆適正株数を完全網羅。</p>
     <div class="grid">
       {cards_html}
     </div>

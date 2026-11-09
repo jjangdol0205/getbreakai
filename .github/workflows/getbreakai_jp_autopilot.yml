@@ -42,6 +42,15 @@ jobs:
       - name: Step 3 - Generate Daily Japanese Shorts (.mp4), Summary Cards & 10 X Posts
         run: |
           python scripts/generate_jp_daily_shorts_and_x.py
+          python scripts/upgrade_jp_fintech_uiux.py
+
+      - name: Step 3.5 - Build RSS Auto-Syndication Feeds (/jp/feed.xml & /jp/x-feed.xml) & Deliver Shorts Kit to Telegram
+        env:
+          GBA_TELEGRAM_BOT_TOKEN: ${{ secrets.GBA_TELEGRAM_BOT_TOKEN }}
+          GBA_TELEGRAM_CHAT_ID: ${{ secrets.GBA_TELEGRAM_CHAT_ID }}
+          MAKE_WEBHOOK_URL: ${{ secrets.MAKE_WEBHOOK_URL }}
+        run: |
+          python scripts/autopost_jp_marketing.py --send-telegram
 
       - name: Step 4 - Commit & Push Updated Market Data, SEO Pages & Outbox Assets
         run: |

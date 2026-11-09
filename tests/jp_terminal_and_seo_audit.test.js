@@ -112,4 +112,7 @@ test('STEP 4.2 & 4.3: Japanese Shorts (.mp4), Summary Cards (.png), 10 X Posts &
   const xPosts = JSON.parse(fs.readFileSync(path.join(latestDir, 'x_posts_10.json'), 'utf8'));
   assert.equal(xPosts.length, 10, 'Must have 10 Japanese X posts');
   assert.ok(fs.existsSync(path.join(latestDir, 'note_com_article_jp.md')));
+  assert.ok(fs.existsSync(path.join(latestDir, 'yt_ig_reels_kit_jp.md')), 'Must generate YouTube Shorts & Instagram Reels copy-paste kit');
+  assert.ok(fs.existsSync(path.join(JP_DIR, 'feed.xml')), 'Must generate /jp/feed.xml RSS 2.0 feed');
+  assert.ok(fs.existsSync(path.join(JP_DIR, 'x-feed.xml')), 'Must generate /jp/x-feed.xml X/Threads auto-post RSS feed');
 });

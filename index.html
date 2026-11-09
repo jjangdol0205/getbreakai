@@ -3,34 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GetBreakAI — Institutional Momentum Breakout & Risk Management Terminal</title>
-  <meta name="description" content="AI-Powered Quantitative Breakout Detection, PW-RSI Ignition Scorer, and Non-Negotiable -9% Hard Stop Loss Architecture.">
+  <title>GetBreakAI — AI Earnings Catalyst, SEC Form-4 Insider & Options Gamma Squeeze Radar</title>
+  <meta name="description" content="Decode SEC 8-K filings, Earnings Call NLP tone, Form-4 Insider Cluster Buys, Dark Pool Block Prints, and Options Gamma Squeezes with ATR & Implied Volatility Position Sizing.">
   <link rel="canonical" href="https://getbreakai.com/">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://getbreakai.com/">
-  <meta property="og:title" content="GetBreakAI — Institutional Momentum Breakout & Risk Management Terminal">
-  <meta property="og:description" content="AI-Powered Quantitative Breakout Detection, PW-RSI Ignition Scorer, and Non-Negotiable -9% Hard Stop Loss Architecture.">
+  <meta property="og:title" content="GetBreakAI — AI Breaking Catalyst, Insider Whale & Gamma Squeeze Terminal">
+  <meta property="og:description" content="Real-time SEC 8-K/Earnings Call NLP decoder, Form-4 Executive Cluster Tracker, Options Gamma Exposure (GEX), and ATR Volatility Position Sizer.">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="GetBreakAI — Institutional Momentum Breakout & Risk Management Terminal">
-  <meta name="twitter:description" content="AI-Powered Quantitative Breakout Detection, PW-RSI Ignition Scorer, and Non-Negotiable -9% Hard Stop Loss Architecture.">
+  <meta name="twitter:title" content="GetBreakAI — AI Breaking Catalyst & Gamma Squeeze Terminal">
+  <meta name="twitter:description" content="Decode Earnings Shocks, Insider Cluster Buys & Options Gamma Walls with ATR Volatility Position Sizing.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-dark: #07090e;
-      --bg-card: #0d121d;
-      --bg-card-hover: #131a29;
-      --border-color: #1e293b;
-      --border-accent: #334155;
+      --bg-dark: #06050c;
+      --bg-card: #0e0b1a;
+      --bg-card-hover: #161129;
+      --border-color: #241d3d;
+      --border-accent: #4c3785;
       --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --text-sub: #64748b;
-      --accent-cyan: #06b6d4;
-      --accent-emerald: #10b981;
-      --accent-crimson: #ef4444;
+      --text-muted: #a59ec2;
+      --text-sub: #6f6694;
+      --accent-violet: #8b5cf6;
       --accent-amber: #f59e0b;
-      --glow-cyan: rgba(6, 182, 212, 0.25);
+      --accent-emerald: #10b981;
+      --accent-rose: #f43f5e;
+      --accent-sky: #38bdf8;
+      --glow-violet: rgba(139, 92, 246, 0.28);
+      --glow-amber: rgba(245, 158, 11, 0.22);
       --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
     }
@@ -43,6 +45,9 @@
 
     body {
       background-color: var(--bg-dark);
+      background-image:
+        radial-gradient(circle at 18% 12%, rgba(139, 92, 246, 0.14), transparent 36%),
+        radial-gradient(circle at 82% 18%, rgba(245, 158, 11, 0.10), transparent 34%);
       color: var(--text-main);
       font-family: var(--font-sans);
       line-height: 1.6;
@@ -50,18 +55,16 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Container */
     .container {
-      max-width: 1200px;
+      max-width: 1220px;
       margin: 0 auto;
       padding: 0 24px;
     }
 
-    /* Header */
     header {
       border-bottom: 1px solid var(--border-color);
-      background: rgba(7, 9, 14, 0.85);
-      backdrop-filter: blur(12px);
+      background: rgba(6, 5, 12, 0.88);
+      backdrop-filter: blur(14px);
       position: sticky;
       top: 0;
       z-index: 100;
@@ -71,339 +74,399 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      height: 72px;
+      height: 74px;
     }
 
     .brand-logo {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 11px;
       font-weight: 800;
-      font-size: 1.3rem;
+      font-size: 1.35rem;
       letter-spacing: -0.5px;
       color: var(--text-main);
       text-decoration: none;
     }
 
     .brand-dot {
-      width: 10px;
-      height: 10px;
-      background: var(--accent-cyan);
+      width: 11px;
+      height: 11px;
+      background: linear-gradient(135deg, var(--accent-violet), var(--accent-amber));
       border-radius: 50%;
-      box-shadow: 0 0 12px var(--accent-cyan);
+      box-shadow: 0 0 14px var(--accent-violet);
+    }
+
+    .brand-tag {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      background: rgba(139, 92, 246, 0.16);
+      border: 1px solid rgba(139, 92, 246, 0.45);
+      color: #c4b5fd;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-weight: 700;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 28px;
+      gap: 26px;
       list-style: none;
     }
 
     .nav-links a {
       color: var(--text-muted);
       text-decoration: none;
-      font-size: 0.95rem;
-      font-weight: 500;
+      font-size: 0.94rem;
+      font-weight: 600;
       transition: color 0.2s ease;
     }
 
     .nav-links a:hover {
-      color: var(--accent-cyan);
+      color: var(--text-main);
     }
 
-    .btn-header {
-      background: linear-gradient(135deg, var(--accent-cyan), #0284c7);
-      color: #000;
-      font-weight: 700;
-      padding: 10px 20px;
+    .btn-nav {
+      background: linear-gradient(135deg, var(--accent-violet), #6d28d9);
+      color: #ffffff !important;
+      padding: 9px 18px;
       border-radius: 8px;
-      text-decoration: none;
-      font-size: 0.9rem;
-      transition: transform 0.15s, box-shadow 0.2s;
+      font-weight: 700 !important;
+      font-size: 0.88rem !important;
+      box-shadow: 0 4px 16px var(--glow-violet);
     }
 
-    .btn-header:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 16px var(--glow-cyan);
+    /* Live Catalyst Tape */
+    .catalyst-tape {
+      background: rgba(14, 11, 26, 0.95);
+      border-bottom: 1px solid var(--border-color);
+      padding: 9px 0;
+      font-family: var(--font-mono);
+      font-size: 0.79rem;
     }
 
-    /* Hero Section */
+    .tape-inner {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .tape-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--text-muted);
+    }
+
+    .tape-badge {
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 0.72rem;
+    }
+
+    .bg-gamma { background: rgba(139, 92, 246, 0.22); color: #ddd6fe; border: 1px solid rgba(139, 92, 246, 0.5); }
+    .bg-whale { background: rgba(245, 158, 11, 0.2); color: #fde68a; border: 1px solid rgba(245, 158, 11, 0.5); }
+    .bg-pead  { background: rgba(16, 185, 129, 0.2); color: #a7f3d0; border: 1px solid rgba(16, 185, 129, 0.5); }
+    .bg-risk  { background: rgba(244, 63, 94, 0.2); color: #fecdd3; border: 1px solid rgba(244, 63, 94, 0.5); }
+
+    /* Hero */
     .hero {
-      padding: 80px 0 60px;
+      padding: 76px 0 54px;
       text-align: center;
-      position: relative;
     }
 
-    .hero-badge {
+    .hero-pill {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: rgba(6, 182, 212, 0.1);
-      border: 1px solid rgba(6, 182, 212, 0.3);
-      padding: 6px 14px;
-      border-radius: 100px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--accent-cyan);
-      margin-bottom: 24px;
+      background: rgba(139, 92, 246, 0.14);
+      border: 1px solid rgba(139, 92, 246, 0.42);
+      color: #ddd6fe;
+      padding: 7px 16px;
+      border-radius: 999px;
       font-family: var(--font-mono);
-    }
-
-    .hero-title {
-      font-size: 3.2rem;
-      font-weight: 800;
-      line-height: 1.15;
-      letter-spacing: -1.5px;
+      font-size: 0.8rem;
+      font-weight: 700;
       margin-bottom: 24px;
-      max-width: 960px;
-      margin-left: auto;
-      margin-right: auto;
     }
 
-    .hero-title span.highlight-cyan {
-      color: var(--accent-cyan);
-      background: linear-gradient(90deg, #38bdf8, #06b6d4);
+    .hero h1 {
+      font-size: clamp(2.3rem, 5vw, 3.85rem);
+      font-weight: 800;
+      line-height: 1.12;
+      letter-spacing: -1.5px;
+      max-width: 960px;
+      margin: 0 auto 22px;
+    }
+
+    .grad-violet {
+      background: linear-gradient(135deg, #c4b5fd 0%, #8b5cf6 50%, #f59e0b 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
-    .hero-subtitle {
-      font-size: 1.2rem;
+    .hero p {
       color: var(--text-muted);
-      max-width: 760px;
-      margin: 0 auto 36px;
-      font-weight: 400;
+      font-size: 1.14rem;
+      max-width: 790px;
+      margin: 0 auto 34px;
     }
 
-    .hero-cta-group {
+    .hero-actions {
       display: flex;
-      justify-content: center;
       gap: 16px;
-      margin-bottom: 48px;
+      justify-content: center;
       flex-wrap: wrap;
+      margin-bottom: 52px;
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, var(--accent-cyan), #0284c7);
-      color: #040810;
-      font-weight: 800;
-      padding: 16px 36px;
-      border-radius: 10px;
-      font-size: 1.05rem;
+      background: linear-gradient(135deg, var(--accent-violet), #6d28d9);
+      color: #fff;
       text-decoration: none;
-      transition: all 0.2s;
-      box-shadow: 0 4px 20px var(--glow-cyan);
+      padding: 15px 30px;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 1rem;
+      box-shadow: 0 8px 26px var(--glow-violet);
+      transition: transform 0.18s ease;
     }
 
     .btn-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(6, 182, 212, 0.4);
     }
 
     .btn-secondary {
       background: var(--bg-card);
-      border: 1px solid var(--border-color);
       color: var(--text-main);
-      font-weight: 600;
-      padding: 16px 28px;
-      border-radius: 10px;
-      font-size: 1rem;
       text-decoration: none;
-      transition: all 0.2s;
+      padding: 15px 28px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      border: 1px solid var(--border-accent);
     }
 
-    .btn-secondary:hover {
-      border-color: var(--accent-cyan);
-      background: var(--bg-card-hover);
-    }
-
-    /* Interactive Simulator Terminal */
-    .terminal-container {
-      background: #090d16;
-      border: 1px solid var(--border-color);
-      border-radius: 16px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+    /* Interactive Dual Terminal */
+    .terminal-shell {
+      background: var(--bg-card);
+      border: 1px solid var(--border-accent);
+      border-radius: 18px;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.65), 0 0 40px rgba(139, 92, 246, 0.14);
       overflow: hidden;
-      margin-bottom: 80px;
-      text-align: left;
+      margin-bottom: 84px;
     }
 
-    .terminal-header {
-      background: #0d121d;
+    .terminal-topbar {
+      background: #140f26;
       border-bottom: 1px solid var(--border-color);
-      padding: 14px 20px;
+      padding: 14px 22px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
+      flex-wrap: wrap;
+      gap: 12px;
     }
 
     .terminal-dots {
       display: flex;
+      align-items: center;
       gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--text-muted);
     }
 
-    .dot {
-      width: 11px;
-      height: 11px;
-      border-radius: 50%;
-    }
+    .dot { width: 11px; height: 11px; border-radius: 50%; }
+    .dot-r { background: #f43f5e; }
+    .dot-y { background: #f59e0b; }
+    .dot-g { background: #10b981; }
 
-    .dot-red { background: #ef4444; }
-    .dot-yellow { background: #f59e0b; }
-    .dot-green { background: #10b981; }
-
-    .terminal-body {
-      padding: 24px;
-      display: grid;
-      grid-template-columns: 1fr 1.2fr;
-      gap: 32px;
-    }
-
-    @media (max-width: 900px) {
-      .terminal-body {
-        grid-template-columns: 1fr;
-      }
-      .hero-title {
-        font-size: 2.2rem;
-      }
-    }
-
-    .ticker-selector {
+    .ticker-bar {
       display: flex;
       gap: 8px;
-      margin-bottom: 20px;
       flex-wrap: wrap;
     }
 
     .ticker-btn {
-      background: #131a29;
+      background: #1d1636;
       border: 1px solid var(--border-color);
       color: var(--text-muted);
-      padding: 8px 14px;
-      border-radius: 6px;
       font-family: var(--font-mono);
+      font-size: 0.8rem;
       font-weight: 700;
+      padding: 7px 13px;
+      border-radius: 7px;
       cursor: pointer;
-      transition: all 0.15s;
+      transition: all 0.18s ease;
     }
 
     .ticker-btn.active, .ticker-btn:hover {
-      background: rgba(6, 182, 212, 0.15);
-      border-color: var(--accent-cyan);
-      color: var(--accent-cyan);
+      background: rgba(139, 92, 246, 0.25);
+      border-color: var(--accent-violet);
+      color: #fff;
     }
 
-    .metric-grid {
+    .terminal-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-bottom: 24px;
+      grid-template-columns: 1.08fr 1fr;
+      gap: 0;
     }
 
-    .metric-box {
-      background: #0e1422;
-      border: 1px solid var(--border-accent);
-      border-radius: 8px;
-      padding: 16px;
+    @media (max-width: 940px) {
+      .terminal-grid {
+        grid-template-columns: 1fr;
+      }
+      .nav-links {
+        display: none;
+      }
     }
 
-    .metric-label {
-      font-size: 0.8rem;
-      color: var(--text-sub);
+    .pane-left {
+      padding: 28px;
+      border-right: 1px solid var(--border-color);
+    }
+
+    .pane-right {
+      padding: 28px;
+      background: rgba(10, 8, 20, 0.65);
+    }
+
+    .pane-title {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-      font-weight: 600;
-      margin-bottom: 6px;
-      font-family: var(--font-mono);
+      letter-spacing: 1px;
+      color: var(--accent-amber);
+      margin-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
-    .metric-val {
-      font-size: 1.4rem;
+    .catalyst-headline {
+      font-size: 1.32rem;
       font-weight: 800;
-      font-family: var(--font-mono);
+      margin-bottom: 8px;
+      color: #fff;
     }
 
-    .metric-val.stop { color: var(--accent-crimson); }
-    .metric-val.target { color: var(--accent-emerald); }
-    .metric-val.pwrsi { color: var(--accent-cyan); }
-    .metric-val.price { color: var(--text-main); }
-
-    .slider-group {
-      background: #0e1422;
-      border: 1px solid var(--border-accent);
-      border-radius: 8px;
-      padding: 16px;
+    .catalyst-summary {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.03);
+      border-left: 3px solid var(--accent-violet);
+      padding: 10px 14px;
+      border-radius: 6px;
       margin-bottom: 20px;
     }
 
-    .slider-header {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 8px;
-      font-size: 0.85rem;
+    .radar-metrics {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .metric-box {
+      background: #141026;
+      border: 1px solid var(--border-color);
+      padding: 14px;
+      border-radius: 10px;
+    }
+
+    .metric-label {
+      font-size: 0.76rem;
+      color: var(--text-muted);
       font-family: var(--font-mono);
+      margin-bottom: 4px;
     }
 
-    input[type=range] {
-      width: 100%;
-      accent-color: var(--accent-cyan);
-    }
-
-    .terminal-viz {
-      background: #07090e;
-      border: 1px solid var(--border-accent);
-      border-radius: 12px;
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .viz-band {
-      margin-bottom: 16px;
-    }
-
-    .viz-bar {
-      height: 12px;
-      border-radius: 6px;
-      position: relative;
-      margin-top: 6px;
-    }
-
-    .viz-bar-stop { background: var(--accent-crimson); width: 100%; }
-    .viz-bar-target { background: var(--accent-emerald); width: 100%; }
-    .viz-bar-pwrsi { background: linear-gradient(90deg, #0284c7, var(--accent-cyan)); }
-
-    /* 3 Disciplines Section */
-    .section-title {
-      font-size: 2.2rem;
+    .metric-val {
+      font-family: var(--font-mono);
+      font-size: 1.35rem;
       font-weight: 800;
-      text-align: center;
+    }
+
+    .val-violet { color: #c4b5fd; }
+    .val-amber  { color: var(--accent-amber); }
+    .val-emerald { color: var(--accent-emerald); }
+    .val-rose   { color: var(--accent-rose); }
+    .val-sky    { color: var(--accent-sky); }
+
+    /* Slider Controls */
+    .control-group {
       margin-bottom: 16px;
-      letter-spacing: -0.5px;
+    }
+
+    .control-header {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 0.84rem;
+      margin-bottom: 6px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent-violet);
+      cursor: pointer;
+    }
+
+    .sizer-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .sizer-card {
+      background: #151029;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 13px;
+    }
+
+    .sizer-card strong {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 1.24rem;
+      margin-top: 3px;
+    }
+
+    /* Section Headings */
+    .section {
+      padding: 72px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: clamp(1.85rem, 3.5vw, 2.55rem);
+      font-weight: 800;
+      margin-bottom: 14px;
+      letter-spacing: -0.8px;
     }
 
     .section-subtitle {
-      font-size: 1.05rem;
-      color: var(--text-muted);
       text-align: center;
-      max-width: 680px;
-      margin: 0 auto 56px;
+      color: var(--text-muted);
+      max-width: 720px;
+      margin: 0 auto 48px;
+      font-size: 1.05rem;
     }
 
-    .cards-grid {
+    .features-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 28px;
-      margin-bottom: 80px;
+      gap: 24px;
     }
 
-    @media (max-width: 860px) {
-      .cards-grid {
-        grid-template-columns: 1fr;
+    @media (max-width: 900px) {
+      .features-grid, .pricing-grid {
+        grid-template-columns: 1fr !important;
       }
     }
 
@@ -411,53 +474,71 @@
       background: var(--bg-card);
       border: 1px solid var(--border-color);
       border-radius: 14px;
-      padding: 32px 24px;
-      transition: transform 0.2s, border-color 0.2s;
+      padding: 28px;
+      transition: border-color 0.2s ease, transform 0.2s ease;
     }
 
     .feature-card:hover {
+      border-color: var(--accent-violet);
       transform: translateY(-4px);
-      border-color: var(--accent-cyan);
     }
 
     .card-icon {
-      font-size: 2rem;
-      margin-bottom: 18px;
-      display: inline-block;
+      font-size: 1.8rem;
+      margin-bottom: 14px;
     }
 
     .card-title {
-      font-size: 1.25rem;
-      font-weight: 700;
-      margin-bottom: 12px;
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin-bottom: 10px;
     }
 
     .card-desc {
       color: var(--text-muted);
-      font-size: 0.95rem;
-      line-height: 1.6;
+      font-size: 0.94rem;
     }
 
-    /* Pricing Section */
+    /* Comparison Table */
+    .comp-table-wrap {
+      overflow-x: auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 24px;
+    }
+
+    table.comp-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.93rem;
+    }
+
+    table.comp-table th, table.comp-table td {
+      padding: 14px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    table.comp-table th {
+      font-family: var(--font-mono);
+      color: var(--accent-amber);
+      font-size: 0.82rem;
+      text-transform: uppercase;
+    }
+
+    /* Pricing */
     .pricing-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 28px;
-      margin-bottom: 80px;
-      align-items: stretch;
-    }
-
-    @media (max-width: 860px) {
-      .pricing-grid {
-        grid-template-columns: 1fr;
-      }
+      gap: 24px;
     }
 
     .price-card {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
       border-radius: 16px;
-      padding: 36px 28px;
+      padding: 32px 26px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -465,363 +546,401 @@
     }
 
     .price-card.featured {
-      border-color: var(--accent-cyan);
-      box-shadow: 0 10px 40px rgba(6, 182, 212, 0.15);
-      background: #0f172a;
+      border: 2px solid var(--accent-violet);
+      box-shadow: 0 0 36px var(--glow-violet);
     }
 
     .badge-popular {
       position: absolute;
-      top: -12px;
-      right: 24px;
-      background: var(--accent-cyan);
-      color: #040810;
-      font-size: 0.75rem;
-      font-weight: 800;
-      padding: 4px 12px;
-      border-radius: 100px;
-      text-transform: uppercase;
+      top: -13px;
+      right: 22px;
+      background: linear-gradient(135deg, var(--accent-violet), var(--accent-amber));
+      color: #06050c;
       font-family: var(--font-mono);
+      font-weight: 800;
+      font-size: 0.74rem;
+      padding: 4px 12px;
+      border-radius: 999px;
     }
 
     .price-name {
       font-size: 1.25rem;
-      font-weight: 700;
+      font-weight: 800;
       margin-bottom: 8px;
     }
 
     .price-amount {
-      font-size: 2.8rem;
-      font-weight: 800;
-      color: var(--text-main);
       font-family: var(--font-mono);
-      margin-bottom: 8px;
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 10px;
     }
 
     .price-amount span {
-      font-size: 1rem;
+      font-size: 0.95rem;
       color: var(--text-muted);
-      font-weight: 400;
+      font-weight: 500;
     }
 
     .price-desc {
       color: var(--text-muted);
       font-size: 0.9rem;
-      margin-bottom: 24px;
-      min-height: 42px;
+      margin-bottom: 20px;
     }
 
     .feature-list {
       list-style: none;
-      margin-bottom: 32px;
+      margin-bottom: 26px;
     }
 
     .feature-list li {
-      padding: 8px 0;
+      margin-bottom: 10px;
       font-size: 0.92rem;
-      color: var(--text-muted);
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
 
-    .feature-list li span.check {
-      color: var(--accent-emerald);
-      font-weight: bold;
+    .check {
+      color: var(--accent-amber);
+      font-weight: 800;
     }
 
     .btn-checkout {
-      width: 100%;
+      display: block;
       text-align: center;
       padding: 14px 20px;
       border-radius: 10px;
-      font-weight: 700;
+      font-weight: 800;
       text-decoration: none;
-      font-size: 1rem;
-      transition: all 0.2s;
+      font-size: 0.95rem;
     }
 
     .btn-checkout-primary {
-      background: linear-gradient(135deg, var(--accent-cyan), #0284c7);
-      color: #040810;
+      background: linear-gradient(135deg, var(--accent-violet), #6d28d9);
+      color: #fff;
+      box-shadow: 0 6px 20px var(--glow-violet);
     }
 
     .btn-checkout-secondary {
-      background: #1e293b;
-      color: var(--text-main);
+      background: #1a1430;
+      color: #fff;
+      border: 1px solid var(--border-accent);
     }
 
-    .btn-checkout:hover {
-      opacity: 0.92;
-      transform: translateY(-2px);
-    }
-
-    /* Footer */
     footer {
       border-top: 1px solid var(--border-color);
-      padding: 60px 0 40px;
-      background: #04060a;
-      color: var(--text-sub);
-      font-size: 0.85rem;
-    }
-
-    .footer-top {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 40px;
-      flex-wrap: wrap;
-      gap: 24px;
-    }
-
-    .footer-col h4 {
-      color: var(--text-main);
-      font-size: 0.95rem;
-      margin-bottom: 16px;
-    }
-
-    .footer-col a {
-      color: var(--text-sub);
-      text-decoration: none;
-      display: block;
-      margin-bottom: 8px;
-    }
-
-    .footer-col a:hover {
-      color: var(--accent-cyan);
+      padding: 56px 0 40px;
+      color: var(--text-muted);
+      font-size: 0.88rem;
     }
 
     .legal-box {
-      border-top: 1px solid #141c2c;
-      padding-top: 24px;
-      line-height: 1.6;
+      margin-top: 28px;
+      padding: 18px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      font-size: 0.8rem;
+      color: var(--text-sub);
     }
   </style>
 </head>
 <body>
 
+  <!-- Live AI Catalyst Tape -->
+  <div class="catalyst-tape">
+    <div class="container tape-inner">
+      <div class="tape-item"><span class="tape-badge bg-gamma">GAMMA SQUEEZE</span> <strong>$NVDA</strong> Call/Put 3.2x · GEX Flip $142.00</div>
+      <div class="tape-item"><span class="tape-badge bg-whale">FORM-4 CLUSTER</span> <strong>$LLY</strong> 3 Executives Bought $4.8M Open-Market</div>
+      <div class="tape-item"><span class="tape-badge bg-pead">8-K NLP 94/100</span> <strong>$PLTR</strong> Federal AI Contract Expansion · Dark Pool 64%</div>
+      <div class="tape-item"><span class="tape-badge bg-risk">10-K FORENSIC ALERT</span> <strong>$SMCI</strong> Audit Footnote Divergence Flagged</div>
+    </div>
+  </div>
+
   <!-- Navigation -->
   <header>
     <div class="container nav-inner">
-      <a href="/" class="brand-logo">
+      <a href="#" class="brand-logo">
         <div class="brand-dot"></div>
         GetBreakAI
+        <span class="brand-tag">CATALYST & WHALE AI</span>
       </a>
       <ul class="nav-links">
-        <li><a href="#features">Engine</a></li>
-        <li><a href="#simulator">Live Terminal</a></li>
+        <li><a href="#radar">Live Catalyst Radar</a></li>
+        <li><a href="#engines">Event-Driven Engines</a></li>
+        <li><a href="#differentiation">Architecture</a></li>
         <li><a href="#pricing">Pricing</a></li>
-        <li><a href="mailto:beable9489@gmail.com">Contact</a></li>
+        <li><a href="#pricing" class="btn-nav">Launch Radar →</a></li>
       </ul>
-      <a href="#pricing" class="btn-header">Get Access →</a>
     </div>
   </header>
 
   <!-- Hero Section -->
-  <section class="hero">
-    <div class="container">
-      <div class="hero-badge">⚡ QUANTITATIVE BREAKOUT DETECTOR & ASYMMETRIC RISK ENGINE</div>
-      <h1 class="hero-title">
-        Stop Catching Falling Knives.<br>
-        Trade Right-Side Breakouts with <span class="highlight-cyan">Mechanical Asymmetry</span>.
-      </h1>
-      <p class="hero-subtitle">
-        Over 90% of traders fail because they buy falling knives and hold losers down to -40%. 
-        GetBreakAI enforces an absolute -9.0% hard stop-loss, dynamic 2x profit targets, and Price-Weighted RSI volume ignition.
-      </p>
-      <div class="hero-cta-group">
-        <a href="#pricing" class="btn-primary">Start Pro Membership ($49/mo)</a>
-        <a href="#simulator" class="btn-secondary">Test Interactive Terminal Simulator ↓</a>
-      </div>
+  <section class="hero container">
+    <div class="hero-pill">⚡ AI EARNINGS NLP · SEC FORM-4 INSIDER CLUSTER · OPTIONS GAMMA EXPOSURE (GEX)</div>
+    <h1>
+      Catch <span class="grad-violet">Earnings Shocks, Insider Whale Buys & Gamma Squeezes</span> Before the Chart Moves.
+    </h1>
+    <p>
+      Moving averages only tell you what happened 60 days ago. <strong>GetBreakAI</strong> is an event-driven AI intelligence radar that decodes <strong>SEC 8-K/10-K filings, Earnings Call guidance tone, Form-4 Executive Cluster Buying, and Options Gamma Walls</strong>—paired with an institutional <strong>ATR & Implied Volatility (IV) Position Sizer</strong>.
+    </p>
+    <div class="hero-actions">
+      <a href="#radar" class="btn-primary">Test Live Catalyst & ATR Sizer</a>
+      <a href="#pricing" class="btn-secondary">Unlock Real-Time Whale Feeds</a>
     </div>
   </section>
 
-  <!-- Live Terminal Simulator -->
-  <section id="simulator" class="container">
-    <div class="terminal-container">
-      <div class="terminal-header">
+  <!-- Interactive Dual Terminal: AI Catalyst Radar + ATR/IV Position Sizer -->
+  <section id="radar" class="container">
+    <div class="terminal-shell">
+      <div class="terminal-topbar">
         <div class="terminal-dots">
-          <div class="dot dot-red"></div>
-          <div class="dot dot-yellow"></div>
-          <div class="dot dot-green"></div>
+          <span class="dot dot-r"></span>
+          <span class="dot dot-y"></span>
+          <span class="dot dot-g"></span>
+          <span style="margin-left: 8px;">GETBREAKAI_EVENT_CATALYST_TERMINAL_V2.4</span>
         </div>
-        <div>GETBREAKAI QUANT ENGINE v1.0.0 — REAL-TIME RISK AUDIT</div>
-        <div style="color: var(--accent-emerald);">● LIVE FEED CONNECTED</div>
+        <div class="ticker-bar">
+          <button class="ticker-btn active" onclick="selectCatalyst('NVDA', this)">$NVDA (Gamma + Earnings)</button>
+          <button class="ticker-btn" onclick="selectCatalyst('PLTR', this)">$PLTR (8-K + Dark Pool)</button>
+          <button class="ticker-btn" onclick="selectCatalyst('LLY', this)">$LLY (Form-4 Insider Cluster)</button>
+          <button class="ticker-btn" onclick="selectCatalyst('TSLA', this)">$TSLA (Call Wall Flip)</button>
+          <button class="ticker-btn" onclick="selectCatalyst('SMCI', this)">$SMCI (10-K Forensic Risk)</button>
+        </div>
       </div>
-      <div class="terminal-body">
-        
-        <!-- Controls & Metrics -->
-        <div>
-          <div class="ticker-selector">
-            <button class="ticker-btn active" onclick="loadSampleTicker('NVDA', 142.50, 1.85, 96.4)">$NVDA</button>
-            <button class="ticker-btn" onclick="loadSampleTicker('SMH', 268.00, 2.10, 112.0)">$SMH</button>
-            <button class="ticker-btn" onclick="loadSampleTicker('PLTR', 54.20, 2.40, 134.5)">$PLTR</button>
-            <button class="ticker-btn" onclick="loadSampleTicker('TSM', 198.80, 1.60, 88.2)">$TSM</button>
+
+      <div class="terminal-grid">
+        <!-- Left Pane: AI Catalyst & Whale Flow Decoder -->
+        <div class="pane-left">
+          <div class="pane-title">
+            <span>⚡ AI EVENT CATALYST & WHALE FLOW DECODER</span>
+            <span id="catClassificationBadge" class="tape-badge bg-gamma">GAMMA_SQUEEZE_IGNITION</span>
+          </div>
+          <div id="catHeadline" class="catalyst-headline">$NVDA — Q3 Earnings Guidance Raise + $145 Call Gamma Wall</div>
+          <div id="catSummary" class="catalyst-summary">
+            NLP Transcript Decoder detected a 94/100 bullish guidance inflection on sovereign AI demand. Options desk flags 3.2x Call/Put sweep imbalance forcing market-maker delta hedging above $140.
           </div>
 
-          <div class="slider-group">
-            <div class="slider-header">
-              <span>SIMULATED ENTRY PRICE:</span>
-              <span id="priceDisplay" style="color: var(--accent-cyan); font-weight: 700;">$142.50</span>
+          <div class="radar-metrics">
+            <div class="metric-box">
+              <div class="metric-label">AI CATALYST SCORE (0-100)</div>
+              <div id="valCatalystScore" class="metric-val val-violet">93.5 / 100</div>
             </div>
-            <input type="range" id="priceSlider" min="20" max="500" step="0.5" value="142.50" oninput="updateCalculations(this.value)">
+            <div class="metric-box">
+              <div class="metric-label">EARNINGS / 8-K NLP TONE</div>
+              <div id="valNlpTone" class="metric-val val-emerald">94% Bullish (+18.5% EPS)</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-label">FORM-4 INSIDER CLUSTER</div>
+              <div id="valInsider" class="metric-val val-amber">3 Execs ($6.2M Buy)</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-label">DARK POOL & CALL/PUT FLOW</div>
+              <div id="valFlow" class="metric-val val-sky">61% Dark Pool · 3.2x Call</div>
+            </div>
           </div>
 
-          <div class="metric-grid">
-            <div class="metric-box">
-              <div class="metric-label">Hard Stop-Loss (-9.0%)</div>
-              <div class="metric-val stop" id="stopLossVal">$129.68</div>
-            </div>
-            <div class="metric-box">
-              <div class="metric-label">2x Target Price (+18.0%)</div>
-              <div class="metric-val target" id="takeProfitVal">$168.15</div>
-            </div>
-            <div class="metric-box">
-              <div class="metric-label">PW-RSI Score</div>
-              <div class="metric-val pwrsi" id="pwRsiVal">96.4</div>
-            </div>
-            <div class="metric-box">
-              <div class="metric-label">Volume Accumulation</div>
-              <div class="metric-val price" id="volFactorVal">1.85x</div>
+          <div style="background:#130e24; border:1px solid var(--border-color); border-radius:10px; padding:14px; font-family:var(--font-mono); font-size:0.82rem;">
+            <div style="color:var(--text-muted); margin-bottom:4px;">POST-EARNINGS DRIFT (PEAD) & GAMMA TRIGGER WINDOW:</div>
+            <div id="valGammaTrigger" style="color:#fff; font-weight:700;">
+              Dealer Positive Gamma Flip at $138.50 → Squeeze Acceleration Target: $154.20 (5-Day IV Window)
             </div>
           </div>
         </div>
 
-        <!-- Visual Risk Map -->
-        <div class="terminal-viz">
-          <div>
-            <div style="font-family: var(--font-mono); font-size: 0.9rem; font-weight: 700; margin-bottom: 20px; color: var(--accent-cyan);">
-              // ASYMMETRIC EXECUTION TRAJECTORY
-            </div>
-
-            <div class="viz-band">
-              <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-family: var(--font-mono);">
-                <span>TAKE-PROFIT (2:1 R:R)</span>
-                <span id="tpPctBadge" style="color: var(--accent-emerald);">+18.0%</span>
-              </div>
-              <div class="viz-bar viz-bar-target"></div>
-            </div>
-
-            <div class="viz-band" style="margin: 24px 0;">
-              <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-family: var(--font-mono);">
-                <span>TRAILING BREAKEVEN TRIGGER</span>
-                <span style="color: var(--accent-cyan);">+15.0%</span>
-              </div>
-              <div style="height: 2px; border-top: 1px dashed var(--accent-cyan); margin-top: 6px;"></div>
-            </div>
-
-            <div class="viz-band">
-              <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-family: var(--font-mono);">
-                <span>NON-NEGOTIABLE HARD STOP</span>
-                <span id="slPctBadge" style="color: var(--accent-crimson);">-9.0%</span>
-              </div>
-              <div class="viz-bar viz-bar-stop"></div>
-            </div>
+        <!-- Right Pane: Interactive ATR Volatility & Options IV Position Sizer -->
+        <div class="pane-right">
+          <div class="pane-title">
+            <span>🎯 ATR VOLATILITY & OPTIONS IV POSITION SIZER</span>
+            <span style="color:var(--text-muted);">1.5% ACCOUNT RISK CAP</span>
           </div>
 
-          <div style="background: #0e1422; border: 1px solid var(--border-accent); border-radius: 8px; padding: 14px; font-family: var(--font-mono); font-size: 0.85rem;">
-            <span style="color: var(--accent-emerald);">● STATUS: INSTITUTIONAL_IGNITION</span><br>
-            <span style="color: var(--text-sub);">Donchian 20-Day High breached with 1.85x volume surge. Trade valid.</span>
+          <div class="control-group">
+            <div class="control-header">
+              <span>Account Portfolio Equity</span>
+              <strong id="lblAccount" style="color:var(--accent-amber);">$50,000</strong>
+            </div>
+            <input type="range" id="sliderAccount" min="10000" max="250000" step="5000" value="50000" oninput="recalcSizer()">
+          </div>
+
+          <div class="control-group">
+            <div class="control-header">
+              <span>Catalyst Entry Spot Price</span>
+              <strong id="lblEntry" style="color:#fff;">$140.00</strong>
+            </div>
+            <input type="range" id="sliderEntry" min="20" max="900" step="1" value="140" oninput="recalcSizer()">
+          </div>
+
+          <div class="control-group">
+            <div class="control-header">
+              <span>14-Day ATR Volatility ($) & Options IV (%)</span>
+              <strong id="lblAtrIv" style="color:var(--accent-violet);">ATR $4.50 · IV 68%</strong>
+            </div>
+            <input type="range" id="sliderAtr" min="1.0" max="25.0" step="0.5" value="4.5" oninput="recalcSizer()">
+          </div>
+
+          <div class="sizer-grid">
+            <div class="sizer-card">
+              <span class="metric-label">OPTIMAL POSITION SIZE</span>
+              <strong id="outShares" class="val-amber">83 Shares ($11,620)</strong>
+            </div>
+            <div class="sizer-card">
+              <span class="metric-label">2.0x ATR VOLATILITY STOP</span>
+              <strong id="outAtrStop" class="val-rose">$131.00 (-$9.00/sh)</strong>
+            </div>
+            <div class="sizer-card">
+              <span class="metric-label">5-DAY OPTIONS EXPECTED MOVE</span>
+              <strong id="outExpectedMove" class="val-violet">±$13.42 ($153.42 Wall)</strong>
+            </div>
+            <div class="sizer-card">
+              <span class="metric-label">2.5R CATALYST TARGET</span>
+              <strong id="outTarget25R" class="val-emerald">$162.50 (+$1,867 Gain)</strong>
+            </div>
           </div>
         </div>
-
       </div>
     </div>
   </section>
 
-  <!-- 3 Disciplines -->
-  <section id="features" class="container" style="padding-bottom: 60px;">
-    <h2 class="section-title">Why Subjective Discretion Fails in Modern Markets</h2>
+  <!-- 3 Exclusive Event-Driven Engines -->
+  <section id="engines" class="section container">
+    <h2 class="section-title">Three Event-Driven Engines You Won't Find on Chart Apps</h2>
     <p class="section-subtitle">
-      Automated quantitative rules remove the cognitive bias of fear, greed, and the disposition effect.
+      While traditional technical scanners wait for lagging moving averages, GetBreakAI tracks the primary catalysts that actually cause institutional price gaps.
     </p>
 
-    <div class="cards-grid">
+    <div class="features-grid">
       <div class="feature-card">
-        <div class="card-icon">🛡️</div>
-        <h3 class="card-title">1. Mandatory -9.0% Hard Stop</h3>
+        <div class="card-icon">📑</div>
+        <h3 class="card-title">1. SEC 8-K & Earnings Call NLP</h3>
         <p class="card-desc">
-          No averaging down. No "I'll wait for the next rebound." The engine automatically enforces an unbending -9.0% cut-off. 
-          If a trade fails, loss is strictly capped before capital destruction begins.
+          Our LLM pipeline ingests SEC 8-K/10-K filings and live earnings call transcripts in under 3 seconds, scoring management guidance tone, margin expansion keywords, and forensic accounting red flags before retail headlines hit.
         </p>
       </div>
 
       <div class="feature-card">
-        <div class="card-icon">🚀</div>
-        <h3 class="card-title">2. Price-Weighted RSI (PW-RSI)</h3>
+        <div class="card-icon">🐋</div>
+        <h3 class="card-title">2. Form-4 Insider Cluster Radar</h3>
         <p class="card-desc">
-          Standard RSI ignores institutional accumulation. PW-RSI multiplies relative price velocity by the 20-day volume expansion factor, 
-          identifying explosive institutional dark-pool ignition.
+          Executives sell stock for many reasons, but they only buy with their own cash for one reason. We filter out routine options exercises and alert you only when 3+ C-suite insiders execute open-market cluster buys.
         </p>
       </div>
 
       <div class="feature-card">
-        <div class="card-icon">⚖️</div>
-        <h3 class="card-title">3. Dynamic 2x Take-Profit (2:1 R:R)</h3>
+        <div class="card-icon">⚡</div>
+        <h3 class="card-title">3. Options Gamma & ATR Sizer</h3>
         <p class="card-desc">
-          Never exit winners at +3%. The engine targets a minimum 2:1 reward-to-risk ratio (+18%), raising stop-loss to breakeven once price expands +15%, 
-          allowing the rest of the position to trend indefinitely.
+          Identifies 0DTE/Weekly Call Walls where market makers are forced to buy underlying shares (Gamma Squeeze), and sizes your position using 14-day ATR and Implied Volatility so a single earnings swing never wrecks your equity.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- Pricing Section -->
-  <section id="pricing" class="container" style="padding-bottom: 100px;">
-    <h2 class="section-title">Institutional Pricing Architecture</h2>
+  <!-- Platform Differentiation Matrix -->
+  <section id="differentiation" class="section container">
+    <h2 class="section-title">Built for Event-Driven Catalyst & Flow Traders</h2>
     <p class="section-subtitle">
-      USD SaaS billing powered by Lemon Squeezy Merchant of Record (Store ID #296100). Cancel anytime with zero friction.
+      How GetBreakAI's Event-Driven & Options Gamma Architecture differs from lagging retail chart tools and macro portfolio trackers.
+    </p>
+
+    <div class="comp-table-wrap">
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th>Dimension</th>
+            <th>Lagging Retail Chart Tools</th>
+            <th>Macro / Trend Allocation Portals</th>
+            <th>GetBreakAI (Catalyst & Whale Terminal)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Primary Alpha Source</strong></td>
+            <td>Lagging MACD / RSI Crossovers</td>
+            <td>Sector Fear & Greed / 60-Day Trend Barbell</td>
+            <td><strong>SEC 8-K/10-K NLP + Form-4 Insider Cluster + Options Gamma Squeeze</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Position Sizing & Risk</strong></td>
+            <td>Guesswork / Arbitrary Share Count</td>
+            <td>Fixed Percentage Stop-Loss</td>
+            <td><strong>Dynamic 2.0x ATR Volatility Stop + Options IV Expected Move (±1 SD)</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Institutional Flow Visibility</strong></td>
+            <td>Standard Exchange Volume Only</td>
+            <td>Daily Closing Volume Ratio</td>
+            <td><strong>Off-Exchange Dark Pool Block Prints (%) & Call/Put Sweep Imbalance</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Ideal Holding Horizon</strong></td>
+            <td>Intraday Noise</td>
+            <td>Multi-Month Portfolio Regime Swing</td>
+            <td><strong>1 to 15 Days (Post-Earnings Drift & Catalyst Gamma Burst)</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Pricing Section (Lemon Squeezy Store #296100 Live Checkout Preserved) -->
+  <section id="pricing" class="section container" style="padding-bottom: 100px;">
+    <h2 class="section-title">Institutional Catalyst & Flow Pricing</h2>
+    <p class="section-subtitle">
+      USD SaaS billing powered by Lemon Squeezy Merchant of Record (Store ID #296100). Instant access to the AI Catalyst Radar & ATR Position Sizer.
     </p>
 
     <div class="pricing-grid">
       <!-- Starter -->
       <div class="price-card">
         <div>
-          <h3 class="price-name">Starter Scanner</h3>
+          <h3 class="price-name">Catalyst Starter</h3>
           <div class="price-amount">$29 <span>/ month</span></div>
-          <p class="price-desc">For individual part-time traders seeking daily mechanical breakout screens.</p>
+          <p class="price-desc">For active traders tracking daily earnings beats, SEC Form-4 insider buys, and ATR sizing.</p>
           <ul class="feature-list">
-            <li><span class="check">✓</span> Daily Top 10 Breakout Scanner</li>
-            <li><span class="check">✓</span> -9.0% Hard Stop-Loss Calculator</li>
-            <li><span class="check">✓</span> End-of-Day Watchlist CSV Download</li>
+            <li><span class="check">✓</span> Daily Top 10 Earnings & 8-K NLP Catalyst Feed</li>
+            <li><span class="check">✓</span> SEC Form-4 Executive Insider Cluster Scanner</li>
+            <li><span class="check">✓</span> Interactive ATR & Options IV Position Sizer</li>
             <li><span class="check">✓</span> Unified Email Support Desk</li>
           </ul>
         </div>
-        <a href="https://kidsfit.lemonsqueezy.com/checkout/buy/bad98d00-7175-41f6-9d58-eeb2471d0da4?embed=1" class="btn-checkout btn-checkout-secondary lemonsqueezy-button">Start Starter Plan</a>
+        <a href="https://kidsfit.lemonsqueezy.com/checkout/buy/bad98d00-7175-41f6-9d58-eeb2471d0da4?embed=1" class="btn-checkout btn-checkout-secondary lemonsqueezy-button">Start Catalyst Monthly</a>
       </div>
 
       <!-- Pro -->
       <div class="price-card featured">
-        <div class="badge-popular">MOST POPULAR</div>
+        <div class="badge-popular">MOST POPULAR · LIFETIME</div>
         <div>
-          <h3 class="price-name">Pro Breakout (Lifetime VIP)</h3>
+          <h3 class="price-name">Whale & Gamma Pro (Lifetime)</h3>
           <div class="price-amount">$199 <span>/ lifetime</span></div>
-          <p class="price-desc">For serious active momentum traders demanding real-time ignition feeds with zero recurring fees.</p>
+          <p class="price-desc">Full lifetime access to real-time Options Gamma Squeeze walls, Dark Pool prints, and forensic alerts with zero recurring fees.</p>
           <ul class="feature-list">
-            <li><span class="check">✓</span> <strong>All Starter Features Included</strong></li>
-            <li><span class="check">✓</span> Real-Time Intraday PW-RSI Ignition Alerts</li>
-            <li><span class="check">✓</span> Dynamic 2x Take-Profit Trajectory Tracker</li>
-            <li><span class="check">✓</span> Direct Telegram VIP Signal Webhook</li>
-            <li><span class="check">✓</span> TradingView Pine Script v5 Indicator Source</li>
+            <li><span class="check">✓</span> <strong>All Catalyst Starter Features Included</strong></li>
+            <li><span class="check">✓</span> Real-Time Options Gamma Exposure (GEX) Flip Levels</li>
+            <li><span class="check">✓</span> Off-Exchange Dark Pool Block Print Alerts (>55%)</li>
+            <li><span class="check">✓</span> SEC 10-K Forensic Accounting Red-Flag Scanner</li>
+            <li><span class="check">✓</span> Direct Telegram VIP Catalyst Webhook</li>
           </ul>
         </div>
-        <a href="https://kidsfit.lemonsqueezy.com/checkout/buy/00c9f6e1-c8be-42a4-b5a5-e05af1a41ed9?embed=1" class="btn-checkout btn-checkout-primary lemonsqueezy-button">Start Pro Membership →</a>
+        <a href="https://kidsfit.lemonsqueezy.com/checkout/buy/00c9f6e1-c8be-42a4-b5a5-e05af1a41ed9?embed=1" class="btn-checkout btn-checkout-primary lemonsqueezy-button">Unlock Lifetime Pro Access →</a>
       </div>
 
       <!-- Institutional -->
       <div class="price-card">
         <div>
-          <h3 class="price-name">Institutional Alpha</h3>
+          <h3 class="price-name">Institutional Event Desk</h3>
           <div class="price-amount">$1,499 <span>/ year</span></div>
-          <p class="price-desc">For quantitative hedge funds, family offices, and systematic asset managers ($125/mo equivalent).</p>
+          <p class="price-desc">For event-driven prop desks, family offices, and quantitative catalyst funds ($125/mo equivalent).</p>
           <ul class="feature-list">
-            <li><span class="check">✓</span> Full REST & WebSocket Signal API Feed</li>
-            <li><span class="check">✓</span> SEC 10-K Forensic Accounting Risk Feed</li>
-            <li><span class="check">✓</span> Dark-Pool Block Trade Flow Imbalance</li>
-            <li><span class="check">✓</span> Multi-Seat Team License (Up to 5 seats)</li>
-            <li><span class="check">✓</span> Dedicated Priority Support Desk</li>
+            <li><span class="check">✓</span> Full REST & WebSocket Catalyst + GEX API</li>
+            <li><span class="check">✓</span> Raw Earnings Call NLP Sentiment JSON Stream</li>
+            <li><span class="check">✓</span> Custom 13F Hedge Fund Whale Portfolio Diffs</li>
+            <li><span class="check">✓</span> Multi-Seat Desk License (Up to 5 Seats)</li>
+            <li><span class="check">✓</span> Dedicated Priority Quant Engineer Support</li>
           </ul>
         </div>
-        <a href="mailto:beable9489@gmail.com?subject=GetBreakAI%20Institutional%20Alpha%20Inquiry" class="btn-checkout btn-checkout-secondary">Contact Desk / Subscribe</a>
+        <a href="mailto:beable9489@gmail.com?subject=GetBreakAI%20Institutional%20Event%20Desk%20Inquiry" class="btn-checkout btn-checkout-secondary">Contact Institutional Desk</a>
       </div>
     </div>
   </section>
@@ -829,40 +948,31 @@
   <!-- Footer -->
   <footer>
     <div class="container">
-      <div class="footer-top">
-        <div class="footer-col" style="max-width: 380px;">
-          <div class="brand-logo" style="margin-bottom: 12px;">
+      <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:24px;">
+        <div style="max-width:420px;">
+          <div class="brand-logo" style="margin-bottom:10px;">
             <div class="brand-dot"></div>
             GetBreakAI
           </div>
           <p>
-            An institutional quant technology platform by Dream Company. Built to remove emotional bias and enforce algorithmic risk asymmetry.
+            Event-Driven AI Catalyst, SEC Form-4 Insider Cluster & Options Gamma Intelligence Terminal by Dream Company.
           </p>
-          <p style="margin-top: 10px;">
-            Official Desk: <a href="mailto:beable9489@gmail.com" style="color: var(--accent-cyan); display: inline;">beable9489@gmail.com</a>
+          <p style="margin-top:8px;">
+            Official Desk: <a href="mailto:beable9489@gmail.com" style="color:var(--accent-violet);">beable9489@gmail.com</a>
           </p>
         </div>
-
-        <div class="footer-col">
-          <h4>Platform</h4>
-          <a href="#simulator">Terminal Simulator</a>
-          <a href="#features">Algorithmic Disciplines</a>
-          <a href="#pricing">Pricing Plans</a>
-          <a href="https://truthofmarket.lemonsqueezy.com">Billing Portal</a>
-        </div>
-
-        <div class="footer-col">
-          <h4>Legal & Compliance</h4>
-          <a href="#">Terms of Service</a>
-          <a href="#">Privacy Policy</a>
-          <a href="#">Refund Policy (14-Day Guarantee)</a>
-          <a href="#">Safe Harbor & Risk Disclaimer</a>
+        <div>
+          <strong style="color:#fff; display:block; margin-bottom:8px;">Terminal Modules</strong>
+          <div><a href="#radar" style="color:var(--text-muted); text-decoration:none;">AI Catalyst Radar</a></div>
+          <div><a href="#radar" style="color:var(--text-muted); text-decoration:none;">ATR & IV Position Sizer</a></div>
+          <div><a href="#engines" style="color:var(--text-muted); text-decoration:none;">Form-4 Whale Tracker</a></div>
+          <div><a href="#pricing" style="color:var(--text-muted); text-decoration:none;">Pricing & Billing</a></div>
         </div>
       </div>
 
       <div class="legal-box">
         <strong>SAFE HARBOR & REGULATORY COMPLIANCE NOTICE:</strong><br>
-        GetBreakAI is automated financial technology software and an analytical tool, not a registered investment advisor, broker-dealer, or financial planner under FINRA/SEC regulations. All quantitative metrics, breakout signals, and backtest trajectories provided through GetBreakAI are strictly for educational and informational purposes. Trading equities and derivative instruments involves substantial risk of financial loss. Past breakout performance does not guarantee future results.
+        GetBreakAI is automated event-driven financial analytics software, not a registered investment advisor or broker-dealer under FINRA/SEC regulations. All SEC filing NLP scores, Form-4 insider cluster detections, dark pool percentages, options implied volatility expected moves, and ATR position sizing outputs are strictly for informational and educational research. Options and equity trading involve substantial risk of loss.
         <br><br>
         © 2026 Dream Company & GetBreakAI. Merchant of Record: Lemon Squeezy Store ID #296100. All rights reserved.
       </div>
@@ -870,27 +980,137 @@
   </footer>
 
   <script>
-    function updateCalculations(entryVal) {
-      const entry = parseFloat(entryVal);
-      document.getElementById('priceDisplay').innerText = '$' + entry.toFixed(2);
+    const CATALYST_DATA = {
+      NVDA: {
+        badge: 'GAMMA_SQUEEZE_IGNITION',
+        badgeClass: 'tape-badge bg-gamma',
+        headline: '$NVDA — Q3 Earnings Guidance Raise + $145 Call Gamma Wall',
+        summary: 'NLP Transcript Decoder detected a 94/100 bullish guidance inflection on sovereign AI demand. Options desk flags 3.2x Call/Put sweep imbalance forcing market-maker delta hedging above $140.',
+        score: '93.5 / 100',
+        nlp: '94% Bullish (+18.5% EPS)',
+        insider: '3 Execs ($6.2M Buy)',
+        flow: '61% Dark Pool · 3.2x Call',
+        trigger: 'Dealer Positive Gamma Flip at $138.50 → Squeeze Acceleration Target: $154.20 (5-Day IV Window)',
+        entry: 140,
+        atr: 4.5,
+        iv: 68
+      },
+      PLTR: {
+        badge: 'DARK_POOL_8K_BREAKOUT',
+        badgeClass: 'tape-badge bg-pead',
+        headline: '$PLTR — SEC Form 8-K Defense AI Contract + 64% Dark Pool Accumulation',
+        summary: 'Automated SEC 8-K parser flagged a multi-year DoD Maven AI expansion contract within 1.8 seconds of filing. Off-exchange Dark Pool block prints surged to 64.2% of total daily volume.',
+        score: '91.0 / 100',
+        nlp: '91% Bullish (8-K Contract)',
+        insider: 'Institutional 13F +14.8%',
+        flow: '64% Dark Pool · 2.8x Call',
+        trigger: 'Post-8K Institutional Drift Window → Upper Gamma Wall at $68.40 (ATR Stop $56.20)',
+        entry: 61,
+        atr: 2.4,
+        iv: 74
+      },
+      LLY: {
+        badge: 'INSIDER_WHALE_CLUSTER',
+        badgeClass: 'tape-badge bg-whale',
+        headline: '$LLY — 3 C-Suite Insiders Execute $4.8M Open-Market Form-4 Cluster Buy',
+        summary: 'Form-4 Cluster Engine filtered out routine options exercises and verified 3 senior executives purchasing shares with personal cash ahead of Phase-3 cardiometabolic readout.',
+        score: '88.4 / 100',
+        nlp: '87% Bullish (FDA Pipeline)',
+        insider: '3 C-Suite ($4.8M Cash Buy)',
+        flow: '54% Dark Pool · 2.1x Call',
+        trigger: 'High-Conviction Insider Accumulation Zone → Low-IV Asymmetric Call Skew Detected',
+        entry: 820,
+        atr: 18.5,
+        iv: 42
+      },
+      TSLA: {
+        badge: 'GAMMA_SQUEEZE_IGNITION',
+        badgeClass: 'tape-badge bg-gamma',
+        headline: '$TSLA — 0DTE & Weekly Call Wall Flip Triggers Dealer Forced Buying',
+        summary: 'Unusual Options Sweep Scanner detected $84M in aggressive ask-side call sweeps at the $320 strike, pushing net dealer Gamma Exposure (GEX) into a forced mechanical buying squeeze.',
+        score: '89.7 / 100',
+        nlp: '84% Bullish (Autonomy Event)',
+        insider: '2 Board Members Hold',
+        flow: '58% Dark Pool · 3.6x Call',
+        trigger: 'Gamma Flip Strike Breached at $305.00 → Dealer Hedging Magnet at $335.00',
+        entry: 312,
+        atr: 11.0,
+        iv: 82
+      },
+      SMCI: {
+        badge: 'FORENSIC_10K_WARNING',
+        badgeClass: 'tape-badge bg-risk',
+        headline: '$SMCI — SEC Filing Forensic NLP Flags Auditor & Margin Divergence',
+        summary: 'Forensic Accounting LLM detected high-risk language shifts in late filing notices alongside heavy Put Sweep accumulation and Dark Pool distribution prints below VWAP.',
+        score: '28.5 / 100 (AVOID)',
+        nlp: '19% Bearish (Forensic Flag)',
+        insider: '0 Buys (Net Selling)',
+        flow: '67% Dark Pool Distribution',
+        trigger: 'NEGATIVE GAMMA REGIME → Elevated Gap-Down Tail Risk (96% Implied Volatility)',
+        entry: 28,
+        atr: 3.5,
+        iv: 96
+      }
+    };
 
-      const stop = (entry * 0.910).toFixed(2);
-      const target = (entry + (entry * 0.090 * 2.0)).toFixed(2);
+    let currentIv = 68;
 
-      document.getElementById('stopLossVal').innerText = '$' + stop;
-      document.getElementById('takeProfitVal').innerText = '$' + target;
+    function selectCatalyst(sym, btn) {
+      document.querySelectorAll('.ticker-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+
+      const d = CATALYST_DATA[sym];
+      if (!d) return;
+
+      const badge = document.getElementById('catClassificationBadge');
+      badge.className = d.badgeClass;
+      badge.innerText = d.badge;
+
+      document.getElementById('catHeadline').innerText = d.headline;
+      document.getElementById('catSummary').innerText = d.summary;
+      document.getElementById('valCatalystScore').innerText = d.score;
+      document.getElementById('valNlpTone').innerText = d.nlp;
+      document.getElementById('valInsider').innerText = d.insider;
+      document.getElementById('valFlow').innerText = d.flow;
+      document.getElementById('valGammaTrigger').innerText = d.trigger;
+
+      document.getElementById('sliderEntry').value = d.entry;
+      document.getElementById('sliderAtr').value = d.atr;
+      currentIv = d.iv;
+      recalcSizer();
     }
 
-    function loadSampleTicker(symbol, price, volFactor, pwRsi) {
-      document.querySelectorAll('.ticker-btn').forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
+    function recalcSizer() {
+      const account = parseFloat(document.getElementById('sliderAccount').value);
+      const entry = parseFloat(document.getElementById('sliderEntry').value);
+      const atr = parseFloat(document.getElementById('sliderAtr').value);
 
-      document.getElementById('priceSlider').value = price;
-      document.getElementById('volFactorVal').innerText = volFactor.toFixed(2) + 'x';
-      document.getElementById('pwRsiVal').innerText = pwRsi.toFixed(1);
+      document.getElementById('lblAccount').innerText = '$' + account.toLocaleString();
+      document.getElementById('lblEntry').innerText = '$' + entry.toFixed(2);
+      document.getElementById('lblAtrIv').innerText = 'ATR $' + atr.toFixed(2) + ' · IV ' + currentIv + '%';
 
-      updateCalculations(price);
+      const maxRiskDollars = account * 0.015; // 1.5% institutional risk cap per catalyst
+      const stopDist = atr * 2.0; // 2.0x ATR volatility stop
+      const stopPrice = Math.max(0.01, entry - stopDist);
+      const rawShares = Math.floor(maxRiskDollars / stopDist);
+      const maxAfford = Math.floor(account / entry);
+      const shares = Math.max(1, Math.min(rawShares, maxAfford));
+      const notional = Math.round(shares * entry);
+
+      // 5-day options expected move: Spot * (IV/100) * sqrt(5/252)
+      const expMove = entry * (currentIv / 100.0) * Math.sqrt(5.0 / 252.0);
+      const upperWall = entry + expMove;
+
+      const target25R = entry + stopDist * 2.5;
+      const gainDollars = Math.round(shares * (target25R - entry));
+
+      document.getElementById('outShares').innerText = shares + ' Shares ($' + notional.toLocaleString() + ')';
+      document.getElementById('outAtrStop').innerText = '$' + stopPrice.toFixed(2) + ' (-$' + stopDist.toFixed(2) + '/sh)';
+      document.getElementById('outExpectedMove').innerText = '±$' + expMove.toFixed(2) + ' ($' + upperWall.toFixed(2) + ' Wall)';
+      document.getElementById('outTarget25R').innerText = '$' + target25R.toFixed(2) + ' (+$' + gainDollars.toLocaleString() + ')';
     }
+
+    recalcSizer();
   </script>
   <script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
 </body>

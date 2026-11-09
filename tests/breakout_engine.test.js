@@ -14,7 +14,10 @@ const {
   calculatePwRsi,
   calculateRiskProfile,
   evaluateBreakoutSignal,
-  updatePositionStatus
+  updatePositionStatus,
+  calculateExpectedMove,
+  calculateAtrPositionSize,
+  evaluateCatalystScore
 } = require('../src/engine/breakout_engine');
 
 const {
@@ -276,6 +279,44 @@ it('correctly parses subscription lifecycle webhook events', () => {
   const parsedOrder = parseWebhookEvent(orderCreatedEvent);
   assert.strictEqual(parsedOrder.action, 'ORDER_CONFIRMED');
   assert.strictEqual(parsedOrder.totalUsd, 49.00);
+});
+
+// 7. GetBreakAI Exclusive Event-Driven Catalyst, Gamma Expected Move & ATR Position Sizer
+console.log('\n[Suite 7: AI Catalyst Radar, Options Expected Move & ATR Sizer]');
+
+it('calculates options-implied expected move and gamma walls around catalyst events', () => {
+  const em = calculateExpectedMove(140.00, 68.0, 5);
+  assert(em.expectedMoveDollar > 0, 'Expected move dollar must be positive');
+  assert(em.upperGammaWall > 140.00, 'Upper gamma wall must exceed spot');
+  assert(em.lowerPutWall < 140.00, 'Lower put wall must be below spot');
+});
+
+it('calculates volatility-adjusted ATR position size and 2.5R target', () => {
+  const sizing = calculateAtrPositionSize({
+    accountBalance: 50000,
+    riskPercent: 1.5, // $750 max risk
+    entryPrice: 140.00,
+    atr: 4.50,
+    atrMultiplier: 2.0 // $9.00 stop distance -> 83 shares
+  });
+  assert.strictEqual(sizing.maxRiskDollars, 750.00);
+  assert.strictEqual(sizing.stopDistance, 9.00);
+  assert.strictEqual(sizing.atrStopLoss, 131.00);
+  assert.strictEqual(sizing.target25R, 162.50);
+  assert.strictEqual(sizing.optimalShares, 83);
+});
+
+it('evaluates AI multi-factor catalyst and unusual flow score accurately', () => {
+  const gammaAlert = evaluateCatalystScore({
+    earningsSurprisePct: 18.5,
+    nlpGuidanceScore: 92,
+    insiderClusterBuys: 3,
+    darkPoolPrintPct: 64.0,
+    callPutRatio: 3.1
+  });
+  assert(gammaAlert.catalystScore >= 85.0, `Expected high catalyst score >= 85, got ${gammaAlert.catalystScore}`);
+  assert.strictEqual(gammaAlert.classification, 'GAMMA_SQUEEZE_IGNITION');
+  assert.strictEqual(gammaAlert.isHighConviction, true);
 });
 
 console.log('\n========================================================================');

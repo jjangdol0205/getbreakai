@@ -246,6 +246,126 @@ function updatePositionStatus(position, currentBar) {
   return pos;
 }
 
+/**
+ * Calculate Options-Implied Expected Move & Gamma Walls around an Event/Earnings Catalyst
+ * Formula: ExpectedMove = Spot * (IV / 100) * sqrt(Days / 252)
+ * @param {number} spotPrice
+ * @param {number} impliedVolatilityPct Annualized IV percentage (e.g. 68.5 for 68.5%)
+ * @param {number} [daysToEvent=1] Trading days across event window
+ * @returns {object}
+ */
+function calculateExpectedMove(spotPrice, impliedVolatilityPct, daysToEvent = 1) {
+  if (typeof spotPrice !== 'number' || spotPrice <= 0) {
+    throw new Error('Valid positive spotPrice is required.');
+  }
+  const iv = Math.max(0, Number(impliedVolatilityPct) || 0);
+  const days = Math.max(1, Number(daysToEvent) || 1);
+  const moveFraction = (iv / 100.0) * Math.sqrt(days / 252.0);
+  const expectedMoveDollar = Number((spotPrice * moveFraction).toFixed(2));
+  const expectedMovePct = Number((moveFraction * 100.0).toFixed(2));
+
+  return {
+    spotPrice,
+    impliedVolatilityPct: iv,
+    daysToEvent: days,
+    expectedMoveDollar,
+    expectedMovePct,
+    upperGammaWall: Number((spotPrice + expectedMoveDollar).toFixed(2)),
+    lowerPutWall: Number(Math.max(0.01, spotPrice - expectedMoveDollar).toFixed(2))
+  };
+}
+
+/**
+ * Calculate Volatility-Adjusted ATR Position Size & Dynamic Catalyst Risk Profile
+ * @param {object} params
+ * @param {number} params.accountBalance Total portfolio equity in USD
+ * @param {number} [params.riskPercent=1.5] Max account equity risked on this catalyst (%)
+ * @param {number} params.entryPrice Stock entry price
+ * @param {number} params.atr 14-day Average True Range in USD
+ * @param {number} [params.atrMultiplier=2.0] Stop distance in ATR units
+ * @returns {object}
+ */
+function calculateAtrPositionSize({
+  accountBalance,
+  riskPercent = 1.5,
+  entryPrice,
+  atr,
+  atrMultiplier = 2.0
+}) {
+  if (!accountBalance || accountBalance <= 0 || !entryPrice || entryPrice <= 0 || !atr || atr <= 0) {
+    throw new Error('Valid positive accountBalance, entryPrice, and atr are required.');
+  }
+  const maxRiskDollars = Number((accountBalance * (riskPercent / 100.0)).toFixed(2));
+  const stopDistance = Number((atr * atrMultiplier).toFixed(2));
+  const atrStopLoss = Number(Math.max(0.01, entryPrice - stopDistance).toFixed(2));
+  const target25R = Number((entryPrice + stopDistance * 2.5).toFixed(2));
+  const rawShares = Math.floor(maxRiskDollars / stopDistance);
+  const maxAffordableShares = Math.floor(accountBalance / entryPrice);
+  const optimalShares = Math.max(0, Math.min(rawShares, maxAffordableShares));
+  const positionNotional = Number((optimalShares * entryPrice).toFixed(2));
+
+  return {
+    accountBalance,
+    riskPercent,
+    maxRiskDollars,
+    entryPrice,
+    atr,
+    atrMultiplier,
+    stopDistance,
+    atrStopLoss,
+    target25R,
+    optimalShares,
+    positionNotional,
+    portfolioAllocationPct: Number(((positionNotional / accountBalance) * 100.0).toFixed(2))
+  };
+}
+
+/**
+ * Evaluate AI Multi-Factor Event Catalyst & Unusual Institutional Flow Score (0-100)
+ * Distinct from truthofmarket.com's macro/trend engine: focuses on SEC 8-K/Earnings NLP,
+ * Form-4 Executive Cluster Buying, Dark Pool Prints, and Options Call/Put Gamma Flow.
+ * @param {object} params
+ * @returns {object}
+ */
+function evaluateCatalystScore({
+  earningsSurprisePct = 0,
+  nlpGuidanceScore = 50,
+  insiderClusterBuys = 0,
+  darkPoolPrintPct = 35,
+  callPutRatio = 1.0
+}) {
+  const earningsComponent = Math.min(25, Math.max(0, (earningsSurprisePct + 5) * 1.25));
+  const nlpComponent = Math.min(25, Math.max(0, (nlpGuidanceScore / 100.0) * 25.0));
+  const insiderComponent = Math.min(25, Math.max(0, insiderClusterBuys * 8.0));
+  const flowComponent = Math.min(
+    25,
+    Math.max(0, ((darkPoolPrintPct - 30) * 0.45) + ((callPutRatio - 1.0) * 8.5))
+  );
+
+  const catalystScore = Number((earningsComponent + nlpComponent + insiderComponent + flowComponent).toFixed(1));
+
+  let classification = 'NO_CATALYST_EDGE';
+  if (catalystScore >= 82 && callPutRatio >= 2.2) {
+    classification = 'GAMMA_SQUEEZE_IGNITION';
+  } else if (catalystScore >= 75 && insiderClusterBuys >= 2) {
+    classification = 'INSIDER_WHALE_CLUSTER';
+  } else if (catalystScore >= 70) {
+    classification = 'EARNINGS_PEAD_BREAKOUT';
+  }
+
+  return {
+    catalystScore,
+    classification,
+    isHighConviction: catalystScore >= 70,
+    breakdown: {
+      earningsComponent: Number(earningsComponent.toFixed(1)),
+      nlpComponent: Number(nlpComponent.toFixed(1)),
+      insiderComponent: Number(insiderComponent.toFixed(1)),
+      flowComponent: Number(flowComponent.toFixed(1))
+    }
+  };
+}
+
 module.exports = {
   calculateSMA,
   calculateRSI,
@@ -253,5 +373,8 @@ module.exports = {
   calculatePwRsi,
   calculateRiskProfile,
   evaluateBreakoutSignal,
-  updatePositionStatus
+  updatePositionStatus,
+  calculateExpectedMove,
+  calculateAtrPositionSize,
+  evaluateCatalystScore
 };

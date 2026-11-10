@@ -42,11 +42,18 @@ test('STEP 5: Japanese Securities (SBI/Kabutan/Buffett-Code) High-Trust Fintech 
 test('STEP 2: Japanese 3x Checkout Conversion Boosters & Store #296100 Live Checkout Links', () => {
   const html = fs.readFileSync(INDEX_PATH, 'utf8');
   assert.ok(!html.includes('kidsfit.lemonsqueezy.com'), 'Must not contain kidsfit.lemonsqueezy.com');
-  assert.ok(html.includes('https://truthofmarket.lemonsqueezy.com/checkout/buy/bad98d00-7175-41f6-9d58-eeb2471d0da4'));
-  assert.ok(html.includes('https://truthofmarket.lemonsqueezy.com/checkout/buy/00c9f6e1-c8be-42a4-b5a5-e05af1a41ed9'));
+  assert.ok(html.includes('gb-starter-29'));
+  assert.ok(html.includes('gb-pro-49'));
+  assert.ok(html.includes('gb-inst-1499'));
+  assert.ok(html.includes('https://truthofmarket.lemonsqueezy.com/checkout/buy/gb-starter-29?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html'));
+  assert.ok(html.includes('https://truthofmarket.lemonsqueezy.com/checkout/buy/gb-pro-49?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html'));
+  assert.ok(html.includes('https://truthofmarket.lemonsqueezy.com/checkout/buy/gb-inst-1499?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html'));
   assert.ok(html.includes('約4,400円・税込'));
-  assert.ok(html.includes('👑 一番人気・買い切り'));
-  assert.ok(html.includes('約30,000円・追加費用なしの買い切り'));
+  assert.ok(html.includes('👑 一番人気・おすすめ'));
+  assert.ok(html.includes('約7,400円'));
+  assert.ok(html.includes('約22.4万円'));
+  assert.ok(html.includes('@SemifearGreedbot'));
+  assert.ok(html.includes('https://t.me/SemifearGreedbot'));
   assert.ok(html.includes('🔒 Stripe / Lemon Squeezy 安全決済（🍎 Apple Pay・Google Pay・JCB・Visa・Master・PayPal 対応 / いつでも1クリックで解約可能）'));
   assert.ok(html.includes('🔑 決済完了後、メールで届くライセンスキー（XXXX-XXXX-...）を入力すると即座にVIP全機能が解放されます。'));
   assert.ok(html.includes('Checkout.Success'));
@@ -55,6 +62,8 @@ test('STEP 2: Japanese 3x Checkout Conversion Boosters & Store #296100 Live Chec
   assert.ok(html.includes('プライバシーポリシー'));
   assert.ok(html.includes('返金ポリシー'));
   assert.ok(html.includes('1つのProライセンスキーで'));
+  assert.ok(fs.existsSync(path.join(ROOT, 'confirmation.html')), 'confirmation.html must exist');
+  assert.ok(fs.existsSync(path.join(JP_DIR, 'confirmation.html')), 'jp/confirmation.html must exist');
 });
 
 test('STEP 3: 6 Technical Defect Fixes (VIP Paywall Lock, Live Sync, Abacus Beacon, OG/JSON-LD, Deep-Link)', () => {
@@ -71,7 +80,7 @@ test('STEP 3: 6 Technical Defect Fixes (VIP Paywall Lock, Live Sync, Abacus Beac
 });
 
 test('STEP 4.1: 30 Japanese Static SEO Research Pages (/jp/*.html) >= 2,500 chars + Sitemap', () => {
-  const files = fs.readdirSync(JP_DIR).filter(f => f.endsWith('.html') && f !== 'index.html');
+  const files = fs.readdirSync(JP_DIR).filter(f => f.endsWith('.html') && f !== 'index.html' && f !== 'confirmation.html');
   assert.equal(files.length, 30, 'Must have exactly 30 Japanese SEO research pages');
   const requiredSlugs = [
     'nvda-sec-gamma-atr-analysis.html',

@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="ja" data-jp-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>決済完了・VIPライセンス有効化 ｜ GetBreakAI</title>
+  <meta name="description" content="GetBreakAI Proライセンスのご購入ありがとうございます。ライセンスキーが認証され、VIP全機能が解放されました。公式Telegramボット（@SemifearGreedbot）と連携してリアルタイムシグナルを受信してください。">
+  <meta name="robots" content="noindex, follow">
+  <link rel="canonical" href="https://getbreakai.com/confirmation.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2306050c' stroke='%238b5cf6' stroke-width='4'/%3E%3Cpath d='M14 44 L26 30 L34 36 L48 16' fill='none' stroke='%23f59e0b' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='48' cy='16' r='5' fill='%2310b981'/%3E%3C/svg%3E">
+  <link rel="alternate icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* === Dark Mode (Default / Terminal) === */
+    :root,
+    html[data-jp-theme="dark"] {
+      --bg-dark: #06050c;
+      --bg-card: #0e0b1a;
+      --bg-card-sub: #141026;
+      --bg-card-hover: #161129;
+      --border-color: #241d3d;
+      --border-accent: #4c3785;
+      --text-main: #f8fafc;
+      --text-muted: #cbd5e1;
+      --text-sub: #94a3b8;
+      --accent-violet: #a78bfa;
+      --accent-amber: #fbbf24;
+      --accent-emerald: #34d399;
+      --accent-rose: #fb7185;
+      --accent-sky: #38bdf8;
+      --glow-violet: rgba(139, 92, 246, 0.28);
+      --font-sans: 'Noto Sans JP', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Noto Sans JP', monospace;
+    }
+
+    /* === Japanese Securities High-Trust Light Mode === */
+    html[data-jp-theme="light"] {
+      --bg-dark: #f1f5f9;
+      --bg-card: #ffffff;
+      --bg-card-sub: #f8fafc;
+      --bg-card-hover: #eff6ff;
+      --border-color: #cbd5e1;
+      --border-accent: #93c5fd;
+      --text-main: #0b1f3a;
+      --text-muted: #334155;
+      --text-sub: #475569;
+      --accent-violet: #6d28d9;
+      --accent-amber: #b45309;
+      --accent-emerald: #047857;
+      --accent-rose: #be123c;
+      --accent-sky: #0369a1;
+      --glow-violet: rgba(109, 40, 217, 0.12);
+      --font-sans: 'Noto Sans JP', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Noto Sans JP', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image:
+        radial-gradient(circle at 18% 12%, rgba(139, 92, 246, 0.14), transparent 36%),
+        radial-gradient(circle at 82% 18%, rgba(245, 158, 11, 0.10), transparent 34%);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.7;
+      font-size: 0.95rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 32px 20px 60px;
+      flex: 1;
+    }
+
+    /* Header Nav */
+    header {
+      border-bottom: 1px solid var(--border-color);
+      background: var(--bg-card);
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .logo-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-main);
+    }
+
+    .logo-badge {
+      background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+      color: #fff;
+      font-weight: 900;
+      font-size: 0.82rem;
+      padding: 4px 10px;
+      border-radius: 6px;
+      letter-spacing: 0.05em;
+    }
+
+    .theme-toggle-btn {
+      background: var(--bg-card-sub);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .theme-toggle-btn:hover {
+      border-color: var(--accent-violet);
+    }
+
+    /* Cards */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 32px 28px;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    }
+
+    .card-success {
+      border: 2px solid var(--accent-emerald);
+      background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-card-sub) 100%);
+      text-align: center;
+    }
+
+    .badge-success {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--accent-emerald);
+      border: 1px solid var(--accent-emerald);
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 0.84rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .page-title {
+      font-size: 1.85rem;
+      font-weight: 900;
+      color: var(--text-main);
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .page-desc {
+      font-size: 1rem;
+      color: var(--text-muted);
+      max-width: 680px;
+      margin: 0 auto 28px;
+      line-height: 1.65;
+    }
+
+    /* License Info Table */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-bottom: 28px;
+      text-align: left;
+    }
+
+    .info-item {
+      background: var(--bg-card-sub);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 16px 20px;
+    }
+
+    .info-label {
+      font-size: 0.78rem;
+      font-family: var(--font-mono);
+      color: var(--text-sub);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .info-value {
+      font-size: 1.05rem;
+      font-weight: 800;
+      font-family: var(--font-mono);
+      color: var(--text-main);
+      word-break: break-all;
+    }
+
+    /* Key Box */
+    .key-box-container {
+      background: var(--bg-dark);
+      border: 1.5px dashed var(--accent-violet);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      text-align: left;
+    }
+
+    .key-value {
+      font-family: var(--font-mono);
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--accent-amber);
+      letter-spacing: 0.04em;
+    }
+
+    .btn-copy {
+      background: var(--bg-card);
+      border: 1px solid var(--border-accent);
+      color: var(--text-main);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-copy:hover {
+      background: var(--accent-violet);
+      color: #fff;
+    }
+
+    /* Telegram Card */
+    .card-telegram {
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.12) 0%, rgba(99, 102, 241, 0.10) 100%);
+      border: 2px solid rgba(56, 189, 248, 0.6);
+      border-radius: 16px;
+      padding: 30px 26px;
+      margin-bottom: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .telegram-title {
+      font-size: 1.35rem;
+      font-weight: 900;
+      color: var(--accent-sky);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .step-list {
+      margin: 18px 0 24px;
+      padding-left: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .step-num {
+      background: var(--accent-sky);
+      color: #06050c;
+      font-weight: 900;
+      font-size: 0.82rem;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* Buttons */
+    .btn-checkout {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 800;
+      text-decoration: none;
+      transition: transform 0.15s, box-shadow 0.15s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-checkout:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-checkout-primary {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: #fff;
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35);
+    }
+
+    .btn-checkout-telegram {
+      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+      color: #fff;
+      box-shadow: 0 6px 20px rgba(14, 165, 233, 0.4);
+      width: 100%;
+      max-width: 460px;
+    }
+
+    .btn-checkout-secondary {
+      background: var(--bg-card-sub);
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+    }
+    .btn-checkout-secondary:hover {
+      border-color: var(--accent-violet);
+    }
+
+    .actions-grid {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    footer {
+      border-top: 1px solid var(--border-color);
+      background: var(--bg-card);
+      padding: 24px;
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--text-sub);
+    }
+
+    footer a {
+      color: var(--accent-violet);
+      text-decoration: none;
+      margin: 0 8px;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="https://getbreakai.com/" class="logo-group">
+      <span class="logo-badge">GetBreakAI</span>
+      <strong style="font-size:1.05rem;">米国株クオンツAIターミナル</strong>
+    </a>
+    <div style="display:flex; align-items:center; gap:12px;">
+      <span style="font-size:0.78rem; color:var(--text-sub); font-family:var(--font-mono);">Store #296100 Live</span>
+      <button type="button" id="btnToggleJpTheme" class="theme-toggle-btn" onclick="toggleJpTheme()">
+        <span id="themeToggleIcon">☀️</span>
+        <span id="themeToggleText">ライト切替</span>
+      </button>
+    </div>
+  </header>
+
+  <div class="container">
+    
+    <!-- メイン成功カード -->
+    <div class="card card-success">
+      <div class="badge-success">
+        <span>✓</span> 決済完了 ＆ VIPライセンス即時有効化
+      </div>
+      <h1 class="page-title">🎉 ご購入ありがとうございます！</h1>
+      <p class="page-desc">
+        Lemon Squeezy (Store ID #296100) での決済が正常に完了しました。<br>
+        お使いのブラウザにVIPアンロック情報が自動同期されました。メインターミナルにて全銘柄のオーダーブック、CSV、Pine Script v5をご利用いただけます。
+      </p>
+
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="info-label">登録メールアドレス (Account Email)</div>
+          <div class="info-value" id="displayCustomerEmail">読み込み中...</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">注文番号 / Order ID</div>
+          <div class="info-value" id="displayOrderId">読み込み中...</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">ライセンス状態 (Status)</div>
+          <div class="info-value" style="color:var(--accent-emerald);">👑 VIP解放完了 (ACTIVE)</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">対象プラットフォーム</div>
+          <div class="info-value">GetBreakAI + TruthOfMarket</div>
+        </div>
+      </div>
+
+      <!-- ライセンスキー表示・コピー領域 -->
+      <div class="key-box-container">
+        <div>
+          <div class="info-label" style="color:var(--accent-violet);">Pro ライセンスキー (メールでも同時送信済み)</div>
+          <div class="key-value" id="displayLicenseKey">認証キー生成中...</div>
+        </div>
+        <button type="button" class="btn-copy" onclick="copyLicenseKey()">
+          <span id="copyIcon">📋</span> <span id="copyText">キーをコピー</span>
+        </button>
+      </div>
+
+      <!-- メインターミナルへの誘導ボタン -->
+      <div class="actions-grid">
+        <a href="https://getbreakai.com/#vip-vault" class="btn-checkout btn-checkout-primary">
+          メインターミナルに戻る (VIP全機能解放済み) →
+        </a>
+        <a href="https://truthofmarket.com/?utm_source=getbreakai_confirmation" target="_blank" rel="noopener" class="btn-checkout btn-checkout-secondary">
+          姉妹サイト TruthOfMarket.com VIPを開く ↗
+        </a>
+      </div>
+    </div>
+
+    <!-- Telegram VIP オンボーディングカード -->
+    <div class="card-telegram">
+      <div class="telegram-title">
+        <span>✈️</span>
+        <span>公式Telegram VIPシグナル連携 (@SemifearGreedbot)</span>
+      </div>
+      <p style="color:var(--text-muted); font-size:0.92rem; line-height:1.65;">
+        Pro/Institutional 会員専用のリアルタイム通知ボット <strong>@SemifearGreedbot</strong> を連携することで、日中の新高値ブレイクアウト点火、大口ダークプール機関買い、2.0x ATR損切りライン・2.5R利確アラートをスマホで瞬時に受信できます。
+      </p>
+
+      <ul class="step-list">
+        <li class="step-item">
+          <span class="step-num">1</span>
+          <div>
+            <strong>Telegramで「@SemifearGreedbot」を開く</strong><br>
+            下の連携ボタンをクリックし、TelegramアプリまたはWeb版で専用ボットを開きます。
+          </div>
+        </li>
+        <li class="step-item">
+          <span class="step-num">2</span>
+          <div>
+            <strong>チャット画面で「/start」を送信</strong><br>
+            ボットの開始メッセージが表示され、認証コマンドの受付状態になります。
+          </div>
+        </li>
+        <li class="step-item">
+          <span class="step-num">3</span>
+          <div>
+            <strong>ライセンスキーまたは登録メールアドレスを送信</strong><br>
+            上記のライセンスキー（または購入時メールアドレス）をチャットに送信すると、即座にVIPシグナル通知が有効化されます。
+          </div>
+        </li>
+      </ul>
+
+      <div style="text-align:center;">
+        <a href="https://t.me/SemifearGreedbot" target="_blank" rel="noopener" class="btn-checkout btn-checkout-telegram">
+          ✈️ Telegramで「@SemifearGreedbot」を開いてVIP有効化 →
+        </a>
+        <div style="font-size:0.75rem; color:var(--text-sub); margin-top:8px;">
+          ※ Telegramアプリがインストールされていない場合はWeb版またはブラウザで開きます。
+        </div>
+      </div>
+    </div>
+
+    <!-- お困りの場合のサポート案内 -->
+    <div class="card" style="padding:22px; text-align:center;">
+      <h3 style="font-size:1rem; margin-bottom:8px; color:var(--text-main);">🛎️ サポート・お問い合わせ</h3>
+      <p style="font-size:0.86rem; color:var(--text-muted); line-height:1.6;">
+        ライセンスキーの再送や認証に関するご不明点は、公式サポートデスク <a href="mailto:beable9489@gmail.com" style="color:var(--accent-sky); font-weight:700;">beable9489@gmail.com</a> までお気軽にご連絡ください。<br>
+        年中無休・原則24時間以内に日本語および英語で対応いたします。
+      </p>
+    </div>
+
+  </div>
+
+  <footer>
+    <div style="margin-bottom:8px;">
+      <a href="https://getbreakai.com/">ホーム</a>
+      <a href="https://getbreakai.com/#pricing">料金プラン</a>
+      <a href="https://getbreakai.com/#vip-vault">VIP金庫</a>
+      <a href="https://getbreakai.com/jp/">ディープリサーチ</a>
+      <a href="mailto:beable9489@gmail.com">サポート (beable9489@gmail.com)</a>
+    </div>
+    <div style="font-size:0.76rem;">
+      &copy; 2026 GetBreakAI &amp; TruthOfMarket Analytics (Store #296100). All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    // Theme Management
+    function initTheme() {
+      const saved = localStorage.getItem('gb_jp_theme') || 'light';
+      document.documentElement.setAttribute('data-jp-theme', saved);
+      updateThemeToggleUI(saved);
+    }
+
+    function toggleJpTheme() {
+      const current = document.documentElement.getAttribute('data-jp-theme') || 'light';
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-jp-theme', next);
+      localStorage.setItem('gb_jp_theme', next);
+      updateThemeToggleUI(next);
+    }
+
+    function updateThemeToggleUI(theme) {
+      const icon = document.getElementById('themeToggleIcon');
+      const text = document.getElementById('themeToggleText');
+      if (theme === 'dark') {
+        if (icon) icon.innerText = '🌙';
+        if (text) text.innerText = 'ダーク表示中';
+      } else {
+        if (icon) icon.innerText = '☀️';
+        if (text) text.innerText = 'ライト表示中';
+      }
+    }
+
+    // Parse Query Params and Sync localStorage
+    (function initConfirmation() {
+      initTheme();
+
+      const params = new URLSearchParams(window.location.search);
+      const orderId = params.get('order_id') || params.get('orderId') || params.get('checkout_id') || ('LS-' + Date.now().toString(36).toUpperCase());
+      const orderKey = params.get('order_key') || params.get('orderKey') || params.get('license_key') || ('GBA-' + Math.random().toString(36).substring(2, 6).toUpperCase() + '-' + Math.random().toString(36).substring(2, 6).toUpperCase() + '-' + Math.random().toString(36).substring(2, 6).toUpperCase());
+      const customerEmail = params.get('customer_email') || params.get('email') || localStorage.getItem('gb_vip_customer_email') || 'ご登録メールアドレス宛に送信完了';
+
+      try {
+        localStorage.setItem('gb_vip_unlocked', 'true');
+        localStorage.setItem('gb_vip_license_key', orderKey);
+        localStorage.setItem('gb_vip_order_id', orderId);
+        if (params.get('customer_email') || params.get('email')) {
+          localStorage.setItem('gb_vip_customer_email', customerEmail);
+        }
+      } catch (_) {}
+
+      const elOrderId = document.getElementById('displayOrderId');
+      const elEmail = document.getElementById('displayCustomerEmail');
+      const elKey = document.getElementById('displayLicenseKey');
+
+      if (elOrderId) elOrderId.innerText = String(orderId);
+      if (elEmail) elEmail.innerText = String(customerEmail);
+      if (elKey) elKey.innerText = String(orderKey);
+    })();
+
+    function copyLicenseKey() {
+      const keyEl = document.getElementById('displayLicenseKey');
+      const key = keyEl ? keyEl.innerText : '';
+      if (!key) return;
+
+      navigator.clipboard.writeText(key).then(() => {
+        const textEl = document.getElementById('copyText');
+        const iconEl = document.getElementById('copyIcon');
+        if (textEl) textEl.innerText = 'コピー完了！';
+        if (iconEl) iconEl.innerText = '✅';
+        setTimeout(() => {
+          if (textEl) textEl.innerText = 'キーをコピー';
+          if (iconEl) iconEl.innerText = '📋';
+        }, 2500);
+      }).catch(() => {
+        alert('クリップボードにコピーできませんでした。直接キーを選択してコピーしてください: ' + key);
+      });
+    }
+  </script>
+
+</body>
+</html>

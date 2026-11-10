@@ -319,7 +319,7 @@ def upgrade_main_index():
 
     # Default <html lang="ja" data-jp-theme="light"> so Japanese visitors immediately see the high-trust Securities Light/Navy theme!
     html = html.replace('<html lang="ja">', '<html lang="ja" data-jp-theme="light">')
-    if "data-jp-theme" not in html.split("</style>")[0]:
+    if 'html[data-jp-theme="light"]' not in html:
         html = html.replace("</style>", jp_fintech_css + "\n  </style>")
 
     # 2. Add Theme Toggle button in Header navigation

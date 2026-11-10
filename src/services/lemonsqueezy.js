@@ -60,15 +60,19 @@ const STORE_CONFIG = {
 
 /**
  * Generate Lemon Squeezy Hosted / Overlay Checkout URL
- * @param {string} planKey Key in STORE_CONFIG.plans
+ * @param {string} planKey Key in STORE_CONFIG.plans or variantId
  * @param {object} [options]
  * @param {string} [options.userEmail]
  * @param {string} [options.userId]
+ * @param {string} [options.redirectUrl]
  * @param {boolean} [options.embed=true]
  * @returns {string} Checkout URL
  */
 function createCheckoutUrl(planKey, options = {}) {
-  const plan = STORE_CONFIG.plans[planKey];
+  let plan = STORE_CONFIG.plans[planKey];
+  if (!plan) {
+    plan = Object.values(STORE_CONFIG.plans).find(p => p.variantId === planKey || p.id === planKey);
+  }
   if (!plan) {
     throw new Error(`Invalid plan key: ${planKey}. Available: ${Object.keys(STORE_CONFIG.plans).join(', ')}`);
   }
@@ -76,6 +80,10 @@ function createCheckoutUrl(planKey, options = {}) {
   const url = new URL(`${STORE_CONFIG.checkoutBaseUrl}/${plan.variantId}`);
   if (options.embed !== false) {
     url.searchParams.set('embed', '1');
+  }
+  const redirectUrl = options.redirectUrl !== undefined ? options.redirectUrl : 'https://getbreakai.com/confirmation.html';
+  if (redirectUrl) {
+    url.searchParams.set('checkout[redirect_url]', redirectUrl);
   }
   if (options.userEmail) {
     url.searchParams.set('checkout[email]', options.userEmail);

@@ -5,10 +5,12 @@
   "main": "src/engine/breakout_engine.js",
   "scripts": {
     "test": "node tests/breakout_engine.test.js",
+    "test:jp": "node tests/jp_terminal_and_seo_audit.test.js",
     "test:adversarial": "node tests/adversarial_lemonsqueezy_hmac.test.js",
-    "test:all": "node tests/breakout_engine.test.js && node tests/adversarial_lemonsqueezy_hmac.test.js",
-    "lint": "node -e \"console.log('Lint check passed: zero syntax violations')\"",
-    "build": "node -e \"console.log('GetBreakAI assets verified and ready for deployment')\"",
+    "test:all": "node tests/breakout_engine.test.js && node tests/adversarial_lemonsqueezy_hmac.test.js && node tests/adversarial_breakout_stress.test.js && node tests/jp_terminal_and_seo_audit.test.js && node tests/jp_dual_market_quant.test.js && node tests/e2e_full_verification.test.js",
+    "generate:jp": "python scripts/generate_jp_daily_shorts_and_x.py",
+    "lint": "python scripts/verify_code_quality.py",
+    "build": "python scripts/verify_code_quality.py --build",
     "start": "node -e \"console.log('GetBreakAI core engine initialized. Running test suite...'); require('./tests/breakout_engine.test.js')\""
   },
   "keywords": [

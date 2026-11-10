@@ -1,80 +1,19 @@
-# GetBreakAI (`getbreakai.com`)
+# 🇯🇵 [3사업부 · 본사] GetBreakAI (일본퀀트) — `getbreakai.com`
 
-> Institutional-Grade AI Quantitative Breakout Detection & Asymmetric Risk Management SaaS.
-
-[![Node.js CI](https://img.shields.io/badge/Node.js-18%2B-brightgreen)](https://nodejs.org/)
-[![License](https://img.shields.io/badge/License-Proprietary-red)]()
-[![Store](https://img.shields.io/badge/LemonSqueezy-Store%20%23296100-blue)](https://lemonsqueezy.com)
-[![Support](https://img.shields.io/badge/Support-beable9489%40gmail.com-orange)](mailto:beable9489@gmail.com)
-
----
-
-## 1. Overview
-
-GetBreakAI is an institutional SaaS platform designed to eliminate the retail trader failure loop (left-side knife catching, emotional holding of losing trades, and premature selling of winners) by automating asymmetric risk rules and high-volume breakout detection.
-
-### Core Mathematical Disciplines
-- **PW-RSI (Price-Weighted RSI)**: Multiplies RSI momentum by institutional volume accumulation to detect true right-side market breakouts.
-- **Strict -9.0% Hard Stop-Loss**: Every position is mechanically exited at -9.0% from entry price. Zero discretionary exceptions.
-- **Dynamic 2x Take-Profit (Minimum 2:1 R:R)**: Targets at least +18.0% before initial profit taking, with trailing stops moving to breakeven after +15.0%.
-
----
-
-## 2. Directory Layout
-
-```
-getbreakai/
-├── ARCHITECTURE.md          # Complete quant & engineering specifications
-├── README.md                # Project quick-start & overview
-├── package.json             # Scripts & metadata
-├── index.html               # Landing wireframe & live interactive breakout simulator
-├── src/
-│   ├── engine/
-│   │   └── breakout_engine.js   # Genuine quant math engine (PW-RSI, Stop/TP, Breakouts)
-│   └── services/
-│       └── lemonsqueezy.js      # Checkout generator & HMAC webhook verification
-└── tests/
-    └── breakout_engine.test.js  # Mathematical unit & stress test suite
-```
-
----
-
-## 3. Quick Start
-
-### Run Unit Tests
-Verify mathematical calculations, risk triggers, and signal detection (15 tests):
-```bash
-npm test
-```
-
-### Run Adversarial HMAC Security Tests
-Verify Lemon Squeezy webhook signature verification under adversarial attacks (12 tests):
-```bash
-npm run test:adversarial
-# Or: node tests/adversarial_lemonsqueezy_hmac.test.js
-```
-
-### Run All Test Suites (27/27 Total)
-```bash
-npm run test:all
-```
-
-### Run Synthetic Engine Benchmark
-```bash
-npm start
-```
-
----
-
-## 4. Monetization & Checkout Integration
-Operates under Lemon Squeezy Store `#296100` (`KIDS-FIT Global Studio` / `TruthOfMarket Analytics` / `GetBreakAI`):
-- **Starter Scanner**: `$29 / mo`
-- **Pro Breakout**: `$49 / mo` (or `$399 / yr`)
-- **Institutional Alpha**: `$199 / mo` (or `$1,499 / yr`)
-
-For billing inquiries, contact the unified desk at `beable9489@gmail.com`.
-
----
-
-## 5. Safe Harbor Legal Notice
-GetBreakAI is automated financial technology software and an analytical tool, not a registered investment advisor, broker, or financial planner. Past breakout performance does not guarantee future results.
+- **소속**: 드림컴퍼니 **3사업부 (`D:\드림컴퍼니\3사업부`)**
+- **전담 텔레그램 봇**: **`[3사업부 · 본사] GetBreakAI (일본퀀트)`** (`@SemifearGreedbot`)
+- **라이브 홈페이지**:
+  - **일본 타깃 메인 터미널**: **[https://getbreakai.com/jp/](https://getbreakai.com/jp/)**
+  - **글로벌 영문 터미널**: **[https://getbreakai.com/](https://getbreakai.com/)**
+  - **일본 자동 마케팅 RSS 피드**: **[https://getbreakai.com/jp/feed.xml](https://getbreakai.com/jp/feed.xml)** · **[https://getbreakai.com/jp/x-feed.xml](https://getbreakai.com/jp/x-feed.xml)**
+- **핵심 일본 퀀트 & 마케팅 기능**:
+  - **PW-RSI 우측 돌파 스캐너** & **비대칭 손익비(`-9.0%` 칼손절 / `+18.0%` 2:1 익절)**
+  - **일본 미국주식 투자자 전용 시뮬레이터**: **新NISA 성장투자한도(0% 비과세) vs 特定口座(20.315% 원천징수)** 세후 실수령 엔화 비교, 라쿠텐·SBI 증권 수수료(`0.495% / 상한 $22`), 실시간 USD/JPY 환율(`140~165엔`) 슬라이더 탑재
+  - **일본 인스타그램 릴스 & 유튜브 쇼츠**: Google Flow 9:16 시네마틱 숏폼 프롬프트(`docs/JP_AUTO_MARKETING_SETUP_GUIDE.md`) 및 `scripts/build_jp_clean_shorts_v3.py`
+- **수익화 모델 (Lemon Squeezy Store `#296100`)**:
+  - Starter Breakout Scanner (`$29/mo`): `gb-starter-29`
+  - Pro Institutional Breakout (`$49/mo`): `gb-pro-49`
+  - Institutional Alpha Terminal (`$1,499/yr`): `gb-inst-1499`
+- **GitHub 원격 저장소**: `https://github.com/jjangdol0205/getbreakai.git`
+- **주요 실행 명령어**:
+  - 전체 테스트 스위트(36/36): `npm test`

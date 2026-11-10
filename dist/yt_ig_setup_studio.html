@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3사업부 GetBreakAI — 유튜브 스튜디오 & 인스타그램 1-Click 세팅 스튜디오</title>
+  <style>
+    :root {
+      --bg: #090d18;
+      --card: #111827;
+      --border: #1e293b;
+      --accent: #10b981;
+      --blue: #38bdf8;
+      --gold: #facc15;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 32px 20px 80px;
+      font-family: 'Pretendard', 'Segoe UI', 'Malgun Gothic', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .container { max-width: 1080px; margin: 0 auto; }
+    .header {
+      background: linear-gradient(135deg, #0f172a, #064e3b);
+      border: 2px solid var(--accent);
+      border-radius: 16px;
+      padding: 28px;
+      margin-bottom: 28px;
+    }
+    .header h1 { margin: 0 0 8px; font-size: 26px; color: #fff; }
+    .header p { margin: 0; color: #cbd5e1; font-size: 15px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(460px, 1fr)); gap: 24px; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    .card h2 {
+      margin: 0 0 16px;
+      font-size: 20px;
+      color: var(--blue);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .field { margin-bottom: 18px; }
+    .field-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .copy-box {
+      background: #0b1120;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-family: 'Consolas', 'Yu Gothic', monospace;
+      font-size: 13.5px;
+      color: #f1f5f9;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--accent);
+      color: #052e16;
+      font-weight: 800;
+      font-size: 13px;
+      padding: 6px 14px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.1s, opacity 0.15s;
+    }
+    .btn:hover { opacity: 0.92; transform: translateY(-1px); }
+    .btn-blue { background: var(--blue); color: #082f49; }
+    .img-preview-grid { display: grid; grid-template-columns: 180px 1fr; gap: 20px; align-items: center; }
+    .img-box {
+      background: #0b1120;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      padding: 12px;
+      text-align: center;
+    }
+    .img-box img { max-width: 100%; border-radius: 8px; display: block; margin: 0 auto 10px; }
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #10b981;
+      color: #052e16;
+      font-weight: 800;
+      padding: 12px 22px;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      display: none;
+      z-index: 9999;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🇯🇵 3사업부 GetBreakAI (`getbreakai.com`) — 유튜브 스튜디오 & 인스타그램 1-Click 세팅 스튜디오</h1>
+      <p>이미 켜두신 브라우저에서 바로 업로드 & 1클릭 복사-붙여넣기로 1분 만에 세팅하시거나, 자동화 브라우저로 일괄 적용할 수 있습니다.</p>
+    </div>
+
+    <div class="card">
+      <h2>
+        <span>🖼️ 1단계: 공식 프로필 아바타 & 유튜브 배너 이미지 다운로드</span>
+      </h2>
+      <div class="img-preview-grid">
+        <div class="img-box">
+          <img src="assets/youtube/youtube_profile_800x800.png" alt="YouTube Profile 800x800" />
+          <a class="btn" href="assets/youtube/youtube_profile_800x800.png" download="youtube_profile_800x800.png">⬇️ 유튜브 프로필/워터마크 저장 (800×800)</a>
+          <div style="margin-top:8px;">
+            <a class="btn btn-blue" href="assets/youtube/getbreakai_profile_avatar_1024.png" download="getbreakai_profile_avatar_1024.png">⬇️ 인스타 공용 고화질 아바타 (1024×1024)</a>
+          </div>
+        </div>
+        <div class="img-box">
+          <img src="assets/youtube/youtube_banner_2560x1440.png" alt="YouTube Banner 2560x1440" />
+          <a class="btn" href="assets/youtube/youtube_banner_2560x1440.png" download="youtube_banner_2560x1440.png">⬇️ 유튜브 채널 배너 저장 (2560×1440 세이프존 규격)</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <!-- YOUTUBE STUDIO CARD -->
+      <div class="card">
+        <h2>
+          <span>▶️ 2단계: YouTube Studio (맞춤설정 / 설정)</span>
+          <a class="btn btn-blue" href="https://studio.youtube.com" target="_blank">YouTube Studio 열기 ↗</a>
+        </h2>
+
+        <div class="field">
+          <div class="field-label">
+            <span>① 채널 이름 (Name)</span>
+            <button class="btn" onclick="copyText('yt-name')">📋 1클릭 복사</button>
+          </div>
+          <div class="copy-box" id="yt-name">GetBreakAI | 米国株・新NISA クオンツAI</div>
+        </div>
+
+        <div class="field">
+          <div class="field-label">
+            <span>② 핸들 (Handle — 중복 시 GetBreakAI_JP 사용)</span>
+            <button class="btn" onclick="copyText('yt-handle')">📋 1클릭 복사</button>
+          </div>
+          <div class="copy-box" id="yt-handle">GetBreakAI</div>
+        </div>
+
+        <div class="field">
+          <div class="field-label">
+            <span>③ 채널 설명 (Description — 일본·미국 주식 퀀트 & 신NISA)</span>
+            <button class="btn" onclick="copyText('yt-desc')">📋 1클릭 복사</button>
+          </div>
+          <div class="copy-box" id="yt-desc">📊 ウォール街の機関投資家が使う「3大一次情報＋2.0x ATR資金管理」を完全日本語化！
+米国株（NVDA・PLTR・TSLA・SOXL）＆東証プライム主力株（東京エレクトロン・アドバンテスト・ソフトバンクG・トヨタ・ソニー）の機関ブレイクアウトシグナルを毎日配信。
+
+✅ 英語のSEC 8-K（重要契約・決算）＆Form-4（役員の自社株買い）を3秒でAI日本語要約
+✅ オプション市場のGamma壁（コール/プット需給）と20日ドンチャン・ブレイクアウト検知
+✅ 14日ATR（平均値動き幅）から口座資金1.5%リスク以内の「適正購入株数」と「2.0x ATR逆指値ライン」をドル＆日本円で自動計算
+✅ 新NISA（成長投資枠・非課税0%）と特定口座（20.315%課税）の手取り純利益をワンタッチ比較！
+
+👇 登録不要・3秒で使える無料ATR株数＆損切り計算機はこちら
+https://getbreakai.com
+
+📚 米国株・新NISA 30銘柄ディープリサーチ一覧
+https://getbreakai.com/jp/
+
+📲 VIP機関シグナル速報 Telegramボット
+https://t.me/SemifearGreedbot
+
+📩 お問い合わせ・提携: beable9489@gmail.com</div>
+        </div>
+
+        <div class="field">
+          <div class="field-label">
+            <span>④ 외부 링크 1 (제목 / URL)</span>
+            <button class="btn" onclick="copyText('yt-link1')">📋 URL 복사</button>
+          </div>
+          <div class="copy-box">제목: 無料AI株数・損切り計算機 (GetBreakAI)
+URL: <span id="yt-link1">https://getbreakai.com</span></div>
+        </div>
+
+        <div class="field">
+          <div class="field-label">
+            <span>⑤ 외부 링크 2 (제목 / URL)</span>
+            <button class="btn" onclick="copyText('yt-link2')">📋 URL 복사</button>
+          </div>
+          <div class="copy-box">제목: 米国株・新NISA 30銘柄AIリサーチ
+URL: <span id="yt-link2">https://getbreakai.com/jp/</span></div>
+        </div>
+
+        <div class="field">
+          <div class="field-label">
+            <span>⑥ 설정 → 채널 → 기본 정보 → 키워드 (Keywords)</span>
+            <button class="btn" onclick="copyText('yt-kw')">📋 1클릭 복사</button>
+          </div>
+          <div class="copy-box" id="yt-kw">米国株, 新NISA, エヌビディア, NVDA, パランティア, PLTR, テスラ, TSLA, SOXL, 半導体株, 東京エレクトロン, アドバンテスト, 株式投資, スイングトレード, 損切り, ATR, クオンツ投資, GetBreakAI</div>
+        </div>
+      </div>
+
+      <!-- INSTAGRAM CARD -->
+      <div class="card">
+        <h2>
+          <span>📸 3단계: Instagram 프로필 세팅</span>
+          <a class="btn btn-blue" href="https://www.instagram.com/accounts/edit/" target="_blank">인스타 프로필 편집 열기 ↗</a>
+        </h2>
+
+        <div class="field">
+          <div class="field-label">
+            <span>① 인스타그램 이름 (Name)</span>
+            <button class="btn" onclick="copyText('ig-name')">📋 1클릭 복사</button>
+          </div>
+          <div class="copy-box" id="ig-name">GetBreakAI | 米国株・新NISA クオンツAI📊</div>
+        </div>
+
+        <div class="field">
+          <div class="field-label">
+            <span>② 사용자 이름 (Username 후보)</span>
+            <button class="btn" onclick="copyText('ig-user')">📋 1클릭 복사</button>
+          </div>
+          <div class="copy-box" id="ig-user">getbreakai.jp</div>
+        </div>
+
+        <div class="field">
+          <div class="field-label">
+            <span>③ 소개 (Bio — 150자 이내 완벽 맞춤)</span>
+            <button class="btn" onclick="copyText('ig-bio')">📋 1클릭 복사</button>
+          </div>
+          <div class="copy-box" id="ig-bio">📊 米国株・東証プライムの機関投資家ブレイクアウトAI
+🔥 SEC開示・Gamma壁・20日高値突破を毎日速報
+🛡️ 2.0x ATR逆指値＆新NISA適正株数をドル/円で3秒計算
+👇 無料AI株数・損切りシミュレーターはこちら</div>
+        </div>
+
+        <div class="field">
+          <div class="field-label">
+            <span>④ 웹사이트 링크 (Website Link in Bio)</span>
+            <button class="btn" onclick="copyText('ig-url')">📋 1클릭 복사</button>
+          </div>
+          <div class="copy-box" id="ig-url">https://getbreakai.com</div>
+        </div>
+
+        <hr style="border-color:var(--border); margin: 24px 0;" />
+
+        <h3 style="color:var(--accent); margin:0 0 12px; font-size:16px;">🎬 오늘자 첫 업로드용 일본어 쇼츠/릴스 (#1 엔비디아 $NVDA)</h3>
+        <div class="field">
+          <div class="field-label">
+            <span>영상 파일 위치 (`marketing_outbox_jp/2026-11-09`)</span>
+            <a class="btn" href="marketing_outbox_jp/2026-11-09/jp_shorts_01_NVDA_gamma_atr.mp4" download>⬇️ 쇼츠 #1 MP4 다운로드</a>
+          </div>
+        </div>
+        <div class="field">
+          <div class="field-label">
+            <span>쇼츠 #1 제목 (YouTube Shorts Title)</span>
+            <button class="btn" onclick="copyText('s1-title')">📋 제목 복사</button>
+          </div>
+          <div class="copy-box" id="s1-title">【エヌビディア株】どこで利確・損切り？機関のGamma壁とATR計算 #米国株 #新NISA #NVDA</div>
+        </div>
+        <div class="field">
+          <div class="field-label">
+            <span>쇼츠 #1 설명란 & 인스타 릴스 캡션</span>
+            <button class="btn" onclick="copyText('s1-cap')">📋 캡션 복사</button>
+          </div>
+          <div class="copy-box" id="s1-cap">🔥 エヌビディア($NVDA)を「なんとなく」で売買していませんか？
+
+ウォール街の機関投資家が実際に見ている本日のライン👇
+📍 現在株価: $186.64
+🛑 2.0x ATR損切りライン（逆指値）: $170.60
+🎯 2.5R 利確ターゲット: $226.74
+
+新NISA（非課税0%）と特定口座（20.315%）の手取り純利益＆あなたの資金に合った適正購入株数はプロフィールのリンク（ https://getbreakai.com ）から3秒で無料計算できます📊
+
+#米国株 #新NISA #エヌビディア #NVDA #半導体株 #米国株投資 #株式投資 #資産運用 #スイングトレード</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">✅ 클립보드에 복사되었습니다!</div>
+  <script>
+    function copyText(id) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const t = document.getElementById('toast');
+        t.style.display = 'block';
+        setTimeout(() => { t.style.display = 'none'; }, 1800);
+      });
+    }
+  </script>
+</body>
+</html>

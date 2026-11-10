@@ -1,0 +1,44 @@
+{
+  "division": "3사업부 (GetBreakAI)",
+  "domain": "https://getbreakai.com",
+  "jp_research_hub": "https://getbreakai.com/jp/",
+  "telegram_bot": "@SemifearGreedbot",
+  "youtube": {
+    "channel_name": "GetBreakAI | 米国株・新NISA クオンツAI",
+    "handle_candidates": [
+      "GetBreakAI",
+      "GetBreakAI_JP",
+      "GetBreakAIQuant"
+    ],
+    "description": "📊 ウォール街の機関投資家が使う「3大一次情報＋2.0x ATR資金管理」を完全日本語化！\n米国株（NVDA・PLTR・TSLA・SOXL）＆東証プライム主力株（東京エレクトロン・アドバンテスト・ソフトバンクG・トヨタ・ソニー）の機関ブレイクアウトシグナルを毎日配信。\n\n✅ 英語のSEC 8-K（重要契約・決算）＆Form-4（役員の自社株買い）を3秒でAI日本語要約\n✅ オプション市場のGamma壁（コール/プット需給）と20日ドンチャン・ブレイクアウト検知\n✅ 14日ATR（平均値動き幅）から口座資金1.5%リスク以内の「適正購入株数」と「2.0x ATR逆指値ライン」をドル＆日本円で自動計算\n✅ 新NISA（成長投資枠・非課税0%）と特定口座（20.315%課税）の手取り純利益をワンタッチ比較！\n\n👇 登録不要・3秒で使える無料ATR株数＆損切り計算機はこちら\nhttps://getbreakai.com\n\n📚 米国株・新NISA 30銘柄ディープリサーチ一覧\nhttps://getbreakai.com/jp/\n\n📲 VIP機関シグナル速報 Telegramボット\nhttps://t.me/SemifearGreedbot\n\n📩 お問い合わせ・提携: beable9489@gmail.com",
+    "links": [
+      {
+        "title": "無料AI株数・損切り計算機 (GetBreakAI)",
+        "url": "https://getbreakai.com"
+      },
+      {
+        "title": "米国株・新NISA 30銘柄AIリサーチ",
+        "url": "https://getbreakai.com/jp/"
+      },
+      {
+        "title": "VIP Telegram シグナル速報",
+        "url": "https://t.me/SemifearGreedbot"
+      }
+    ],
+    "keywords": "米国株 新NISA エヌビディア NVDA パランティア PLTR テスラ TSLA SOXL 半導体株 東京エレクトロン アドバンテスト 株式投資 スイングトレード 損切り ATR クオンツ投資 GetBreakAI",
+    "contact_email": "beable9489@gmail.com",
+    "profile_image": "D:\\드림컴퍼니\\3사업부\\assets\\youtube\\youtube_profile_800x800.png",
+    "banner_image": "D:\\드림컴퍼니\\3사업부\\assets\\youtube\\youtube_banner_2560x1440.png"
+  },
+  "instagram": {
+    "name": "GetBreakAI | 米国株・新NISA クオンツAI📊",
+    "username_candidates": [
+      "getbreakai",
+      "getbreakai.jp",
+      "getbreakai_quant"
+    ],
+    "bio": "📊 米国株・東証プライムの機関投資家ブレイクアウトAI\n🔥 SEC開示・Gamma壁・20日高値突破を毎日速報\n🛡️ 2.0x ATR逆指値＆新NISA適正株数をドル/円で3秒計算\n👇 無料AI株数・損切りシミュレーターはこちら",
+    "website": "https://getbreakai.com",
+    "profile_image": "D:\\드림컴퍼니\\3사업부\\assets\\youtube\\getbreakai_profile_avatar_1024.png"
+  }
+}

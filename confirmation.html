@@ -104,7 +104,8 @@
     }
 
     .logo-badge {
-      background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+      background-color: #5b21b6;
+      background-image: linear-gradient(135deg, #6d28d9, #2563eb);
       color: #fff;
       font-weight: 900;
       font-size: 0.82rem;
@@ -151,7 +152,7 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: rgba(16, 185, 129, 0.15);
+      background: rgba(16, 185, 129, 0.18);
       color: var(--accent-emerald);
       border: 1px solid var(--accent-emerald);
       padding: 6px 14px;
@@ -159,6 +160,11 @@
       font-size: 0.84rem;
       font-weight: 800;
       margin-bottom: 16px;
+    }
+    html[data-jp-theme="light"] .badge-success {
+      background: #d1fae5;
+      color: #064e3b;
+      border: 1px solid #059669;
     }
 
     .page-title {
@@ -291,6 +297,10 @@
       line-height: 1.6;
     }
 
+    html[data-jp-theme="light"] .step-num {
+      background: #0369a1;
+      color: #ffffff;
+    }
     .step-num {
       background: var(--accent-sky);
       color: #06050c;
@@ -326,13 +336,15 @@
     }
 
     .btn-checkout-primary {
-      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      background-color: #047857;
+      background-image: linear-gradient(135deg, #047857 0%, #065f46 100%);
       color: #fff;
       box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35);
     }
 
     .btn-checkout-telegram {
-      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+      background-color: #0369a1;
+      background-image: linear-gradient(135deg, #0369a1 0%, #1e40af 100%);
       color: #fff;
       box-shadow: 0 6px 20px rgba(14, 165, 233, 0.4);
       width: 100%;

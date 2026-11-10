@@ -292,7 +292,8 @@
     }
 
     .btn-nav {
-      background: linear-gradient(135deg, var(--accent-violet), #6d28d9);
+      background-color: #5b21b6;
+      background-image: linear-gradient(135deg, #6d28d9, #4c1d95);
       color: #ffffff !important;
       padding: 9px 18px;
       border-radius: 8px;
@@ -387,7 +388,8 @@
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, var(--accent-violet), #6d28d9);
+      background-color: #5b21b6;
+      background-image: linear-gradient(135deg, #6d28d9, #4c1d95);
       color: #fff;
       text-decoration: none;
       padding: 15px 28px;
@@ -775,8 +777,9 @@
       position: absolute;
       top: -13px;
       right: 20px;
-      background: linear-gradient(135deg, var(--accent-violet), var(--accent-amber));
-      color: #06050c;
+      background-color: #f59e0b;
+      background-image: linear-gradient(135deg, #fbbf24, #f59e0b);
+      color: #0b1f3a;
       font-family: var(--font-mono);
       font-weight: 800;
       font-size: 0.73rem;
@@ -838,7 +841,8 @@
     }
 
     .btn-checkout-primary {
-      background: linear-gradient(135deg, var(--accent-violet), #6d28d9);
+      background-color: #5b21b6;
+      background-image: linear-gradient(135deg, #6d28d9, #4c1d95);
       color: #fff;
       box-shadow: 0 6px 20px var(--glow-violet);
     }
@@ -857,7 +861,7 @@
 
     .seo-link-card {
       display: block;
-      background: rgba(20, 15, 38, 0.85);
+      background: #141026;
       border: 1px solid var(--border-color);
       border-radius: 10px;
       padding: 12px 14px;
@@ -960,9 +964,9 @@
     }
     .jp-preset-btn:hover,
     .jp-preset-btn.active {
-      background: var(--accent-violet);
+      background: #5b21b6;
       color: #ffffff !important;
-      border-color: var(--accent-violet);
+      border-color: #6d28d9;
     }
 
     /* 2. Visual Price Range Thermometer Bar */
@@ -1075,9 +1079,14 @@
        ========================================================================== */
     html[data-jp-theme="light"] {
       --bg-primary: #f8fafc; --bg-secondary: #ffffff; --bg-card: #ffffff; --bg-elevated: #f1f5f9;
-      --text-primary: #0f172a; --text-secondary: #334155; --text-muted: #64748b;
-      --border-color: #e2e8f0;
+      --text-primary: #0f172a; --text-secondary: #334155; --text-muted: #334155; --text-sub: #334155;
+      --border-color: #cbd5e1;
+      --accent-amber: #92400e;
     }
+    html[data-jp-theme="light"] .bg-gamma { background: #ede9fe !important; color: #4c1d95 !important; border: 1px solid #8b5cf6 !important; }
+    html[data-jp-theme="light"] .bg-whale { background: #fef3c7 !important; color: #78350f !important; border: 1px solid #d97706 !important; }
+    html[data-jp-theme="light"] .bg-pead  { background: #d1fae5 !important; color: #064e3b !important; border: 1px solid #059669 !important; }
+    html[data-jp-theme="light"] .bg-risk  { background: #ffe4e6 !important; color: #881337 !important; border: 1px solid #e11d48 !important; }
     html[data-jp-theme="light"] body {
       background-color: var(--bg-dark);
       background-image: linear-gradient(180deg, #eef2f9 0%, #f1f5f9 320px);
@@ -1414,6 +1423,49 @@
       color: #0b1f3a !important;
       border-color: #94a3b8 !important;
     }
+
+    html[data-jp-theme="light"] footer .brand-logo {
+      color: #ffffff !important;
+    }
+
+    html[data-jp-theme="light"] footer p {
+      color: #e2e8f0 !important;
+    }
+
+    html[data-jp-theme="light"] footer a {
+      color: #93c5fd !important;
+    }
+
+    html[data-jp-theme="light"] footer button {
+      color: #fde68a !important;
+    }
+
+    html[data-jp-theme="light"] table.comp-table th a {
+      color: #7dd3fc !important;
+    }
+
+    html[data-jp-theme="light"] #gbJpLegalModal h3 {
+      color: #fde68a !important;
+    }
+
+    html[data-jp-theme="light"] #gbCheckoutSuccessModal h3 {
+      color: #34d399 !important;
+    }
+
+    html[data-jp-theme="light"] #gbPlainEnglishActionBox.is-avoid {
+      background: #ffe4e6 !important;
+      border: 2px solid #e11d48 !important;
+    }
+
+    html[data-jp-theme="light"] #gbPlainEnglishActionBox.is-avoid #gbPlainActionTitle {
+      color: #881337 !important;
+    }
+
+    html[data-jp-theme="light"] #gbPlainEnglishActionBox.is-avoid #gbPlainRewardBadge {
+      background: #fecdd3 !important;
+      color: #881337 !important;
+      border: 1px solid #e11d48 !important;
+    }
   </style>
 </head>
 <body>
@@ -1694,7 +1746,7 @@
 
         <!-- 市場切り替えタブ (#radarMarketTabs) -->
         <div style="display:flex; gap:6px; padding:6px 14px; background:rgba(0,0,0,0.3); border-bottom:1px solid var(--border-color); flex-wrap:wrap; align-items:center;">
-          <span style="font-size:0.74rem; color:var(--text-sub); font-weight:800;">スキャナー市場:</span>
+          <span style="font-size:0.74rem; color:#e2e8f0; font-weight:800;">スキャナー市場:</span>
           <button type="button" id="btnRadarMarketTse" class="jp-preset-btn" onclick="switchRadarMarket('tse', this)">🇯🇵 東証プライム・日本株 (TSE Prime)</button>
           <button type="button" id="btnRadarMarketUs" class="jp-preset-btn active" onclick="switchRadarMarket('us', this)">🇺🇸 米国株・新NISA成長枠 (US Tech)</button>
         </div>
@@ -1958,7 +2010,7 @@
           <tr>
             <th>比較項目</th>
             <th>一般的な個人向けチャートツール</th>
-            <th>マクロ・半導体サイクル端末 (<a href="https://truthofmarket.com/?utm_source=getbreakai&utm_medium=comp_table" target="_blank" rel="noopener" style="color:var(--accent-sky); text-decoration:underline;">TruthOfMarket.com ↗</a>)</th>
+            <th>マクロ・半導体サイクル端末 (<a href="https://truthofmarket.com/?utm_source=getbreakai&utm_medium=comp_table" target="_blank" rel="noopener" style="color:#7dd3fc; font-weight:800; text-decoration:underline;">TruthOfMarket.com ↗</a>)</th>
             <th>GetBreakAI (当サイト・日本語AI端末)</th>
           </tr>
         </thead>
@@ -1966,7 +2018,7 @@
           <tr>
             <td><strong>主なアルファ（収益源）</strong></td>
             <td>遅行するMACD・移動平均クロス</td>
-            <td><a href="https://truthofmarket.com/?utm_source=getbreakai&utm_medium=comp_table" target="_blank" rel="noopener" style="color:#cbd5e1; text-decoration:underline;">半導体恐怖強欲指数 ＆ 72銘柄PW-RSI底値反転</a></td>
+            <td><a href="https://truthofmarket.com/?utm_source=getbreakai&utm_medium=comp_table" target="_blank" rel="noopener" style="color:var(--accent-violet); font-weight:700; text-decoration:underline;">半導体恐怖強欲指数 ＆ 72銘柄PW-RSI底値反転</a></td>
             <td><strong>SEC 8-K/10-K日本語解読 ＋ Form-4役員買い ＋ オプションGamma Squeeze</strong></td>
           </tr>
           <tr>
@@ -2275,16 +2327,16 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
         <div class="feature-card" style="margin-top:20px; background:linear-gradient(135deg, rgba(14,165,233,0.14) 0%, rgba(99,102,241,0.12) 100%); border:1.5px solid rgba(56,189,248,0.55); border-radius:12px; padding:22px;">
           <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
             <div style="max-width:680px;">
-              <div style="font-family:var(--font-mono); font-size:0.75rem; color:#38bdf8; font-weight:800; margin-bottom:6px;">
+              <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--accent-sky); font-weight:800; margin-bottom:6px;">
                 ✈️ VIP特典 #4 · リアルタイムTELEGRAM通知連携 (@SemifearGreedbot)
               </div>
-              <h3 class="card-title" style="margin-bottom:8px; color:#fff;">
+              <h3 class="card-title" style="margin-bottom:8px; color:var(--text-main);">
                 リアルタイムTelegram通知連携 (@SemifearGreedbot)
               </h3>
               <p class="card-desc" style="margin-bottom:12px; font-size:0.86rem; color:var(--text-muted); line-height:1.55;">
                 新高値ブレイクアウト・大口ダークプール機関買い・オプションGamma Squeezeの発生をTelegram公式ボット <strong>@SemifearGreedbot</strong> があなたのスマホへ秒速プッシュ配信。チャートに張り付くことなく、エントリー＆利確・損切りラインを即座に把握できます。
               </p>
-              <div style="display:flex; gap:16px; flex-wrap:wrap; font-size:0.8rem; color:#e2e8f0; font-family:var(--font-mono);">
+              <div style="display:flex; gap:16px; flex-wrap:wrap; font-size:0.8rem; color:var(--text-main); font-weight:700; font-family:var(--font-mono);">
                 <span>✓ 日中ブレイクアウト点火通知</span>
                 <span>✓ 2.0x ATR損切り・2.5R利確アラート</span>
                 <span>✓ 新NISA成長枠・東証プライム＆米国株対応</span>
@@ -3202,6 +3254,7 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
         const badgeEl = document.getElementById('gbPlainRewardBadge');
         const stepsEl = document.getElementById('gbPlainActionSteps');
         if (box && titleEl && badgeEl && stepsEl) {
+          box.classList.remove('is-avoid');
           box.style.background = 'rgba(16,185,129,0.1)';
           box.style.borderColor = 'rgba(16,185,129,0.45)';
           titleEl.style.color = '#34d399';
@@ -3292,18 +3345,20 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
         const stepsEl = document.getElementById('gbPlainActionSteps');
         if (box && titleEl && badgeEl && stepsEl) {
           if (activeSym === 'SMCI' || d.isAvoid) {
+            box.classList.add('is-avoid');
             box.style.background = 'rgba(244,63,94,0.12)';
             box.style.borderColor = 'rgba(244,63,94,0.5)';
-            titleEl.style.color = '#fb7185';
+            titleEl.style.color = '#fda4af';
             titleEl.innerText = '🔴 エントリー禁止 / 会計リスク・ダークプール機関売り警告 (DO NOT BUY / AVOID)';
-            badgeEl.style.background = 'rgba(244,63,94,0.22)';
-            badgeEl.style.color = '#fda4af';
+            badgeEl.style.background = '#881337';
+            badgeEl.style.color = '#ffe4e6';
             badgeEl.innerText = '急落テールリスク警告';
             const savedLossUsd = Math.round(account * 0.12);
             stepsEl.innerHTML =
               '⚠️ <b>新規買い厳禁（資産防衛アラート）:</b> SEC 10-K/提出書類の会計監査リスクおよび<b>ダークプール機関投資家売り（67%）</b>が検出されました。<br>' +
               '💡 <b>見送りによる資金防衛効果:</b> 決算ギャンブルによる-35%暴落トラップを回避することで <b>$' + savedLossUsd.toLocaleString() + '（' + formatJpyMan(savedLossUsd) + '）以上</b> の損失を防ぎ、<b>$NVDA・$PLTR・$LLY</b> 等の機関買い銘柄へ資金を温存できます。';
           } else {
+            box.classList.remove('is-avoid');
             box.style.background = 'rgba(16,185,129,0.1)';
             box.style.borderColor = 'rgba(16,185,129,0.45)';
             titleEl.style.color = '#34d399';

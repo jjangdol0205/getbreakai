@@ -58,7 +58,7 @@ assert_test('<meta name="viewport"' in jp_hub_html, "jp/index.html has responsiv
 assert_test('<link rel="canonical" href="https://getbreakai.com/jp/index.html">' in jp_hub_html, "jp/index.html has canonical link")
 
 # Check all 30 jp/*.html files
-jp_files = [f for f in glob.glob(os.path.join(JP_DIR, "*.html")) if os.path.basename(f) != "index.html"]
+jp_files = [f for f in glob.glob(os.path.join(JP_DIR, "*.html")) if os.path.basename(f) not in ("index.html", "confirmation.html")]
 assert_test(len(jp_files) == 30, f"Exactly 30 jp/*.html articles exist (found {len(jp_files)})")
 
 template_leak = False

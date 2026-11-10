@@ -65,7 +65,25 @@ function buildDist() {
     }
   }
 
-  console.log(`[GetBreakAI Build] Synchronized ${copiedFiles} root files + [${DIRS_TO_COPY.join(', ')}] into ./dist`);
+  // Synchronize Shorts Manifests & Kits
+  const studioDir = path.join(ROOT_DIR, 'flow_shorts_studio');
+  const distStudio = path.join(DIST_DIR, 'flow_shorts_studio');
+  const distData = path.join(DIST_DIR, 'data');
+  const manifestSrc = path.join(studioDir, 'mastered_24_shorts_manifest.json');
+  if (fs.existsSync(manifestSrc)) {
+    fs.mkdirSync(distStudio, { recursive: true });
+    fs.mkdirSync(distData, { recursive: true });
+    fs.copyFileSync(manifestSrc, path.join(DIST_DIR, 'mastered_24_shorts_manifest.json'));
+    fs.copyFileSync(manifestSrc, path.join(distStudio, 'mastered_24_shorts_manifest.json'));
+    fs.copyFileSync(manifestSrc, path.join(distData, 'mastered_24_shorts_manifest.json'));
+  }
+  const kitSrc = path.join(studioDir, 'UPLOAD_COPY_PASTE_KIT_24EP.md');
+  if (fs.existsSync(kitSrc)) {
+    fs.mkdirSync(distStudio, { recursive: true });
+    fs.copyFileSync(kitSrc, path.join(distStudio, 'UPLOAD_COPY_PASTE_KIT_24EP.md'));
+  }
+
+  console.log(`[GetBreakAI Build] Synchronized ${copiedFiles} root files + [${DIRS_TO_COPY.join(', ')}] + shorts manifests into ./dist`);
 }
 
 buildDist();

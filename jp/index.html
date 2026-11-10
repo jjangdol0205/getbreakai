@@ -2,30 +2,478 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="google-site-verification" content="nAGlJMEUUPifbzSd8X4PCaBIyr3DtTwaa1a-q9zkbBc">
-  <meta name="google-site-verification" content="G99bl17UU6iKgNm5ndGcSWp0dHFpJ0MjJqBBp0Exfx0">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>米国株・新NISA 銘柄別AI日本語ディープリサーチ全30選 | GetBreakAI</title>
   <meta name="description" content="エヌビディア(NVDA)、パランティア(PLTR)、テスラ(TSLA)、イーライリリー(LLY)、SOXL、SMCIなど米国株30銘柄・テーマのSEC開示・インサイダー買い・Gamma Wall・ATR損切りライン解説一覧。">
   <link rel="canonical" href="https://getbreakai.com/jp/index.html">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <style>
-    body { background:#f4f6fa; color:#0f172a; font-family:'Noto Sans JP',sans-serif; line-height:1.7; margin:0; padding:0 0 60px; font-feature-settings: "palt" 1; }
-    .container { max-width:1100px; margin:0 auto; padding:24px 20px; }
-    .grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(310px, 1fr)); gap:16px; margin-top:24px; }
-    .grid a:hover { border-color:#1d4ed8 !important; transform:translateY(-2px); box-shadow:0 8px 20px rgba(29,78,216,0.12) !important; }
+    :root {
+      --text-main: #0b1f3a;
+      --text-muted: #334155;
+      --text-sub: #475569;
+      --accent-blue: #1d4ed8;
+      --accent-emerald: #065f46;
+      --accent-rose: #9f1239;
+      --accent-amber: #b45309;
+    }
+    * { box-sizing: border-box; }
+    html, body { max-width: 100%; overflow-x: hidden; }
+    body {
+      background: #f4f6fa;
+      color: #0f172a;
+      font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.7;
+      margin: 0;
+      padding: 0 0 60px;
+      font-feature-settings: "palt" 1;
+    }
+    .container { max-width: 1100px; margin: 0 auto; padding: 20px 16px; }
+    
+    /* Top Header */
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      border-bottom: 1px solid #cbd5e1;
+      padding-bottom: 14px;
+    }
+    .brand-link {
+      color: #0b1f3a;
+      font-weight: 900;
+      font-size: 1.15rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-top-main {
+      background: #1d4ed8;
+      color: #ffffff;
+      padding: 8px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 0.85rem;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    /* Conversion Hero & Trust Badge */
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      color: #1e40af;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      margin-top: 18px;
+    }
+    .hero-title {
+      margin-top: 12px;
+      font-size: clamp(1.4rem, 3.2vw, 1.95rem);
+      color: #0b1f3a;
+      font-weight: 900;
+      line-height: 1.35;
+    }
+    .hero-desc {
+      color: #334155;
+      font-size: 0.94rem;
+      line-height: 1.65;
+      margin-top: 8px;
+      margin-bottom: 20px;
+    }
+
+    /* 1-Sec Cut-Loss & Position Sizer Widget */
+    .calc-card {
+      background: #ffffff;
+      border: 2px solid #1d4ed8;
+      border-radius: 14px;
+      padding: 22px 18px;
+      box-shadow: 0 8px 24px rgba(29, 78, 216, 0.08);
+      margin-bottom: 24px;
+    }
+    .calc-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .calc-title {
+      font-size: 1.12rem;
+      font-weight: 900;
+      color: #0b1f3a;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .calc-pill-risk {
+      background: #ecfdf5;
+      color: #065f46;
+      border: 1px solid #a7f3d0;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+    
+    /* Preset Tickers Bar */
+    .preset-bar {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+    .preset-chip {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      color: #0b1f3a;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      cursor: pointer;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      transition: all 0.15s ease;
+    }
+    .preset-chip.active {
+      background: #1d4ed8;
+      color: #ffffff;
+      border-color: #1e40af;
+    }
+
+    /* Slider Controls */
+    .slider-group {
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 14px;
+    }
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: #334155;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .slider-header strong {
+      color: #b45309;
+      font-family: monospace;
+      font-size: 0.95rem;
+    }
+    input[type=range] {
+      width: 100%;
+      height: 36px;
+      accent-color: #1d4ed8;
+      cursor: pointer;
+    }
+
+    /* Preset Capital Buttons */
+    .capital-pills {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+    .cap-btn {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      color: #334155;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+    }
+    .cap-btn.active {
+      background: #0b1f3a;
+      color: #ffffff;
+      border-color: #0b1f3a;
+    }
+
+    /* 3 Result Output Cards */
+    .calc-outputs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .out-card {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 12px 14px;
+    }
+    .out-label {
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: #475569;
+      margin-bottom: 4px;
+    }
+    .out-val {
+      font-size: 1.15rem;
+      font-weight: 900;
+      font-family: monospace;
+    }
+    .val-emerald { color: #065f46; }
+    .val-rose { color: #9f1239; }
+    .val-amber { color: #b45309; }
+
+    /* Defense Comparison Card ($29/mo vs -¥185,000) */
+    .defense-card {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 14px;
+      padding: 22px 18px;
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
+      margin-bottom: 28px;
+    }
+    .defense-title {
+      font-size: 1.12rem;
+      font-weight: 900;
+      color: #0b1f3a;
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+    .defense-subtitle {
+      font-size: 0.88rem;
+      color: #475569;
+      margin-bottom: 16px;
+    }
+    .comp-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    @media (max-width: 640px) {
+      .comp-grid { grid-template-columns: 1fr; }
+    }
+    .box-bad {
+      background: #fff1f2;
+      border: 1.5px solid #fecdd3;
+      border-radius: 10px;
+      padding: 16px;
+    }
+    .box-bad h4 {
+      color: #9f1239;
+      font-size: 0.95rem;
+      margin: 0 0 8px;
+      font-weight: 900;
+    }
+    .box-bad .loss-num {
+      font-size: 1.45rem;
+      font-weight: 900;
+      color: #9f1239;
+      font-family: monospace;
+    }
+    .box-good {
+      background: #ecfdf5;
+      border: 2px solid #10b981;
+      border-radius: 10px;
+      padding: 16px;
+    }
+    .box-good h4 {
+      color: #065f46;
+      font-size: 0.95rem;
+      margin: 0 0 8px;
+      font-weight: 900;
+    }
+    .box-good .gain-num {
+      font-size: 1.45rem;
+      font-weight: 900;
+      color: #065f46;
+      font-family: monospace;
+    }
+
+    /* Primary Checkout CTA */
+    .cta-container {
+      text-align: center;
+      margin-top: 14px;
+    }
+    .btn-checkout-primary {
+      background: linear-gradient(135deg, #1d4ed8, #1e3a8a);
+      color: #ffffff !important;
+      text-decoration: none;
+      padding: 16px 24px;
+      border-radius: 10px;
+      font-size: 1.05rem;
+      font-weight: 900;
+      display: block;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 6px 20px rgba(29, 78, 216, 0.25);
+      transition: transform 0.15s ease;
+      min-height: 52px;
+    }
+    .btn-checkout-primary:hover {
+      transform: translateY(-2px);
+    }
+    .cta-subnote {
+      font-size: 0.76rem;
+      color: #475569;
+      margin-top: 8px;
+      line-height: 1.5;
+    }
+
+    /* 30 Research Articles Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .grid a:hover {
+      border-color: #1d4ed8 !important;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(29, 78, 216, 0.12) !important;
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; border-bottom:1px solid #cbd5e1; padding-bottom:16px;">
-      <a href="https://getbreakai.com/" style="color:#0b1f3a; font-weight:900; font-size:1.25rem; text-decoration:none;">⚡ GetBreakAI 米国株・新NISA AIターミナル</a>
-      <a href="https://getbreakai.com/#radar" style="background:#1d4ed8; color:#ffffff; padding:9px 18px; border-radius:8px; text-decoration:none; font-weight:800;">🎯 メインATR計算機へ戻る →</a>
+    <!-- Top Navigation Header -->
+    <div class="top-nav">
+      <a href="https://getbreakai.com/" class="brand-link">
+        ⚡ GetBreakAI 米国株・新NISA AIターミナル
+      </a>
+      <a href="https://getbreakai.com/#radar" class="btn-top-main">
+        🎯 メインATR計算機へ戻る →
+      </a>
     </div>
-    <h1 style="margin-top:24px; font-size:1.8rem; color:#0b1f3a;">📚 米国株・新NISA 銘柄別AI日本語ディープリサーチ全30選（2026-11-09 最新版）</h1>
-    <p style="color:#334155; font-size:0.95rem;">SEC 8-K決算・契約開示、Form-4経営陣インサイダー買い、オプションGamma Wall(GEX)、2.0x ATR損切りライン＆適正株数を完全網羅。</p>
-    <div class="grid">
-      <a href="/jp/nvda-sec-gamma-atr-analysis.html" style="display:block; background:#ffffff; border:1.5px solid #cbd5e1; border-radius:12px; padding:18px; color:#0f172a; text-decoration:none; box-shadow:0 4px 12px rgba(15,23,42,0.04); transition:all 0.18s ease;"><div style="font-family:monospace; font-size:0.76rem; color:#b45309; font-weight:700; margin-bottom:4px;">$NVDA · AIスコア 93.5/100</div><div style="font-weight:800; font-size:0.98rem; margin-bottom:6px; color:#0b1f3a;">エヌビディア(NVDA) 決算・SEC開示・ガンマスクイーズAI解析とATR損切りライン</div><div style="font-size:0.85rem; color:#475569; line-height:1.6;">次世代Blackwellデータセンター需要・ソブリンAI契約(SEC 8-K)・Call/Put比率3.2倍のGamma Wall突破</div></a>
+
+    <!-- Conversion Hero Header -->
+    <div class="hero-badge">
+      ⚡ 東証プライム・米国株 新NISA専用 · 機関投資家クオンツ防衛
+    </div>
+    <h1 class="hero-title">
+      塩漬け・大損を1秒で撲滅。<br>米国株・新NISA「2.0x ATR損切り ＆ 適正株数」計算機
+    </h1>
+    <p class="hero-desc">
+      ウォール街の機関投資家と同じ「口座リスク1.5%限定」ルールを即座に適用。感情的な塩漬けや一撃の大損を防ぎ、ドル($)と日本円(¥)で適正エントリー株数を瞬時に算出します。
+    </p>
+
+    <!-- ⚡ 1秒 損切り・適正株数 計算機 -->
+    <div class="calc-card" id="jpQuickCalcSection">
+      <div class="calc-header">
+        <div class="calc-title">
+          <span>⚡ 1秒 損切り・適正株数 計算機（ドル $ / 日本円 ¥ 同時換算）</span>
+        </div>
+        <div class="calc-pill-risk">
+          🛡️ 最大許容リスク: 口座資金の1.5%に固定ロック
+        </div>
+      </div>
+
+      <!-- Quick Ticker Presets -->
+      <div style="font-size:0.76rem; font-weight:700; color:#475569; margin-bottom:6px;">
+        👇 対象銘柄をワンタップ選択（自動で株価とボラティリティが反映されます）:
+      </div>
+      <div class="preset-bar">
+        <button type="button" class="preset-chip active" onclick="setQuickStock('NVDA', 186.64, 8.02, this)">エヌビディア (NVDA)</button>
+        <button type="button" class="preset-chip" onclick="setQuickStock('TSLA', 325.50, 18.20, this)">テスラ (TSLA)</button>
+        <button type="button" class="preset-chip" onclick="setQuickStock('PLTR', 61.20, 3.45, this)">パランティア (PLTR)</button>
+        <button type="button" class="preset-chip" onclick="setQuickStock('SOXL', 38.50, 2.85, this)">SOXL (半導体3倍ブル)</button>
+        <button type="button" class="preset-chip" onclick="setQuickStock('8035', 178.67, 7.67, this, 26800, 1150)">東エレク (8035.T)</button>
+      </div>
+
+      <!-- Capital Slider Control -->
+      <div class="slider-group">
+        <div class="slider-header">
+          <span>運用資金（1ドル=150円換算）:</span>
+          <strong id="jpCalcAccLbl">$50,000 (約750.0万円)</strong>
+        </div>
+        <input type="range" id="jpCalcSlider" min="5000" max="250000" step="1000" value="50000" oninput="recalcJpQuickCalc()">
+        <div class="capital-pills">
+          <span style="font-size:0.72rem; color:#475569; align-self:center; font-weight:700;">ワンタップ資金:</span>
+          <button type="button" class="cap-btn" onclick="setQuickCapital(6700, this)">100万円</button>
+          <button type="button" class="cap-btn" onclick="setQuickCapital(20000, this)">300万円</button>
+          <button type="button" class="cap-btn" onclick="setQuickCapital(33300, this)">500万円</button>
+          <button type="button" class="cap-btn active" onclick="setQuickCapital(50000, this)">750万円 ($5万)</button>
+          <button type="button" class="cap-btn" onclick="setQuickCapital(66700, this)">1,000万円</button>
+          <button type="button" class="cap-btn" onclick="setQuickCapital(80000, this)">1,200万円 (新NISA枠)</button>
+        </div>
+      </div>
+
+      <!-- 3 Real-time Outputs -->
+      <div class="calc-outputs">
+        <div class="out-card">
+          <div class="out-label">推奨エントリー株数 (適正ポジション)</div>
+          <div id="jpOutShares" class="out-val val-amber">46株 ($8,585 / 約128.8万円)</div>
+        </div>
+        <div class="out-card">
+          <div class="out-label">🛑 2.0x ATR損切りライン / 許容損失額</div>
+          <div id="jpOutRisk" class="out-val val-rose">$170.60 (-$738 / -約11.1万円)</div>
+        </div>
+        <div class="out-card">
+          <div class="out-label">🎯 2.5R利確ターゲット / 期待利益</div>
+          <div id="jpOutGain" class="out-val val-emerald">$226.74 (+$1,845 / +約27.7万円)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🛡️ $29/mo vs -¥185,000 防衛比較カード -->
+    <div class="defense-card">
+      <div class="defense-title">
+        🛡️ なぜ月額$29 (約4,400円) は「コスト」ではなく「圧倒的な投資」なのか？
+      </div>
+      <div class="defense-subtitle">
+        感情に任せて1回損切りに失敗しただけで失う金額 vs クオンツ防衛ツール費用の比較
+      </div>
+
+      <div class="comp-grid">
+        <!-- 失敗ケース -->
+        <div class="box-bad">
+          <h4>❌ 自己流トレード（損切り遅れ・塩漬けの結末）</h4>
+          <div class="loss-num">-¥185,000</div>
+          <p style="font-size:0.83rem; color:#881337; line-height:1.6; margin:8px 0 0;">
+            「そのうち戻るだろう」と根拠のない期待でホールドし、-20%〜-30%の致命的大損に拡大。新NISAの非課税枠が何ヶ月も凍結され、精神的にも疲弊します。
+          </p>
+        </div>
+
+        <!-- GetBreakAI 防衛ケース -->
+        <div class="box-good">
+          <h4>✅ GetBreakAI クオンツ防衛（月額$29・約4,400円）</h4>
+          <div class="gain-num">+¥170,000 防衛</div>
+          <p style="font-size:0.83rem; color:#064e3b; line-height:1.6; margin:8px 0 0;">
+            2.0x ATRで許容損失を <b>-¥15,000</b> に機械的固定ロック！1回のトレードだけで <b>差額 +¥170,000 の自己資金を守り抜き、約42ヶ月分（3.5年分）のツール代を即座に回収</b> します。
+          </p>
+        </div>
+      </div>
+
+      <!-- Checkout CTA Button (Lemon Squeezy Store #296100 Live Variant gb-starter-29) -->
+      <div class="cta-container">
+        <a href="https://truthofmarket.lemonsqueezy.com/checkout/buy/gb-starter-29?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html" class="btn-checkout-primary">
+          ⚡ 今すぐ月額$29 (約4,400円・税込) で資産防衛を始める →
+        </a>
+        <div class="cta-subnote">
+          🔒 Lemon Squeezy Store #296100 安全決済（🍎 Apple Pay・Google Pay・JCB・Visa・Master・PayPal 対応 / いつでも1クリック解約可能）<br>
+          🎁 <b>購入特典</b>：姉妹ターミナル <b>TruthOfMarket.com (半導体恐怖強欲指数＆72銘柄PW-RSI)</b> のVIP権限も同時付与！
+        </div>
+      </div>
+    </div>
+
+    <!-- 📚 30選ディープリサーチ記事一覧 -->
+    <div style="border-top:1px solid #cbd5e1; padding-top:24px; margin-top:20px;">
+      <h2 style="font-size:1.45rem; color:#0b1f3a; margin-bottom:8px;">📚 米国株・新NISA 銘柄別AI日本語ディープリサーチ全30選（2026-11-10 最新版）</h2>
+      <p style="color:#334155; font-size:0.92rem; margin-bottom:16px;">SEC 8-K決算・契約開示、Form-4経営陣インサイダー買い、オプションGamma Wall(GEX)、2.0x ATR損切りライン＆適正株数を完全網羅。</p>
+      <div class="grid">
+        <a href="/jp/nvda-sec-gamma-atr-analysis.html" style="display:block; background:#ffffff; border:1.5px solid #cbd5e1; border-radius:12px; padding:18px; color:#0f172a; text-decoration:none; box-shadow:0 4px 12px rgba(15,23,42,0.04); transition:all 0.18s ease;"><div style="font-family:monospace; font-size:0.76rem; color:#b45309; font-weight:700; margin-bottom:4px;">$NVDA · AIスコア 93.5/100</div><div style="font-weight:800; font-size:0.98rem; margin-bottom:6px; color:#0b1f3a;">エヌビディア(NVDA) 決算・SEC開示・ガンマスクイーズAI解析とATR損切りライン</div><div style="font-size:0.85rem; color:#475569; line-height:1.6;">次世代Blackwellデータセンター需要・ソブリンAI契約(SEC 8-K)・Call/Put比率3.2倍のGamma Wall突破</div></a>
 <a href="/jp/pltr-insider-buying-analysis.html" style="display:block; background:#ffffff; border:1.5px solid #cbd5e1; border-radius:12px; padding:18px; color:#0f172a; text-decoration:none; box-shadow:0 4px 12px rgba(15,23,42,0.04); transition:all 0.18s ease;"><div style="font-family:monospace; font-size:0.76rem; color:#b45309; font-weight:700; margin-bottom:4px;">$PLTR · AIスコア 91.0/100</div><div style="font-weight:800; font-size:0.98rem; margin-bottom:6px; color:#0b1f3a;">パランティア(PLTR) SEC Form-4インサイダー動向・国防8-K契約とATR適正株数</div><div style="font-size:0.85rem; color:#475569; line-height:1.6;">米国防総省(DoD)大型AI契約(SEC 8-K)・民間AIP導入加速・ダークプール機関投資家ブロック買い64%</div></a>
 <a href="/jp/tsla-gamma-wall-swing-trade.html" style="display:block; background:#ffffff; border:1.5px solid #cbd5e1; border-radius:12px; padding:18px; color:#0f172a; text-decoration:none; box-shadow:0 4px 12px rgba(15,23,42,0.04); transition:all 0.18s ease;"><div style="font-family:monospace; font-size:0.76rem; color:#b45309; font-weight:700; margin-bottom:4px;">$TSLA · AIスコア 89.7/100</div><div style="font-weight:800; font-size:0.98rem; margin-bottom:6px; color:#0b1f3a;">テスラ(TSLA) オプションGamma Wall(GEX)・FSD触媒とスイング損切り戦略</div><div style="font-size:0.85rem; color:#475569; line-height:1.6;">0DTE・週次コールオプション集積によるディーラー強制デルタヘッジ買い(Gamma Squeeze)とFSD・ロボタクシー触媒</div></a>
 <a href="/jp/soxl-smh-semiconductor-timing.html" style="display:block; background:#ffffff; border:1.5px solid #cbd5e1; border-radius:12px; padding:18px; color:#0f172a; text-decoration:none; box-shadow:0 4px 12px rgba(15,23,42,0.04); transition:all 0.18s ease;"><div style="font-family:monospace; font-size:0.76rem; color:#b45309; font-weight:700; margin-bottom:4px;">$NVDA · AIスコア 88.0/100</div><div style="font-weight:800; font-size:0.98rem; margin-bottom:6px; color:#0b1f3a;">SOXL・SMH 半導体ETF3倍レバレッジのボラティリティ管理とATR撤退ルール</div><div style="font-size:0.85rem; color:#475569; line-height:1.6;">日本の米国株投資家に人気の半導体3倍ブルETF(SOXL)およびSMHにおける減価リスク回避・2.0x ATR機械的損切りとTruthOfMarket半導体恐怖強欲指数の併用術</div></a>
@@ -55,7 +503,64 @@
 <a href="/jp/dark-pool-whale-flow-reading.html" style="display:block; background:#ffffff; border:1.5px solid #cbd5e1; border-radius:12px; padding:18px; color:#0f172a; text-decoration:none; box-shadow:0 4px 12px rgba(15,23,42,0.04); transition:all 0.18s ease;"><div style="font-family:monospace; font-size:0.76rem; color:#b45309; font-weight:700; margin-bottom:4px;">$AVGO · AIスコア 88.4/100</div><div style="font-weight:800; font-size:0.98rem; margin-bottom:6px; color:#0b1f3a;">ダークプール(取引所外ブロック取引)とは？機関投資家の隠れた買い集めを見抜く技術</div><div style="font-size:0.85rem; color:#475569; line-height:1.6;">板情報（NYSE/NASDAQ）に自分の手口を見せたくない年金基金・ヘッジファンドが使うATS（ダークプール）比率60%超えシグナルの読み方</div></a>
 <a href="/jp/ai-datacenter-power-stocks-2026.html" style="display:block; background:#ffffff; border:1.5px solid #cbd5e1; border-radius:12px; padding:18px; color:#0f172a; text-decoration:none; box-shadow:0 4px 12px rgba(15,23,42,0.04); transition:all 0.18s ease;"><div style="font-family:monospace; font-size:0.76rem; color:#b45309; font-weight:700; margin-bottom:4px;">$VRT · AIスコア 88.1/100</div><div style="font-weight:800; font-size:0.98rem; margin-bottom:6px; color:#0b1f3a;">AIデータセンター電力・冷却インフラ関連米国株（VRT・CEG・AVGO）徹底比較</div><div style="font-size:0.85rem; color:#475569; line-height:1.6;">GPUの次に来るボトルネック「電力供給（原子力PPA）と液冷システム」で恩恵を受けるVRT・CEG・AVGOのSEC 8-K受注動向とATRリスクリワード比較</div></a>
 <a href="/jp/semiconductor-cycle-truthofmarket-guide.html" style="display:block; background:#ffffff; border:1.5px solid #cbd5e1; border-radius:12px; padding:18px; color:#0f172a; text-decoration:none; box-shadow:0 4px 12px rgba(15,23,42,0.04); transition:all 0.18s ease;"><div style="font-family:monospace; font-size:0.76rem; color:#b45309; font-weight:700; margin-bottom:4px;">$NVDA · AIスコア 93.5/100</div><div style="font-weight:800; font-size:0.98rem; margin-bottom:6px; color:#0b1f3a;">半導体サイクル投資×短期イベント投資：TruthOfMarketとGetBreakAIの最強併用術</div><div style="font-size:0.85rem; color:#475569; line-height:1.6;">60日サイクルの半導体恐怖強欲指数・PW-RSI底値スクリーナー(TruthOfMarket.com)で相場環境を判定し、短期SEC開示・Gamma Squeeze・ATR計算機(GetBreakAI.com)で精密エントリーする二刀流戦略</div></a>
+      </div>
     </div>
   </div>
+
+  <!-- Client-side Interactive Calculation Script -->
+  <script>
+    let activePrice = 186.64;
+    let activeAtr = 8.02;
+    let activeStopDist = activeAtr * 2.0;
+    const FX_RATE = 150.0;
+
+    function setQuickStock(ticker, price, atr, btnEl, jpyPrice, jpyAtr) {
+      document.querySelectorAll('.preset-chip').forEach(b => b.classList.remove('active'));
+      if (btnEl) btnEl.classList.add('active');
+      activePrice = price;
+      activeAtr = atr;
+      activeStopDist = atr * 2.0;
+      recalcJpQuickCalc();
+    }
+
+    function setQuickCapital(usdVal, btnEl) {
+      document.querySelectorAll('.cap-btn').forEach(b => b.classList.remove('active'));
+      if (btnEl) btnEl.classList.add('active');
+      document.getElementById('jpCalcSlider').value = usdVal;
+      recalcJpQuickCalc();
+    }
+
+    function recalcJpQuickCalc() {
+      const slider = document.getElementById('jpCalcSlider');
+      const accUsd = parseFloat(slider ? slider.value : 50000) || 50000;
+      const accJpyMan = (accUsd * FX_RATE / 10000).toFixed(1);
+      const accLbl = document.getElementById('jpCalcAccLbl');
+      if (accLbl) accLbl.innerText = '$' + accUsd.toLocaleString() + ' (約' + accJpyMan + '万円)';
+
+      const maxRisk = accUsd * 0.015;
+      const shares = Math.max(1, Math.min(Math.floor(maxRisk / activeStopDist), Math.floor(accUsd / activePrice)));
+      const notionalUsd = Math.round(shares * activePrice);
+      const notionalJpyMan = (notionalUsd * FX_RATE / 10000).toFixed(1);
+
+      const stopPrice = Math.max(0.01, activePrice - activeStopDist);
+      const riskUsd = Math.round(shares * activeStopDist);
+      const riskJpyMan = (riskUsd * FX_RATE / 10000).toFixed(1);
+
+      const targetPrice = activePrice + (activeStopDist * 2.5);
+      const gainUsd = Math.round(shares * (targetPrice - activePrice));
+      const gainJpyMan = (gainUsd * FX_RATE / 10000).toFixed(1);
+
+      const outShares = document.getElementById('jpOutShares');
+      const outRisk = document.getElementById('jpOutRisk');
+      const outGain = document.getElementById('jpOutGain');
+
+      if (outShares) outShares.innerText = shares + '株 ($' + notionalUsd.toLocaleString() + ' / 約' + notionalJpyMan + '万円)';
+      if (outRisk) outRisk.innerText = '$' + stopPrice.toFixed(2) + ' (-$' + riskUsd.toLocaleString() + ' / -約' + riskJpyMan + '万円)';
+      if (outGain) outGain.innerText = '$' + targetPrice.toFixed(2) + ' (+$' + gainUsd.toLocaleString() + ' / +約' + gainJpyMan + '万円)';
+    }
+
+    // Initial run on load
+    window.addEventListener('DOMContentLoaded', recalcJpQuickCalc);
+  </script>
 </body>
 </html>

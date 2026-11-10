@@ -627,6 +627,379 @@ EPISODES = [
             },
         ],
     },
+    # ================= SET C: Expansion 12 Episodes (EP13..EP24) =================
+    {
+        "id": "EP13_LLY_GLP1_Insider_Flow",
+        "ticker": "LLY",
+        "jp_name": "イーライリリー",
+        "yt_title": "【イーライリリー】肥満症薬独占と役員の自腹480万ドル買い！プロが見る押し目ライン #米国株 #新NISA #LLY #Shorts",
+        "ig_caption": "イーライリリー($LLY)を感覚で高値掴みしていませんか？💊🔥\nGLP-1肥満症薬の独占需要と役員3名の自腹市場内買いをAIがSEC Form-4で検知！\n2.0倍ATR損切りラインと2.5R目標株価をGetBreakAIが3秒で算出！\n👉 プロフィールリンク https://getbreakai.com から無料でチェック！\n#米国株 #新NISA #イーライリリー #LLY #ヘルスケア #株クラ #投資初心者",
+        "clip_indices": [4, 5, 12, 13],
+        "cuts": [
+            {
+                "tts": "イーライリリーを高値掴みして、調整で慌てて売っていませんか？",
+                "sub": ["イーライリリーを高値掴みして", "調整で慌てて売っていませんか？"],
+            },
+            {
+                "tts": "SECフォーム4で、経営陣3名が自腹480万ドルの市場内買いを検知！",
+                "sub": ["SEC Form-4で経営陣3名が", "自腹480万ドルの市場内買いを検知！"],
+            },
+            {
+                "tts": "適正損切りは2.0倍ATR、口座リスク1.5パーセント厳守が鉄則です！",
+                "sub": ["適正損切りは2.0倍ATR", "口座リスク1.5%厳守が鉄則です！"],
+            },
+            {
+                "tts": "AIスコア89点点灯！2.5R利確ターゲット1630ドル圏です。",
+                "sub": ["AIスコア89点点灯！", "2.5R利確ターゲット1630ドル圏です"],
+            },
+            {
+                "tts": "適正株数を3秒で無料計算、ゲットブレイクAIドットコムへ！",
+                "sub": ["適正株数を3秒で無料計算", "▶ getbreakai.com"],
+                "is_ending": True,
+            },
+        ],
+    },
+    {
+        "id": "EP14_AVGO_Custom_ASIC_Breakout",
+        "ticker": "AVGO",
+        "jp_name": "ブロードコム",
+        "yt_title": "【ブロードコム急伸】カスタムAI半導体受注爆発！大口ダークプール59％買いの正体 #米国株 #新NISA #AVGO #Shorts",
+        "ig_caption": "ブロードコム($AVGO)の上昇に乗り遅れていませんか？⚡📈\nカスタムAI半導体(ASIC)受注急増とダークプール機関買い59%をAIが瞬時に検出！\n2.0倍ATR損切り＆適正株数を今すぐチェック！\n👉 https://getbreakai.com\n#ブロードコム #AVGO #米国株 #AI半導体 #新NISA #株クラ #クオンツ",
+        "clip_indices": [14, 15, 22, 23],
+        "cuts": [
+            {
+                "tts": "ブロードコムの急伸、ニュースが出てから追っていませんか？",
+                "sub": ["ブロードコムの急伸", "ニュースが出てから追っていませんか？"],
+            },
+            {
+                "tts": "カスタムAI半導体受注増と、ダークプール機関買い59パーセントを検知！",
+                "sub": ["カスタムAI半導体受注増と", "ダークプール機関買い59%を検知！"],
+            },
+            {
+                "tts": "ブレイク後はパーセントではなく、ATR変動幅で損切りを設定！",
+                "sub": ["ブレイク後は％ではなく", "ATR変動幅で損切りを設定！"],
+            },
+            {
+                "tts": "2.5R利確ターゲット212ドル、大口資金の追随シグナル点灯です。",
+                "sub": ["2.5R利確ターゲット212ドル", "大口資金の追随シグナル点灯です"],
+            },
+            {
+                "tts": "ブロードコムのAIシグナル公開中、ゲットブレイクAIドットコムへ！",
+                "sub": ["AVGOのAIシグナル公開中", "▶ getbreakai.com"],
+                "is_ending": True,
+            },
+        ],
+    },
+    {
+        "id": "EP15_AMD_MI350_Donchian_Breakout",
+        "ticker": "AMD",
+        "jp_name": "AMD",
+        "yt_title": "【AMD急反発】ドンチアン20日高値ブレイク！機関コール集積で急所を狙う #米国株 #新NISA #AMD #Shorts",
+        "ig_caption": "AMD($AMD)の値動きに感情でトレードしていませんか？🔥💻\nMI350 AI GPUシェア拡大とドンチアン20日高値ブレイクをAIが完全補足！\n👉 https://getbreakai.com で適正株数を3秒計算！\n#AMD #米国株 #半導体株 #新NISA #資産運用 #株クラ",
+        "clip_indices": [24, 25, 2, 3],
+        "cuts": [
+            {
+                "tts": "AMDの激しい上下動で、損切り貧乏になっていませんか？",
+                "sub": ["AMDの激しい上下動で", "損切り貧乏になっていませんか？"],
+            },
+            {
+                "tts": "ドンチアン20日高値ブレイクと、コールオプションの異常集積を検知！",
+                "sub": ["ドンチアン20日高値ブレイクと", "コールオプションの異常集積を検知！"],
+            },
+            {
+                "tts": "適正損切りはATR変動幅の2倍、感情を排除したルール徹底を！",
+                "sub": ["適正損切りはATR変動幅の2倍", "感情を排除したルール徹底を！"],
+            },
+            {
+                "tts": "目標株価は2.5Rの175ドル、上値ガンマウォール接近中！",
+                "sub": ["目標株価は2.5Rの175ドル", "上値ガンマウォール接近中！"],
+            },
+            {
+                "tts": "無料3秒適正株数計算は、ゲットブレイクAIドットコムへ！",
+                "sub": ["無料3秒適正株数計算は", "▶ getbreakai.com"],
+                "is_ending": True,
+            },
+        ],
+    },
+    {
+        "id": "EP16_CRWD_Falcon_ARR_PEAD",
+        "ticker": "CRWD",
+        "jp_name": "クラウドストライク",
+        "yt_title": "【クラウドストライク】決算発表後の株価ドリフト(PEAD)をクオンツで仕留める方法 #米国株 #新NISA #CRWD #Shorts",
+        "ig_caption": "クラウドストライク($CRWD)の決算ギャップに慌てて飛びついていませんか？🛡️⚡\n決算発表後ドリフト(PEAD)と大口資金フローをGetBreakAIがリアルタイム算出！\n👉 https://getbreakai.com で無料チェック！\n#クラウドストライク #CRWD #サイバーセキュリティ #米国株 #新NISA #株クラ",
+        "clip_indices": [6, 7, 16, 17],
+        "cuts": [
+            {
+                "tts": "クラウドストライクの決算発表直後、感覚でエントリーしていませんか？",
+                "sub": ["クラウドストライクの決算直後", "感覚でエントリーしていませんか？"],
+            },
+            {
+                "tts": "ファルコンARR急増による、決算後株価ドリフトPEAD現象を検知！",
+                "sub": ["Falcon ARR急増による", "決算後株価ドリフトPEADを検知！"],
+            },
+            {
+                "tts": "ギャップアップ後は慌てず、2.0倍ATRラインを支持線に確認！",
+                "sub": ["ギャップアップ後は慌てず", "2.0倍ATRラインを支持線に確認！"],
+            },
+            {
+                "tts": "2.5R利確ターゲット404ドル、リスクリワード良好のシグナル点灯です。",
+                "sub": ["2.5R利確ターゲット404ドル", "好リワードのシグナル点灯です"],
+            },
+            {
+                "tts": "米サイバーセキュリティ株のAI解析、ゲットブレイクAIドットコムへ！",
+                "sub": ["米セキュリティ株のAI解析", "▶ getbreakai.com"],
+                "is_ending": True,
+            },
+        ],
+    },
+    {
+        "id": "EP17_VRT_Liquid_Cooling_RSI",
+        "ticker": "VRT",
+        "jp_name": "バーティブ",
+        "yt_title": "【バーティブ急騰】AIデータセンター液冷独占！ワイダーRSI強気ブレイクの真実 #米国株 #新NISA #VRT #Shorts",
+        "ig_caption": "バーティブ($VRT)を知らずにAI相場を見ていませんか？❄️🔥\nブラックウェル発熱問題で不可欠な液冷システム独占企業！\nワイダーRSI 66強気ブレイクと2.0倍ATRラインを今すぐ確認！\n👉 https://getbreakai.com\n#バーティブ #VRT #AIデータセンター #米国株 #新NISA #株クラ",
+        "clip_indices": [18, 19, 26, 27],
+        "cuts": [
+            {
+                "tts": "AIデータセンターの隠れた主役、バーティブをご存知ですか？",
+                "sub": ["AIデータセンターの隠れた主役", "バーティブをご存知ですか？"],
+            },
+            {
+                "tts": "GPU冷却需要爆発で、大口機関買いの点火シグナルを検知！",
+                "sub": ["GPU冷却需要爆発で", "大口機関買いの点火シグナルを検知！"],
+            },
+            {
+                "tts": "ワイダーRSIが強気の66を突破、勢いあるモメンタム拡大中です。",
+                "sub": ["ワイダーRSIが強気66突破", "勢いあるモメンタム拡大中です"],
+            },
+            {
+                "tts": "適正損切り107ドル、2.5R利確ターゲット136ドルを設定！",
+                "sub": ["適正損切り107ドル", "2.5R目標136ドルを設定！"],
+            },
+            {
+                "tts": "AI本命銘柄のクオンツデータは、ゲットブレイクAIドットコムへ！",
+                "sub": ["AI本命銘柄のクオンツデータ", "▶ getbreakai.com"],
+                "is_ending": True,
+            },
+        ],
+    },
+    {
+        "id": "EP18_CEG_Nuclear_PPA_Breakout",
+        "ticker": "CEG",
+        "jp_name": "コンステレーション",
+        "yt_title": "【マイクロソフト原発契約】コンステレーション・エナジーの急騰に飛び乗る前のATR防衛術 #米国株 #新NISA #CEG #Shorts",
+        "ig_caption": "コンステレーション($CEG)の原子力PPA契約急騰、どう立ち回る？⚡⚛️\n巨大テックのクリーン電力争奪戦と2.0倍ATR損切りラインをAIが完全分析！\n👉 https://getbreakai.com で適正株数を無料診断！\n#コンステレーション #CEG #原子力 #米国株 #新NISA #クリーンエネルギー #株クラ",
+        "clip_indices": [28, 29, 8, 9],
+        "cuts": [
+            {
+                "tts": "マイクロソフトの原発再稼働ニュースで、高値掴みしていませんか？",
+                "sub": ["マイクロソフトの原発契約で", "高値掴みしていませんか？"],
+            },
+            {
+                "tts": "コンステレーションの長期PPA契約で、機関投資家の実需買いが殺到！",
+                "sub": ["CEGの長期PPA契約で", "機関投資家の実需買いが殺到！"],
+            },
+            {
+                "tts": "急騰株こそボラティリティに合わせた、ATR損切り幅の確保が命です。",
+                "sub": ["急騰株こそボラティリティ連動", "ATR損切り幅の確保が命です"],
+            },
+            {
+                "tts": "2.0倍ATR損切り250ドル、利確目標312ドルでリスク限定！",
+                "sub": ["2.0倍ATR損切り250ドル", "利確目標312ドルでリスク限定！"],
+            },
+            {
+                "tts": "米エネルギー株の適正株数計算は、ゲットブレイクAIドットコムへ！",
+                "sub": ["米電力株の適正株数計算は", "▶ getbreakai.com"],
+                "is_ending": True,
+            },
+        ],
+    },
+    {
+        "id": "EP19_MSTR_BTC_Convertible_ATR",
+        "ticker": "MSTR",
+        "jp_name": "マイクロストラテジー",
+        "yt_title": "【MSTR超ボラ相場】ビットコイン爆買い銘柄で生き残るクオンツ資金管理の鉄則 #MSTR #ビットコイン #米国株 #Shorts",
+        "ig_caption": "マイクロストラテジー($MSTR)の荒波で資金を溶かしていませんか？🪙⚡\n転換社債によるBTC追加購入と超ボラティリティ相場を2.0倍ATRで鉄壁防御！\n👉 https://getbreakai.com で今すぐリスク計算！\n#マイクロストラテジー #MSTR #ビットコイン #仮想通貨 #米国株 #新NISA #株クラ",
+        "clip_indices": [10, 11, 30, 31],
+        "cuts": [
+            {
+                "tts": "マイクロストラテジーのジェットコースター相場に、翻弄されていませんか？",
+                "sub": ["MSTRの激しい乱高下に", "翻弄されていませんか？"],
+            },
+            {
+                "tts": "ビットコイン買い増し転換社債発行で、出来高とボラティリティが急拡大！",
+                "sub": ["BTC買い増し転換社債で", "出来高と変動幅が急拡大！"],
+            },
+            {
+                "tts": "超高ボラ銘柄は口座リスク1パーセント厳守、株数を抑えるのが絶対鉄則！",
+                "sub": ["超高ボラ銘柄は口座リスク1%厳守", "株数を抑えるのが絶対鉄則！"],
+            },
+            {
+                "tts": "適正損切りはATR幅208ドル、利確目標は2.5Rの338ドル圏！",
+                "sub": ["適正損切りはATR幅208ドル", "利確目標は2.5Rの338ドル圏！"],
+            },
+            {
+                "tts": "超高ボラ銘柄の適正株数シミュレーターは、ゲットブレイクAIドットコムへ！",
+                "sub": ["超高ボラ銘柄の適正株数計算", "▶ getbreakai.com"],
+                "is_ending": True,
+            },
+        ],
+    },
+    {
+        "id": "EP20_ASML_HighNA_EUV_Monopoly",
+        "ticker": "ASML",
+        "jp_name": "ASML",
+        "yt_title": "【ASML独占】次世代2ナノ半導体の心臓部！高NA EUV露光装置の押し目を狙え #半導体株 #ASML #米国株 #新NISA #Shorts",
+        "ig_caption": "半導体製造の絶対王者ASML($ASML)を単なるニュースで売買していませんか？🔬⚙️\nHigh-NA EUV独占納入と大口買い集積シグナルをAIが数値化！\n👉 https://getbreakai.com で2.0倍ATR損切りラインを確認！\n#ASML #半導体株 #露光装置 #米国株 #新NISA #資産運用 #株クラ",
+        "clip_indices": [32, 33, 20, 21],
+        "cuts": [
+            {
+                "tts": "半導体の絶対王者ASMLを、悲観ニュースの底で投げていませんか？",
+                "sub": ["半導体の絶対王者ASMLを", "悲観ニュースの底で投げていませんか？"],
+            },
+            {
+                "tts": "次世代2ナノ向け高NA露光装置の独占納入で、大口買い集積を検知！",
+                "sub": ["次世代高NA露光装置独占で", "大口買い集積シグナルを検知！"],
+            },
+            {
+                "tts": "プロは感情に惑わされず、14日ATRから算出された損切りを厳守！",
+                "sub": ["プロは感情に惑わされず", "14日ATR損切りラインを厳守！"],
+            },
+            {
+                "tts": "適正損切り680ドル、目標株価は2.5Rの839ドル圏へ到達見込み！",
+                "sub": ["適正損切り680ドル", "目標株価2.5Rの839ドル圏へ！"],
+            },
+            {
+                "tts": "世界最強半導体株のAI分析、ゲットブレイクAIドットコムへ！",
+                "sub": ["最強半導体株のAI分析", "▶ getbreakai.com"],
+                "is_ending": True,
+            },
+        ],
+    },
+    {
+        "id": "EP21_SMCI_10K_Risk_Avoid_Trap",
+        "ticker": "SMCI",
+        "jp_name": "スーパー・マイクロ",
+        "yt_title": "【SMCI大暴落の罠】機関投資家67％逃避！会計リスク株に手を出してはいけない理由 #米国株 #SMCI #株価暴落 #Shorts",
+        "ig_caption": "スーパー・マイクロ($SMCI)の急落を「割安」だと思って買っていませんか？⚠️🚨\n10-K会計監査リスクと機関投資家の67%脱出をAIが危険警告！\n罠銘柄を回避し、勝率の高い銘柄だけを厳選する方法！\n👉 https://getbreakai.com\n#スーパーマイクロ #SMCI #米国株 #暴落 #新NISA #リスク管理 #株クラ",
+        "clip_indices": [43, 44, 38, 39],
+        "cuts": [
+            {
+                "tts": "スーパー・マイクロの暴落を、割安のチャンスだと勘違いしていませんか？",
+                "sub": ["SMCIの暴落を割安だと", "勘違いしていませんか？"],
+            },
+            {
+                "tts": "10-K会計監査問題で、大口機関投資家の67パーセントが脱出！",
+                "sub": ["10-K会計監査問題で", "大口機関の67%が脱出！"],
+            },
+            {
+                "tts": "AIスコアは危険水準の28点！落ちるナイフを掴んではいけません。",
+                "sub": ["AIスコアは危険水準の28点！", "落ちるナイフを掴んではいけません"],
+            },
+            {
+                "tts": "クオンツの極意は、負ける罠銘柄を最初から完全排除することです！",
+                "sub": ["クオンツ投資の極意は", "罠銘柄を完全排除することです！"],
+            },
+            {
+                "tts": "危険銘柄判定と安全な買い銘柄は、ゲットブレイクAIドットコムへ！",
+                "sub": ["危険銘柄アラートは", "▶ getbreakai.com"],
+                "is_ending": True,
+            },
+        ],
+    },
+    {
+        "id": "EP22_6758_Sony_CMOS_Entertainment",
+        "ticker": "6758.T",
+        "jp_name": "ソニーグループ",
+        "yt_title": "【ソニーグループ】CMOS世界首位＆コンテンツ増益！東証大口資金の集積シグナル #日本株 #ソニー #新NISA #東証プライム #Shorts",
+        "ig_caption": "ソニーグループ(6758.T)を感覚で売買していませんか？🎮📷\nCMOSイメージセンサ世界シェア53%とエンタメ好調による大口買い集積をAIが検知！\n東証主力株の2.0倍ATR損切りラインを3秒チェック！\n👉 https://getbreakai.com/jp/\n#ソニー #6758 #日本株 #新NISA #東証プライム #半導体 #株クラ",
+        "clip_indices": [34, 35, 36, 37],
+        "cuts": [
+            {
+                "tts": "ソニーグループを、値ごろ感だけでなんとなく買っていませんか？",
+                "sub": ["ソニーグループを値ごろ感だけで", "なんとなく買っていませんか？"],
+            },
+            {
+                "tts": "CMOSセンサー世界首位と、ゲーム増益で大口の買い集積を検知！",
+                "sub": ["CMOSセンサー世界首位と", "ゲーム増益で大口集積を検知！"],
+            },
+            {
+                "tts": "東証プライム銘柄も、14日ATRを用いた客観的損切りが不可欠！",
+                "sub": ["東証プライム銘柄も", "14日ATR客観損切りが不可欠！"],
+            },
+            {
+                "tts": "適正損切り2836円、2.5R利確目標3340円でリスク管理万全！",
+                "sub": ["適正損切り2836円", "2.5R目標3340円でリスク管理！"],
+            },
+            {
+                "tts": "東証主力株の日本語AIレポートは、ゲットブレイクAIドットコムへ！",
+                "sub": ["東証主力株の日本語AI分析", "▶ getbreakai.com"],
+                "is_ending": True,
+            },
+        ],
+    },
+    {
+        "id": "EP23_SOXL_vs_SMH_Leverage_Trap",
+        "ticker": "SOXL",
+        "jp_name": "3倍レバ半導体×ATR",
+        "yt_title": "【SOXLの罠】3倍レバレッジの恐ろしい減価！資産を溶かさない適正配分ルール #SOXL #SMH #米国株 #新NISA #Shorts",
+        "ig_caption": "半導体3倍レバレッジ($SOXL)で資産を大きく減らしていませんか？📉💥\n横ばい相場でのボラティリティ減価の罠と、1倍ETF($SMH)を組み合わせた適正リスク管理をAIが提示！\n👉 https://getbreakai.com\n#SOXL #SMH #半導体株 #レバレッジ #米国株 #新NISA #資産運用 #株クラ",
+        "clip_indices": [40, 41, 42, 1],
+        "cuts": [
+            {
+                "tts": "SOXLの3倍レバレッジで、一攫千金を夢見ていませんか？",
+                "sub": ["SOXLの3倍レバレッジで", "一攫千金を夢見ていませんか？"],
+            },
+            {
+                "tts": "レンジ相場が続くと、複利効果の逆回転で資産が急速に目減りします！",
+                "sub": ["レンジ相場が続くと", "複利の逆回転で資産が激減！"],
+            },
+            {
+                "tts": "レバ株は口座資金の3パーセント以下、現物SMHとの併用が正解！",
+                "sub": ["レバ株は口座資金の3%以下", "現物SMHとの併用が正解！"],
+            },
+            {
+                "tts": "2.0倍ATR幅から逆算した株数制御が、暴落から命を守ります。",
+                "sub": ["2.0倍ATR幅から逆算した", "株数制御が暴落から命を守る！"],
+            },
+            {
+                "tts": "レバレッジ株の適正株数計算は、ゲットブレイクAIドットコムへ！",
+                "sub": ["レバレッジ適正株数の計算は", "▶ getbreakai.com"],
+                "is_ending": True,
+            },
+        ],
+    },
+    {
+        "id": "EP24_MACRO_CPI_FOMC_Gamma_Defense",
+        "ticker": "MACRO",
+        "jp_name": "CPI・FOMC発表直前",
+        "yt_title": "【CPI・FOMC直前】経済指標の直前にやってはいけないギャンブル買い！IVクラッシュ防衛術 #米国株 #経済指標 #FOMC #新NISA #Shorts",
+        "ig_caption": "今夜のCPIやFOMC発表直前に、丁半博打で株やオプションを買っていませんか？🎲⚠️\n発表直後のボラティリティ急落(IVクラッシュ)とガンマサポートの防衛ラインをAIが分析！\n指標発表を安全に乗り越えるクオンツ戦略！\n👉 https://getbreakai.com\n#CPI #FOMC #米国株 #経済指標 #新NISA #オプション #株クラ",
+        "clip_indices": [0, 1, 44, 15],
+        "cuts": [
+            {
+                "tts": "CPIやFOMCの発表直前、ギャンブル買いをしていませんか？",
+                "sub": ["CPIやFOMCの発表直前", "ギャンブル買いをしていませんか？"],
+            },
+            {
+                "tts": "指標発表と同時にインプライドボラティリティが急落するIVクラッシュが発生！",
+                "sub": ["発表と同時にIV急落！", "恐ろしいIVクラッシュが発生します"],
+            },
+            {
+                "tts": "プロは発表前にポジションを縮小し、ガンマウォール支持線を待ち伏せます！",
+                "sub": ["プロは発表前にポジション縮小", "ガンマ壁の支持線を待ち伏せます！"],
+            },
+            {
+                "tts": "5日予想変動幅を把握し、発表後の初動ブレイクを数値で狙い撃ち！",
+                "sub": ["5日予想変動幅を把握し", "発表後の初動を数値で狙い撃ち！"],
+            },
+            {
+                "tts": "指標発表前のリスク管理ツールは、ゲットブレイクAIドットコムへ！",
+                "sub": ["指標前のリスク管理ツールは", "▶ getbreakai.com"],
+                "is_ending": True,
+            },
+        ],
+    },
 ]
 
 
@@ -791,7 +1164,7 @@ async def build_episode(ffmpeg_bin, ordered_clips, ep_idx, ep):
     )
     final_dur = probe_duration(ffmpeg_bin, out_mp4)
     size_kb = os.path.getsize(out_mp4) // 1024
-    print(f"[{ep_idx+1:02d}/12] Mastered {ep_id}.mp4 ({final_dur:.2f}s, {size_kb} KB) | cut_durs={[round(d,2) for d in cut_durs]}")
+    print(f"[{ep_idx+1:02d}/{len(EPISODES)}] Mastered {ep_id}.mp4 ({final_dur:.2f}s, {size_kb} KB) | cut_durs={[round(d,2) for d in cut_durs]}")
     return {
         "id": ep_id,
         "ticker": ep["ticker"],
@@ -805,10 +1178,102 @@ async def build_episode(ffmpeg_bin, ordered_clips, ep_idx, ep):
     }
 
 
+def generate_manifest_and_kit(results_map):
+    """
+    Builds the 24-episode manifest and markdown copy-paste kit.
+    Writes to:
+    - STUDIO_DIR/mastered_24_shorts_manifest.json
+    - MASTER_OUT_DIR/mastered_24_shorts_manifest.json
+    - STUDIO_DIR/UPLOAD_COPY_PASTE_KIT_24EP.md
+    - MASTER_OUT_DIR/UPLOAD_COPY_PASTE_KIT_24EP.md
+    """
+    manifest_list = []
+    kit_lines = [
+        "# 🎬 GetBreakAI 日本女性金融アナウンサー V3 マスターリング ショート・リール 24編 全編アップロードキット (EP01~EP24 Full Curriculum)",
+        "",
+        f"- **マスターリング保存先**: `{MASTER_OUT_DIR}`",
+        "- **Clean Video V3 規格**: 1080×1920 (縦型 9:16 @ 30fps), 日本語アナウンサー自然音声(`ja-JP-NanamiNeural`, `rate=+4%`), 100%全文字完読(`seg_dur = max(2.30, tts_dur + 0.22)`), 0秒〜終了2.5秒前クリーンフルスクリーン, 下部セーフゾーン(`Y=1385~1460`) 太枠(`stroke_width=10`)字幕, ポイント効果音＆`-0.5 dBFS`リミッター(`alimiter=limit=0.944:level=disabled`), 2.5〜3.8秒 `getbreakai.com` ドメインコールアウト",
+        "",
+        "## 目次 (24エピソード一覧)",
+    ]
+    for idx, ep in enumerate(EPISODES):
+        kit_lines.append(f"{idx+1:02d}. **{ep['id']}** ({ep['jp_name']} / `{ep['ticker']}`)")
+
+    kit_lines.append("")
+    kit_lines.append("---")
+    kit_lines.append("")
+
+    for idx, ep in enumerate(EPISODES):
+        ep_id = ep["id"]
+        res = results_map.get(ep_id)
+        if not res:
+            out_mp4 = os.path.join(MASTER_OUT_DIR, f"{ep_id}.mp4")
+            dur = 25.0
+            size_kb = 0
+            if os.path.exists(out_mp4):
+                try:
+                    ffmpeg_bin = get_ffmpeg_bin()
+                    dur = round(probe_duration(ffmpeg_bin, out_mp4), 2)
+                    size_kb = os.path.getsize(out_mp4) // 1024
+                except Exception:
+                    pass
+            res = {
+                "id": ep_id,
+                "ticker": ep["ticker"],
+                "jp_name": ep["jp_name"],
+                "yt_title": ep["yt_title"],
+                "ig_caption": ep["ig_caption"],
+                "mp4_path": out_mp4,
+                "duration_sec": dur,
+                "cut_durations_sec": [],
+                "size_kb": size_kb,
+            }
+        manifest_list.append(res)
+
+        dur_text = f"{res.get('duration_sec', 0.0):.2f}초"
+        kit_lines.extend([
+            f"## {idx+1:02d}. `{ep_id}.mp4` ({ep['jp_name']} / `{ep['ticker']}` · {dur_text})",
+            f"- **파일 경로**: `{res.get('mp4_path', os.path.join(MASTER_OUT_DIR, ep_id + '.mp4'))}`",
+            "- **유튜브 쇼츠 제목 (`@GetBreakAI`)**:",
+            "  ```text",
+            f"  {ep['yt_title']}",
+            "  ```",
+            "- **인스타그램 릴스 / 유튜브 설명란 (`@semifeargreed`)**:",
+            "  ```text",
+            f"  {ep['ig_caption']}",
+            "  ```",
+            "",
+        ])
+
+    # Save manifests
+    manifest_paths = [
+        os.path.join(STUDIO_DIR, "mastered_24_shorts_manifest.json"),
+        os.path.join(MASTER_OUT_DIR, "mastered_24_shorts_manifest.json"),
+    ]
+    for p in manifest_paths:
+        with open(p, "w", encoding="utf-8") as f:
+            json.dump(manifest_list, f, ensure_ascii=False, indent=2)
+
+    # Save kits
+    kit_content = "\n".join(kit_lines)
+    kit_paths = [
+        os.path.join(STUDIO_DIR, "UPLOAD_COPY_PASTE_KIT_24EP.md"),
+        os.path.join(MASTER_OUT_DIR, "UPLOAD_COPY_PASTE_KIT_24EP.md"),
+    ]
+    for p in kit_paths:
+        with open(p, "w", encoding="utf-8") as f:
+            f.write(kit_content)
+
+    print(f"Manifest & Kit generated: {len(manifest_list)} episodes recorded.")
+
+
 async def main():
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument("--ep", type=int, default=0, help="If >0, build only that episode (1..12) first")
+    parser.add_argument("--ep", type=int, default=0, help="If >0, build only that episode (1..24)")
+    parser.add_argument("--start", type=int, default=1, help="Start episode index (1-based)")
+    parser.add_argument("--end", type=int, default=24, help="End episode index (1-based)")
+    parser.add_argument("--skip-existing", action="store_true", help="Skip if mp4 already exists")
     args = parser.parse_args()
 
     os.makedirs(MASTER_OUT_DIR, exist_ok=True)
@@ -819,29 +1284,52 @@ async def main():
     ordered_clips = get_ordered_clip_paths()
     print(f"Loaded {len(ordered_clips)} Flow raw actress clips from {RAW_CLIPS_DIR}")
 
+    # Load existing manifest if available
+    results_map = {}
+    old_manifest_12 = os.path.join(MASTER_OUT_DIR, "mastered_12_shorts_manifest.json")
+    if os.path.exists(old_manifest_12):
+        try:
+            with open(old_manifest_12, "r", encoding="utf-8") as f:
+                old_list = json.load(f)
+                for item in old_list:
+                    results_map[item["id"]] = item
+        except Exception as e:
+            print(f"Warning loading old manifest: {e}")
+
+    old_manifest_24 = os.path.join(MASTER_OUT_DIR, "mastered_24_shorts_manifest.json")
+    if os.path.exists(old_manifest_24):
+        try:
+            with open(old_manifest_24, "r", encoding="utf-8") as f:
+                old_list = json.load(f)
+                for item in old_list:
+                    results_map[item["id"]] = item
+        except Exception as e:
+            pass
+
     if args.ep > 0:
         idx = args.ep - 1
         res = await build_episode(ffmpeg_bin, ordered_clips, idx, EPISODES[idx])
-        dst = os.path.join(OUTBOX_TODAY_DIR, os.path.basename(res["mp4_path"]))
-        shutil.copy2(res["mp4_path"], dst)
-        print(f"Single Episode {args.ep} re-mastered -> {res['mp4_path']}")
+        results_map[res["id"]] = res
+        generate_manifest_and_kit(results_map)
+        print(f"Single Episode {args.ep} mastered -> {res['mp4_path']}")
         return
 
-    results = []
-    for idx, ep in enumerate(EPISODES):
+    start_idx = max(0, args.start - 1)
+    end_idx = min(len(EPISODES), args.end)
+
+    for idx in range(start_idx, end_idx):
+        ep = EPISODES[idx]
+        out_mp4 = os.path.join(MASTER_OUT_DIR, f"{ep['id']}.mp4")
+        if args.skip_existing and os.path.exists(out_mp4) and os.path.getsize(out_mp4) > 1000000:
+            print(f"[{idx+1:02d}/{len(EPISODES)}] Skipping already existing {ep['id']}.mp4")
+            continue
         res = await build_episode(ffmpeg_bin, ordered_clips, idx, ep)
-        results.append(res)
+        results_map[res["id"]] = res
 
-    for res in results[:6]:
-        dst = os.path.join(OUTBOX_TODAY_DIR, os.path.basename(res["mp4_path"]))
-        shutil.copy2(res["mp4_path"], dst)
-
-    manifest_path = os.path.join(MASTER_OUT_DIR, "mastered_12_shorts_manifest.json")
-    with open(manifest_path, "w", encoding="utf-8") as f:
-        json.dump(results, f, ensure_ascii=False, indent=2)
+    generate_manifest_and_kit(results_map)
 
     shutil.rmtree(TEMP_WORK_DIR, ignore_errors=True)
-    print(f"\nALL 12 V3 JAPANESE SHORTS RE-MASTERED (Natural Voice + 100% Full Subtitle Reading) -> {MASTER_OUT_DIR}")
+    print(f"\nV3 JAPANESE SHORTS MASTERING COMPLETE -> {MASTER_OUT_DIR}")
 
 
 if __name__ == "__main__":

@@ -180,12 +180,12 @@ test('Tier 1.1: Lemon Squeezy 3-Tier SaaS on Live Store #296100', () => {
 
   const plans = STORE_CONFIG.plans;
   assert.ok(plans.starter_monthly, 'Must configure starter_monthly ($29/mo)');
-  assert.equal(plans.starter_monthly.variantId, '9a7fe220-ad63-4119-a9f8-59e3d5fb978d');
+  assert.equal(plans.starter_monthly.variantId, 'd5e7e761-8b1b-4ca8-b1fe-771acd1450f8');
   assert.equal(plans.starter_monthly.priceUsd, 29);
   assert.equal(plans.starter_monthly.interval, 'month');
 
   assert.ok(plans.pro_annual, 'Must configure pro_annual ($199/yr · 43%OFF)');
-  assert.equal(plans.pro_annual.variantId, 'd01ca3fb-f4d9-4a13-b888-8b208f5ca6d3');
+  assert.equal(plans.pro_annual.variantId, '667aa482-f17c-47d1-b7f3-a2427c36516b');
   assert.equal(plans.pro_annual.priceUsd, 199);
   assert.equal(plans.pro_annual.interval, 'year');
 
@@ -194,11 +194,11 @@ test('Tier 1.1: Lemon Squeezy 3-Tier SaaS on Live Store #296100', () => {
 
   // 2. Verify index.html contains live UUID checkout buttons and zero broken 404 slugs
   const indexHtml = fs.readFileSync(INDEX_HTML_PATH, 'utf8');
-  assert.ok(indexHtml.includes('9a7fe220-ad63-4119-a9f8-59e3d5fb978d'));
-  assert.ok(indexHtml.includes('d01ca3fb-f4d9-4a13-b888-8b208f5ca6d3'));
+  assert.ok(indexHtml.includes('d5e7e761-8b1b-4ca8-b1fe-771acd1450f8'));
+  assert.ok(indexHtml.includes('667aa482-f17c-47d1-b7f3-a2427c36516b'));
   assert.ok(indexHtml.includes('mailto:beable9489@gmail.com'));
-  assert.ok(indexHtml.includes('truthofmarket.lemonsqueezy.com/checkout/buy/9a7fe220-ad63-4119-a9f8-59e3d5fb978d?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html'));
-  assert.ok(indexHtml.includes('truthofmarket.lemonsqueezy.com/checkout/buy/d01ca3fb-f4d9-4a13-b888-8b208f5ca6d3?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html'));
+  assert.ok(indexHtml.includes('truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html'));
+  assert.ok(indexHtml.includes('truthofmarket.lemonsqueezy.com/checkout/buy/667aa482-f17c-47d1-b7f3-a2427c36516b?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html'));
 
   // 3. Dynamic checkout URL generator
   const customCheckout = createCheckoutUrl('pro_annual', {
@@ -206,7 +206,7 @@ test('Tier 1.1: Lemon Squeezy 3-Tier SaaS on Live Store #296100', () => {
     userEmail: 'investor@firm.jp',
     redirectUrl: 'https://getbreakai.com/confirmation.html'
   });
-  assert.ok(customCheckout.includes('truthofmarket.lemonsqueezy.com/checkout/buy/d01ca3fb-f4d9-4a13-b888-8b208f5ca6d3'));
+  assert.ok(customCheckout.includes('truthofmarket.lemonsqueezy.com/checkout/buy/667aa482-f17c-47d1-b7f3-a2427c36516b'));
   assert.ok(customCheckout.includes('checkout%5Bcustom%5D%5Buser_id%5D=usr_8820'));
   assert.ok(customCheckout.includes('checkout%5Bemail%5D=investor%40firm.jp'));
   assert.ok(customCheckout.includes('checkout%5Bredirect_url%5D=https%3A%2F%2Fgetbreakai.com%2Fconfirmation.html'));
@@ -483,7 +483,7 @@ test('Tier 4.1: End-to-End User Conversion & VIP Onboarding Journey', () => {
     userEmail: 'investor@hedge-fund.co.jp',
     redirectUrl: 'https://getbreakai.com/confirmation.html'
   });
-  assert.ok(checkoutUrl.includes('d01ca3fb-f4d9-4a13-b888-8b208f5ca6d3'));
+  assert.ok(checkoutUrl.includes('667aa482-f17c-47d1-b7f3-a2427c36516b'));
   assert.ok(checkoutUrl.includes('truthofmarket.lemonsqueezy.com'));
   assert.ok(checkoutUrl.includes('https%3A%2F%2Fgetbreakai.com%2Fconfirmation.html'));
 

@@ -281,12 +281,12 @@ test('Suite 2.3: Fuzz test across 250 arbitrary capital and price/atr configurat
 test('Suite 3.1: dist/jp/index.html Lemon Squeezy checkout link and Store #296100 integrity', () => {
   const html = fs.readFileSync(DIST_JP_INDEX, 'utf8');
 
-  // Must contain live UUIDs 9a7fe220-ad63-4119-a9f8-59e3d5fb978d ($29/mo) & d01ca3fb-f4d9-4a13-b888-8b208f5ca6d3 ($199/yr)
-  assert.ok(html.includes('9a7fe220-ad63-4119-a9f8-59e3d5fb978d'), 'Must contain live $29/mo UUID');
-  assert.ok(html.includes('d01ca3fb-f4d9-4a13-b888-8b208f5ca6d3'), 'Must contain live $199/yr UUID');
+  // Must contain live UUIDs d5e7e761-8b1b-4ca8-b1fe-771acd1450f8 ($29/mo) & 667aa482-f17c-47d1-b7f3-a2427c36516b ($199/yr)
+  assert.ok(html.includes('d5e7e761-8b1b-4ca8-b1fe-771acd1450f8'), 'Must contain live $29/mo UUID');
+  assert.ok(html.includes('667aa482-f17c-47d1-b7f3-a2427c36516b'), 'Must contain live $199/yr UUID');
 
   // Must contain truthofmarket Lemon Squeezy store checkout URL with embed=1 and redirect_url
-  const expectedCheckoutPattern = /https:\/\/truthofmarket\.lemonsqueezy\.com\/checkout\/buy\/9a7fe220-ad63-4119-a9f8-59e3d5fb978d\?embed=1&checkout\[redirect_url\]=https:\/\/getbreakai\.com\/confirmation\.html/;
+  const expectedCheckoutPattern = /https:\/\/truthofmarket\.lemonsqueezy\.com\/checkout\/buy\/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8\?embed=1&checkout\[redirect_url\]=https:\/\/getbreakai\.com\/confirmation\.html/;
   assert.match(html, expectedCheckoutPattern, 'Must contain exact Lemon Squeezy checkout link with embed=1 and redirect_url');
 
   // Must contain Store #296100 trust mark
@@ -308,8 +308,8 @@ test('Suite 3.3: Root dist/index.html Store #296100 Live UUIDs integrity', () =>
   const rootHtml = fs.readFileSync(DIST_ROOT_INDEX, 'utf8');
 
   // Must contain live UUIDs + corporate inquiry
-  assert.ok(rootHtml.includes('9a7fe220-ad63-4119-a9f8-59e3d5fb978d'), 'Root index must include live $29/mo UUID');
-  assert.ok(rootHtml.includes('d01ca3fb-f4d9-4a13-b888-8b208f5ca6d3'), 'Root index must include live $199/yr UUID');
+  assert.ok(rootHtml.includes('d5e7e761-8b1b-4ca8-b1fe-771acd1450f8'), 'Root index must include live $29/mo UUID');
+  assert.ok(rootHtml.includes('667aa482-f17c-47d1-b7f3-a2427c36516b'), 'Root index must include live $199/yr UUID');
   assert.ok(rootHtml.includes('mailto:beable9489@gmail.com'), 'Root index must include corporate inquiry link');
 
   // Check pricing

@@ -44,10 +44,10 @@ test('STEP 2: Japanese 3x Checkout Conversion Boosters & Store #296100 Live Chec
   assert.ok(!html.includes('kidsfit.lemonsqueezy.com'), 'Must not contain kidsfit.lemonsqueezy.com');
   assert.ok(!html.includes('gb-starter-29') && !html.includes('gb-pro-49') && !html.includes('gb-inst-1499'), 'Must not contain broken 404 checkout slugs');
   assert.ok(!/telegram|t\.me|semifeargreedbot/i.test(html), 'Must contain ZERO Telegram/SemifearGreedbot references');
-  assert.ok(html.includes('9a7fe220-ad63-4119-a9f8-59e3d5fb978d'));
-  assert.ok(html.includes('d01ca3fb-f4d9-4a13-b888-8b208f5ca6d3'));
-  assert.ok(html.includes('https://truthofmarket.lemonsqueezy.com/checkout/buy/9a7fe220-ad63-4119-a9f8-59e3d5fb978d?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html'));
-  assert.ok(html.includes('https://truthofmarket.lemonsqueezy.com/checkout/buy/d01ca3fb-f4d9-4a13-b888-8b208f5ca6d3?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html'));
+  assert.ok(html.includes('d5e7e761-8b1b-4ca8-b1fe-771acd1450f8'));
+  assert.ok(html.includes('667aa482-f17c-47d1-b7f3-a2427c36516b'));
+  assert.ok(html.includes('https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html'));
+  assert.ok(html.includes('https://truthofmarket.lemonsqueezy.com/checkout/buy/667aa482-f17c-47d1-b7f3-a2427c36516b?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html'));
   assert.ok(html.includes('mailto:beable9489@gmail.com'));
   assert.ok(html.includes('$29'));
   assert.ok(html.includes('$199'));

@@ -247,16 +247,16 @@ def run_monetization_and_live_uuid_audit(results: EmpiricalAuditResults):
         jp_html = f.read()
 
     # 1. Live UUID checks in dist/index.html
-    results.check("9a7fe220-ad63-4119-a9f8-59e3d5fb978d" in root_html, "dist/index.html contains live UUID '9a7fe220-ad63-4119-a9f8-59e3d5fb978d'")
-    results.check("d01ca3fb-f4d9-4a13-b888-8b208f5ca6d3" in root_html, "dist/index.html contains live UUID 'd01ca3fb-f4d9-4a13-b888-8b208f5ca6d3'")
+    results.check("d5e7e761-8b1b-4ca8-b1fe-771acd1450f8" in root_html, "dist/index.html contains live UUID 'd5e7e761-8b1b-4ca8-b1fe-771acd1450f8'")
+    results.check("667aa482-f17c-47d1-b7f3-a2427c36516b" in root_html, "dist/index.html contains live UUID '667aa482-f17c-47d1-b7f3-a2427c36516b'")
     results.check("mailto:beable9489@gmail.com" in root_html, "dist/index.html contains corporate inquiry mailto:beable9489@gmail.com")
 
     # 2. Checkout URLs with embed=1
-    has_starter_embed = "checkout/buy/9a7fe220-ad63-4119-a9f8-59e3d5fb978d?embed=1" in root_html
+    has_starter_embed = "checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8?embed=1" in root_html
     results.check(has_starter_embed, "dist/index.html has $29/mo UUID embed=1 overlay link")
 
     # 3. Japanese Landing Page checkout and Store #296100 badges
-    results.check("9a7fe220-ad63-4119-a9f8-59e3d5fb978d" in jp_html, "dist/jp/index.html contains live UUID '9a7fe220-ad63-4119-a9f8-59e3d5fb978d'")
+    results.check("d5e7e761-8b1b-4ca8-b1fe-771acd1450f8" in jp_html, "dist/jp/index.html contains live UUID 'd5e7e761-8b1b-4ca8-b1fe-771acd1450f8'")
     results.check("296100" in jp_html, "dist/jp/index.html references Lemon Squeezy Store #296100 badge")
     results.check("1秒 損切り・適正株数 計算機" in jp_html, "dist/jp/index.html contains '⚡ 1秒 損切り・適正株数 計算機'")
     results.check("185,000" in jp_html, "dist/jp/index.html contains '-¥185,000' emotional loss defense comparison")

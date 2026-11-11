@@ -9,8 +9,8 @@
 const crypto = require('crypto');
 
 const CHECKOUT_URLS = {
-  monthly: 'https://truthofmarket.lemonsqueezy.com/checkout/buy/9a7fe220-ad63-4119-a9f8-59e3d5fb978d?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html',
-  annual: 'https://truthofmarket.lemonsqueezy.com/checkout/buy/d01ca3fb-f4d9-4a13-b888-8b208f5ca6d3?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html',
+  monthly: 'https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html',
+  annual: 'https://truthofmarket.lemonsqueezy.com/checkout/buy/667aa482-f17c-47d1-b7f3-a2427c36516b?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html',
   enterprise: 'mailto:beable9489@gmail.com'
 };
 
@@ -26,7 +26,7 @@ const STORE_CONFIG = {
       name: 'Starter Breakout Scanner ($29/月)',
       priceUsd: 29.00,
       interval: 'month',
-      variantId: '9a7fe220-ad63-4119-a9f8-59e3d5fb978d',
+      variantId: 'd5e7e761-8b1b-4ca8-b1fe-771acd1450f8',
       checkoutUrl: CHECKOUT_URLS.monthly,
       features: [
         'Daily Top 10 Breakout Scanner (TSE Prime & US Tech)',
@@ -41,7 +41,7 @@ const STORE_CONFIG = {
       name: 'Pro Institutional Annual Pass ($199/年 · 43%OFF)',
       priceUsd: 199.00,
       interval: 'year',
-      variantId: 'd01ca3fb-f4d9-4a13-b888-8b208f5ca6d3',
+      variantId: '667aa482-f17c-47d1-b7f3-a2427c36516b',
       checkoutUrl: CHECKOUT_URLS.annual,
       features: [
         'Real-time Intraday Ignition & SEC 8-K Alerts',

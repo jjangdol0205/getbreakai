@@ -243,7 +243,7 @@ it('generates valid checkout URLs containing custom parameters', () => {
     userId: 'usr_778899'
   });
 
-  assert(checkoutUrl.includes('d01ca3fb-f4d9-4a13-b888-8b208f5ca6d3'), 'Must contain live annual VIP variant UUID');
+  assert(checkoutUrl.includes('667aa482-f17c-47d1-b7f3-a2427c36516b'), 'Must contain live annual VIP variant UUID');
   assert(checkoutUrl.includes('embed=1'), 'Must include embed flag');
   assert(checkoutUrl.includes('checkout%5Bemail%5D=trader%40quantfund.com'), 'Must encode email');
   assert(checkoutUrl.includes('checkout%5Bcustom%5D%5Buser_id%5D=usr_778899'), 'Must encode custom user id');

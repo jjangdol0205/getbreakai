@@ -786,8 +786,8 @@ def build_hub_html(date_str, all_specs):
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <script>
     window.CHECKOUT_URLS = {{
-      monthly: 'https://truthofmarket.lemonsqueezy.com/checkout/buy/9a7fe220-ad63-4119-a9f8-59e3d5fb978d?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html',
-      annual: 'https://truthofmarket.lemonsqueezy.com/checkout/buy/d01ca3fb-f4d9-4a13-b888-8b208f5ca6d3?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html',
+      monthly: 'https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html',
+      annual: 'https://truthofmarket.lemonsqueezy.com/checkout/buy/667aa482-f17c-47d1-b7f3-a2427c36516b?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html',
       enterprise: 'mailto:beable9489@gmail.com?subject=GetBreakAI%20Enterprise%20Inquiry'
     }};
     const CHECKOUT_URLS = window.CHECKOUT_URLS;
@@ -1369,10 +1369,10 @@ def build_hub_html(date_str, all_specs):
       <!-- Checkout CTA Buttons (Lemon Squeezy Store #296100 Live UUIDs) -->
       <div class="cta-container">
         <div class="cta-dual-grid">
-          <a href="https://truthofmarket.lemonsqueezy.com/checkout/buy/9a7fe220-ad63-4119-a9f8-59e3d5fb978d?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html" class="btn-checkout-primary">
+          <a href="https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html" class="btn-checkout-primary">
             ⚡ 月額プラン $29/月 (約4,350円) で始める →
           </a>
-          <a href="https://truthofmarket.lemonsqueezy.com/checkout/buy/d01ca3fb-f4d9-4a13-b888-8b208f5ca6d3?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html" class="btn-checkout-annual">
+          <a href="https://truthofmarket.lemonsqueezy.com/checkout/buy/667aa482-f17c-47d1-b7f3-a2427c36516b?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html" class="btn-checkout-annual">
             👑 年間VIPパス $199/年 (43%OFF・約29,800円) →
           </a>
         </div>

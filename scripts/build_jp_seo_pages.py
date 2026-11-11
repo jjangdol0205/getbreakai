@@ -486,14 +486,55 @@ def build_page_html(item, date_str, all_specs):
     }}
     .nav-bar {{ display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }}
     .brand {{ color: #f8fafc; font-weight: 900; font-size: 1.2rem; text-decoration: none; }}
+    .nav-sublink {{ color: #e2e8f0; text-decoration: none; font-size: 0.86rem; padding: 8px; font-weight: 700; }}
     .btn-cta {{
       background: linear-gradient(135deg, #1d4ed8, #1e3a8a);
-      color: #fff;
+      color: #ffffff !important;
       text-decoration: none;
       padding: 9px 18px;
       border-radius: 8px;
       font-weight: 800;
       font-size: 0.86rem;
+    }}
+    .btn-cta-lg {{
+      display: inline-block;
+      padding: 13px 26px;
+      font-size: 0.98rem;
+    }}
+    .shorts-bridge-bar {{
+      background: #eff6ff;
+      border: 1.5px solid #93c5fd;
+      border-radius: 12px;
+      padding: 10px 14px;
+      margin-top: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 0.82rem;
+      color: #0f172a;
+    }}
+    .shorts-bridge-btn {{
+      background: #1d4ed8;
+      color: #ffffff !important;
+      border: none;
+      border-radius: 7px;
+      padding: 6px 12px;
+      font-weight: 800;
+      font-size: 0.78rem;
+      text-decoration: none;
+      cursor: pointer;
+    }}
+    .shorts-bridge-sec {{
+      background: #ecfdf5;
+      color: #065f46 !important;
+      border: 1px solid #10b981;
+      border-radius: 7px;
+      padding: 6px 12px;
+      font-weight: 800;
+      font-size: 0.78rem;
+      text-decoration: none;
     }}
     .article-box {{
       background: #ffffff;
@@ -556,14 +597,20 @@ def build_page_html(item, date_str, all_specs):
   <header>
     <div class="container nav-bar">
       <a href="https://getbreakai.com/" class="brand">⚡ GetBreakAI 米国株・新NISA AIターミナル</a>
-      <div style="display:flex; gap:10px; flex-wrap:wrap;">
-        <a href="/jp/index.html" style="color:#cbd5e1; text-decoration:none; font-size:0.86rem; padding:8px;">📚 全30銘柄レポート一覧</a>
+      <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+        <a href="https://www.youtube.com/@GetBreakAI" target="_blank" rel="noopener" class="nav-sublink">📺 公式YouTube (@GetBreakAI)</a>
+        <a href="/jp/index.html" class="nav-sublink">📚 全30銘柄レポート一覧</a>
         <a href="https://getbreakai.com/?ticker={ticker}#radar" class="btn-cta">🎯 {jp_name}をメイン端末で起動 →</a>
       </div>
     </div>
   </header>
 
   <main class="container">
+    <div class="shorts-bridge-bar">
+      <strong>🎬 YouTubeショート(@GetBreakAI)からご訪問の方へ：</strong>
+      <a href="#miniCalcBox" class="shorts-bridge-btn">⚡ 2.0x ATR 損切り＆新NISA手取り計算機へ直行</a>
+      <a href="https://getbreakai.com/#gbQuickMatrixSection" class="shorts-bridge-sec">📊 本日のSEC 8-K・Form-4速報</a>
+    </div>
     <article class="article-box">
       <div style="font-family:var(--font-mono); font-size:0.78rem; color:var(--accent-amber); font-weight:800; margin-bottom:8px;">
         🟢 米国市場最新データ反映 · {date_str} ｜ 対象銘柄・テーマ: {jp_name} (${ticker})
@@ -593,7 +640,7 @@ def build_page_html(item, date_str, all_specs):
       </div>
 
       <!-- インタラクティブ・ミニATR損切り＆適正株数計算機 -->
-      <div class="widget-box">
+      <div class="widget-box" id="miniCalcBox">
         <h3 style="margin-top:0; color:#0b1f3a;">🧮 {jp_name} 専用：ATR損切りライン＆適正株数ミニ計算機（ドル $ / 日本円 ¥ 同時換算）</h3>
         <p style="font-size:0.88rem; color:#334155; margin-bottom:14px;">
           ご自身の運用資金（スライダー）を動かすと、1回の最大損失を口座の1.5%以内に抑える「推奨エントリー株数」と「許容損失額（ドル・円）」がリアルタイムで計算されます。
@@ -659,13 +706,13 @@ def build_page_html(item, date_str, all_specs):
 
       <h2>5. 姉妹端末 TruthOfMarket.com（半導体サイクル＆72銘柄PW-RSI）との二刀流シナジー</h2>
       <p>
-        さらに勝率と資金効率を高めるために、1〜15日間のイベント・ガンマスクイーズ・ATR損切りを管理する当サイト <strong>GetBreakAI.com</strong> と、30〜90日間の半導体セクター恐怖強欲指数および米国株72銘柄のPW-RSI（出来高加重RSI）底値反転を捉える姉妹ターミナル <a href="https://truthofmarket.com/?utm_source=getbreakai_jp_seo&utm_medium={slug}" target="_blank" rel="noopener" style="color:var(--accent-sky); font-weight:700;">TruthOfMarket.com</a> を併用してください。<strong>Store #296100で発行されるProライセンスキー（月額$29＝約4,350円、または永久買い切り$199＝約29,800円）1つで、両方のサイトのVIP機能がすべてアンロックされます。</strong>
+        さらに勝率と資金効率を高めるために、1〜15日間のイベント・ガンマスクイーズ・ATR損切りを管理する当サイト <strong>GetBreakAI.com</strong> と、30〜90日間の半導体セクター恐怖強欲指数および米国株72銘柄のPW-RSI（出来高加重RSI）底値反転を捉える姉妹ターミナル <a href="https://truthofmarket.com/?utm_source=getbreakai_jp_seo&utm_medium={slug}" target="_blank" rel="noopener" style="color:var(--accent-sky); font-weight:700;">TruthOfMarket.com</a> を併用してください。<strong>Store #296100で発行されるProライセンスキー（月額 $29/月＝約4,400円、または年間VIPパス $199/年＝43%OFF・約29,800円/年）1つで、両方のサイトのWeb VIP Vault機能がすべてアンロックされます。</strong>
       </p>
 
       <div style="margin-top:32px; padding:22px; background:#eff6ff; border:1.5px solid #93c5fd; border-radius:14px; text-align:center;">
         <h3 style="margin-top:0; color:#0b1f3a;">🚀 今すぐ GetBreakAI メインターミナルで {jp_name} の最新シグナルを確認</h3>
-        <p style="margin-bottom:16px; color:#334155;">Pine Script v5インジケーター全文、Form-4役員自社株買いCSV、全銘柄オーダーブックを即時解放できます。</p>
-        <a href="https://getbreakai.com/?ticker={ticker}#radar" class="btn-cta" style="display:inline-block; padding:13px 26px; font-size:0.98rem; background:linear-gradient(135deg, #1d4ed8, #1e3a8a); color:#ffffff; font-weight:800; border-radius:8px; text-decoration:none;">📊 GetBreakAI メインターミナルを開く（${ticker} 自動選択） →</a>
+        <p style="margin-bottom:16px; color:#334155;">Pine Script v5インジケーター全文、Form-4役員自社株買いCSV、全銘柄オーダーブックをWeb VIP Vaultで即時解放できます。</p>
+        <a href="https://getbreakai.com/?ticker={ticker}#radar" class="btn-cta btn-cta-lg">📊 GetBreakAI メインターミナルを開く（${ticker} 自動選択） →</a>
       </div>
 
       <h2>📚 関連する米国株・新NISA AI日本語ディープリサーチ記事</h2>
@@ -704,6 +751,15 @@ def build_page_html(item, date_str, all_specs):
       const text = '【米国株AI解析】{title}\\n📊 基準値: $' + ENTRY_PRICE.toFixed(2) + ' / 2.0x ATR損切り: $' + STOP_PRICE.toFixed(2) + ' / 2.5R目標: $' + TARGET_PRICE.toFixed(2) + '\\n🔗 ' + '{canonical_url}' + '\\n#米国株 #新NISA #{ticker} #株クラ';
       window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(text), '_blank', 'noopener,noreferrer');
     }}
+
+    window.addEventListener('DOMContentLoaded', function() {{
+      try {{
+        if (window.location && window.location.search && new URLSearchParams(window.location.search).get('calc') === 'atr') {{
+          const box = document.getElementById('miniCalcBox');
+          if (box && box.scrollIntoView) box.scrollIntoView({{ behavior: 'smooth', block: 'start' }});
+        }}
+      }} catch (e) {{}}
+    }});
   </script>
 </body>
 </html>
@@ -728,6 +784,14 @@ def build_hub_html(date_str, all_specs):
   <meta name="description" content="エヌビディア(NVDA)、パランティア(PLTR)、テスラ(TSLA)、イーライリリー(LLY)、SOXL、SMCIなど米国株30銘柄・テーマのSEC開示・インサイダー買い・Gamma Wall・ATR損切りライン解説一覧。">
   <link rel="canonical" href="https://getbreakai.com/jp/index.html">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <script>
+    window.CHECKOUT_URLS = {{
+      monthly: 'https://truthofmarket.lemonsqueezy.com/checkout/buy/9a7fe220-ad63-4119-a9f8-59e3d5fb978d?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html',
+      annual: 'https://truthofmarket.lemonsqueezy.com/checkout/buy/d01ca3fb-f4d9-4a13-b888-8b208f5ca6d3?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html',
+      enterprise: 'mailto:beable9489@gmail.com?subject=GetBreakAI%20Enterprise%20Inquiry'
+    }};
+    const CHECKOUT_URLS = window.CHECKOUT_URLS;
+  </script>
   <style>
     :root {{
       --text-main: #0b1f3a;
@@ -781,6 +845,54 @@ def build_hub_html(date_str, all_specs):
       min-height: 44px;
       display: inline-flex;
       align-items: center;
+    }}
+    .btn-top-yt {{
+      background: #eff6ff;
+      color: #1e40af;
+      border: 1px solid #93c5fd;
+      padding: 8px 14px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 0.82rem;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+    }}
+    .shorts-bridge-banner {{
+      background: #eff6ff;
+      border: 1.5px solid #93c5fd;
+      border-radius: 12px;
+      padding: 11px 16px;
+      margin-top: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 0.83rem;
+      color: #0f172a;
+    }}
+    .shorts-bridge-cta {{
+      background: #1d4ed8;
+      color: #ffffff !important;
+      border: none;
+      border-radius: 8px;
+      padding: 7px 13px;
+      font-weight: 800;
+      font-size: 0.8rem;
+      text-decoration: none;
+      cursor: pointer;
+    }}
+    .shorts-bridge-sec {{
+      background: #ecfdf5;
+      color: #065f46 !important;
+      border: 1px solid #10b981;
+      border-radius: 8px;
+      padding: 7px 13px;
+      font-weight: 800;
+      font-size: 0.8rem;
+      text-decoration: none;
     }}
 
     /* Conversion Hero & Trust Badge */
@@ -963,7 +1075,7 @@ def build_hub_html(date_str, all_specs):
       border-radius: 14px;
       padding: 22px 18px;
       box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
-      margin-bottom: 28px;
+      margin-bottom: 24px;
     }}
     .defense-title {{
       font-size: 1.12rem;
@@ -1028,13 +1140,18 @@ def build_hub_html(date_str, all_specs):
       text-align: center;
       margin-top: 14px;
     }}
+    .cta-dual-grid {{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 12px;
+    }}
     .btn-checkout-primary {{
       background: linear-gradient(135deg, #1d4ed8, #1e3a8a);
       color: #ffffff !important;
       text-decoration: none;
-      padding: 16px 24px;
+      padding: 15px 20px;
       border-radius: 10px;
-      font-size: 1.05rem;
+      font-size: 1.0rem;
       font-weight: 900;
       display: block;
       width: 100%;
@@ -1043,14 +1160,68 @@ def build_hub_html(date_str, all_specs):
       transition: transform 0.15s ease;
       min-height: 52px;
     }}
-    .btn-checkout-primary:hover {{
+    .btn-checkout-annual {{
+      background: linear-gradient(135deg, #065f46, #047857);
+      color: #ffffff !important;
+      text-decoration: none;
+      padding: 15px 20px;
+      border-radius: 10px;
+      font-size: 1.0rem;
+      font-weight: 900;
+      display: block;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 6px 20px rgba(6, 95, 70, 0.22);
+      transition: transform 0.15s ease;
+      min-height: 52px;
+    }}
+    .btn-checkout-primary:hover,
+    .btn-checkout-annual:hover {{
       transform: translateY(-2px);
     }}
     .cta-subnote {{
-      font-size: 0.76rem;
-      color: #475569;
-      margin-top: 8px;
-      line-height: 1.5;
+      font-size: 0.78rem;
+      color: #334155;
+      margin-top: 10px;
+      line-height: 1.55;
+    }}
+
+    /* Web VIP Vault Card */
+    .vip-vault-card {{
+      background: #ffffff;
+      border: 1.5px solid #93c5fd;
+      border-radius: 14px;
+      padding: 20px 18px;
+      margin-bottom: 26px;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+    }}
+    .vip-input-row {{
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }}
+    .vip-key-input {{
+      flex: 1;
+      min-width: 220px;
+      padding: 11px 14px;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 0.9rem;
+      color: #0f172a;
+      background: #f8fafc;
+    }}
+    .vip-unlock-btn {{
+      background: #0b1f3a;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 11px 18px;
+      font-weight: 800;
+      font-size: 0.88rem;
+      cursor: pointer;
+      min-height: 44px;
     }}
 
     /* 30 Research Articles Grid */
@@ -1074,9 +1245,21 @@ def build_hub_html(date_str, all_specs):
       <a href="https://getbreakai.com/" class="brand-link">
         ⚡ GetBreakAI 米国株・新NISA AIターミナル
       </a>
-      <a href="https://getbreakai.com/#radar" class="btn-top-main">
-        🎯 メインATR計算機へ戻る →
-      </a>
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <a href="https://www.youtube.com/@GetBreakAI" target="_blank" rel="noopener" class="btn-top-yt">
+          📺 公式YouTube (@GetBreakAI — 毎朝1分 米国株SEC開示＆ATR速報)
+        </a>
+        <a href="https://getbreakai.com/#radar" class="btn-top-main">
+          🎯 メインATR計算機へ戻る →
+        </a>
+      </div>
+    </div>
+
+    <!-- 1-Click YouTube Shorts Bridge Banner -->
+    <div class="shorts-bridge-banner" id="jpShortsBridgeBanner">
+      <strong>🎬 YouTubeショート(@GetBreakAI)からご訪問の方へ：</strong>
+      <a href="#jpQuickCalcSection" class="shorts-bridge-cta">⚡ 2.0x ATR 損切り＆新NISA手取り計算機へ直行</a>
+      <a href="https://getbreakai.com/#gbQuickMatrixSection" class="shorts-bridge-sec">📊 本日のSEC 8-K・Form-4速報</a>
     </div>
 
     <!-- Conversion Hero Header -->
@@ -1106,11 +1289,17 @@ def build_hub_html(date_str, all_specs):
         👇 対象銘柄をワンタップ選択（自動で株価とボラティリティが反映されます）:
       </div>
       <div class="preset-bar">
-        <button type="button" class="preset-chip active" onclick="setQuickStock('NVDA', 186.64, 8.02, this)">エヌビディア (NVDA)</button>
-        <button type="button" class="preset-chip" onclick="setQuickStock('TSLA', 325.50, 18.20, this)">テスラ (TSLA)</button>
-        <button type="button" class="preset-chip" onclick="setQuickStock('PLTR', 61.20, 3.45, this)">パランティア (PLTR)</button>
-        <button type="button" class="preset-chip" onclick="setQuickStock('SOXL', 38.50, 2.85, this)">SOXL (半導体3倍ブル)</button>
-        <button type="button" class="preset-chip" onclick="setQuickStock('8035', 178.67, 7.67, this, 26800, 1150)">東エレク (8035.T)</button>
+        <button type="button" class="preset-chip active" data-ticker="NVDA" onclick="setQuickStock('NVDA', 186.64, 8.02, this)">エヌビディア (NVDA)</button>
+        <button type="button" class="preset-chip" data-ticker="TSLA" onclick="setQuickStock('TSLA', 325.50, 18.20, this)">テスラ (TSLA)</button>
+        <button type="button" class="preset-chip" data-ticker="PLTR" onclick="setQuickStock('PLTR', 61.20, 3.45, this)">パランティア (PLTR)</button>
+        <button type="button" class="preset-chip" data-ticker="SOXL" onclick="setQuickStock('SOXL', 38.50, 2.85, this)">SOXL (半導体3倍ブル)</button>
+        <button type="button" class="preset-chip" data-ticker="AAPL" onclick="setQuickStock('AAPL', 232.80, 4.90, this)">アップル (AAPL)</button>
+        <button type="button" class="preset-chip" data-ticker="8035" onclick="setQuickStock('8035', 178.67, 7.67, this, 26800, 1150)">東エレク (8035.T)</button>
+        <button type="button" class="preset-chip" data-ticker="7203" onclick="setQuickStock('7203', 18.60, 0.58, this, 2790, 87)">トヨタ自動車 (7203.T)</button>
+        <button type="button" class="preset-chip" data-ticker="8306" onclick="setQuickStock('8306', 12.40, 0.42, this, 1860, 63)">三菱UFJ (8306.T)</button>
+        <button type="button" class="preset-chip" data-ticker="8058" onclick="setQuickStock('8058', 17.80, 0.56, this, 2670, 84)">三菱商事 (8058.T)</button>
+        <button type="button" class="preset-chip" data-ticker="6857" onclick="setQuickStock('6857', 61.33, 3.40, this, 9200, 510)">アドバンテスト (6857.T)</button>
+        <button type="button" class="preset-chip" data-ticker="9984" onclick="setQuickStock('9984', 60.80, 3.20, this, 9120, 480)">ソフトバンクG (9984.T)</button>
       </div>
 
       <!-- Capital Slider Control -->
@@ -1148,10 +1337,10 @@ def build_hub_html(date_str, all_specs):
       </div>
     </div>
 
-    <!-- 🛡️ $29/mo vs -¥185,000 防衛比較カード -->
+    <!-- 🛡️ $29/mo & $199/yr (43%OFF) 防衛比較カード -->
     <div class="defense-card">
       <div class="defense-title">
-        🛡️ なぜ月額$29 (約4,400円) は「コスト」ではなく「圧倒的な投資」なのか？
+        🛡️ なぜ月額$29/月（年間VIP $199/年・43%OFF）は「コスト」ではなく「圧倒的な投資」なのか？
       </div>
       <div class="defense-subtitle">
         感情に任せて1回損切りに失敗しただけで失う金額 vs クオンツ防衛ツール費用の比較
@@ -1169,7 +1358,7 @@ def build_hub_html(date_str, all_specs):
 
         <!-- GetBreakAI 防衛ケース -->
         <div class="box-good">
-          <h4>✅ GetBreakAI クオンツ防衛（月額$29・約4,400円）</h4>
+          <h4>✅ GetBreakAI クオンツ防衛（$29/月 または $199/年 43%OFF）</h4>
           <div class="gain-num">+¥170,000 防衛</div>
           <p style="font-size:0.83rem; color:#064e3b; line-height:1.6; margin:8px 0 0;">
             2.0x ATRで許容損失を <b>-¥15,000</b> に機械的固定ロック！1回のトレードだけで <b>差額 +¥170,000 の自己資金を守り抜き、約42ヶ月分（3.5年分）のツール代を即座に回収</b> します。
@@ -1177,15 +1366,40 @@ def build_hub_html(date_str, all_specs):
         </div>
       </div>
 
-      <!-- Checkout CTA Button (Lemon Squeezy Store #296100 Live Variant gb-starter-29) -->
+      <!-- Checkout CTA Buttons (Lemon Squeezy Store #296100 Live UUIDs) -->
       <div class="cta-container">
-        <a href="https://truthofmarket.lemonsqueezy.com/checkout/buy/gb-starter-29?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html" class="btn-checkout-primary">
-          ⚡ 今すぐ月額$29 (約4,400円・税込) で資産防衛を始める →
-        </a>
+        <div class="cta-dual-grid">
+          <a href="https://truthofmarket.lemonsqueezy.com/checkout/buy/9a7fe220-ad63-4119-a9f8-59e3d5fb978d?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html" class="btn-checkout-primary">
+            ⚡ 月額プラン $29/月 (約4,350円) で始める →
+          </a>
+          <a href="https://truthofmarket.lemonsqueezy.com/checkout/buy/d01ca3fb-f4d9-4a13-b888-8b208f5ca6d3?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html" class="btn-checkout-annual">
+            👑 年間VIPパス $199/年 (43%OFF・約29,800円) →
+          </a>
+        </div>
         <div class="cta-subnote">
           🔒 Lemon Squeezy Store #296100 安全決済（🍎 Apple Pay・Google Pay・JCB・Visa・Master・PayPal 対応 / いつでも1クリック解約可能）<br>
-          🎁 <b>購入特典</b>：姉妹ターミナル <b>TruthOfMarket.com (半導体恐怖強欲指数＆72銘柄PW-RSI)</b> のVIP権限も同時付与！
+          🎁 <b>購入特典</b>：姉妹ターミナル <b>TruthOfMarket.com</b> のVIP権限も同時付与！法人・API契約のお問い合わせ：<a href="mailto:beable9489@gmail.com?subject=GetBreakAI%20Enterprise%20Inquiry" style="color:#1d4ed8; font-weight:800;">beable9489@gmail.com</a>
         </div>
+      </div>
+    </div>
+
+    <!-- 🔐 Web VIP Vault & 公式Web/SNS配信ハブ -->
+    <div class="vip-vault-card" id="jpHubVipVaultBox">
+      <div style="font-size:1.02rem; font-weight:900; color:#0b1f3a;">
+        🔐 Web VIP Vault ライセンスキー即時認証 ＆ 公式シグナル配信チャネル
+      </div>
+      <p style="font-size:0.85rem; color:#334155; margin:6px 0 8px;">
+        決済後に発行されたライセンスキーを入力すると、未アクティベートの初回キーも自動で有効化され、Webブラウザ上でVIP特典が即時アンロックされます（外部チャットアプリ不要）。
+      </p>
+      <div class="vip-input-row">
+        <input type="text" id="jpHubLicenseInput" class="vip-key-input" placeholder="ライセンスキーを入力 (例: XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX)">
+        <button type="button" class="vip-unlock-btn" onclick="unlockJpHubVipVault()">🔑 VIPロック解除</button>
+      </div>
+      <div id="jpHubVipStatus" style="font-size:0.83rem; font-weight:700; margin-top:8px; color:#065f46;"></div>
+      <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; font-size:0.82rem;">
+        <a href="https://www.youtube.com/@GetBreakAI" target="_blank" rel="noopener" style="color:#1d4ed8; font-weight:800; text-decoration:none;">📺 公式YouTube (@GetBreakAI — 毎朝1分 米国株SEC開示＆ATR速報)</a>
+        <a href="https://twitter.com/intent/tweet?text=%E7%B1%B3%E5%9B%BD%E6%A0%AASEC%E9%96%8B%E7%A4%BA%EF%BC%862.0x%20ATR%E6%90%8D%E5%88%87%E3%82%8A%E8%A8%88%E7%AE%97%E6%A9%9F%20https%3A%2F%2Fgetbreakai.com%2Fjp%2F%20%23%E6%A0%AA%E3%82%AF%E3%83%A9%20%23%E6%96%B0NISA" target="_blank" rel="noopener" style="color:#0369a1; font-weight:800; text-decoration:none;">𝕏 公式X (#株クラ 速報共有)</a>
+        <span style="color:#065f46; font-weight:800;">🔔 Webブラウザ＆メール即時シグナル配信対応</span>
       </div>
     </div>
 
@@ -1251,8 +1465,138 @@ def build_hub_html(date_str, all_specs):
       if (outGain) outGain.innerText = '$' + targetPrice.toFixed(2) + ' (+$' + gainUsd.toLocaleString() + ' / +約' + gainJpyMan + '万円)';
     }}
 
-    // Initial run on load
-    window.addEventListener('DOMContentLoaded', recalcJpQuickCalc);
+    const PRESET_STOCK_MAP = {{
+      'NVDA': [186.64, 8.02],
+      'TSLA': [325.50, 18.20],
+      'PLTR': [61.20, 3.45],
+      'SOXL': [38.50, 2.85],
+      'AAPL': [232.80, 4.90],
+      '8035': [178.67, 7.67],
+      '7203': [18.60, 0.58],
+      '8306': [12.40, 0.42],
+      '8058': [17.80, 0.56],
+      '6857': [61.33, 3.40],
+      '9984': [60.80, 3.20]
+    }};
+
+    // Initial run on load (+ ?ticker= auto-preset from YouTube Shorts / IG Reels)
+    window.addEventListener('DOMContentLoaded', function() {{
+      try {{
+        if (typeof window !== 'undefined' && window.location && window.location.search && typeof URLSearchParams !== 'undefined') {{
+          const qTicker = (new URLSearchParams(window.location.search).get('ticker') || '').toUpperCase().replace('.T', '');
+          if (qTicker && PRESET_STOCK_MAP[qTicker]) {{
+            let chipBtn = null;
+            document.querySelectorAll('.preset-chip').forEach(function(b) {{
+              if (b.getAttribute && b.getAttribute('data-ticker') === qTicker) chipBtn = b;
+            }});
+            setQuickStock(qTicker, PRESET_STOCK_MAP[qTicker][0], PRESET_STOCK_MAP[qTicker][1], chipBtn);
+            return;
+          }}
+        }}
+      }} catch (e) {{}}
+      recalcJpQuickCalc();
+    }});
+  </script>
+
+  <!-- Web VIP Vault License Activation Fallback & Same-Origin Live Price Sync -->
+  <script>
+    async function unlockJpHubVipVault() {{
+      const inp = document.getElementById('jpHubLicenseInput');
+      const statusEl = document.getElementById('jpHubVipStatus');
+      const key = (inp ? inp.value : '').trim();
+      if (!key || key.length < 8) {{
+        if (statusEl) {{
+          statusEl.style.color = '#9f1239';
+          statusEl.innerText = '⚠️ 有効なLemon Squeezyライセンスキーを入力してください。';
+        }}
+        return;
+      }}
+      if (statusEl) {{
+        statusEl.style.color = '#1d4ed8';
+        statusEl.innerText = '🔄 ライセンス認証サーバー（Store #296100）に照会中...';
+      }}
+      try {{
+        const valRes = await fetch('https://api.lemonsqueezy.com/v1/licenses/validate', {{
+          method: 'POST',
+          headers: {{ 'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' }},
+          body: new URLSearchParams({{ license_key: key }})
+        }});
+        let data = await valRes.json().catch(() => ({{}}));
+        const licStatus = data && data.license_key ? data.license_key.status : '';
+        const actUsage = data && data.license_key ? Number(data.license_key.activations_usage || 0) : -1;
+        const storeOk = !data.meta || Number(data.meta.store_id) === 296100;
+
+        if (storeOk && (!data.valid || licStatus === 'inactive' || actUsage === 0)) {{
+          const actRes = await fetch('https://api.lemonsqueezy.com/v1/licenses/activate', {{
+            method: 'POST',
+            headers: {{ 'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' }},
+            body: new URLSearchParams({{ license_key: key, instance_name: 'GetBreakAI-Web-Terminal' }})
+          }});
+          const actData = await actRes.json().catch(() => ({{}}));
+          if (actData && (actData.activated || (actData.license_key && actData.license_key.status === 'active'))) {{
+            data = {{ valid: true, meta: actData.meta, license_key: actData.license_key }};
+          }}
+        }}
+
+        if (data && data.valid && (!data.meta || Number(data.meta.store_id) === 296100)) {{
+          try {{
+            localStorage.setItem('gb_vip_unlocked', 'true');
+            localStorage.setItem('gb_vip_key', key);
+          }} catch (e) {{}}
+          if (statusEl) {{
+            statusEl.style.color = '#065f46';
+            statusEl.innerText = '✅ VIP認証が完了しました！メインターミナルのWeb VIP Vaultへ移動します...';
+          }}
+          setTimeout(function() {{
+            window.location.href = 'https://getbreakai.com/?unlock=1#vip-vault';
+          }}, 900);
+        }} else {{
+          if (statusEl) {{
+            statusEl.style.color = '#9f1239';
+            statusEl.innerText = '❌ ライセンスキーが確認できませんでした。ご購入直後の場合は数秒後にもう一度お試しください。';
+          }}
+        }}
+      }} catch (err) {{
+        if (statusEl) {{
+          statusEl.style.color = '#9f1239';
+          statusEl.innerText = '⚠️ 通信エラーが発生しました。メインターミナル（getbreakai.com/#vip-vault）からお試しください。';
+        }}
+      }}
+    }}
+
+    window.addEventListener('DOMContentLoaded', function() {{
+      try {{
+        const params = new URLSearchParams(window.location.search || '');
+        if (params.get('calc') === 'atr') {{
+          const sec = document.getElementById('jpQuickCalcSection');
+          if (sec && sec.scrollIntoView) sec.scrollIntoView({{ behavior: 'smooth', block: 'start' }});
+        }}
+      }} catch (e) {{}}
+
+      (async function syncSameOriginPrices() {{
+        const urls = ['/static_api/stocks_free.json', '../static_api/stocks_free.json', 'https://truthofmarket.com/static_api/stocks_free.json'];
+        for (const u of urls) {{
+          try {{
+            const res = await fetch(u, {{ cache: 'no-store' }});
+            if (!res.ok) continue;
+            const payload = await res.json();
+            const list = Array.isArray(payload) ? payload : (payload.stocks || payload.items || payload.data || []);
+            if (Array.isArray(list) && list.length > 0) {{
+              list.forEach(function(row) {{
+                const sym = String(row.ticker || row.symbol || '').toUpperCase();
+                const px = parseFloat(row.price || row.close || row.last_price || 0);
+                if (sym && px > 0 && PRESET_STOCK_MAP[sym]) {{
+                  const ratio = PRESET_STOCK_MAP[sym][1] / Math.max(1, PRESET_STOCK_MAP[sym][0]);
+                  PRESET_STOCK_MAP[sym][0] = px;
+                  PRESET_STOCK_MAP[sym][1] = Math.max(0.25, parseFloat((px * ratio).toFixed(2)));
+                }}
+              }});
+              break;
+            }}
+          }} catch (e) {{}}
+        }}
+      }})();
+    }});
   </script>
 </body>
 </html>
@@ -1315,8 +1659,8 @@ def main():
     with open(INDEXNOW_KEY_FILE, "w", encoding="utf-8") as f:
         f.write(INDEXNOW_KEY)
 
-    # Ping IndexNow API
-    if "--ping-indexnow" in sys.argv or True:
+    # Ping IndexNow API (when --ping-indexnow is passed)
+    if "--ping-indexnow" in sys.argv:
         try:
             import requests
             payload = {

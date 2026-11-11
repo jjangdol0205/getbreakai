@@ -29,8 +29,8 @@ if ig_page:
     try:
         ig_page.goto("https://accountscenter.instagram.com/profiles/", wait_until="domcontentloaded", timeout=20000)
         ig_page.wait_for_timeout(3500)
-        # Click the semifeargreed profile row
-        prof_row = ig_page.locator("a[href*='/profiles/'], div[role='button']:has-text('semifeargreed'), span:has-text('semifeargreed')").first
+        # Click the getbreakai profile row
+        prof_row = ig_page.locator("a[href*='/profiles/'], div[role='button']:has-text('getbreakai'), span:has-text('getbreakai')").first
         if prof_row.count() > 0 and prof_row.is_visible():
             prof_row.click()
             ig_page.wait_for_timeout(3000)
@@ -43,7 +43,7 @@ if ig_page:
                     inp.click()
                     ig_page.keyboard.press("Control+A")
                     ig_page.keyboard.press("Backspace")
-                    ig_page.keyboard.type("GetBreakAI | 米国株・新NISA クオンツAI", delay=20)
+                    ig_page.keyboard.type("GetBreakAI | 米国株・新NISAクオンツ", delay=20)
                     ig_page.wait_for_timeout(1000)
                     done_btn = ig_page.locator("div[role='button']:has-text('완료'), button:has-text('완료'), div[role='button']:has-text('Done')").first
                     if done_btn.count() > 0 and done_btn.is_visible():
@@ -53,7 +53,7 @@ if ig_page:
     except Exception as e:
         log.append(f"Accounts Center note: {e}")
 
-    ig_page.goto("https://www.instagram.com/semifeargreed/", wait_until="domcontentloaded", timeout=30000)
+    ig_page.goto("https://www.instagram.com/getbreakai/", wait_until="domcontentloaded", timeout=30000)
     ig_page.wait_for_timeout(4000)
     ig_page.screenshot(path=SHOT_FINAL_IG)
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
+r"""
 D:\드림컴퍼니\3사업부\scripts\gba_jp_auto_promotion_engine.py
 3사업부 GetBreakAI 일본 퀀트 (https://getbreakai.com/jp/)
 비영상(Non-Video) 100% 무인 글로벌·일본 자동 홍보 엔진:

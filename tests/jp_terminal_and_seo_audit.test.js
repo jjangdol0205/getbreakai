@@ -42,18 +42,17 @@ test('STEP 5: Japanese Securities (SBI/Kabutan/Buffett-Code) High-Trust Fintech 
 test('STEP 2: Japanese 3x Checkout Conversion Boosters & Store #296100 Live Checkout Links', () => {
   const html = fs.readFileSync(INDEX_PATH, 'utf8');
   assert.ok(!html.includes('kidsfit.lemonsqueezy.com'), 'Must not contain kidsfit.lemonsqueezy.com');
-  assert.ok(html.includes('gb-starter-29'));
-  assert.ok(html.includes('gb-pro-49'));
-  assert.ok(html.includes('gb-inst-1499'));
-  assert.ok(html.includes('https://truthofmarket.lemonsqueezy.com/checkout/buy/gb-starter-29?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html'));
-  assert.ok(html.includes('https://truthofmarket.lemonsqueezy.com/checkout/buy/gb-pro-49?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html'));
-  assert.ok(html.includes('https://truthofmarket.lemonsqueezy.com/checkout/buy/gb-inst-1499?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html'));
-  assert.ok(html.includes('約4,400円・税込'));
-  assert.ok(html.includes('👑 一番人気・おすすめ'));
-  assert.ok(html.includes('約7,400円'));
-  assert.ok(html.includes('約22.4万円'));
-  assert.ok(html.includes('@SemifearGreedbot'));
-  assert.ok(html.includes('https://t.me/SemifearGreedbot'));
+  assert.ok(!html.includes('gb-starter-29') && !html.includes('gb-pro-49') && !html.includes('gb-inst-1499'), 'Must not contain broken 404 checkout slugs');
+  assert.ok(!/telegram|t\.me|semifeargreedbot/i.test(html), 'Must contain ZERO Telegram/SemifearGreedbot references');
+  assert.ok(html.includes('9a7fe220-ad63-4119-a9f8-59e3d5fb978d'));
+  assert.ok(html.includes('d01ca3fb-f4d9-4a13-b888-8b208f5ca6d3'));
+  assert.ok(html.includes('https://truthofmarket.lemonsqueezy.com/checkout/buy/9a7fe220-ad63-4119-a9f8-59e3d5fb978d?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html'));
+  assert.ok(html.includes('https://truthofmarket.lemonsqueezy.com/checkout/buy/d01ca3fb-f4d9-4a13-b888-8b208f5ca6d3?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html'));
+  assert.ok(html.includes('mailto:beable9489@gmail.com'));
+  assert.ok(html.includes('$29'));
+  assert.ok(html.includes('$199'));
+  assert.ok(html.includes('43%OFF'));
+  assert.ok(html.includes('https://www.youtube.com/@GetBreakAI'));
   assert.ok(html.includes('🔒 Stripe / Lemon Squeezy 安全決済（🍎 Apple Pay・Google Pay・JCB・Visa・Master・PayPal 対応 / いつでも1クリックで解約可能）'));
   assert.ok(html.includes('🔑 決済完了後、メールで届くライセンスキー（XXXX-XXXX-...）を入力すると即座にVIP全機能が解放されます。'));
   assert.ok(html.includes('Checkout.Success'));
@@ -66,9 +65,13 @@ test('STEP 2: Japanese 3x Checkout Conversion Boosters & Store #296100 Live Chec
   assert.ok(fs.existsSync(path.join(JP_DIR, 'confirmation.html')), 'jp/confirmation.html must exist');
 });
 
-test('STEP 3: 6 Technical Defect Fixes (VIP Paywall Lock, Live Sync, Abacus Beacon, OG/JSON-LD, Deep-Link)', () => {
+test('STEP 3: 6 Technical Defect Fixes (VIP Paywall Lock + Auto-Activate, Live Sync, Abacus Beacon, OG/JSON-LD, Deep-Link)', () => {
   const html = fs.readFileSync(INDEX_PATH, 'utf8');
   assert.ok(html.includes('https://api.lemonsqueezy.com/v1/licenses/validate'));
+  assert.ok(html.includes('https://api.lemonsqueezy.com/v1/licenses/activate'));
+  assert.ok(html.includes('GetBreakAI-Web-Terminal'));
+  assert.ok(html.includes('./static_api/stocks_free.json'));
+  assert.ok(fs.existsSync(path.join(ROOT, 'static_api', 'stocks_free.json')));
   assert.ok(html.includes('🔒 [VIP限定] Proライセンスキー認証後にPine Script v5全文およびTradingViewウォッチリストをコピーできます'));
   assert.ok(html.includes('gba_getbreakai'));
   assert.ok(html.includes('paid_click_'));

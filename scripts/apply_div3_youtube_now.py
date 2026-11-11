@@ -232,7 +232,7 @@ try:
             yt_page.wait_for_timeout(2000)
             kw_input = yt_page.locator("ytcp-chip-bar input#text-input, input[aria-label*='키워드'], input[placeholder*='키워드']").first
             if kw_input.count() > 0 and kw_input.is_visible():
-                kw_list = "米国株, 新NISA, エヌビディア, NVDA, パランティア, PLTR, テスラ, TSLA, SOXL, 半導体株, 東京エレクトロン, アドバンテスト, 株式投資, スイングトレード, 損切り, ATR, クオンツ投資, GetBreakAI,"
+                kw_list = "米国株, 新NISA, エヌビディア, NVDA, 半導体株, 損切り, SEC開示, 株クラ,"
                 kw_input.fill(kw_list, force=True)
                 yt_page.keyboard.press("Enter")
                 yt_page.wait_for_timeout(1000)

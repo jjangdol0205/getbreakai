@@ -29,7 +29,7 @@ if not ig_page:
     os._exit(1)
 
 ig_page.bring_to_front()
-ig_page.goto("https://www.instagram.com/semifeargreed/", wait_until="domcontentloaded", timeout=30000)
+ig_page.goto("https://www.instagram.com/getbreakai/", wait_until="domcontentloaded", timeout=30000)
 ig_page.wait_for_timeout(4000)
 
 log = []
@@ -114,7 +114,7 @@ if sub_info and not sub_info["disabled"]:
     log.append("Clicked Submit (제출)")
 
 # 4. Navigate back to profile page and take screenshot
-ig_page.goto("https://www.instagram.com/semifeargreed/", wait_until="domcontentloaded", timeout=30000)
+ig_page.goto("https://www.instagram.com/getbreakai/", wait_until="domcontentloaded", timeout=30000)
 ig_page.wait_for_timeout(4500)
 ig_page.screenshot(path=SHOT_PROFILE)
 

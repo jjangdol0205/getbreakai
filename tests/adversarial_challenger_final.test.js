@@ -508,47 +508,45 @@ test('ADV 3.5: Responsive Breakpoint Matrix (320px to 1920px) Media Query Covera
 // SUITE 4: LEMON SQUEEZY STORE #296100, TIER VARIANTS & @SemifearGreedbot
 // =========================================================================
 
-test('ADV 4.1: Store #296100 Configuration & 3 Subscription Tiers', () => {
+test('ADV 4.1: Store #296100 Configuration & Live Subscription Tiers', () => {
   assert.equal(STORE_CONFIG.storeId, '296100', 'Store ID must strictly be #296100');
   assert.equal(STORE_CONFIG.supportEmail, 'beable9489@gmail.com');
 
   const plans = STORE_CONFIG.plans;
-  assert.equal(plans.starter_monthly.variantId, 'gb-starter-29');
+  assert.equal(plans.starter_monthly.variantId, '9a7fe220-ad63-4119-a9f8-59e3d5fb978d');
   assert.equal(plans.starter_monthly.priceUsd, 29);
 
-  assert.equal(plans.pro_monthly.variantId, 'gb-pro-49');
-  assert.equal(plans.pro_monthly.priceUsd, 49);
+  assert.equal(plans.pro_annual.variantId, 'd01ca3fb-f4d9-4a13-b888-8b208f5ca6d3');
+  assert.equal(plans.pro_annual.priceUsd, 199);
 
-  assert.equal(plans.institutional_annual.variantId, 'gb-inst-1499');
-  assert.equal(plans.institutional_annual.priceUsd, 1499);
+  assert.equal(plans.institutional_enterprise.checkoutUrl, 'mailto:beable9489@gmail.com');
 });
 
 test('ADV 4.2: Live Checkout URLs & Redirect Journey in index.html', () => {
   const indexHtml = fs.readFileSync(INDEX_HTML_PATH, 'utf8');
 
-  const starterRegex = /truthofmarket\.lemonsqueezy\.com\/checkout\/buy\/gb-starter-29\?embed=1&checkout\[redirect_url\]=https:\/\/getbreakai\.com\/confirmation\.html/;
-  const proRegex = /truthofmarket\.lemonsqueezy\.com\/checkout\/buy\/gb-pro-49\?embed=1&checkout\[redirect_url\]=https:\/\/getbreakai\.com\/confirmation\.html/;
-  const instRegex = /truthofmarket\.lemonsqueezy\.com\/checkout\/buy\/gb-inst-1499\?embed=1&checkout\[redirect_url\]=https:\/\/getbreakai\.com\/confirmation\.html/;
+  const starterRegex = /truthofmarket\.lemonsqueezy\.com\/checkout\/buy\/9a7fe220-ad63-4119-a9f8-59e3d5fb978d\?embed=1&checkout\[redirect_url\]=https:\/\/getbreakai\.com\/confirmation\.html/;
+  const annualRegex = /truthofmarket\.lemonsqueezy\.com\/checkout\/buy\/d01ca3fb-f4d9-4a13-b888-8b208f5ca6d3\?embed=1&checkout\[redirect_url\]=https:\/\/getbreakai\.com\/confirmation\.html/;
 
-  assert.match(indexHtml, starterRegex, 'Starter checkout button must have embedded redirect URL');
-  assert.match(indexHtml, proRegex, 'Pro checkout button must have embedded redirect URL');
-  assert.match(indexHtml, instRegex, 'Institutional checkout button must have embedded redirect URL');
+  assert.match(indexHtml, starterRegex, 'Starter $29/mo checkout button must have live UUID and embedded redirect URL');
+  assert.match(indexHtml, annualRegex, 'Annual $199/yr checkout button must have live UUID and embedded redirect URL');
+  assert.ok(indexHtml.includes('mailto:beable9489@gmail.com'), 'Enterprise tier must link to corporate inquiry email');
 
   // Verify Lemon.js script tag
   assert.ok(indexHtml.includes('https://assets.lemonsqueezy.com/lemon.js'));
 });
 
-test('ADV 4.3: Telegram @SemifearGreedbot VIP Onboarding Flow in confirmation.html', () => {
+test('ADV 4.3: Web VIP Vault & @GetBreakAI Onboarding Flow (ZERO Telegram) in confirmation.html', () => {
   const confirmHtml = fs.readFileSync(CONFIRMATION_HTML_PATH, 'utf8');
   const jpConfirmHtml = fs.readFileSync(JP_CONFIRMATION_HTML_PATH, 'utf8');
 
   for (const [name, html] of [['confirmation.html', confirmHtml], ['jp/confirmation.html', jpConfirmHtml]]) {
-    // 1. Direct Telegram link
-    assert.ok(html.includes('https://t.me/SemifearGreedbot'), `${name} must link to https://t.me/SemifearGreedbot`);
-    // 2. Mention @SemifearGreedbot
-    assert.ok(html.includes('@SemifearGreedbot'), `${name} must mention @SemifearGreedbot`);
-    // 3. /start command
-    assert.ok(html.includes('/start'), `${name} must instruct user to send /start`);
+    // 1. Strictly ZERO Telegram references
+    assert.ok(!/telegram|t\.me|semifeargreedbot/i.test(html), `${name} must contain ZERO Telegram references`);
+    // 2. Official @GetBreakAI YouTube link
+    assert.ok(html.includes('https://www.youtube.com/@GetBreakAI'), `${name} must link to https://www.youtube.com/@GetBreakAI`);
+    // 3. Auto-activation endpoint
+    assert.ok(html.includes('https://api.lemonsqueezy.com/v1/licenses/activate'), `${name} must include /v1/licenses/activate fallback`);
     // 4. Store #296100
     assert.ok(html.includes('296100'), `${name} must display Store #296100`);
     // 5. Support email
@@ -566,7 +564,7 @@ test('ADV 4.4: Webhook Security, Timing-Safe HMAC & Payload Tampering Resistance
       id: 'sub_9981',
       attributes: {
         store_id: 296100,
-        variant_id: 'gb-pro-49',
+        variant_id: 'd01ca3fb-f4d9-4a13-b888-8b208f5ca6d3',
         user_email: 'trader@hedgefund.jp',
         status: 'active'
       }
@@ -580,7 +578,7 @@ test('ADV 4.4: Webhook Security, Timing-Safe HMAC & Payload Tampering Resistance
   assert.equal(verifyWebhookSignature(validPayload, validSignature, secret), true);
 
   // 2. Tampered variant ID fails
-  const tamperedPayload = validPayload.replace('gb-pro-49', 'gb-starter-29');
+  const tamperedPayload = validPayload.replace('d01ca3fb-f4d9-4a13-b888-8b208f5ca6d3', '9a7fe220-ad63-4119-a9f8-59e3d5fb978d');
   assert.equal(verifyWebhookSignature(tamperedPayload, validSignature, secret), false);
 
   // 3. Timing-safe comparison invoked

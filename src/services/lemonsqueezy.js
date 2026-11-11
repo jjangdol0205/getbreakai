@@ -8,55 +8,70 @@
 
 const crypto = require('crypto');
 
+const CHECKOUT_URLS = {
+  monthly: 'https://truthofmarket.lemonsqueezy.com/checkout/buy/9a7fe220-ad63-4119-a9f8-59e3d5fb978d?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html',
+  annual: 'https://truthofmarket.lemonsqueezy.com/checkout/buy/d01ca3fb-f4d9-4a13-b888-8b208f5ca6d3?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html',
+  enterprise: 'mailto:beable9489@gmail.com'
+};
+
 const STORE_CONFIG = {
   storeId: '296100',
   storeName: 'GetBreakAI & TruthOfMarket Analytics',
   checkoutBaseUrl: 'https://truthofmarket.lemonsqueezy.com/checkout/buy',
   supportEmail: 'beable9489@gmail.com',
+  youtubeChannelUrl: 'https://www.youtube.com/@GetBreakAI',
   plans: {
     starter_monthly: {
       id: 'plan_starter_monthly',
-      name: 'Starter Breakout Scanner',
+      name: 'Starter Breakout Scanner ($29/月)',
       priceUsd: 29.00,
       interval: 'month',
-      variantId: 'gb-starter-29',
+      variantId: '9a7fe220-ad63-4119-a9f8-59e3d5fb978d',
+      checkoutUrl: CHECKOUT_URLS.monthly,
       features: [
-        'Daily Top 10 Breakout Scanner',
-        'Mechanical -9.0% Stop-Loss Calculator',
+        'Daily Top 10 Breakout Scanner (TSE Prime & US Tech)',
+        'Mechanical -9.0% & 2.0x ATR Stop-Loss Calculator',
         'End-of-Day Watchlist CSV Download',
-        'Standard Email Support'
+        'Web Browser & Email Instant Signal Delivery',
+        'TruthOfMarket.com Sister VIP Access Included'
       ]
     },
-    pro_monthly: {
-      id: 'plan_pro_monthly',
-      name: 'Pro Institutional Breakout',
-      priceUsd: 49.00,
-      interval: 'month',
-      variantId: 'gb-pro-49',
-      features: [
-        'Real-time Intraday Ignition Alerts',
-        'Price-Weighted RSI (PW-RSI) Volume Engine',
-        'Dynamic 2x Take-Profit Trajectory Alerts',
-        'Direct VIP Telegram Signal Feed',
-        'TradingView Pine Script v5 Source Code'
-      ]
-    },
-    institutional_annual: {
-      id: 'plan_institutional_annual',
-      name: 'Institutional Alpha Terminal',
-      priceUsd: 1499.00,
+    pro_annual: {
+      id: 'plan_pro_annual',
+      name: 'Pro Institutional Annual Pass ($199/年 · 43%OFF)',
+      priceUsd: 199.00,
       interval: 'year',
-      variantId: 'gb-inst-1499',
+      variantId: 'd01ca3fb-f4d9-4a13-b888-8b208f5ca6d3',
+      checkoutUrl: CHECKOUT_URLS.annual,
+      features: [
+        'Real-time Intraday Ignition & SEC 8-K Alerts',
+        'Price-Weighted RSI (PW-RSI) Volume Engine',
+        'Dynamic 2.0x / 2.5R Take-Profit Trajectory Alerts',
+        'Web Browser & Email Instant VIP Signal Feed',
+        'TradingView Pine Script v5 Full Source Code'
+      ]
+    },
+    institutional_enterprise: {
+      id: 'plan_institutional_enterprise',
+      name: 'Institutional Alpha Terminal (法人・機関投資家プラン)',
+      priceUsd: null,
+      interval: 'custom',
+      variantId: 'enterprise-inquiry',
+      checkoutUrl: CHECKOUT_URLS.enterprise,
       features: [
         'Full REST & WebSocket Signal API Access',
         'SEC 10-K Forensic Accounting Risk Feed',
         'Dark-Pool Block Trade Flow Imbalance',
         'Multi-seat Team License (Up to 5 seats)',
-        '1-on-1 Dedicated Support Desk'
+        '1-on-1 Dedicated Support Desk (beable9489@gmail.com)'
       ]
     }
   }
 };
+
+// Backward-compatible aliases so existing callers passing 'pro_monthly' or 'institutional_annual' resolve cleanly
+STORE_CONFIG.plans.pro_monthly = STORE_CONFIG.plans.pro_annual;
+STORE_CONFIG.plans.institutional_annual = STORE_CONFIG.plans.institutional_enterprise;
 
 /**
  * Generate Lemon Squeezy Hosted / Overlay Checkout URL
@@ -75,6 +90,10 @@ function createCheckoutUrl(planKey, options = {}) {
   }
   if (!plan) {
     throw new Error(`Invalid plan key: ${planKey}. Available: ${Object.keys(STORE_CONFIG.plans).join(', ')}`);
+  }
+
+  if (plan.checkoutUrl && plan.checkoutUrl.startsWith('mailto:')) {
+    return plan.checkoutUrl;
   }
 
   const url = new URL(`${STORE_CONFIG.checkoutBaseUrl}/${plan.variantId}`);
@@ -98,9 +117,9 @@ function createCheckoutUrl(planKey, options = {}) {
 
 /**
  * Verify Lemon Squeezy Webhook Signature using HMAC-SHA256
- * @param {string|Buffer} rawPayload 
+ * @param {string|Buffer} rawPayload
  * @param {string} signatureHeader Value from 'x-signature'
- * @param {string} webhookSecret 
+ * @param {string} webhookSecret
  * @returns {boolean}
  */
 function verifyWebhookSignature(rawPayload, signatureHeader, webhookSecret) {
@@ -170,6 +189,7 @@ function parseWebhookEvent(event) {
 }
 
 module.exports = {
+  CHECKOUT_URLS,
   STORE_CONFIG,
   createCheckoutUrl,
   verifyWebhookSignature,

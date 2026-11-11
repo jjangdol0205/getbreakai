@@ -281,18 +281,20 @@ test('Suite 2.3: Fuzz test across 250 arbitrary capital and price/atr configurat
 test('Suite 3.1: dist/jp/index.html Lemon Squeezy checkout link and Store #296100 integrity', () => {
   const html = fs.readFileSync(DIST_JP_INDEX, 'utf8');
 
-  // Must contain live variant gb-starter-29
-  assert.ok(html.includes('gb-starter-29'), 'Must contain gb-starter-29');
+  // Must contain live UUIDs 9a7fe220-ad63-4119-a9f8-59e3d5fb978d ($29/mo) & d01ca3fb-f4d9-4a13-b888-8b208f5ca6d3 ($199/yr)
+  assert.ok(html.includes('9a7fe220-ad63-4119-a9f8-59e3d5fb978d'), 'Must contain live $29/mo UUID');
+  assert.ok(html.includes('d01ca3fb-f4d9-4a13-b888-8b208f5ca6d3'), 'Must contain live $199/yr UUID');
 
   // Must contain truthofmarket Lemon Squeezy store checkout URL with embed=1 and redirect_url
-  const expectedCheckoutPattern = /https:\/\/truthofmarket\.lemonsqueezy\.com\/checkout\/buy\/gb-starter-29\?embed=1&checkout\[redirect_url\]=https:\/\/getbreakai\.com\/confirmation\.html/;
+  const expectedCheckoutPattern = /https:\/\/truthofmarket\.lemonsqueezy\.com\/checkout\/buy\/9a7fe220-ad63-4119-a9f8-59e3d5fb978d\?embed=1&checkout\[redirect_url\]=https:\/\/getbreakai\.com\/confirmation\.html/;
   assert.match(html, expectedCheckoutPattern, 'Must contain exact Lemon Squeezy checkout link with embed=1 and redirect_url');
 
   // Must contain Store #296100 trust mark
   assert.ok(html.includes('Lemon Squeezy Store #296100'), 'Must contain Store #296100 trust mark');
 
-  // Must NOT contain invalid or unauthorized store URLs
+  // Must NOT contain invalid or unauthorized store URLs or broken slugs
   assert.ok(!html.includes('kidsfit.lemonsqueezy.com'), 'Must not contain kidsfit.lemonsqueezy.com in Div 3');
+  assert.ok(!html.includes('gb-starter-29') && !html.includes('gb-pro-49') && !html.includes('gb-inst-1499'), 'Must not contain broken 404 slugs');
 });
 
 test('Suite 3.2: Hash parity between jp/index.html and dist/jp/index.html', () => {
@@ -305,15 +307,15 @@ test('Suite 3.2: Hash parity between jp/index.html and dist/jp/index.html', () =
 test('Suite 3.3: Root dist/index.html Store #296100 Live UUIDs integrity', () => {
   const rootHtml = fs.readFileSync(DIST_ROOT_INDEX, 'utf8');
 
-  // Must contain all 3 Live variants
-  assert.ok(rootHtml.includes('gb-starter-29'), 'Root index must include gb-starter-29');
-  assert.ok(rootHtml.includes('gb-pro-49'), 'Root index must include gb-pro-49');
-  assert.ok(rootHtml.includes('gb-inst-1499'), 'Root index must include gb-inst-1499');
+  // Must contain live UUIDs + corporate inquiry
+  assert.ok(rootHtml.includes('9a7fe220-ad63-4119-a9f8-59e3d5fb978d'), 'Root index must include live $29/mo UUID');
+  assert.ok(rootHtml.includes('d01ca3fb-f4d9-4a13-b888-8b208f5ca6d3'), 'Root index must include live $199/yr UUID');
+  assert.ok(rootHtml.includes('mailto:beable9489@gmail.com'), 'Root index must include corporate inquiry link');
 
   // Check pricing
   assert.ok(rootHtml.includes('$29'), 'Root index must include $29');
-  assert.ok(rootHtml.includes('$49'), 'Root index must include $49');
-  assert.ok(rootHtml.includes('$1,499') || rootHtml.includes('$1499'), 'Root index must include $1,499');
+  assert.ok(rootHtml.includes('$199'), 'Root index must include $199');
+  assert.ok(rootHtml.includes('43%OFF'), 'Root index must include 43%OFF');
 });
 
 // =========================================================================

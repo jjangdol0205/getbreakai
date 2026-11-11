@@ -28,13 +28,15 @@ const ROOT_FILES = [
 const DIRS_TO_COPY = [
   'jp',
   'assets',
-  'data'
+  'data',
+  'static_api'
 ];
 
 function copyRecursiveSync(src, dest) {
   if (!fs.existsSync(src)) return;
   const stats = fs.statSync(src);
   if (stats.isDirectory()) {
+    if (path.basename(src) === 'fonts') return; // Local video renderer fonts only; keep ./dist lean
     fs.mkdirSync(dest, { recursive: true });
     for (const entry of fs.readdirSync(src)) {
       copyRecursiveSync(path.join(src, entry), path.join(dest, entry));
@@ -81,6 +83,20 @@ function buildDist() {
   if (fs.existsSync(kitSrc)) {
     fs.mkdirSync(distStudio, { recursive: true });
     fs.copyFileSync(kitSrc, path.join(distStudio, 'UPLOAD_COPY_PASTE_KIT_24EP.md'));
+  }
+
+  // Synchronize V4 Cinema-Quant Japanese Viral Shorts Manifest & Upload Kit
+  const v4ManifestSrc = path.join(studioDir, 'viral_jp_v4', 'viral_jp_v4_manifest.json');
+  const v4KitSrc = path.join(studioDir, 'viral_jp_v4', 'VIRAL_UPLOAD_KIT_JP_12EP.md');
+  if (fs.existsSync(v4ManifestSrc)) {
+    fs.mkdirSync(distStudio, { recursive: true });
+    fs.mkdirSync(distData, { recursive: true });
+    fs.copyFileSync(v4ManifestSrc, path.join(distStudio, 'viral_jp_v4_manifest.json'));
+    fs.copyFileSync(v4ManifestSrc, path.join(distData, 'viral_jp_v4_manifest.json'));
+  }
+  if (fs.existsSync(v4KitSrc)) {
+    fs.mkdirSync(distStudio, { recursive: true });
+    fs.copyFileSync(v4KitSrc, path.join(distStudio, 'VIRAL_UPLOAD_KIT_JP_12EP.md'));
   }
 
   console.log(`[GetBreakAI Build] Synchronized ${copiedFiles} root files + [${DIRS_TO_COPY.join(', ')}] + shorts manifests into ./dist`);

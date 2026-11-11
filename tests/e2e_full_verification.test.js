@@ -180,36 +180,33 @@ test('Tier 1.1: Lemon Squeezy 3-Tier SaaS on Live Store #296100', () => {
 
   const plans = STORE_CONFIG.plans;
   assert.ok(plans.starter_monthly, 'Must configure starter_monthly ($29/mo)');
-  assert.equal(plans.starter_monthly.variantId, 'gb-starter-29');
+  assert.equal(plans.starter_monthly.variantId, '9a7fe220-ad63-4119-a9f8-59e3d5fb978d');
   assert.equal(plans.starter_monthly.priceUsd, 29);
   assert.equal(plans.starter_monthly.interval, 'month');
 
-  assert.ok(plans.pro_monthly, 'Must configure pro_monthly ($49/mo)');
-  assert.equal(plans.pro_monthly.variantId, 'gb-pro-49');
-  assert.equal(plans.pro_monthly.priceUsd, 49);
-  assert.equal(plans.pro_monthly.interval, 'month');
+  assert.ok(plans.pro_annual, 'Must configure pro_annual ($199/yr · 43%OFF)');
+  assert.equal(plans.pro_annual.variantId, 'd01ca3fb-f4d9-4a13-b888-8b208f5ca6d3');
+  assert.equal(plans.pro_annual.priceUsd, 199);
+  assert.equal(plans.pro_annual.interval, 'year');
 
-  assert.ok(plans.institutional_annual, 'Must configure institutional_annual ($1,499/yr)');
-  assert.equal(plans.institutional_annual.variantId, 'gb-inst-1499');
-  assert.equal(plans.institutional_annual.priceUsd, 1499);
-  assert.equal(plans.institutional_annual.interval, 'year');
+  assert.ok(plans.institutional_enterprise, 'Must configure institutional_enterprise (mailto inquiry)');
+  assert.equal(plans.institutional_enterprise.checkoutUrl, 'mailto:beable9489@gmail.com');
 
-  // 2. Verify index.html contains all 3 pricing tiers & live checkout buttons
+  // 2. Verify index.html contains live UUID checkout buttons and zero broken 404 slugs
   const indexHtml = fs.readFileSync(INDEX_HTML_PATH, 'utf8');
-  assert.ok(indexHtml.includes('gb-starter-29'));
-  assert.ok(indexHtml.includes('gb-pro-49'));
-  assert.ok(indexHtml.includes('gb-inst-1499'));
-  assert.ok(indexHtml.includes('truthofmarket.lemonsqueezy.com/checkout/buy/gb-starter-29?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html'));
-  assert.ok(indexHtml.includes('truthofmarket.lemonsqueezy.com/checkout/buy/gb-pro-49?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html'));
-  assert.ok(indexHtml.includes('truthofmarket.lemonsqueezy.com/checkout/buy/gb-inst-1499?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html'));
+  assert.ok(indexHtml.includes('9a7fe220-ad63-4119-a9f8-59e3d5fb978d'));
+  assert.ok(indexHtml.includes('d01ca3fb-f4d9-4a13-b888-8b208f5ca6d3'));
+  assert.ok(indexHtml.includes('mailto:beable9489@gmail.com'));
+  assert.ok(indexHtml.includes('truthofmarket.lemonsqueezy.com/checkout/buy/9a7fe220-ad63-4119-a9f8-59e3d5fb978d?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html'));
+  assert.ok(indexHtml.includes('truthofmarket.lemonsqueezy.com/checkout/buy/d01ca3fb-f4d9-4a13-b888-8b208f5ca6d3?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html'));
 
   // 3. Dynamic checkout URL generator
-  const customCheckout = createCheckoutUrl('pro_monthly', {
+  const customCheckout = createCheckoutUrl('pro_annual', {
     userId: 'usr_8820',
     userEmail: 'investor@firm.jp',
     redirectUrl: 'https://getbreakai.com/confirmation.html'
   });
-  assert.ok(customCheckout.includes('truthofmarket.lemonsqueezy.com/checkout/buy/gb-pro-49'));
+  assert.ok(customCheckout.includes('truthofmarket.lemonsqueezy.com/checkout/buy/d01ca3fb-f4d9-4a13-b888-8b208f5ca6d3'));
   assert.ok(customCheckout.includes('checkout%5Bcustom%5D%5Buser_id%5D=usr_8820'));
   assert.ok(customCheckout.includes('checkout%5Bemail%5D=investor%40firm.jp'));
   assert.ok(customCheckout.includes('checkout%5Bredirect_url%5D=https%3A%2F%2Fgetbreakai.com%2Fconfirmation.html'));
@@ -481,12 +478,12 @@ test('Tier 4.1: End-to-End User Conversion & VIP Onboarding Journey', () => {
   assert.ok(sizing.gain > 150000);
   assert.ok(sizing.taxSavedJpy > 30000); // Over 3万円 tax saved by NISA!
 
-  // Step 3: User triggers Pro checkout with redirect URL
-  const checkoutUrl = createCheckoutUrl('pro_monthly', {
+  // Step 3: User triggers Pro Annual checkout with redirect URL
+  const checkoutUrl = createCheckoutUrl('pro_annual', {
     userEmail: 'investor@hedge-fund.co.jp',
     redirectUrl: 'https://getbreakai.com/confirmation.html'
   });
-  assert.ok(checkoutUrl.includes('gb-pro-49'));
+  assert.ok(checkoutUrl.includes('d01ca3fb-f4d9-4a13-b888-8b208f5ca6d3'));
   assert.ok(checkoutUrl.includes('truthofmarket.lemonsqueezy.com'));
   assert.ok(checkoutUrl.includes('https%3A%2F%2Fgetbreakai.com%2Fconfirmation.html'));
 
@@ -501,11 +498,11 @@ test('Tier 4.1: End-to-End User Conversion & VIP Onboarding Journey', () => {
   assert.equal(session.customerEmail, 'investor@hedge-fund.co.jp');
   assert.equal(session.isUnlocked, true);
 
-  // Step 5: User is directed to @SemifearGreedbot for VIP onboarding
+  // Step 5: User is directed to Web VIP Vault + @GetBreakAI YouTube (ZERO Telegram)
   const confirmHtml = fs.readFileSync(CONFIRMATION_HTML_PATH, 'utf8');
-  assert.ok(confirmHtml.includes('https://t.me/SemifearGreedbot'), 'Must link to @SemifearGreedbot');
-  assert.ok(confirmHtml.includes('@SemifearGreedbot'));
-  assert.ok(confirmHtml.includes('/start'));
+  assert.ok(!/telegram|t\.me|semifeargreedbot/i.test(confirmHtml), 'Must have ZERO Telegram references in confirmation.html');
+  assert.ok(confirmHtml.includes('https://www.youtube.com/@GetBreakAI'), 'Must link to @GetBreakAI YouTube');
+  assert.ok(confirmHtml.includes('https://getbreakai.com/#vip-vault'));
   assert.ok(confirmHtml.includes('beable9489@gmail.com'));
 
   // Step 6: User returns to index.html#vip-vault with active VIP session

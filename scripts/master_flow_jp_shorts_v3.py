@@ -3,7 +3,7 @@
 r"""
 D:\드림컴퍼니\3사업부\scripts\master_flow_jp_shorts_v3.py
 Google Flow 일본 여성 금융 배우 클립(flow_raw_clips/*.mp4, 45개)을
-일본 유튜브 쇼츠(@GetBreakAI) & 인스타그램 릴스(@semifeargreed)용
+일본 유튜브 쇼츠(@GetBreakAI) & 인스타그램 릴스(@getbreakai)용
 완성본 MP4 12편(EP01~EP12)으로 마스터링합니다.
 
 [사장님 피드백 반영 — 음속 자연화 & 자막 100% 완독 마스터링]
@@ -142,14 +142,15 @@ def render_v3_subtitle_overlay_png(out_png, caption_lines, is_ending_slate=False
             outline=(255, 255, 255, 255),
             width=3,
         )
-        draw_centered_text(draw, 745, "▶ プロフィールリンクから無料体験", f_btn, (255, 255, 255, 255), W)
+        draw_centered_text(draw, 745, "無料AI株数・損切り計算機 ➔ プロフリンク", f_btn, (255, 255, 255, 255), W)
 
-        draw.text((112, 895), "✓ 機関投資家ダークプール＆SEC Form-4検知", font=f_sub, fill=(226, 232, 240, 255))
-        draw.text((112, 975), "✓ ドル($)＆日本円(¥) 2.0倍ATR損切り計算機", font=f_sub, fill=(226, 232, 240, 255))
-        draw.text((112, 1055), "✓ YouTube @GetBreakAI / IG @semifeargreed", font=f_sub, fill=(56, 189, 248, 255))
+        draw.text((112, 895), "✓ 英語SEC 8-K決算・Form-4役員買い日本語解読", font=f_sub, fill=(226, 232, 240, 255))
+        draw.text((112, 975), "✓ 株価-8%逆指値でも口座損失-1.5%以内の適正株数", font=f_sub, fill=(226, 232, 240, 255))
+        draw.text((112, 1055), "✓ YouTube @GetBreakAI | 米国株・新NISAクオンツ", font=f_sub, fill=(56, 189, 248, 255))
 
-    # Bottom safe-zone subtitle (Y=1385 ~ 1460), stroke_width=10, NO background box
-    cap_y = 1385
+    # Golden center safe-zone subtitle (Y=980 ~ 1080, NotoSansCJKjp-Black 82pt+, stroke_width=10, NO background box)
+    f_cap = load_jp_font(82)
+    cap_y = 995
     for idx, line in enumerate(caption_lines[:2]):
         fill_col = (255, 242, 115, 255) if (idx == 0 and not is_ending_slate) else (255, 255, 255, 255)
         if is_ending_slate:
@@ -164,7 +165,7 @@ def render_v3_subtitle_overlay_png(out_png, caption_lines, is_ending_slate=False
             stroke_width=10,
             stroke_fill=(0, 0, 0, 255),
         )
-        cap_y += 68
+        cap_y += 90
 
     img.save(out_png, "PNG")
 
@@ -1238,7 +1239,7 @@ def generate_manifest_and_kit(results_map):
             "  ```text",
             f"  {ep['yt_title']}",
             "  ```",
-            "- **인스타그램 릴스 / 유튜브 설명란 (`@semifeargreed`)**:",
+            "- **인스타그램 릴스 / 유튜브 설명란 (`@getbreakai`)**:",
             "  ```text",
             f"  {ep['ig_caption']}",
             "  ```",

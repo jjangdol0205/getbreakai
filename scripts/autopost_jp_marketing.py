@@ -132,7 +132,78 @@ def build_rss_feeds(date_str, outbox_dir, snap):
 
 def build_yt_ig_kit(date_str, outbox_dir, snap):
     if not outbox_dir:
-        return []
+        os.makedirs(os.path.join(OUTBOX_BASE, date_str), exist_ok=True)
+        outbox_dir = os.path.join(OUTBOX_BASE, date_str)
+
+    # Prefer V4 Cinema-Quant Japanese Viral Shorts (VP01~VP12) rotating 3 episodes per day
+    v4_manifest_path = os.path.join(ROOT_DIR, "flow_shorts_studio", "viral_jp_v4", "viral_jp_v4_manifest.json")
+    if os.path.exists(v4_manifest_path):
+        try:
+            v4_data = json.load(open(v4_manifest_path, "r", encoding="utf-8"))
+            v4_eps = v4_data.get("episodes", [])
+            if len(v4_eps) >= 3:
+                try:
+                    d_ord = datetime.date.fromisoformat(date_str).toordinal()
+                except Exception:
+                    d_ord = datetime.date.today().toordinal()
+                start_i = (d_ord * 3) % len(v4_eps)
+                picked = [v4_eps[(start_i + k) % len(v4_eps)] for k in range(3)]
+                kits = []
+                for ep in picked:
+                    kits.append({
+                        "file": ep["mp4_path"],
+                        "cover_jpg": ep.get("cover_jpg_path", ""),
+                        "ticker": ep["ticker"],
+                        "jp_name": f"{ep['jp_name']} ({ep['ticker']})",
+                        "yt_title": ep["yt_title"],
+                        "yt_desc": ep["yt_desc"],
+                        "ig_caption": ep["ig_caption"],
+                        "pinned_comment": ep["yt_pin"],
+                        "channel_name": "GetBreakAI | 米国株・新NISAクオンツ",
+                        "categoryId": "27",
+                        "defaultLanguage": "ja",
+                        "defaultAudioLanguage": "ja",
+                        "publishAt_schedule_jst": "20:30:00+09:00",
+                    })
+                md_lines = [
+                    f"# 📱 GetBreakAI V4 シネマ・クオンツ YouTube ショート ＆ Instagram リール 投稿キット ({date_str})",
+                    "",
+                    "本日の高維持率 V4 シネマ・クオンツ動画3選（タイトル・概要欄・固定コメント・IGリール本文）：",
+                    "",
+                ]
+                for idx, k in enumerate(kits, 1):
+                    md_lines.extend([
+                        "---",
+                        f"## 🎬 動画 {idx}: {k['jp_name']} (`{os.path.basename(k['file'])}`)",
+                        "### ① YouTube ショート タイトル（コピー用）",
+                        "```text",
+                        k["yt_title"],
+                        "```",
+                        "### ② YouTube 概要欄（コピー用）",
+                        "```text",
+                        k["yt_desc"],
+                        "```",
+                        "### ③ Instagram リール キャプション（コピー用）",
+                        "```text",
+                        k["ig_caption"],
+                        "```",
+                        "### ④ 固定コメント（ピン留め用）",
+                        "```text",
+                        k["pinned_comment"],
+                        "```",
+                        "",
+                    ])
+                kit_md_path = os.path.join(outbox_dir, "yt_ig_reels_kit_jp.md")
+                kit_json_path = os.path.join(outbox_dir, "yt_ig_reels_kit_jp.json")
+                with open(kit_md_path, "w", encoding="utf-8") as f:
+                    f.write("\n".join(md_lines))
+                with open(kit_json_path, "w", encoding="utf-8") as f:
+                    json.dump(kits, f, ensure_ascii=False, indent=2)
+                print(f"[OK] Generated V4 YouTube Shorts & Instagram Reels Copy-Paste Kit: {kit_md_path}")
+                return kits
+        except Exception as e:
+            print(f"[WARN] Could not load V4 manifest in autopost_jp_marketing.py: {e}")
+
     tickers = snap.get("tickers", {})
 
     def t_info(sym, default_entry, default_stop, default_tp):
@@ -162,7 +233,12 @@ def build_yt_ig_kit(date_str, outbox_dir, snap):
                 f"新NISA（非課税0%）と特定口座（20.315%）の手取り純利益＆あなたの資金に合った適正購入株数はプロフィールのリンク（getbreakai.com）から3秒で無料計算できます📊\n\n"
                 f"#米国株 #新NISA #エヌビディア #NVDA #半導体株 #米国株投資 #株式投資 #資産運用 #スイングトレード"
             ),
-            "pinned_comment": "📊 あなたの日本円資金（100万円〜新NISA枠）に最適なエヌビディア購入株数＆2.0x ATR損切り計算機はこちら 👉 https://getbreakai.com/?ticker=NVDA"
+            "pinned_comment": "📊 無料AI株数・損切り計算機 ➔ プロフィールのリンク（getbreakai.com） 👉 https://getbreakai.com/?calc=atr&ticker=NVDA",
+            "channel_name": "GetBreakAI | 米国株・新NISAクオンツ",
+            "categoryId": "27",
+            "defaultLanguage": "ja",
+            "defaultAudioLanguage": "ja",
+            "publishAt_schedule_jst": "20:30:00+09:00",
         },
         {
             "file": "jp_shorts_02_PLTR_sec8k_atr.mp4",
@@ -170,16 +246,21 @@ def build_yt_ig_kit(date_str, outbox_dir, snap):
             "jp_name": "パランティア ($PLTR)",
             "yt_title": f"【パランティア急騰】SEC 8-K国防AI契約と2.0x ATR損切りライン ({date_str}) #米国株 #PLTR #新NISA",
             "ig_caption": (
-                f"🚀 パランティア($PLTR) 機関投資家のダークプール買い集め64%検知！\n\n"
+                f"🚀 パランティア($PLTR) 機関投資家の買い集め64%検知！\n\n"
                 f"英語のSEC Form 8-K（重要契約開示）をAIが3秒で日本語解析👇\n"
                 f"📍 現在株価: ${pltr_p}\n"
                 f"🛑 2.0x ATR損切りライン（逆指値）: ${pltr_s}\n"
                 f"🎯 2.5R 利確ターゲット: ${pltr_t}\n\n"
-                f"高ボラティリティ銘柄こそ「感情」ではなく「ATR（平均値動き幅）」で株数を調整するのが機関投資家の鉄則です。\n"
-                f"👉 プロフィールのリンク（getbreakai.com）で今すぐ無料シミュレーション！\n\n"
-                f"#米国株 #パランティア #PLTR #AI関連株 #新NISA #米国株スイング #テンバガー候補 #株式投資"
+                f"株価 -8% の逆指値でも口座全体の損失が -1.5% 以内に収まる「適正株数」を先に計算するのがプロの鉄則です。\n"
+                f"👉 無料AI株数・損切り計算機 ➔ プロフィールのリンク（getbreakai.com）\n\n"
+                f"#米国株 #新NISA #パランティア #PLTR #半導体株 #損切り #SEC開示 #株クラ"
             ),
-            "pinned_comment": "📊 パランティア($PLTR)のSEC開示日本語要約＆新NISA税引後シミュレーターはこちら 👉 https://getbreakai.com/?ticker=PLTR"
+            "pinned_comment": "📊 無料AI株数・損切り計算機 ➔ プロフィールのリンク（getbreakai.com） 👉 https://getbreakai.com/?calc=atr&ticker=PLTR",
+            "channel_name": "GetBreakAI | 米国株・新NISAクオンツ",
+            "categoryId": "27",
+            "defaultLanguage": "ja",
+            "defaultAudioLanguage": "ja",
+            "publishAt_schedule_jst": "20:30:00+09:00",
         },
         {
             "file": "jp_shorts_03_TSLA_gex_atr.mp4",
@@ -187,15 +268,21 @@ def build_yt_ig_kit(date_str, outbox_dir, snap):
             "jp_name": "テスラ ($TSLA)",
             "yt_title": f"【テスラ株】コール3.6倍の踏み上げ点火！損切りと利確目標はここ ({date_str}) #テスラ #TSLA #米国株",
             "ig_caption": (
-                f"⚡ テスラ($TSLA) オプション市場でコール3.6倍のガンマスクイーズ検知！\n\n"
+                f"⚡ テスラ($TSLA) オプション市場でコール3.6倍の踏み上げ検知！\n\n"
                 f"値動きが激しいテスラで「狼狽売り・塩漬け」をゼロにする本日の数値👇\n"
                 f"📍 現在株価: ${tsla_p}\n"
                 f"🛑 2.0x ATR損切りライン（逆指値）: ${tsla_s}\n"
                 f"🎯 2.5R 利確ターゲット: ${tsla_t}\n\n"
-                f"SBI証券・楽天証券・マネックス証券の逆指値にそのまま使えるドル/円計算機はプロフィールのリンク（getbreakai.com）から無料で使えます⚡\n\n"
-                f"#テスラ #TSLA #テスラ株 #米国株 #新NISA #オプション取引 #スイングトレード #米国株投資"
+                f"SBI証券・楽天証券・マネックス証券の逆指値にそのまま使えるドル/円計算機：\n"
+                f"👉 無料AI株数・損切り計算機 ➔ プロフィールのリンク（getbreakai.com）\n\n"
+                f"#米国株 #新NISA #テスラ #TSLA #半導体株 #損切り #SEC開示 #株クラ"
             ),
-            "pinned_comment": "⚡ テスラ($TSLA)の5日間Gamma壁＆ATR適正株数シミュレーターはこちら 👉 https://getbreakai.com/?ticker=TSLA"
+            "pinned_comment": "⚡ 無料AI株数・損切り計算機 ➔ プロフィールのリンク（getbreakai.com） 👉 https://getbreakai.com/?calc=atr&ticker=TSLA",
+            "channel_name": "GetBreakAI | 米国株・新NISAクオンツ",
+            "categoryId": "27",
+            "defaultLanguage": "ja",
+            "defaultAudioLanguage": "ja",
+            "publishAt_schedule_jst": "20:30:00+09:00",
         }
     ]
 
@@ -236,23 +323,29 @@ def build_yt_ig_kit(date_str, outbox_dir, snap):
 
 
 def send_telegram_video_and_kit(outbox_dir, kits):
-    bot_token = os.environ.get("GBA_TELEGRAM_BOT_TOKEN") or os.environ.get("TELEGRAM_BOT_TOKEN")
-    chat_id = os.environ.get("GBA_TELEGRAM_CHAT_ID") or DEFAULT_CEO_CHAT_ID
+    env_path = os.path.join(ROOT_DIR, ".env")
+    env_map = {}
+    if os.path.exists(env_path):
+        for line in open(env_path, "r", encoding="utf-8", errors="ignore"):
+            s = line.strip()
+            if s and not s.startswith("#") and "=" in s:
+                k_e, v_e = s.split("=", 1)
+                env_map[k_e.strip()] = v_e.strip().strip("'\"")
 
-    if not bot_token and os.path.exists(HQ_TG_CONFIG):
-        try:
-            cfg = json.load(open(HQ_TG_CONFIG, "r", encoding="utf-8"))
-            bot_token = cfg.get("bot_token")
-        except Exception:
-            pass
+    bot_token = (
+        os.environ.get("GBA_TELEGRAM_BOT_TOKEN")
+        or os.environ.get("TELEGRAM_BOT_TOKEN")
+        or env_map.get("TELEGRAM_BOT_TOKEN")
+    )
+    chat_id = os.environ.get("GBA_TELEGRAM_CHAT_ID") or env_map.get("TELEGRAM_CHAT_ID") or DEFAULT_CEO_CHAT_ID
 
     if not bot_token:
-        print("[SKIP] No Telegram bot token found for video delivery.")
+        print("[SKIP] No Telegram bot token found in 3사업부/.env for video delivery.")
         return
 
     import subprocess
     for idx, k in enumerate(kits, 1):
-        mp4_path = os.path.join(outbox_dir, k["file"])
+        mp4_path = k["file"] if os.path.isabs(k["file"]) else os.path.join(outbox_dir, k["file"])
         if not os.path.exists(mp4_path):
             continue
         caption = (

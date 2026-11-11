@@ -174,7 +174,7 @@ def generate_channel_banner(out_path: Path) -> None:
     f_main = _load_font(58, jp=True, bold=True)
     draw.text(
         (tx, cy1 + 88),
-        "GetBreakAI | 米国株・日本株 クオンツAI",
+        "GetBreakAI | 米国株・新NISAクオンツ",
         font=f_main,
         fill=(255, 255, 255),
     )
@@ -182,18 +182,18 @@ def generate_channel_banner(out_path: Path) -> None:
     f_desc = _load_font(24, jp=True, bold=True)
     draw.text(
         (tx, cy1 + 188),
-        "SEC一次情報 × オプションGamma需給 × 2.0x ATR逆指値・新NISA適正株数シミュレーター",
+        "SEC 8-K一次情報 × オプションGamma需給 × 2.0x ATR逆指値・新NISA適正株数シミュレーター",
         font=f_desc,
         fill=(203, 213, 225),
     )
 
-    # Bottom CTA Pill inside safe zone
+    # Bottom CTA Pill inside safe zone (ZERO Telegram — single funnel to getbreakai.com)
     pill_box = [tx, cy1 + 262, cx2 - 42, cy1 + 348]
     draw.rounded_rectangle(pill_box, radius=14, fill=(5, 150, 105), outline=(250, 204, 21), width=2)
     f_cta = _load_font(27, jp=True, bold=True)
     draw.text(
         (tx + 28, cy1 + 288),
-        "無料AI株数・損切り計算機 -> getbreakai.com   |   Telegram: @SemifearGreedbot",
+        "無料AI株数・損切り計算機 ➔ プロフィールのリンク（getbreakai.com）",
         font=f_cta,
         fill=(255, 255, 255),
     )
@@ -207,45 +207,50 @@ def save_channel_config() -> Path:
         "division": "3사업부 (GetBreakAI)",
         "domain": "https://getbreakai.com",
         "jp_research_hub": "https://getbreakai.com/jp/",
-        "telegram_bot": "@SemifearGreedbot",
         "youtube": {
-            "channel_name": "GetBreakAI | 米国株・新NISA クオンツAI",
+            "channel_name": "GetBreakAI | 米国株・新NISAクオンツ",
             "handle_candidates": ["GetBreakAI", "GetBreakAI_JP", "GetBreakAIQuant"],
             "description": (
-                "📊 ウォール街の機関投資家が使う「3大一次情報＋2.0x ATR資金管理」を完全日本語化！\n"
-                "米国株（NVDA・PLTR・TSLA・SOXL）＆東証プライム主力株（東京エレクトロン・アドバンテスト・ソフトバンクG・トヨタ・ソニー）の機関ブレイクアウトシグナルを毎日配信。\n\n"
+                "📊 ウォール街の機関投資家が使う「SEC一次情報＋2.0x ATR資金管理」を完全日本語化！\n"
+                "米国主力グロース・半導体株（$NVDA・$SMH・$SOXL・$PLTR・$TSLA・$AVGO）の機関ブレイクアウト＆損切りラインを毎晩20:30配信。\n\n"
                 "✅ 英語のSEC 8-K（重要契約・決算）＆Form-4（役員の自社株買い）を3秒でAI日本語要約\n"
-                "✅ オプション市場のGamma壁（コール/プット需給）と20日ドンチャン・ブレイクアウト検知\n"
-                "✅ 14日ATR（平均値動き幅）から口座資金1.5%リスク以内の「適正購入株数」と「2.0x ATR逆指値ライン」をドル＆日本円で自動計算\n"
+                "✅ 株価 -8% の逆指値でも口座全体の損失が -1.5% 以内に収まる「適正購入株数」をドル＆日本円で自動計算\n"
                 "✅ 新NISA（成長投資枠・非課税0%）と特定口座（20.315%課税）の手取り純利益をワンタッチ比較！\n\n"
-                "👇 登録不要・3秒で使える無料ATR株数＆損切り計算機はこちら\n"
-                "https://getbreakai.com\n\n"
+                "無料AI株数・損切り計算機 ➔ プロフィールのリンク（getbreakai.com）\n"
+                "https://getbreakai.com/?calc=atr\n\n"
                 "📚 米国株・新NISA 30銘柄ディープリサーチ一覧\n"
                 "https://getbreakai.com/jp/\n\n"
-                "📲 VIP機関シグナル速報 Telegramボット\n"
-                "https://t.me/SemifearGreedbot\n\n"
-                "📩 お問い合わせ・提携: beable9489@gmail.com"
+                "🔔 Web VIP Vault ＆ ブラウザ・メール即時シグナル配信\n"
+                "https://getbreakai.com/#vip-vault\n\n"
+                "📩 お問い合わせ・法人プラン: beable9489@gmail.com"
             ),
             "links": [
-                {"title": "無料AI株数・損切り計算機 (GetBreakAI)", "url": "https://getbreakai.com"},
+                {"title": "無料AI株数・損切り計算機 (getbreakai.com)", "url": "https://getbreakai.com/?calc=atr"},
                 {"title": "米国株・新NISA 30銘柄AIリサーチ", "url": "https://getbreakai.com/jp/"},
-                {"title": "VIP Telegram シグナル速報", "url": "https://t.me/SemifearGreedbot"},
+                {"title": "Web VIP Vault・即時シグナル配信", "url": "https://getbreakai.com/#vip-vault"},
             ],
-            "keywords": "米国株 新NISA エヌビディア NVDA パランティア PLTR テスラ TSLA SOXL 半導体株 東京エレクトロン アドバンテスト 株式投資 スイングトレード 損切り ATR クオンツ投資 GetBreakAI",
+            "keywords": "米国株, 新NISA, エヌビディア, NVDA, 半導体株, 損切り, SEC開示, 株クラ",
+            "upload_defaults": {
+                "categoryId": "27",
+                "defaultLanguage": "ja",
+                "defaultAudioLanguage": "ja",
+                "selfDeclaredMadeForKids": False,
+                "publishAt_schedule_jst": "20:30:00+09:00",
+            },
             "contact_email": "beable9489@gmail.com",
             "profile_image": str(YT_DIR / "youtube_profile_800x800.png"),
             "banner_image": str(YT_DIR / "youtube_banner_2560x1440.png"),
         },
         "instagram": {
-            "name": "GetBreakAI | 米国株・新NISA クオンツAI📊",
+            "name": "GetBreakAI | 米国株・新NISAクオンツ📊",
             "username_candidates": ["getbreakai", "getbreakai.jp", "getbreakai_quant"],
             "bio": (
-                "📊 米国株・東証プライムの機関投資家ブレイクアウトAI\n"
-                "🔥 SEC開示・Gamma壁・20日高値突破を毎日速報\n"
-                "🛡️ 2.0x ATR逆指値＆新NISA適正株数をドル/円で3秒計算\n"
-                "👇 無料AI株数・損切りシミュレーターはこちら"
+                "📊 米国株・新NISAの機関投資家ブレイクアウトAI\n"
+                "🔥 SEC開示・Gamma壁・右側ブレイクを毎日速報\n"
+                "🛡️ 2.0x ATR逆指値＆適正株数をドル/円で3秒計算\n"
+                "👇 無料AI株数・損切り計算機 ➔ getbreakai.com"
             ),
-            "website": "https://getbreakai.com",
+            "website": "https://getbreakai.com/?calc=atr",
             "profile_image": str(YT_DIR / "getbreakai_profile_avatar_1024.png"),
         },
     }

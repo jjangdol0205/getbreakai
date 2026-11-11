@@ -30,6 +30,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
   <script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
+  <script>
+    window.CHECKOUT_URLS = {
+      monthly: 'https://truthofmarket.lemonsqueezy.com/checkout/buy/9a7fe220-ad63-4119-a9f8-59e3d5fb978d?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html',
+      annual: 'https://truthofmarket.lemonsqueezy.com/checkout/buy/d01ca3fb-f4d9-4a13-b888-8b208f5ca6d3?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html',
+      enterprise: 'mailto:beable9489@gmail.com'
+    };
+    const CHECKOUT_URLS = window.CHECKOUT_URLS;
+  </script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -46,24 +54,17 @@
         "offers": [
           {
             "@type": "Offer",
-            "name": "Starter Breakout Scanner",
+            "name": "Starter Breakout Scanner ($29/月)",
             "price": "29.00",
             "priceCurrency": "USD",
-            "url": "https://truthofmarket.lemonsqueezy.com/checkout/buy/gb-starter-29?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html"
+            "url": "https://truthofmarket.lemonsqueezy.com/checkout/buy/9a7fe220-ad63-4119-a9f8-59e3d5fb978d?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html"
           },
           {
             "@type": "Offer",
-            "name": "Pro Institutional Breakout (一番人気・おすすめ)",
-            "price": "49.00",
+            "name": "Pro Institutional Annual Pass ($199/年 · 43%OFF · 一番人気)",
+            "price": "199.00",
             "priceCurrency": "USD",
-            "url": "https://truthofmarket.lemonsqueezy.com/checkout/buy/gb-pro-49?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html"
-          },
-          {
-            "@type": "Offer",
-            "name": "Institutional Alpha Terminal",
-            "price": "1499.00",
-            "priceCurrency": "USD",
-            "url": "https://truthofmarket.lemonsqueezy.com/checkout/buy/gb-inst-1499?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html"
+            "url": "https://truthofmarket.lemonsqueezy.com/checkout/buy/d01ca3fb-f4d9-4a13-b888-8b208f5ca6d3?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html"
           }
         ],
         "publisher": {
@@ -71,6 +72,7 @@
           "name": "Dream Company Quantitative Research",
           "url": "https://getbreakai.com/",
           "sameAs": [
+            "https://www.youtube.com/@GetBreakAI",
             "https://truthofmarket.com/"
           ]
         }
@@ -91,7 +93,7 @@
             "name": "1つのProライセンスキーでTruthOfMarket.comも使えますか？",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "はい。Store #296100で発行されるProライセンスキー（Starter $29/月、Pro $49/月、Institutional $1,499/年）1つで、短期イベント＆ATR端末のGetBreakAI.comと、半導体恐怖強欲指数＆72銘柄PW-RSIサイクル端末のTruthOfMarket.comの両方のVIP機能をロック解除できます。"
+              "text": "はい。Store #296100で発行されるProライセンスキー（月額 $29/月、年間パス $199/年 43%OFF、法人プラン）1つで、短期イベント＆ATR端末のGetBreakAI.comと、半導体恐怖強欲指数＆72銘柄PW-RSIサイクル端末のTruthOfMarket.comの両方のVIP機能をロック解除できます。"
             }
           }
         ]
@@ -1499,6 +1501,7 @@
         <li><a href="#engines">3大AI解析エンジン</a></li>
         <li><a href="#vip-vault">VIP機関投資家データ庫</a></li>
         <li><a href="#jp-research-hub">米国株30銘柄AIレポート</a></li>
+        <li><a href="https://www.youtube.com/@GetBreakAI" target="_blank" rel="noopener">📺 公式YouTube</a></li>
         <li><a href="#pricing">料金プラン</a></li>
         <li><a href="#pricing" class="btn-nav">Pro版をアンロック →</a></li>
       </ul>
@@ -1508,6 +1511,13 @@
 
   <!-- ヒーローセクション -->
   <section class="hero container">
+    <!-- 🎬 YouTubeショート(@GetBreakAI) 1-Click ブリッジバナー -->
+    <div id="gbShortsBridgeBanner" style="background:linear-gradient(90deg, rgba(29,78,216,0.12), rgba(16,185,129,0.12)); border:1.5px solid var(--border-accent); border-radius:12px; padding:10px 16px; margin:0 auto 16px auto; max-width:980px; display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:10px; font-size:0.84rem;">
+      <span style="font-weight:800; color:var(--text-main);">🎬 YouTubeショート(<a href="https://www.youtube.com/@GetBreakAI" target="_blank" rel="noopener" style="color:var(--accent-violet); text-decoration:underline;">@GetBreakAI</a>)からご訪問の方へ：</span>
+      <button type="button" id="btnShortsBridgeAtrCalc" onclick="jumpToGbAtrCalculator()" style="background:#1d4ed8; color:#ffffff; border:none; border-radius:8px; padding:7px 14px; font-weight:800; font-size:0.8rem; cursor:pointer;">⚡ 2.0x ATR 損切り＆新NISA手取り計算機へ直行</button>
+      <a id="btnShortsBridgeSecMatrix" href="#gbQuickMatrixSection" style="background:var(--bg-card); color:var(--accent-emerald); border:1.5px solid var(--accent-emerald); border-radius:8px; padding:6px 14px; font-weight:800; font-size:0.8rem; text-decoration:none;">📊 本日のSEC 8-K・Form-4速報</a>
+    </div>
+
     <div class="hero-pill">⚡ 東証プライム・米国株 新NISA・株クラ専用 · ドンチアン20日ブレイク / SEC 8-K / Form-4 / GEX 日本語AIターミナル</div>
     <h1>
       ウォール街の英語<span class="grad-violet">SEC開示(8-K)・インサイダー買い(Form-4)・オプションGamma Wall(GEX)</span>をAIが3秒で日本語解読
@@ -1714,7 +1724,7 @@
           <span id="gbEasyPlaybookBadge" style="background:rgba(16,185,129,0.18); color:#34d399; border:1px solid rgba(16,185,129,0.4); font-family:var(--font-mono); font-size:0.74rem; font-weight:800; padding:3px 10px; border-radius:999px;">
             🔰 3ステップで完了：米国株機関投資家シグナル＆ATRリスク管理ガイド
           </span>
-          <strong style="color:#fff; font-size:0.95rem;">新NISA・米国株スイングで「塩漬け・狼狽売り」をゼロにする機関投資家ルール：</strong>
+          <strong style="color:var(--text-main); font-size:0.95rem;">新NISA・米国株スイングで「塩漬け・狼狽売り」をゼロにする機関投資家ルール：</strong>
         </div>
         <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--accent-amber); font-weight:700;">
           下の銘柄ボタン（東証P: 8035, 6857, 9984 / 米国株: $NVDA, $PLTR, $LLY, $TSLA）をクリックして即時シミュレーション ↓
@@ -1830,7 +1840,7 @@
         </div>
 
         <!-- 右ペイン: ATR損切り＆適正株数シミュレーター（ドル・日本円同時対応） -->
-        <div class="pane-right">
+        <div class="pane-right" id="gbAtrCalculatorPane">
           <div class="pane-title">
             <span>🎯 ATR損切りライン＆適正株数計算機（ドル $ / 日本円 ¥ 同時換算）</span>
             <span style="color:var(--text-muted);">許容リスク上限: 口座の1.5%</span>
@@ -1868,7 +1878,7 @@
           <div class="control-group">
             <div class="control-header">
               <span>現在株価 / エントリー基準価格 ($)</span>
-              <strong id="lblEntry" style="color:#fff;">$186.64 (約¥27,996)</strong>
+              <strong id="lblEntry" style="color:var(--text-main);">$186.64 (約¥27,996)</strong>
             </div>
             <input type="range" id="sliderEntry" min="10" max="2000" step="0.5" value="186.64" oninput="recalcSizer()">
           </div>
@@ -1954,7 +1964,7 @@
                 リスクリワード比 1 : 2.5
               </span>
             </div>
-            <div id="gbPlainActionSteps" style="color:#e2e8f0;">
+            <div id="gbPlainActionSteps" style="color:var(--text-main);">
               1️⃣ <b>推奨エントリー株数:</b> 現在値 <b>$186.64</b> で <b>46株（$8,585 / 約128.8万円）</b> をエントリー。<br>
               2️⃣ <b>ATR損切りライン (資産防衛):</b> 逆指値（ストップロス）を <b>$170.60</b> に設定（万が一の許容損失額を <b>-$738 / 約11.1万円＝口座資金の1.5%</b> に完全限定）。<br>
               3️⃣ <b>利確ターゲット:</b> 第一目標 <b>$204.52（Gamma Wall）</b>、本命 <b>$226.74（2.5Rターゲット・期待利益 +$1,845 / 約27.7万円）</b> で分割利確！
@@ -2045,19 +2055,19 @@
       </table>
     </div>
 
-    <div id="gbCrossPromoBanner" style="margin-top:22px; background:linear-gradient(135deg, rgba(14,22,42,0.95) 0%, rgba(19,14,38,0.95) 100%); border:1px solid rgba(56,189,248,0.4); border-left:4px solid #38bdf8; border-radius:14px; padding:18px 22px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;">
+    <div id="gbCrossPromoBanner" style="margin-top:22px; background:var(--bg-card); border:1px solid var(--border-accent); border-left:4px solid var(--accent-sky); border-radius:14px; padding:18px 22px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;">
       <div style="flex:1; min-width:240px;">
-        <div style="font-family:var(--font-mono); font-size:0.74rem; color:#38bdf8; font-weight:800; margin-bottom:4px;">
+        <div style="font-family:var(--font-mono); font-size:0.74rem; color:var(--accent-sky); font-weight:800; margin-bottom:4px;">
           🧭 姉妹クオンツ端末連携 · TRUTHOFMARKET.COM × GETBREAKAI.COM
         </div>
-        <div style="color:#fff; font-weight:800; font-size:0.98rem; margin-bottom:4px;">
+        <div style="color:var(--text-main); font-weight:800; font-size:0.98rem; margin-bottom:4px;">
           半導体セクター恐怖強欲指数（SOXサイクル）＆ 米国株72銘柄PW-RSI底値スクリーナーも同時活用！
         </div>
         <div style="color:var(--text-muted); font-size:0.84rem;">
           1〜15日の決算・インサイダー・ガンマスクイーズは <strong>GetBreakAI.com</strong>、30〜90日の半導体マクロ配分は <strong>TruthOfMarket.com</strong> で完結。<strong>1つのVIPライセンスキーで両サイトともロック解除されます！</strong>
         </div>
       </div>
-      <a href="https://truthofmarket.com/?utm_source=getbreakai&utm_medium=sister_banner" target="_blank" rel="noopener" class="btn-checkout btn-checkout-secondary" style="width:auto; padding:12px 20px; border-color:#38bdf8; color:#38bdf8; white-space:nowrap;">
+      <a href="https://truthofmarket.com/?utm_source=getbreakai&utm_medium=sister_banner" target="_blank" rel="noopener" class="btn-checkout btn-checkout-secondary" style="width:auto; padding:12px 20px; border-color:var(--accent-sky); color:var(--accent-sky); white-space:nowrap;">
         🧭 TruthOfMarket.com を開く ↗
       </a>
     </div>
@@ -2177,9 +2187,9 @@
 
   <!-- VIP機関投資家データ庫 (#vip-vault) -->
   <section id="vip-vault" class="section container">
-    <h2 class="section-title">👑 VIP会員専用：機関投資家オーダーブック＆TradingView Pine Script v5金庫</h2>
+    <h2 class="section-title">👑 VIP会員専用：機関投資家オーダーブック＆TradingView Pine Script v5金庫 (Web VIP Vault)</h2>
     <p class="section-subtitle">
-      Proプラン会員（Starter $29/月、Pro Breakout $49/月、Institutional $1,499/年）は、全銘柄のGamma Flip＆2.0x ATR一覧表(.CSV)、Form-4役員自社株買い台帳、TradingView用Pine Script v5インジケーター全文、および専用Telegramシグナル通知(@SemifearGreedbot)を即座にアンロックできます。
+      Proプラン会員（月額 $29/月、年間パス $199/年 43%OFF、法人プラン）は、Web VIP Vault上で全銘柄のGamma Flip＆2.0x ATR一覧表(.CSV)、Form-4役員自社株買い台帳、TradingView用Pine Script v5インジケーター全文、およびWebブラウザ＆メール即時シグナル配信を即座にアンロックできます。
     </p>
 
     <div class="terminal-shell" style="margin-bottom: 24px;">
@@ -2208,7 +2218,7 @@
             <div style="font-family:var(--font-mono); font-size:0.78rem; color:var(--accent-amber); font-weight:800;">
               ⚡ VIP特典 #1 · 日次決算カタリスト・Gamma Flip・2.0x ATR損切りオーダーブック
             </div>
-            <h3 style="font-size:1.12rem; font-weight:800; color:#fff;">機関投資家シグナル厳選セットアップ (<span id="gbVaultDateSub">米国市場最新データ反映 · 2026-11-10</span>)</h3>
+            <h3 style="font-size:1.12rem; font-weight:800; color:var(--text-main);">機関投資家シグナル厳選セットアップ (<span id="gbVaultDateSub">米国市場最新データ反映 · 2026-11-10</span>)</h3>
           </div>
           <div style="display:flex; gap:8px; flex-wrap:wrap; width:100%; max-width:540px;">
             <button type="button" class="ticker-btn active" onclick="downloadGbCatalystCsv()">📥 全銘柄カタリスト一覧 (.CSV) ダウンロード</button>
@@ -2232,7 +2242,7 @@
             </thead>
             <tbody id="vipCatalystTableBody">
               <tr>
-                <td><strong style="color:#fff;">$NVDA エヌビディア</strong> <span class="tape-badge bg-gamma">決算+GEX</span></td>
+                <td><strong style="color:var(--text-main);">$NVDA エヌビディア</strong> <span class="tape-badge bg-gamma">決算+GEX</span></td>
                 <td class="val-violet"><strong>93.5/100</strong></td>
                 <td class="val-emerald">94% 強気</td>
                 <td>DP 61% · Call 3.2x</td>
@@ -2301,7 +2311,7 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
               </div>
               <h3 class="card-title">経営陣キャッシュ買いクラスター台帳 (.CSV) ＆ 自動通知JSON</h3>
               <p class="card-desc" style="margin-bottom:14px;">
-                CEO・CFOによる市場内キャッシュ買いの平均取得単価とダークプール集積率を追跡し、TradingViewやDiscord/Telegramへシグナルを即時転送できます。
+                CEO・CFOによる市場内キャッシュ買いの平均取得単価とダークプール集積率を追跡し、TradingView・Webブラウザ＆メールアラートへシグナルを即時連携できます。
               </p>
               <div id="gbVipExecBox" style="background:#070510; border:1px solid var(--border-color); border-radius:8px; padding:12px; font-family:var(--font-mono); font-size:0.78rem; margin-bottom:14px;">
                 <div class="vip-exec-row" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:4px; padding:4px 0; border-bottom:1px solid var(--border-color);">
@@ -2325,29 +2335,32 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
           </div>
         </div>
 
-        <!-- VIP特典 #4: リアルタイムTelegram通知連携 (@SemifearGreedbot) -->
-        <div class="feature-card" style="margin-top:20px; background:linear-gradient(135deg, rgba(14,165,233,0.14) 0%, rgba(99,102,241,0.12) 100%); border:1.5px solid rgba(56,189,248,0.55); border-radius:12px; padding:22px;">
+        <!-- VIP特典 #4: Web VIP Vault ＆ 公式YouTube (@GetBreakAI) ・ 公式X ・ Web＆メール即時シグナル配信 -->
+        <div class="feature-card" style="margin-top:20px; background:linear-gradient(135deg, rgba(29,78,216,0.10) 0%, rgba(16,185,129,0.10) 100%); border:1.5px solid var(--border-accent); border-radius:12px; padding:22px;">
           <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
-            <div style="max-width:680px;">
+            <div style="max-width:660px;">
               <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--accent-sky); font-weight:800; margin-bottom:6px;">
-                ✈️ VIP特典 #4 · リアルタイムTELEGRAM通知連携 (@SemifearGreedbot)
+                🔔 VIP特典 #4 · WEB VIP VAULT ＆ 公式YOUTUBE (@GetBreakAI) ・ 即時シグナル配信
               </div>
               <h3 class="card-title" style="margin-bottom:8px; color:var(--text-main);">
-                リアルタイムTelegram通知連携 (@SemifearGreedbot)
+                Webブラウザ＆メール即時シグナル配信 ＋ 公式YouTube (@GetBreakAI) 速報連携
               </h3>
               <p class="card-desc" style="margin-bottom:12px; font-size:0.86rem; color:var(--text-muted); line-height:1.55;">
-                新高値ブレイクアウト・大口ダークプール機関買い・オプションGamma Squeezeの発生をTelegram公式ボット <strong>@SemifearGreedbot</strong> があなたのスマホへ秒速プッシュ配信。チャートに張り付くことなく、エントリー＆利確・損切りラインを即座に把握できます。
+                怪しい外部チャットアプリの導入は一切不要。<strong>Web VIP Vault</strong>とご登録メールへの即時シグナル配信に加え、毎朝1分で米国株SEC開示＆2.0x ATR損切りラインを動画解説する<strong>公式YouTube（@GetBreakAI）</strong>と<strong>公式X（#株クラ 速報共有）</strong>で安全・確実にトレンドを捕捉できます。
               </p>
               <div style="display:flex; gap:16px; flex-wrap:wrap; font-size:0.8rem; color:var(--text-main); font-weight:700; font-family:var(--font-mono);">
-                <span>✓ 日中ブレイクアウト点火通知</span>
-                <span>✓ 2.0x ATR損切り・2.5R利確アラート</span>
-                <span>✓ 新NISA成長枠・東証プライム＆米国株対応</span>
+                <span>✓ 🔔 Webブラウザ＆メール即時シグナル配信</span>
+                <span>✓ 📺 毎朝1分 米国株SEC開示＆ATR速報</span>
+                <span>✓ 𝕏 #株クラ 新NISA 1クリック速報共有</span>
               </div>
             </div>
-            <div>
-              <a href="https://t.me/SemifearGreedbot" target="_blank" rel="noopener" class="btn-checkout btn-checkout-primary" style="display:inline-flex; align-items:center; gap:8px; text-decoration:none; padding:12px 22px; font-weight:800; border-radius:8px; box-shadow:0 4px 14px rgba(56,189,248,0.35);">
-                ✈️ @SemifearGreedbot でVIP通知を受け取る →
+            <div style="display:flex; flex-direction:column; gap:8px; min-width:260px;">
+              <a href="https://www.youtube.com/@GetBreakAI" target="_blank" rel="noopener" class="btn-checkout btn-checkout-primary" style="display:inline-flex; align-items:center; justify-content:center; gap:8px; text-decoration:none; padding:11px 18px; font-weight:800; border-radius:8px;">
+                📺 公式YouTube (@GetBreakAI — 毎朝1分 米国株SEC開示＆ATR速報)
               </a>
+              <button type="button" onclick="shareActiveSignalOnX()" class="btn-checkout btn-checkout-secondary" style="display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:9px 16px; font-weight:800; border-radius:8px; cursor:pointer;">
+                𝕏 公式X (#株クラ 速報共有)
+              </button>
             </div>
           </div>
         </div>
@@ -2359,7 +2372,7 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
   <section id="pricing" class="section container" style="padding-bottom: 80px;">
     <h2 class="section-title">新NISA・米国株投資家向け Proライセンス料金プラン</h2>
     <p class="section-subtitle">
-      決済はグローバル公式決済基盤 Lemon Squeezy (Store ID #296100) により安全に処理され、購入完了メールで届くライセンスキーで即座にVIP機能をアンロックできます。
+      決済はグローバル公式決済基盤 Lemon Squeezy (Store ID #296100) により安全に処理され、購入完了メールで届くライセンスキーで即座にWeb VIP Vaultをアンロックできます。
     </p>
 
     <!-- 2サイト共通VIPバンドルバナー -->
@@ -2367,73 +2380,73 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
       <div style="font-family:var(--font-mono); font-size:0.8rem; color:var(--accent-amber); font-weight:800; margin-bottom:6px;">
         🎁 2大クオンツ端末 共通VIPパスポート特典
       </div>
-      <div style="color:#fff; font-size:0.98rem; font-weight:800; line-height:1.55;">
-        🔥 1つのProライセンスキーで <strong>GetBreakAI.com (日本語・短期イベント＆ATR端末)</strong> と <strong><a href="https://truthofmarket.com/?utm_source=getbreakai&utm_medium=pricing_bundle" target="_blank" rel="noopener" style="color:#38bdf8; text-decoration:underline;">TruthOfMarket.com</a> (半導体恐怖強欲指数＆72銘柄PW-RSI端末・日本語対応)</strong> の両方をVIPロック解除！
+      <div style="color:var(--text-main); font-size:0.98rem; font-weight:800; line-height:1.55;">
+        🔥 1つのProライセンスキーで <strong>GetBreakAI.com (日本語・短期イベント＆ATR端末)</strong> と <strong><a href="https://truthofmarket.com/?utm_source=getbreakai&utm_medium=pricing_bundle" target="_blank" rel="noopener" style="color:var(--accent-sky); text-decoration:underline;">TruthOfMarket.com</a> (半導体恐怖強欲指数＆72銘柄PW-RSI端末・日本語対応)</strong> の両方をVIPロック解除！
       </div>
     </div>
 
     <div class="pricing-grid">
-      <!-- Tier 1: Starter Breakout Scanner -->
+      <!-- Tier 1: Starter Monthly ($29/月) -->
       <div class="price-card">
         <div>
           <h3 class="price-name">Starter Breakout Scanner</h3>
           <div class="price-amount">$29 <span>/ 月 (約4,400円・税込)</span></div>
-          <p class="price-desc">日常のブレイクアウトスキャン、東証・米国株トップ10スクリーニング、および機械的-9.0%損切り計算機を活用したい個人投資家向け。</p>
+          <p class="price-desc">日常のブレイクアウトスキャン、東証・米国株トップ10スクリーニング、および機械的-9.0% / 2.0x ATR損切り計算機を月単位で活用したい個人投資家向け。</p>
           <ul class="feature-list">
             <li><span class="check">✓</span> <span>日次トップ10ブレイクアウト銘柄スキャナー (東証・米国株)</span></li>
             <li><span class="check">✓</span> <span>機械的 -9.0% 損切り＆2.0x ATR適正株数計算機</span></li>
-            <li><span class="check">✓</span> <span>終値ベース ウォッチリストCSVダウンロード</span></li>
-            <li><span class="check">✓</span> <span>標準メールサポート (beable9489@gmail.com)</span></li>
+            <li><span class="check">✓</span> <span>Web VIP Vault 全銘柄CSV ＆ Pine Script v5 全文</span></li>
+            <li><span class="check">✓</span> <span>Webブラウザ＆メール即時シグナル配信 (beable9489@gmail.com)</span></li>
             <li><span class="check">✓</span> <span><strong>特典：姉妹サイト TruthOfMarket.com のVIP機能も同時解放</strong></span></li>
           </ul>
         </div>
-        <a href="https://truthofmarket.lemonsqueezy.com/checkout/buy/gb-starter-29?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html" class="btn-checkout btn-checkout-secondary lemonsqueezy-button">Starterプランを始める ($29 / 月 · 約4,400円・税込)</a>
+        <a href="https://truthofmarket.lemonsqueezy.com/checkout/buy/9a7fe220-ad63-4119-a9f8-59e3d5fb978d?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html" class="btn-checkout btn-checkout-secondary lemonsqueezy-button">月額プランを始める ($29/月 · 約4,400円・税込)</a>
         <div style="margin-top:10px; font-size:0.74rem; color:var(--text-muted); text-align:center; line-height:1.45;">
           🔒 Stripe / Lemon Squeezy 安全決済（🍎 Apple Pay・Google Pay・JCB・Visa・Master・PayPal 対応 / いつでも1クリックで解約可能）
         </div>
       </div>
 
-      <!-- Tier 2: Pro Institutional Breakout (一番人気・おすすめ) -->
+      <!-- Tier 2: Pro Institutional Annual ($199/年 · 43%OFF · 一番人気) -->
       <div class="price-card featured">
-        <div class="badge-popular">👑 一番人気・おすすめ (Most Popular)</div>
+        <div class="badge-popular">👑 一番人気・おすすめ (43%OFF 年間パス)</div>
         <div>
-          <h3 class="price-name">Pro Institutional Breakout</h3>
-          <div class="price-amount">$49 <span>/ 月 (約7,400円・税込)</span></div>
-          <p class="price-desc">日中リアルタイム点火シグナル、PW-RSIボリュームクオンツ、2.0x/2.5R動的利確目標、および専用Telegram VIP通知をフル活用するアクティブトレーダー向け。</p>
+          <h3 class="price-name">Pro Institutional Annual Pass</h3>
+          <div class="price-amount">$199 <span>/ 年 (43%OFF · 約29,800円/年・税込)</span></div>
+          <p class="price-desc">実質月額 約$16.5（約2,480円）で43%お得！日中点火シグナル、PW-RSIボリュームクオンツ、SEC 8-K/Form-4台帳、Web＆メール即時通知を1年間フル活用する新NISA・米国株アクティブ投資家向け。</p>
           <ul class="feature-list">
-            <li><span class="check">✓</span> <span><strong>Starterプランの全機能を含む</strong></span></li>
-            <li><span class="check">✓</span> <span>リアルタイム日中ブレイクアウト点火アラート</span></li>
+            <li><span class="check">✓</span> <span><strong>月額プラン比 43%OFF（年間 約23,000円お得！）</strong></span></li>
+            <li><span class="check">✓</span> <span>リアルタイム日中ブレイクアウト点火＆SEC 8-K速報</span></li>
             <li><span class="check">✓</span> <span>価格加重RSI (PW-RSI) ボリュームクオンツエンジン</span></li>
             <li><span class="check">✓</span> <span>動的 2.0x / 2.5R 利確目標トラジェクトリアラート</span></li>
-            <li><span class="check">✓</span> <span><strong>専用Telegram VIPシグナル即時配信 (@SemifearGreedbot)</strong></span></li>
+            <li><span class="check">✓</span> <span><strong>🔔 Webブラウザ＆メール即時VIPシグナル配信</strong></span></li>
             <li><span class="check">✓</span> <span>TradingView用 ATR + IV Gamma Cone Pine Script v5 全文</span></li>
             <li><span class="check">✓</span> <span><strong>特典：TruthOfMarket.com VIP機能も同時解放</strong></span></li>
           </ul>
         </div>
-        <a href="https://truthofmarket.lemonsqueezy.com/checkout/buy/gb-pro-49?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html" class="btn-checkout btn-checkout-primary lemonsqueezy-button">👑 Pro Breakoutを始める ($49 / 月 · 約7,400円) →</a>
+        <a href="https://truthofmarket.lemonsqueezy.com/checkout/buy/d01ca3fb-f4d9-4a13-b888-8b208f5ca6d3?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html" class="btn-checkout btn-checkout-primary lemonsqueezy-button">👑 年間VIPパスを始める ($199/年 · 43%OFF) →</a>
         <div id="gbFeaturedCardSecurityNote" style="margin-top:10px; font-size:0.74rem; color:#fde68a; text-align:center; line-height:1.45;">
           🔒 Stripe / Lemon Squeezy 安全決済（🍎 Apple Pay・Google Pay・JCB・Visa・Master・PayPal 対応 / いつでも1クリックで解約可能）
         </div>
       </div>
 
-      <!-- Tier 3: Institutional Alpha Terminal -->
+      <!-- Tier 3: Institutional / Corporate Plan Inquiry -->
       <div class="price-card">
         <div>
           <h3 class="price-name">Institutional Alpha Terminal</h3>
-          <div class="price-amount">$1,499 <span>/ 年 (約22.4万円/年)</span></div>
-          <p class="price-desc">クオンツファンド、ファミリーオフィス、プロップデスク向けのマルチシート＆フルREST/WebSocket APIデータフィードプラン。</p>
+          <div class="price-amount">法人契約 <span>/ 個別お見積り (API・複数席)</span></div>
+          <p class="price-desc">クオンツファンド、ファミリーオフィス、投資顧問・法人デスク向けのマルチシート＆フルREST/WebSocket APIデータフィードプラン。</p>
           <ul class="feature-list">
-            <li><span class="check">✓</span> <span><strong>Proプランの全機能を含む</strong></span></li>
+            <li><span class="check">✓</span> <span><strong>年間VIPプランの全機能を含む</strong></span></li>
             <li><span class="check">✓</span> <span>フルREST &amp; WebSocket シグナルデータフィードAPI</span></li>
             <li><span class="check">✓</span> <span>SEC 10-K 会計監査リスク＆フォレンジック警告フィード</span></li>
             <li><span class="check">✓</span> <span>ダークプール機関ブロック取引フロー需給不均衡解析</span></li>
             <li><span class="check">✓</span> <span>最大5シートのチームライセンス＆優先エンジニアサポート</span></li>
-            <li><span class="check">✓</span> <span>専任1-on-1サポートデスク (beable9489@gmail.com)</span></li>
+            <li><span class="check">✓</span> <span>専任1-on-1サポートデスク・請求書払い対応 (beable9489@gmail.com)</span></li>
           </ul>
         </div>
-        <a href="https://truthofmarket.lemonsqueezy.com/checkout/buy/gb-inst-1499?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html" class="btn-checkout btn-checkout-secondary lemonsqueezy-button">Institutional Terminalを契約 ($1,499 / 年 · 約22.4万円) →</a>
+        <a href="mailto:beable9489@gmail.com" class="btn-checkout btn-checkout-secondary">📧 法人プランお問い合わせ (beable9489@gmail.com) →</a>
         <div style="margin-top:10px; font-size:0.74rem; color:var(--text-muted); text-align:center; line-height:1.45;">
-          🔒 Stripe / Lemon Squeezy 年間一括安全決済（インボイス発行・優先サポート対応）
+          🏢 法人インボイス（適格請求書）発行・専任エンジニア導入支援対応
         </div>
       </div>
     </div>
@@ -2494,8 +2507,8 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
         <p class="card-desc">当サイトの計算機に表示される「推奨エントリー株数」を購入し、証券アプリの逆指値（ストップロス）注文に「2.0x ATR損切りライン（$○○）」をそのまま入力するだけで、機関投資家と同じリスク管理が完了します。</p>
       </div>
       <div class="feature-card">
-        <h3 class="card-title" style="font-size:1.02rem;">Q3. 3つのプラン（Starter $29、Pro $49、Institutional $1,499）の違いは何ですか？</h3>
-        <p class="card-desc">Starterは日次ブレイクアウトスキャンとATR計算機、Proはリアルタイム日中点火シグナル・PW-RSI・専用Telegram通知(@SemifearGreedbot)・Pine Script全文を含み、Institutionalは法人・ファンド向けフルAPIとSEC 10-Kリスクフィードを提供します。全プランにTruthOfMarket.com VIP解放特典が付属します。</p>
+        <h3 class="card-title" style="font-size:1.02rem;">Q3. 3つのプラン（月額 $29/月、年間パス $199/年 43%OFF、法人プラン）の違いは何ですか？</h3>
+        <p class="card-desc">月額プラン（$29/月）と年間VIPパス（$199/年・43%OFF）はどちらもWeb VIP Vaultの全機能（全銘柄CSV・Form-4台帳・Pine Script v5全文・Webブラウザ＆メール即時シグナル配信）と姉妹端末TruthOfMarket.comのVIP権限を含みます。法人プランはフルAPIと複数席ライセンスをご提供します。</p>
       </div>
       <div class="feature-card">
         <h3 class="card-title" style="font-size:1.02rem;">Q4. JCBカードやApple Payでの決済、月額プランの1クリック解約は可能ですか？</h3>
@@ -2525,11 +2538,12 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
             米国株・新NISA・株クラ投資家のためのSEC 8-K開示・Form-4インサイダー買い・オプションGamma Wall(GEX) AI日本語解読＆ATR損切り・適正株数ターミナル。
           </p>
           <p style="margin-top:8px;">
-            姉妹クオンツ端末: <a href="https://truthofmarket.com/?utm_source=getbreakai&utm_medium=footer" target="_blank" rel="noopener" style="color:var(--accent-sky); font-weight:700;">TruthOfMarket.com (半導体恐怖強欲指数＆PW-RSI) ↗</a> · 公式サポート: <a href="mailto:beable9489@gmail.com" style="color:var(--accent-violet);">beable9489@gmail.com</a>
+            公式動画速報: <a href="https://www.youtube.com/@GetBreakAI" target="_blank" rel="noopener" style="color:var(--accent-amber); font-weight:800;">📺 公式YouTube (@GetBreakAI) ↗</a> · 姉妹クオンツ端末: <a href="https://truthofmarket.com/?utm_source=getbreakai&utm_medium=footer" target="_blank" rel="noopener" style="color:var(--accent-sky); font-weight:700;">TruthOfMarket.com (半導体恐怖強欲指数＆PW-RSI) ↗</a> · 公式サポート: <a href="mailto:beable9489@gmail.com" style="color:var(--accent-violet);">beable9489@gmail.com</a>
           </p>
         </div>
         <div>
-          <strong style="color:#fff; display:block; margin-bottom:8px;">銘柄別クイック起動リンク (?ticker=ディープリンク)</strong>
+          <strong style="color:#f8fafc; display:block; margin-bottom:8px;">銘柄別クイック起動リンク (?ticker= / ?calc=atr ディープリンク)</strong>
+          <div><a href="?calc=atr#gbAtrCalculatorPane" style="color:var(--accent-amber); font-weight:700; text-decoration:none;">⚡ 2.0x ATR 損切り＆新NISA手取り計算機へ直行</a></div>
           <div><a href="?ticker=NVDA#radar" style="color:var(--text-muted); text-decoration:none;">$NVDA (エヌビディア) ガンマスクイーズ＆ATR計算</a></div>
           <div><a href="?ticker=PLTR#radar" style="color:var(--text-muted); text-decoration:none;">$PLTR (パランティア) SEC 8-K＆ダークプール解析</a></div>
           <div><a href="?ticker=LLY#radar" style="color:var(--text-muted); text-decoration:none;">$LLY (イーライリリー) Form-4役員自社株買い</a></div>
@@ -2566,36 +2580,36 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
     </div>
   </div>
 
-  <!-- 決済完了・Telegram VIPオンボーディングモーダル (#gbCheckoutSuccessModal) -->
+  <!-- 決済完了・Web VIP Vault オンボーディングモーダル (#gbCheckoutSuccessModal) -->
   <div id="gbCheckoutSuccessModal" style="display:none; position:fixed; inset:0; z-index:10000; background:rgba(6,5,12,0.85); backdrop-filter:blur(8px); align-items:center; justify-content:center; padding:16px;">
     <div style="background:#0e0b1a; border:2px solid #10b981; border-radius:18px; max-width:580px; width:100%; max-height:90vh; overflow-y:auto; padding:28px 24px; color:#f8fafc; box-shadow:0 24px 64px rgba(16,185,129,0.25); text-align:center;">
       <div style="font-size:3rem; margin-bottom:10px;">🎉</div>
-      <span class="tape-badge bg-pead" style="font-size:0.8rem; margin-bottom:12px; display:inline-block;">VIPロック解除完了</span>
+      <span class="tape-badge bg-pead" style="font-size:0.8rem; margin-bottom:12px; display:inline-block;">Web VIP Vault ロック解除完了</span>
       <h3 style="font-size:1.35rem; font-weight:900; color:#34d399; margin-bottom:10px;">ご決済ありがとうございます！</h3>
       <p style="font-size:0.9rem; color:#cbd5e1; line-height:1.65; margin-bottom:20px;">
-        VIP全機能が自動的に解放されました。<br>
-        購入完了メールでもライセンスキーが送信されます。<br>
-        続いて、リアルタイム通知を受け取るために <strong>公式Telegramボット (@SemifearGreedbot)</strong> を連携してください。
+        ブラウザ上で <strong>Web VIP Vault</strong> 全機能が自動的に解放されました。<br>
+        購入完了メールでもProライセンスキーが送信されます。<br>
+        あわせて <strong>公式YouTube (@GetBreakAI)</strong> と <strong>Webブラウザ＆メール即時シグナル配信</strong> をご活用ください。
       </p>
 
       <div style="background:#141026; border:1.5px solid rgba(56,189,248,0.5); border-radius:12px; padding:18px; margin-bottom:24px; text-align:left;">
         <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px;">
-          <span style="font-size:1.3rem;">✈️</span>
-          <strong style="color:#38bdf8; font-size:0.95rem;">公式Telegram VIP連携 (@SemifearGreedbot)</strong>
+          <span style="font-size:1.3rem;">🔔</span>
+          <strong style="color:#38bdf8; font-size:0.95rem;">Web VIP Vault ＆ 公式YouTube (@GetBreakAI) 活用ステップ</strong>
         </div>
         <ol style="margin:0; padding-left:20px; font-size:0.84rem; line-height:1.7; color:#cbd5e1;">
-          <li>下のボタンをクリックして <strong>@SemifearGreedbot</strong> を開く</li>
-          <li>チャット画面で <strong>/start</strong> を送信</li>
-          <li>決済完了メールに届いたライセンスキーまたは登録メールアドレスを送信してVIPシグナル通知を即時有効化</li>
+          <li>全銘柄の2.0x ATRオーダーブック(.CSV)とTradingView Pine Script v5全文をWeb VIP Vaultからダウンロード</li>
+          <li><strong>公式YouTube (@GetBreakAI)</strong> を登録して毎朝1分の米国株SEC開示＆ATR速報をチェック</li>
+          <li><strong>Webブラウザ＆メール即時シグナル配信</strong> および <strong>公式X (#株クラ 速報共有)</strong> でエントリー・逆指値を管理</li>
         </ol>
       </div>
 
       <div style="display:flex; flex-direction:column; gap:10px;">
-        <a href="https://t.me/SemifearGreedbot" target="_blank" rel="noopener" class="btn-checkout btn-checkout-primary" style="display:inline-flex; align-items:center; justify-content:center; gap:8px; text-decoration:none; padding:14px 24px; font-weight:800; border-radius:8px; font-size:0.95rem; box-shadow:0 4px 16px rgba(56,189,248,0.35);">
-          ✈️ TelegramでVIP通知を開く (@SemifearGreedbot) →
+        <a href="https://www.youtube.com/@GetBreakAI" target="_blank" rel="noopener" class="btn-checkout btn-checkout-primary" style="display:inline-flex; align-items:center; justify-content:center; gap:8px; text-decoration:none; padding:14px 24px; font-weight:800; border-radius:8px; font-size:0.95rem;">
+          📺 公式YouTube (@GetBreakAI — 毎朝1分 米国株SEC開示＆ATR速報) →
         </a>
         <button type="button" onclick="closeCheckoutSuccessModal()" class="btn-checkout btn-checkout-secondary" style="padding:12px 20px; border-radius:8px; cursor:pointer; font-size:0.88rem;">
-          メインターミナルに戻る (VIP全機能解放済み)
+          🔑 Web VIP Vault に進む (VIP全機能解放済み)
         </button>
       </div>
     </div>
@@ -3529,7 +3543,7 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
 
     function requireVipOrScrollToPricing(featureName) {
       if (isGbVipUnlocked) return true;
-      showVipStatusMessage('🔒 [' + featureName + '] はVIP限定機能です。上でProライセンスキーを認証するか、下の料金プランからPro版（Starter $29/月、Pro $49/月）をご購読ください。', false);
+      showVipStatusMessage('🔒 [' + featureName + '] はVIP限定機能です。上でProライセンスキーを認証するか、下の料金プラン（月額 $29/月 ・ 年間パス $199/年 43%OFF）をご購読ください。', false);
       const pricingEl = document.getElementById('pricing');
       if (pricingEl) pricingEl.scrollIntoView({ behavior: 'smooth' });
       return false;
@@ -3546,7 +3560,7 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
         badge.innerText = '👑 VIPデータ庫アンロック済み（全銘柄オーダーブック・Pine Script v5全文解放中）';
         tbody.innerHTML = FULL_VIP_CATALYST_ROWS.map(r => `
           <tr>
-            <td><strong style="color:#fff;">$${r.sym} ${r.jp}</strong> <span class="tape-badge ${r.tagCls}">${r.tag}</span></td>
+            <td><strong style="color:var(--text-main);">$${r.sym} ${r.jp}</strong> <span class="tape-badge ${r.tagCls}">${r.tag}</span></td>
             <td class="val-violet"><strong>${r.score}</strong></td>
             <td class="val-emerald">${r.nlp}</td>
             <td>${r.flow}</td>
@@ -3584,18 +3598,48 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
           body: new URLSearchParams({ license_key: key }).toString()
         });
         const lsData = await lsResp.json().catch(() => null);
-        const valid = Boolean(lsData && lsData.valid === true && !lsData.error);
+        let valid = Boolean(lsData && lsData.valid === true && !lsData.error);
+        let instanceId = lsData && lsData.instance && lsData.instance.id ? String(lsData.instance.id) : '';
+
+        // 初回購入直後で未有効化 (status === 'inactive' / activations_usage === 0) の場合は自動的に /v1/licenses/activate を実行
+        const needsAutoActivation = !valid && (
+          !lsData ||
+          (lsData.license_key && (lsData.license_key.status === 'inactive' || Number(lsData.license_key.activations_usage || 0) === 0)) ||
+          /inactive|not active|not been activated/i.test(String((lsData && lsData.error) || ''))
+        );
+        if (needsAutoActivation) {
+          const actResp = await fetch('https://api.lemonsqueezy.com/v1/licenses/activate', {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: new URLSearchParams({
+              license_key: key,
+              instance_name: 'GetBreakAI-Web-Terminal'
+            }).toString()
+          });
+          const actData = await actResp.json().catch(() => null);
+          if (actData && (actData.activated === true || actData.valid === true || (actData.license_key && actData.license_key.status === 'active')) && !actData.error) {
+            valid = true;
+            if (actData.instance && actData.instance.id) {
+              instanceId = String(actData.instance.id);
+            }
+          }
+        }
+
         if (valid) {
           isGbVipUnlocked = true;
           try {
             localStorage.setItem('gb_vip_unlocked', 'true');
             localStorage.setItem('gb_vip_license_key', key);
+            if (instanceId) localStorage.setItem('gb_vip_instance_id', instanceId);
           } catch (_) {}
           renderVipVaultState();
-          showVipStatusMessage('👑 Lemon Squeezy Proライセンス認証完了！全銘柄オーダーブック、CSV、Pine Script v5全文がアンロックされました。', true);
+          showVipStatusMessage('👑 Lemon Squeezy Proライセンス認証完了！Web VIP Vaultの全銘柄オーダーブック、CSV、Pine Script v5全文がアンロックされました。', true);
           return true;
         } else {
-          showVipStatusMessage('❌ 無効または未有効化のライセンスキーです。キーをご確認いただくか、下の料金プランからProライセンスをご購入ください。', false);
+          showVipStatusMessage('❌ 無効なライセンスキーです。キーをご確認いただくか、下の料金プランからProライセンスをご購入ください。', false);
           return false;
         }
       } catch (err) {
@@ -3672,9 +3716,9 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
         body: '<p><strong>販売事業者・運営統括:</strong> Dream Company Quantitative Research (GetBreakAI Desk)</p>' +
               '<p><strong>公式決済代行 (Merchant of Record):</strong> Lemon Squeezy, LLC (Store ID #296100) / Stripe提携グローバル決済基盤</p>' +
               '<p><strong>お問い合わせ窓口:</strong> <a href="mailto:beable9489@gmail.com" style="color:#38bdf8;">beable9489@gmail.com</a>（原則24時間以内に日本語・英語で対応）</p>' +
-              '<p><strong>販売価格:</strong> Starter Breakout Scanner $29/月（約4,400円・税込）、Pro Institutional Breakout $49/月（約7,400円・税込）、Institutional Alpha Terminal $1,499/年（約22.4万円・税込）</p>' +
+              '<p><strong>販売価格:</strong> Starter Breakout Scanner $29/月（約4,400円・税込）、Pro Institutional Annual Pass $199/年（43%OFF・約29,800円/年・税込）、法人プラン（個別お見積り・beable9489@gmail.com）</p>' +
               '<p><strong>お支払い方法:</strong> クレジットカード（JCB / Visa / Mastercard / Amex）、Apple Pay、Google Pay、PayPal</p>' +
-              '<p><strong>商品の引き渡し時期:</strong> 決済完了と同時にメールにてライセンスキーが即時発行され、当サイトおよび姉妹サイト TruthOfMarket.com のVIP機能が即座に解放されます。</p>'
+              '<p><strong>商品の引き渡し時期:</strong> 決済完了と同時にメールにてライセンスキーが即時発行され、当サイト Web VIP Vault および姉妹サイト TruthOfMarket.com のVIP機能が即座に解放されます。</p>'
       },
       terms: {
         title: '利用規約 (Terms of Service)',
@@ -3688,7 +3732,7 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
       },
       refund: {
         title: '返金・解約ポリシー (Cancellation & Refund Policy)',
-        body: '<p>1. <strong>月額プランの1クリック解約:</strong> 月額サブスクリプションプラン（$29/月 または $49/月）はいつでもLemon Squeezyのマイページまたは受信メールのリンクから1クリックで解約でき、次回請求日以降の課金は一切発生しません。</p>' +
+        body: '<p>1. <strong>サブスクリプションの1クリック解約:</strong> 月額プラン（$29/月）および年間VIPパス（$199/年）はいつでもLemon Squeezyのマイページまたは受信メールのリンクから1クリックで解約でき、次回更新日以降の課金は一切発生しません。</p>' +
               '<p>2. <strong>デジタルライセンスに関するサポート:</strong> ライセンスキーが届かない場合や認証エラーが発生した場合は、beable9489@gmail.com までご連絡いただければ直ちに再発行または返金対応いたします。</p>'
       }
     };
@@ -3715,6 +3759,17 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
       if (vault) vault.scrollIntoView({ behavior: 'smooth' });
     }
 
+    function jumpToGbAtrCalculator() {
+      const calcEl = document.getElementById('gbAtrCalculatorPane') || document.getElementById('radar');
+      if (calcEl) {
+        calcEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      const sliderEl = document.getElementById('sliderAccount');
+      if (sliderEl && typeof sliderEl.focus === 'function') {
+        try { sliderEl.focus({ preventScroll: true }); } catch (_) {}
+      }
+    }
+
     // Lemon.js Checkout.Success 自動VIPロック解除フック
     window.createLemonSqueezy = function() {
       try {
@@ -3729,7 +3784,7 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
                   localStorage.setItem('gb_vip_license_key', String(orderKey));
                 } catch (_) {}
                 renderVipVaultState();
-                showVipStatusMessage('🎉 ご決済ありがとうございます！VIP全機能が自動的に解放されました。@SemifearGreedbot でVIPシグナル通知を受信できます。', true);
+                showVipStatusMessage('🎉 ご決済ありがとうございます！Web VIP Vaultの全機能が自動的に解放されました。公式YouTube (@GetBreakAI) とあわせてご活用ください。', true);
                 const modal = document.getElementById('gbCheckoutSuccessModal');
                 if (modal) modal.style.display = 'flex';
               }
@@ -3743,8 +3798,13 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
     });
 
     (function initGetBreakLiveTerminal() {
+      let shouldJumpCalc = false;
       try {
         const params = new URLSearchParams(window.location.search);
+        const calcMode = (params.get('calc') || '').trim().toLowerCase();
+        if (calcMode === 'atr' || window.location.hash === '#gbAtrCalculatorPane') {
+          shouldJumpCalc = true;
+        }
         const hashMatch = (window.location.hash || '').match(/ticker=([A-Za-z]+)/i);
         const rawTicker = (params.get('ticker') || params.get('sym') || (hashMatch && hashMatch[1]) || '').trim().toUpperCase().replace(/^\$/, '');
         if (rawTicker && CATALYST_DATA[rawTicker]) {
@@ -3756,26 +3816,45 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
         recalcSizer();
       }
 
+      if (shouldJumpCalc) {
+        setTimeout(jumpToGbAtrCalculator, 80);
+      }
+
       renderVipVaultState();
 
+      function applyStocksFreePayload(payload) {
+        const list = Array.isArray(payload) ? payload : (payload && Array.isArray(payload.stocks) ? payload.stocks : null);
+        if (!list) return false;
+        list.forEach(item => {
+          const sym = item && item.ticker;
+          const closePrice = Number(item && item.close);
+          if (sym && CATALYST_DATA[sym] && closePrice > 0) {
+            CATALYST_DATA[sym].entry = closePrice;
+          }
+        });
+        if (CATALYST_DATA[activeSym]) {
+          const sliderEntryEl = document.getElementById('sliderEntry');
+          if (sliderEntryEl) sliderEntryEl.value = CATALYST_DATA[activeSym].entry;
+          recalcSizer();
+        }
+        return true;
+      }
+
       try {
-        fetch('https://truthofmarket.com/static_api/stocks_free.json', { mode: 'cors' })
-          .then(r => r.ok ? r.json() : null)
-          .then(list => {
-            if (!Array.isArray(list)) return;
-            list.forEach(item => {
-              const sym = item && item.ticker;
-              const closePrice = Number(item && item.close);
-              if (sym && CATALYST_DATA[sym] && closePrice > 0) {
-                CATALYST_DATA[sym].entry = closePrice;
-              }
-            });
-            if (CATALYST_DATA[activeSym]) {
-              document.getElementById('sliderEntry').value = CATALYST_DATA[activeSym].entry;
-              recalcSizer();
-            }
+        fetch('./static_api/stocks_free.json')
+          .then(r => {
+            if (!r.ok) throw new Error('Same-origin static_api unavailable');
+            return r.json();
           })
-          .catch(() => {});
+          .then(payload => {
+            if (!applyStocksFreePayload(payload)) throw new Error('Empty payload');
+          })
+          .catch(() => {
+            fetch('https://truthofmarket.com/static_api/stocks_free.json', { mode: 'cors' })
+              .then(r => r.ok ? r.json() : null)
+              .then(payload => { applyStocksFreePayload(payload); })
+              .catch(() => {});
+          });
       } catch (_) {}
     })();
   </script>

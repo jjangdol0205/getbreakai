@@ -134,14 +134,55 @@
     }
     .nav-bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
     .brand { color: #f8fafc; font-weight: 900; font-size: 1.2rem; text-decoration: none; }
+    .nav-sublink { color: #e2e8f0; text-decoration: none; font-size: 0.86rem; padding: 8px; font-weight: 700; }
     .btn-cta {
       background: linear-gradient(135deg, #1d4ed8, #1e3a8a);
-      color: #fff;
+      color: #ffffff !important;
       text-decoration: none;
       padding: 9px 18px;
       border-radius: 8px;
       font-weight: 800;
       font-size: 0.86rem;
+    }
+    .btn-cta-lg {
+      display: inline-block;
+      padding: 13px 26px;
+      font-size: 0.98rem;
+    }
+    .shorts-bridge-bar {
+      background: #eff6ff;
+      border: 1.5px solid #93c5fd;
+      border-radius: 12px;
+      padding: 10px 14px;
+      margin-top: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 0.82rem;
+      color: #0f172a;
+    }
+    .shorts-bridge-btn {
+      background: #1d4ed8;
+      color: #ffffff !important;
+      border: none;
+      border-radius: 7px;
+      padding: 6px 12px;
+      font-weight: 800;
+      font-size: 0.78rem;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .shorts-bridge-sec {
+      background: #ecfdf5;
+      color: #065f46 !important;
+      border: 1px solid #10b981;
+      border-radius: 7px;
+      padding: 6px 12px;
+      font-weight: 800;
+      font-size: 0.78rem;
+      text-decoration: none;
     }
     .article-box {
       background: #ffffff;
@@ -204,14 +245,20 @@
   <header>
     <div class="container nav-bar">
       <a href="https://getbreakai.com/" class="brand">⚡ GetBreakAI 米国株・新NISA AIターミナル</a>
-      <div style="display:flex; gap:10px; flex-wrap:wrap;">
-        <a href="/jp/index.html" style="color:#cbd5e1; text-decoration:none; font-size:0.86rem; padding:8px;">📚 全30銘柄レポート一覧</a>
+      <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+        <a href="https://www.youtube.com/@GetBreakAI" target="_blank" rel="noopener" class="nav-sublink">📺 公式YouTube (@GetBreakAI)</a>
+        <a href="/jp/index.html" class="nav-sublink">📚 全30銘柄レポート一覧</a>
         <a href="https://getbreakai.com/?ticker=NVDA#radar" class="btn-cta">🎯 TruthOfMarket × GetBreakAI 2大端末併用術をメイン端末で起動 →</a>
       </div>
     </div>
   </header>
 
   <main class="container">
+    <div class="shorts-bridge-bar">
+      <strong>🎬 YouTubeショート(@GetBreakAI)からご訪問の方へ：</strong>
+      <a href="#miniCalcBox" class="shorts-bridge-btn">⚡ 2.0x ATR 損切り＆新NISA手取り計算機へ直行</a>
+      <a href="https://getbreakai.com/#gbQuickMatrixSection" class="shorts-bridge-sec">📊 本日のSEC 8-K・Form-4速報</a>
+    </div>
     <article class="article-box">
       <div style="font-family:var(--font-mono); font-size:0.78rem; color:var(--accent-amber); font-weight:800; margin-bottom:8px;">
         🟢 米国市場最新データ反映 · 2026-11-10 ｜ 対象銘柄・テーマ: TruthOfMarket × GetBreakAI 2大端末併用術 ($NVDA)
@@ -241,7 +288,7 @@
       </div>
 
       <!-- インタラクティブ・ミニATR損切り＆適正株数計算機 -->
-      <div class="widget-box">
+      <div class="widget-box" id="miniCalcBox">
         <h3 style="margin-top:0; color:#0b1f3a;">🧮 TruthOfMarket × GetBreakAI 2大端末併用術 専用：ATR損切りライン＆適正株数ミニ計算機（ドル $ / 日本円 ¥ 同時換算）</h3>
         <p style="font-size:0.88rem; color:#334155; margin-bottom:14px;">
           ご自身の運用資金（スライダー）を動かすと、1回の最大損失を口座の1.5%以内に抑える「推奨エントリー株数」と「許容損失額（ドル・円）」がリアルタイムで計算されます。
@@ -307,13 +354,13 @@
 
       <h2>5. 姉妹端末 TruthOfMarket.com（半導体サイクル＆72銘柄PW-RSI）との二刀流シナジー</h2>
       <p>
-        さらに勝率と資金効率を高めるために、1〜15日間のイベント・ガンマスクイーズ・ATR損切りを管理する当サイト <strong>GetBreakAI.com</strong> と、30〜90日間の半導体セクター恐怖強欲指数および米国株72銘柄のPW-RSI（出来高加重RSI）底値反転を捉える姉妹ターミナル <a href="https://truthofmarket.com/?utm_source=getbreakai_jp_seo&utm_medium=semiconductor-cycle-truthofmarket-guide.html" target="_blank" rel="noopener" style="color:var(--accent-sky); font-weight:700;">TruthOfMarket.com</a> を併用してください。<strong>Store #296100で発行されるProライセンスキー（月額$29＝約4,350円、または永久買い切り$199＝約29,800円）1つで、両方のサイトのVIP機能がすべてアンロックされます。</strong>
+        さらに勝率と資金効率を高めるために、1〜15日間のイベント・ガンマスクイーズ・ATR損切りを管理する当サイト <strong>GetBreakAI.com</strong> と、30〜90日間の半導体セクター恐怖強欲指数および米国株72銘柄のPW-RSI（出来高加重RSI）底値反転を捉える姉妹ターミナル <a href="https://truthofmarket.com/?utm_source=getbreakai_jp_seo&utm_medium=semiconductor-cycle-truthofmarket-guide.html" target="_blank" rel="noopener" style="color:var(--accent-sky); font-weight:700;">TruthOfMarket.com</a> を併用してください。<strong>Store #296100で発行されるProライセンスキー（月額 $29/月＝約4,400円、または年間VIPパス $199/年＝43%OFF・約29,800円/年）1つで、両方のサイトのWeb VIP Vault機能がすべてアンロックされます。</strong>
       </p>
 
       <div style="margin-top:32px; padding:22px; background:#eff6ff; border:1.5px solid #93c5fd; border-radius:14px; text-align:center;">
         <h3 style="margin-top:0; color:#0b1f3a;">🚀 今すぐ GetBreakAI メインターミナルで TruthOfMarket × GetBreakAI 2大端末併用術 の最新シグナルを確認</h3>
-        <p style="margin-bottom:16px; color:#334155;">Pine Script v5インジケーター全文、Form-4役員自社株買いCSV、全銘柄オーダーブックを即時解放できます。</p>
-        <a href="https://getbreakai.com/?ticker=NVDA#radar" class="btn-cta" style="display:inline-block; padding:13px 26px; font-size:0.98rem; background:linear-gradient(135deg, #1d4ed8, #1e3a8a); color:#ffffff; font-weight:800; border-radius:8px; text-decoration:none;">📊 GetBreakAI メインターミナルを開く（$NVDA 自動選択） →</a>
+        <p style="margin-bottom:16px; color:#334155;">Pine Script v5インジケーター全文、Form-4役員自社株買いCSV、全銘柄オーダーブックをWeb VIP Vaultで即時解放できます。</p>
+        <a href="https://getbreakai.com/?ticker=NVDA#radar" class="btn-cta btn-cta-lg">📊 GetBreakAI メインターミナルを開く（$NVDA 自動選択） →</a>
       </div>
 
       <h2>📚 関連する米国株・新NISA AI日本語ディープリサーチ記事</h2>
@@ -361,6 +408,15 @@
       const text = '【米国株AI解析】半導体サイクル投資×短期イベント投資：TruthOfMarketとGetBreakAIの最強併用術\n📊 基準値: $' + ENTRY_PRICE.toFixed(2) + ' / 2.0x ATR損切り: $' + STOP_PRICE.toFixed(2) + ' / 2.5R目標: $' + TARGET_PRICE.toFixed(2) + '\n🔗 ' + 'https://getbreakai.com/jp/semiconductor-cycle-truthofmarket-guide.html' + '\n#米国株 #新NISA #NVDA #株クラ';
       window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(text), '_blank', 'noopener,noreferrer');
     }
+
+    window.addEventListener('DOMContentLoaded', function() {
+      try {
+        if (window.location && window.location.search && new URLSearchParams(window.location.search).get('calc') === 'atr') {
+          const box = document.getElementById('miniCalcBox');
+          if (box && box.scrollIntoView) box.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      } catch (e) {}
+    });
   </script>
 </body>
 </html>

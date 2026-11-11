@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>決済完了・VIPライセンス有効化 ｜ GetBreakAI</title>
-  <meta name="description" content="GetBreakAI Proライセンスのご購入ありがとうございます。ライセンスキーが認証され、VIP全機能が解放されました。公式Telegramボット（@SemifearGreedbot）と連携してリアルタイムシグナルを受信してください。">
+  <title>決済完了・VIPライセンス有効化 ｜ GetBreakAI 日本語公式</title>
+  <meta name="description" content="GetBreakAI Proライセンスのご購入ありがとうございます。Web VIP Vault（機関投資家データ庫）が解放されました。公式YouTube（@GetBreakAI）およびWebブラウザ＆メール即時シグナル配信をご利用いただけます。">
   <meta name="robots" content="noindex, follow">
   <link rel="canonical" href="https://getbreakai.com/confirmation.html">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2306050c' stroke='%238b5cf6' stroke-width='4'/%3E%3Cpath d='M14 44 L26 30 L34 36 L48 16' fill='none' stroke='%23f59e0b' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='48' cy='16' r='5' fill='%2310b981'/%3E%3C/svg%3E">
@@ -258,10 +258,10 @@
       color: #fff;
     }
 
-    /* Telegram Card */
-    .card-telegram {
-      background: linear-gradient(135deg, rgba(14, 165, 233, 0.12) 0%, rgba(99, 102, 241, 0.10) 100%);
-      border: 2px solid rgba(56, 189, 248, 0.6);
+    /* Web VIP Vault & Official Channel Onboarding Card */
+    .card-vip-channels {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.10) 0%, rgba(59, 130, 246, 0.08) 100%);
+      border: 2px solid var(--accent-sky);
       border-radius: 16px;
       padding: 30px 26px;
       margin-bottom: 28px;
@@ -269,14 +269,15 @@
       overflow: hidden;
     }
 
-    .telegram-title {
-      font-size: 1.35rem;
+    .channels-title {
+      font-size: 1.32rem;
       font-weight: 900;
       color: var(--accent-sky);
       margin-bottom: 12px;
       display: flex;
       align-items: center;
       gap: 10px;
+      flex-wrap: wrap;
     }
 
     .step-list {
@@ -322,9 +323,9 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      padding: 14px 28px;
+      padding: 14px 24px;
       border-radius: 10px;
-      font-size: 1rem;
+      font-size: 0.96rem;
       font-weight: 800;
       text-decoration: none;
       transition: transform 0.15s, box-shadow 0.15s;
@@ -342,13 +343,11 @@
       box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35);
     }
 
-    .btn-checkout-telegram {
-      background-color: #0369a1;
-      background-image: linear-gradient(135deg, #0369a1 0%, #1e40af 100%);
+    .btn-checkout-youtube {
+      background-color: #dc2626;
+      background-image: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
       color: #fff;
-      box-shadow: 0 6px 20px rgba(14, 165, 233, 0.4);
-      width: 100%;
-      max-width: 460px;
+      box-shadow: 0 6px 20px rgba(220, 38, 38, 0.32);
     }
 
     .btn-checkout-secondary {
@@ -398,22 +397,22 @@
       <span style="font-size:0.78rem; color:var(--text-sub); font-family:var(--font-mono);">Store #296100 Live</span>
       <button type="button" id="btnToggleJpTheme" class="theme-toggle-btn" onclick="toggleJpTheme()">
         <span id="themeToggleIcon">☀️</span>
-        <span id="themeToggleText">ライト切替</span>
+        <span id="themeToggleText">ライト表示中</span>
       </button>
     </div>
   </header>
 
   <div class="container">
-    
+
     <!-- メイン成功カード -->
     <div class="card card-success">
       <div class="badge-success">
-        <span>✓</span> 決済完了 ＆ VIPライセンス即時有効化
+        <span>✓</span> 決済完了 ＆ Web VIP Vault 即時有効化
       </div>
       <h1 class="page-title">🎉 ご購入ありがとうございます！</h1>
       <p class="page-desc">
         Lemon Squeezy (Store ID #296100) での決済が正常に完了しました。<br>
-        お使いのブラウザにVIPアンロック情報が自動同期されました。メインターミナルにて全銘柄のオーダーブック、CSV、Pine Script v5をご利用いただけます。
+        お使いのブラウザにVIPアンロック情報が自動同期されました。<strong>Web VIP Vault（機関投資家データ庫）</strong>にて全銘柄のオーダーブック、CSV、Pine Script v5全文を今すぐご利用いただけます。
       </p>
 
       <div class="info-grid">
@@ -427,7 +426,7 @@
         </div>
         <div class="info-item">
           <div class="info-label">ライセンス状態 (Status)</div>
-          <div class="info-value" style="color:var(--accent-emerald);">👑 VIP解放完了 (ACTIVE)</div>
+          <div class="info-value" style="color:var(--accent-emerald);">👑 Web VIP Vault 解放完了 (ACTIVE)</div>
         </div>
         <div class="info-item">
           <div class="info-label">対象プラットフォーム</div>
@@ -449,55 +448,58 @@
       <!-- メインターミナルへの誘導ボタン -->
       <div class="actions-grid">
         <a href="https://getbreakai.com/#vip-vault" class="btn-checkout btn-checkout-primary">
-          メインターミナルに戻る (VIP全機能解放済み) →
+          🔑 Web VIP Vault を開く (VIP全機能解放済み) →
         </a>
         <a href="https://truthofmarket.com/?utm_source=getbreakai_confirmation" target="_blank" rel="noopener" class="btn-checkout btn-checkout-secondary">
-          姉妹サイト TruthOfMarket.com VIPを開く ↗
+          🧭 姉妹サイト TruthOfMarket.com VIPを開く ↗
         </a>
       </div>
     </div>
 
-    <!-- Telegram VIP オンボーディングカード -->
-    <div class="card-telegram">
-      <div class="telegram-title">
-        <span>✈️</span>
-        <span>公式Telegram VIPシグナル連携 (@SemifearGreedbot)</span>
+    <!-- Web VIP Vault ＆ 公式YouTube (@GetBreakAI) / 公式X / Web＆メール配信 オンボーディングカード -->
+    <div class="card-vip-channels">
+      <div class="channels-title">
+        <span>🔔</span>
+        <span>Webブラウザ＆メール即時シグナル配信 ・ 公式YouTube (@GetBreakAI) 連携</span>
       </div>
       <p style="color:var(--text-muted); font-size:0.92rem; line-height:1.65;">
-        Pro/Institutional 会員専用のリアルタイム通知ボット <strong>@SemifearGreedbot</strong> を連携することで、日中の新高値ブレイクアウト点火、大口ダークプール機関買い、2.0x ATR損切りライン・2.5R利確アラートをスマホで瞬時に受信できます。
+        外部チャットアプリのインストールは一切不要です。<strong>Web VIP Vault（ブラウザ画面）＆ご登録メールでの即時シグナル配信</strong>に加え、毎朝1分で米国株SEC開示＆2.0x ATR損切りラインを解説する<strong>公式YouTube（@GetBreakAI）</strong>と<strong>公式X（#株クラ 速報共有）</strong>をあわせてご活用ください。
       </p>
 
       <ul class="step-list">
         <li class="step-item">
           <span class="step-num">1</span>
           <div>
-            <strong>Telegramで「@SemifearGreedbot」を開く</strong><br>
-            下の連携ボタンをクリックし、TelegramアプリまたはWeb版で専用ボットを開きます。
+            <strong>Web VIP Vault（機関投資家データ庫）へ直行</strong><br>
+            ブラウザ上で全銘柄のGamma Flip・2.0x ATR一覧(.CSV)、Form-4役員自社株買い台帳、TradingView Pine Script v5全文がすでにアンロックされています。別端末で使う際は上のライセンスキーを入力するだけで自動有効化されます。
           </div>
         </li>
         <li class="step-item">
           <span class="step-num">2</span>
           <div>
-            <strong>チャット画面で「/start」を送信</strong><br>
-            ボットの開始メッセージが表示され、認証コマンドの受付状態になります。
+            <strong>📺 公式YouTube (@GetBreakAI — 毎朝1分 米国株SEC開示＆ATR速報) をチャンネル登録</strong><br>
+            毎晩20:30 JST（米国市場プレマーケット前）に、$NVDA・$PLTR・$TSLA・$SOXLの実チャートと新NISA 100万円シミュレーション速報ショートを公開しています。
           </div>
         </li>
         <li class="step-item">
           <span class="step-num">3</span>
           <div>
-            <strong>ライセンスキーまたは登録メールアドレスを送信</strong><br>
-            上記のライセンスキー（または購入時メールアドレス）をチャットに送信すると、即座にVIPシグナル通知が有効化されます。
+            <strong>🔔 Webブラウザ＆メール即時シグナル配信 ＋ 𝕏 公式X (#株クラ 速報共有)</strong><br>
+            TradingViewアラート用Webhook JSONと日次レポート配信で、チャートに張り付かず2.0x ATR逆指値と2.5R利確目標を機械的に管理できます。
           </div>
         </li>
       </ul>
 
-      <div style="text-align:center;">
-        <a href="https://t.me/SemifearGreedbot" target="_blank" rel="noopener" class="btn-checkout btn-checkout-telegram">
-          ✈️ Telegramで「@SemifearGreedbot」を開いてVIP有効化 →
+      <div class="actions-grid">
+        <a href="https://www.youtube.com/@GetBreakAI" target="_blank" rel="noopener" class="btn-checkout btn-checkout-youtube">
+          📺 公式YouTube (@GetBreakAI — 毎朝1分 米国株SEC開示＆ATR速報) →
         </a>
-        <div style="font-size:0.75rem; color:var(--text-sub); margin-top:8px;">
-          ※ Telegramアプリがインストールされていない場合はWeb版またはブラウザで開きます。
-        </div>
+        <a href="https://x.com/intent/tweet?text=%E7%B1%B3%E5%9B%BD%E6%A0%AA%E3%83%BB%E6%96%B0NISA%E5%B0%82%E7%94%A8%20GetBreakAI%20VIP%E3%82%BF%E3%83%BC%E3%83%9F%E3%83%8A%E3%83%AB%EF%BC%882.0x%20ATR%E6%90%8D%E5%88%87%E3%82%8A%EF%BC%86SEC%208-K%E9%80%9F%E5%A0%B1%EF%BC%89%20https%3A%2F%2Fgetbreakai.com%20%23%E6%A0%AA%E3%82%AF%E3%83%A9%20%23%E6%96%B0NISA%20%23%E7%B1%B3%E5%9B%BD%E6%A0%AA" target="_blank" rel="noopener" class="btn-checkout btn-checkout-secondary">
+          𝕏 公式X (#株クラ 速報共有) ↗
+        </a>
+        <a href="https://getbreakai.com/#vip-vault" class="btn-checkout btn-checkout-secondary">
+          🔔 Webブラウザ＆メール即時シグナル設定へ →
+        </a>
       </div>
     </div>
 
@@ -516,7 +518,8 @@
     <div style="margin-bottom:8px;">
       <a href="https://getbreakai.com/">ホーム</a>
       <a href="https://getbreakai.com/#pricing">料金プラン</a>
-      <a href="https://getbreakai.com/#vip-vault">VIP金庫</a>
+      <a href="https://getbreakai.com/#vip-vault">Web VIP Vault</a>
+      <a href="https://www.youtube.com/@GetBreakAI" target="_blank" rel="noopener">公式YouTube (@GetBreakAI)</a>
       <a href="https://getbreakai.com/jp/">ディープリサーチ</a>
       <a href="mailto:beable9489@gmail.com">サポート (beable9489@gmail.com)</a>
     </div>
@@ -553,14 +556,36 @@
       }
     }
 
+    async function autoActivateRedirectLicenseKey(rawKey) {
+      const key = String(rawKey || '').trim();
+      if (!key || key.startsWith('GBA-')) return;
+      try {
+        const valResp = await fetch('https://api.lemonsqueezy.com/v1/licenses/validate', {
+          method: 'POST',
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams({ license_key: key }).toString()
+        });
+        const valData = await valResp.json().catch(() => null);
+        const isInactive = !valData || !valData.valid || (valData.license_key && (valData.license_key.status === 'inactive' || valData.license_key.activations_usage === 0));
+        if (isInactive) {
+          await fetch('https://api.lemonsqueezy.com/v1/licenses/activate', {
+            method: 'POST',
+            headers: { 'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams({ license_key: key, instance_name: 'GetBreakAI-Web-Terminal' }).toString()
+          }).catch(() => null);
+        }
+      } catch (_) {}
+    }
+
     // Parse Query Params and Sync localStorage
     (function initConfirmation() {
       initTheme();
 
       const params = new URLSearchParams(window.location.search);
-      const orderId = params.get('order_id') || params.get('orderId') || params.get('checkout_id') || ('LS-' + Date.now().toString(36).toUpperCase());
-      const orderKey = params.get('order_key') || params.get('orderKey') || params.get('license_key') || ('GBA-' + Math.random().toString(36).substring(2, 6).toUpperCase() + '-' + Math.random().toString(36).substring(2, 6).toUpperCase() + '-' + Math.random().toString(36).substring(2, 6).toUpperCase());
-      const customerEmail = params.get('customer_email') || params.get('email') || localStorage.getItem('gb_vip_customer_email') || 'ご登録メールアドレス宛に送信完了';
+      const orderId = (params.get('order_id') || params.get('orderId') || params.get('checkout_id') || '').trim() || ('LS-' + Date.now().toString(36).toUpperCase());
+      const rawParamKey = (params.get('order_key') || params.get('orderKey') || params.get('license_key') || '').trim();
+      const orderKey = rawParamKey || ('GBA-' + Math.random().toString(36).substring(2, 6).toUpperCase() + '-' + Math.random().toString(36).substring(2, 6).toUpperCase() + '-' + Math.random().toString(36).substring(2, 6).toUpperCase());
+      const customerEmail = (params.get('customer_email') || params.get('email') || '').trim() || localStorage.getItem('gb_vip_customer_email') || 'ご登録メールアドレス宛に送信完了';
 
       try {
         localStorage.setItem('gb_vip_unlocked', 'true');
@@ -578,6 +603,10 @@
       if (elOrderId) elOrderId.innerText = String(orderId);
       if (elEmail) elEmail.innerText = String(customerEmail);
       if (elKey) elKey.innerText = String(orderKey);
+
+      if (rawParamKey) {
+        autoActivateRedirectLicenseKey(rawParamKey);
+      }
     })();
 
     function copyLicenseKey() {

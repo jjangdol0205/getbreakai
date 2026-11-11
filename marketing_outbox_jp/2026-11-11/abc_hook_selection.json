@@ -1,0 +1,38 @@
+[
+  {
+    "episode": "jp_shorts_01_NVDA_gamma_atr.mp4",
+    "ticker": "NVDA",
+    "voice": "ja-JP-KeitaNeural",
+    "abc_candidates": {
+      "A_vs": "移動平均線を見ている人と、オプションGamma Wallを見ている人の決定的な差。",
+      "B_loss": "エヌビディア株、感覚でマイナス5%損切りを置くと機関のヒゲで一発退場します！",
+      "C_twist": "ウォール街の英語SEC開示とコール3.2倍のガンマスクイーズ、AIが3秒で解読した結果。"
+    },
+    "selected_hook": "B_loss",
+    "duration_sec": 16.5
+  },
+  {
+    "episode": "jp_shorts_02_PLTR_sec8k_atr.mp4",
+    "ticker": "PLTR",
+    "voice": "ja-JP-NanamiNeural",
+    "abc_candidates": {
+      "A_vs": "英語のSEC 8-Kを3秒で読むAIと、翌日のニュースを待つ個人投資家の差。",
+      "B_loss": "パランティア株、高値掴みと塩漬けを防ぐ機関投資家のATRルールを知っていますか？",
+      "C_twist": "パランティアの取引所外ダークプール比率64%！機関がこっそり買い集める理由。"
+    },
+    "selected_hook": "C_twist",
+    "duration_sec": 16.5
+  },
+  {
+    "episode": "jp_shorts_03_TSLA_gex_atr.mp4",
+    "ticker": "TSLA",
+    "voice": "ja-JP-KeitaNeural",
+    "abc_candidates": {
+      "A_vs": "テスラ株を雰囲気で買う人と、Gamma WallとATRで計算して買う人の差。",
+      "B_loss": "テスラ株の激しい値動き、株数を間違えると1日で口座が吹き飛びます！",
+      "C_twist": "テスラにコール3.6倍の異常スイープ流入！ディーラー強制買いラインを公開。"
+    },
+    "selected_hook": "C_twist",
+    "duration_sec": 16.5
+  }
+]

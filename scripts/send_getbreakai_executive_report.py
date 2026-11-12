@@ -15,7 +15,22 @@ import urllib.parse
 if hasattr(sys.stdout, 'reconfigure'):
     sys.stdout.reconfigure(encoding='utf-8')
 
-BOT_TOKEN = "9291573259:AAEZXNkQ4wuEPX6FYujxKT5mwLWdQpZOnes"
+import os
+from pathlib import Path
+
+
+def _load_gba_token() -> str:
+    if os.getenv("TELEGRAM_BOT_TOKEN"):
+        return os.getenv("TELEGRAM_BOT_TOKEN", "").strip()
+    env_p = Path(__file__).resolve().parent.parent / ".env"
+    if env_p.exists():
+        for line in env_p.read_text(encoding="utf-8", errors="ignore").splitlines():
+            if line.startswith("TELEGRAM_BOT_TOKEN="):
+                return line.split("=", 1)[1].strip().strip("'\"")
+    return ""
+
+
+BOT_TOKEN = _load_gba_token()
 TARGET_CHATS = [
     {"name": "HQ Group", "id": "-1003834697086"},
     {"name": "CEO Direct", "id": "755033799"}

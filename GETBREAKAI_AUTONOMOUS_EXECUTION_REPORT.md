@@ -196,7 +196,7 @@ node scripts/build_dist.js
 ## 6. Telegram Notification Delivery Evidence
 
 Delivery Script: `D:\드림컴퍼니\3사업부\scripts\send_getbreakai_executive_report.py`
-Bot Account: `[3사업부 · 본사] GetBreakAI (일본퀀트)` (`@SemifearGreedbot`, Token: `9291573259:AAEZXNkQ4wuEPX6FYujxKT5mwLWdQpZOnes`)
+Bot Account: `[3사업부 · 본사] GetBreakAI (일본퀀트)` (`@SemifearGreedbot`, Token: `9291573259:[REDACTED_IN_ENV]`)
 
 ```
 ========================================================================

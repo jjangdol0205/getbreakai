@@ -14,6 +14,10 @@ const DIST_DIR = path.join(ROOT_DIR, 'dist');
 const ROOT_FILES = [
   'index.html',
   'confirmation.html',
+  'contact.html',
+  'terms.html',
+  'privacy.html',
+  'refund.html',
   'CNAME',
   'favicon.svg',
   'og-preview.png',

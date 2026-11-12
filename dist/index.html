@@ -1753,7 +1753,7 @@
           <span class="dot dot-y"></span>
           <span class="dot dot-g"></span>
           <span style="margin-left: 8px;">GETBREAKAI_JP_TERMINAL_V3.0</span>
-          <span id="gbLiveFeedDateBadge" class="tape-badge bg-pead" style="margin-left:6px;">🟢 日米市場最新データ反映 · 2026-11-11</span>
+          <span id="gbLiveFeedDateBadge" class="tape-badge bg-pead" style="margin-left:6px;">🟢 日米市場最新データ反映 · 2026-11-12</span>
         </div>
 
         <!-- 市場切り替えタブ (#radarMarketTabs) -->
@@ -2218,7 +2218,7 @@
             <div style="font-family:var(--font-mono); font-size:0.78rem; color:var(--accent-amber); font-weight:800;">
               ⚡ VIP特典 #1 · 日次決算カタリスト・Gamma Flip・2.0x ATR損切りオーダーブック
             </div>
-            <h3 style="font-size:1.12rem; font-weight:800; color:var(--text-main);">機関投資家シグナル厳選セットアップ (<span id="gbVaultDateSub">米国市場最新データ反映 · 2026-11-10</span>)</h3>
+            <h3 style="font-size:1.12rem; font-weight:800; color:var(--text-main);">機関投資家シグナル厳選セットアップ (<span id="gbVaultDateSub">米国市場最新データ反映 · 2026-11-12</span>)</h3>
           </div>
           <div style="display:flex; gap:8px; flex-wrap:wrap; width:100%; max-width:540px;">
             <button type="button" class="ticker-btn active" onclick="downloadGbCatalystCsv()">📥 全銘柄カタリスト一覧 (.CSV) ダウンロード</button>
@@ -2555,16 +2555,16 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
 
       
       <div style="margin-top:22px; display:flex; gap:18px; flex-wrap:wrap; font-size:0.84rem; border-top:1px solid var(--border-color); padding-top:18px;">
-        <button type="button" onclick="openGbJpLegalModal('tokushoho')" style="background:none; border:none; color:#c4b5fd; cursor:pointer; font-weight:700; text-decoration:underline;">特定商取引法に基づく表記</button>
-        <button type="button" onclick="openGbJpLegalModal('terms')" style="background:none; border:none; color:#c4b5fd; cursor:pointer; font-weight:700; text-decoration:underline;">利用規約</button>
-        <button type="button" onclick="openGbJpLegalModal('privacy')" style="background:none; border:none; color:#c4b5fd; cursor:pointer; font-weight:700; text-decoration:underline;">プライバシーポリシー</button>
-        <button type="button" onclick="openGbJpLegalModal('refund')" style="background:none; border:none; color:#c4b5fd; cursor:pointer; font-weight:700; text-decoration:underline;">返金ポリシー</button>
+        <a href="/contact.html" onclick="if(!event.ctrlKey&amp;&amp;!event.shiftKey){event.preventDefault();openGbJpLegalModal('tokushoho');}" style="color:var(--accent-violet); cursor:pointer; font-weight:700; text-decoration:underline;">特定商取引法に基づく表記</a>
+        <a href="/terms.html" onclick="if(!event.ctrlKey&amp;&amp;!event.shiftKey){event.preventDefault();openGbJpLegalModal('terms');}" style="color:var(--accent-violet); cursor:pointer; font-weight:700; text-decoration:underline;">利用規約</a>
+        <a href="/privacy.html" onclick="if(!event.ctrlKey&amp;&amp;!event.shiftKey){event.preventDefault();openGbJpLegalModal('privacy');}" style="color:var(--accent-violet); cursor:pointer; font-weight:700; text-decoration:underline;">プライバシーポリシー</a>
+        <a href="/refund.html" onclick="if(!event.ctrlKey&amp;&amp;!event.shiftKey){event.preventDefault();openGbJpLegalModal('refund');}" style="color:var(--accent-violet); cursor:pointer; font-weight:700; text-decoration:underline;">返金ポリシー</a>
       </div>
 
       <div class="legal-box">
         <strong>【免責事項・金融商品取引法および関連法規に関する告知】</strong><br>
         GetBreakAI（当サイト）は、米国SEC公開データおよびオプション市場統計に基づく金融情報解析ソフトウェアであり、投資助言業または金融商品取引業者ではありません。表示されるAIカタリストスコア、SEC開示要約、Form-4集計、予想変動幅(IV)、およびATR損切り・株数シミュレーションは情報提供・教育目的であり、特定銘柄の売買推奨や利益保証を行うものではありません。米国株式・ETF・オプション取引には価格変動リスクおよび為替変動リスクがあり、最終的な投資判断はご自身の責任において行ってください。<br><br>
-        © 2026 Dream Company &amp; GetBreakAI. Merchant of Record: Lemon Squeezy Store ID #296100. All rights reserved.
+        Operated by Yoonju Lee · KIDS-FIT Global Studio (Lemon Squeezy Store #296100) · Dream Company Quantitative Research. Support: <a href="mailto:beable9489@gmail.com" style="color:var(--accent-sky);">beable9489@gmail.com</a>. All rights reserved.
       </div>
     </div>
   </footer>
@@ -3713,7 +3713,7 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
     const JP_LEGAL_DOCS = {
       tokushoho: {
         title: '特定商取引法に基づく表記 (Merchant of Record Disclosure)',
-        body: '<p><strong>販売事業者・運営統括:</strong> Dream Company Quantitative Research (GetBreakAI Desk)</p>' +
+        body: '<p><strong>運営者・販売事業者:</strong> Yoonju Lee · KIDS-FIT Global Studio / Dream Company Quantitative Research (GetBreakAI Desk)</p>' +
               '<p><strong>公式決済代行 (Merchant of Record):</strong> Lemon Squeezy, LLC (Store ID #296100) / Stripe提携グローバル決済基盤</p>' +
               '<p><strong>お問い合わせ窓口:</strong> <a href="mailto:beable9489@gmail.com" style="color:#38bdf8;">beable9489@gmail.com</a>（原則24時間以内に日本語・英語で対応）</p>' +
               '<p><strong>販売価格:</strong> Starter Breakout Scanner $29/月（約4,400円・税込）、Pro Institutional Annual Pass $199/年（43%OFF・約29,800円/年・税込）、法人プラン（個別お見積り・beable9489@gmail.com）</p>' +

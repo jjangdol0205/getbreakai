@@ -1,0 +1,44 @@
+[
+  {
+    "episode": "jp_shorts_01_NVDA_gamma_atr.mp4",
+    "ticker": "NVDA",
+    "voice": "ja-JP-NanamiNeural",
+    "abc_candidates": {
+      "A_vs": "同じ100万円でエヌビディア株を買って、52万円に減る人と168万円に増やす人の差。",
+      "B_loss": "新NISAでエヌビディア株をナンピンすると、損益通算ゼロで非課税枠が凍結します！",
+      "C_twist": "株価マイナス8%の逆指値でも、口座の損失を1.5%以内に抑える適正株数の算数。"
+    },
+    "selected_hook": "A_vs",
+    "duration_sec": 48.82,
+    "subtitle_safe_zone_y": 995,
+    "publishAt_schedule_jst": "20:30:00+09:00"
+  },
+  {
+    "episode": "jp_shorts_02_PLTR_sec8k_atr.mp4",
+    "ticker": "PLTR",
+    "voice": "ja-JP-KeitaNeural",
+    "abc_candidates": {
+      "A_vs": "パランティア株で+28万円を伸ばす人と、高値掴みで退場する人の株数管理の差。",
+      "B_loss": "値動きの激しい米国AI株、感覚で株数を決めると1日で口座資金が削られます！",
+      "C_twist": "英語のSEC 8-K大型契約が出る瞬間、機関投資家はどう株数を計算しているのか？"
+    },
+    "selected_hook": "A_vs",
+    "duration_sec": 41.42,
+    "subtitle_safe_zone_y": 995,
+    "publishAt_schedule_jst": "20:30:00+09:00"
+  },
+  {
+    "episode": "jp_shorts_03_TSLA_gex_atr.mp4",
+    "ticker": "TSLA",
+    "voice": "ja-JP-NanamiNeural",
+    "abc_candidates": {
+      "A_vs": "テスラ株の乱高下で消耗する個人と、機械的ルールで+27万円を狙うプロの差。",
+      "B_loss": "テスラ株を雰囲気でナンピンすると、新NISAの非課税枠が一瞬で塩漬けになります！",
+      "C_twist": "コール3.6倍の踏み上げ相場、どこに逆指値を置けば口座を守りながら利益を伸ばせるか？"
+    },
+    "selected_hook": "A_vs",
+    "duration_sec": 46.77,
+    "subtitle_safe_zone_y": 995,
+    "publishAt_schedule_jst": "20:30:00+09:00"
+  }
+]

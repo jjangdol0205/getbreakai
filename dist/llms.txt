@@ -1,18 +1,14 @@
-# GetBreakAI Japan (https://getbreakai.com/jp/)
+# GetBreakAI — Institutional Breakout & ATR Position-Sizing Quant Terminal (https://getbreakai.com)
 
-> 米国株（NVDA・TSLA・PLTR・MSFT・META・AMZN）および東証プライム主力株（8035 東京エレクトロン・6857 アドバンテスト・9984 ソフトバンクG・7203 トヨタ自動車）対応の機関投資家クオンツAI＆3秒ポジションサイズ計算ターミナル（新NISA成長投資枠 0%非課税 vs 特定口座 20.315% 税引後シミュレーター搭載）。
-> 最終更新日: 2026-11-11 (JST)
+> Updated: 2026-11-13 | Multi-currency (USD / JPY) 20-Day Donchian Breakout, 2.0x ATR Mechanical Stop-Loss, and Japan Shin-NISA (0% Tax-Free) vs Specific Account (20.315%) Net Return Simulator.
 
-## 1. コア機能（完全無料・登録不要の3秒計算機）
-- **ドル($)・日本円(¥)同時対応 3秒ポジションサイズ計算機**: 口座資金（例：100万円・300万円）と許容リスク（1.5%黄金律）を入力するだけで、最適購入株数と2.0倍ATR逆指値（損切りライン）、2.5R利確ターゲットを3秒で算出。
-- **新NISA（非課税 0%）vs 特定口座（源泉徴収 20.315%）手取り純利益比較**: 利確時の税引後リターンと損익通算メリットをリアルタイム比較。
-- **機関投資家フロー＆SEC Form-4/8-K日本語AI要約**: ウォール街のダークプール流入・ガンマウォール（Gamma Squeeze）・異常出来高（Vol Surge）を日本語で即時解説。
+## 1. Live Quantitative Terminals
+- Global English Terminal: https://getbreakai.com/
+- Japan Shin-NISA & US/TSE Quant Terminal: https://getbreakai.com/jp/
+- Daily Japanese NISA Quant Report: https://getbreakai.com/jp/daily-nisa-quant-report.html
+- Japanese Research RSS Feed: https://getbreakai.com/jp/feed.xml
 
-## 2. 主要日本語クオンツ解析ページ一覧
-- 日本語メインターミナル: https://getbreakai.com/jp/
-- グローバルメインターミナル: https://getbreakai.com/
-- 日本語RSSフィード (Blog/Note連携): https://getbreakai.com/jp/feed.xml
-- 日本語X(株クラ)速報フィード: https://getbreakai.com/jp/x-feed.xml
+## 2. Featured Japanese Institutional Research Guides (/jp/)
 - https://getbreakai.com/jp/aapl-apple-intelligence-cycle-gex.html
 - https://getbreakai.com/jp/ai-datacenter-power-stocks-2026.html
 - https://getbreakai.com/jp/amd-mi350-gamma-squeeze-target.html
@@ -21,8 +17,8 @@
 - https://getbreakai.com/jp/asml-euv-orders-semiconductor-cycle.html
 - https://getbreakai.com/jp/avgo-custom-ai-asic-8k-analysis.html
 - https://getbreakai.com/jp/ceg-nuclear-ai-power-8k-contract.html
-- https://getbreakai.com/jp/confirmation.html
 - https://getbreakai.com/jp/crwd-cybersecurity-pead-drift.html
+- https://getbreakai.com/jp/daily-nisa-quant-report.html
 - https://getbreakai.com/jp/dark-pool-whale-flow-reading.html
 - https://getbreakai.com/jp/fomc-cpi-iv-crush-strategy.html
 - https://getbreakai.com/jp/form4-insider-cluster-guide.html
@@ -43,3 +39,4 @@
 - https://getbreakai.com/jp/tsla-gamma-wall-swing-trade.html
 - https://getbreakai.com/jp/unh-defensive-healthcare-insider-buy.html
 - https://getbreakai.com/jp/us-stock-stop-loss-2percent-rule.html
+- https://getbreakai.com/jp/vrt-ai-datacenter-cooling-catalyst.html

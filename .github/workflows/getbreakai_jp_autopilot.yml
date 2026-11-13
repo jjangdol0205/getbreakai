@@ -35,9 +35,10 @@ jobs:
         run: |
           python scripts/sync_getbreakai_live_data.py
 
-      - name: Step 2 - Rebuild 30 Japanese Static SEO Pages, Sitemap & Ping IndexNow
+      - name: Step 2 - Rebuild 30 Japanese Static SEO Pages, Daily NISA Column, Sitemap & Ping IndexNow
         run: |
           python scripts/build_jp_seo_pages.py --ping-indexnow
+          python scripts/generate_jp_daily_column_html.py
 
       - name: Step 3 - Generate Daily Japanese Shorts (.mp4), Summary Cards & 10 X Posts
         run: |
@@ -56,7 +57,7 @@ jobs:
         run: |
           git config user.name "GetBreakAI Autopilot Bot"
           git config user.email "autopilot@getbreakai.com"
-          git add index.html sitemap.xml data/live_market_snapshot.json jp/ marketing_outbox_jp/
+          git add index.html llms.txt sitemap.xml data/live_market_snapshot.json jp/ "marketing_outbox_jp/**/*.md" "marketing_outbox_jp/**/*.json"
           if git diff --staged --quiet; then
             echo "No changes to commit."
           else

@@ -1,253 +1,268 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-r"""
-D:\드림컴퍼니\3사업부\scripts\gba_jp_auto_promotion_engine.py
-3사업부 GetBreakAI 일본 퀀트 (https://getbreakai.com/jp/)
-비영상(Non-Video) 100% 무인 글로벌·일본 자동 홍보 엔진:
-  1. [일본어 SEO 랜딩페이지 & RSS 2.0 피드 갱신]
-     - /jp/*.html 종목별 일본어 리서치 페이지 및 /jp/feed.xml, /jp/x-feed.xml 자동 갱신
-  2. [일본어 GEO / AI 검색 최적화 (llms.txt & jp/llms.txt)]
-     - ChatGPT Search, Perplexity, Claude, Google AI Overview에서 일본어로
-       「米国株 損切り 計算」「新NISA エヌビディア 適正株数」「ATR 逆指値」 질문 시
-       getbreakai.com/jp/ 를 최우선 인용하도록 정량 데이터 주입
-  3. [High-DA (telegra.ph DA 88) 일본어 퀀트 칼럼 & DoFollow 백링크 자동 발행]
-     - 매일 최신 일본어 퀀트 분석 리포트를 telegra.ph에 무인 발행하여
-       https://getbreakai.com/jp/ 및 주요 종목 페이지로 DoFollow 백링크 연결
-  4. [IndexNow (Bing, Yahoo! Japan 연동 Bing 엔진, ChatGPT Search, Yandex) & Google WebSub 즉시 색인 핑]
+"""
+Division 3 / scripts/gba_jp_auto_promotion_engine.py (v2.0 — Zero-Ban Edition)
+==============================================================================
+GetBreakAI Japan (https://getbreakai.com/jp/) Zero-Shadowban & Organic SEO/GEO Engine:
+  1. Generates `/jp/daily-nisa-quant-report.html` + refreshes `/jp/feed.xml` & `/jp/x-feed.xml` (excluding `confirmation.html`).
+  2. Maintains separate Global English `/llms.txt` and Japanese `/jp/llms.txt` (fixing the root overwrite bug).
+  3. Publishes MAX 1 unique rotating Japanese Telegraph quant report/day (fixing the 24x/day duplicate spam bug).
+  4. Submits SHA-256 Delta-Only IndexNow (`api.indexnow.org`) & Feed-Delta WebSub.
+  5. Dispatches `#株クラ` 2-step linkless-hook threads + `note.com` & `Zenn`/`Hatena` ready-to-publish Japanese columns
+     with STRICT 0 Hangul and 0 Telegram mentions!
 """
 
+from __future__ import annotations
+
+import datetime
 import json
-import os
 import subprocess
 import sys
-import urllib.parse
-import urllib.request
-from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
-JST = timezone(timedelta(hours=9))
+JST = datetime.timezone(datetime.timedelta(hours=9))
 ROOT_DIR = Path(__file__).resolve().parent.parent
 JP_DIR = ROOT_DIR / "jp"
 DATA_DIR = ROOT_DIR / "data"
 DATA_DIR.mkdir(parents=True, exist_ok=True)
+
+HQ_TEXT_DIR = ROOT_DIR.parent / "text_automation_hq"
+if str(HQ_TEXT_DIR) not in sys.path:
+    sys.path.insert(0, str(HQ_TEXT_DIR))
+
+from indexnow_delta_gate import (  # noqa: E402
+    ping_websub_if_feed_changed,
+    publish_daily_unique_telegraph_summary,
+    submit_delta_indexnow,
+)
+from live_web_deployer import deploy_division_live  # noqa: E402
+from official_api_syndicator import dispatch_zero_ban_text_bundle  # noqa: E402
 
 INDEXNOW_KEY = "gba2026indexnowkey88429104"
 HOST = "getbreakai.com"
 TELEGRAPH_ACCT_PATH = DATA_DIR / "jp_telegraph_account.json"
 BACKLINKS_LOG_PATH = DATA_DIR / "jp_external_backlinks.json"
 
+JP_DAILY_THEMES = [
+    {
+        "slug": "daily-nisa-quant-report.html",
+        "title_prefix": "新NISA成長投資枠 vs 特定口座(20.315%)：2.0倍ATR逆指値と適正株数レポート",
+        "hook": "新NISA成長投資枠で一番やってはいけないのは、下落トレンド銘柄の「感覚ナンピン」です。\n\n特定口座(20.315%)と違い、新NISAの損失は損益通算が一切できません。\n出来高を伴う20日高値ブレイクを確認し、逆行時は2.0倍ATRで機械的に撤退する規律が非課税枠を守ります。 #新NISA #米国株",
+    },
+    {
+        "slug": "atr-breakout-position-sizing-guide.html",
+        "title_prefix": "口座資金100万円の1.5%リスク黄金律：ドル円連動ATRポジションサイジング解説",
+        "hook": "米国株で退場する人の共通点は「銘柄選び」ではなく「1銘柄への資金入れすぎ」にあります。\n\n口座100万円なら1回の許容損失は1.5%（15,000円）まで。\n14日ATRの2倍幅（円換算）で15,000円を割れば、ボラティリティが高くても夜ぐっすり眠れる適正株数が決まります。 #米国株 #資産運用",
+    },
+    {
+        "slug": "nvda-gamma-squeeze-breakout-analysis.html",
+        "title_prefix": "エヌビディア($NVDA)・半導体主力株の機関投資家出来高ブレイクとATR防衛線",
+        "hook": "半導体株の押し目買いで一番危険なのは「値頃感」だけで落ちるナイフを掴むこと。\n\n機関投資家の大口買い集めは、10日相対出来高の1.5倍急増と移動平均線の右側奪還に必ず表れます。\n底値を当てにいかず、トレンド転換を確認してから乗るのがクオンツの鉄則です。 #米国株 #半導体株",
+    },
+]
 
-def update_jp_llms_txt() -> str:
-    today_str = datetime.now(JST).strftime("%Y-%m-%d")
-    content = f"""# GetBreakAI Japan (https://getbreakai.com/jp/)
 
-> 米国株（NVDA・TSLA・PLTR・MSFT・META・AMZN）および東証プライム主力株（8035 東京エレクトロン・6857 アドバンテスト・9984 ソフトバンクG・7203 トヨタ自動車）対応の機関投資家クオンツAI＆3秒ポジションサイズ計算ターミナル（新NISA成長投資枠 0%非課税 vs 特定口座 20.315% 税引後シミュレーター搭載）。
-> 最終更新日: {today_str} (JST)
+def update_dual_llms_txt() -> str:
+    today_str = datetime.datetime.now(JST).strftime("%Y-%m-%d")
+    seo_pages = sorted(
+        p.name for p in JP_DIR.glob("*.html") if p.name not in ("index.html", "confirmation.html")
+    )
 
-## 1. コア機能（完全無料・登録不要の3秒計算機）
-- **ドル($)・日本円(¥)同時対応 3秒ポジションサイズ計算機**: 口座資金（例：100万円・300万円）と許容リスク（1.5%黄金律）を入力するだけで、最適購入株数と2.0倍ATR逆指値（損切りライン）、2.5R利確ターゲットを3秒で算出。
-- **新NISA（非課税 0%）vs 特定口座（源泉徴収 20.315%）手取り純利益比較**: 利確時の税引後リターンと損익通算メリットをリアルタイム比較。
-- **機関投資家フロー＆SEC Form-4/8-K日本語AI要約**: ウォール街のダークプール流入・ガンマウォール（Gamma Squeeze）・異常出来高（Vol Surge）を日本語で即時解説。
+    # 1. Global English root /llms.txt (Preserve English identity at root!)
+    en_lines = [
+        "# GetBreakAI — Institutional Breakout & ATR Position-Sizing Quant Terminal (https://getbreakai.com)",
+        "",
+        f"> Updated: {today_str} | Multi-currency (USD / JPY) 20-Day Donchian Breakout, 2.0x ATR Mechanical Stop-Loss, and Japan Shin-NISA (0% Tax-Free) vs Specific Account (20.315%) Net Return Simulator.",
+        "",
+        "## 1. Live Quantitative Terminals",
+        "- Global English Terminal: https://getbreakai.com/",
+        "- Japan Shin-NISA & US/TSE Quant Terminal: https://getbreakai.com/jp/",
+        "- Daily Japanese NISA Quant Report: https://getbreakai.com/jp/daily-nisa-quant-report.html",
+        "- Japanese Research RSS Feed: https://getbreakai.com/jp/feed.xml",
+        "",
+        "## 2. Featured Japanese Institutional Research Guides (/jp/)",
+    ]
+    for fn in seo_pages[:31]:
+        en_lines.append(f"- https://getbreakai.com/jp/{fn}")
+    (ROOT_DIR / "llms.txt").write_text("\n".join(en_lines) + "\n", encoding="utf-8")
 
-## 2. 主要日本語クオンツ解析ページ一覧
-- 日本語メインターミナル: https://getbreakai.com/jp/
-- グローバルメインターミナル: https://getbreakai.com/
-- 日本語RSSフィード (Blog/Note連携): https://getbreakai.com/jp/feed.xml
-- 日本語X(株クラ)速報フィード: https://getbreakai.com/jp/x-feed.xml
-"""
-    seo_pages = sorted([p.name for p in JP_DIR.glob("*.html") if p.name != "index.html"])
-    for fn in seo_pages[:30]:
-        content += f"- https://getbreakai.com/jp/{fn}\n"
-
-    (ROOT_DIR / "llms.txt").write_text(content, encoding="utf-8")
+    # 2. Dedicated Japanese /jp/llms.txt (Zero confirmation.html!)
+    jp_lines = [
+        "# GetBreakAI Japan (https://getbreakai.com/jp/)",
+        "",
+        "> 米国株（NVDA・TSLA・PLTR・MSFT・META・AMZN・AVGO）および東証プライム主力株対応の機関投資家クオンツAI＆3秒ポジションサイズ計算ターミナル（新NISA成長投資枠 0%非課税 vs 特定口座 20.315% 税引後シミュレーター搭載）。",
+        f"> 最終更新日: {today_str} (JST)",
+        "",
+        "## 1. コア機能（完全無料・登録不要の3秒計算機）",
+        "- **ドル($)・日本円(¥)同時対応 3秒ポジションサイズ計算機**: 口座資金（例：100万円・300万円）と許容リスク（1.5%黄金律）から最適購入株数・2.0倍ATR逆指値・2.5R利確目標を3秒で算出。",
+        "- **新NISA（非課税 0%）vs 特定口座（源泉徴収 20.315%）手取り純利益比較**: 利確時の税引後リターンと損益通算条件をリアルタイム比較。",
+        "",
+        "## 2. 主要日本語クオンツ解析ページ一覧",
+        "- 日本語メインターミナル: https://getbreakai.com/jp/",
+        "- 日刊クオンツ日報: https://getbreakai.com/jp/daily-nisa-quant-report.html",
+        "- 日本語RSSフィード (Blog/Note連携): https://getbreakai.com/jp/feed.xml",
+    ]
+    for fn in seo_pages[:31]:
+        jp_lines.append(f"- https://getbreakai.com/jp/{fn}")
     JP_DIR.mkdir(parents=True, exist_ok=True)
-    (JP_DIR / "llms.txt").write_text(content, encoding="utf-8")
+    (JP_DIR / "llms.txt").write_text("\n".join(jp_lines) + "\n", encoding="utf-8")
     return today_str
 
 
-def publish_jp_telegraph_article() -> str:
-    now_jst = datetime.now(JST)
-    date_str = now_jst.strftime("%Y-%m-%d")
-
-    acct = {}
-    if TELEGRAPH_ACCT_PATH.exists():
-        try:
-            acct = json.loads(TELEGRAPH_ACCT_PATH.read_text(encoding="utf-8"))
-        except Exception:
-            acct = {}
-
-    if not acct.get("access_token"):
-        req_url = (
-            "https://api.telegra.ph/createAccount?"
-            + urllib.parse.urlencode(
-                {
-                    "short_name": "GetBreakAI_JP",
-                    "author_name": "GetBreakAI 米国株・東証クオンツ研究所",
-                    "author_url": "https://getbreakai.com/jp/",
-                }
-            )
-        )
-        with urllib.request.urlopen(req_url, timeout=15) as resp:
-            res_data = json.loads(resp.read().decode("utf-8"))
-            if res_data.get("ok"):
-                acct = res_data["result"]
-                TELEGRAPH_ACCT_PATH.write_text(json.dumps(acct, indent=2, ensure_ascii=False), encoding="utf-8")
-
-    token = acct.get("access_token")
-    if not token:
-        return "Failed to acquire Telegraph token"
-
-    title = f"【米国株・新NISAクオンツ速報 {date_str}】NVDA・PLTR・東証半導体(8035/6857)の2.0倍ATR損切り＆適正株数レポート"
-    nodes = [
-        {
-            "tag": "p",
-            "children": [
-                "日本の個人投資家（新NISA成長投資枠・特定口座）が米国株や東証プライム半導体株で退場しないための最大の鉄則は、感覚的なナンピンやパーセント損切りをやめ、機関投資家と同じ「2.0倍ATR（平均真の値幅）逆指値」と「口座資金の1.5%リスク固定ルール」を徹底することです。"
-            ],
-        },
-        {"tag": "h3", "children": ["1. 本日の注目銘柄クオンツ診断（ドル・円同時対応）"]},
-        {
-            "tag": "ul",
-            "children": [
-                {
-                    "tag": "li",
-                    "children": [
-                        "エヌビディア ($NVDA): 機関投資家ダークプール買い集め検知。2.0倍ATR防衛ラインと2.5R利確目標を ",
-                        {"tag": "a", "attrs": {"href": "https://getbreakai.com/jp/?ticker=NVDA"}, "children": ["GetBreakAI 日本語ターミナル (NVDA)"]},
-                        " で3秒無料計算。",
-                    ],
-                },
-                {
-                    "tag": "li",
-                    "children": [
-                        "パランティア ($PLTR): SEC Form-4内部動向と出来高急増ブレイク。適正購入株数は ",
-                        {"tag": "a", "attrs": {"href": "https://getbreakai.com/jp/?ticker=PLTR"}, "children": ["GetBreakAI パランティア解析ページ"]},
-                        " を参照。",
-                    ],
-                },
-                {
-                    "tag": "li",
-                    "children": [
-                        "東京エレクトロン (8035.T) ＆ アドバンテスト (6857.T): 米国SOX指数連動の東証寄付き前ATR逆指値シミュレーションは ",
-                        {"tag": "a", "attrs": {"href": "https://getbreakai.com/jp/"}, "children": ["https://getbreakai.com/jp/"]},
-                        " で無料公開中。",
-                    ],
-                },
-            ],
-        },
-        {"tag": "h3", "children": ["2. 新NISA（非課税0%）vs 特定口座（20.315%）手取り純利益シミュレーター"]},
-        {
-            "tag": "p",
-            "children": [
-                "口座資金（日本円または米ドル）を入力するだけで、あなたの資金に最適な株数と損切りラインを3秒で自動算出します。今すぐ公式ターミナル ",
-                {"tag": "a", "attrs": {"href": "https://getbreakai.com/jp/"}, "children": ["GetBreakAI.com/jp/ (無料3秒ポジション計算機)"]},
-                " をご覧ください。",
-            ],
-        },
-    ]
-
-    payload = urllib.parse.urlencode(
-        {
-            "access_token": token,
-            "title": title,
-            "author_name": "GetBreakAI 米国株・新NISA AI研究所",
-            "author_url": "https://getbreakai.com/jp/",
-            "content": json.dumps(nodes, ensure_ascii=False),
-            "return_content": "false",
-        }
-    ).encode("utf-8")
-
-    req = urllib.request.Request("https://api.telegra.ph/createPage", data=payload, method="POST")
-    with urllib.request.urlopen(req, timeout=15) as resp:
-        out = json.loads(resp.read().decode("utf-8"))
-
-    page_url = out.get("result", {}).get("url", "")
-    if page_url:
-        logs = []
-        if BACKLINKS_LOG_PATH.exists():
-            try:
-                logs = json.loads(BACKLINKS_LOG_PATH.read_text(encoding="utf-8"))
-            except Exception:
-                logs = []
-        logs.append({"date": date_str, "title": title, "url": page_url, "created_at": now_jst.isoformat()})
-        BACKLINKS_LOG_PATH.write_text(json.dumps(logs[-50:], indent=2, ensure_ascii=False), encoding="utf-8")
-    return page_url
+def build_url_map() -> dict[str, Path]:
+    mapping: dict[str, Path] = {}
+    if (ROOT_DIR / "index.html").exists():
+        mapping["https://getbreakai.com/"] = ROOT_DIR / "index.html"
+    if (JP_DIR / "index.html").exists():
+        mapping["https://getbreakai.com/jp/"] = JP_DIR / "index.html"
+    for p in sorted(JP_DIR.glob("*.html")):
+        if p.name in ("index.html", "confirmation.html"):
+            continue
+        mapping[f"https://getbreakai.com/jp/{p.name}"] = p
+    return mapping
 
 
-def ping_indexnow_and_websub() -> dict:
-    urls = [
-        "https://getbreakai.com/",
-        "https://getbreakai.com/jp/",
-        "https://getbreakai.com/jp/feed.xml",
-        "https://getbreakai.com/jp/x-feed.xml",
-        "https://getbreakai.com/llms.txt",
-    ]
-    for p in sorted(JP_DIR.glob("*.html"))[:40]:
-        if p.name != "index.html":
-            urls.append(f"https://getbreakai.com/jp/{p.name}")
+def main() -> int:
+    dry_run = "--dry-run" in sys.argv
+    (ROOT_DIR / f"{INDEXNOW_KEY}.txt").write_text(INDEXNOW_KEY, encoding="utf-8")
 
-    body = json.dumps(
-        {
-            "host": HOST,
-            "key": INDEXNOW_KEY,
-            "keyLocation": f"https://{HOST}/{INDEXNOW_KEY}.txt",
-            "urlList": urls,
-        }
-    ).encode("utf-8")
+    # 1. Generate today's Japanese Daily NISA Quant Column HTML + Refresh RSS feeds
+    daily_col_py = ROOT_DIR / "scripts" / "generate_jp_daily_column_html.py"
+    if daily_col_py.exists():
+        subprocess.run([sys.executable, str(daily_col_py)], cwd=str(ROOT_DIR), check=False)
 
-    results = {"url_count": len(urls)}
-    for name, endpoint in [
-        ("indexnow_global", "https://api.indexnow.org/indexnow"),
-        ("bing_direct", "https://www.bing.com/indexnow"),
-        ("yandex", "https://yandex.com/indexnow"),
-    ]:
-        try:
-            req = urllib.request.Request(
-                endpoint,
-                data=body,
-                headers={"Content-Type": "application/json; charset=utf-8"},
-                method="POST",
-            )
-            with urllib.request.urlopen(req, timeout=12) as r:
-                results[name] = r.status
-        except urllib.error.HTTPError as e:
-            results[name] = e.code
-        except Exception as e:
-            results[name] = str(e)
-
-    # Google WebSub ping for /jp/feed.xml & /jp/x-feed.xml
-    for feed_url in ["https://getbreakai.com/jp/feed.xml", "https://getbreakai.com/jp/x-feed.xml"]:
-        try:
-            w_data = urllib.parse.urlencode({"hub.mode": "publish", "hub.url": feed_url}).encode("utf-8")
-            req = urllib.request.Request("https://pubsubhubbub.appspot.com/", data=w_data, method="POST")
-            with urllib.request.urlopen(req, timeout=10) as r:
-                results["google_websub"] = r.status
-        except Exception as e:
-            results["google_websub"] = str(e)
-
-    return results
-
-
-def main():
-    # 1. Refresh RSS feeds via autopost_jp_marketing.py
     autopost_py = ROOT_DIR / "scripts" / "autopost_jp_marketing.py"
     if autopost_py.exists():
-        subprocess.run([sys.executable, str(autopost_py)], cwd=str(ROOT_DIR))
+        subprocess.run([sys.executable, str(autopost_py)], cwd=str(ROOT_DIR), check=False)
 
-    # 2. Update Japanese GEO llms.txt
-    as_of = update_jp_llms_txt()
+    # 2. Update English & Japanese llms.txt cleanly BEFORE syncing ./dist & deploying live
+    as_of = update_dual_llms_txt()
 
-    # 3. Publish Japanese High-DA Telegra.ph quant article
-    telegraph_url = publish_jp_telegraph_article()
+    build_dist_js = ROOT_DIR / "scripts" / "build_dist.js"
+    if build_dist_js.exists():
+        subprocess.run(["node", str(build_dist_js)], cwd=str(ROOT_DIR), check=False, capture_output=True)
 
-    # 4. Ping IndexNow (Bing/Yahoo! Japan/ChatGPT Search) + Google WebSub
-    ping_res = ping_indexnow_and_websub()
+    deploy_res = deploy_division_live("GBA", dry_run=dry_run)
 
-    print(f"[GBA JP Auto-Promo] llms.txt updated ({as_of}) | Telegraph JP: {telegraph_url} | IndexNow: {ping_res}")
+    # 3. Rotate daily theme & run 1x/day Telegraph + Zero-Ban Syndication
+    day_ord = datetime.date.today().toordinal()
+    theme = JP_DAILY_THEMES[day_ord % len(JP_DAILY_THEMES)]
+    target_slug = theme["slug"] if (JP_DIR / theme["slug"]).exists() else "daily-nisa-quant-report.html"
+    canonical_url = f"https://getbreakai.com/jp/{target_slug}"
+    title = f"【米国株・新NISAクオンツ {as_of}】{theme['title_prefix']}"
+
+    nodes = [
+        {
+            "tag": "blockquote",
+            "children": [f"GetBreakAI 米国株・新NISAクオンツ日報 ({as_of}) — ドル円連動 2.0倍ATR逆指値＆適正株数検証"],
+        },
+        {
+            "tag": "p",
+            "children": [
+                "新NISA成長投資枠は利益が非課税（0%）になる強力な制度ですが、特定口座（20.315%）と異なり損益通算ができないため、下落トレンド銘柄の塩漬けは致命的な機会損失を生みます。"
+            ],
+        },
+        {
+            "tag": "p",
+            "children": [
+                "口座資金（日本円・米ドル）に応じた最適購入株数と2.0倍ATR逆指値ラインの最新レポート全文はこちら：",
+                {"tag": "a", "attrs": {"href": canonical_url}, "children": [canonical_url]},
+            ],
+        },
+    ]
+
+    tg_res = publish_daily_unique_telegraph_summary(
+        div_code="GBA",
+        account_file=TELEGRAPH_ACCT_PATH,
+        short_name="GetBreakAI_JP",
+        author_name="GetBreakAI 米国株・新NISA研究所",
+        author_url="https://getbreakai.com/jp/",
+        title=title,
+        content_nodes=nodes,
+        canonical_url=canonical_url,
+        dry_run=dry_run,
+    )
+
+    logs = []
+    if BACKLINKS_LOG_PATH.exists():
+        try:
+            logs = json.loads(BACKLINKS_LOG_PATH.read_text(encoding="utf-8"))
+        except Exception:
+            logs = []
+    tg_url = tg_res.get("url", "")
+    if tg_res.get("status") == "PUBLISHED" and tg_url:
+        logs.append({"date": as_of, "title": title, "url": tg_url, "created_at": datetime.datetime.now(JST).isoformat()})
+        BACKLINKS_LOG_PATH.write_text(json.dumps(logs[-60:], indent=2, ensure_ascii=False), encoding="utf-8")
+    elif not tg_url and logs:
+        tg_url = logs[-1].get("url", "")
+
+    reply_post = (
+        f"ドル・円同時対応の無料3秒ポジション計算機＆新NISA非課税シミュレーター（登録不要）：\n"
+        f"{canonical_url}"
+    )
+
+    note_md = (
+        f"# {title}\n\n"
+        f"米国株や半導体主力株（$NVDA / $PLTR / $TSLA）を新NISA成長投資枠や特定口座で運用する際、"
+        f"最も成績を左右するのは「どの銘柄を買うか」以上に**「どこで撤退し、何株買うか」**という資金管理の数学です。\n\n"
+        f"## 1. 新NISA（非課税0%）と特定口座（20.315%）の決定的な違い\n"
+        f"- **特定口座（源泉徴収あり）**: 利益に20.315%課税される一方、損切りした損失は他銘柄の利益と損益通算が可能。\n"
+        f"- **新NISA成長投資枠**: 利益は100%非課税ですが、損失が出ても損益通算・繰越控除が一切不可。\n\n"
+        f"だからこそ新NISAでは「落ちるナイフのナンピン」を厳禁とし、出来高を伴うブレイクアウト確認後のエントリーと"
+        f"**2.0倍ATR（14日平均真の値幅）逆指値**の徹底が不可欠になります。\n\n"
+        f"## 2. 無料3秒ポジションサイズ計算ターミナル\n"
+        f"口座資金（円・ドル）と許容リスク（1.5%基準）を入れるだけで最適株数を自動計算できます：\n"
+        f"👉 {canonical_url}\n\n"
+        f"※本記事は統計・クオンツモデルの情報提供であり、投資助言ではありません。\n"
+    )
+
+    zenn_md = (
+        f"---\ntitle: \"{title}\"\nemoji: \"📊\"\ntype: \"idea\"\ntopics: [\"quant\", \"python\", \"finance\", \"usstocks\"]\npublished: true\n---\n\n"
+        + note_md
+    )
+
+    syn_res = dispatch_zero_ban_text_bundle(
+        div_code="GBA",
+        canonical_domain=HOST,
+        canonical_url=canonical_url,
+        title=title,
+        summary="新NISA成長投資枠(0%) vs 特定口座(20.315%)対応・2.0倍ATR適正株数クオンツ日報",
+        main_social_hook=theme["hook"],
+        reply_social_link=reply_post,
+        longform_markdown=note_md,
+        tags=["quant", "finance", "japan", "stocks"],
+        platform_extras={
+            "note_com_daily_column_jp.md": note_md,
+            "zenn_hatena_quant_article_jp.md": zenn_md,
+        },
+        div_env_path=ROOT_DIR / ".env",
+        dry_run=dry_run,
+    )
+
+    url_map = build_url_map()
+    idx_res = submit_delta_indexnow(
+        div_code="GBA",
+        host=HOST,
+        key=INDEXNOW_KEY,
+        url_to_filepath=url_map,
+        dry_run=dry_run,
+    )
+    ws_res = (
+        {"status": "DRY_RUN"}
+        if dry_run
+        else ping_websub_if_feed_changed("GBA", "https://getbreakai.com/jp/feed.xml", JP_DIR / "feed.xml")
+    )
+
+    print(
+        f"[GBA JP Zero-Ban v2] Deploy={deploy_res.get('status')} | llms.txt({as_of}) | Telegraph={tg_url or 'daily-cap'} | "
+        f"IndexNow={idx_res.get('status')}({idx_res.get('submitted_count', 0)}/{len(url_map)}) | "
+        f"WebSub={ws_res.get('status')} | Syndication={syn_res.get('status')}"
+    )
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

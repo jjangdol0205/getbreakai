@@ -96,7 +96,7 @@ def build_rss_feeds(date_str, outbox_dir, snap):
     # 2. Build /jp/feed.xml for SEO research articles & note.com / blog syndication
     seo_files = sorted([
         fn for fn in os.listdir(JP_DIR)
-        if fn.endswith(".html") and fn != "index.html"
+        if fn.endswith(".html") and fn not in ("index.html", "confirmation.html")
     ])
     article_items_xml = []
     for fn in seo_files[:20]:

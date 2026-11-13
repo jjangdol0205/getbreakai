@@ -38,9 +38,11 @@ const DIRS_TO_COPY = [
 
 function copyRecursiveSync(src, dest) {
   if (!fs.existsSync(src)) return;
+  const baseName = path.basename(src);
+  if (/telegraph_account|secret|token|^\.env/i.test(baseName)) return;
   const stats = fs.statSync(src);
   if (stats.isDirectory()) {
-    if (path.basename(src) === 'fonts') return; // Local video renderer fonts only; keep ./dist lean
+    if (baseName === 'fonts') return; // Local video renderer fonts only; keep ./dist lean
     fs.mkdirSync(dest, { recursive: true });
     for (const entry of fs.readdirSync(src)) {
       copyRecursiveSync(path.join(src, entry), path.join(dest, entry));
@@ -53,6 +55,10 @@ function copyRecursiveSync(src, dest) {
 
 function buildDist() {
   fs.mkdirSync(DIST_DIR, { recursive: true });
+  const leakedAcct = path.join(DIST_DIR, 'data', 'jp_telegraph_account.json');
+  if (fs.existsSync(leakedAcct)) {
+    try { fs.unlinkSync(leakedAcct); } catch (_) {}
+  }
 
   let copiedFiles = 0;
   for (const fileName of ROOT_FILES) {

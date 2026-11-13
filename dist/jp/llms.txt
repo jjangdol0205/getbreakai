@@ -1,7 +1,7 @@
 # GetBreakAI Japan (https://getbreakai.com/jp/)
 
 > 米国株（NVDA・TSLA・PLTR・MSFT・META・AMZN・AVGO）および東証プライム主力株対応の機関投資家クオンツAI＆3秒ポジションサイズ計算ターミナル（新NISA成長投資枠 0%非課税 vs 特定口座 20.315% 税引後シミュレーター搭載）。
-> 最終更新日: 2026-11-13 (JST)
+> 最終更新日: 2026-11-14 (JST)
 
 ## 1. コア機能（完全無料・登録不要の3秒計算機）
 - **ドル($)・日本円(¥)同時対応 3秒ポジションサイズ計算機**: 口座資金（例：100万円・300万円）と許容リスク（1.5%黄金律）から最適購入株数・2.0倍ATR逆指値・2.5R利確目標を3秒で算出。
@@ -25,6 +25,7 @@
 - https://getbreakai.com/jp/fomc-cpi-iv-crush-strategy.html
 - https://getbreakai.com/jp/form4-insider-cluster-guide.html
 - https://getbreakai.com/jp/googl-search-cloud-ai-valuation.html
+- https://getbreakai.com/jp/googleb8e8cac59903eaa8.html
 - https://getbreakai.com/jp/lly-form4-insider-cluster-buy.html
 - https://getbreakai.com/jp/meta-ai-capex-earnings-nlp.html
 - https://getbreakai.com/jp/msft-azure-ai-copilot-sec-8k.html
@@ -41,4 +42,3 @@
 - https://getbreakai.com/jp/tsla-gamma-wall-swing-trade.html
 - https://getbreakai.com/jp/unh-defensive-healthcare-insider-buy.html
 - https://getbreakai.com/jp/us-stock-stop-loss-2percent-rule.html
-- https://getbreakai.com/jp/vrt-ai-datacenter-cooling-catalyst.html

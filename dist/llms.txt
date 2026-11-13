@@ -1,6 +1,6 @@
 # GetBreakAI — Institutional Breakout & ATR Position-Sizing Quant Terminal (https://getbreakai.com)
 
-> Updated: 2026-11-13 | Multi-currency (USD / JPY) 20-Day Donchian Breakout, 2.0x ATR Mechanical Stop-Loss, and Japan Shin-NISA (0% Tax-Free) vs Specific Account (20.315%) Net Return Simulator.
+> Updated: 2026-11-14 | Multi-currency (USD / JPY) 20-Day Donchian Breakout, 2.0x ATR Mechanical Stop-Loss, and Japan Shin-NISA (0% Tax-Free) vs Specific Account (20.315%) Net Return Simulator.
 
 ## 1. Live Quantitative Terminals
 - Global English Terminal: https://getbreakai.com/
@@ -23,6 +23,7 @@
 - https://getbreakai.com/jp/fomc-cpi-iv-crush-strategy.html
 - https://getbreakai.com/jp/form4-insider-cluster-guide.html
 - https://getbreakai.com/jp/googl-search-cloud-ai-valuation.html
+- https://getbreakai.com/jp/googleb8e8cac59903eaa8.html
 - https://getbreakai.com/jp/lly-form4-insider-cluster-buy.html
 - https://getbreakai.com/jp/meta-ai-capex-earnings-nlp.html
 - https://getbreakai.com/jp/msft-azure-ai-copilot-sec-8k.html
@@ -39,4 +40,3 @@
 - https://getbreakai.com/jp/tsla-gamma-wall-swing-trade.html
 - https://getbreakai.com/jp/unh-defensive-healthcare-insider-buy.html
 - https://getbreakai.com/jp/us-stock-stop-loss-2percent-rule.html
-- https://getbreakai.com/jp/vrt-ai-datacenter-cooling-catalyst.html

@@ -24,7 +24,9 @@ const ROOT_FILES = [
   'robots.txt',
   'sitemap.xml',
   'llms.txt',
+  'googleb8e8cac59903eaa8.html',
   'gba2026indexnowkey88429104.txt',
+  '58b3e91c42f04a7d916503ce8a72b419.txt',
   'flow_24_prompts_studio.html',
   'yt_ig_setup_studio.html'
 ];

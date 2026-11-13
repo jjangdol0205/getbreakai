@@ -41,7 +41,7 @@ from indexnow_delta_gate import (  # noqa: E402
 from live_web_deployer import deploy_division_live, sync_remote_before_build  # noqa: E402
 from official_api_syndicator import dispatch_zero_ban_text_bundle  # noqa: E402
 
-INDEXNOW_KEY = "gba2026indexnowkey88429104"
+INDEXNOW_KEY = "58b3e91c42f04a7d916503ce8a72b419"
 HOST = "getbreakai.com"
 TELEGRAPH_ACCT_PATH = DATA_DIR / "jp_telegraph_account.json"
 BACKLINKS_LOG_PATH = DATA_DIR / "jp_external_backlinks.json"

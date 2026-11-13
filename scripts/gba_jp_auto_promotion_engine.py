@@ -38,7 +38,7 @@ from indexnow_delta_gate import (  # noqa: E402
     publish_daily_unique_telegraph_summary,
     submit_delta_indexnow,
 )
-from live_web_deployer import deploy_division_live  # noqa: E402
+from live_web_deployer import deploy_division_live, sync_remote_before_build  # noqa: E402
 from official_api_syndicator import dispatch_zero_ban_text_bundle  # noqa: E402
 
 INDEXNOW_KEY = "gba2026indexnowkey88429104"
@@ -127,6 +127,7 @@ def build_url_map() -> dict[str, Path]:
 
 def main() -> int:
     dry_run = "--dry-run" in sys.argv
+    sync_remote_before_build("GBA", dry_run=dry_run)
     (ROOT_DIR / f"{INDEXNOW_KEY}.txt").write_text(INDEXNOW_KEY, encoding="utf-8")
 
     # 1. Generate today's Japanese Daily NISA Quant Column HTML + Refresh RSS feeds

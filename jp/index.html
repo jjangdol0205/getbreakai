@@ -2,11 +2,15 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
+  <meta name="google-site-verification" content="lM2Bf7R0XRTUDg-IZvGV9i06u2Q5rz6HJ8-IwoLFcgo">
+  <meta name="google-site-verification" content="nAGlJMEUUPifbzSd8X4PCaBIyr3DtTwaa1a-q9zkbBc">
+  <meta name="google-site-verification" content="G99bl17UU6iKgNm5ndGcSWp0dHFpJ0MjJqBBp0Exfx0">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>米国株・新NISA 銘柄別AI日本語ディープリサーチ全30選 | GetBreakAI</title>
   <meta name="description" content="エヌビディア(NVDA)、パランティア(PLTR)、テスラ(TSLA)、イーライリリー(LLY)、SOXL、SMCIなど米国株30銘柄・テーマのSEC開示・インサイダー買い・Gamma Wall・ATR損切りライン解説一覧。">
   <link rel="canonical" href="https://getbreakai.com/jp/index.html">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
   <script>
     window.CHECKOUT_URLS = {
       monthly: 'https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html',
@@ -842,6 +846,24 @@
       } catch (e) {}
 
       (async function syncSameOriginPrices() {
+        try {
+          const snapRes = await fetch('/data/live_market_snapshot.json', { cache: 'no-store' });
+          if (snapRes.ok) {
+            const snap = await snapRes.json();
+            const liveFx = parseFloat(snap.usd_jpy || snap.usdjpy || 150.0) || 150.0;
+            const tMap = snap.tickers || {};
+            Object.keys(PRESET_STOCK_MAP).forEach(function(k) {
+              const item = tMap[k] || tMap[k + '.T'];
+              if (item && item.entry > 0) {
+                if (item.currency === 'JPY') {
+                  PRESET_STOCK_MAP[k] = [parseFloat((item.entry / liveFx).toFixed(2)), Math.max(0.15, parseFloat((item.atr / liveFx).toFixed(2)))];
+                } else {
+                  PRESET_STOCK_MAP[k] = [parseFloat(Number(item.entry).toFixed(2)), Math.max(0.25, parseFloat(Number(item.atr).toFixed(2)))];
+                }
+              }
+            });
+          }
+        } catch (e) {}
         const urls = ['/static_api/stocks_free.json', '../static_api/stocks_free.json', 'https://truthofmarket.com/static_api/stocks_free.json'];
         for (const u of urls) {
           try {

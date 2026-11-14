@@ -40,8 +40,8 @@ def generate_daily_jp_column() -> str:
         except Exception:
             snap = {}
 
-    today_iso = datetime.date.today().isoformat()
-    usdjpy = float(snap.get("usdjpy") or 153.8)
+    today_iso = str(snap.get("market_bar_date") or snap.get("updated_date") or datetime.date.today().isoformat())
+    usdjpy = float(snap.get("usd_jpy") or snap.get("usdjpy") or 153.8)
     tickers = snap.get("tickers", {})
 
     default_rows = [
@@ -54,8 +54,8 @@ def generate_daily_jp_column() -> str:
     table_rows_html = ""
     for sym, jp_nm, fb_close, fb_atr in default_rows:
         info = tickers.get(sym, {}) if isinstance(tickers, dict) else {}
-        close_p = float(info.get("close") or info.get("price") or fb_close)
-        atr_v = float(info.get("atr14") or info.get("atr") or fb_atr)
+        close_p = float(info.get("entry") or info.get("close") or info.get("price") or fb_close)
+        atr_v = float(info.get("atr") or info.get("atr14") or fb_atr)
         stop_2atr = round(close_p - 2.0 * atr_v, 2)
         tp_25r = round(close_p + 5.0 * atr_v, 2)
         jpy_risk_per_share = int(round((2.0 * atr_v) * usdjpy))

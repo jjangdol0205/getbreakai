@@ -21,6 +21,11 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
       - name: Install system dependencies (ffmpeg & Japanese Noto CJK fonts)
         run: |
           sudo apt-get update
@@ -53,11 +58,15 @@ jobs:
         run: |
           python scripts/autopost_jp_marketing.py --send-telegram
 
+      - name: Step 3.8 - Build Production Static Bundle (./dist)
+        run: |
+          node scripts/build_dist.js
+
       - name: Step 4 - Commit & Push Updated Market Data, SEO Pages & Outbox Assets
         run: |
           git config user.name "GetBreakAI Autopilot Bot"
           git config user.email "autopilot@getbreakai.com"
-          git add index.html llms.txt sitemap.xml data/live_market_snapshot.json jp/ "marketing_outbox_jp/**/*.md" "marketing_outbox_jp/**/*.json"
+          git add index.html llms.txt sitemap.xml data/live_market_snapshot.json static_api/ jp/ dist/ "marketing_outbox_jp/**/*.md" "marketing_outbox_jp/**/*.json"
           if git diff --staged --quiet; then
             echo "No changes to commit."
           else

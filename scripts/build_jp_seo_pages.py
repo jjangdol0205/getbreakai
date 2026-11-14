@@ -1606,6 +1606,24 @@ def build_hub_html(date_str, all_specs):
       }} catch (e) {{}}
 
       (async function syncSameOriginPrices() {{
+        try {{
+          const snapRes = await fetch('/data/live_market_snapshot.json', {{ cache: 'no-store' }});
+          if (snapRes.ok) {{
+            const snap = await snapRes.json();
+            const liveFx = parseFloat(snap.usd_jpy || snap.usdjpy || 150.0) || 150.0;
+            const tMap = snap.tickers || {{}};
+            Object.keys(PRESET_STOCK_MAP).forEach(function(k) {{
+              const item = tMap[k] || tMap[k + '.T'];
+              if (item && item.entry > 0) {{
+                if (item.currency === 'JPY') {{
+                  PRESET_STOCK_MAP[k] = [parseFloat((item.entry / liveFx).toFixed(2)), Math.max(0.15, parseFloat((item.atr / liveFx).toFixed(2)))];
+                }} else {{
+                  PRESET_STOCK_MAP[k] = [parseFloat(Number(item.entry).toFixed(2)), Math.max(0.25, parseFloat(Number(item.atr).toFixed(2)))];
+                }}
+              }}
+            }});
+          }}
+        }} catch (e) {{}}
         const urls = ['/static_api/stocks_free.json', '../static_api/stocks_free.json', 'https://truthofmarket.com/static_api/stocks_free.json'];
         for (const u of urls) {{
           try {{

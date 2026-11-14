@@ -83,7 +83,13 @@ test('STEP 3: 6 Technical Defect Fixes (VIP Paywall Lock + Auto-Activate, Live S
 });
 
 test('STEP 4.1: 30 Japanese Static SEO Research Pages (/jp/*.html) >= 2,500 chars + Sitemap', () => {
-  const files = fs.readdirSync(JP_DIR).filter(f => f.endsWith('.html') && f !== 'index.html' && f !== 'confirmation.html');
+  const files = fs.readdirSync(JP_DIR).filter(f =>
+    f.endsWith('.html') &&
+    f !== 'index.html' &&
+    f !== 'confirmation.html' &&
+    f !== 'daily-nisa-quant-report.html' &&
+    !/^google[a-z0-9]+\.html$/i.test(f)
+  );
   assert.equal(files.length, 30, 'Must have exactly 30 Japanese SEO research pages');
   const requiredSlugs = [
     'nvda-sec-gamma-atr-analysis.html',

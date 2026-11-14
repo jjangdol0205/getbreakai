@@ -10,6 +10,7 @@
   <meta name="description" content="エヌビディア(NVDA)、パランティア(PLTR)、テスラ(TSLA)、イーライリリー(LLY)、SOXL、SMCIなど米国株30銘柄・テーマのSEC開示・インサイダー買い・Gamma Wall・ATR損切りライン解説一覧。">
   <link rel="canonical" href="https://getbreakai.com/jp/index.html">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
   <script>
     window.CHECKOUT_URLS = {
       monthly: 'https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html',
@@ -611,10 +612,10 @@
       <!-- Checkout CTA Buttons (Lemon Squeezy Store #296100 Live UUIDs) -->
       <div class="cta-container">
         <div class="cta-dual-grid">
-          <a href="https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html" class="btn-checkout-primary">
+          <a href="https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html" class="btn-checkout-primary lemonsqueezy-button">
             ⚡ 月額プラン $29/月 (約4,350円) で始める →
           </a>
-          <a href="https://truthofmarket.lemonsqueezy.com/checkout/buy/667aa482-f17c-47d1-b7f3-a2427c36516b?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html" class="btn-checkout-annual">
+          <a href="https://truthofmarket.lemonsqueezy.com/checkout/buy/667aa482-f17c-47d1-b7f3-a2427c36516b?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html" class="btn-checkout-annual lemonsqueezy-button">
             👑 年間VIPパス $199/年 (43%OFF・約29,800円) →
           </a>
         </div>
@@ -812,6 +813,7 @@
         if (data && data.valid && (!data.meta || Number(data.meta.store_id) === 296100)) {
           try {
             localStorage.setItem('gb_vip_unlocked', 'true');
+            localStorage.setItem('gb_vip_license_key', key);
             localStorage.setItem('gb_vip_key', key);
           } catch (e) {}
           if (statusEl) {
@@ -835,12 +837,73 @@
       }
     }
 
+    function applyJpHubCheckoutSuccess(rawOrderKey) {
+      const orderKey = String(rawOrderKey || 'LS-VERIFIED-CHECKOUT-SESSION-2026').trim();
+      try {
+        localStorage.setItem('gb_vip_unlocked', 'true');
+        localStorage.setItem('gb_vip_license_key', orderKey);
+        localStorage.setItem('gb_vip_key', orderKey);
+      } catch (e) {}
+      const statusEl = document.getElementById('jpHubVipStatus');
+      if (statusEl) {
+        statusEl.style.color = '#065f46';
+        statusEl.innerText = '🎉 ご決済ありがとうございます！VIP権限が即時有効化されました。Web VIP Vaultへ移動します...';
+      }
+      setTimeout(function() {
+        window.location.href = 'https://getbreakai.com/?unlock=1#vip-vault';
+      }, 900);
+    }
+
+    function bindJpHubLemonSqueezyCheckout() {
+      try {
+        if (typeof window.createLemonSqueezy === 'function') {
+          window.createLemonSqueezy();
+        }
+        if (window.LemonSqueezy && typeof window.LemonSqueezy.Setup === 'function') {
+          window.LemonSqueezy.Setup({
+            eventHandler: function(event) {
+              if (event && event.event === 'Checkout.Success') {
+                const orderKey = (event.data && event.data.order && event.data.order.data && event.data.order.data.attributes && event.data.order.data.attributes.identifier) || 'LS-VERIFIED-CHECKOUT-SESSION-2026';
+                applyJpHubCheckoutSuccess(orderKey);
+              }
+            }
+          });
+        }
+      } catch (e) {}
+    }
+
+    if (!window.__jpHubLsBound) {
+      window.__jpHubLsBound = true;
+      window.addEventListener('message', function(msgEvt) {
+        try {
+          if (!msgEvt || !String(msgEvt.origin || '').includes('lemonsqueezy.com')) return;
+          const payload = typeof msgEvt.data === 'string' ? JSON.parse(msgEvt.data) : msgEvt.data;
+          if (payload && payload.event === 'Checkout.Success') {
+            const orderKey = (payload.data && payload.data.order && payload.data.order.data && payload.data.order.data.attributes && payload.data.order.data.attributes.identifier) || 'LS-VERIFIED-CHECKOUT-SESSION-2026';
+            applyJpHubCheckoutSuccess(orderKey);
+          }
+        } catch (e) {}
+      });
+      document.addEventListener('click', function(e) {
+        const btn = e.target && e.target.closest ? e.target.closest('.lemonsqueezy-button') : null;
+        if (btn) bindJpHubLemonSqueezyCheckout();
+      }, true);
+    }
+    window.addEventListener('load', bindJpHubLemonSqueezyCheckout);
+
     window.addEventListener('DOMContentLoaded', function() {
+      bindJpHubLemonSqueezyCheckout();
       try {
         const params = new URLSearchParams(window.location.search || '');
         if (params.get('calc') === 'atr') {
           const sec = document.getElementById('jpQuickCalcSection');
           if (sec && sec.scrollIntoView) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        const autoKey = (params.get('license_key') || params.get('order_key') || params.get('orderKey') || '').trim();
+        if (autoKey) {
+          const inp = document.getElementById('jpHubLicenseInput');
+          if (inp) inp.value = autoKey;
+          unlockJpHubVipVault();
         }
       } catch (e) {}
 

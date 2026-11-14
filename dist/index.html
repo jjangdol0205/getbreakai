@@ -3417,8 +3417,13 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
     function hasValidStoredVipSession() {
       try {
         const unlocked = localStorage.getItem('gb_vip_unlocked') === 'true';
-        const key = String(localStorage.getItem('gb_vip_license_key') || '').trim();
-        if (!unlocked || !key || key.length < 16) return false;
+        const storedPrimary = String(localStorage.getItem('gb_vip_license_key') || '').trim();
+        const storedLegacy = String(localStorage.getItem('gb_vip_key') || '').trim();
+        const key = storedPrimary || storedLegacy;
+        if (!unlocked || !key || key.length < 12) return false;
+        if (!storedPrimary && storedLegacy) {
+          localStorage.setItem('gb_vip_license_key', storedLegacy);
+        }
         return true;
       } catch (_) {
         return false;
@@ -3599,11 +3604,12 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
           body: new URLSearchParams({ license_key: key }).toString()
         });
         const lsData = await lsResp.json().catch(() => null);
-        let valid = Boolean(lsData && lsData.valid === true && !lsData.error);
+        const storeOk = !lsData || !lsData.meta || Number(lsData.meta.store_id) === 296100;
+        let valid = Boolean(storeOk && lsData && lsData.valid === true && !lsData.error);
         let instanceId = lsData && lsData.instance && lsData.instance.id ? String(lsData.instance.id) : '';
 
         // 初回購入直後で未有効化 (status === 'inactive' / activations_usage === 0) の場合は自動的に /v1/licenses/activate を実行
-        const needsAutoActivation = !valid && (
+        const needsAutoActivation = storeOk && !valid && (
           !lsData ||
           (lsData.license_key && (lsData.license_key.status === 'inactive' || Number(lsData.license_key.activations_usage || 0) === 0)) ||
           /inactive|not active|not been activated/i.test(String((lsData && lsData.error) || ''))
@@ -3621,7 +3627,8 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
             }).toString()
           });
           const actData = await actResp.json().catch(() => null);
-          if (actData && (actData.activated === true || actData.valid === true || (actData.license_key && actData.license_key.status === 'active')) && !actData.error) {
+          const actStoreOk = !actData || !actData.meta || Number(actData.meta.store_id) === 296100;
+          if (actStoreOk && actData && (actData.activated === true || actData.valid === true || (actData.license_key && actData.license_key.status === 'active')) && !actData.error) {
             valid = true;
             if (actData.instance && actData.instance.id) {
               instanceId = String(actData.instance.id);
@@ -3634,6 +3641,7 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
           try {
             localStorage.setItem('gb_vip_unlocked', 'true');
             localStorage.setItem('gb_vip_license_key', key);
+            localStorage.setItem('gb_vip_key', key);
             if (instanceId) localStorage.setItem('gb_vip_instance_id', instanceId);
           } catch (_) {}
           renderVipVaultState();
@@ -3772,31 +3780,57 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
     }
 
     // Lemon.js Checkout.Success 自動VIPロック解除フック
-    window.createLemonSqueezy = function() {
+    function applyGbCheckoutSuccessUnlock(rawOrderKey) {
+      const orderKey = String(rawOrderKey || 'LS-VERIFIED-CHECKOUT-SESSION-2026').trim();
+      isGbVipUnlocked = true;
       try {
+        localStorage.setItem('gb_vip_unlocked', 'true');
+        localStorage.setItem('gb_vip_license_key', orderKey);
+        localStorage.setItem('gb_vip_key', orderKey);
+      } catch (_) {}
+      renderVipVaultState();
+      showVipStatusMessage('🎉 ご決済ありがとうございます！Web VIP Vaultの全機能が自動的に解放されました。公式YouTube (@GetBreakAI) とあわせてご活用ください。', true);
+      const modal = document.getElementById('gbCheckoutSuccessModal');
+      if (modal) modal.style.display = 'flex';
+    }
+
+    function bindGbLemonSqueezyCheckout() {
+      try {
+        if (typeof window.createLemonSqueezy === 'function') {
+          window.createLemonSqueezy();
+        }
         if (window.LemonSqueezy && typeof window.LemonSqueezy.Setup === 'function') {
           window.LemonSqueezy.Setup({
             eventHandler: function(event) {
               if (event && event.event === 'Checkout.Success') {
                 const orderKey = (event.data && event.data.order && event.data.order.data && event.data.order.data.attributes && event.data.order.data.attributes.identifier) || 'LS-VERIFIED-CHECKOUT-SESSION-2026';
-                isGbVipUnlocked = true;
-                try {
-                  localStorage.setItem('gb_vip_unlocked', 'true');
-                  localStorage.setItem('gb_vip_license_key', String(orderKey));
-                } catch (_) {}
-                renderVipVaultState();
-                showVipStatusMessage('🎉 ご決済ありがとうございます！Web VIP Vaultの全機能が自動的に解放されました。公式YouTube (@GetBreakAI) とあわせてご活用ください。', true);
-                const modal = document.getElementById('gbCheckoutSuccessModal');
-                if (modal) modal.style.display = 'flex';
+                applyGbCheckoutSuccessUnlock(orderKey);
               }
             }
           });
         }
       } catch (_) {}
-    };
-    window.addEventListener('load', function() {
-      if (typeof window.createLemonSqueezy === 'function') window.createLemonSqueezy();
-    });
+    }
+
+    if (!window.__gbLsMsgBound) {
+      window.__gbLsMsgBound = true;
+      window.addEventListener('message', function(msgEvt) {
+        try {
+          if (!msgEvt || !String(msgEvt.origin || '').includes('lemonsqueezy.com')) return;
+          const payload = typeof msgEvt.data === 'string' ? JSON.parse(msgEvt.data) : msgEvt.data;
+          if (payload && payload.event === 'Checkout.Success') {
+            const orderKey = (payload.data && payload.data.order && payload.data.order.data && payload.data.order.data.attributes && payload.data.order.data.attributes.identifier) || 'LS-VERIFIED-CHECKOUT-SESSION-2026';
+            applyGbCheckoutSuccessUnlock(orderKey);
+          }
+        } catch (_) {}
+      });
+      document.addEventListener('click', function(e) {
+        const btn = e.target && e.target.closest ? e.target.closest('.lemonsqueezy-button') : null;
+        if (btn) bindGbLemonSqueezyCheckout();
+      }, true);
+    }
+    window.addEventListener('DOMContentLoaded', bindGbLemonSqueezyCheckout);
+    window.addEventListener('load', bindGbLemonSqueezyCheckout);
 
     (function initGetBreakLiveTerminal() {
       let shouldJumpCalc = false;
@@ -3805,6 +3839,19 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
         const calcMode = (params.get('calc') || '').trim().toLowerCase();
         if (calcMode === 'atr' || window.location.hash === '#gbAtrCalculatorPane') {
           shouldJumpCalc = true;
+        }
+        const autoKey = (params.get('license_key') || params.get('order_key') || params.get('orderKey') || '').trim();
+        if (autoKey) {
+          const inp = document.getElementById('gbLicenseKeyInput');
+          if (inp) inp.value = autoKey;
+          setTimeout(function() { unlockGbVipVault(autoKey); }, 120);
+        } else if (params.get('unlock') === '1' && hasValidStoredVipSession()) {
+          isGbVipUnlocked = true;
+          setTimeout(function() {
+            showVipStatusMessage('👑 VIPライセンス認証済みです！Web VIP Vaultの全銘柄オーダーブック・CSV・Pine Script v5全文をご利用いただけます。', true);
+            const vaultEl = document.getElementById('vip-vault');
+            if (vaultEl) vaultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 120);
         }
         const hashMatch = (window.location.hash || '').match(/ticker=([A-Za-z]+)/i);
         const rawTicker = (params.get('ticker') || params.get('sym') || (hashMatch && hashMatch[1]) || '').trim().toUpperCase().replace(/^\$/, '');

@@ -26,7 +26,7 @@ if hasattr(sys.stdout, 'reconfigure'):
 
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
-EXCLUDE_DIRS = {'.git', 'node_modules', '.agents', '__pycache__', 'dist', 'dist-global', '.vscode'}
+EXCLUDE_DIRS = {'.git', 'node_modules', '.agents', '__pycache__', 'dist', 'dist-global', '.vscode', '.yt-ig-browser-profile'}
 
 
 def find_files_by_extension(extension):

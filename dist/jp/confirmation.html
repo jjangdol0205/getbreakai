@@ -461,6 +461,16 @@
         </button>
       </div>
 
+      <!-- メール受信ライセンスキーの即時同期・有効化フォーム -->
+      <div style="background:var(--bg-card-sub); border:1px solid var(--border-color); border-radius:12px; padding:16px 20px; margin-bottom:24px; text-align:left;">
+        <div style="font-size:0.84rem; font-weight:800; color:var(--text-main); margin-bottom:6px;">🔑 メールで届いた正式ライセンスキー（UUID）を登録・同期する（任意）</div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <input type="text" id="confirmManualKeyInput" placeholder="例: XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX" style="flex:1; min-width:220px; padding:9px 12px; border-radius:8px; border:1px solid var(--border-accent); background:var(--bg-card); color:var(--text-main); font-family:var(--font-mono); font-size:0.84rem;">
+          <button type="button" class="btn-copy" onclick="activateManualConfirmationKey()" style="background:var(--accent-violet); color:#fff; border:none;">⚡ ライセンス有効化</button>
+        </div>
+        <div id="confirmManualKeyStatus" style="font-size:0.8rem; font-weight:700; margin-top:6px;"></div>
+      </div>
+
       <!-- メインターミナルへの誘導ボタン -->
       <div class="actions-grid">
         <a href="https://getbreakai.com/#vip-vault" class="btn-checkout btn-checkout-primary">
@@ -574,7 +584,7 @@
 
     async function autoActivateRedirectLicenseKey(rawKey) {
       const key = String(rawKey || '').trim();
-      if (!key || key.startsWith('GBA-')) return;
+      if (!key || key.startsWith('GBA-') || key.startsWith('LS-')) return false;
       try {
         const valResp = await fetch('https://api.lemonsqueezy.com/v1/licenses/validate', {
           method: 'POST',
@@ -582,15 +592,47 @@
           body: new URLSearchParams({ license_key: key }).toString()
         });
         const valData = await valResp.json().catch(() => null);
+        const storeOk = !valData || !valData.meta || Number(valData.meta.store_id) === 296100;
+        if (!storeOk) return false;
+        if (valData && valData.valid === true && !valData.error) return true;
         const isInactive = !valData || !valData.valid || (valData.license_key && (valData.license_key.status === 'inactive' || valData.license_key.activations_usage === 0));
         if (isInactive) {
-          await fetch('https://api.lemonsqueezy.com/v1/licenses/activate', {
+          const actResp = await fetch('https://api.lemonsqueezy.com/v1/licenses/activate', {
             method: 'POST',
             headers: { 'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' },
             body: new URLSearchParams({ license_key: key, instance_name: 'GetBreakAI-Web-Terminal' }).toString()
           }).catch(() => null);
+          const actData = actResp ? await actResp.json().catch(() => null) : null;
+          if (actData && (!actData.meta || Number(actData.meta.store_id) === 296100) && (actData.activated || actData.valid || (actData.license_key && actData.license_key.status === 'active'))) {
+            return true;
+          }
         }
       } catch (_) {}
+      return false;
+    }
+
+    async function activateManualConfirmationKey() {
+      const inp = document.getElementById('confirmManualKeyInput');
+      const st = document.getElementById('confirmManualKeyStatus');
+      const key = String((inp && inp.value) || '').trim();
+      if (!key || key.length < 12) {
+        if (st) { st.style.color = 'var(--accent-rose)'; st.innerText = '⚠️ メールに記載された有効なライセンスキーを入力してください。'; }
+        return;
+      }
+      if (st) { st.style.color = 'var(--accent-sky)'; st.innerText = '⏳ Store #296100 ライセンス認証サーバーで有効化中...'; }
+      const ok = await autoActivateRedirectLicenseKey(key);
+      if (ok) {
+        try {
+          localStorage.setItem('gb_vip_unlocked', 'true');
+          localStorage.setItem('gb_vip_license_key', key);
+          localStorage.setItem('gb_vip_key', key);
+        } catch (_) {}
+        const elKey = document.getElementById('displayLicenseKey');
+        if (elKey) elKey.innerText = key;
+        if (st) { st.style.color = 'var(--accent-emerald)'; st.innerText = '✅ ライセンスキーの有効化＆ブラウザ同期が完了しました！'; }
+      } else {
+        if (st) { st.style.color = 'var(--accent-rose)'; st.innerText = '❌ ライセンスキーを確認できませんでした。キーをご確認のうえ再度お試しください。'; }
+      }
     }
 
     // Parse Query Params and Sync localStorage
@@ -598,14 +640,21 @@
       initTheme();
 
       const params = new URLSearchParams(window.location.search);
-      const orderId = (params.get('order_id') || params.get('orderId') || params.get('checkout_id') || '').trim() || ('LS-' + Date.now().toString(36).toUpperCase());
+      const existingStoredKey = (function() {
+        try { return String(localStorage.getItem('gb_vip_license_key') || localStorage.getItem('gb_vip_key') || '').trim(); } catch (_) { return ''; }
+      })();
+      const existingOrderId = (function() {
+        try { return String(localStorage.getItem('gb_vip_order_id') || '').trim(); } catch (_) { return ''; }
+      })();
+      const orderId = (params.get('order_id') || params.get('orderId') || params.get('checkout_id') || '').trim() || existingOrderId || ('LS-' + Date.now().toString(36).toUpperCase());
       const rawParamKey = (params.get('order_key') || params.get('orderKey') || params.get('license_key') || '').trim();
-      const orderKey = rawParamKey || ('GBA-' + Math.random().toString(36).substring(2, 6).toUpperCase() + '-' + Math.random().toString(36).substring(2, 6).toUpperCase() + '-' + Math.random().toString(36).substring(2, 6).toUpperCase());
+      const orderKey = rawParamKey || (existingStoredKey.length >= 12 ? existingStoredKey : '') || ('GBA-' + Math.random().toString(36).substring(2, 6).toUpperCase() + '-' + Math.random().toString(36).substring(2, 6).toUpperCase() + '-' + Math.random().toString(36).substring(2, 6).toUpperCase());
       const customerEmail = (params.get('customer_email') || params.get('email') || '').trim() || localStorage.getItem('gb_vip_customer_email') || 'ご登録メールアドレス宛に送信完了';
 
       try {
         localStorage.setItem('gb_vip_unlocked', 'true');
         localStorage.setItem('gb_vip_license_key', orderKey);
+        localStorage.setItem('gb_vip_key', orderKey);
         localStorage.setItem('gb_vip_order_id', orderId);
         if (params.get('customer_email') || params.get('email')) {
           localStorage.setItem('gb_vip_customer_email', customerEmail);

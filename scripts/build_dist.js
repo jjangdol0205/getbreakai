@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * GetBreakAI (3사업부) — Static Site Distribution Builder (./dist)
+ * GetBreakAI (Division 3) — Static Site Distribution Builder (./dist)
  * Ensures Render Static Site (Publish Directory: ./dist) always has
  * 100% synchronized HTML, JP deep research pages, assets, and SEO files.
  */

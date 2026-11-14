@@ -27,8 +27,8 @@ JP_DIR = ROOT_DIR / "jp"
 SNAP_PATH = ROOT_DIR / "data" / "live_market_snapshot.json"
 SITEMAP_PATH = ROOT_DIR / "sitemap.xml"
 
-LS_MONTHLY = "https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8?embed=1"
-LS_ANNUAL = "https://truthofmarket.lemonsqueezy.com/checkout/buy/667aa482-f17c-47d1-b7f3-a2427c36516b?embed=1"
+LS_MONTHLY = "https://truthofmarket.lemonsqueezy.com/checkout/custom/f31a6c6c-6b09-409a-beaf-dd19a9eb2af9?signature=15f2b96765f5dfbce4def1891a4a99653a83e23f714b6f13a95d7134ee2041fe&embed=1"
+LS_ANNUAL = "https://truthofmarket.lemonsqueezy.com/checkout/custom/19d14007-55e9-42e2-9f61-2dc3b75ac9b4?signature=a03c2e7ef03e726cc279e9b6978e3cfa0eb9edc82058f1068685d1171693f8ce&embed=1"
 
 
 def generate_daily_jp_column() -> str:
@@ -180,8 +180,8 @@ def generate_daily_jp_column() -> str:
       <p style="margin:0;color:#cbd5e1;font-size:0.95rem;">登録不要で主要銘柄の最適購入株数・2.0倍ATR逆指値・新NISA税引後手取り額をリアルタイム計算できます。</p>
       <div class="btns">
         <a class="btn btn-primary" href="/jp/">無料3秒ポジション計算機を開く →</a>
-        <a class="btn btn-vip lemonsqueezy-button" href="{LS_MONTHLY}">Monthly Pro ($29/mo)</a>
-        <a class="btn btn-annual lemonsqueezy-button" href="{LS_ANNUAL}">Annual Pro VIP ($199/yr)</a>
+        <a class="btn btn-vip lemonsqueezy-button" data-ls-product-uuid="d5e7e761-8b1b-4ca8-b1fe-771acd1450f8" href="{LS_MONTHLY}">月額VIPプラン ($29/月)</a>
+        <a class="btn btn-annual lemonsqueezy-button" data-ls-product-uuid="667aa482-f17c-47d1-b7f3-a2427c36516b" href="{LS_ANNUAL}">年間VIPパス ($199/年)</a>
       </div>
     </section>
 

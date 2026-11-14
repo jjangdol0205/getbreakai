@@ -57,6 +57,7 @@ JP_BASE_TICKERS = {
     "6758.T": {"code": "6758", "jp_name": "ソニーグループ", "entry": 3150.0, "atr": 85.0, "iv": 34, "score": 89.4, "donchian": 3110.0, "rsi": 62.4, "pw_rsi": 88.9, "status": "ACCUMULATION", "catalyst": "CMOSイメージセンサ増産・ゲームネットワーク増益"},
     "8306.T": {"code": "8306", "jp_name": "三菱UFJフィナンシャルG", "entry": 1850.0, "atr": 48.0, "iv": 29, "score": 87.6, "donchian": 1820.0, "rsi": 61.0, "pw_rsi": 87.0, "status": "ACCUMULATION", "catalyst": "日銀金利正常化恩恵・増配＆自己株買い"},
     "8058.T": {"code": "8058", "jp_name": "三菱商事", "entry": 2680.0, "atr": 64.0, "iv": 27, "score": 86.9, "donchian": 2650.0, "rsi": 59.5, "pw_rsi": 86.2, "status": "ACCUMULATION", "catalyst": "総合商社キャッシュ創出力・株主還元強化"},
+    "7011.T": {"code": "7011", "jp_name": "三菱重工業", "entry": 2920.5, "atr": 128.4, "iv": 38, "score": 90.8, "donchian": 3220.0, "rsi": 52.8, "pw_rsi": 90.5, "status": "ACCUMULATION", "catalyst": "防衛装備・ガスタービン受注残過去最高更新"},
 }
 
 JP_INDICES = {

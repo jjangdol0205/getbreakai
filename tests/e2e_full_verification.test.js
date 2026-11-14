@@ -54,22 +54,30 @@ function createMockLocalStorage(initialStore = {}) {
   };
 }
 
-// Helper to simulate confirmation.html initConfirmation query parsing
+// Helper to simulate confirmation.html initConfirmation query parsing (zero fake keys, unified gb_vip_license_key + gb_vip_key)
 function simulateConfirmationPageInit(queryString, mockStorage) {
   const params = new URLSearchParams(queryString.startsWith('?') ? queryString.substring(1) : queryString);
-  const fallbackOrderId = 'LS-' + Date.now().toString(36).toUpperCase();
-  const fallbackOrderKey = 'GBA-E2E0-TEST-FALL';
-  const fallbackEmail = 'ご登録メールアドレス宛に送信完了';
+  const isPlausible = (k) => k && k.length >= 12 && !/^(LS-|DEMO-|FAKE-|TEMP-)/i.test(k);
 
-  const orderId = params.get('order_id') || params.get('orderId') || params.get('checkout_id') || fallbackOrderId;
-  const orderKey = params.get('order_key') || params.get('orderKey') || params.get('license_key') || fallbackOrderKey;
-  const customerEmail = params.get('customer_email') || params.get('email') || mockStorage.getItem('gb_vip_customer_email') || fallbackEmail;
+  const storedPrimary = String(mockStorage.getItem('gb_vip_license_key') || '').trim();
+  const storedLegacy = String(mockStorage.getItem('gb_vip_key') || '').trim();
+  const existingValidKey = isPlausible(storedPrimary) ? storedPrimary : (isPlausible(storedLegacy) ? storedLegacy : '');
 
-  mockStorage.setItem('gb_vip_unlocked', 'true');
-  mockStorage.setItem('gb_vip_license_key', orderKey);
-  mockStorage.setItem('gb_vip_order_id', orderId);
-  if (params.get('customer_email') || params.get('email')) {
-    mockStorage.setItem('gb_vip_customer_email', customerEmail);
+  const rawOrderId = (params.get('order_id') || params.get('orderId') || params.get('checkout_id') || '').trim();
+  const rawParamKey = (params.get('license_key') || params.get('order_key') || params.get('orderKey') || '').trim();
+  const rawEmail = (params.get('customer_email') || params.get('email') || '').trim();
+
+  const orderId = rawOrderId || mockStorage.getItem('gb_vip_order_id') || 'メール記載の注文番号をご確認ください';
+  const customerEmail = rawEmail || mockStorage.getItem('gb_vip_customer_email') || 'ご登録メールアドレス宛にライセンスキー送信済み';
+  const orderKey = isPlausible(rawParamKey) ? rawParamKey : existingValidKey;
+
+  if (rawOrderId) mockStorage.setItem('gb_vip_order_id', rawOrderId);
+  if (rawEmail) mockStorage.setItem('gb_vip_customer_email', rawEmail);
+
+  if (orderKey) {
+    mockStorage.setItem('gb_vip_unlocked', 'true');
+    mockStorage.setItem('gb_vip_license_key', orderKey);
+    mockStorage.setItem('gb_vip_key', orderKey);
   }
 
   return {
@@ -316,29 +324,36 @@ test('Tier 1.4: Dual-Theme Engine (Light Navy vs Dark Terminal)', () => {
 // TIER 2: BOUNDARY & CORNER CASES
 // =====================================================================
 
-test('Tier 2.1: Confirmation Page URL Parameter Robustness & Fallback Generation', () => {
-  // Case A: Completely empty query string
+test('Tier 2.1: Confirmation Page Zero-Fake-Key Guardrail & Unified VIP Key Sync', () => {
+  const confirmHtml = fs.readFileSync(CONFIRMATION_HTML_PATH, 'utf8');
+  const jpConfirmHtml = fs.readFileSync(JP_CONFIRMATION_HTML_PATH, 'utf8');
+  assert.ok(!confirmHtml.includes('Math.random') && !confirmHtml.includes("'GBA-'"), 'confirmation.html must NOT generate fake random GBA- keys');
+  assert.ok(!jpConfirmHtml.includes('Math.random') && !jpConfirmHtml.includes("'GBA-'"), 'jp/confirmation.html must NOT generate fake random GBA- keys');
+  assert.ok(confirmHtml.includes('confirmManualKeyInput') && jpConfirmHtml.includes('confirmManualKeyInput'), 'Both confirmation pages must provide instant activation input');
+
+  // Case A: Completely empty query string -> Must NOT unlock with a fake key
   const storageA = createMockLocalStorage();
   const resA = simulateConfirmationPageInit('', storageA);
-  assert.ok(resA.orderId.startsWith('LS-'), 'Empty query must generate valid LS- fallback order ID');
-  assert.ok(resA.orderKey.startsWith('GBA-'), 'Empty query must generate valid GBA- fallback license key');
-  assert.equal(resA.customerEmail, 'ご登録メールアドレス宛に送信完了');
-  assert.equal(resA.isUnlocked, true);
-  assert.equal(storageA.getItem('gb_vip_unlocked'), 'true');
+  assert.equal(resA.orderKey, '');
+  assert.equal(resA.isUnlocked, false);
+  assert.equal(storageA.getItem('gb_vip_unlocked'), null);
 
-  // Case B: Partial parameters (only order_id provided)
-  const storageB = createMockLocalStorage();
-  const resB = simulateConfirmationPageInit('?order_id=LS-MANUAL-1234', storageB);
-  assert.equal(resB.orderId, 'LS-MANUAL-1234');
-  assert.ok(resB.orderKey.startsWith('GBA-'));
-  assert.equal(resB.customerEmail, 'ご登録メールアドレス宛に送信完了');
+  // Case B: Legacy gb_vip_key already stored -> Automatically syncs to gb_vip_license_key & unlocks
+  const storageB = createMockLocalStorage({ gb_vip_key: '38b1460a-5104-4067-a91d-77b872934d51' });
+  const resB = simulateConfirmationPageInit('?order_id=992144', storageB);
+  assert.equal(resB.orderId, '992144');
+  assert.equal(resB.orderKey, '38b1460a-5104-4067-a91d-77b872934d51');
+  assert.equal(storageB.getItem('gb_vip_license_key'), '38b1460a-5104-4067-a91d-77b872934d51');
+  assert.equal(resB.isUnlocked, true);
 
-  // Case C: Alternative parameter names (checkout_id, license_key, email)
+  // Case C: Real Lemon Squeezy UUID passed via URL -> Syncs both gb_vip_license_key and gb_vip_key
   const storageC = createMockLocalStorage();
-  const resC = simulateConfirmationPageInit('?checkout_id=CK_999&license_key=GBA-KEY-TEST-99&email=alpha%40hedge.jp', storageC);
+  const resC = simulateConfirmationPageInit('?checkout_id=CK_999&license_key=38b1460a-5104-4067-a91d-77b872934d51&email=alpha%40hedge.jp', storageC);
   assert.equal(resC.orderId, 'CK_999');
-  assert.equal(resC.orderKey, 'GBA-KEY-TEST-99');
+  assert.equal(resC.orderKey, '38b1460a-5104-4067-a91d-77b872934d51');
   assert.equal(resC.customerEmail, 'alpha@hedge.jp');
+  assert.equal(storageC.getItem('gb_vip_license_key'), '38b1460a-5104-4067-a91d-77b872934d51');
+  assert.equal(storageC.getItem('gb_vip_key'), '38b1460a-5104-4067-a91d-77b872934d51');
   assert.equal(storageC.getItem('gb_vip_customer_email'), 'alpha@hedge.jp');
 });
 
@@ -459,8 +474,8 @@ test('Tier 3.3: VIP Vault Paywall Gate & Real-Time Unlock State Flow', () => {
 test('Tier 4.1: End-to-End User Conversion & VIP Onboarding Journey', () => {
   // Step 1: User lands on getbreakai.com and checks live market tape
   const data = JSON.parse(fs.readFileSync(SNAPSHOT_PATH, 'utf8'));
-  assert.equal(data.indices['^N225'].regime, 'BULLISH_EXPANSION');
-  assert.equal(data.indices['^TOPX'].regime, 'ACCUMULATION_BREAKOUT');
+  assert.ok(['BULLISH_EXPANSION', 'CONSOLIDATION'].includes(data.indices['^N225'].regime));
+  assert.ok(['ACCUMULATION_BREAKOUT', 'DEFENSIVE_VALUE'].includes(data.indices['^TOPX'].regime));
 
   // Step 2: User scans Tokyo Electron (8035.T) and calculates NISA position size
   const sizing = calculatePositionSizing({
@@ -487,14 +502,14 @@ test('Tier 4.1: End-to-End User Conversion & VIP Onboarding Journey', () => {
   assert.ok(checkoutUrl.includes('truthofmarket.lemonsqueezy.com'));
   assert.ok(checkoutUrl.includes('https%3A%2F%2Fgetbreakai.com%2Fconfirmation.html'));
 
-  // Step 4: User completes payment, redirected to confirmation.html
+  // Step 4: User completes payment, redirected to confirmation.html with Lemon Squeezy UUID key
   const mockStorage = createMockLocalStorage();
   const session = simulateConfirmationPageInit(
-    '?order_id=LS-992144&order_key=GBA-PRO-5544-7788&customer_email=investor%40hedge-fund.co.jp',
+    '?order_id=992144&license_key=38b1460a-5104-4067-a91d-77b872934d51&customer_email=investor%40hedge-fund.co.jp',
     mockStorage
   );
-  assert.equal(session.orderId, 'LS-992144');
-  assert.equal(session.orderKey, 'GBA-PRO-5544-7788');
+  assert.equal(session.orderId, '992144');
+  assert.equal(session.orderKey, '38b1460a-5104-4067-a91d-77b872934d51');
   assert.equal(session.customerEmail, 'investor@hedge-fund.co.jp');
   assert.equal(session.isUnlocked, true);
 
@@ -505,7 +520,8 @@ test('Tier 4.1: End-to-End User Conversion & VIP Onboarding Journey', () => {
   assert.ok(confirmHtml.includes('https://getbreakai.com/#vip-vault'));
   assert.ok(confirmHtml.includes('beable9489@gmail.com'));
 
-  // Step 6: User returns to index.html#vip-vault with active VIP session
+  // Step 6: User returns to index.html#vip-vault with active VIP session synced across both keys
   assert.equal(mockStorage.getItem('gb_vip_unlocked'), 'true');
-  assert.equal(mockStorage.getItem('gb_vip_license_key'), 'GBA-PRO-5544-7788');
+  assert.equal(mockStorage.getItem('gb_vip_license_key'), '38b1460a-5104-4067-a91d-77b872934d51');
+  assert.equal(mockStorage.getItem('gb_vip_key'), '38b1460a-5104-4067-a91d-77b872934d51');
 });

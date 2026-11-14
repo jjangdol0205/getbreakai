@@ -4,16 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>決済完了・VIPライセンス有効化 ｜ GetBreakAI 日本語公式</title>
-  <meta name="description" content="GetBreakAI Proライセンスのご購入ありがとうございます。Web VIP Vault（機関投資家データ庫）が解放されました。公式YouTube（@GetBreakAI）およびWebブラウザ＆メール即時シグナル配信をご利用いただけます。">
+  <meta name="description" content="GetBreakAI Proライセンスのご購入ありがとうございます。決済完了メール記載のLemon Squeezyライセンスキーを入力してWeb VIP Vault（機関投資家データ庫）を即時解放できます。">
   <meta name="robots" content="noindex, follow">
   <link rel="canonical" href="https://getbreakai.com/jp/confirmation.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="GetBreakAI">
+  <meta property="og:title" content="決済完了・VIPライセンス有効化 ｜ GetBreakAI 日本語公式">
+  <meta property="og:description" content="GetBreakAI Proライセンスのご購入ありがとうございます。メール記載のライセンスキーでWeb VIP Vaultを即時有効化できます。">
+  <meta property="og:url" content="https://getbreakai.com/jp/confirmation.html">
+  <meta property="og:image" content="https://getbreakai.com/og-preview.png">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2306050c' stroke='%238b5cf6' stroke-width='4'/%3E%3Cpath d='M14 44 L26 30 L34 36 L48 16' fill='none' stroke='%23f59e0b' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='48' cy='16' r='5' fill='%2310b981'/%3E%3C/svg%3E">
   <link rel="alternate icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
   <style>
-    /* === Dark Mode (Default / Terminal) === */
+    /* === Dark Mode (Terminal) === */
     :root,
     html[data-jp-theme="dark"] {
       --bg-dark: #06050c;
@@ -62,6 +68,11 @@
       padding: 0;
     }
 
+    html, body {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
     body {
       background-color: var(--bg-dark);
       background-image:
@@ -77,9 +88,10 @@
     }
 
     .container {
+      width: 100%;
       max-width: 920px;
       margin: 0 auto;
-      padding: 32px 20px 60px;
+      padding: 28px 20px 60px;
       flex: 1;
     }
 
@@ -87,20 +99,22 @@
     header {
       border-bottom: 1px solid var(--border-color);
       background: var(--bg-card);
-      padding: 16px 24px;
+      padding: 8px 20px;
+      min-height: 52px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
+      flex-wrap: nowrap;
+      gap: 10px;
     }
 
     .logo-group {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       text-decoration: none;
       color: var(--text-main);
+      min-width: 0;
     }
 
     .logo-badge {
@@ -112,20 +126,41 @@
       padding: 4px 10px;
       border-radius: 6px;
       letter-spacing: 0.05em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .logo-subtitle {
+      font-size: 0.96rem;
+      font-weight: 800;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .store-live-pill {
+      font-size: 0.76rem;
+      color: var(--text-sub);
+      font-family: var(--font-mono);
+      white-space: nowrap;
     }
 
     .theme-toggle-btn {
       background: var(--bg-card-sub);
       border: 1px solid var(--border-color);
       color: var(--text-main);
-      padding: 7px 14px;
+      min-height: 40px;
+      padding: 0 12px;
       border-radius: 8px;
       font-size: 0.82rem;
-      font-weight: 700;
+      font-weight: 800;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      justify-content: center;
+      gap: 5px;
+      white-space: nowrap;
+      flex-shrink: 0;
       transition: all 0.2s;
     }
     .theme-toggle-btn:hover {
@@ -137,7 +172,7 @@
       background: var(--bg-card);
       border: 1px solid var(--border-color);
       border-radius: 16px;
-      padding: 32px 28px;
+      padding: 30px 26px;
       margin-bottom: 24px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.06);
     }
@@ -157,9 +192,9 @@
       border: 1px solid var(--accent-emerald);
       padding: 6px 14px;
       border-radius: 9999px;
-      font-size: 0.84rem;
+      font-size: 0.82rem;
       font-weight: 800;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
     html[data-jp-theme="light"] .badge-success {
       background: #d1fae5;
@@ -168,27 +203,96 @@
     }
 
     .page-title {
-      font-size: 1.85rem;
+      font-size: 1.7rem;
       font-weight: 900;
       color: var(--text-main);
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       letter-spacing: -0.02em;
+      line-height: 1.35;
     }
 
     .page-desc {
-      font-size: 1rem;
+      font-size: 0.96rem;
       color: var(--text-muted);
       max-width: 680px;
-      margin: 0 auto 28px;
+      margin: 0 auto 24px;
       line-height: 1.65;
+    }
+
+    /* Instant Activation Highlight Box */
+    .activation-box {
+      background: var(--bg-card-sub);
+      border: 2px solid var(--accent-violet);
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 24px;
+      text-align: left;
+      box-shadow: 0 6px 20px var(--glow-violet);
+    }
+
+    .activation-title {
+      font-size: 0.95rem;
+      font-weight: 900;
+      color: var(--text-main);
+      margin-bottom: 6px;
+      line-height: 1.45;
+    }
+
+    .activation-sub {
+      font-size: 0.83rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      line-height: 1.55;
+    }
+
+    .activation-form-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: stretch;
+    }
+
+    .activation-input {
+      flex: 1 1 240px;
+      min-width: 0;
+      width: 100%;
+      min-height: 46px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1.5px solid var(--border-accent);
+      background: var(--bg-card);
+      color: var(--text-main);
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+    }
+
+    .btn-activate-key {
+      min-height: 46px;
+      padding: 10px 20px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #6d28d9, #2563eb);
+      color: #ffffff;
+      border: none;
+      font-size: 0.9rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      white-space: nowrap;
+      transition: opacity 0.2s;
+    }
+    .btn-activate-key:hover {
+      opacity: 0.92;
     }
 
     /* License Info Table */
     .info-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 16px;
-      margin-bottom: 28px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin-bottom: 22px;
       text-align: left;
     }
 
@@ -196,24 +300,25 @@
       background: var(--bg-card-sub);
       border: 1px solid var(--border-color);
       border-radius: 12px;
-      padding: 16px 20px;
+      padding: 14px 18px;
+      min-width: 0;
     }
 
     .info-label {
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       font-family: var(--font-mono);
       color: var(--text-sub);
-      margin-bottom: 6px;
+      margin-bottom: 5px;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.04em;
     }
 
     .info-value {
-      font-size: 1.05rem;
+      font-size: 0.98rem;
       font-weight: 800;
       font-family: var(--font-mono);
       color: var(--text-main);
-      word-break: break-all;
+      word-break: break-word;
     }
 
     /* Key Box */
@@ -221,28 +326,30 @@
       background: var(--bg-dark);
       border: 1.5px dashed var(--accent-violet);
       border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 28px;
+      padding: 16px 18px;
+      margin-bottom: 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 14px;
+      gap: 12px;
       text-align: left;
     }
 
     .key-value {
       font-family: var(--font-mono);
-      font-size: 1.15rem;
+      font-size: 1rem;
       font-weight: 800;
       color: var(--accent-amber);
-      letter-spacing: 0.04em;
+      letter-spacing: 0.02em;
+      word-break: break-all;
     }
 
     .btn-copy {
       background: var(--bg-card);
       border: 1px solid var(--border-accent);
       color: var(--text-main);
+      min-height: 42px;
       padding: 8px 16px;
       border-radius: 8px;
       font-size: 0.85rem;
@@ -250,7 +357,9 @@
       cursor: pointer;
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 6px;
+      white-space: nowrap;
       transition: all 0.2s;
     }
     .btn-copy:hover {
@@ -263,14 +372,14 @@
       background: linear-gradient(135deg, rgba(16, 185, 129, 0.10) 0%, rgba(59, 130, 246, 0.08) 100%);
       border: 2px solid var(--accent-sky);
       border-radius: 16px;
-      padding: 30px 26px;
-      margin-bottom: 28px;
+      padding: 28px 24px;
+      margin-bottom: 24px;
       position: relative;
       overflow: hidden;
     }
 
     .channels-title {
-      font-size: 1.32rem;
+      font-size: 1.22rem;
       font-weight: 900;
       color: var(--accent-sky);
       margin-bottom: 12px;
@@ -281,7 +390,7 @@
     }
 
     .step-list {
-      margin: 18px 0 24px;
+      margin: 16px 0 22px;
       padding-left: 0;
       list-style: none;
       display: flex;
@@ -293,7 +402,7 @@
       display: flex;
       align-items: flex-start;
       gap: 12px;
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       color: var(--text-muted);
       line-height: 1.6;
     }
@@ -323,11 +432,15 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      padding: 14px 24px;
+      min-height: 46px;
+      padding: 12px 20px;
       border-radius: 10px;
-      font-size: 0.96rem;
+      font-size: 0.93rem;
       font-weight: 800;
       text-decoration: none;
+      text-align: center;
+      line-height: 1.35;
+      max-width: 100%;
       transition: transform 0.15s, box-shadow 0.15s;
       cursor: pointer;
       border: none;
@@ -361,16 +474,16 @@
 
     .actions-grid {
       display: flex;
-      gap: 14px;
+      gap: 12px;
       justify-content: center;
       flex-wrap: wrap;
-      margin-top: 20px;
+      margin-top: 18px;
     }
 
     footer {
       border-top: 1px solid var(--border-color);
       background: var(--bg-card);
-      padding: 24px;
+      padding: 22px 16px;
       text-align: center;
       font-size: 0.82rem;
       color: var(--text-sub);
@@ -379,27 +492,50 @@
     footer a {
       color: var(--accent-violet);
       text-decoration: none;
-      margin: 0 8px;
+      margin: 0 6px;
+      display: inline-block;
     }
     footer a:hover {
       text-decoration: underline;
     }
-  
-    /* 日本証券ライト・高信頼テーマ (標準) */
-    body { background: #f4f6fa !important; color: #0f172a !important; font-feature-settings: "palt" 1; }
-    header { background: #0b1f3a !important; border-bottom: 2px solid #1e3a8a !important; }
-    .article-box { background: #ffffff !important; border: 1.5px solid #cbd5e1 !important; box-shadow: 0 8px 24px rgba(15,23,42,0.06) !important; }
-    h1 { color: #0b1f3a !important; }
-    h2 { color: #1e3a8a !important; border-left: 5px solid #1d4ed8 !important; background: #eff6ff; padding: 8px 12px !important; border-radius: 0 8px 8px 0; }
-    h3 { color: #b45309 !important; }
-    p, li { color: #1e293b !important; }
-    .kpi-card { background: #f8fafc !important; border: 1.5px solid #cbd5e1 !important; }
-    .kpi-label { color: #475569 !important; font-weight: 700; }
-    .kpi-val { color: #0b1f3a !important; }
-    .widget-box { background: #f8fafc !important; border: 2px solid #1d4ed8 !important; }
-    .widget-box h3 { color: #0b1f3a !important; }
-    a { color: #1d4ed8; }
 
+    @media (max-width: 640px) {
+      header {
+        padding: 6px 12px;
+        min-height: 48px;
+      }
+      .logo-subtitle {
+        font-size: 0.84rem;
+      }
+      .store-live-pill {
+        display: none;
+      }
+      .container {
+        padding: 16px 12px 44px;
+      }
+      .card,
+      .card-vip-channels {
+        padding: 18px 14px;
+      }
+      .page-title {
+        font-size: 1.32rem;
+      }
+      .page-desc {
+        font-size: 0.88rem;
+      }
+      .activation-box {
+        padding: 16px 14px;
+      }
+      .btn-activate-key,
+      .btn-copy,
+      .actions-grid .btn-checkout {
+        width: 100%;
+      }
+      .actions-grid .btn-checkout {
+        font-size: 0.86rem;
+        padding: 12px 14px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -407,77 +543,82 @@
   <header>
     <a href="https://getbreakai.com/" class="logo-group">
       <span class="logo-badge">GetBreakAI</span>
-      <strong style="font-size:1.05rem;">米国株クオンツAIターミナル</strong>
+      <strong class="logo-subtitle">日米クオンツAIターミナル</strong>
     </a>
-    <div style="display:flex; align-items:center; gap:12px;">
-      <span style="font-size:0.78rem; color:var(--text-sub); font-family:var(--font-mono);">Store #296100 Live</span>
+    <div style="display:flex; align-items:center; gap:10px; flex-shrink:0;">
+      <span class="store-live-pill">Store #296100 Live</span>
       <button type="button" id="btnToggleJpTheme" class="theme-toggle-btn" onclick="toggleJpTheme()">
-        <span id="themeToggleIcon">☀️</span>
-        <span id="themeToggleText">ライト表示中</span>
+        <span id="themeToggleIcon">🌙</span>
+        <span id="themeToggleText">切替</span>
       </button>
     </div>
   </header>
 
   <div class="container">
 
-    <!-- メイン成功カード -->
+    <!-- メイン成功・ライセンスキー即時有効化カード -->
     <div class="card card-success">
       <div class="badge-success">
-        <span>✓</span> 決済完了 ＆ Web VIP Vault 即時有効化
+        <span>✓</span> Store #296100 公式決済 ＆ ライセンス認証デスク
       </div>
       <h1 class="page-title">🎉 ご購入ありがとうございます！</h1>
       <p class="page-desc">
-        Lemon Squeezy (Store ID #296100) での決済が正常に完了しました。<br>
-        お使いのブラウザにVIPアンロック情報が自動同期されました。<strong>Web VIP Vault（機関投資家データ庫）</strong>にて全銘柄のオーダーブック、CSV、Pine Script v5全文を今すぐご利用いただけます。
+        Lemon Squeezy（Store ID #296100）からご登録メールアドレス宛に送信された<strong>正式ライセンスキー（UUID形式）</strong>を下の入力欄に貼り付けると、トップページおよび全ページの<strong>Web VIP Vault（機関投資家データ庫）</strong>が即座に解放されます。
       </p>
+
+      <!-- メール受信ライセンスキーの即時同期・有効化フォーム（最優先配置） -->
+      <div class="activation-box" id="confirmManualKeyBox">
+        <div class="activation-title">🔑 決済完了メール記載のLemon Squeezyライセンスキーを即時有効化</div>
+        <div class="activation-sub">
+          件名「Your order from KIDS-FIT Global Studio / GetBreakAI」のメールに記載されているライセンスキーを貼り付けてボタンを押してください。ブラウザに自動保存され、全ページ共通でVIP特典がアンロックされます。
+        </div>
+        <div class="activation-form-row">
+          <input type="text" id="confirmManualKeyInput" class="activation-input" placeholder="例: 38b1460a-5104-4067-a91d-77b872934d51" autocomplete="off" spellcheck="false">
+          <button type="button" id="btnActivateManualKey" class="btn-activate-key" onclick="activateManualConfirmationKey()">⚡ ライセンスキーを即時有効化</button>
+        </div>
+        <div id="confirmManualKeyStatus" style="font-size:0.84rem; font-weight:800; margin-top:8px;"></div>
+      </div>
 
       <div class="info-grid">
         <div class="info-item">
           <div class="info-label">登録メールアドレス (Account Email)</div>
-          <div class="info-value" id="displayCustomerEmail">読み込み中...</div>
+          <div class="info-value" id="displayCustomerEmail">ご登録メールアドレス宛にライセンスキー送信済み</div>
         </div>
         <div class="info-item">
           <div class="info-label">注文番号 / Order ID</div>
-          <div class="info-value" id="displayOrderId">読み込み中...</div>
+          <div class="info-value" id="displayOrderId">メール記載の注文番号をご確認ください</div>
         </div>
         <div class="info-item">
           <div class="info-label">ライセンス状態 (Status)</div>
-          <div class="info-value" style="color:var(--accent-emerald);">👑 Web VIP Vault 解放完了 (ACTIVE)</div>
+          <div class="info-value" id="displayLicenseStatus" style="color:var(--accent-amber);">🔑 メール記載のキー入力で即時解放</div>
         </div>
         <div class="info-item">
           <div class="info-label">対象プラットフォーム</div>
-          <div class="info-value">GetBreakAI + TruthOfMarket</div>
+          <div class="info-value">GetBreakAI 全ページ共通</div>
         </div>
       </div>
 
       <!-- ライセンスキー表示・コピー領域 -->
       <div class="key-box-container">
-        <div>
-          <div class="info-label" style="color:var(--accent-violet);">Pro ライセンスキー (メールでも同時送信済み)</div>
-          <div class="key-value" id="displayLicenseKey">認証キー生成中...</div>
+        <div style="min-width:0; flex:1 1 220px;">
+          <div class="info-label" style="color:var(--accent-violet);">現在のブラウザ同期ライセンスキー</div>
+          <div class="key-value" id="displayLicenseKey">決済完了メール記載のライセンスキーを上の欄に入力してください</div>
         </div>
-        <button type="button" class="btn-copy" onclick="copyLicenseKey()">
+        <button type="button" id="btnCopyLicenseKey" class="btn-copy" onclick="copyLicenseKey()" style="display:none;">
           <span id="copyIcon">📋</span> <span id="copyText">キーをコピー</span>
         </button>
-      </div>
-
-      <!-- メール受信ライセンスキーの即時同期・有効化フォーム -->
-      <div style="background:var(--bg-card-sub); border:1px solid var(--border-color); border-radius:12px; padding:16px 20px; margin-bottom:24px; text-align:left;">
-        <div style="font-size:0.84rem; font-weight:800; color:var(--text-main); margin-bottom:6px;">🔑 メールで届いた正式ライセンスキー（UUID）を登録・同期する（任意）</div>
-        <div style="display:flex; gap:8px; flex-wrap:wrap;">
-          <input type="text" id="confirmManualKeyInput" placeholder="例: XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX" style="flex:1; min-width:220px; padding:9px 12px; border-radius:8px; border:1px solid var(--border-accent); background:var(--bg-card); color:var(--text-main); font-family:var(--font-mono); font-size:0.84rem;">
-          <button type="button" class="btn-copy" onclick="activateManualConfirmationKey()" style="background:var(--accent-violet); color:#fff; border:none;">⚡ ライセンス有効化</button>
-        </div>
-        <div id="confirmManualKeyStatus" style="font-size:0.8rem; font-weight:700; margin-top:6px;"></div>
       </div>
 
       <!-- メインターミナルへの誘導ボタン -->
       <div class="actions-grid">
         <a href="https://getbreakai.com/#vip-vault" class="btn-checkout btn-checkout-primary">
-          🔑 Web VIP Vault を開く (VIP全機能解放済み) →
+          🔑 Web VIP Vault を開く →
+        </a>
+        <a href="https://getbreakai.com/jp/" class="btn-checkout btn-checkout-secondary">
+          🧮 新NISA・1秒ATR計算ハブへ →
         </a>
         <a href="https://truthofmarket.com/?utm_source=getbreakai_confirmation" target="_blank" rel="noopener" class="btn-checkout btn-checkout-secondary">
-          🧭 姉妹サイト TruthOfMarket.com VIPを開く ↗
+          🧭 姉妹サイト TruthOfMarket.com を開く ↗
         </a>
       </div>
     </div>
@@ -489,7 +630,7 @@
         <span>Webブラウザ＆メール即時シグナル配信 ・ 公式YouTube (@GetBreakAI) 連携</span>
       </div>
       <p style="color:var(--text-muted); font-size:0.92rem; line-height:1.65;">
-        外部チャットアプリのインストールは一切不要です。<strong>Web VIP Vault（ブラウザ画面）＆ご登録メールでの即時シグナル配信</strong>に加え、毎朝1分で米国株SEC開示＆2.0x ATR損切りラインを解説する<strong>公式YouTube（@GetBreakAI）</strong>と<strong>公式X（#株クラ 速報共有）</strong>をあわせてご活用ください。
+        外部チャットアプリのインストールは一切不要です。<strong>Web VIP Vault（ブラウザ画面）＆ご登録メールでの即時シグナル配信</strong>に加え、毎朝1分で日米ブレイク銘柄＆2.0x ATR損切りラインを解説する<strong>公式YouTube（@GetBreakAI）</strong>と<strong>公式X（#株クラ 速報共有）</strong>をあわせてご活用ください。
       </p>
 
       <ul class="step-list">
@@ -497,14 +638,14 @@
           <span class="step-num">1</span>
           <div>
             <strong>Web VIP Vault（機関投資家データ庫）へ直行</strong><br>
-            ブラウザ上で全銘柄のGamma Flip・2.0x ATR一覧(.CSV)、Form-4役員自社株買い台帳、TradingView Pine Script v5全文がすでにアンロックされています。別端末で使う際は上のライセンスキーを入力するだけで自動有効化されます。
+            ライセンスキー有効化後、ブラウザ上で全銘柄のGamma Flip・2.0x ATR一覧(.CSV)、Form-4役員自社株買い台帳、TradingView Pine Script v5全文が即座にアンロックされます。
           </div>
         </li>
         <li class="step-item">
           <span class="step-num">2</span>
           <div>
-            <strong>📺 公式YouTube (@GetBreakAI — 毎朝1分 米国株SEC開示＆ATR速報) をチャンネル登録</strong><br>
-            毎晩20:30 JST（米国市場プレマーケット前）に、$NVDA・$PLTR・$TSLA・$SOXLの実チャートと新NISA 100万円シミュレーション速報ショートを公開しています。
+            <strong>📺 公式YouTube (@GetBreakAI — 毎朝1分 日米株ATR＆ブレイク速報) をチャンネル登録</strong><br>
+            東証プライム主力株（8035・6857・7011）および米国株（$NVDA・$PLTR・$MSFT・$TSLA）の実チャートと新NISAシミュレーション速報ショートを公開しています。
           </div>
         </li>
         <li class="step-item">
@@ -518,13 +659,13 @@
 
       <div class="actions-grid">
         <a href="https://www.youtube.com/@GetBreakAI" target="_blank" rel="noopener" class="btn-checkout btn-checkout-youtube">
-          📺 公式YouTube (@GetBreakAI — 毎朝1分 米国株SEC開示＆ATR速報) →
+          📺 公式YouTube (@GetBreakAI) を開く →
         </a>
         <a href="https://x.com/intent/tweet?text=%E7%B1%B3%E5%9B%BD%E6%A0%AA%E3%83%BB%E6%96%B0NISA%E5%B0%82%E7%94%A8%20GetBreakAI%20VIP%E3%82%BF%E3%83%BC%E3%83%9F%E3%83%8A%E3%83%AB%EF%BC%882.0x%20ATR%E6%90%8D%E5%88%87%E3%82%8A%EF%BC%86SEC%208-K%E9%80%9F%E5%A0%B1%EF%BC%89%20https%3A%2F%2Fgetbreakai.com%20%23%E6%A0%AA%E3%82%AF%E3%83%A9%20%23%E6%96%B0NISA%20%23%E7%B1%B3%E5%9B%BD%E6%A0%AA" target="_blank" rel="noopener" class="btn-checkout btn-checkout-secondary">
           𝕏 公式X (#株クラ 速報共有) ↗
         </a>
         <a href="https://getbreakai.com/#vip-vault" class="btn-checkout btn-checkout-secondary">
-          🔔 Webブラウザ＆メール即時シグナル設定へ →
+          🔔 Web VIP Vault シグナル設定へ →
         </a>
       </div>
     </div>
@@ -546,7 +687,7 @@
       <a href="https://getbreakai.com/#pricing">料金プラン</a>
       <a href="https://getbreakai.com/#vip-vault">Web VIP Vault</a>
       <a href="https://www.youtube.com/@GetBreakAI" target="_blank" rel="noopener">公式YouTube (@GetBreakAI)</a>
-      <a href="https://getbreakai.com/jp/">ディープリサーチ</a>
+      <a href="https://getbreakai.com/jp/">新NISA計算ハブ</a>
       <a href="mailto:beable9489@gmail.com">サポート (beable9489@gmail.com)</a>
     </div>
     <div style="font-size:0.76rem;">
@@ -557,7 +698,10 @@
   <script>
     // Theme Management
     function initTheme() {
-      const saved = localStorage.getItem('gb_jp_theme') || 'light';
+      let saved = 'light';
+      try {
+        saved = localStorage.getItem('gb_jp_theme') || 'light';
+      } catch (_) {}
       document.documentElement.setAttribute('data-jp-theme', saved);
       updateThemeToggleUI(saved);
     }
@@ -566,7 +710,9 @@
       const current = document.documentElement.getAttribute('data-jp-theme') || 'light';
       const next = current === 'dark' ? 'light' : 'dark';
       document.documentElement.setAttribute('data-jp-theme', next);
-      localStorage.setItem('gb_jp_theme', next);
+      try {
+        localStorage.setItem('gb_jp_theme', next);
+      } catch (_) {}
       updateThemeToggleUI(next);
     }
 
@@ -574,17 +720,58 @@
       const icon = document.getElementById('themeToggleIcon');
       const text = document.getElementById('themeToggleText');
       if (theme === 'dark') {
-        if (icon) icon.innerText = '🌙';
-        if (text) text.innerText = 'ダーク表示中';
-      } else {
         if (icon) icon.innerText = '☀️';
-        if (text) text.innerText = 'ライト表示中';
+        if (text) text.innerText = '切替';
+      } else {
+        if (icon) icon.innerText = '🌙';
+        if (text) text.innerText = '切替';
+      }
+    }
+
+    function isPlausibleRealLicenseKey(rawKey) {
+      const k = String(rawKey || '').trim();
+      if (k.length < 12) return false;
+      if (/^(LS-|DEMO-|FAKE-|TEMP-)/i.test(k)) return false;
+      return true;
+    }
+
+    function syncUnifiedVipLicenseStorage(validKey) {
+      const key = String(validKey || '').trim();
+      if (!isPlausibleRealLicenseKey(key)) return;
+      try {
+        localStorage.setItem('gb_vip_unlocked', 'true');
+        localStorage.setItem('gb_vip_license_key', key);
+        localStorage.setItem('gb_vip_key', key);
+      } catch (_) {}
+    }
+
+    function renderConfirmationKeyState(activeKey) {
+      const elKey = document.getElementById('displayLicenseKey');
+      const elStatus = document.getElementById('displayLicenseStatus');
+      const btnCopy = document.getElementById('btnCopyLicenseKey');
+      const inp = document.getElementById('confirmManualKeyInput');
+
+      if (isPlausibleRealLicenseKey(activeKey)) {
+        if (elKey) elKey.innerText = activeKey;
+        if (elStatus) {
+          elStatus.style.color = 'var(--accent-emerald)';
+          elStatus.innerText = '👑 Web VIP Vault 解放完了 (ACTIVE)';
+        }
+        if (btnCopy) btnCopy.style.display = 'inline-flex';
+        if (inp && !inp.value) inp.value = activeKey;
+      } else {
+        if (elKey) elKey.innerText = '決済完了メール記載のライセンスキーを上の欄に入力してください';
+        if (elStatus) {
+          elStatus.style.color = 'var(--accent-amber)';
+          elStatus.innerText = '🔑 メール記載のキー入力で即時解放';
+        }
+        if (btnCopy) btnCopy.style.display = 'none';
       }
     }
 
     async function autoActivateRedirectLicenseKey(rawKey) {
       const key = String(rawKey || '').trim();
-      if (!key || key.startsWith('GBA-') || key.startsWith('LS-')) return false;
+      if (!isPlausibleRealLicenseKey(key)) return false;
       try {
         const valResp = await fetch('https://api.lemonsqueezy.com/v1/licenses/validate', {
           method: 'POST',
@@ -614,70 +801,99 @@
     async function activateManualConfirmationKey() {
       const inp = document.getElementById('confirmManualKeyInput');
       const st = document.getElementById('confirmManualKeyStatus');
+      const btn = document.getElementById('btnActivateManualKey');
       const key = String((inp && inp.value) || '').trim();
-      if (!key || key.length < 12) {
-        if (st) { st.style.color = 'var(--accent-rose)'; st.innerText = '⚠️ メールに記載された有効なライセンスキーを入力してください。'; }
+      if (!isPlausibleRealLicenseKey(key)) {
+        if (st) {
+          st.style.color = 'var(--accent-rose)';
+          st.innerText = '⚠️ Lemon Squeezy決済完了メールに記載された有効なライセンスキー（UUID）を入力してください。';
+        }
         return;
       }
-      if (st) { st.style.color = 'var(--accent-sky)'; st.innerText = '⏳ Store #296100 ライセンス認証サーバーで有効化中...'; }
+      if (btn) btn.innerText = '⏳ 認証中...';
+      if (st) {
+        st.style.color = 'var(--accent-sky)';
+        st.innerText = '⏳ Store #296100 ライセンス認証サーバーで有効化中...';
+      }
       const ok = await autoActivateRedirectLicenseKey(key);
+      if (btn) btn.innerText = '⚡ ライセンスキーを即時有効化';
       if (ok) {
-        try {
-          localStorage.setItem('gb_vip_unlocked', 'true');
-          localStorage.setItem('gb_vip_license_key', key);
-          localStorage.setItem('gb_vip_key', key);
-        } catch (_) {}
-        const elKey = document.getElementById('displayLicenseKey');
-        if (elKey) elKey.innerText = key;
-        if (st) { st.style.color = 'var(--accent-emerald)'; st.innerText = '✅ ライセンスキーの有効化＆ブラウザ同期が完了しました！'; }
+        syncUnifiedVipLicenseStorage(key);
+        renderConfirmationKeyState(key);
+        if (st) {
+          st.style.color = 'var(--accent-emerald)';
+          st.innerText = '✅ ライセンスキーの有効化＆全ページ同期が完了しました！Web VIP Vaultをご利用いただけます。';
+        }
       } else {
-        if (st) { st.style.color = 'var(--accent-rose)'; st.innerText = '❌ ライセンスキーを確認できませんでした。キーをご確認のうえ再度お試しください。'; }
+        if (st) {
+          st.style.color = 'var(--accent-rose)';
+          st.innerText = '❌ ライセンスキーを確認できませんでした。メール記載のキーをご確認のうえ再度お試しください。';
+        }
       }
     }
 
-    // Parse Query Params and Sync localStorage
+    // Parse Query Params and Sync Unified VIP localStorage Keys (gb_vip_license_key & gb_vip_key)
     (function initConfirmation() {
       initTheme();
 
       const params = new URLSearchParams(window.location.search);
-      const existingStoredKey = (function() {
-        try { return String(localStorage.getItem('gb_vip_license_key') || localStorage.getItem('gb_vip_key') || '').trim(); } catch (_) { return ''; }
-      })();
-      const existingOrderId = (function() {
-        try { return String(localStorage.getItem('gb_vip_order_id') || '').trim(); } catch (_) { return ''; }
-      })();
-      const orderId = (params.get('order_id') || params.get('orderId') || params.get('checkout_id') || '').trim() || existingOrderId || ('LS-' + Date.now().toString(36).toUpperCase());
-      const rawParamKey = (params.get('order_key') || params.get('orderKey') || params.get('license_key') || '').trim();
-      const orderKey = rawParamKey || (existingStoredKey.length >= 12 ? existingStoredKey : '') || ('GBA-' + Math.random().toString(36).substring(2, 6).toUpperCase() + '-' + Math.random().toString(36).substring(2, 6).toUpperCase() + '-' + Math.random().toString(36).substring(2, 6).toUpperCase());
-      const customerEmail = (params.get('customer_email') || params.get('email') || '').trim() || localStorage.getItem('gb_vip_customer_email') || 'ご登録メールアドレス宛に送信完了';
+      let storedPrimary = '';
+      let storedLegacy = '';
+      let existingOrderId = '';
+      let storedEmail = '';
+      try {
+        storedPrimary = String(localStorage.getItem('gb_vip_license_key') || '').trim();
+        storedLegacy = String(localStorage.getItem('gb_vip_key') || '').trim();
+        existingOrderId = String(localStorage.getItem('gb_vip_order_id') || '').trim();
+        storedEmail = String(localStorage.getItem('gb_vip_customer_email') || '').trim();
+      } catch (_) {}
+
+      const existingValidKey = isPlausibleRealLicenseKey(storedPrimary)
+        ? storedPrimary
+        : (isPlausibleRealLicenseKey(storedLegacy) ? storedLegacy : '');
+
+      const rawOrderId = (params.get('order_id') || params.get('orderId') || params.get('checkout_id') || '').trim();
+      const rawParamKey = (params.get('license_key') || params.get('order_key') || params.get('orderKey') || '').trim();
+      const rawEmail = (params.get('customer_email') || params.get('email') || '').trim();
+
+      const orderId = rawOrderId || existingOrderId || 'メール記載の注文番号をご確認ください';
+      const customerEmail = rawEmail || storedEmail || 'ご登録メールアドレス宛にライセンスキー送信済み';
+      const activeKey = isPlausibleRealLicenseKey(rawParamKey) ? rawParamKey : existingValidKey;
 
       try {
-        localStorage.setItem('gb_vip_unlocked', 'true');
-        localStorage.setItem('gb_vip_license_key', orderKey);
-        localStorage.setItem('gb_vip_key', orderKey);
-        localStorage.setItem('gb_vip_order_id', orderId);
-        if (params.get('customer_email') || params.get('email')) {
-          localStorage.setItem('gb_vip_customer_email', customerEmail);
-        }
+        if (rawOrderId) localStorage.setItem('gb_vip_order_id', rawOrderId);
+        if (rawEmail) localStorage.setItem('gb_vip_customer_email', rawEmail);
       } catch (_) {}
+
+      if (activeKey) {
+        syncUnifiedVipLicenseStorage(activeKey);
+      }
+      renderConfirmationKeyState(activeKey);
 
       const elOrderId = document.getElementById('displayOrderId');
       const elEmail = document.getElementById('displayCustomerEmail');
-      const elKey = document.getElementById('displayLicenseKey');
-
       if (elOrderId) elOrderId.innerText = String(orderId);
       if (elEmail) elEmail.innerText = String(customerEmail);
-      if (elKey) elKey.innerText = String(orderKey);
 
-      if (rawParamKey) {
+      if (isPlausibleRealLicenseKey(rawParamKey)) {
         autoActivateRedirectLicenseKey(rawParamKey);
+      }
+
+      const inp = document.getElementById('confirmManualKeyInput');
+      if (inp) {
+        inp.addEventListener('keydown', function(ev) {
+          if (ev.key === 'Enter') {
+            ev.preventDefault();
+            activateManualConfirmationKey();
+          }
+        });
       }
     })();
 
     function copyLicenseKey() {
       const keyEl = document.getElementById('displayLicenseKey');
-      const key = keyEl ? keyEl.innerText : '';
-      if (!key) return;
+      const key = keyEl ? String(keyEl.innerText || '').trim() : '';
+      if (!isPlausibleRealLicenseKey(key)) return;
 
       navigator.clipboard.writeText(key).then(() => {
         const textEl = document.getElementById('copyText');
@@ -689,7 +905,7 @@
           if (iconEl) iconEl.innerText = '📋';
         }, 2500);
       }).catch(() => {
-        alert('クリップボードにコピーできませんでした。直接キーを選択してコピーしてください: ' + key);
+        alert('直接キーを選択してコピーしてください: ' + key);
       });
     }
   </script>

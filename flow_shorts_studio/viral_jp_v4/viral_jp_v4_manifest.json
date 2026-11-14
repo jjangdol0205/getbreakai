@@ -1,0 +1,1075 @@
+{
+  "engine": "V4_JP_VIRAL_PRO",
+  "generated_at": "2026-11-11T05:39:30.050380",
+  "count": 12,
+  "episodes": [
+    {
+      "ep_num": 1,
+      "id": "VP01_ShinNISA_240Man_LossTrap",
+      "ticker": "8035",
+      "jp_name": "新NISA・成長投資枠",
+      "abc_winner": "B_LOSS_AVERSION (Hook Score 98.4 — 新NISA『損益通算不可』の盲点直撃)",
+      "mp4_path": "D:\\드림컴퍼니\\3사업부\\flow_shorts_studio\\viral_jp_v4\\VP01_ShinNISA_240Man_LossTrap.mp4",
+      "cover_jpg_path": "D:\\드림컴퍼니\\3사업부\\flow_shorts_studio\\viral_jp_v4\\thumbnails\\VP01_ShinNISA_240Man_LossTrap_cover.jpg",
+      "duration_sec": 45.8,
+      "file_size_mb": 15.11,
+      "yt_title": "【新NISAの罠】成長投資枠240万円で個別株を買う人が9割知らない「損益通算ゼロ」の恐怖 #新NISA #日本株 #米国株 #Shorts",
+      "yt_desc": "新NISAの成長投資枠（年間240万円）で「なんとなく話題の個別株」を買って含み損を抱えていませんか？⚠️\n\n実は新NISA口座で損失が出ても、特定口座のような『損益通算』や『3年間の繰越控除』は一切使えません。\n一度-40%の塩漬け株を作ってしまうと、せっかくの非課税枠が何年も死に金になってしまいます。\n\n📊 自分の持ち株の「適正株数」と「機械的損切りライン（2.0倍ATR）」を3秒で無料診断：\nhttps://getbreakai.com/jp/?ticker=8035\n\n#新NISA #成長投資枠 #オルカン #S&P500 #日本株 #米国株 #損切り #塩漬け株 #資産運用 #株クラ",
+      "yt_pin": "📌 あなたは新NISAの成長投資枠、『インデックス一択派』ですか？それとも『個別株・高配当株も買う派』ですか？ぜひコメント欄で教えてください！👇\n（持ち株の3秒リスク診断は @GetBreakAI プロフィールリンク getbreakai.com/jp/ から無料で使えます⚡）",
+      "ig_caption": "【保存版📌】新NISAの成長投資枠240万円、これを知らずに個別株を買うと本当に危険です⚠️\n\n1️⃣ 新NISA最大の落とし穴＝「損益通算ゼロ」\n利益が出れば税金ゼロで最強ですが、逆にマイナスを出して売っても他の利益と相殺（損益通算）できません。\n\n2️⃣ 一度の「塩漬け」が非課税枠を凍結させる\n話題の半導体株やグロース株に全力投資して-40%被弾すると、貴重な240万円枠が何年も身動き不能になります。\n\n3️⃣ プロが徹底する「1.5%リスク固定ルール」\n個別株を触るなら、1回の最大損失を口座資金の1.5%以内に抑える株数計算が絶対条件です。\n\n👉 プロフィール（@semifeargreed）のリンク https://getbreakai.com/jp/ から、あなたの資金に最適な購入株数を3秒で無料チェックしてみてください！\n\n#新NISA #成長投資枠 #つみたて投資枠 #オルカン #S&P500 #日本株投資 #米国株投資 #投資初心者 #家計管理 #資産形成",
+      "cuts": [
+        {
+          "cut_index": 1,
+          "type": "presenter",
+          "voice": "ja-JP-KeitaNeural",
+          "tts_dur_sec": 6.65,
+          "seg_dur_sec": 6.933,
+          "margin_sec": 0.283,
+          "sub": [
+            "新NISAの成長投資枠240万円",
+            "話題の株に全力で非課税ですよね？"
+          ]
+        },
+        {
+          "cut_index": 2,
+          "type": "chart_bar",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 7.4,
+          "seg_dur_sec": 7.7,
+          "margin_sec": 0.3,
+          "sub": [
+            "ちょっと待って！新NISAは",
+            "「損益通算ゼロ」の罠があります"
+          ]
+        },
+        {
+          "cut_index": 3,
+          "type": "presenter",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 6.27,
+          "seg_dur_sec": 6.567,
+          "margin_sec": 0.297,
+          "sub": [
+            "一度大きな塩漬け株を作ると",
+            "貴重な非課税枠が何年も凍結！"
+          ]
+        },
+        {
+          "cut_index": 4,
+          "type": "chart_race",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 8.28,
+          "seg_dur_sec": 8.567,
+          "margin_sec": 0.287,
+          "sub": [
+            "1回の損失を資金の1.5%以内に",
+            "抑える株数計算がプロの鉄則！"
+          ]
+        },
+        {
+          "cut_index": 5,
+          "type": "presenter",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 8.27,
+          "seg_dur_sec": 8.567,
+          "margin_sec": 0.297,
+          "sub": [
+            "あなたはインデックス派？個別株派？",
+            "ぜひコメント欄で教えてください！"
+          ]
+        },
+        {
+          "cut_index": 6,
+          "type": "ending",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 7.16,
+          "seg_dur_sec": 7.467,
+          "margin_sec": 0.307,
+          "sub": [
+            "持ち株の適正株数を3秒で無料診断",
+            "▶ getbreakai.com"
+          ]
+        }
+      ]
+    },
+    {
+      "ep_num": 2,
+      "id": "VP02_100Man_Nanpin_vs_StopLoss",
+      "ticker": "NVDA",
+      "jp_name": "エヌビディア・半導体株",
+      "abc_winner": "A_VS_CONTRAST (Hook Score 99.1 — 52万円崩壊 vs 168万円増加の極端対比)",
+      "mp4_path": "D:\\드림컴퍼니\\3사업부\\flow_shorts_studio\\viral_jp_v4\\VP02_100Man_Nanpin_vs_StopLoss.mp4",
+      "cover_jpg_path": "D:\\드림컴퍼니\\3사업부\\flow_shorts_studio\\viral_jp_v4\\thumbnails\\VP02_100Man_Nanpin_vs_StopLoss_cover.jpg",
+      "duration_sec": 49.67,
+      "file_size_mb": 16.73,
+      "yt_title": "【100万円検証】暴落した半導体株を「お祈りナンピン」した人 vs「逆指値で守ったプロ」半年後の残高がエグい #半導体株 #新NISA #米国株 #Shorts",
+      "yt_desc": "同じ100万円で半導体株に投資したのに、半年後「52万円に溶けた人」と「168万円に増えた人」の決定的な違いを完全シミュレーション！📊🔥\n\n❌ 負けるパターン：60日移動平均線を割って下落中の株を「安くなった！」と買い増し（ナンピン）し、機関投資家の売り浴びせで資産半減。\n✅ 勝つパターン：2.0倍ATR逆指値で浅い傷（-1.5%）で撤退し、トレンド回復＆出来高急増の右側ブレイクで再エントリー。\n\n⚡ あなたの投資資金に最適な購入株数を3秒で無料計算：\nhttps://getbreakai.com/jp/?ticker=NVDA\n\n#半導体株 #エヌビディア #東京エレクトロン #ナンピン #損切り #新NISA #米国株 #日本株 #株クラ",
+      "yt_pin": "📌 正直に教えてください…株が下がったとき、つい『ナンピン買い』してしまった経験がある人は「🙋‍♂️」でコメントしてください！（3秒損切り計算機は @GetBreakAI プロフィールリンクから無料体験できます⚡）",
+      "ig_caption": "同じ100万円でも「ナンピンするか・逆指値を置くか」だけで半年後に116万円もの差がつきます📊⚡\n\n📉 お祈りナンピン個人の末路（100万→52万円）\n下がるたびに買い増しして平均取得単価を下げようとするものの、下降トレンドが止まらず資金ロック＆大損。\n\n📈 逆指値ルール徹底プロの軌跡（100万→168万円）\n予想が外れたら口座資金の-1.5%で即撤退。現金を守り抜き、60日線突破の本物のトレンドに資金を集中！\n\n👉 プロフィール（@semifeargreed）のリンク https://getbreakai.com/jp/ で、あなたの持ち株の逆指値ラインを3秒で無料計算してみてください！\n\n#半導体株 #エヌビディア #NVDA #東京エレクトロン #新NISA #株式投資 #損切りルール #資産運用 #株クラ",
+      "cuts": [
+        {
+          "cut_index": 1,
+          "type": "presenter",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 9.05,
+          "seg_dur_sec": 9.333,
+          "margin_sec": 0.283,
+          "sub": [
+            "同じ100万円で半導体株を買って",
+            "52万に溶けた人 vs 168万の人"
+          ]
+        },
+        {
+          "cut_index": 2,
+          "type": "chart_candle",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 8.49,
+          "seg_dur_sec": 8.8,
+          "margin_sec": 0.31,
+          "sub": [
+            "60日線割れの急落株を「安い」と",
+            "ナンピンして資産が半分に崩壊！"
+          ]
+        },
+        {
+          "cut_index": 3,
+          "type": "presenter",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 7.83,
+          "seg_dur_sec": 8.133,
+          "margin_sec": 0.303,
+          "sub": [
+            "プロは落ちるナイフを絶対拾わず",
+            "逆指値で損失を最小限にカット！"
+          ]
+        },
+        {
+          "cut_index": 4,
+          "type": "chart_candle",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 8.38,
+          "seg_dur_sec": 8.667,
+          "margin_sec": 0.287,
+          "sub": [
+            "出来高2倍＆トレンド突破で参入し",
+            "口座資産を168万円へ拡大！"
+          ]
+        },
+        {
+          "cut_index": 5,
+          "type": "presenter",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 6.76,
+          "seg_dur_sec": 7.067,
+          "margin_sec": 0.307,
+          "sub": [
+            "下がった株をナンピンした経験、",
+            "ありますか？コメントで教えて！"
+          ]
+        },
+        {
+          "cut_index": 6,
+          "type": "ending",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 7.36,
+          "seg_dur_sec": 7.667,
+          "margin_sec": 0.307,
+          "sub": [
+            "適正株数と逆指値を3秒で無料計算",
+            "▶ getbreakai.com"
+          ]
+        }
+      ]
+    },
+    {
+      "ep_num": 3,
+      "id": "VP03_NTT_Mitsubishi_Dividend5Yr",
+      "ticker": "7203",
+      "jp_name": "NTT・三菱商事・トヨタ",
+      "abc_winner": "C_FACT_SHOCK (Hook Score 98.7 — 国民的人気株×配当5年分消滅の算数ショック)",
+      "mp4_path": "D:\\드림컴퍼니\\3사업부\\flow_shorts_studio\\viral_jp_v4\\VP03_NTT_Mitsubishi_Dividend5Yr.mp4",
+      "cover_jpg_path": "D:\\드림컴퍼니\\3사업부\\flow_shorts_studio\\viral_jp_v4\\thumbnails\\VP03_NTT_Mitsubishi_Dividend5Yr_cover.jpg",
+      "duration_sec": 50.6,
+      "file_size_mb": 15.72,
+      "yt_title": "【高配当株の罠】NTT・三菱商事・トヨタを「下がったから利回り4%でお得！」と買う人が失う配当5年分の算数 #高配当株 #日本株 #新NISA #Shorts",
+      "yt_desc": "NTT（9432）、三菱商事（8058）、トヨタ自動車（7203）など人気の日本株が下がったとき、「配当利回りが上がったからチャンス！」と飛びついていませんか？🚨\n\n年間配当利回りが3.6%あっても、下降トレンドの途中で買って株価が-18%下落すれば、それだけで『丸5年分の配当金』が一瞬で吹き飛びます。\n\n📊 日本株（円建て）の底打ちブレイク判定＆適正株数を3秒無料チェック：\nhttps://getbreakai.com/jp/?ticker=7203\n\n#高配当株 #NTT株 #三菱商事 #トヨタ株 #日本株 #新NISA #配当金生活 #株クラ #投資初心者",
+      "yt_pin": "📌 あなたが新NISAで一番注目している『日本の高配当株』は何ですか？（NTT、三菱商事、三菱UFJ、トヨタなどぜひコメント欄で教えてください👇 3秒株価リスク診断は @GetBreakAI プロフィールリンクから無料体験できます！）",
+      "ig_caption": "【衝撃の算数📌】「株価が下がった＝配当利回りが上がってお得！」と飛びつく前に必ず見てください⚠️\n\n💡 年利3.6%の高配当株でも、下降トレンド中に拾って株価が-18%下がれば『配当まるごと5年分』が一瞬で消滅します。\n\n✅ 高配当株こそ「下げ止まり（トレンド転換）」を確認してから買うのが鉄則！\n機関投資家の買い戻し出来高が入るまで待つだけで、含み損ストレスゼロで配当も値上がり益も両方狙えます。\n\n👉 プロフィール（@semifeargreed）のリンク https://getbreakai.com/jp/ で、日本株・米国株の適正エントリー水準を無料チェック！\n\n#高配当株 #日本株 #NTT #三菱商事 #トヨタ自動車 #新NISA #配当金 #不労所得 #資産運用 #株クラ",
+      "cuts": [
+        {
+          "cut_index": 1,
+          "type": "presenter",
+          "voice": "ja-JP-KeitaNeural",
+          "tts_dur_sec": 7.63,
+          "seg_dur_sec": 7.933,
+          "margin_sec": 0.303,
+          "sub": [
+            "NTTや三菱商事の株価が下落！",
+            "利回りが上がったから今が買い？"
+          ]
+        },
+        {
+          "cut_index": 2,
+          "type": "chart_bar",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 10.41,
+          "seg_dur_sec": 10.7,
+          "margin_sec": 0.29,
+          "sub": [
+            "年3.6%の配当目当てで買っても",
+            "株価-18%で配当5年分が消滅！"
+          ]
+        },
+        {
+          "cut_index": 3,
+          "type": "presenter",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 7.35,
+          "seg_dur_sec": 7.633,
+          "margin_sec": 0.283,
+          "sub": [
+            "人気の大企業でも機関の売りが",
+            "続く間は何ヶ月も底が抜けます"
+          ]
+        },
+        {
+          "cut_index": 4,
+          "type": "chart_candle",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 8.79,
+          "seg_dur_sec": 9.1,
+          "margin_sec": 0.31,
+          "sub": [
+            "大口の買い戻しサイン点灯後に買えば",
+            "配当＋値上がり益の両取りが可能！"
+          ]
+        },
+        {
+          "cut_index": 5,
+          "type": "presenter",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 7.51,
+          "seg_dur_sec": 7.8,
+          "margin_sec": 0.29,
+          "sub": [
+            "あなたが注目する日本の高配当株は",
+            "どこですか？コメントで教えて！"
+          ]
+        },
+        {
+          "cut_index": 6,
+          "type": "ending",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 7.13,
+          "seg_dur_sec": 7.433,
+          "margin_sec": 0.303,
+          "sub": [
+            "日本株・米国株を3秒で無料診断",
+            "▶ getbreakai.com"
+          ]
+        }
+      ]
+    },
+    {
+      "ep_num": 4,
+      "id": "VP04_NVDA_9AM_TSE_Yoriten",
+      "ticker": "8035",
+      "jp_name": "東京エレクトロン・アドバンテスト",
+      "abc_winner": "B_LOSS_AVERSION (Hook Score 97.9 — 東証朝9時『寄り天』被弾という日本株特有の強烈共感)",
+      "mp4_path": "D:\\드림컴퍼니\\3사업부\\flow_shorts_studio\\viral_jp_v4\\VP04_NVDA_9AM_TSE_Yoriten.mp4",
+      "cover_jpg_path": "D:\\드림컴퍼니\\3사업부\\flow_shorts_studio\\viral_jp_v4\\thumbnails\\VP04_NVDA_9AM_TSE_Yoriten_cover.jpg",
+      "duration_sec": 48.73,
+      "file_size_mb": 14.18,
+      "yt_title": "【朝9時の罠】エヌビディア爆上げの翌朝、東京エレクトロンやアドバンテストを成行買いする人が毎回負ける理由 #半導体株 #日本株 #東京エレクトロン #Shorts",
+      "yt_desc": "夜中に米国エヌビディア（$NVDA）が急騰した翌朝9時、「今日も日本の半導体株が爆上げだ！」と東京エレクトロン（8035）やアドバンテスト（6857）を寄付き成行で買って『寄り天（朝イチが最高値）』で焼かれていませんか？🔥\n\n実は朝の大きなギャップアップは、前日に仕込んでいた機関投資家の絶好の利確ポイントになりやすいのです。\n\n📊 東エレク・アドバンテストの適正エントリー＆2.0倍ATR逆指値を3秒計算：\nhttps://getbreakai.com/jp/?ticker=8035\n\n#東京エレクトロン #アドバンテスト #半導体株 #エヌビディア #日本株 #デイトレ #スイングトレード #新NISA #株クラ",
+      "yt_pin": "📌 朝9時の寄付きで飛び乗って『そこが1日の最高値（寄り天）』だった経験がある人はぜひコメントで教えてください😭👇（東証半導体株のリアルタイムATR防衛ラインは @GetBreakAI プロフィールリンクから無料チェック！）",
+      "ig_caption": "【日本株トレーダー必見📌】米国株が爆上げした翌朝9時、成行注文で飛び乗っていませんか？⚡\n\n⚠️ なぜ「寄り天（朝イチ天井）」が起きるのか？\n1日分のATR（平均値幅）を超えるほどのギャップアップで始まると、機関投資家のアルゴリズムは個人の成行買いにぶつけて利益確定売りを行います。\n\n✅ 負けないエントリーの鉄則\n寄付きの過熱ギャップを見送り、押し目サポート維持と出来高再点火を確認してからリスク1.5%以内で参入すること！\n\n👉 プロフィール（@semifeargreed）のリンク https://getbreakai.com/jp/ で東エレク・アドバンテストの適正株数を3秒チェック！\n\n#東京エレクトロン #アドバンテスト #レーザーテック #半導体株 #日本株 #東証プライム #新NISA #株クラ",
+      "cuts": [
+        {
+          "cut_index": 1,
+          "type": "presenter",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 7.14,
+          "seg_dur_sec": 7.433,
+          "margin_sec": 0.293,
+          "sub": [
+            "NVDA急騰の翌朝9時、東エレクを",
+            "成行で買って寄り天で焼かれてない？"
+          ]
+        },
+        {
+          "cut_index": 2,
+          "type": "chart_candle",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 8.09,
+          "seg_dur_sec": 8.4,
+          "margin_sec": 0.31,
+          "sub": [
+            "大きすぎる朝のギャップアップは",
+            "機関投資家の絶好の利確ポイント！"
+          ]
+        },
+        {
+          "cut_index": 3,
+          "type": "presenter",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 7.56,
+          "seg_dur_sec": 7.867,
+          "margin_sec": 0.307,
+          "sub": [
+            "プロは朝イチの飛び乗りを避け",
+            "サポート確認後の再上昇を待つ！"
+          ]
+        },
+        {
+          "cut_index": 4,
+          "type": "chart_candle",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 9.14,
+          "seg_dur_sec": 9.433,
+          "margin_sec": 0.293,
+          "sub": [
+            "購入前に2.0倍ATR逆指値を置けば",
+            "急な反落でも致命傷をゼロに！"
+          ]
+        },
+        {
+          "cut_index": 5,
+          "type": "presenter",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 7.17,
+          "seg_dur_sec": 7.467,
+          "margin_sec": 0.297,
+          "sub": [
+            "朝9時に買って最高値だった経験、",
+            "ありますか？コメントで教えて！"
+          ]
+        },
+        {
+          "cut_index": 6,
+          "type": "ending",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 7.85,
+          "seg_dur_sec": 8.133,
+          "margin_sec": 0.283,
+          "sub": [
+            "寄付き前に3秒で適正株数を無料計算",
+            "▶ getbreakai.com"
+          ]
+        }
+      ]
+    },
+    {
+      "ep_num": 5,
+      "id": "VP05_USDJPY_155_to_135_Shock",
+      "ticker": "NVDA",
+      "jp_name": "ドル円・米国株リスク",
+      "abc_winner": "C_FACT_SHOCK (Hook Score 98.2 — 為替×株安ダブルパンチ-65万円のリアル試算)",
+      "mp4_path": "D:\\드림컴퍼니\\3사업부\\flow_shorts_studio\\viral_jp_v4\\VP05_USDJPY_155_to_135_Shock.mp4",
+      "cover_jpg_path": "D:\\드림컴퍼니\\3사업부\\flow_shorts_studio\\viral_jp_v4\\thumbnails\\VP05_USDJPY_155_to_135_Shock_cover.jpg",
+      "duration_sec": 52.73,
+      "file_size_mb": 17.9,
+      "yt_title": "【円高ショック試算】もしドル円が155円→135円に急変したら、あなたの米国株300万円はいくら消えるのか？ #ドル円 #米国株 #S&P500 #新NISA #Shorts",
+      "yt_desc": "新NISAや特定口座で米国株・S&P500を持っている皆さん、「円高ショック」が来たときの円建てダメージを計算したことはありますか？💴📉\n\nもし米国株が-10%調整し、同時にドル円が155円→135円（約-13%の円高）へ動いた場合、300万円の資産はダブルパンチで一気に『約235万円（-65万円消滅）』まで目減りします！\n\n📊 ドル($)と日本円(¥)を同時換算する3秒リスク管理計算機（無料）：\nhttps://getbreakai.com/jp/\n\n#ドル円 #円高 #円安 #米国株 #S&P500 #オルカン #新NISA #為替リスク #資産防衛 #株クラ",
+      "yt_pin": "📌 今年のドル円、あなたは『さらに円安（160円方向）』と『円高反転（135円方向）』のどちらを予想していますか？ぜひコメント欄で予想を教えてください👇",
+      "ig_caption": "【米国株ホルダー必読📌】「株価さえ戻れば大丈夫」と思っていませんか？一番怖いのは『株安×円高』の同時直撃です💴⚠️\n\n📊 300万円を米国株で運用中のリアル試算：\n・株価だけ-10%下落 → -30万円\n・さらに155円→135円の円高が重なると → 合計『-65万円（-21.7%）』が一気に消失！\n\n✅ 日本の投資家は「ドル建て株価」だけでなく「日本円での口座許容リスク（1.5%）」でポジション量を管理するのが絶対条件です。\n\n👉 プロフィール（@semifeargreed）のリンク https://getbreakai.com/jp/ でドル・円同時対応の適正株数を3秒チェック！\n\n#ドル円 #為替 #円高ショック #米国株 #S&P500 #新NISA #投資初心者 #ポートフォリオ #資産運用",
+      "cuts": [
+        {
+          "cut_index": 1,
+          "type": "presenter",
+          "voice": "ja-JP-KeitaNeural",
+          "tts_dur_sec": 8.11,
+          "seg_dur_sec": 8.4,
+          "margin_sec": 0.29,
+          "sub": [
+            "もしドル円が155円→135円になったら",
+            "米国株300万円はいくら減る？"
+          ]
+        },
+        {
+          "cut_index": 2,
+          "type": "chart_bar",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 8.92,
+          "seg_dur_sec": 9.2,
+          "margin_sec": 0.28,
+          "sub": [
+            "株安-10%と135円の円高が重なると",
+            "ダブルパンチで一気に65万円消滅！"
+          ]
+        },
+        {
+          "cut_index": 3,
+          "type": "presenter",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 8.14,
+          "seg_dur_sec": 8.433,
+          "margin_sec": 0.293,
+          "sub": [
+            "ドル計算が面倒で適当に買うと",
+            "為替急変で想定外の大損に直結！"
+          ]
+        },
+        {
+          "cut_index": 4,
+          "type": "chart_race",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 8.84,
+          "seg_dur_sec": 9.133,
+          "margin_sec": 0.293,
+          "sub": [
+            "日本円基準で損失上限をロックすれば",
+            "為替急変でも大切な資産を守れる！"
+          ]
+        },
+        {
+          "cut_index": 5,
+          "type": "presenter",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 9.7,
+          "seg_dur_sec": 10.0,
+          "margin_sec": 0.3,
+          "sub": [
+            "ドル円は160円円安？135円円高？",
+            "あなたの予想をコメントで教えて！"
+          ]
+        },
+        {
+          "cut_index": 6,
+          "type": "ending",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 7.28,
+          "seg_dur_sec": 7.567,
+          "margin_sec": 0.287,
+          "sub": [
+            "ドル・円同時対応の無料3秒計算機",
+            "▶ getbreakai.com"
+          ]
+        }
+      ]
+    },
+    {
+      "ep_num": 6,
+      "id": "VP06_SOXL_3xBull_Decay_Math",
+      "ticker": "SOXL",
+      "jp_name": "SOXL (半導体3倍ブル)",
+      "abc_winner": "A_VS_CONTRAST (Hook Score 98.9 — 元の指数±0%なのにSOXL-34%減価の衝撃可視化)",
+      "mp4_path": "D:\\드림컴퍼니\\3사업부\\flow_shorts_studio\\viral_jp_v4\\VP06_SOXL_3xBull_Decay_Math.mp4",
+      "cover_jpg_path": "D:\\드림컴퍼니\\3사업부\\flow_shorts_studio\\viral_jp_v4\\thumbnails\\VP06_SOXL_3xBull_Decay_Math_cover.jpg",
+      "duration_sec": 49.1,
+      "file_size_mb": 17.4,
+      "yt_title": "【SOXLの恐怖】半導体3倍ブルを「下がってもガチホすれば戻る」と信じた100万円の末路…減価の正体を完全可視化 #SOXL #半導体株 #米国株 #Shorts",
+      "yt_desc": "株クラで大人気の半導体3倍ブルETF『SOXL』、「下がってもいつか半導体が戻れば元値に戻る」とガチホしていませんか？😱⚡\n\n3倍レバレッジETFには『逓減（減価）リスク』があり、元の半導体指数が上下に激しく揺れながら±0%（元の価格）に戻ったとしても、SOXLは『-30%以上』溶けてしまうことがあります！\n\n📊 SOXLの厳格な2.0倍ATR逆指値＆適正株数を3秒で無料計算：\nhttps://getbreakai.com/jp/?ticker=SOXL\n\n#SOXL #レバナス #半導体株 #米国株 #ETF #損切り #スイングトレード #株クラ",
+      "yt_pin": "📌 SOXLやレバナスなどのレバレッジ商品、あなたは『短期トレンド限定で触る派』ですか？それとも『絶対触らない派』ですか？コメント欄で教えてください👇",
+      "ig_caption": "【保存必須📌】SOXL（半導体3倍ブル）を長期ガチホしてはいけない数学的理由⚠️\n\n🧮 なぜ元の指数が戻ってもSOXLは戻らないのか？\n例えば10%上がって翌日10%下がる動きを繰り返すと、日々の値動きの3倍（+30%→-30%）が複利で掛け算され、100万円→130万円→91万円と毎日9%ずつ削られていきます（ボラティリティ減価）。\n\n✅ SOXLで勝つ唯一のルール\nレンジや下落相場では即撤退し、明確な上昇ブレイクアウト期間だけを2.0倍ATRトレーリングで切り取ること！\n\n👉 プロフィール（@semifeargreed）のリンク https://getbreakai.com/jp/?ticker=SOXL でSOXLの逆指値ラインを3秒チェック！\n\n#SOXL #半導体株 #レバレッジETF #米国株投資 #エヌビディア #資産運用 #リスク管理 #株クラ",
+      "cuts": [
+        {
+          "cut_index": 1,
+          "type": "presenter",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 6.13,
+          "seg_dur_sec": 6.433,
+          "margin_sec": 0.303,
+          "sub": [
+            "半導体3倍ブルのSOXLを",
+            "「ガチホすれば戻る」と信じてない？"
+          ]
+        },
+        {
+          "cut_index": 2,
+          "type": "chart_race",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 8.69,
+          "seg_dur_sec": 9.0,
+          "margin_sec": 0.31,
+          "sub": [
+            "元の指数が±0%に戻っても",
+            "SOXLは減価で-34%溶けます！"
+          ]
+        },
+        {
+          "cut_index": 3,
+          "type": "presenter",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 7.69,
+          "seg_dur_sec": 8.0,
+          "margin_sec": 0.31,
+          "sub": [
+            "これが毎日3倍で再計算される",
+            "レバレッジ特有の「減価」の正体！"
+          ]
+        },
+        {
+          "cut_index": 4,
+          "type": "chart_candle",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 8.89,
+          "seg_dur_sec": 9.2,
+          "margin_sec": 0.31,
+          "sub": [
+            "上昇ブレイク中だけ短期で乗り",
+            "2.0倍ATR割れで即撤退が鉄則！"
+          ]
+        },
+        {
+          "cut_index": 5,
+          "type": "presenter",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 8.74,
+          "seg_dur_sec": 9.033,
+          "margin_sec": 0.293,
+          "sub": [
+            "SOXLは短期で触る派？触らない派？",
+            "ぜひコメントで教えてください！"
+          ]
+        },
+        {
+          "cut_index": 6,
+          "type": "ending",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 7.14,
+          "seg_dur_sec": 7.433,
+          "margin_sec": 0.293,
+          "sub": [
+            "SOXLの逆指値を3秒で無料計算",
+            "▶ getbreakai.com"
+          ]
+        }
+      ]
+    },
+    {
+      "ep_num": 7,
+      "id": "VP07_Shiozuke_Minus50_Needs_2X",
+      "ticker": "PLTR",
+      "jp_name": "損切りの算数・資産防衛",
+      "abc_winner": "C_FACT_SHOCK (Hook Score 99.0 — -50%には+100%必要という普遍的衝撃算数)",
+      "mp4_path": "D:\\드림컴퍼니\\3사업부\\flow_shorts_studio\\viral_jp_v4\\VP07_Shiozuke_Minus50_Needs_2X.mp4",
+      "cover_jpg_path": "D:\\드림컴퍼니\\3사업부\\flow_shorts_studio\\viral_jp_v4\\thumbnails\\VP07_Shiozuke_Minus50_Needs_2X_cover.jpg",
+      "duration_sec": 46.93,
+      "file_size_mb": 15.05,
+      "yt_title": "【塩漬け株の算数】含み損-50%の株が元値に戻るには何％の上昇が必要か知っていますか？9割が絶句する真実 #株式投資 #損切り #新NISA #Shorts",
+      "yt_desc": "株で「マイナス50%」の含み損を抱えたとき、「プラス50%上がれば元に戻る」と勘違いしていませんか？😱\n\n100万円が50万円に減ったあと、元の100万円に戻すには『プラス100%（株価2倍）』の大暴騰が必要になります！\nもしマイナス70%まで放置すれば、なんと『プラス233%（3.3倍）』にならなければ元本すら戻りません。\n\n📊 二度と塩漬けを作らない「口座リスク1.5%＆逆指値計算機」（無料）：\nhttps://getbreakai.com/jp/\n\n#塩漬け株 #損切り #株式投資 #日本株 #米国株 #新NISA #投資初心者 #メンタル管理 #株クラ",
+      "yt_pin": "📌 株で一番つらい『損切り』、あなたは何％マイナスになったら切ると決めていますか？マイルールがあればぜひコメント欄でシェアしてください👇",
+      "ig_caption": "【永久保存版📌】プロ投資家が絶対に「-50%の塩漬け」を作らない数学的理由がこれです📊\n\n・含み損 -10% → 元本回復に +11.1% 必要\n・含み損 -30% → 元本回復に +42.9% 必要\n・含み損 -50% → 元本回復に +100%（株価2倍！）必要\n・含み損 -70% → 元本回復に +233%（株価3.3倍！）必要\n\n損失が20%を超えた瞬間から、取り戻す難易度は一気に跳ね上がります。\nだからこそ買う前に「口座資金の1.5%損失」で自動撤退する株数と逆指値を決めておくことが最強の防御になります🛡️\n\n👉 プロフィール（@semifeargreed）のリンク https://getbreakai.com/jp/ であなたの適正株数を3秒無料診断！\n\n#株式投資 #損切り #塩漬け株 #新NISA #日本株 #米国株 #投資の勉強 #資産防衛 #株クラ",
+      "cuts": [
+        {
+          "cut_index": 1,
+          "type": "presenter",
+          "voice": "ja-JP-KeitaNeural",
+          "tts_dur_sec": 5.68,
+          "seg_dur_sec": 5.967,
+          "margin_sec": 0.287,
+          "sub": [
+            "含み損 -50% になっても、また",
+            "+50% 上がれば元に戻りますよね？"
+          ]
+        },
+        {
+          "cut_index": 2,
+          "type": "chart_bar",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 8.62,
+          "seg_dur_sec": 8.9,
+          "margin_sec": 0.28,
+          "sub": [
+            "50万円を100万円に戻すには",
+            "「+100%（株価2倍）」が必要です！"
+          ]
+        },
+        {
+          "cut_index": 3,
+          "type": "presenter",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 7.27,
+          "seg_dur_sec": 7.567,
+          "margin_sec": 0.297,
+          "sub": [
+            "株価2倍・3倍は至難の業だからこそ",
+            "プロは傷が浅いうちに撤退します"
+          ]
+        },
+        {
+          "cut_index": 4,
+          "type": "chart_race",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 9.6,
+          "seg_dur_sec": 9.9,
+          "margin_sec": 0.3,
+          "sub": [
+            "1回の損失を1.5%に限定すれば",
+            "5連敗しても資金の92%が残る！"
+          ]
+        },
+        {
+          "cut_index": 5,
+          "type": "presenter",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 7.01,
+          "seg_dur_sec": 7.3,
+          "margin_sec": 0.29,
+          "sub": [
+            "あなたは何％で損切りしていますか？",
+            "マイルールをコメントで教えて！"
+          ]
+        },
+        {
+          "cut_index": 6,
+          "type": "ending",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 7.0,
+          "seg_dur_sec": 7.3,
+          "margin_sec": 0.3,
+          "sub": [
+            "塩漬けを防ぐ無料3秒株数計算機",
+            "▶ getbreakai.com"
+          ]
+        }
+      ]
+    },
+    {
+      "ep_num": 8,
+      "id": "VP08_Megabank_vs_Semi_BOJ",
+      "ticker": "8035",
+      "jp_name": "三菱UFJ vs 半導体株",
+      "abc_winner": "A_VS_CONTRAST (Hook Score 97.8 — 銀行株派 vs 半導体株派のコメント論争誘発)",
+      "mp4_path": "D:\\드림컴퍼니\\3사업부\\flow_shorts_studio\\viral_jp_v4\\VP08_Megabank_vs_Semi_BOJ.mp4",
+      "cover_jpg_path": "D:\\드림컴퍼니\\3사업부\\flow_shorts_studio\\viral_jp_v4\\thumbnails\\VP08_Megabank_vs_Semi_BOJ_cover.jpg",
+      "duration_sec": 51.17,
+      "file_size_mb": 16.39,
+      "yt_title": "【日本株対決】日銀利上げ時代に勝つのは「三菱UFJなど銀行株」か「半導体株」か？プロが見る大口資金サイン #日本株 #三菱UFJ #半導体株 #新NISA #Shorts",
+      "yt_desc": "金利のある世界に戻った日本株市場、新NISAで買うなら『三菱UFJ・三井住友FGなどのメガバンク株』か、『東京エレクトロン・アドバンテストなどの半導体株』か迷っていませんか？🏦⚡\n\n実はどちらか一方に決め打ちする必要はありません。機関投資家の資金ローテーション（PW-RSIと出来高ブレイク）を見れば、今どちらのセクターに大口マネーが流入しているかが一目で分かります！\n\n📊 東証主力株＆米国株のリアルタイムブレイク判定（無料）：\nhttps://getbreakai.com/jp/\n\n#日本株 #三菱UFJ #三井住友FG #銀行株 #東京エレクトロン #半導体株 #日銀利上げ #新NISA #株クラ",
+      "yt_pin": "📌 これからの1年、あなたがより期待しているのは『🏦メガバンク株』ですか？それとも『⚡AI・半導体株』ですか？ぜひコメント欄で投票してください👇",
+      "ig_caption": "【セクター対決📌】金利上昇局面で強い「メガバンク株」vs 成長力抜群の「AI半導体株」、どう使い分けるのが正解？🇯🇵📈\n\n🏦 メガバンク株（三菱UFJ・三井住友FGなど）\n利ざや改善＋高配当・自社株買いで下値が堅く、コア資産向き。\n\n⚡ 半導体株（東エレク・アドバンテストなど）\n爆発的な上昇力がある反面ボラティリティが大きいため、2.0倍ATR逆指値でのトレンド追随が必須。\n\n👉 プロフィール（@semifeargreed）のリンク https://getbreakai.com/jp/ で注目銘柄のブレイク水準と適正株数を3秒チェック！\n\n#日本株 #三菱UFJ #銀行株 #半導体株 #東京エレクトロン #新NISA #高配当株 #株式投資 #株クラ",
+      "cuts": [
+        {
+          "cut_index": 1,
+          "type": "presenter",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 8.25,
+          "seg_dur_sec": 8.533,
+          "margin_sec": 0.283,
+          "sub": [
+            "金利が上がる日本株市場、",
+            "「銀行株」と「半導体株」どっちが勝つ？"
+          ]
+        },
+        {
+          "cut_index": 2,
+          "type": "chart_bar",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 9.4,
+          "seg_dur_sec": 9.7,
+          "margin_sec": 0.3,
+          "sub": [
+            "堅実な銀行株に対し、半導体株は",
+            "値動きが3倍激しく管理で差がつく"
+          ]
+        },
+        {
+          "cut_index": 3,
+          "type": "presenter",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 7.4,
+          "seg_dur_sec": 7.7,
+          "margin_sec": 0.3,
+          "sub": [
+            "プロの正解は決め打ちではなく",
+            "出来高急増セクターへ資金を乗せる！"
+          ]
+        },
+        {
+          "cut_index": 4,
+          "type": "chart_candle",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 8.3,
+          "seg_dur_sec": 8.6,
+          "margin_sec": 0.3,
+          "sub": [
+            "値動き幅に合わせて株数を調整すれば",
+            "どちらの相場でも安定利益を狙える！"
+          ]
+        },
+        {
+          "cut_index": 5,
+          "type": "presenter",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 9.07,
+          "seg_dur_sec": 9.367,
+          "margin_sec": 0.297,
+          "sub": [
+            "あなたは「銀行株派」？「半導体株派」？",
+            "ぜひコメント欄で投票してください！"
+          ]
+        },
+        {
+          "cut_index": 6,
+          "type": "ending",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 6.96,
+          "seg_dur_sec": 7.267,
+          "margin_sec": 0.307,
+          "sub": [
+            "注目株のAIスコアを3秒無料チェック",
+            "▶ getbreakai.com"
+          ]
+        }
+      ]
+    },
+    {
+      "ep_num": 9,
+      "id": "VP09_Buffett_5Shosha_FOMO_Trap",
+      "ticker": "7203",
+      "jp_name": "五大商社・機関投資家手口",
+      "abc_winner": "B_LOSS_AVERSION (Hook Score 97.6 — 好材料ニュース飛び乗り高値掴みの構造暴露)",
+      "mp4_path": "D:\\드림컴퍼니\\3사업부\\flow_shorts_studio\\viral_jp_v4\\VP09_Buffett_5Shosha_FOMO_Trap.mp4",
+      "cover_jpg_path": "D:\\드림컴퍼니\\3사업부\\flow_shorts_studio\\viral_jp_v4\\thumbnails\\VP09_Buffett_5Shosha_FOMO_Trap_cover.jpg",
+      "duration_sec": 46.63,
+      "file_size_mb": 14.08,
+      "yt_title": "【バフェット銘柄の真実】三菱商事・三井物産…「好材料ニュース」の翌日に飛び乗る人が高値掴みさせられる理由 #日本株 #三菱商事 #バフェット #新NISA #Shorts",
+      "yt_desc": "ウォーレン・バフェットの商社株買い増しや過去最高益決算など、「ビッグニュース」が出た翌日に慌てて買って高値掴みになったことはありませんか？📰📉\n\n機関投資家や大口ファンドは、ニュースが出る何週間も前の『静かな横ばい期間』に買い集めを終えています。\n\n📊 ニュースの前に動く「機関投資家の異常出来高＆ブレイク水準」を3秒確認：\nhttps://getbreakai.com/jp/\n\n#三菱商事 #三井物産 #伊藤忠商事 #商社株 #バフェット #日本株 #新NISA #機関投資家 #株クラ",
+      "yt_pin": "📌 『好決算やビッグニュースを見て買ったのに下がった…』という経験がある人はぜひコメントで教えてください😭👇（大口資金の事前流入チェックは @GetBreakAI プロフィールリンクから！）",
+      "ig_caption": "【機関投資家の裏側📌】なぜ好材料ニュースで飛び乗ると毎回高値掴みになるのか？📰⚠️\n\n1️⃣ 噂で仕込み、ニュースで売る（Sell the News）\n大口投資家はニュースが出る前のボラティリティ縮小期に静かに集め、個人投資家がニュースに熱狂して成行買いを入れる日に利益確定をぶつけます。\n\n2️⃣ ニュースではなく「出来高と価格帯」を見る\n本当に狙うべきはニュース翌日の急騰窓ではなく、移動平均線の密集帯を出来高伴って抜ける初動の瞬間です！\n\n👉 プロフィール（@semifeargreed）のリンク https://getbreakai.com/jp/ で機関投資家ブレイク水準を無料チェック！\n\n#商社株 #三菱商事 #三井物産 #日本株投資 #新NISA #決算発表 #株式投資 #株クラ",
+      "cuts": [
+        {
+          "cut_index": 1,
+          "type": "presenter",
+          "voice": "ja-JP-KeitaNeural",
+          "tts_dur_sec": 6.38,
+          "seg_dur_sec": 6.667,
+          "margin_sec": 0.287,
+          "sub": [
+            "バフェット買い増しのニュースが出た！",
+            "明日の朝イチで買えば儲かりますよね？"
+          ]
+        },
+        {
+          "cut_index": 2,
+          "type": "chart_candle",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 7.94,
+          "seg_dur_sec": 8.233,
+          "margin_sec": 0.293,
+          "sub": [
+            "ニュースが出た瞬間には大口の買いは",
+            "終わっており利確売りが降ってきます"
+          ]
+        },
+        {
+          "cut_index": 3,
+          "type": "presenter",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 7.96,
+          "seg_dur_sec": 8.267,
+          "margin_sec": 0.307,
+          "sub": [
+            "見るべきはニュースではなく報道前に",
+            "静かに増える機関投資家の出来高！"
+          ]
+        },
+        {
+          "cut_index": 4,
+          "type": "chart_candle",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 7.93,
+          "seg_dur_sec": 8.233,
+          "margin_sec": 0.303,
+          "sub": [
+            "20日高値ラインを出来高と抜ける",
+            "初動で入れば安全に波に乗れる！"
+          ]
+        },
+        {
+          "cut_index": 5,
+          "type": "presenter",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 7.43,
+          "seg_dur_sec": 7.733,
+          "margin_sec": 0.303,
+          "sub": [
+            "好決算で買ったのに下がった経験、",
+            "ありますか？コメントで教えて！"
+          ]
+        },
+        {
+          "cut_index": 6,
+          "type": "ending",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 7.21,
+          "seg_dur_sec": 7.5,
+          "margin_sec": 0.29,
+          "sub": [
+            "大口初動と適正株数を3秒無料確認",
+            "▶ getbreakai.com"
+          ]
+        }
+      ]
+    },
+    {
+      "ep_num": 10,
+      "id": "VP10_Salaryman_300Man_15PctRule",
+      "ticker": "MSFT",
+      "jp_name": "300万円・株数計算術",
+      "abc_winner": "A_VS_CONTRAST (Hook Score 98.5 — 会社員のリアルな貯蓄額300万円での具体的な株数計算)",
+      "mp4_path": "D:\\드림컴퍼니\\3사업부\\flow_shorts_studio\\viral_jp_v4\\VP10_Salaryman_300Man_15PctRule.mp4",
+      "cover_jpg_path": "D:\\드림컴퍼니\\3사업부\\flow_shorts_studio\\viral_jp_v4\\thumbnails\\VP10_Salaryman_300Man_15PctRule_cover.jpg",
+      "duration_sec": 50.87,
+      "file_size_mb": 16.97,
+      "yt_title": "【会社員の資産防衛】苦労して貯めた300万円を1回の決算跨ぎで溶かす人 vs 10連敗しても生き残るプロの株数計算 #資産運用 #新NISA #株式投資 #Shorts",
+      "yt_desc": "コツコツ働いて貯めた大切な300万円、たった1回の決算ギャンブルや急落で200万円に減らしてしまう人には共通点があります⚠️\n\nそれは「どの銘柄に投資するか」ばかり探して、『何株買うのが適正か（ポジションサイズ）』を計算していないことです。\n資金300万円なら、1回の最大損失を1.5%（45,000円）に固定するだけで、絶対に一発退場しなくなります！\n\n📊 あなたの資金（100万・300万・500万）に最適な株数を3秒計算：\nhttps://getbreakai.com/jp/\n\n#会社員投資家 #資産形成 #300万円 #新NISA #米国株 #日本株 #資金管理 #決算跨ぎ #株クラ",
+      "yt_pin": "📌 決算発表の前日、あなたは『持ち越して勝負する派』ですか？それとも『一度売って様子を見る派』ですか？コメント欄で教えてください👇",
+      "ig_caption": "【会社員投資家へ📌】銘柄選びよりも100倍大切な「ポジションサイズ（購入株数）」の黄金ルール🛡️\n\n💡 例えば運用資金が300万円の場合：\n1回のトレードで許容する最大損失＝1.5%（45,000円）に固定します。\n\nもし損切り幅（2.0倍ATR）が1株あたり1,500円の銘柄なら、\n『45,000円 ÷ 1,500円 ＝ 30株』があなたの適正株数です！\nこれさえ守れば、万が一決算で急落しても損失は4.5万円でピタッと止まります。\n\n👉 面倒な割り算は不要！プロフィール（@semifeargreed）のリンク https://getbreakai.com/jp/ で1秒で自動計算できます⚡\n\n#資産運用 #会社員 #新NISA #株式投資 #日本株 #米国株 #お金の勉強 #リスク管理 #株クラ",
+      "cuts": [
+        {
+          "cut_index": 1,
+          "type": "presenter",
+          "voice": "ja-JP-KeitaNeural",
+          "tts_dur_sec": 6.61,
+          "seg_dur_sec": 6.9,
+          "margin_sec": 0.29,
+          "sub": [
+            "せっかく貯めた300万円、決算前に",
+            "全力で買えば一気に倍増ですよね？"
+          ]
+        },
+        {
+          "cut_index": 2,
+          "type": "chart_bar",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 8.88,
+          "seg_dur_sec": 9.167,
+          "margin_sec": 0.287,
+          "sub": [
+            "決算翌朝に -25% 暴落したら",
+            "一晩で75万円が吹き飛びます！"
+          ]
+        },
+        {
+          "cut_index": 3,
+          "type": "presenter",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 8.46,
+          "seg_dur_sec": 8.767,
+          "margin_sec": 0.307,
+          "sub": [
+            "勝つ人は銘柄選び以上に「損失を",
+            "4.5万円に抑える株数計算」を徹底！"
+          ]
+        },
+        {
+          "cut_index": 4,
+          "type": "chart_race",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 8.74,
+          "seg_dur_sec": 9.033,
+          "margin_sec": 0.293,
+          "sub": [
+            "勝率5割でも利確2.5倍を重ねれば",
+            "着実に資産は右肩上がりへ！"
+          ]
+        },
+        {
+          "cut_index": 5,
+          "type": "presenter",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 8.3,
+          "seg_dur_sec": 8.6,
+          "margin_sec": 0.3,
+          "sub": [
+            "決算前は「持ち越す派」？「売る派」？",
+            "ぜひコメント欄で教えてください！"
+          ]
+        },
+        {
+          "cut_index": 6,
+          "type": "ending",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 8.12,
+          "seg_dur_sec": 8.4,
+          "margin_sec": 0.28,
+          "sub": [
+            "ワンタップ適正株数の無料計算機は",
+            "▶ getbreakai.com"
+          ]
+        }
+      ]
+    },
+    {
+      "ep_num": 11,
+      "id": "VP11_TSLA_PLTR_Plus15_NightFOMO",
+      "ticker": "TSLA",
+      "jp_name": "テスラ・パランティア",
+      "abc_winner": "B_LOSS_AVERSION (Hook Score 98.0 — 米国市場オープン夜11時半のFOMO飛び乗り防止)",
+      "mp4_path": "D:\\드림컴퍼니\\3사업부\\flow_shorts_studio\\viral_jp_v4\\VP11_TSLA_PLTR_Plus15_NightFOMO.mp4",
+      "cover_jpg_path": "D:\\드림컴퍼니\\3사업부\\flow_shorts_studio\\viral_jp_v4\\thumbnails\\VP11_TSLA_PLTR_Plus15_NightFOMO_cover.jpg",
+      "duration_sec": 50.63,
+      "file_size_mb": 15.82,
+      "yt_title": "【夜11時半の罠】テスラやパランティアが1日で+15%急騰した夜、絶対に飛び乗り買いしてはいけない理由 #米国株 #テスラ #パランティア #新NISA #Shorts",
+      "yt_desc": "夜11時半に米国株市場が開いた瞬間、テスラ（$TSLA）やパランティア（$PLTR）が+15%急騰している画面を見て、「置いていかれる！」と焦って成行買いしていませんか？🌙📱\n\n週間予想変動幅（Expected Move）やコールオプションの壁（Gamma Wall）を一気に超えた急騰に飛び乗ると、72時間以内に急反落を食らう確率が跳ね上がります！\n\n📊 テスラ・パランティアの「ガンマ天井＆適正押し目ライン」を3秒確認：\nhttps://getbreakai.com/jp/?ticker=TSLA\n\n#米国株 #テスラ #TSLA #パランティア #PLTR #グロース株 #新NISA #オプション #株クラ",
+      "yt_pin": "📌 夜中に米国株の爆上げ画面を見て、寝る前に思わず成行買いしてしまい翌朝後悔したことがある人は「🙋‍♀️」でコメントしてください👇",
+      "ig_caption": "【夜更かし米国株勢へ📌】寝る前のスマホ成行買いが一番危ない理由🌙⚠️\n\n🔥 FOMO（取り残される恐怖）の罠\nテスラやパランティアが1日で+15%急騰している夜は、オプション市場のコール買い上限（Gamma Wall）に到達しているケースが大半です。\n\n✅ 天井掴みを防ぐ3秒チェック\n買う前に「2.0倍ATR逆指値までの距離」を確認してください。もし逆指値まで遠すぎるなら、それは『今は見送るべき過熱ゾーン』という明確なサインです！\n\n👉 プロフィール（@semifeargreed）のリンク https://getbreakai.com/jp/ で米国株の過熱度と適正株数を無料チェック！\n\n#米国株 #テスラ #パランティア #エヌビディア #グロース株 #新NISA #夜更かし #株クラ",
+      "cuts": [
+        {
+          "cut_index": 1,
+          "type": "presenter",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 7.83,
+          "seg_dur_sec": 8.133,
+          "margin_sec": 0.303,
+          "sub": [
+            "夜11時半、テスラやPLTRの+15%急騰に",
+            "焦って飛び乗り買いしていませんか？"
+          ]
+        },
+        {
+          "cut_index": 2,
+          "type": "chart_candle",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 9.22,
+          "seg_dur_sec": 9.5,
+          "margin_sec": 0.28,
+          "sub": [
+            "週間変動幅を超える急騰は天井壁に",
+            "当たり寝ている間に急反落しやすい！"
+          ]
+        },
+        {
+          "cut_index": 3,
+          "type": "presenter",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 7.97,
+          "seg_dur_sec": 8.267,
+          "margin_sec": 0.297,
+          "sub": [
+            "逆指値までの距離が開きすぎた夜は",
+            "どんなに上がっても見送るのがプロ！"
+          ]
+        },
+        {
+          "cut_index": 4,
+          "type": "chart_candle",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 7.79,
+          "seg_dur_sec": 8.1,
+          "margin_sec": 0.31,
+          "sub": [
+            "過熱が冷めて反発した初動を狙えば",
+            "小さなリスクで2.5倍の利益を狙える！"
+          ]
+        },
+        {
+          "cut_index": 5,
+          "type": "presenter",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 8.05,
+          "seg_dur_sec": 8.333,
+          "margin_sec": 0.283,
+          "sub": [
+            "寝る前に米国株を買って翌朝後悔した",
+            "経験ありますか？コメントで教えて！"
+          ]
+        },
+        {
+          "cut_index": 6,
+          "type": "ending",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 8.0,
+          "seg_dur_sec": 8.3,
+          "margin_sec": 0.3,
+          "sub": [
+            "寝る前に3秒で適正株数を無料確認",
+            "▶ getbreakai.com"
+          ]
+        }
+      ]
+    },
+    {
+      "ep_num": 12,
+      "id": "VP12_Tokutei_40ManTax_vs_NISA_Exit",
+      "ticker": "NVDA",
+      "jp_name": "新NISA・利確出口戦略",
+      "abc_winner": "C_FACT_SHOCK (Hook Score 98.3 — 40万6,300円の税金消失＋誰も教えない新NISA『いつ売るか』出口戦略)",
+      "mp4_path": "D:\\드림컴퍼니\\3사업부\\flow_shorts_studio\\viral_jp_v4\\VP12_Tokutei_40ManTax_vs_NISA_Exit.mp4",
+      "cover_jpg_path": "D:\\드림컴퍼니\\3사업부\\flow_shorts_studio\\viral_jp_v4\\thumbnails\\VP12_Tokutei_40ManTax_vs_NISA_Exit_cover.jpg",
+      "duration_sec": 50.53,
+      "file_size_mb": 17.02,
+      "yt_title": "【手取り40万円の差】株で200万円勝っても特定口座だと約40万円が税金で消える！新NISAで利益を逃さない出口戦略 #新NISA #利確 #税金 #株式投資 #Shorts",
+      "yt_desc": "苦労して株で+200万円の利益を出しても、特定口座だと『40万6,300円（20.315%）』が税金で自動的に引かれる事実、実感していますか？💸\n\n一方で新NISAなら200万円まるごと手元に残りますが、「いつ売ればいいか（出口戦略）」を決めていないと、せっかくの含み益が暴落でゼロに戻ってしまいます！\n\n📊 2.5R利確ターゲット＆トレーリングストップを3秒で無料計算：\nhttps://getbreakai.com/jp/\n\n#新NISA #特定口座 #利確 #出口戦略 #節税 #日本株 #米国株 #資産運用 #株クラ",
+      "yt_pin": "📌 株のトレードであなたが一番難しいと感じるのは『①買うタイミング』『②損切り』『③利益確定（売り時）』のどれですか？番号でぜひコメントしてください👇",
+      "ig_caption": "【誰も教えない出口戦略📌】新NISAは「何を買うか」ばかり語られますが、実は『どこで利益確定するか』が一番難しいんです💡\n\n💰 利益200万円の手取り比較：\n・特定口座（20.315%課税）：手取り 約159.4万円（-40.6万円が税金！）\n・新NISA口座（非課税）：手取り 200万円まるごと確保！\n\n🎯 含み益を幻にしないプロの利確ルール\n株価上昇に合わせて逆指値ラインを切り上げる『2.0倍ATRトレーリングストップ』を使えば、天井圏まで利益を伸ばしつつ暴落前に自動利確できます！\n\n👉 プロフィール（@semifeargreed）のリンク https://getbreakai.com/jp/ で持ち株の2.5R利確目標を3秒チェック！\n\n#新NISA #特定口座 #利益確定 #出口戦略 #日本株 #米国株 #投資の勉強 #資産形成 #株クラ",
+      "cuts": [
+        {
+          "cut_index": 1,
+          "type": "presenter",
+          "voice": "ja-JP-KeitaNeural",
+          "tts_dur_sec": 7.3,
+          "seg_dur_sec": 7.6,
+          "margin_sec": 0.3,
+          "sub": [
+            "株で200万円の利益を出したのに",
+            "特定口座だと手取り159万円に減る？"
+          ]
+        },
+        {
+          "cut_index": 2,
+          "type": "chart_bar",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 9.54,
+          "seg_dur_sec": 9.833,
+          "margin_sec": 0.293,
+          "sub": [
+            "特定口座は40.6万円が税金で消滅",
+            "新NISAなら200万円まるごと残る！"
+          ]
+        },
+        {
+          "cut_index": 3,
+          "type": "presenter",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 8.07,
+          "seg_dur_sec": 8.367,
+          "margin_sec": 0.297,
+          "sub": [
+            "ただし一番多い失敗は売り時を逃し",
+            "せっかくの含み益をゼロに戻すこと！"
+          ]
+        },
+        {
+          "cut_index": 4,
+          "type": "chart_candle",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 7.95,
+          "seg_dur_sec": 8.233,
+          "margin_sec": 0.283,
+          "sub": [
+            "上昇に合わせて逆指値を切り上げれば",
+            "大きな上昇波を最後まで獲り切れる！"
+          ]
+        },
+        {
+          "cut_index": 5,
+          "type": "presenter",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 8.38,
+          "seg_dur_sec": 8.667,
+          "margin_sec": 0.287,
+          "sub": [
+            "①買い時 ②損切り ③利確の売り時、",
+            "一番難しいのはどれ？コメントへ！"
+          ]
+        },
+        {
+          "cut_index": 6,
+          "type": "ending",
+          "voice": "ja-JP-NanamiNeural",
+          "tts_dur_sec": 7.54,
+          "seg_dur_sec": 7.833,
+          "margin_sec": 0.293,
+          "sub": [
+            "持ち株の利確＆損切りを3秒無料計算",
+            "▶ getbreakai.com"
+          ]
+        }
+      ]
+    }
+  ]
+}

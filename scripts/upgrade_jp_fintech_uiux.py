@@ -733,10 +733,12 @@ def upgrade_seo_pages():
 """
     count = 0
     for fn in os.listdir(JP_DIR):
-        if not fn.endswith(".html"):
+        if not fn.endswith(".html") or fn in ("index.html", "confirmation.html"):
             continue
         p = os.path.join(JP_DIR, fn)
         c = open(p, "r", encoding="utf-8").read()
+        if "data-jp-theme=" in c:
+            continue
         if "日本証券ライト・高信頼テーマ" not in c and "</style>" in c:
             c = c.replace("</style>", light_override_css + "\n  </style>")
             open(p, "w", encoding="utf-8").write(c)

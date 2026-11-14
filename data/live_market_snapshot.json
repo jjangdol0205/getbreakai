@@ -25,15 +25,15 @@
     "^TOPX": {
       "symbol": "^TOPX",
       "name": "東証株価指数 (TOPIX)",
-      "price": 415.5,
+      "price": 3997.11,
       "change_pct": 0.29,
       "regime": "DEFENSIVE_VALUE",
       "regime_jp": "ディフェンシブ大型株選別局面",
-      "donchian_20d_high": 428.9,
+      "donchian_20d_high": 4126.02,
       "is_breakout": false,
       "wilder_rsi": 48.2,
       "pw_rsi": 88.6,
-      "atr_14d": 7.6,
+      "atr_14d": 73.1,
       "momentum_score": 89.1,
       "status": "東証プライム押し目買いゾーン",
       "updated_date": "2026-11-14"

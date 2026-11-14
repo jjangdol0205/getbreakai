@@ -1,6 +1,11 @@
-
 .env
 .yt-ig-browser-profile/
 flow_shorts_studio/*.zip
+flow_shorts_studio/_tts_cache*/
+flow_shorts_studio/**/*.mp4
+flow_shorts_studio/**/*.mp3
+flow_shorts_studio/**/*.wav
+flow_shorts_studio/**/*.png
+assets/fonts/
 __pycache__/
-
+*.pyc

@@ -100,19 +100,19 @@ testCase('9. Supports Buffer payload as well as UTF-8 string', () => {
   assert.strictEqual(verifyWebhookSignature(bufferPayload, legitHmac, secret), true);
 });
 
-// Test 10: Multi-byte UTF-8 characters in payload (Korean & Emojis)
-testCase('10. Multi-byte UTF-8 characters (Korean / Emojis) verify correctly', () => {
+// Test 10: Multi-byte UTF-8 characters in payload (Japanese & Emojis)
+testCase('10. Multi-byte UTF-8 characters (Japanese / Emojis) verify correctly', () => {
   const unicodePayload = JSON.stringify({
-    customer: '홍길동 VIP 🚀',
-    note: '동아시아 분기 특별 할인 보고서'
+    customer: '山田太郎 VIP 🚀',
+    note: '東アジア四半期特別レポート'
   });
   const unicodeHmac = crypto.createHmac('sha256', secret).update(unicodePayload).digest('hex');
   assert.strictEqual(verifyWebhookSignature(unicodePayload, unicodeHmac, secret), true);
 
   // Tamper 1 character
   const tamperedUnicode = JSON.stringify({
-    customer: '홍길동 VIP 🛸',
-    note: '동아시아 분기 특별 할인 보고서'
+    customer: '山田太郎 VIP 🛸',
+    note: '東アジア四半期特別レポート'
   });
   assert.strictEqual(verifyWebhookSignature(tamperedUnicode, unicodeHmac, secret), false);
 });

@@ -242,51 +242,59 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      height: 74px;
+      height: 60px;
+      gap: 10px;
+      flex-wrap: nowrap;
     }
 
     .brand-logo {
       display: flex;
       align-items: center;
-      gap: 11px;
+      gap: 9px;
       font-weight: 900;
-      font-size: 1.32rem;
+      font-size: 1.24rem;
       letter-spacing: -0.4px;
       color: var(--text-main);
       text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
 
     .brand-dot {
-      width: 11px;
-      height: 11px;
+      width: 10px;
+      height: 10px;
       background: linear-gradient(135deg, var(--accent-violet), var(--accent-amber));
       border-radius: 50%;
       box-shadow: 0 0 14px var(--accent-violet);
+      flex-shrink: 0;
     }
 
     .brand-tag {
       font-family: var(--font-mono);
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       background: rgba(139, 92, 246, 0.16);
       border: 1px solid rgba(139, 92, 246, 0.45);
       color: #c4b5fd;
       padding: 2px 8px;
       border-radius: 999px;
       font-weight: 700;
+      white-space: nowrap;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 22px;
+      gap: 14px;
       list-style: none;
+      flex-wrap: nowrap;
     }
 
     .nav-links a {
       color: var(--text-muted);
       text-decoration: none;
-      font-size: 0.9rem;
+      font-size: 0.84rem;
       font-weight: 700;
+      white-space: nowrap;
       transition: color 0.2s ease;
     }
 
@@ -298,41 +306,69 @@
       background-color: #5b21b6;
       background-image: linear-gradient(135deg, #6d28d9, #4c1d95);
       color: #ffffff !important;
-      padding: 9px 18px;
+      padding: 8px 14px;
       border-radius: 8px;
       font-weight: 800 !important;
-      font-size: 0.86rem !important;
+      font-size: 0.82rem !important;
+      white-space: nowrap;
       box-shadow: 0 4px 16px var(--glow-violet);
+    }
+
+    @media (max-width: 1240px) {
+      .brand-tag { display: none; }
+      .nav-links { gap: 10px; }
+      .nav-links a { font-size: 0.78rem; }
     }
 
     .catalyst-tape {
       background: rgba(14, 11, 26, 0.95);
       border-bottom: 1px solid var(--border-color);
-      padding: 9px 0;
+      height: 36px;
+      padding: 0;
+      width: 100%;
+      max-width: 100%;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
       font-family: var(--font-mono);
-      font-size: 0.78rem;
+      font-size: 0.76rem;
     }
 
     .tape-inner {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      justify-content: center;
+      display: inline-flex;
+      flex-wrap: nowrap;
+      gap: 22px;
       align-items: center;
+      white-space: nowrap;
+      width: max-content;
+      padding: 0 16px;
+      animation: gbTapeMarquee 44s linear infinite;
+    }
+
+    .catalyst-tape:hover .tape-inner {
+      animation-play-state: paused;
+    }
+
+    @keyframes gbTapeMarquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
     }
 
     .tape-item {
       display: inline-flex;
       align-items: center;
-      gap: 7px;
+      gap: 6px;
       color: var(--text-muted);
+      white-space: nowrap;
+      flex-shrink: 0;
     }
 
     .tape-badge {
       padding: 2px 7px;
       border-radius: 4px;
       font-weight: 700;
-      font-size: 0.72rem;
+      font-size: 0.7rem;
+      white-space: nowrap;
     }
 
     .bg-gamma { background: rgba(139, 92, 246, 0.22); color: #ddd6fe; border: 1px solid rgba(139, 92, 246, 0.5); }
@@ -341,32 +377,33 @@
     .bg-risk  { background: rgba(244, 63, 94, 0.2); color: #fecdd3; border: 1px solid rgba(244, 63, 94, 0.5); }
 
     .hero {
-      padding: 64px 0 46px;
+      padding: 32px 0 26px;
       text-align: center;
     }
 
     .hero-pill {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       background: rgba(139, 92, 246, 0.14);
       border: 1px solid rgba(139, 92, 246, 0.42);
       color: #ddd6fe;
-      padding: 7px 16px;
+      padding: 5px 14px;
       border-radius: 999px;
       font-family: var(--font-mono);
-      font-size: 0.8rem;
+      font-size: 0.76rem;
       font-weight: 700;
-      margin-bottom: 22px;
+      margin-bottom: 12px;
+      max-width: 100%;
     }
 
     .hero h1 {
-      font-size: clamp(1.85rem, 4.2vw, 3.15rem);
+      font-size: clamp(1.45rem, 3.6vw, 2.75rem);
       font-weight: 900;
-      line-height: 1.25;
-      letter-spacing: -0.8px;
-      max-width: 1020px;
-      margin: 0 auto 20px;
+      line-height: 1.28;
+      letter-spacing: -0.6px;
+      max-width: 960px;
+      margin: 0 auto 12px;
     }
 
     .grad-violet {
@@ -377,17 +414,18 @@
 
     .hero p {
       color: var(--text-muted);
-      font-size: 1.06rem;
-      max-width: 860px;
-      margin: 0 auto 30px;
+      font-size: 0.98rem;
+      line-height: 1.55;
+      max-width: 820px;
+      margin: 0 auto 18px;
     }
 
     .hero-actions {
       display: flex;
-      gap: 14px;
+      gap: 12px;
       justify-content: center;
       flex-wrap: wrap;
-      margin-bottom: 42px;
+      margin-bottom: 18px;
     }
 
     .btn-primary {
@@ -395,10 +433,14 @@
       background-image: linear-gradient(135deg, #6d28d9, #4c1d95);
       color: #fff;
       text-decoration: none;
-      padding: 15px 28px;
+      padding: 13px 24px;
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       border-radius: 10px;
       font-weight: 800;
-      font-size: 0.98rem;
+      font-size: 0.96rem;
       box-shadow: 0 8px 26px var(--glow-violet);
       transition: transform 0.18s ease;
     }
@@ -411,11 +453,15 @@
       background: var(--bg-card);
       color: var(--text-main);
       text-decoration: none;
-      padding: 15px 26px;
+      padding: 13px 22px;
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       border-radius: 10px;
-      font-weight: 700;
-      font-size: 0.98rem;
-      border: 1px solid var(--border-accent);
+      font-weight: 800;
+      font-size: 0.96rem;
+      border: 1.5px solid var(--border-accent);
     }
 
     .terminal-shell {
@@ -456,6 +502,7 @@
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
+      width: 100%;
     }
 
     .ticker-btn {
@@ -465,7 +512,11 @@
       font-family: var(--font-mono);
       font-size: 0.78rem;
       font-weight: 700;
-      padding: 7px 12px;
+      padding: 8px 12px;
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       border-radius: 7px;
       cursor: pointer;
       transition: all 0.18s ease;
@@ -520,11 +571,13 @@
       background: linear-gradient(135deg, var(--accent-violet), #6d28d9);
       color: #fff;
       text-decoration: none;
-      padding: 7px 13px;
+      padding: 0 10px;
+      min-height: 40px;
       border-radius: 8px;
       font-weight: 800;
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       white-space: nowrap;
+      flex-shrink: 0;
     }
 
     @media (max-width: 940px) {
@@ -898,45 +951,110 @@
     }
 
     @media (max-width: 640px) {
-      .container { padding: 0 14px; }
-      .nav-inner { height: 62px; gap: 8px; }
-      .brand-logo { font-size: 1.08rem; gap: 7px; }
-      .brand-tag { font-size: 0.6rem; padding: 2px 6px; }
-      .catalyst-tape { font-size: 0.7rem; padding: 7px 0; }
-      .tape-inner { gap: 8px; justify-content: flex-start; }
-      .hero { padding: 34px 0 26px; }
-      .hero-pill { font-size: 0.68rem; padding: 6px 12px; border-radius: 14px; }
-      .hero h1 { font-size: 1.56rem; line-height: 1.3; }
-      .hero p { font-size: 0.92rem; margin-bottom: 20px; }
-      .hero-actions { flex-direction: column; gap: 10px; margin-bottom: 26px; }
-      .btn-primary, .btn-secondary { width: 100%; padding: 13px 16px; font-size: 0.92rem; text-align: center; }
+      .container { padding: 0 12px; }
+      .nav-inner { height: 52px; gap: 6px; flex-wrap: nowrap; }
+      .brand-logo { font-size: 1.02rem; gap: 6px; flex-shrink: 1; min-width: 0; }
+      .brand-tag { display: none !important; }
+      .catalyst-tape { height: 36px; padding: 0; font-size: 0.72rem; }
+      .tape-inner { gap: 18px; }
+      .hero { padding: 10px 0 14px; }
+      .hero-pill { font-size: 0.65rem; padding: 3px 10px; border-radius: 999px; margin-bottom: 6px; }
+      .hero h1 { font-size: 1.2rem; line-height: 1.28; margin-bottom: 6px; }
+      .hero p { font-size: 0.74rem; line-height: 1.36; margin-bottom: 8px; }
+      .hero-actions { flex-direction: column; gap: 7px; margin-bottom: 10px; }
+      .btn-primary, .btn-secondary { width: 100%; min-height: 48px; padding: 9px 12px; font-size: 0.86rem; text-align: center; }
+      .jp-preset-btn { max-width: 100%; white-space: normal; text-align: center; line-height: 1.25; }
+      #gbShortsBridgeBanner { padding: 7px 10px !important; margin-bottom: 10px !important; font-size: 0.74rem !important; gap: 6px !important; }
       #gbEasyPlaybookBanner { padding: 14px !important; }
-      .terminal-shell { margin-bottom: 44px; border-radius: 14px; }
-      .terminal-topbar { padding: 12px 14px; }
+      .terminal-shell { margin-bottom: 40px; border-radius: 14px; }
+      .terminal-topbar { padding: 12px; }
       .ticker-bar {
         display: flex !important;
-        overflow-x: auto !important;
-        flex-wrap: nowrap !important;
-        -webkit-overflow-scrolling: touch !important;
-        gap: 6px !important;
-        padding-bottom: 6px !important;
+        overflow-x: visible !important;
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+        padding-bottom: 2px !important;
         width: 100%;
-        scrollbar-width: thin;
       }
       .ticker-btn {
-        flex: 0 0 auto !important;
-        white-space: nowrap !important;
+        flex: 0 1 auto !important;
+        max-width: 100%;
+        min-height: 40px;
+        white-space: nowrap;
         font-size: 0.74rem;
-        padding: 7px 11px;
+        padding: 7px 10px;
       }
-      .pane-left, .pane-right, .vip-vault-inner { padding: 16px 14px !important; }
+      .vip-vault-inner .ticker-btn {
+        white-space: normal !important;
+        text-align: center;
+        line-height: 1.3;
+        width: 100%;
+      }
+      #gbQuickMatrixSection { padding: 12px !important; }
+      #gbQuickMatrixTable,
+      #gbQuickMatrixTable tbody {
+        display: block;
+        width: 100%;
+      }
+      #gbQuickMatrixTable thead {
+        display: none;
+      }
+      #gbQuickMatrixTable tbody tr.matrix-row {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 4px 8px;
+        padding: 10px;
+        margin-bottom: 8px;
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        background: var(--bg-card);
+        align-items: center;
+      }
+      #gbQuickMatrixTable tbody tr.matrix-row td {
+        padding: 0 !important;
+        border: none !important;
+        font-size: 0.76rem !important;
+        min-width: 0;
+      }
+      #gbQuickMatrixTable tbody tr.matrix-row td:nth-child(1) { grid-column: 1; }
+      #gbQuickMatrixTable tbody tr.matrix-row td:nth-child(2) { grid-column: 2; justify-self: end; }
+      #gbQuickMatrixTable tbody tr.matrix-row td:nth-child(3) {
+        grid-column: 1 / -1;
+        font-size: 0.72rem !important;
+        color: var(--text-muted);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      #gbQuickMatrixTable tbody tr.matrix-row td:nth-child(4),
+      #gbQuickMatrixTable tbody tr.matrix-row td:nth-child(5),
+      #gbQuickMatrixTable tbody tr.matrix-row td:nth-child(6) {
+        grid-column: 1;
+        font-size: 0.74rem !important;
+      }
+      #gbQuickMatrixTable tbody tr.matrix-row td:nth-child(4)::before { content: "現在値: "; color: var(--text-muted); font-weight: 600; }
+      #gbQuickMatrixTable tbody tr.matrix-row td:nth-child(5)::before { content: "損切: "; color: var(--text-muted); font-weight: 600; }
+      #gbQuickMatrixTable tbody tr.matrix-row td:nth-child(6)::before { content: "利確: "; color: var(--text-muted); font-weight: 600; }
+      #gbQuickMatrixTable tbody tr.matrix-row td:nth-child(7) {
+        grid-column: 2;
+        grid-row: 4 / 7;
+        align-self: center;
+        justify-self: end;
+      }
+      #gbQuickMatrixTable tbody tr.matrix-row td:nth-child(7) .ticker-btn {
+        min-height: 40px !important;
+        padding: 8px 11px !important;
+        font-size: 0.74rem !important;
+        white-space: nowrap !important;
+      }
+      .pane-left, .pane-right, .vip-vault-inner { padding: 16px 12px !important; }
       .catalyst-headline { font-size: 1.04rem; }
       .radar-metrics, .sizer-grid, .vip-btn-pair-grid { grid-template-columns: 1fr !important; gap: 10px; }
       .metric-val, .sizer-card strong { font-size: 1.04rem; }
       .control-header { flex-wrap: wrap; gap: 4px; font-size: 0.76rem; }
-      .section { padding: 42px 0; }
-      .section-title { font-size: 1.45rem; }
-      .feature-card, .price-card { padding: 20px 16px; }
+      .section { padding: 40px 0; }
+      .section-title { font-size: 1.4rem; }
+      .feature-card, .price-card { padding: 20px 14px; }
       .comp-table-wrap { padding: 10px; }
       table.comp-table th, table.comp-table td { padding: 9px 10px; font-size: 0.76rem; }
     }
@@ -960,7 +1078,11 @@
       font-family: var(--font-sans);
       font-size: 0.76rem;
       font-weight: 700;
-      padding: 5px 10px;
+      padding: 6px 10px;
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       border-radius: 6px;
       cursor: pointer;
       transition: all 0.15s ease;
@@ -1473,17 +1595,27 @@
 </head>
 <body>
 
-  <!-- リアルタイム日米市場クオンツ・カタリストテープ -->
+  <!-- リアルタイム日米市場クオンツ・カタリストテープ (36px 1行ライブストリップ) -->
   <div class="catalyst-tape">
-    <div class="container tape-inner">
-      <div class="tape-item"><span class="tape-badge bg-pead">日経225 新高値ブレイク</span> <strong>^N225 日経平均 ¥39,500 (+1.25%)</strong> 20日高値突破 · 強気レジーム</div>
-      <div class="tape-item"><span class="tape-badge bg-gamma">東証P半導体</span> <strong>8035 東京エレクトロン ¥26,800</strong> ドンチアン突破 · PW-RSI 92.5</div>
-      <div class="tape-item"><span class="tape-badge bg-whale">TOPIX 機関集積</span> <strong>^TOPX 東証指数 2,740 (+0.88%)</strong> RSI 63.5 · PBR是正実需</div>
-      <div class="tape-item"><span class="tape-badge bg-gamma">ガンマスクイーズ</span> <strong>$NVDA エヌビディア</strong> Call/Put 3.2倍 · GEX転換 $179.82</div>
-      <div class="tape-item"><span class="tape-badge bg-whale">Form-4役員買い</span> <strong>$LLY イーライリリー</strong> 経営陣3名が自己資金$4.8M買い</div>
-      <div class="tape-item"><span class="tape-badge bg-pead">SEC 8-K解析 91点</span> <strong>$PLTR パランティア</strong> 国防AI契約拡大 · ダークプール64%</div>
-      <div class="tape-item"><span class="tape-badge bg-gamma">東証Pテスター</span> <strong>6857 アドバンテスト ¥9,420</strong> 20日ブレイク点火 · スコア93.8</div>
-      <div class="tape-item"><span class="tape-badge bg-risk">10-K会計リスク警告</span> <strong>$SMCI</strong> 監査リスク＆機関売り67%検知 (回避推奨)</div>
+    <div class="tape-inner">
+      <div class="tape-item"><span class="tape-badge bg-pead">日経225 AI監視</span> <strong>^N225 日経平均 ¥61,142 (+0.53%)</strong> 2.0x ATRリスク管理ゾーン</div>
+      <div class="tape-item"><span class="tape-badge bg-gamma">東証P半導体</span> <strong>8035 東京エレクトロン ¥9,461</strong> AIスコア94.2 · PW-RSI 92.5</div>
+      <div class="tape-item"><span class="tape-badge bg-whale">TOPIX 機関集積</span> <strong>^TOPX 東証指数 3,997.1 (+0.29%)</strong> PW-RSI 88.6 · PBR是正実需</div>
+      <div class="tape-item"><span class="tape-badge bg-gamma">ガンマスクイーズ</span> <strong>$NVDA エヌビディア $162.85</strong> Call/Put 3.2倍 · 2.0x ATR $142.83</div>
+      <div class="tape-item"><span class="tape-badge bg-whale">Form-4役員買い</span> <strong>$LLY イーライリリー $1,443.50</strong> 経営陣3名が自己資金$4.8M買い</div>
+      <div class="tape-item"><span class="tape-badge bg-pead">SEC 8-K解析 91点</span> <strong>$PLTR パランティア $167.99</strong> 国防AI契約拡大 · ダークプール64%</div>
+      <div class="tape-item"><span class="tape-badge bg-gamma">東証Pテスター</span> <strong>6857 アドバンテスト ¥30,610</strong> HBM需要急増 · スコア93.8</div>
+      <div class="tape-item"><span class="tape-badge bg-pead">東証P防衛・重工</span> <strong>7011 三菱重工業 ¥2,920.5</strong> 防衛・ガスタービン受注最高</div>
+      <div class="tape-item"><span class="tape-badge bg-risk">10-K会計リスク警告</span> <strong>$SMCI $26.87</strong> 監査リスク＆機関売り67%検知 (回避推奨)</div>
+      <div class="tape-item" aria-hidden="true"><span class="tape-badge bg-pead">日経225 AI監視</span> <strong>^N225 日経平均 ¥61,142 (+0.53%)</strong> 2.0x ATRリスク管理ゾーン</div>
+      <div class="tape-item" aria-hidden="true"><span class="tape-badge bg-gamma">東証P半導体</span> <strong>8035 東京エレクトロン ¥9,461</strong> AIスコア94.2 · PW-RSI 92.5</div>
+      <div class="tape-item" aria-hidden="true"><span class="tape-badge bg-whale">TOPIX 機関集積</span> <strong>^TOPX 東証指数 3,997.1 (+0.29%)</strong> PW-RSI 88.6 · PBR是正実需</div>
+      <div class="tape-item" aria-hidden="true"><span class="tape-badge bg-gamma">ガンマスクイーズ</span> <strong>$NVDA エヌビディア $162.85</strong> Call/Put 3.2倍 · 2.0x ATR $142.83</div>
+      <div class="tape-item" aria-hidden="true"><span class="tape-badge bg-whale">Form-4役員買い</span> <strong>$LLY イーライリリー $1,443.50</strong> 経営陣3名が自己資金$4.8M買い</div>
+      <div class="tape-item" aria-hidden="true"><span class="tape-badge bg-pead">SEC 8-K解析 91点</span> <strong>$PLTR パランティア $167.99</strong> 国防AI契約拡大 · ダークプール64%</div>
+      <div class="tape-item" aria-hidden="true"><span class="tape-badge bg-gamma">東証Pテスター</span> <strong>6857 アドバンテスト ¥30,610</strong> HBM需要急増 · スコア93.8</div>
+      <div class="tape-item" aria-hidden="true"><span class="tape-badge bg-pead">東証P防衛・重工</span> <strong>7011 三菱重工業 ¥2,920.5</strong> 防衛・ガスタービン受注最高</div>
+      <div class="tape-item" aria-hidden="true"><span class="tape-badge bg-risk">10-K会計リスク警告</span> <strong>$SMCI $26.87</strong> 監査リスク＆機関売り67%検知 (回避推奨)</div>
     </div>
   </div>
 
@@ -1496,60 +1628,60 @@
         <span class="brand-tag">東証P・米国株 新NISA AI端末</span>
       </a>
       <ul class="nav-links">
-        <li><a href="#radar">AIカタリスト＆ATR計算機</a></li>
+        <li><a href="#radar">ATR計算機</a></li>
         <li><a href="#gbQuickMatrixSection">日米早見表</a></li>
-        <li><a href="#quant-methodology">クオンツ手法＆新NISA枠</a></li>
-        <li><a href="#engines">3大AI解析エンジン</a></li>
-        <li><a href="#vip-vault">VIP機関投資家データ庫</a></li>
-        <li><a href="#jp-research-hub">米国株30銘柄AIレポート</a></li>
+        <li><a href="#quant-methodology">新NISA枠比較</a></li>
+        <li><a href="#vip-vault">VIPデータ庫</a></li>
+        <li><a href="#jp-research-hub">30銘柄AIレポート</a></li>
         <li><a href="https://www.youtube.com/@GetBreakAI" target="_blank" rel="noopener">📺 公式YouTube</a></li>
-        <li><a href="#pricing">料金プラン</a></li>
-        <li><a href="#pricing" class="btn-nav">Pro版をアンロック →</a></li>
+        <li><a href="#pricing" class="btn-nav">Pro版アンロック →</a></li>
       </ul>
-      <div style="display:flex; align-items:center; gap:8px;"><button type="button" id="btnToggleJpTheme" onclick="toggleJpTheme()" style="background:#17325c; color:#fde68a; border:1px solid #3b5998; padding:6px 11px; border-radius:7px; font-size:0.75rem; font-weight:800; cursor:pointer;">🌙 ダーク切替</button><a href="#radar" class="mobile-nav-cta">ATR計算 ↓</a></div>
+      <div style="display:flex; align-items:center; gap:6px; flex-shrink:0; flex-wrap:nowrap;">
+        <button type="button" id="btnOpenVipLicenseModal" onclick="openGbVipLicenseModal()" style="background:#0f172a; color:#fde68a; border:1px solid #f59e0b; min-height:40px; padding:0 10px; border-radius:7px; font-size:0.74rem; font-weight:800; cursor:pointer; white-space:nowrap; flex-shrink:0; display:inline-flex; align-items:center; justify-content:center;">🔑 VIP</button>
+        <button type="button" id="btnToggleJpTheme" onclick="toggleJpTheme()" style="background:#17325c; color:#fde68a; border:1px solid #3b5998; min-height:40px; padding:0 12px; border-radius:7px; font-size:0.75rem; font-weight:800; cursor:pointer; white-space:nowrap; flex-shrink:0; display:inline-flex; align-items:center; justify-content:center;">🌙 切替</button>
+        <a href="#atr-calculator" onclick="if(!event.ctrlKey&&!event.shiftKey){event.preventDefault();jumpToGbAtrCalculator();}" class="mobile-nav-cta">ATR計算</a>
+      </div>
     </div>
   </header>
 
-  <!-- ヒーローセクション -->
+  <!-- ヒーローセクション (3秒直感B2Cフック ＆ ファーストビュー2大CTA) -->
   <section class="hero container">
-    <!-- 🎬 YouTubeショート(@GetBreakAI) 1-Click ブリッジバナー -->
-    <div id="gbShortsBridgeBanner" style="background:linear-gradient(90deg, rgba(29,78,216,0.12), rgba(16,185,129,0.12)); border:1.5px solid var(--border-accent); border-radius:12px; padding:10px 16px; margin:0 auto 16px auto; max-width:980px; display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:10px; font-size:0.84rem;">
-      <span style="font-weight:800; color:var(--text-main);">🎬 YouTubeショート(<a href="https://www.youtube.com/@GetBreakAI" target="_blank" rel="noopener" style="color:var(--accent-violet); text-decoration:underline;">@GetBreakAI</a>)からご訪問の方へ：</span>
-      <button type="button" id="btnShortsBridgeAtrCalc" onclick="jumpToGbAtrCalculator()" style="background:#1d4ed8; color:#ffffff; border:none; border-radius:8px; padding:7px 14px; font-weight:800; font-size:0.8rem; cursor:pointer;">⚡ 2.0x ATR 損切り＆新NISA手取り計算機へ直行</button>
-      <a id="btnShortsBridgeSecMatrix" href="#gbQuickMatrixSection" style="background:var(--bg-card); color:var(--accent-emerald); border:1.5px solid var(--accent-emerald); border-radius:8px; padding:6px 14px; font-weight:800; font-size:0.8rem; text-decoration:none;">📊 本日のSEC 8-K・Form-4速報</a>
-    </div>
-
-    <div class="hero-pill">⚡ 東証プライム・米国株 新NISA・株クラ専用 · ドンチアン20日ブレイク / SEC 8-K / Form-4 / GEX 日本語AIターミナル</div>
+    <div class="hero-pill">⚡ 東証プライム・米国株 新NISA専用 · AI損切り＆適正株数ターミナル</div>
     <h1>
-      ウォール街の英語<span class="grad-violet">SEC開示(8-K)・インサイダー買い(Form-4)・オプションGamma Wall(GEX)</span>をAIが3秒で日本語解読
+      新NISAの塩漬け・大損を1秒で防ぐ。<br><span class="grad-violet">プロ基準の損切りライン＆買い時AI判定</span>
     </h1>
     <p>
-      <strong>新NISA・米国株スイング投資家のためのATR損切り＆適正株数ターミナル。</strong><br>
-      遅行する移動平均線ではなく、機関投資家が動く「決算ガイダンス変化・役員の自社株買い・ガンマスクイーズ」をリアルタイム捕捉し、ドル($)と日本円(¥)で<strong>推奨エントリー株数・2.0x ATR損切りライン・利確ターゲット</strong>を即座に算出します。
+      ウォール街の英語SEC 8-K開示・Form-4役員買い・20日新高値ブレイクを毎朝1分で日本語判定（新NISA・米国株スイング投資家のためのATR損切り＆適正株数ターミナル）。
     </p>
 
-    <!-- 🇯🇵 日経225 & TOPIX レジーム判定バッジ -->
-    <div style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin:16px 0 10px 0;">
-      <div style="background:var(--bg-card); border:1.5px solid var(--border-color); border-top:3px solid #10b981; border-radius:10px; padding:8px 14px; display:flex; align-items:center; gap:8px; font-size:0.8rem;">
-        <span class="tape-badge bg-pead">🇯🇵 日経平均 (^N225)</span>
-        <strong style="color:var(--text-main); font-family:var(--font-mono);">¥39,500.50 (+1.25%)</strong>
-        <span style="color:var(--accent-emerald); font-size:0.75rem; font-weight:700;">🟢 20日高値突破 · 強気レジーム (RSI 66.8)</span>
-      </div>
-      <div style="background:var(--bg-card); border:1.5px solid var(--border-color); border-top:3px solid #3b82f6; border-radius:10px; padding:8px 14px; display:flex; align-items:center; gap:8px; font-size:0.8rem;">
-        <span class="tape-badge bg-whale">🇯🇵 東証株価指数 (^TOPX)</span>
-        <strong style="color:var(--text-main); font-family:var(--font-mono);">2,740.20 (+0.88%)</strong>
-        <span style="color:var(--accent-sky); font-size:0.75rem; font-weight:700;">🐋 大口機関集積 · PBR改革買い (RSI 63.5)</span>
-      </div>
-      <div style="background:var(--bg-card); border:1.5px solid var(--border-color); border-top:3px solid #f59e0b; border-radius:10px; padding:8px 14px; display:flex; align-items:center; gap:8px; font-size:0.8rem;">
-        <span class="tape-badge bg-gamma">⚡ ドンチアン＆ATR</span>
-        <strong style="color:var(--text-main); font-family:var(--font-mono);">日米デュアルクオンツ</strong>
-        <span style="color:var(--accent-amber); font-size:0.75rem; font-weight:700;">東証プライム ＆ 米国株新NISA同時スキャン</span>
-      </div>
+    <div class="hero-actions">
+      <a href="#atr-calculator" id="btnHeroCtaCalc" onclick="if(!event.ctrlKey&&!event.shiftKey){event.preventDefault();jumpToGbAtrCalculator();}" class="btn-primary">🧮 無料 1秒 損切り＆株数計算機を使う</a>
+      <a href="#gbQuickMatrixTable" id="btnHeroCtaMatrix" onclick="if(!event.ctrlKey&&!event.shiftKey){event.preventDefault();document.getElementById('gbQuickMatrixSection').scrollIntoView({behavior:'smooth'});}" class="btn-secondary">📊 本日の日米ブレイク銘柄を見る</a>
     </div>
 
-    <div class="hero-actions">
-      <a href="#radar" class="btn-primary">📊 米国株AIシグナル＆ATR適正株数を今すぐ計算</a>
-      <a href="#pricing" class="btn-secondary">🔑 VIP機関フロー＆Pine Script v5を解除</a>
+    <!-- 🎬 YouTubeショート(@GetBreakAI) スリム1行ピルバナー -->
+    <div id="gbShortsBridgeBanner" style="background:linear-gradient(90deg, rgba(29,78,216,0.10), rgba(16,185,129,0.10)); border:1px solid var(--border-accent); border-radius:999px; padding:7px 14px; margin:0 auto 12px auto; max-width:760px; display:inline-flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:8px; font-size:0.78rem;">
+      <span style="font-weight:800; color:var(--text-main);">🎬 公式YouTube <a href="https://www.youtube.com/@GetBreakAI" target="_blank" rel="noopener" style="color:var(--accent-violet); text-decoration:underline;">@GetBreakAI</a> 毎朝1分速報連動</span>
+      <a id="btnShortsBridgeSecMatrix" href="/jp/" style="background:var(--bg-card); color:var(--accent-emerald); border:1px solid var(--accent-emerald); border-radius:999px; padding:4px 10px; font-weight:800; font-size:0.74rem; text-decoration:none; white-space:nowrap;">📚 30銘柄リサーチ →</a>
+    </div>
+
+    <!-- 🇯🇵 日経225 & TOPIX レジーム判定バッジ -->
+    <div style="display:flex; justify-content:center; gap:8px; flex-wrap:wrap; margin:4px 0 0 0;">
+      <div style="background:var(--bg-card); border:1px solid var(--border-color); border-top:3px solid #10b981; border-radius:10px; padding:6px 12px; display:flex; align-items:center; gap:6px; font-size:0.76rem; flex-wrap:wrap; justify-content:center;">
+        <span class="tape-badge bg-pead">🇯🇵 日経平均 (^N225)</span>
+        <strong style="color:var(--text-main); font-family:var(--font-mono);">¥61,142.35 (+0.53%)</strong>
+        <span style="color:var(--accent-emerald); font-size:0.72rem; font-weight:700;">🛡️ 2.0x ATR防衛徹底 (PW-RSI 91.2)</span>
+      </div>
+      <div style="background:var(--bg-card); border:1px solid var(--border-color); border-top:3px solid #3b82f6; border-radius:10px; padding:6px 12px; display:flex; align-items:center; gap:6px; font-size:0.76rem; flex-wrap:wrap; justify-content:center;">
+        <span class="tape-badge bg-whale">🇯🇵 東証株価指数 (^TOPX)</span>
+        <strong style="color:var(--text-main); font-family:var(--font-mono);">3,997.11 (+0.29%)</strong>
+        <span style="color:var(--accent-sky); font-size:0.72rem; font-weight:700;">🐋 大口実需押し目 (PW-RSI 88.6)</span>
+      </div>
+      <div style="background:var(--bg-card); border:1px solid var(--border-color); border-top:3px solid #f59e0b; border-radius:10px; padding:6px 12px; display:flex; align-items:center; gap:6px; font-size:0.76rem; flex-wrap:wrap; justify-content:center;">
+        <span class="tape-badge bg-gamma">⚡ ドンチアン＆ATR</span>
+        <strong style="color:var(--text-main); font-family:var(--font-mono);">日米デュアルクオンツ</strong>
+        <span style="color:var(--accent-amber); font-size:0.72rem; font-weight:700;">東証プライム ＆ 米国株新NISA同時スキャン</span>
+      </div>
     </div>
   </section>
 
@@ -1613,106 +1745,124 @@
         </thead>
         <tbody>
           <!-- 東証プライム旗艦株 -->
-          <tr class="matrix-row" data-market="tse" style="cursor:pointer;" onclick="selectCatalyst('8035'); document.getElementById('radar').scrollIntoView({behavior:'smooth'});">
+          <tr class="matrix-row" data-market="tse" data-matrix-sym="8035" style="cursor:pointer;" onclick="selectCatalyst('8035'); jumpToGbAtrCalculator();">
             <td><strong style="color:var(--text-main);">8035 東京エレクトロン</strong> <span class="tape-badge bg-pead" style="font-size:0.65rem;">東証P</span></td>
             <td><span class="tape-badge bg-pead">🟢 強気 94.2点</span></td>
             <td>先端半導体製造装置受注高・20日高値新高値ブレイク</td>
-            <td class="jp-num">¥26,800</td>
-            <td class="val-rose jp-num">¥25,240 (-5.8%)</td>
-            <td class="val-emerald jp-num"><strong>¥30,700 (+14.6%)</strong></td>
-            <td><button type="button" class="ticker-btn" style="padding:4px 9px; font-size:0.72rem;">計算機に反映 ↓</button></td>
+            <td class="jp-num matrix-col-price">¥9,461</td>
+            <td class="val-rose jp-num matrix-col-stop">¥8,267 (-12.6%)</td>
+            <td class="val-emerald jp-num matrix-col-target"><strong>¥12,447 (+31.6%)</strong></td>
+            <td><button type="button" class="ticker-btn" onclick="event.stopPropagation(); selectCatalyst('8035', this); jumpToGbAtrCalculator();" style="padding:4px 9px; font-size:0.72rem;">計算機に反映 ↓</button></td>
           </tr>
-          <tr class="matrix-row" data-market="tse" style="cursor:pointer;" onclick="selectCatalyst('6857'); document.getElementById('radar').scrollIntoView({behavior:'smooth'});">
+          <tr class="matrix-row" data-market="tse" data-matrix-sym="6857" style="cursor:pointer;" onclick="selectCatalyst('6857'); jumpToGbAtrCalculator();">
             <td><strong style="color:var(--text-main);">6857 アドバンテスト</strong> <span class="tape-badge bg-pead" style="font-size:0.65rem;">東証P</span></td>
             <td><span class="tape-badge bg-pead">🟢 強気 93.8点</span></td>
             <td>SoC/HBMテスター需要急増・新高値ブレイク点火</td>
-            <td class="jp-num">¥9,420</td>
-            <td class="val-rose jp-num">¥8,780 (-6.8%)</td>
-            <td class="val-emerald jp-num"><strong>¥11,020 (+17.0%)</strong></td>
-            <td><button type="button" class="ticker-btn" style="padding:4px 9px; font-size:0.72rem;">計算機に反映 ↓</button></td>
+            <td class="jp-num matrix-col-price">¥30,610</td>
+            <td class="val-rose jp-num matrix-col-stop">¥25,412 (-17.0%)</td>
+            <td class="val-emerald jp-num matrix-col-target"><strong>¥43,606 (+42.5%)</strong></td>
+            <td><button type="button" class="ticker-btn" onclick="event.stopPropagation(); selectCatalyst('6857', this); jumpToGbAtrCalculator();" style="padding:4px 9px; font-size:0.72rem;">計算機に反映 ↓</button></td>
           </tr>
-          <tr class="matrix-row" data-market="tse" style="cursor:pointer;" onclick="selectCatalyst('9984'); document.getElementById('radar').scrollIntoView({behavior:'smooth'});">
+          <tr class="matrix-row" data-market="tse" data-matrix-sym="7011" style="cursor:pointer;" onclick="selectCatalyst('7011'); jumpToGbAtrCalculator();">
+            <td><strong style="color:var(--text-main);">7011 三菱重工業</strong> <span class="tape-badge bg-pead" style="font-size:0.65rem;">東証P</span></td>
+            <td><span class="tape-badge bg-pead">🟢 強気 90.8点</span></td>
+            <td>防衛装備・ガスタービン受注残過去最高更新</td>
+            <td class="jp-num matrix-col-price">¥2,921</td>
+            <td class="val-rose jp-num matrix-col-stop">¥2,664 (-8.8%)</td>
+            <td class="val-emerald jp-num matrix-col-target"><strong>¥3,563 (+22.0%)</strong></td>
+            <td><button type="button" class="ticker-btn" onclick="event.stopPropagation(); selectCatalyst('7011', this); jumpToGbAtrCalculator();" style="padding:4px 9px; font-size:0.72rem;">計算機に反映 ↓</button></td>
+          </tr>
+          <tr class="matrix-row" data-market="tse" data-matrix-sym="9984" style="cursor:pointer;" onclick="selectCatalyst('9984'); jumpToGbAtrCalculator();">
             <td><strong style="color:var(--text-main);">9984 ソフトバンクG</strong> <span class="tape-badge bg-pead" style="font-size:0.65rem;">東証P</span></td>
             <td><span class="tape-badge bg-pead">🟢 強気 91.5点</span></td>
             <td>Arm株含み益拡大・AIインフラ投資ハブ加速</td>
-            <td class="jp-num">¥9,650</td>
-            <td class="val-rose jp-num">¥8,950 (-7.3%)</td>
-            <td class="val-emerald jp-num"><strong>¥11,400 (+18.1%)</strong></td>
-            <td><button type="button" class="ticker-btn" style="padding:4px 9px; font-size:0.72rem;">計算機に反映 ↓</button></td>
+            <td class="jp-num matrix-col-price">¥3,547</td>
+            <td class="val-rose jp-num matrix-col-stop">¥2,830 (-20.2%)</td>
+            <td class="val-emerald jp-num matrix-col-target"><strong>¥5,339 (+50.5%)</strong></td>
+            <td><button type="button" class="ticker-btn" onclick="event.stopPropagation(); selectCatalyst('9984', this); jumpToGbAtrCalculator();" style="padding:4px 9px; font-size:0.72rem;">計算機に反映 ↓</button></td>
           </tr>
-          <tr class="matrix-row" data-market="tse" style="cursor:pointer;" onclick="selectCatalyst('7203'); document.getElementById('radar').scrollIntoView({behavior:'smooth'});">
+          <tr class="matrix-row" data-market="tse" data-matrix-sym="7203" style="cursor:pointer;" onclick="selectCatalyst('7203'); jumpToGbAtrCalculator();">
             <td><strong style="color:var(--text-main);">7203 トヨタ自動車</strong> <span class="tape-badge bg-pead" style="font-size:0.65rem;">東証P</span></td>
             <td><span class="tape-badge bg-whale">🐋 自社株買い 88.0点</span></td>
             <td>自己株取得枠1兆円発表・HEV営業利益率更新</td>
-            <td class="jp-num">¥2,780</td>
-            <td class="val-rose jp-num">¥2,644 (-4.9%)</td>
-            <td class="val-emerald jp-num"><strong>¥3,120 (+12.2%)</strong></td>
-            <td><button type="button" class="ticker-btn" style="padding:4px 9px; font-size:0.72rem;">計算機に反映 ↓</button></td>
+            <td class="jp-num matrix-col-price">¥3,418</td>
+            <td class="val-rose jp-num matrix-col-stop">¥3,216 (-5.9%)</td>
+            <td class="val-emerald jp-num matrix-col-target"><strong>¥3,923 (+14.8%)</strong></td>
+            <td><button type="button" class="ticker-btn" onclick="event.stopPropagation(); selectCatalyst('7203', this); jumpToGbAtrCalculator();" style="padding:4px 9px; font-size:0.72rem;">計算機に反映 ↓</button></td>
           </tr>
-          <tr class="matrix-row" data-market="tse" style="cursor:pointer;" onclick="selectCatalyst('6758'); document.getElementById('radar').scrollIntoView({behavior:'smooth'});">
+          <tr class="matrix-row" data-market="tse" data-matrix-sym="6758" style="cursor:pointer;" onclick="selectCatalyst('6758'); jumpToGbAtrCalculator();">
             <td><strong style="color:var(--text-main);">6758 ソニーグループ</strong> <span class="tape-badge bg-pead" style="font-size:0.65rem;">東証P</span></td>
             <td><span class="tape-badge bg-pead">🟢 強気 89.4点</span></td>
             <td>CMOSイメージセンサ増産・ゲームネットワーク増益</td>
-            <td class="jp-num">¥3,150</td>
-            <td class="val-rose jp-num">¥2,980 (-5.4%)</td>
-            <td class="val-emerald jp-num"><strong>¥3,575 (+13.5%)</strong></td>
-            <td><button type="button" class="ticker-btn" style="padding:4px 9px; font-size:0.72rem;">計算機に反映 ↓</button></td>
+            <td class="jp-num matrix-col-price">¥4,353</td>
+            <td class="val-rose jp-num matrix-col-stop">¥4,090 (-6.0%)</td>
+            <td class="val-emerald jp-num matrix-col-target"><strong>¥5,010 (+15.1%)</strong></td>
+            <td><button type="button" class="ticker-btn" onclick="event.stopPropagation(); selectCatalyst('6758', this); jumpToGbAtrCalculator();" style="padding:4px 9px; font-size:0.72rem;">計算機に反映 ↓</button></td>
           </tr>
 
           <!-- 米国株旗艦銘柄 -->
-          <tr class="matrix-row" data-market="us" style="cursor:pointer;" onclick="selectCatalyst('NVDA'); document.getElementById('radar').scrollIntoView({behavior:'smooth'});">
+          <tr class="matrix-row" data-market="us" data-matrix-sym="NVDA" style="cursor:pointer;" onclick="selectCatalyst('NVDA'); jumpToGbAtrCalculator();">
             <td><strong style="color:var(--text-main);">$NVDA エヌビディア</strong> <span class="tape-badge bg-gamma" style="font-size:0.65rem;">米国株</span></td>
             <td><span class="tape-badge bg-pead">🟢 強気 93.5点</span></td>
             <td>Blackwell増産8-K・Call 3.2倍GEX</td>
-            <td class="jp-num">$186.64</td>
-            <td class="val-rose jp-num">$170.60</td>
-            <td class="val-emerald jp-num"><strong>$226.74</strong></td>
-            <td><button type="button" class="ticker-btn active" style="padding:4px 9px; font-size:0.72rem;">計算機に反映 ↓</button></td>
+            <td class="jp-num matrix-col-price">$162.85</td>
+            <td class="val-rose jp-num matrix-col-stop">$142.83</td>
+            <td class="val-emerald jp-num matrix-col-target"><strong>$212.90</strong></td>
+            <td><button type="button" class="ticker-btn active" onclick="event.stopPropagation(); selectCatalyst('NVDA', this); jumpToGbAtrCalculator();" style="padding:4px 9px; font-size:0.72rem;">計算機に反映 ↓</button></td>
           </tr>
-          <tr class="matrix-row" data-market="us" style="cursor:pointer;" onclick="selectCatalyst('PLTR'); document.getElementById('radar').scrollIntoView({behavior:'smooth'});">
+          <tr class="matrix-row" data-market="us" data-matrix-sym="PLTR" style="cursor:pointer;" onclick="selectCatalyst('PLTR'); jumpToGbAtrCalculator();">
             <td><strong style="color:var(--text-main);">$PLTR パランティア</strong> <span class="tape-badge bg-gamma" style="font-size:0.65rem;">米国株</span></td>
             <td><span class="tape-badge bg-pead">🟢 強気 91.0点</span></td>
             <td>国防AI大型契約(8-K)・DP機関買い64%</td>
-            <td class="jp-num">$160.38</td>
-            <td class="val-rose jp-num">$140.48</td>
-            <td class="val-emerald jp-num"><strong>$210.13</strong></td>
-            <td><button type="button" class="ticker-btn" style="padding:4px 9px; font-size:0.72rem;">計算機に反映 ↓</button></td>
+            <td class="jp-num matrix-col-price">$167.99</td>
+            <td class="val-rose jp-num matrix-col-stop">$150.31</td>
+            <td class="val-emerald jp-num matrix-col-target"><strong>$212.19</strong></td>
+            <td><button type="button" class="ticker-btn" onclick="event.stopPropagation(); selectCatalyst('PLTR', this); jumpToGbAtrCalculator();" style="padding:4px 9px; font-size:0.72rem;">計算機に反映 ↓</button></td>
           </tr>
-          <tr class="matrix-row" data-market="us" style="cursor:pointer;" onclick="selectCatalyst('LLY'); document.getElementById('radar').scrollIntoView({behavior:'smooth'});">
+          <tr class="matrix-row" data-market="us" data-matrix-sym="MSFT" style="cursor:pointer;" onclick="selectCatalyst('MSFT'); jumpToGbAtrCalculator();">
+            <td><strong style="color:var(--text-main);">$MSFT マイクロソフト</strong> <span class="tape-badge bg-gamma" style="font-size:0.65rem;">米国株</span></td>
+            <td><span class="tape-badge bg-pead">🟢 強気 88.5点</span></td>
+            <td>Azure AI増収ガイダンス・機関コア保有</td>
+            <td class="jp-num matrix-col-price">$523.88</td>
+            <td class="val-rose jp-num matrix-col-stop">$493.48</td>
+            <td class="val-emerald jp-num matrix-col-target"><strong>$599.88</strong></td>
+            <td><button type="button" class="ticker-btn" onclick="event.stopPropagation(); selectCatalyst('MSFT', this); jumpToGbAtrCalculator();" style="padding:4px 9px; font-size:0.72rem;">計算機に反映 ↓</button></td>
+          </tr>
+          <tr class="matrix-row" data-market="us" data-matrix-sym="LLY" style="cursor:pointer;" onclick="selectCatalyst('LLY'); jumpToGbAtrCalculator();">
             <td><strong style="color:var(--text-main);">$LLY イーライリリー</strong> <span class="tape-badge bg-gamma" style="font-size:0.65rem;">米国株</span></td>
             <td><span class="tape-badge bg-whale">🐋 役員買い 89.8点</span></td>
             <td>CEO/CFOら3名が自腹$4.8M市場内買い</td>
-            <td class="jp-num">$1,354.00</td>
-            <td class="val-rose jp-num">$1,248.38</td>
-            <td class="val-emerald jp-num"><strong>$1,618.05</strong></td>
-            <td><button type="button" class="ticker-btn" style="padding:4px 9px; font-size:0.72rem;">計算機に反映 ↓</button></td>
+            <td class="jp-num matrix-col-price">$1,443.50</td>
+            <td class="val-rose jp-num matrix-col-stop">$1,355.16</td>
+            <td class="val-emerald jp-num matrix-col-target"><strong>$1,664.35</strong></td>
+            <td><button type="button" class="ticker-btn" onclick="event.stopPropagation(); selectCatalyst('LLY', this); jumpToGbAtrCalculator();" style="padding:4px 9px; font-size:0.72rem;">計算機に反映 ↓</button></td>
           </tr>
-          <tr class="matrix-row" data-market="us" style="cursor:pointer;" onclick="selectCatalyst('TSLA'); document.getElementById('radar').scrollIntoView({behavior:'smooth'});">
+          <tr class="matrix-row" data-market="us" data-matrix-sym="TSLA" style="cursor:pointer;" onclick="selectCatalyst('TSLA'); jumpToGbAtrCalculator();">
             <td><strong style="color:var(--text-main);">$TSLA テスラ</strong> <span class="tape-badge bg-gamma" style="font-size:0.65rem;">米国株</span></td>
             <td><span class="tape-badge bg-gamma">⚡ GEX 89.7点</span></td>
             <td>Call 3.6倍スイープ流入・踏み上げ点火</td>
-            <td class="jp-num">$358.22</td>
-            <td class="val-rose jp-num">$322.24</td>
-            <td class="val-emerald jp-num"><strong>$448.17</strong></td>
-            <td><button type="button" class="ticker-btn" style="padding:4px 9px; font-size:0.72rem;">計算機に反映 ↓</button></td>
+            <td class="jp-num matrix-col-price">$390.22</td>
+            <td class="val-rose jp-num matrix-col-stop">$356.80</td>
+            <td class="val-emerald jp-num matrix-col-target"><strong>$473.77</strong></td>
+            <td><button type="button" class="ticker-btn" onclick="event.stopPropagation(); selectCatalyst('TSLA', this); jumpToGbAtrCalculator();" style="padding:4px 9px; font-size:0.72rem;">計算機に反映 ↓</button></td>
           </tr>
-          <tr class="matrix-row" data-market="us" style="cursor:pointer;" onclick="selectCatalyst('AVGO'); document.getElementById('radar').scrollIntoView({behavior:'smooth'});">
+          <tr class="matrix-row" data-market="us" data-matrix-sym="AVGO" style="cursor:pointer;" onclick="selectCatalyst('AVGO'); jumpToGbAtrCalculator();">
             <td><strong style="color:var(--text-main);">$AVGO ブロードコム</strong> <span class="tape-badge bg-gamma" style="font-size:0.65rem;">米国株</span></td>
             <td><span class="tape-badge bg-pead">🟢 強気 88.4点</span></td>
             <td>カスタムAI半導体(ASIC)受注・DP 59%</td>
-            <td class="jp-num">$293.69</td>
-            <td class="val-rose jp-num">$263.41</td>
-            <td class="val-emerald jp-num"><strong>$369.39</strong></td>
-            <td><button type="button" class="ticker-btn" style="padding:4px 9px; font-size:0.72rem;">計算機に反映 ↓</button></td>
+            <td class="jp-num matrix-col-price">$347.01</td>
+            <td class="val-rose jp-num matrix-col-stop">$311.45</td>
+            <td class="val-emerald jp-num matrix-col-target"><strong>$435.91</strong></td>
+            <td><button type="button" class="ticker-btn" onclick="event.stopPropagation(); selectCatalyst('AVGO', this); jumpToGbAtrCalculator();" style="padding:4px 9px; font-size:0.72rem;">計算機に反映 ↓</button></td>
           </tr>
-          <tr class="matrix-row" data-market="us" style="cursor:pointer; background:rgba(244,63,94,0.06);" onclick="selectCatalyst('SMCI'); document.getElementById('radar').scrollIntoView({behavior:'smooth'});">
+          <tr class="matrix-row" data-market="us" data-matrix-sym="SMCI" style="cursor:pointer; background:rgba(244,63,94,0.06);" onclick="selectCatalyst('SMCI'); jumpToGbAtrCalculator();">
             <td><strong style="color:var(--text-main);">$SMCI スーパーマイクロ</strong> <span class="tape-badge bg-risk" style="font-size:0.65rem;">米国株</span></td>
             <td><span class="tape-badge bg-risk">🔴 禁止 28.5点</span></td>
             <td>10-K会計監査リスク＆機関売り67%検知</td>
-            <td class="jp-num">$28.76</td>
+            <td class="jp-num matrix-col-price">$26.87</td>
             <td class="val-rose jp-num">新規買い禁止</td>
             <td class="val-rose jp-num"><strong>見送り推奨</strong></td>
-            <td><button type="button" class="ticker-btn" style="padding:4px 9px; font-size:0.72rem;">警告詳細 ↓</button></td>
+            <td><button type="button" class="ticker-btn" onclick="event.stopPropagation(); selectCatalyst('SMCI', this); jumpToGbAtrCalculator();" style="padding:4px 9px; font-size:0.72rem;">警告詳細 ↓</button></td>
           </tr>
         </tbody>
         </table>
@@ -1766,28 +1916,33 @@
 
         <div class="ticker-bar" id="radarTickerBar">
           <!-- 東証プライム銘柄ボタン -->
-          <button class="ticker-btn ticker-tse" data-ticker="8035" onclick="selectCatalyst('8035', this)" style="display:none;">8035 東京エレクトロン</button>
-          <button class="ticker-btn ticker-tse" data-ticker="6857" onclick="selectCatalyst('6857', this)" style="display:none;">6857 アドバンテスト</button>
-          <button class="ticker-btn ticker-tse" data-ticker="9984" onclick="selectCatalyst('9984', this)" style="display:none;">9984 ソフトバンクG</button>
-          <button class="ticker-btn ticker-tse" data-ticker="7203" onclick="selectCatalyst('7203', this)" style="display:none;">7203 トヨタ自動車</button>
-          <button class="ticker-btn ticker-tse" data-ticker="6758" onclick="selectCatalyst('6758', this)" style="display:none;">6758 ソニーG</button>
+          <button type="button" class="ticker-btn ticker-tse" data-ticker="8035" onclick="selectCatalyst('8035', this)" style="display:none;">8035 東京エレクトロン</button>
+          <button type="button" class="ticker-btn ticker-tse" data-ticker="6857" onclick="selectCatalyst('6857', this)" style="display:none;">6857 アドバンテスト</button>
+          <button type="button" class="ticker-btn ticker-tse" data-ticker="7011" onclick="selectCatalyst('7011', this)" style="display:none;">7011 三菱重工業</button>
+          <button type="button" class="ticker-btn ticker-tse" data-ticker="9984" onclick="selectCatalyst('9984', this)" style="display:none;">9984 ソフトバンクG</button>
+          <button type="button" class="ticker-btn ticker-tse" data-ticker="7203" onclick="selectCatalyst('7203', this)" style="display:none;">7203 トヨタ自動車</button>
+          <button type="button" class="ticker-btn ticker-tse" data-ticker="6758" onclick="selectCatalyst('6758', this)" style="display:none;">6758 ソニーG</button>
+          <button type="button" class="ticker-btn ticker-tse" data-ticker="8306" onclick="selectCatalyst('8306', this)" style="display:none;">8306 三菱UFJ</button>
+          <button type="button" class="ticker-btn ticker-tse" data-ticker="8058" onclick="selectCatalyst('8058', this)" style="display:none;">8058 三菱商事</button>
 
-          <!-- 米国株銘柄ボタン (全15銘柄フルラインナップ) -->
-          <button class="ticker-btn ticker-us active" data-ticker="NVDA" onclick="selectCatalyst('NVDA', this)">$NVDA エヌビディア</button>
-          <button class="ticker-btn ticker-us" data-ticker="PLTR" onclick="selectCatalyst('PLTR', this)">$PLTR パランティア</button>
-          <button class="ticker-btn ticker-us" data-ticker="LLY" onclick="selectCatalyst('LLY', this)">$LLY イーライリリー</button>
-          <button class="ticker-btn ticker-us" data-ticker="TSLA" onclick="selectCatalyst('TSLA', this)">$TSLA テスラ</button>
-          <button class="ticker-btn ticker-us" data-ticker="AVGO" onclick="selectCatalyst('AVGO', this)">$AVGO ブロードコム</button>
-          <button class="ticker-btn ticker-us" data-ticker="AMD" onclick="selectCatalyst('AMD', this)">$AMD</button>
-          <button class="ticker-btn ticker-us" data-ticker="META" onclick="selectCatalyst('META', this)">$META メタ</button>
-          <button class="ticker-btn ticker-us" data-ticker="CRWD" onclick="selectCatalyst('CRWD', this)">$CRWD クラウドストライク</button>
-          <button class="ticker-btn ticker-us" data-ticker="VRT" onclick="selectCatalyst('VRT', this)">$VRT バーティブ</button>
-          <button class="ticker-btn ticker-us" data-ticker="CEG" onclick="selectCatalyst('CEG', this)">$CEG コンステレーション</button>
-          <button class="ticker-btn ticker-us" data-ticker="MSTR" onclick="selectCatalyst('MSTR', this)">$MSTR マイクロストラテジー</button>
-          <button class="ticker-btn ticker-us" data-ticker="ARM" onclick="selectCatalyst('ARM', this)">$ARM アーム</button>
-          <button class="ticker-btn ticker-us" data-ticker="ASML" onclick="selectCatalyst('ASML', this)">$ASML</button>
-          <button class="ticker-btn ticker-us" data-ticker="UNH" onclick="selectCatalyst('UNH', this)">$UNH ユナイテッドヘルス</button>
-          <button class="ticker-btn ticker-us" data-ticker="SMCI" onclick="selectCatalyst('SMCI', this)">$SMCI (⚠️会計リスク警告)</button>
+          <!-- 米国株銘柄ボタン -->
+          <button type="button" class="ticker-btn ticker-us active" data-ticker="NVDA" onclick="selectCatalyst('NVDA', this)">$NVDA エヌビディア</button>
+          <button type="button" class="ticker-btn ticker-us" data-ticker="PLTR" onclick="selectCatalyst('PLTR', this)">$PLTR パランティア</button>
+          <button type="button" class="ticker-btn ticker-us" data-ticker="MSFT" onclick="selectCatalyst('MSFT', this)">$MSFT マイクロソフト</button>
+          <button type="button" class="ticker-btn ticker-us" data-ticker="LLY" onclick="selectCatalyst('LLY', this)">$LLY イーライリリー</button>
+          <button type="button" class="ticker-btn ticker-us" data-ticker="TSLA" onclick="selectCatalyst('TSLA', this)">$TSLA テスラ</button>
+          <button type="button" class="ticker-btn ticker-us" data-ticker="AVGO" onclick="selectCatalyst('AVGO', this)">$AVGO ブロードコム</button>
+          <button type="button" class="ticker-btn ticker-us" data-ticker="AMD" onclick="selectCatalyst('AMD', this)">$AMD</button>
+          <button type="button" class="ticker-btn ticker-us" data-ticker="META" onclick="selectCatalyst('META', this)">$META メタ</button>
+          <button type="button" class="ticker-btn ticker-us" data-ticker="GOOGL" onclick="selectCatalyst('GOOGL', this)">$GOOGL アルファベット</button>
+          <button type="button" class="ticker-btn ticker-us" data-ticker="CRWD" onclick="selectCatalyst('CRWD', this)">$CRWD クラウドストライク</button>
+          <button type="button" class="ticker-btn ticker-us" data-ticker="VRT" onclick="selectCatalyst('VRT', this)">$VRT バーティブ</button>
+          <button type="button" class="ticker-btn ticker-us" data-ticker="CEG" onclick="selectCatalyst('CEG', this)">$CEG コンステレーション</button>
+          <button type="button" class="ticker-btn ticker-us" data-ticker="MSTR" onclick="selectCatalyst('MSTR', this)">$MSTR マイクロストラテジー</button>
+          <button type="button" class="ticker-btn ticker-us" data-ticker="ARM" onclick="selectCatalyst('ARM', this)">$ARM アーム</button>
+          <button type="button" class="ticker-btn ticker-us" data-ticker="ASML" onclick="selectCatalyst('ASML', this)">$ASML</button>
+          <button type="button" class="ticker-btn ticker-us" data-ticker="UNH" onclick="selectCatalyst('UNH', this)">$UNH ユナイテッドヘルス</button>
+          <button type="button" class="ticker-btn ticker-us" data-ticker="SMCI" onclick="selectCatalyst('SMCI', this)">$SMCI (⚠️会計リスク)</button>
         </div>
       </div>
 
@@ -1842,6 +1997,7 @@
 
         <!-- 右ペイン: ATR損切り＆適正株数シミュレーター（ドル・日本円同時対応） -->
         <div class="pane-right" id="gbAtrCalculatorPane">
+          <span id="atr-calculator" style="display:block; height:0; overflow:hidden;"></span>
           <div class="pane-title">
             <span>🎯 ATR損切りライン＆適正株数計算機（ドル $ / 日本円 ¥ 同時換算）</span>
             <span style="color:var(--text-muted);">許容リスク上限: 口座の1.5%</span>
@@ -1879,18 +2035,20 @@
           <div class="control-group">
             <div class="control-header">
               <span>現在株価 / エントリー基準価格 ($)</span>
-              <strong id="lblEntry" style="color:var(--text-main);">$186.64 (約¥27,996)</strong>
+              <strong id="lblEntry" style="color:var(--text-main);">$162.85 (約¥24,428)</strong>
             </div>
-            <input type="range" id="sliderEntry" min="10" max="2000" step="0.5" value="186.64" oninput="recalcSizer()">
+            <input type="range" id="sliderEntry" min="10" max="2000" step="0.5" value="162.85" oninput="recalcSizer()">
           </div>
 
           <div class="control-group">
             <div class="control-header">
               <span>14日ATRボラティリティ ($) ＆ オプションIV (%)</span>
-              <strong id="lblAtrIv" style="color:var(--accent-violet);">ATR $8.02 · IV 68%</strong>
+              <strong id="lblAtrIv" style="color:var(--accent-violet);">ATR $10.01 · IV 68%</strong>
             </div>
-            <input type="range" id="sliderAtr" min="0.5" max="100.0" step="0.2" value="8.02" oninput="recalcSizer()">
+            <input type="range" id="sliderAtr" min="0.5" max="100.0" step="0.2" value="10.01" oninput="recalcSizer()">
           </div>
+
+          <button type="button" id="btnCalcAtrSubmit" onclick="recalcSizer()" class="btn-primary" style="width:100%; min-height:44px; margin-top:4px; margin-bottom:6px; border:none; cursor:pointer; font-size:0.88rem;">🧮 1秒で損切りライン＆適正株数を計算</button>
 
           <div class="sizer-grid">
             <div class="sizer-card">
@@ -2355,11 +2513,11 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
                 <span>✓ 𝕏 #株クラ 新NISA 1クリック速報共有</span>
               </div>
             </div>
-            <div style="display:flex; flex-direction:column; gap:8px; min-width:260px;">
-              <a href="https://www.youtube.com/@GetBreakAI" target="_blank" rel="noopener" class="btn-checkout btn-checkout-primary" style="display:inline-flex; align-items:center; justify-content:center; gap:8px; text-decoration:none; padding:11px 18px; font-weight:800; border-radius:8px;">
-                📺 公式YouTube (@GetBreakAI — 毎朝1分 米国株SEC開示＆ATR速報)
+            <div style="display:flex; flex-direction:column; gap:8px; width:100%; max-width:340px; min-width:0;">
+              <a href="https://www.youtube.com/@GetBreakAI" target="_blank" rel="noopener" class="btn-checkout btn-checkout-primary" style="display:inline-flex; align-items:center; justify-content:center; gap:8px; text-decoration:none; padding:11px 14px; font-weight:800; border-radius:8px; text-align:center;">
+                📺 公式YouTube (@GetBreakAI — 毎朝1分速報)
               </a>
-              <button type="button" onclick="shareActiveSignalOnX()" class="btn-checkout btn-checkout-secondary" style="display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:9px 16px; font-weight:800; border-radius:8px; cursor:pointer;">
+              <button type="button" onclick="shareActiveSignalOnX()" class="btn-checkout btn-checkout-secondary" style="display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:9px 14px; font-weight:800; border-radius:8px; cursor:pointer;">
                 𝕏 公式X (#株クラ 速報共有)
               </button>
             </div>
@@ -2521,7 +2679,7 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
   <!-- 📱 スマホ片手操作用・下部固定クイックバー -->
   <nav class="jp-mobile-bottom-nav" aria-label="モバイルクイックメニュー">
     <a href="#gbQuickMatrixSection">📊 銘柄早見表</a>
-    <a href="#radar">🧮 ATR株数計算</a>
+    <a href="#radar" onclick="if(!event.ctrlKey&&!event.shiftKey){event.preventDefault();jumpToGbAtrCalculator();}">🧮 ATR株数計算</a>
     <a href="#vip-vault">👑 VIPデータ庫</a>
     <a href="#pricing">💎 Pro購入</a>
   </nav>
@@ -2616,6 +2774,28 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
     </div>
   </div>
 
+  <!-- VIP ライセンスキー即時認証モーダル (#gbVipLicenseModal) -->
+  <div id="gbVipLicenseModal" style="display:none; position:fixed; inset:0; z-index:10001; background:rgba(6,5,12,0.82); backdrop-filter:blur(6px); align-items:center; justify-content:center; padding:16px;" onclick="if(event.target===this) closeGbVipLicenseModal();">
+    <div style="background:#0e0b1a; border:2px solid #f59e0b; border-radius:16px; max-width:480px; width:100%; padding:22px 20px; color:#f8fafc; box-shadow:0 24px 64px rgba(0,0,0,0.75);">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #241d3d; padding-bottom:10px; margin-bottom:14px; gap:8px;">
+        <h3 style="font-size:1.05rem; font-weight:900; color:#fde68a; margin:0;">🔑 Pro / VIP ライセンスキー認証</h3>
+        <button type="button" id="btnCloseVipLicenseModal" onclick="closeGbVipLicenseModal()" style="background:#1d1636; border:1px solid #4c3785; color:#fff; border-radius:8px; min-height:38px; padding:4px 12px; cursor:pointer; font-weight:800; white-space:nowrap;">✕ 閉じる</button>
+      </div>
+      <p style="font-size:0.83rem; color:#cbd5e1; line-height:1.55; margin-bottom:12px;">
+        Lemon Squeezy 決済完了メールに記載されたライセンスキーを入力すると、当ページおよび <code>/jp/</code> 全ページの <strong>Web VIP Vault</strong> が一括解放されます。
+      </p>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <input type="text" id="gbModalLicenseKeyInput" placeholder="ライセンスキー (XXXX-XXXX-XXXX-XXXX)" style="background:#090612; border:1px solid #6d28d9; color:#fff; padding:10px 12px; border-radius:8px; font-family:var(--font-mono); font-size:0.84rem; width:100%;">
+        <button type="button" id="btnModalVipSubmit" onclick="submitGbVipLicenseModal()" class="btn-checkout btn-checkout-primary" style="border:none; cursor:pointer; min-height:44px; font-size:0.88rem;">🔑 ライセンスキーを認証してVIP解放</button>
+      </div>
+      <div id="gbModalVipStatus" style="display:none; margin-top:10px; padding:9px 12px; border-radius:8px; font-size:0.78rem; font-family:var(--font-mono);"></div>
+      <div style="margin-top:12px; padding-top:10px; border-top:1px solid #241d3d; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; font-size:0.78rem;">
+        <span style="color:#94a3b8;">まだキーをお持ちでない方:</span>
+        <a href="#pricing" onclick="closeGbVipLicenseModal();" style="color:#fde68a; font-weight:800; text-decoration:underline;">💎 Proプラン ($29/月・$199/年) を見る →</a>
+      </div>
+    </div>
+  </div>
+
 
   <script>
     let USD_JPY_RATE = 150.0;
@@ -2631,9 +2811,9 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
             "nlp": "94% 強気 (EPS +18.5%サプライズ)",
             "insider": "経営陣3名 市場内買い ($6.2M)",
             "flow": "ダークプール 61% · Call 3.2倍",
-            "trigger": "ディーラー正ガンマ転換ライン $179.82 突破 → 5日間IV上限ターゲット $204.52",
-            "entry": 186.64,
-            "atr": 8.02,
+            "trigger": "ディーラー正ガンマ転換ライン $154.34 突破 → 5日間IV上限ターゲット $178.45",
+            "entry": 162.85,
+            "atr": 10.01,
             "iv": 68,
             "isAvoid": false
       },
@@ -2648,10 +2828,27 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
             "nlp": "91% 強気 (8-K大型政府契約)",
             "insider": "機関13F保有 +14.8%増",
             "flow": "ダークプール 64% · Call 2.8倍",
-            "trigger": "8-K開示後ドリフト継続 → 上値Gamma Wall $177.10 (2.0x ATR損切り $140.48)",
-            "entry": 160.38,
-            "atr": 9.95,
+            "trigger": "8-K開示後ドリフト継続 → 上値Gamma Wall $185.50 (2.0x ATR損切り $150.31)",
+            "entry": 167.99,
+            "atr": 8.84,
             "iv": 74,
+            "isAvoid": false
+      },
+      "MSFT": {
+            "jpName": "マイクロソフト",
+            "hashtag": "#マイクロソフト",
+            "badge": "AZURE_COPILOT_CORE_8K",
+            "badgeClass": "tape-badge bg-pead",
+            "headline": "$MSFT (マイクロソフト) — Azure AI増収ガイダンス＋機関投資家コア保有拡大",
+            "summary": "SEC 8-Kおよび決算コールでAzureクラウドAI需要の加速と高い営業利益率を確認。低ボラティリティ(IV 32%)かつ機関投資家13F保有トップクラスで、新NISA成長投資枠の主力スイング・中長期枠に最適。",
+            "score": "88.5 / 100 (機関コア強気)",
+            "nlp": "90% 強気 (Azure AI・Copilot増収)",
+            "insider": "機関13F コア保有比率 73%",
+            "flow": "ダークプール 57% · Call 2.4倍",
+            "trigger": "2.0x ATR損切り $493.48 維持 → 2.5R利確目標 $599.88",
+            "entry": 523.88,
+            "atr": 15.20,
+            "iv": 32,
             "isAvoid": false
       },
       "LLY": {
@@ -2665,9 +2862,9 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
             "nlp": "88% 強気 (FDA臨床・増産8-K)",
             "insider": "役員3名 自己資金買い ($4.8M)",
             "flow": "ダークプール 54% · Call 2.1倍",
-            "trigger": "インサイダー集積サポート帯 → 低IV非対称コールスキュー発生 (目標 $1618.05)",
-            "entry": 1354.0,
-            "atr": 52.81,
+            "trigger": "インサイダー集積サポート帯 → 低IV非対称コールスキュー発生 (目標 $1,664.35)",
+            "entry": 1443.50,
+            "atr": 44.17,
             "iv": 42,
             "isAvoid": false
       },
@@ -2682,9 +2879,9 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
             "nlp": "85% 強気 (FSD・ロボタクシー触媒)",
             "insider": "取締役2名 長期保有継続",
             "flow": "ダークプール 58% · Call 3.6倍",
-            "trigger": "ガンマ転換ストライク $342.93 突破 → 5日間IV上値ターゲット $399.60",
-            "entry": 358.22,
-            "atr": 17.99,
+            "trigger": "ガンマ転換ストライク $376.02 突破 → 5日間IV上値ターゲット $435.33",
+            "entry": 390.22,
+            "atr": 16.71,
             "iv": 82,
             "isAvoid": false
       },
@@ -2700,8 +2897,8 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
             "insider": "インサイダー買い 0件 (売り越し)",
             "flow": "ダークプール機関売り 67%",
             "trigger": "ネガティブ・ガンマ領域 → 決算ギャップダウン・急落テールリスク極大 (IV 96%)",
-            "entry": 28.76,
-            "atr": 2.56,
+            "entry": 26.87,
+            "atr": 2.62,
             "iv": 96,
             "isAvoid": true
       },
@@ -2716,9 +2913,9 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
             "nlp": "89% 強気 (AI ASIC受注拡大)",
             "insider": "取締役2名 市場内買い ($3.1M)",
             "flow": "ダークプール 59% · Call 2.9倍",
-            "trigger": "GEXサポート $280.82 維持 → 2.5R利確ターゲット $369.39",
-            "entry": 293.69,
-            "atr": 15.14,
+            "trigger": "GEXサポート $331.90 維持 → 2.5R利確ターゲット $435.91",
+            "entry": 347.01,
+            "atr": 17.78,
             "iv": 58,
             "isAvoid": false
       },
@@ -2733,9 +2930,9 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
             "nlp": "86% 強気 (データセンター増収)",
             "insider": "機関13F 買い増し継続",
             "flow": "ダークプール 57% · Call 2.4倍",
-            "trigger": "2.0x ATR損切り $373.00 厳守 → 2.5Rターゲット $639.14",
-            "entry": 449.04,
-            "atr": 38.02,
+            "trigger": "2.0x ATR損切り $450.44 厳守 → 2.5Rターゲット $743.11",
+            "entry": 534.06,
+            "atr": 41.81,
             "iv": 64,
             "isAvoid": false
       },
@@ -2750,10 +2947,27 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
             "nlp": "90% 強気 (広告単価・利益率改善)",
             "insider": "機関13F コア保有拡大",
             "flow": "ダークプール 58% · Call 2.5倍",
-            "trigger": "2.0x ATR損切り $562.49 → 2.5Rターゲット $729.30",
-            "entry": 610.15,
-            "atr": 23.83,
+            "trigger": "2.0x ATR損切り $596.13 → 2.5Rターゲット $755.59",
+            "entry": 641.69,
+            "atr": 22.78,
             "iv": 48,
+            "isAvoid": false
+      },
+      "GOOGL": {
+            "jpName": "アルファベット",
+            "hashtag": "#GOOGL",
+            "badge": "CLOUD_AI_VALUATION_BULL",
+            "badgeClass": "tape-badge bg-pead",
+            "headline": "$GOOGL (アルファベット) — Cloud AI増収加速＋大型自社株買いサポート",
+            "summary": "Google Cloud営業利益率の拡大と自社株買いプログラムが決算8-Kで確認され、機関投資家の押し目実需買いが継続。新NISA成長枠の大型ハイテク銘柄として高スコアを維持。",
+            "score": "87.4 / 100 (機関実需)",
+            "nlp": "88% 強気 (Cloud利益急伸)",
+            "insider": "自社株買いプログラム進行中",
+            "flow": "ダークプール 56% · Call 2.3倍",
+            "trigger": "2.0x ATR損切り $275.25 → 2.5Rターゲット $347.07",
+            "entry": 295.77,
+            "atr": 10.26,
+            "iv": 35,
             "isAvoid": false
       },
       "CRWD": {
@@ -2767,9 +2981,9 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
             "nlp": "86% 強気 (ARR・FCF好調)",
             "insider": "役員2名 長期保有",
             "flow": "ダークプール 56% · Call 2.7倍",
-            "trigger": "2.0x ATR損切り $187.38 → 2.5Rターゲット $290.70",
-            "entry": 216.9,
-            "atr": 14.76,
+            "trigger": "2.0x ATR損切り $198.19 → 2.5Rターゲット $297.66",
+            "entry": 226.61,
+            "atr": 14.21,
             "iv": 56,
             "isAvoid": false
       },
@@ -2784,9 +2998,9 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
             "nlp": "89% 強気 (受注残・マージン拡大)",
             "insider": "機関13F +19.2%増",
             "flow": "ダークプール 60% · Call 2.9倍",
-            "trigger": "2.0x ATR損切り $145.24 → 2.5Rターゲット $276.91",
-            "entry": 182.86,
-            "atr": 18.81,
+            "trigger": "2.0x ATR損切り $167.69 → 2.5Rターゲット $288.02",
+            "entry": 202.07,
+            "atr": 17.19,
             "iv": 72,
             "isAvoid": false
       },
@@ -2801,9 +3015,9 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
             "nlp": "88% 強気 (長期PPA契約)",
             "insider": "経営陣 市場内買い確認",
             "flow": "ダークプール 55% · Call 2.3倍",
-            "trigger": "2.0x ATR損切り $225.91 → 2.5Rターゲット $310.05",
-            "entry": 249.95,
-            "atr": 12.02,
+            "trigger": "2.0x ATR損切り $253.30 → 2.5Rターゲット $347.45",
+            "entry": 280.20,
+            "atr": 13.45,
             "iv": 61,
             "isAvoid": false
       },
@@ -2818,9 +3032,9 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
             "nlp": "84% 強気 (BTC保有拡大8-K)",
             "insider": "機関コールスイープ集中",
             "flow": "ダークプール 53% · Call 3.8倍",
-            "trigger": "2.0x ATR損切り $109.43 厳守 → 2.5Rターゲット $177.68",
-            "entry": 128.93,
-            "atr": 9.75,
+            "trigger": "2.0x ATR損切り $93.88 厳守 → 2.5Rターゲット $155.97",
+            "entry": 111.62,
+            "atr": 8.87,
             "iv": 108,
             "isAvoid": false
       },
@@ -2835,9 +3049,9 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
             "nlp": "87% 強気 (v9ロイヤルティ増)",
             "insider": "大口機関ロックアップ安定",
             "flow": "ダークプール 56% · Call 2.6倍",
-            "trigger": "2.0x ATR損切り $146.16 → 2.5Rターゲット $245.77",
-            "entry": 174.62,
-            "atr": 14.23,
+            "trigger": "2.0x ATR損切り $158.29 → 2.5Rターゲット $271.13",
+            "entry": 190.53,
+            "atr": 16.12,
             "iv": 76,
             "isAvoid": false
       },
@@ -2852,9 +3066,9 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
             "nlp": "85% 強気 (EUV受注回復)",
             "insider": "欧州・米国機関買い越し",
             "flow": "ダークプール 58% · Call 2.0倍",
-            "trigger": "2.0x ATR損切り $1281.99 → 2.5Rターゲット $1781.65",
-            "entry": 1424.75,
-            "atr": 71.38,
+            "trigger": "2.0x ATR損切り $1,365.50 → 2.5Rターゲット $1,819.31",
+            "entry": 1495.16,
+            "atr": 64.83,
             "iv": 49,
             "isAvoid": false
       },
@@ -2869,10 +3083,61 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
             "nlp": "83% 強気 (医療保険キャッシュフロー)",
             "insider": "取締役 Form-4市場内買い",
             "flow": "ダークプール 52% · Call 1.9倍",
-            "trigger": "2.0x ATR損切り $370.19 → 2.5Rターゲット $454.05",
-            "entry": 394.15,
-            "atr": 11.98,
+            "trigger": "2.0x ATR損切り $385.86 → 2.5Rターゲット $461.46",
+            "entry": 407.46,
+            "atr": 10.80,
             "iv": 34,
+            "isAvoid": false
+      },
+      "AAPL": {
+            "jpName": "アップル",
+            "hashtag": "#AAPL",
+            "badge": "SHARE_BUYBACK_GEX_SUPPORT",
+            "badgeClass": "tape-badge bg-whale",
+            "headline": "$AAPL (アップル) — 大規模自社株買い下値支持＆オプションGEX壁解析",
+            "summary": "米国最大級の自社株買いプログラムとサービス部門の安定キャッシュフローにより下値耐性が極めて高いコア銘柄。",
+            "score": "86.8 / 100 (コア防衛)",
+            "nlp": "87% 強気 (自社株買い・サービス増収)",
+            "insider": "会社側 市場内自社株買い継続",
+            "flow": "ダークプール 54% · Call 2.1倍",
+            "trigger": "2.0x ATR損切り $339.85 → 2.5Rターゲット $397.32",
+            "entry": 356.27,
+            "atr": 8.21,
+            "iv": 29,
+            "isAvoid": false
+      },
+      "AMZN": {
+            "jpName": "アマゾン",
+            "hashtag": "#AMZN",
+            "badge": "AWS_MARGIN_EXPANSION",
+            "badgeClass": "tape-badge bg-pead",
+            "headline": "$AMZN (アマゾン) — AWS営業利益率サプライズ＆PEAD機関買い継続",
+            "summary": "AWS生成AIワークロード拡大と北米物流効率化によるフリーキャッシュフロー改善を8-K決算NLPが高評価。",
+            "score": "89.2 / 100 (AWS増益)",
+            "nlp": "90% 強気 (AWS営業益拡大)",
+            "insider": "機関13F コア買い増し",
+            "flow": "ダークプール 58% · Call 2.5倍",
+            "trigger": "2.0x ATR損切り $248.54 → 2.5Rターゲット $311.96",
+            "entry": 266.66,
+            "atr": 9.06,
+            "iv": 36,
+            "isAvoid": false
+      },
+      "SOXL": {
+            "jpName": "半導体ブル3倍ETF",
+            "hashtag": "#SOXL",
+            "badge": "LEVERAGED_3X_ATR_GUARD",
+            "badgeClass": "tape-badge bg-gamma",
+            "headline": "$SOXL (半導体ブル3倍ETF) — 超高ボラ3倍レバレッジ局面の2.0x ATR厳格撤退管理",
+            "summary": "日次3倍レバレッジの減価リスクを防ぐため、口座リスク1.5%上限と2.0x ATR逆指値による機械的撤退が必須の短期スイング専用銘柄。",
+            "score": "88.0 / 100 (短期ATR厳守)",
+            "nlp": "85% 強気 (SOX指数サイクル連動)",
+            "insider": "短期コールスイープ活発",
+            "flow": "オプション出来高急増 · IV 98%",
+            "trigger": "2.0x ATR損切り $32.88 厳守 → 2.5Rターゲット $121.92",
+            "entry": 58.32,
+            "atr": 12.72,
+            "iv": 98,
             "isAvoid": false
       },
       "8035": {
@@ -2882,14 +3147,14 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
             "badge": "DONCHIAN_20D_BREAKOUT",
             "badgeClass": "tape-badge bg-pead",
             "headline": "8035 (東京エレクトロン) — 20日高値ドンチアン突破 ＆ 先端半導体製造装置受注拡大",
-            "summary": "東証プライム半導体セクターの牽引役。過去20営業日高値（¥26,500）を出来高1.8倍増で上抜けるクオンツブレイクアウトを検知。価格加重PW-RSI 92.5で機関投資家の実弾買い（Institutional Ignition）が確認され、海外大口ファンドの実需買いが集中。",
+            "summary": "東証プライム半導体セクターの牽引役。先端DRAM・HBM向け製造装置需要を背景に価格加重PW-RSI 92.5で機関投資家の実弾買い（Institutional Ignition）が確認され、海外大口ファンドの実需買いが集中。",
             "score": "94.2 / 100 (東証P強気ブレイク)",
             "nlp": "93% 強気 (製造装置受注高ガイダンス上方修正)",
             "insider": "自己株取得枠 ＆ 外資実需買い集積",
             "flow": "海外機関買い越し 68% · 大口クロス優勢",
-            "trigger": "20日ブレイクライン ¥26,500突破 → 2.5R利確目標 ¥30,700 (2.0x ATR損切り ¥25,240)",
-            "entry": 26800.0,
-            "atr": 780.0,
+            "trigger": "2.0x ATR損切り ¥8,267 厳守 → 2.5R利確目標 ¥12,447",
+            "entry": 9461.0,
+            "atr": 597.2,
             "iv": 42,
             "isAvoid": false
       },
@@ -2900,15 +3165,33 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
             "badge": "HBM_TESTER_IGNITION",
             "badgeClass": "tape-badge bg-pead",
             "headline": "6857 (アドバンテスト) — SoC/HBM高帯域メモリテスター需要急増 ＆ 新高値青天井モード",
-            "summary": "AIアクセラレータ向けHBM半導体テスターの世界独占的需要を背景に、20日高値（¥9,280）を出来高急増を伴いブレイク。Wilder RSI 71.2、PW-RSI 95.8と最高強度のモメンタムを維持。",
+            "summary": "AIアクセラレータ向けHBM半導体テスターの世界独占的需要を背景に、出来高急増を伴う強いトレンドを維持。PW-RSI 95.8と最高強度のモメンタム。",
             "score": "93.8 / 100 (新高値ブレイク点火)",
             "nlp": "92% 強気 (受注残高・営業益サプライズ)",
             "insider": "大口機関13F相当保有増 71%",
             "flow": "大口ブロック買い 63% · 売買代金トップクラス",
-            "trigger": "20日高値ブレイク ¥9,280突破 → 2.5R利確目標 ¥11,020 (2.0x ATR損切り ¥8,780)",
-            "entry": 9420.0,
-            "atr": 320.0,
+            "trigger": "2.0x ATR損切り ¥25,412 → 2.5R利確目標 ¥43,606",
+            "entry": 30610.0,
+            "atr": 2599.2,
             "iv": 48,
+            "isAvoid": false
+      },
+      "7011": {
+            "jpName": "三菱重工業",
+            "hashtag": "#三菱重工",
+            "currency": "JPY",
+            "badge": "DEFENSE_TURBINE_BACKLOG",
+            "badgeClass": "tape-badge bg-pead",
+            "headline": "7011 (三菱重工業) — 防衛装備・AI発電ガスタービン受注残過去最高更新",
+            "summary": "防衛予算拡大およびデータセンター向け高効率ガスタービン受注残の過去最高更新を東証適時開示で確認。PW-RSI 90.5で国内外の機関投資家による押し目買い集積が継続。",
+            "score": "90.8 / 100 (東証P国策本命)",
+            "nlp": "91% 強気 (防衛・エナジー受注最高)",
+            "insider": "国内外機関ファンド実需買い",
+            "flow": "機関買い越し 62% · 現物大口優勢",
+            "trigger": "2.0x ATR損切り ¥2,664 → 2.5R利確目標 ¥3,563",
+            "entry": 2920.5,
+            "atr": 128.4,
+            "iv": 38,
             "isAvoid": false
       },
       "9984": {
@@ -2918,14 +3201,14 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
             "badge": "ARM_AI_HUB_BREAKOUT",
             "badgeClass": "tape-badge bg-pead",
             "headline": "9984 (ソフトバンクグループ) — 米Arm株含み益急伸 ＆ AIインフラ投資ハブ加速",
-            "summary": "傘下Armの時価総額拡大に伴うNAV（純資産価値）ディスカウント縮小を背景に、レンジ上限¥9,510を上抜け。日経平均寄与度が高く、先物主導のショートスクイーズが加速。",
+            "summary": "傘下Armの時価総額拡大に伴うNAV（純資産価値）ディスカウント縮小を背景に、先物・オプション主導のモメンタムが継続。",
             "score": "91.5 / 100 (NAV拡大ブレイク)",
             "nlp": "90% 強気 (AIエコシステム投資拡大)",
             "insider": "自社株買い枠発動期待 ＆ 機関集積",
             "flow": "海外ファンド買い越し 59% · コール優勢",
-            "trigger": "20日ブレイクライン ¥9,510突破 → 2.5R利確目標 ¥11,400 (2.0x ATR損切り ¥8,950)",
-            "entry": 9650.0,
-            "atr": 350.0,
+            "trigger": "2.0x ATR損切り ¥2,830 → 2.5R利確目標 ¥5,339",
+            "entry": 3547.0,
+            "atr": 358.4,
             "iv": 52,
             "isAvoid": false
       },
@@ -2941,9 +3224,9 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
             "nlp": "88% 強気 (HEV営業利益率更新・還元強化)",
             "insider": "会社側 1兆円市場内自己株買い進行中",
             "flow": "国内信託・生保買い集め 58%",
-            "trigger": "ドンチアンサポート ¥2,750維持 → 2.5R利確目標 ¥3,120 (2.0x ATR損切り ¥2,644)",
-            "entry": 2780.0,
-            "atr": 68.0,
+            "trigger": "2.0x ATR損切り ¥3,216 → 2.5R利確目標 ¥3,923",
+            "entry": 3418.0,
+            "atr": 101.0,
             "iv": 28,
             "isAvoid": false
       },
@@ -2954,15 +3237,51 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
             "badge": "CMOS_CIS_MARGIN_EXPANSION",
             "badgeClass": "tape-badge bg-pead",
             "headline": "6758 (ソニーグループ) — 次世代CMOSイメージセンサ増産 ＆ ゲームネットワーク増益",
-            "summary": "モバイル向け大判CIS（イメージセンサ）の歩留まり改善とPSNサブスクリプション利益率拡大を確認。20日高値¥3,110を超え、PBR1倍割れ是正と連動した着実な資金流入。",
+            "summary": "モバイル向け大判CIS（イメージセンサ）の歩留まり改善とPSNサブスクリプション利益率拡大を確認。着実な機関資金流入が継続。",
             "score": "89.4 / 100 (業績反転ブレイク)",
             "nlp": "89% 強気 (半導体・ゲーム営業益上方修正)",
             "insider": "信託口・海外長期年金ファンド買い増し",
             "flow": "大口ブロック買い 56% · 現物買い優勢",
-            "trigger": "20日新高値 ¥3,110突破 → 2.5R利確目標 ¥3,575 (2.0x ATR損切り ¥2,980)",
-            "entry": 3150.0,
-            "atr": 85.0,
+            "trigger": "2.0x ATR損切り ¥4,090 → 2.5R利確目標 ¥5,010",
+            "entry": 4353.0,
+            "atr": 131.4,
             "iv": 34,
+            "isAvoid": false
+      },
+      "8306": {
+            "jpName": "三菱UFJフィナンシャルG",
+            "hashtag": "#三菱UFJ",
+            "currency": "JPY",
+            "badge": "BOJ_RATE_SHAREHOLDER_YIELD",
+            "badgeClass": "tape-badge bg-whale",
+            "headline": "8306 (三菱UFJフィナンシャルG) — 日銀金利正常化による利ざや拡大 ＆ 累進配当・自社株買い",
+            "summary": "国内金利上昇に伴う純金利収入の拡大と大規模な株主還元強化により、新NISA成長投資枠のコアバリュー株として機関買いが継続。",
+            "score": "87.6 / 100 (金利恩恵・高還元)",
+            "nlp": "88% 強気 (増配・自己株消却)",
+            "insider": "会社側 大規模自己株取得進行",
+            "flow": "国内外機関買い集め 59%",
+            "trigger": "2.0x ATR損切り ¥3,253 → 2.5R利確目標 ¥4,030",
+            "entry": 3475.0,
+            "atr": 111.0,
+            "iv": 29,
+            "isAvoid": false
+      },
+      "8058": {
+            "jpName": "三菱商事",
+            "hashtag": "#三菱商事",
+            "currency": "JPY",
+            "badge": "BUFFETT_VALUE_BUYBACK",
+            "badgeClass": "tape-badge bg-whale",
+            "headline": "8058 (三菱商事) — 総合商社キャッシュ創出力 ＆ 累進配当・大型自己株買い",
+            "summary": "資源・非資源ポートフォリオの強固なフリーキャッシュフローと株主還元姿勢により、海外長期投資家および新NISA資金の流入が継続。",
+            "score": "86.9 / 100 (商社還元コア)",
+            "nlp": "87% 強気 (累進配当・自己株買い)",
+            "insider": "海外長期投資家コア保有継続",
+            "flow": "国内投信・外資買い越し 57%",
+            "trigger": "2.0x ATR損切り ¥5,062 → 2.5R利確目標 ¥6,262",
+            "entry": 5405.0,
+            "atr": 171.4,
+            "iv": 27,
             "isAvoid": false
       }
 };
@@ -2970,27 +3289,35 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
     // Alias with .T suffix
     CATALYST_DATA["8035.T"] = CATALYST_DATA["8035"];
     CATALYST_DATA["6857.T"] = CATALYST_DATA["6857"];
+    CATALYST_DATA["7011.T"] = CATALYST_DATA["7011"];
     CATALYST_DATA["9984.T"] = CATALYST_DATA["9984"];
     CATALYST_DATA["7203.T"] = CATALYST_DATA["7203"];
     CATALYST_DATA["6758.T"] = CATALYST_DATA["6758"];
+    CATALYST_DATA["8306.T"] = CATALYST_DATA["8306"];
+    CATALYST_DATA["8058.T"] = CATALYST_DATA["8058"];
 
     
     const REPORT_SLUGS = {
       NVDA: '/jp/nvda-sec-gamma-atr-analysis.html',
       PLTR: '/jp/pltr-insider-buying-analysis.html',
+      MSFT: '/jp/msft-azure-ai-copilot-sec-8k.html',
       LLY: '/jp/lly-form4-insider-cluster-buy.html',
       TSLA: '/jp/tsla-gamma-wall-swing-trade.html',
       SMCI: '/jp/smci-accounting-risk-warning.html',
       AVGO: '/jp/avgo-custom-ai-asic-8k-analysis.html',
       AMD: '/jp/amd-mi350-gamma-squeeze-target.html',
       META: '/jp/meta-ai-capex-earnings-nlp.html',
+      GOOGL: '/jp/googl-search-cloud-ai-valuation.html',
       CRWD: '/jp/crwd-cybersecurity-pead-drift.html',
       VRT: '/jp/vrt-ai-datacenter-cooling-catalyst.html',
       CEG: '/jp/ceg-nuclear-ai-power-8k-contract.html',
       MSTR: '/jp/mstr-bitcoin-volatility-atr-sizing.html',
       ARM: '/jp/arm-royalty-expansion-gamma-wall.html',
       ASML: '/jp/asml-euv-orders-semiconductor-cycle.html',
-      UNH: '/jp/unh-defensive-healthcare-insider-buy.html'
+      UNH: '/jp/unh-defensive-healthcare-insider-buy.html',
+      AAPL: '/jp/aapl-apple-intelligence-cycle-gex.html',
+      AMZN: '/jp/amzn-aws-margin-expansion-pead.html',
+      SOXL: '/jp/soxl-smh-semiconductor-timing.html'
     };
 
     let currentIv = 68;
@@ -3042,9 +3369,10 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
       const cur = root.getAttribute('data-jp-theme') || 'light';
       const next = cur === 'light' ? 'dark' : 'light';
       root.setAttribute('data-jp-theme', next);
+      try { localStorage.setItem('gb_jp_theme', next); } catch (_) {}
       const btn = document.getElementById('btnToggleJpTheme');
       if (btn) {
-        btn.innerText = next === 'light' ? '🌙 ダーク切替' : '🌞 証券ライト切替';
+        btn.innerText = next === 'light' ? '🌙 切替' : '☀️ 切替';
       }
     }
 
@@ -3416,18 +3744,67 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
 
     function hasValidStoredVipSession() {
       try {
-        const unlocked = localStorage.getItem('gb_vip_unlocked') === 'true';
         const storedPrimary = String(localStorage.getItem('gb_vip_license_key') || '').trim();
         const storedLegacy = String(localStorage.getItem('gb_vip_key') || '').trim();
         const key = storedPrimary || storedLegacy;
+        const unlocked = localStorage.getItem('gb_vip_unlocked') === 'true' || Boolean(key && key.length >= 12);
         if (!unlocked || !key || key.length < 12) return false;
-        if (!storedPrimary && storedLegacy) {
-          localStorage.setItem('gb_vip_license_key', storedLegacy);
-        }
+        localStorage.setItem('gb_vip_unlocked', 'true');
+        if (storedPrimary !== key) localStorage.setItem('gb_vip_license_key', key);
+        if (storedLegacy !== key) localStorage.setItem('gb_vip_key', key);
         return true;
       } catch (_) {
         return false;
       }
+    }
+
+    function openGbVipLicenseModal() {
+      const m = document.getElementById('gbVipLicenseModal');
+      const inp = document.getElementById('gbModalLicenseKeyInput');
+      const st = document.getElementById('gbModalVipStatus');
+      try {
+        const saved = String(localStorage.getItem('gb_vip_license_key') || localStorage.getItem('gb_vip_key') || '').trim();
+        if (inp && saved && !inp.value) inp.value = saved;
+      } catch (_) {}
+      if (st) st.style.display = 'none';
+      if (m) m.style.display = 'flex';
+    }
+
+    function closeGbVipLicenseModal() {
+      const m = document.getElementById('gbVipLicenseModal');
+      if (m) m.style.display = 'none';
+    }
+
+    async function submitGbVipLicenseModal() {
+      const inp = document.getElementById('gbModalLicenseKeyInput');
+      const st = document.getElementById('gbModalVipStatus');
+      const btn = document.getElementById('btnModalVipSubmit');
+      const key = String((inp && inp.value) || '').trim();
+      if (!key) {
+        if (st) {
+          st.style.display = 'block';
+          st.style.background = 'rgba(244,63,94,0.16)';
+          st.style.color = '#fda4af';
+          st.innerText = '⚠️ 決済完了メールに記載されたライセンスキーを入力してください。';
+        }
+        return false;
+      }
+      const vaultInp = document.getElementById('gbLicenseKeyInput');
+      if (vaultInp) vaultInp.value = key;
+      if (btn) btn.innerText = '⏳ 認証中...';
+      const ok = await unlockGbVipVault(key);
+      if (btn) btn.innerText = '🔑 ライセンスキーを認証してVIP解放';
+      if (st) {
+        st.style.display = 'block';
+        st.style.background = ok ? 'rgba(16,185,129,0.16)' : 'rgba(244,63,94,0.16)';
+        st.style.color = ok ? '#6ee7b7' : '#fda4af';
+        const mainStatus = document.getElementById('gbVipKeyStatus');
+        st.innerText = (mainStatus && mainStatus.innerText) || (ok ? '👑 VIP認証完了！全ページのVIP機能が解放されました。' : '❌ ライセンスキーを確認できませんでした。');
+      }
+      if (ok) {
+        setTimeout(function() { closeGbVipLicenseModal(); }, 900);
+      }
+      return ok;
     }
 
     let isGbVipUnlocked = hasValidStoredVipSession();
@@ -3868,7 +4245,43 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
         setTimeout(jumpToGbAtrCalculator, 80);
       }
 
+      try {
+        const savedTheme = localStorage.getItem('gb_jp_theme');
+        if (savedTheme === 'dark' || savedTheme === 'light') {
+          document.documentElement.setAttribute('data-jp-theme', savedTheme);
+          const tBtn = document.getElementById('btnToggleJpTheme');
+          if (tBtn) tBtn.innerText = savedTheme === 'light' ? '🌙 切替' : '☀️ 切替';
+        }
+      } catch (_) {}
+
       renderVipVaultState();
+
+      function syncMatrixRowDom(sym, entryVal, atrVal, isJpy) {
+        const row = document.querySelector('#gbQuickMatrixTable tr.matrix-row[data-matrix-sym="' + sym + '"]');
+        if (!row || !(entryVal > 0)) return;
+        const pCell = row.querySelector('.matrix-col-price');
+        const sCell = row.querySelector('.matrix-col-stop');
+        const tCell = row.querySelector('.matrix-col-target');
+        if (isJpy) {
+          if (pCell) pCell.innerText = '¥' + Math.round(entryVal).toLocaleString();
+          if (atrVal > 0 && sym !== 'SMCI') {
+            const stopP = Math.max(1, entryVal - atrVal * 2.0);
+            const targP = entryVal + atrVal * 5.0;
+            const sPct = (((stopP - entryVal) / entryVal) * 100).toFixed(1);
+            const tPct = (((targP - entryVal) / entryVal) * 100).toFixed(1);
+            if (sCell) sCell.innerText = '¥' + Math.round(stopP).toLocaleString() + ' (' + sPct + '%)';
+            if (tCell) tCell.innerHTML = '<strong>¥' + Math.round(targP).toLocaleString() + ' (+' + tPct + '%)</strong>';
+          }
+        } else {
+          if (pCell) pCell.innerText = '$' + entryVal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+          if (atrVal > 0 && sym !== 'SMCI') {
+            const stopP = Math.max(0.01, entryVal - atrVal * 2.0);
+            const targP = entryVal + atrVal * 5.0;
+            if (sCell) sCell.innerText = '$' + stopP.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            if (tCell) tCell.innerHTML = '<strong>$' + targP.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '</strong>';
+          }
+        }
+      }
 
       function applyStocksFreePayload(payload) {
         const list = Array.isArray(payload) ? payload : (payload && Array.isArray(payload.stocks) ? payload.stocks : null);
@@ -3876,17 +4289,49 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
         list.forEach(item => {
           const sym = item && item.ticker;
           const closePrice = Number(item && item.close);
+          const atrVal = Number(item && item.atr);
           if (sym && CATALYST_DATA[sym] && closePrice > 0) {
             CATALYST_DATA[sym].entry = closePrice;
+            if (atrVal > 0) CATALYST_DATA[sym].atr = atrVal;
+            syncMatrixRowDom(sym, closePrice, CATALYST_DATA[sym].atr, CATALYST_DATA[sym].currency === 'JPY');
           }
         });
         if (CATALYST_DATA[activeSym]) {
           const sliderEntryEl = document.getElementById('sliderEntry');
+          const sliderAtrEl = document.getElementById('sliderAtr');
           if (sliderEntryEl) sliderEntryEl.value = CATALYST_DATA[activeSym].entry;
+          if (sliderAtrEl && CATALYST_DATA[activeSym].atr > 0) sliderAtrEl.value = CATALYST_DATA[activeSym].atr;
           recalcSizer();
         }
         return true;
       }
+
+      try {
+        fetch('./data/live_market_snapshot.json')
+          .then(r => r.ok ? r.json() : null)
+          .then(snap => {
+            if (!snap || !snap.tickers) return;
+            Object.keys(snap.tickers).forEach(k => {
+              const it = snap.tickers[k];
+              const baseSym = String(k).replace(/\.T$/i, '');
+              const p = Number(it && (it.entry || it.close));
+              const a = Number(it && it.atr);
+              if (CATALYST_DATA[baseSym] && p > 0) {
+                CATALYST_DATA[baseSym].entry = p;
+                if (a > 0) CATALYST_DATA[baseSym].atr = a;
+                syncMatrixRowDom(baseSym, p, CATALYST_DATA[baseSym].atr, CATALYST_DATA[baseSym].currency === 'JPY');
+              }
+            });
+            if (CATALYST_DATA[activeSym]) {
+              const sE = document.getElementById('sliderEntry');
+              const sA = document.getElementById('sliderAtr');
+              if (sE) sE.value = CATALYST_DATA[activeSym].entry;
+              if (sA && CATALYST_DATA[activeSym].atr > 0) sA.value = CATALYST_DATA[activeSym].atr;
+              recalcSizer();
+            }
+          })
+          .catch(() => {});
+      } catch (_) {}
 
       try {
         fetch('./static_api/stocks_free.json')

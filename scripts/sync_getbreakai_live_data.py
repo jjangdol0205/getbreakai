@@ -333,12 +333,12 @@ def fetch_live_prices_and_atr():
             "status": "新高値ブレイクアウト点火" if is_bo else "2.0x ATRリスク管理徹底ゾーン",
         })
 
-    # TOPIX via 1306.T NEXT FUNDS TOPIX ETF proxy (or baseline) scaled cleanly
+    # TOPIX via 1306.T NEXT FUNDS TOPIX ETF proxy (post 10-for-1 split: ~415 JPY -> ~4000 TOPIX pts)
     if "1306.T" in yf_data:
         m = yf_data["1306.T"]
-        # 1306.T tracks TOPIX index (~1.035x-1.05x ETF NAV ratio; use direct ETF level if >1500)
-        topix_est = round(m["close"] * 0.962, 2) if m["close"] > 1500 else round(m["close"], 2)
-        topix_don = round(m["donchian"] * 0.962, 2) if m["donchian"] > 1500 else round(m["donchian"], 2)
+        scale = 9.62 if m["close"] < 1000 else 0.962
+        topix_est = round(m["close"] * scale, 2)
+        topix_don = round(m["donchian"] * scale, 2)
         is_bo = topix_est >= topix_don * 0.995
         JP_INDICES["^TOPX"].update({
             "price": topix_est,
@@ -346,7 +346,7 @@ def fetch_live_prices_and_atr():
             "donchian_20d_high": topix_don,
             "is_breakout": is_bo,
             "wilder_rsi": m["rsi"],
-            "atr_14d": round(m["atr"] * 0.962, 1),
+            "atr_14d": round(m["atr"] * scale, 1),
             "regime": "ACCUMULATION_BREAKOUT" if m["rsi"] >= 52.0 else "DEFENSIVE_VALUE",
             "regime_jp": "PBR1倍割れ是正・大口実需集積" if m["rsi"] >= 50.0 else "ディフェンシブ大型株選別局面",
         })

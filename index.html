@@ -107,6 +107,22 @@
   (function(){
     try {
       if (typeof window === 'undefined' || typeof navigator === 'undefined') return;
+      var kst = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
+      var ns = 'gba_getbreakai';
+      window.trackGbaFreeSignup = function() {
+        try {
+          var h = (location && location.hostname) || '';
+          if (!h || h === 'localhost' || h === '127.0.0.1') return;
+          if (localStorage.getItem('hq_signup_' + ns + '_' + kst) !== '1') {
+            localStorage.setItem('hq_signup_' + ns + '_' + kst, '1');
+            fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/signup_' + kst, { mode: 'cors', keepalive: true }).catch(function(){});
+          }
+          if (localStorage.getItem('hq_signup_ever_' + ns) !== '1') {
+            localStorage.setItem('hq_signup_ever_' + ns, '1');
+            fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/signup_total', { mode: 'cors', keepalive: true }).catch(function(){});
+          }
+        } catch (e) {}
+      };
       if (window.__HQ_BEACON_SENT_gba_getbreakai__ || window.__HQ_KPI_GBA__) return;
       window.__HQ_BEACON_SENT_gba_getbreakai__ = true;
       window.__HQ_KPI_GBA__ = true;
@@ -114,8 +130,6 @@
       if (navigator.webdriver || /bot|crawl|spider|slurp|headless|lighthouse|gtmetrix|pingdom|uptimerobot|python|curl|node|axios/i.test(ua)) return;
       var host = (location && location.hostname) || '';
       if (!host || host === 'localhost' || host === '127.0.0.1') return;
-      var kst = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
-      var ns = 'gba_getbreakai';
       fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/pv_' + kst, { mode: 'cors', keepalive: true }).catch(function(){});
       fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/pv_total', { mode: 'cors', keepalive: true }).catch(function(){});
       if (localStorage.getItem('hq_uv_' + ns + '_' + kst) !== '1') {
@@ -1591,6 +1605,51 @@
       color: #881337 !important;
       border: 1px solid #e11d48 !important;
     }
+
+    /* Senior Readability Scaling & 1-Field Morning Signal Signup */
+    html { font-size: 16.5px; }
+    html[data-jp-font="large"] { font-size: 18.2px; }
+    html[data-jp-font="xlarge"] { font-size: 19.8px; }
+    .gb-root-morning-box {
+      background: linear-gradient(135deg, rgba(5, 150, 105, 0.10), rgba(29, 78, 216, 0.08));
+      border: 2px solid #10b981;
+      border-radius: 14px;
+      padding: 18px 20px;
+      margin-bottom: 18px;
+      box-shadow: 0 10px 26px rgba(5, 150, 105, 0.12);
+    }
+    .gb-root-morning-form {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    .gb-root-morning-input {
+      flex: 1 1 250px;
+      min-height: 54px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 2px solid var(--border-color);
+      background: var(--bg-card);
+      color: var(--text-main);
+      font-size: 1.0rem;
+      font-weight: 700;
+    }
+    .gb-root-morning-btn {
+      min-height: 54px;
+      padding: 10px 22px;
+      border-radius: 10px;
+      border: none;
+      background: linear-gradient(135deg, #059669, #047857);
+      color: #ffffff;
+      font-size: 0.96rem;
+      font-weight: 900;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    @media (max-width: 640px) {
+      .gb-root-morning-btn { width: 100%; white-space: normal; }
+    }
   </style>
 </head>
 <body>
@@ -1637,6 +1696,7 @@
         <li><a href="#pricing" class="btn-nav">Pro版アンロック →</a></li>
       </ul>
       <div style="display:flex; align-items:center; gap:6px; flex-shrink:0; flex-wrap:nowrap;">
+        <button type="button" id="btnToggleJpFontRoot" onclick="cycleRootJpFontSize()" style="background:#065f46; color:#ecfdf5; border:1px solid #10b981; min-height:40px; padding:0 9px; border-radius:7px; font-size:0.74rem; font-weight:800; cursor:pointer; white-space:nowrap; flex-shrink:0; display:inline-flex; align-items:center; justify-content:center;">🔍 標準</button>
         <button type="button" id="btnOpenVipLicenseModal" onclick="openGbVipLicenseModal()" style="background:#0f172a; color:#fde68a; border:1px solid #f59e0b; min-height:40px; padding:0 10px; border-radius:7px; font-size:0.74rem; font-weight:800; cursor:pointer; white-space:nowrap; flex-shrink:0; display:inline-flex; align-items:center; justify-content:center;">🔑 VIP</button>
         <button type="button" id="btnToggleJpTheme" onclick="toggleJpTheme()" style="background:#17325c; color:#fde68a; border:1px solid #3b5998; min-height:40px; padding:0 12px; border-radius:7px; font-size:0.75rem; font-weight:800; cursor:pointer; white-space:nowrap; flex-shrink:0; display:inline-flex; align-items:center; justify-content:center;">🌙 切替</button>
         <a href="#atr-calculator" onclick="if(!event.ctrlKey&&!event.shiftKey){event.preventDefault();jumpToGbAtrCalculator();}" class="mobile-nav-cta">ATR計算</a>
@@ -1646,17 +1706,17 @@
 
   <!-- ヒーローセクション (3秒直感B2Cフック ＆ ファーストビュー2大CTA) -->
   <section class="hero container">
-    <div class="hero-pill">⚡ 東証プライム・米国株 新NISA専用 · AI損切り＆適正株数ターミナル</div>
+    <div class="hero-pill">⚡ 東証プライム・米国株 新NISA専用 · シニア向け3色AI診断＆損切りターミナル</div>
     <h1>
-      新NISAの塩漬け・大損を1秒で防ぐ。<br><span class="grad-violet">プロ基準の損切りライン＆買い時AI判定</span>
+      新NISAの塩漬けを防ぎ、買い時・売り時が一目でわかる。<br><span class="grad-violet">シニア向けAI銘柄診断＆安全撤退計算機</span>
     </h1>
     <p>
       ウォール街の英語SEC 8-K開示・Form-4役員買い・20日新高値ブレイクを毎朝1分で日本語判定（新NISA・米国株スイング投資家のためのATR損切り＆適正株数ターミナル）。
     </p>
 
     <div class="hero-actions">
-      <a href="#atr-calculator" id="btnHeroCtaCalc" onclick="if(!event.ctrlKey&&!event.shiftKey){event.preventDefault();jumpToGbAtrCalculator();}" class="btn-primary">🧮 無料 1秒 損切り＆株数計算機を使う</a>
-      <a href="#gbQuickMatrixTable" id="btnHeroCtaMatrix" onclick="if(!event.ctrlKey&&!event.shiftKey){event.preventDefault();document.getElementById('gbQuickMatrixSection').scrollIntoView({behavior:'smooth'});}" class="btn-secondary">📊 本日の日米ブレイク銘柄を見る</a>
+      <a href="#atr-calculator" id="btnHeroCtaCalc" onclick="if(!event.ctrlKey&&!event.shiftKey){event.preventDefault();jumpToGbAtrCalculator();}" class="btn-primary">🧮 無料 1秒 安全撤退＆株数計算機</a>
+      <a href="#gbRootMorningMailBox" id="btnHeroCtaMatrix" onclick="if(!event.ctrlKey&&!event.shiftKey){event.preventDefault();document.getElementById('gbRootMorningMailBox').scrollIntoView({behavior:'smooth'});}" class="btn-secondary">📧 毎朝8時の無料3色シグナル登録</a>
     </div>
 
     <!-- 🎬 YouTubeショート(@GetBreakAI) スリム1行ピルバナー -->
@@ -1712,6 +1772,23 @@
           <span style="color:var(--text-muted);">1回の許容損失を口座資金の1.5%以内に自動ロックする機関投資家式</span>
         </div>
       </div>
+    </div>
+
+    <!-- 📧 毎朝8時の新NISA 3色シグナル無料メール登録 (1-Field Free Signup Gate) -->
+    <div id="gbRootMorningMailBox" class="gb-root-morning-box">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:6px;">
+        <span class="tape-badge bg-pead" style="font-size:0.78rem; padding:4px 10px;">📧 無料メール会員（0円・登録30秒・クレカ不要）</span>
+        <span style="font-size:0.78rem; font-weight:800; color:var(--text-muted);">毎朝8:00配信 · 本日のシグナル要約：🟢買い検討 8035/$NVDA · 🟡監視 7203 · 🔴見送り $SMCI</span>
+      </div>
+      <div style="font-weight:900; font-size:1.06rem; color:var(--text-main); line-height:1.45;">
+        🔔 毎朝8時に「新NISA 3色AIシグナル（🟢買い時・🟡様子見・🔴安全撤退注意）」を無料で受け取る
+      </div>
+      <form class="gb-root-morning-form" onsubmit="return submitGbRootFreeSignup(event)">
+        <label for="gbRootMorningEmailInput" style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0);">メールアドレス</label>
+        <input type="email" id="gbRootMorningEmailInput" class="gb-root-morning-input" required autocomplete="email" placeholder="メールアドレスを入力（例：yamada@example.co.jp）">
+        <button type="submit" id="btnGbRootMorningSubmit" class="gb-root-morning-btn">📧 無料で毎朝の3色シグナルを受け取る</button>
+      </form>
+      <div id="gbRootMorningStatus" role="status" aria-live="polite" style="font-size:0.88rem; font-weight:800; margin-top:8px; color:var(--accent-emerald);"></div>
     </div>
 
     <!-- 📊 本日の日米株クオンツAIシグナル早見表（株探・四季報スタイルの高一覧性テーブル） -->
@@ -4182,6 +4259,46 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
       if (vault) vault.scrollIntoView({ behavior: 'smooth' });
     }
 
+    function applyRootJpFontSize(mode) {
+      const m = (mode === 'large' || mode === 'xlarge') ? mode : 'normal';
+      document.documentElement.setAttribute('data-jp-font', m);
+      try { localStorage.setItem('gb_jp_fontsize', m); } catch (_) {}
+      const btn = document.getElementById('btnToggleJpFontRoot');
+      if (btn) btn.innerText = m === 'xlarge' ? '🔍 特大' : (m === 'large' ? '🔍 大' : '🔍 標準');
+    }
+
+    function cycleRootJpFontSize() {
+      const cur = document.documentElement.getAttribute('data-jp-font') || 'normal';
+      const next = cur === 'normal' ? 'large' : (cur === 'large' ? 'xlarge' : 'normal');
+      applyRootJpFontSize(next);
+    }
+
+    function submitGbRootFreeSignup(evt) {
+      if (evt && evt.preventDefault) evt.preventDefault();
+      const inp = document.getElementById('gbRootMorningEmailInput');
+      const statusEl = document.getElementById('gbRootMorningStatus');
+      const email = String(inp ? inp.value : '').trim();
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        if (statusEl) {
+          statusEl.style.color = 'var(--accent-rose)';
+          statusEl.innerText = '⚠️ 正しいメールアドレスを入力してください（例：yamada@example.co.jp）。';
+        }
+        return false;
+      }
+      try {
+        localStorage.setItem('gb_free_member_email', email);
+        localStorage.setItem('gb_free_member_joined', '1');
+      } catch (_) {}
+      if (typeof window.trackGbaFreeSignup === 'function') {
+        window.trackGbaFreeSignup(email);
+      }
+      if (statusEl) {
+        statusEl.style.color = 'var(--accent-emerald)';
+        statusEl.innerText = '🎉 ご登録完了（' + email + '）！毎朝8時の新NISA 3色シグナル配信リストに登録されました。';
+      }
+      return false;
+    }
+
     function jumpToGbAtrCalculator() {
       const calcEl = document.getElementById('gbAtrCalculatorPane') || document.getElementById('radar');
       if (calcEl) {
@@ -4289,6 +4406,18 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
       if (shouldJumpCalc) {
         setTimeout(jumpToGbAtrCalculator, 80);
       }
+
+      try {
+        const savedFont = localStorage.getItem('gb_jp_fontsize');
+        if (savedFont) applyRootJpFontSize(savedFont);
+        const savedFreeEmail = String(localStorage.getItem('gb_free_member_email') || '').trim();
+        if (savedFreeEmail && savedFreeEmail.indexOf('@') !== -1) {
+          const inp = document.getElementById('gbRootMorningEmailInput');
+          const statusEl = document.getElementById('gbRootMorningStatus');
+          if (inp && !inp.value) inp.value = savedFreeEmail;
+          if (statusEl) statusEl.innerText = '✅ 無料モーニングシグナル登録済み（' + savedFreeEmail + '）';
+        }
+      } catch (_) {}
 
       try {
         const savedTheme = localStorage.getItem('gb_jp_theme');

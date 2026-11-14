@@ -1,6 +1,6 @@
 {
-  "updated_date": "2026-11-13",
-  "updated_at_jst": "2026-11-13 10:43:19 JST",
+  "updated_date": "2026-11-14",
+  "updated_at_jst": "2026-11-14 10:20:10 JST",
   "usd_jpy": 150.0,
   "indices": {
     "^N225": {
@@ -17,7 +17,7 @@
       "atr_14d": 520.0,
       "momentum_score": 92.4,
       "status": "新高値ブレイクアウト点火",
-      "updated_date": "2026-11-13"
+      "updated_date": "2026-11-14"
     },
     "^TOPX": {
       "symbol": "^TOPX",
@@ -33,7 +33,7 @@
       "atr_14d": 32.5,
       "momentum_score": 89.1,
       "status": "東証プライム押し目買いゾーン",
-      "updated_date": "2026-11-13"
+      "updated_date": "2026-11-14"
     }
   },
   "tickers": {
@@ -42,66 +42,66 @@
       "jp_name": "エヌビディア",
       "market": "US_TECH",
       "currency": "USD",
-      "entry": 173.85,
-      "atr": 5.39,
+      "entry": 162.85,
+      "atr": 5.05,
       "iv": 68,
       "score": 93.5,
-      "stop_loss": 163.07,
-      "stop_dist": 10.78,
-      "target_25r": 200.8,
-      "exp_move_5d": 16.65,
-      "upper_gamma_wall": 190.5,
-      "gamma_flip": 169.27,
+      "stop_loss": 152.75,
+      "stop_dist": 10.1,
+      "target_25r": 188.1,
+      "exp_move_5d": 15.6,
+      "upper_gamma_wall": 178.45,
+      "gamma_flip": 158.56,
       "donchian_20d_high": 182.5,
       "wilder_rsi": 71.4,
       "pw_rsi": 94.2,
       "breakout_status": "INSTITUTIONAL_IGNITION",
       "catalyst_rating": "Blackwell増産8-K・Call 3.2倍GEX",
-      "updated_date": "2026-11-13"
+      "updated_date": "2026-11-14"
     },
     "PLTR": {
       "ticker": "PLTR",
       "jp_name": "パランティア",
       "market": "US_TECH",
       "currency": "USD",
-      "entry": 172.47,
-      "atr": 5.35,
+      "entry": 167.99,
+      "atr": 5.21,
       "iv": 74,
       "score": 91.0,
-      "stop_loss": 161.77,
-      "stop_dist": 10.7,
-      "target_25r": 199.22,
-      "exp_move_5d": 17.98,
-      "upper_gamma_wall": 190.45,
-      "gamma_flip": 167.92,
+      "stop_loss": 157.57,
+      "stop_dist": 10.42,
+      "target_25r": 194.04,
+      "exp_move_5d": 17.51,
+      "upper_gamma_wall": 185.5,
+      "gamma_flip": 163.56,
       "donchian_20d_high": 158.0,
       "wilder_rsi": 69.8,
       "pw_rsi": 92.5,
       "breakout_status": "STANDARD_BREAKOUT",
       "catalyst_rating": "国防AI大型契約(8-K)・DP機関買い64%",
-      "updated_date": "2026-11-13"
+      "updated_date": "2026-11-14"
     },
     "LLY": {
       "ticker": "LLY",
       "jp_name": "イーライリリー",
       "market": "US_TECH",
       "currency": "USD",
-      "entry": 1437.85,
-      "atr": 44.57,
+      "entry": 1443.5,
+      "atr": 44.75,
       "iv": 42,
       "score": 89.8,
-      "stop_loss": 1348.71,
-      "stop_dist": 89.14,
-      "target_25r": 1660.7,
-      "exp_move_5d": 85.06,
-      "upper_gamma_wall": 1522.91,
-      "gamma_flip": 1399.97,
+      "stop_loss": 1354.0,
+      "stop_dist": 89.5,
+      "target_25r": 1667.25,
+      "exp_move_5d": 85.4,
+      "upper_gamma_wall": 1528.9,
+      "gamma_flip": 1405.46,
       "donchian_20d_high": 1340.0,
       "wilder_rsi": 64.2,
       "pw_rsi": 89.1,
       "breakout_status": "ACCUMULATION",
       "catalyst_rating": "CEO/CFOら3名が自腹$4.8M市場内買い",
-      "updated_date": "2026-11-13"
+      "updated_date": "2026-11-14"
     },
     "TSLA": {
       "ticker": "TSLA",
@@ -123,29 +123,29 @@
       "pw_rsi": 93.1,
       "breakout_status": "GAMMA_SQUEEZE",
       "catalyst_rating": "Call 3.6倍スイープ流入・踏み上げ点火",
-      "updated_date": "2026-11-13"
+      "updated_date": "2026-11-14"
     },
     "SMCI": {
       "ticker": "SMCI",
       "jp_name": "スーパー・マイクロ",
       "market": "US_TECH",
       "currency": "USD",
-      "entry": 30.43,
-      "atr": 0.94,
+      "entry": 26.86,
+      "atr": 0.83,
       "iv": 96,
       "score": 28.5,
-      "stop_loss": 28.55,
-      "stop_dist": 1.88,
-      "target_25r": 35.13,
-      "exp_move_5d": 4.11,
-      "upper_gamma_wall": 34.54,
-      "gamma_flip": 29.63,
+      "stop_loss": 25.2,
+      "stop_dist": 1.66,
+      "target_25r": 31.01,
+      "exp_move_5d": 3.63,
+      "upper_gamma_wall": 30.49,
+      "gamma_flip": 26.15,
       "donchian_20d_high": 34.0,
       "wilder_rsi": 32.1,
       "pw_rsi": 25.4,
       "breakout_status": "AVOID_TRAP",
       "catalyst_rating": "10-K会計監査リスク＆機関売り67%検知",
-      "updated_date": "2026-11-13"
+      "updated_date": "2026-11-14"
     },
     "AVGO": {
       "ticker": "AVGO",
@@ -167,73 +167,73 @@
       "pw_rsi": 89.2,
       "breakout_status": "STANDARD_BREAKOUT",
       "catalyst_rating": "カスタムAI半導体(ASIC)受注・DP 59%",
-      "updated_date": "2026-11-13"
+      "updated_date": "2026-11-14"
     },
     "AMD": {
       "ticker": "AMD",
       "jp_name": "アドバンスト・マイクロ・デバイセズ",
       "market": "US_TECH",
       "currency": "USD",
-      "entry": 552.96,
-      "atr": 17.14,
+      "entry": 534.06,
+      "atr": 16.56,
       "iv": 64,
       "score": 86.2,
-      "stop_loss": 518.68,
-      "stop_dist": 34.28,
-      "target_25r": 638.66,
-      "exp_move_5d": 49.85,
-      "upper_gamma_wall": 602.81,
-      "gamma_flip": 538.39,
+      "stop_loss": 500.94,
+      "stop_dist": 33.12,
+      "target_25r": 616.86,
+      "exp_move_5d": 48.15,
+      "upper_gamma_wall": 582.21,
+      "gamma_flip": 519.98,
       "donchian_20d_high": 440.0,
       "wilder_rsi": 61.2,
       "pw_rsi": 87.5,
       "breakout_status": "STANDARD_BREAKOUT",
       "catalyst_rating": "MI350 AI GPUシェア拡大・コール集積",
-      "updated_date": "2026-11-13"
+      "updated_date": "2026-11-14"
     },
     "META": {
       "ticker": "META",
       "jp_name": "メタ・プラットフォームズ",
       "market": "US_TECH",
       "currency": "USD",
-      "entry": 628.76,
-      "atr": 19.49,
+      "entry": 641.69,
+      "atr": 19.89,
       "iv": 48,
       "score": 87.9,
-      "stop_loss": 589.78,
-      "stop_dist": 38.98,
-      "target_25r": 726.21,
-      "exp_move_5d": 42.51,
-      "upper_gamma_wall": 671.27,
-      "gamma_flip": 612.19,
+      "stop_loss": 601.91,
+      "stop_dist": 39.78,
+      "target_25r": 741.14,
+      "exp_move_5d": 43.39,
+      "upper_gamma_wall": 685.08,
+      "gamma_flip": 624.78,
       "donchian_20d_high": 605.0,
       "wilder_rsi": 65.4,
       "pw_rsi": 88.7,
       "breakout_status": "STANDARD_BREAKOUT",
       "catalyst_rating": "AI広告単価上昇・自社株買い枠拡大8-K",
-      "updated_date": "2026-11-13"
+      "updated_date": "2026-11-14"
     },
     "CRWD": {
       "ticker": "CRWD",
       "jp_name": "クラウドストライク",
       "market": "US_TECH",
       "currency": "USD",
-      "entry": 229.09,
-      "atr": 7.1,
+      "entry": 226.61,
+      "atr": 7.02,
       "iv": 56,
       "score": 86.5,
-      "stop_loss": 214.89,
-      "stop_dist": 14.2,
-      "target_25r": 264.59,
-      "exp_move_5d": 18.07,
-      "upper_gamma_wall": 247.16,
-      "gamma_flip": 223.06,
+      "stop_loss": 212.57,
+      "stop_dist": 14.04,
+      "target_25r": 261.71,
+      "exp_move_5d": 17.88,
+      "upper_gamma_wall": 244.49,
+      "gamma_flip": 220.64,
       "donchian_20d_high": 215.0,
       "wilder_rsi": 62.0,
       "pw_rsi": 86.9,
       "breakout_status": "STANDARD_BREAKOUT",
       "catalyst_rating": "FalconプラットフォームARR拡大・PEAD",
-      "updated_date": "2026-11-13"
+      "updated_date": "2026-11-14"
     },
     "VRT": {
       "ticker": "VRT",
@@ -255,7 +255,7 @@
       "pw_rsi": 90.4,
       "breakout_status": "INSTITUTIONAL_IGNITION",
       "catalyst_rating": "AIデータセンター液冷冷却装置受注急伸",
-      "updated_date": "2026-11-13"
+      "updated_date": "2026-11-14"
     },
     "CEG": {
       "ticker": "CEG",
@@ -277,7 +277,7 @@
       "pw_rsi": 88.1,
       "breakout_status": "STANDARD_BREAKOUT",
       "catalyst_rating": "Microsoft原子力PPA契約・クリーン電力",
-      "updated_date": "2026-11-13"
+      "updated_date": "2026-11-14"
     },
     "MSTR": {
       "ticker": "MSTR",
@@ -299,51 +299,51 @@
       "pw_rsi": 87.2,
       "breakout_status": "VOLATILITY_EXPANSION",
       "catalyst_rating": "BTC追加取得債券発行・高ボラティリティ",
-      "updated_date": "2026-11-13"
+      "updated_date": "2026-11-14"
     },
     "ARM": {
       "ticker": "ARM",
       "jp_name": "アーム・ホールディングス",
       "market": "US_TECH",
       "currency": "USD",
-      "entry": 203.38,
-      "atr": 6.3,
+      "entry": 190.53,
+      "atr": 5.91,
       "iv": 76,
       "score": 86.0,
-      "stop_loss": 190.78,
-      "stop_dist": 12.6,
-      "target_25r": 234.88,
-      "exp_move_5d": 21.77,
-      "upper_gamma_wall": 225.15,
-      "gamma_flip": 198.03,
+      "stop_loss": 178.71,
+      "stop_dist": 11.82,
+      "target_25r": 220.08,
+      "exp_move_5d": 20.4,
+      "upper_gamma_wall": 210.93,
+      "gamma_flip": 185.51,
       "donchian_20d_high": 172.0,
       "wilder_rsi": 63.2,
       "pw_rsi": 88.0,
       "breakout_status": "STANDARD_BREAKOUT",
       "catalyst_rating": "Arm v9アーキテクチャロイヤルティ倍増",
-      "updated_date": "2026-11-13"
+      "updated_date": "2026-11-14"
     },
     "ASML": {
       "ticker": "ASML",
       "jp_name": "ASMLホールディング",
       "market": "US_TECH",
       "currency": "USD",
-      "entry": 1534.83,
-      "atr": 47.58,
+      "entry": 1495.16,
+      "atr": 46.35,
       "iv": 49,
       "score": 85.8,
-      "stop_loss": 1439.67,
-      "stop_dist": 95.16,
-      "target_25r": 1772.73,
-      "exp_move_5d": 105.94,
-      "upper_gamma_wall": 1640.77,
-      "gamma_flip": 1494.39,
+      "stop_loss": 1402.46,
+      "stop_dist": 92.7,
+      "target_25r": 1726.91,
+      "exp_move_5d": 103.2,
+      "upper_gamma_wall": 1598.36,
+      "gamma_flip": 1455.76,
       "donchian_20d_high": 1410.0,
       "wilder_rsi": 59.8,
       "pw_rsi": 86.4,
       "breakout_status": "ACCUMULATION",
       "catalyst_rating": "高NA EUV露光装置納入・次世代半導体",
-      "updated_date": "2026-11-13"
+      "updated_date": "2026-11-14"
     },
     "UNH": {
       "ticker": "UNH",
@@ -365,7 +365,7 @@
       "pw_rsi": 85.0,
       "breakout_status": "ACCUMULATION",
       "catalyst_rating": "メディケアアドバンテージMLR安定化",
-      "updated_date": "2026-11-13"
+      "updated_date": "2026-11-14"
     },
     "8035.T": {
       "ticker": "8035.T",
@@ -388,7 +388,7 @@
       "pw_rsi": 92.5,
       "breakout_status": "INSTITUTIONAL_IGNITION",
       "catalyst_rating": "先端半導体製造装置受注高・20日高値新高値ブレイク",
-      "updated_date": "2026-11-13"
+      "updated_date": "2026-11-14"
     },
     "8035": {
       "ticker": "8035.T",
@@ -411,7 +411,7 @@
       "pw_rsi": 92.5,
       "breakout_status": "INSTITUTIONAL_IGNITION",
       "catalyst_rating": "先端半導体製造装置受注高・20日高値新高値ブレイク",
-      "updated_date": "2026-11-13"
+      "updated_date": "2026-11-14"
     },
     "6857.T": {
       "ticker": "6857.T",
@@ -434,7 +434,7 @@
       "pw_rsi": 95.8,
       "breakout_status": "INSTITUTIONAL_IGNITION",
       "catalyst_rating": "SoC/HBMテスター需要急増・新高値ブレイク点火",
-      "updated_date": "2026-11-13"
+      "updated_date": "2026-11-14"
     },
     "6857": {
       "ticker": "6857.T",
@@ -457,7 +457,7 @@
       "pw_rsi": 95.8,
       "breakout_status": "INSTITUTIONAL_IGNITION",
       "catalyst_rating": "SoC/HBMテスター需要急増・新高値ブレイク点火",
-      "updated_date": "2026-11-13"
+      "updated_date": "2026-11-14"
     },
     "9984.T": {
       "ticker": "9984.T",
@@ -480,7 +480,7 @@
       "pw_rsi": 90.2,
       "breakout_status": "STANDARD_BREAKOUT",
       "catalyst_rating": "Arm株含み益拡大・AIインフラ投資ハブ加速",
-      "updated_date": "2026-11-13"
+      "updated_date": "2026-11-14"
     },
     "9984": {
       "ticker": "9984.T",
@@ -503,7 +503,7 @@
       "pw_rsi": 90.2,
       "breakout_status": "STANDARD_BREAKOUT",
       "catalyst_rating": "Arm株含み益拡大・AIインフラ投資ハブ加速",
-      "updated_date": "2026-11-13"
+      "updated_date": "2026-11-14"
     },
     "7203.T": {
       "ticker": "7203.T",
@@ -526,7 +526,7 @@
       "pw_rsi": 87.4,
       "breakout_status": "ACCUMULATION",
       "catalyst_rating": "自己株取得枠1兆円発表・HEV営業利益率更新",
-      "updated_date": "2026-11-13"
+      "updated_date": "2026-11-14"
     },
     "7203": {
       "ticker": "7203.T",
@@ -549,7 +549,7 @@
       "pw_rsi": 87.4,
       "breakout_status": "ACCUMULATION",
       "catalyst_rating": "自己株取得枠1兆円発表・HEV営業利益率更新",
-      "updated_date": "2026-11-13"
+      "updated_date": "2026-11-14"
     },
     "6758.T": {
       "ticker": "6758.T",
@@ -572,7 +572,7 @@
       "pw_rsi": 88.9,
       "breakout_status": "ACCUMULATION",
       "catalyst_rating": "CMOSイメージセンサ増産・ゲームネットワーク増益",
-      "updated_date": "2026-11-13"
+      "updated_date": "2026-11-14"
     },
     "6758": {
       "ticker": "6758.T",
@@ -595,7 +595,7 @@
       "pw_rsi": 88.9,
       "breakout_status": "ACCUMULATION",
       "catalyst_rating": "CMOSイメージセンサ増産・ゲームネットワーク増益",
-      "updated_date": "2026-11-13"
+      "updated_date": "2026-11-14"
     }
   }
 }

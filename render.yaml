@@ -2,6 +2,7 @@ services:
   - type: web
     name: getbreakai-static
     runtime: static
+    autoDeploy: false
     buildCommand: ""
     staticPublishPath: ./dist
     routes:

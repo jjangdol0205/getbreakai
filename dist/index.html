@@ -33,8 +33,8 @@
   <script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
   <script>
     window.CHECKOUT_URLS = {
-      monthly: 'https://truthofmarket.lemonsqueezy.com/checkout/custom/f31a6c6c-6b09-409a-beaf-dd19a9eb2af9?signature=15f2b96765f5dfbce4def1891a4a99653a83e23f714b6f13a95d7134ee2041fe&embed=1',
-      annual: 'https://truthofmarket.lemonsqueezy.com/checkout/custom/19d14007-55e9-42e2-9f61-2dc3b75ac9b4?signature=a03c2e7ef03e726cc279e9b6978e3cfa0eb9edc82058f1068685d1171693f8ce&embed=1',
+      monthly: 'https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html&locale=ja',
+      annual: 'https://truthofmarket.lemonsqueezy.com/checkout/buy/667aa482-f17c-47d1-b7f3-a2427c36516b?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html&locale=ja',
       enterprise: 'mailto:beable9489@gmail.com'
     };
     const CHECKOUT_URLS = window.CHECKOUT_URLS;
@@ -2360,13 +2360,23 @@
           <span id="vipStatusBadge" class="tape-badge bg-whale" style="margin-left:4px; white-space:normal; line-height:1.35;">🔒 VIPデータ庫ロック中（$NVDAサンプル1銘柄のみ公開 · Proライセンスキー認証で全銘柄アンロック）</span>
         </div>
         <div style="display:flex; flex-direction:column; gap:6px; width:100%; max-width:540px;">
-          <div style="font-size:0.76rem; color:#fde68a; font-weight:700;">
-            🔑 決済完了後、メールで届くライセンスキー（XXXX-XXXX-...）を入力すると即座にVIP全機能が解放されます。
+          <div style="font-size:0.78rem; color:#6ee7b7; font-weight:800;">
+            ✨ 1タップ決済完了と同時に、このブラウザ上で自動的にVIP全機能が解放されます（キー入力不要）。
           </div>
-          <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap; width:100%;">
-            <input type="text" id="gbLicenseKeyInput" placeholder="Lemon Squeezy ライセンスキー（XXXX-XXXX-...）を入力" style="background:#090612; border:1px solid var(--border-accent); color:#fff; padding:7px 12px; border-radius:7px; font-family:var(--font-mono); font-size:0.8rem; flex:1; min-width:150px; max-width:100%;">
-            <button type="button" id="btnActivateGbVipKey" class="ticker-btn active" onclick="unlockGbVipVault()">🔑 VIPキー認証</button>
-          </div>
+          <details id="gbVaultLicenseRestoreDetails" style="width:100%;">
+            <summary style="cursor:pointer; font-size:0.76rem; color:#fde68a; font-weight:800; list-style:none;">
+              🔑 機種変更・別ブラウザでのライセンスキー復元はこちら ▾
+            </summary>
+            <div style="margin-top:8px; display:flex; flex-direction:column; gap:6px;">
+              <div style="font-size:0.74rem; color:#fde68a; font-weight:700;">
+                🔑 決済完了後、メールで届くライセンスキー（XXXX-XXXX-...）を入力すると即座にVIP全機能が解放されます。
+              </div>
+              <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap; width:100%;">
+                <input type="text" id="gbLicenseKeyInput" placeholder="Lemon Squeezy ライセンスキー（XXXX-XXXX-...）を入力" style="background:#090612; border:1px solid var(--border-accent); color:#fff; padding:7px 12px; border-radius:7px; font-family:var(--font-mono); font-size:0.8rem; flex:1; min-width:150px; max-width:100%;">
+                <button type="button" id="btnActivateGbVipKey" class="ticker-btn active" onclick="unlockGbVipVault()">🔑 VIPキー認証</button>
+              </div>
+            </div>
+          </details>
         </div>
       </div>
       <div id="gbVipKeyStatus" style="display:none; padding:10px 20px; font-family:var(--font-mono); font-size:0.78rem; border-bottom:1px solid var(--border-color); background:rgba(244,63,94,0.12); color:#fda4af;"></div>
@@ -2544,13 +2554,13 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
       </div>
     </div>
 
-    <div class="pricing-grid">
+    <div class="pricing-grid" style="grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 980px; margin: 0 auto;">
       <!-- Tier 1: Starter Monthly ($29/月) -->
       <div class="price-card">
         <div>
           <h3 class="price-name">Starter Breakout Scanner</h3>
           <div class="price-amount">$29 <span>/ 月 (約4,400円・税込)</span></div>
-          <p class="price-desc">日常のブレイクアウトスキャン、東証・米国株トップ10スクリーニング、および機械的-9.0% / 2.0x ATR損切り計算機を月単位で活用したい個人投資家向け。</p>
+          <p class="price-desc">日次ブレイクアウト銘柄・2.0x ATR損切りライン・Web VIP Vaultをまずは1ヶ月単位で手軽にお試しいただけます。</p>
           <ul class="feature-list">
             <li><span class="check">✓</span> <span>日次トップ10ブレイクアウト銘柄スキャナー (東証・米国株)</span></li>
             <li><span class="check">✓</span> <span>機械的 -9.0% 損切り＆2.0x ATR適正株数計算機</span></li>
@@ -2559,8 +2569,14 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
             <li><span class="check">✓</span> <span><strong>特典：姉妹サイト TruthOfMarket.com のVIP機能も同時解放</strong></span></li>
           </ul>
         </div>
-        <a href="https://truthofmarket.lemonsqueezy.com/checkout/custom/f31a6c6c-6b09-409a-beaf-dd19a9eb2af9?signature=15f2b96765f5dfbce4def1891a4a99653a83e23f714b6f13a95d7134ee2041fe&amp;embed=1" data-ls-product-uuid="d5e7e761-8b1b-4ca8-b1fe-771acd1450f8" class="btn-checkout btn-checkout-secondary lemonsqueezy-button">月額プランを始める ($29/月 · 約4,400円・税込)</a>
-        <div style="margin-top:10px; font-size:0.74rem; color:var(--text-muted); text-align:center; line-height:1.45;">
+        <a href="https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8?embed=1&amp;checkout[redirect_url]=https://getbreakai.com/confirmation.html&amp;locale=ja" data-ls-product-uuid="d5e7e761-8b1b-4ca8-b1fe-771acd1450f8" class="btn-checkout btn-checkout-secondary lemonsqueezy-button" style="min-height:66px; font-size:1.06rem; font-weight:900; border-radius:12px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; padding:12px 18px;">
+          <span>⚡ 月額Proプラン $29/月</span>
+          <span style="font-size:0.76rem; font-weight:700; opacity:0.9;">約4,400円・税込 / 決済完了と同時に自動ロック解除</span>
+        </a>
+        <div style="margin-top:10px; font-size:0.8rem; font-weight:800; color:var(--text-main); text-align:center; line-height:1.45;">
+          🍎 Apple Pay・Google Pay・カード対応 / いつでも1クリック解約
+        </div>
+        <div style="margin-top:4px; font-size:0.72rem; color:var(--text-muted); text-align:center; line-height:1.4;">
           🔒 Stripe / Lemon Squeezy 安全決済（🍎 Apple Pay・Google Pay・JCB・Visa・Master・PayPal 対応 / いつでも1クリックで解約可能）
         </div>
       </div>
@@ -2571,7 +2587,7 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
         <div>
           <h3 class="price-name">Pro Institutional Annual Pass</h3>
           <div class="price-amount">$199 <span>/ 年 (43%OFF · 約29,800円/年・税込)</span></div>
-          <p class="price-desc">実質月額 約$16.5（約2,480円）で43%お得！日中点火シグナル、PW-RSIボリュームクオンツ、SEC 8-K/Form-4台帳、Web＆メール即時通知を1年間フル活用する新NISA・米国株アクティブ投資家向け。</p>
+          <p class="price-desc">実質月額 約$16.5（約2,480円）で年間 約23,000円お得！SEC 8-K/Form-4解読・ATR損切り・Pine Script全文を1年間フル活用。</p>
           <ul class="feature-list">
             <li><span class="check">✓</span> <span><strong>月額プラン比 43%OFF（年間 約23,000円お得！）</strong></span></li>
             <li><span class="check">✓</span> <span>リアルタイム日中ブレイクアウト点火＆SEC 8-K速報</span></li>
@@ -2582,32 +2598,37 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
             <li><span class="check">✓</span> <span><strong>特典：TruthOfMarket.com VIP機能も同時解放</strong></span></li>
           </ul>
         </div>
-        <a href="https://truthofmarket.lemonsqueezy.com/checkout/custom/19d14007-55e9-42e2-9f61-2dc3b75ac9b4?signature=a03c2e7ef03e726cc279e9b6978e3cfa0eb9edc82058f1068685d1171693f8ce&amp;embed=1" data-ls-product-uuid="667aa482-f17c-47d1-b7f3-a2427c36516b" class="btn-checkout btn-checkout-primary lemonsqueezy-button">👑 年間VIPパスを始める ($199/年 · 43%OFF) →</a>
-        <div id="gbFeaturedCardSecurityNote" style="margin-top:10px; font-size:0.74rem; color:#fde68a; text-align:center; line-height:1.45;">
+        <a href="https://truthofmarket.lemonsqueezy.com/checkout/buy/667aa482-f17c-47d1-b7f3-a2427c36516b?embed=1&amp;checkout[redirect_url]=https://getbreakai.com/confirmation.html&amp;locale=ja" data-ls-product-uuid="667aa482-f17c-47d1-b7f3-a2427c36516b" class="btn-checkout btn-checkout-primary lemonsqueezy-button" style="min-height:66px; font-size:1.06rem; font-weight:900; border-radius:12px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; padding:12px 18px;">
+          <span>👑 年間VIPパス $199/年</span>
+          <span style="font-size:0.76rem; font-weight:800; opacity:0.95;">43%OFF・約29,800円/年 / 決済完了と同時に自動ロック解除</span>
+        </a>
+        <div style="margin-top:10px; font-size:0.8rem; font-weight:800; color:#fde68a; text-align:center; line-height:1.45;">
+          🍎 Apple Pay・Google Pay・カード対応 / いつでも1クリック解約
+        </div>
+        <div id="gbFeaturedCardSecurityNote" style="margin-top:4px; font-size:0.72rem; color:#fde68a; text-align:center; line-height:1.4;">
           🔒 Stripe / Lemon Squeezy 安全決済（🍎 Apple Pay・Google Pay・JCB・Visa・Master・PayPal 対応 / いつでも1クリックで解約可能）
         </div>
       </div>
+    </div>
 
-      <!-- Tier 3: Institutional / Corporate Plan Inquiry -->
-      <div class="price-card">
-        <div>
-          <h3 class="price-name">Institutional Alpha Terminal</h3>
-          <div class="price-amount">法人契約 <span>/ 個別お見積り (API・複数席)</span></div>
-          <p class="price-desc">クオンツファンド、ファミリーオフィス、投資顧問・法人デスク向けのマルチシート＆フルREST/WebSocket APIデータフィードプラン。</p>
-          <ul class="feature-list">
-            <li><span class="check">✓</span> <span><strong>年間VIPプランの全機能を含む</strong></span></li>
-            <li><span class="check">✓</span> <span>フルREST &amp; WebSocket シグナルデータフィードAPI</span></li>
-            <li><span class="check">✓</span> <span>SEC 10-K 会計監査リスク＆フォレンジック警告フィード</span></li>
-            <li><span class="check">✓</span> <span>ダークプール機関ブロック取引フロー需給不均衡解析</span></li>
-            <li><span class="check">✓</span> <span>最大5シートのチームライセンス＆優先エンジニアサポート</span></li>
-            <li><span class="check">✓</span> <span>専任1-on-1サポートデスク・請求書払い対応 (beable9489@gmail.com)</span></li>
-          </ul>
-        </div>
-        <a href="mailto:beable9489@gmail.com" class="btn-checkout btn-checkout-secondary">📧 法人プランお問い合わせ (beable9489@gmail.com) →</a>
-        <div style="margin-top:10px; font-size:0.74rem; color:var(--text-muted); text-align:center; line-height:1.45;">
-          🏢 法人インボイス（適格請求書）発行・専任エンジニア導入支援対応
-        </div>
+    <!-- 補助導線：機種変更ライセンス復元 ＆ 法人プラン個別窓口 -->
+    <div style="max-width: 980px; margin: 18px auto 0; display:flex; flex-direction:column; gap:10px;">
+      <div style="text-align:center; font-size:0.82rem; color:var(--text-muted); padding:10px 14px; border-radius:10px; border:1px dashed var(--border-color); background:rgba(15,23,42,0.04);">
+        ✨ ご決済完了と同時にこの画面で自動アンロックされます（キーのコピー＆ペースト不要）。
+        <button type="button" onclick="openGbVipLicenseModal()" style="background:none; border:none; color:var(--accent-sky); font-weight:800; text-decoration:underline; cursor:pointer; font-size:0.82rem; margin-left:6px;">🔑 機種変更・既存ライセンスキー復元はこちら</button>
       </div>
+      <details style="border:1px solid var(--border-color); border-radius:12px; padding:12px 18px; background:var(--bg-card);">
+        <summary style="cursor:pointer; font-size:0.86rem; font-weight:800; color:var(--text-muted); display:flex; justify-content:space-between; align-items:center;">
+          <span>🏢 法人・機関投資家向けプラン（Institutional Alpha Terminal / API・複数席契約）</span>
+          <span style="font-size:0.78rem; color:var(--accent-sky);">詳細を開く ▾</span>
+        </summary>
+        <div style="margin-top:12px; padding-top:12px; border-top:1px solid var(--border-color); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+          <div style="font-size:0.83rem; color:var(--text-muted); line-height:1.55; flex:1; min-width:240px;">
+            <strong>Institutional Alpha Terminal:</strong> クオンツファンド・投資顧問向けのフルREST &amp; WebSocket API、SEC 10-Kフォレンジック警告、最大5シート法人インボイス（適格請求書）対応。
+          </div>
+          <a href="mailto:beable9489@gmail.com" class="btn-checkout btn-checkout-secondary" style="padding:10px 18px; font-size:0.84rem; white-space:nowrap;">📧 法人プランお問い合わせ (beable9489@gmail.com) →</a>
+        </div>
+      </details>
     </div>
   </section>
 
@@ -2774,25 +2795,41 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
     </div>
   </div>
 
-  <!-- VIP ライセンスキー即時認証モーダル (#gbVipLicenseModal) -->
+  <!-- VIP 1タップ決済 ＆ ライセンスキー復元モーダル (#gbVipLicenseModal) -->
   <div id="gbVipLicenseModal" style="display:none; position:fixed; inset:0; z-index:10001; background:rgba(6,5,12,0.82); backdrop-filter:blur(6px); align-items:center; justify-content:center; padding:16px;" onclick="if(event.target===this) closeGbVipLicenseModal();">
-    <div style="background:#0e0b1a; border:2px solid #f59e0b; border-radius:16px; max-width:480px; width:100%; padding:22px 20px; color:#f8fafc; box-shadow:0 24px 64px rgba(0,0,0,0.75);">
+    <div style="background:#0e0b1a; border:2px solid #f59e0b; border-radius:16px; max-width:520px; width:100%; padding:22px 20px; color:#f8fafc; box-shadow:0 24px 64px rgba(0,0,0,0.75);">
       <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #241d3d; padding-bottom:10px; margin-bottom:14px; gap:8px;">
-        <h3 style="font-size:1.05rem; font-weight:900; color:#fde68a; margin:0;">🔑 Pro / VIP ライセンスキー認証</h3>
-        <button type="button" id="btnCloseVipLicenseModal" onclick="closeGbVipLicenseModal()" style="background:#1d1636; border:1px solid #4c3785; color:#fff; border-radius:8px; min-height:38px; padding:4px 12px; cursor:pointer; font-weight:800; white-space:nowrap;">✕ 閉じる</button>
+        <h3 style="font-size:1.08rem; font-weight:900; color:#fde68a; margin:0;">👑 1タップでVIP全機能を即時アンロック</h3>
+        <button type="button" id="btnCloseVipLicenseModal" onclick="closeGbVipLicenseModal()" style="background:#1d1636; border:1px solid #4c3785; color:#fff; border-radius:8px; min-height:40px; padding:4px 12px; cursor:pointer; font-weight:800; white-space:nowrap;">✕ 閉じる</button>
       </div>
-      <p style="font-size:0.83rem; color:#cbd5e1; line-height:1.55; margin-bottom:12px;">
-        Lemon Squeezy 決済完了メールに記載されたライセンスキーを入力すると、当ページおよび <code>/jp/</code> 全ページの <strong>Web VIP Vault</strong> が一括解放されます。
-      </p>
-      <div style="display:flex; flex-direction:column; gap:8px;">
-        <input type="text" id="gbModalLicenseKeyInput" placeholder="ライセンスキー (XXXX-XXXX-XXXX-XXXX)" style="background:#090612; border:1px solid #6d28d9; color:#fff; padding:10px 12px; border-radius:8px; font-family:var(--font-mono); font-size:0.84rem; width:100%;">
-        <button type="button" id="btnModalVipSubmit" onclick="submitGbVipLicenseModal()" class="btn-checkout btn-checkout-primary" style="border:none; cursor:pointer; min-height:44px; font-size:0.88rem;">🔑 ライセンスキーを認証してVIP解放</button>
+      <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:12px;">
+        <a href="https://truthofmarket.lemonsqueezy.com/checkout/buy/667aa482-f17c-47d1-b7f3-a2427c36516b?embed=1&amp;checkout[redirect_url]=https://getbreakai.com/confirmation.html&amp;locale=ja" onclick="closeGbVipLicenseModal();" data-ls-product-uuid="667aa482-f17c-47d1-b7f3-a2427c36516b" class="btn-checkout btn-checkout-primary lemonsqueezy-button" style="min-height:64px; font-size:1.02rem; font-weight:900; border-radius:12px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; text-decoration:none;">
+          <span>👑 年間VIPパス $199/年 (43%OFF・一番人気)</span>
+          <span style="font-size:0.75rem; font-weight:700; opacity:0.95;">約29,800円/年 · 決済完了と同時に自動ロック解除</span>
+        </a>
+        <a href="https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8?embed=1&amp;checkout[redirect_url]=https://getbreakai.com/confirmation.html&amp;locale=ja" onclick="closeGbVipLicenseModal();" data-ls-product-uuid="d5e7e761-8b1b-4ca8-b1fe-771acd1450f8" class="btn-checkout btn-checkout-secondary lemonsqueezy-button" style="min-height:62px; font-size:1rem; font-weight:900; border-radius:12px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; text-decoration:none; background:#1e1b4b; color:#f8fafc; border:1.5px solid #6366f1;">
+          <span>⚡ 月額Proプラン $29/月</span>
+          <span style="font-size:0.74rem; font-weight:700; color:#cbd5e1;">約4,400円・税込 · いつでも1クリック解約</span>
+        </a>
+        <div style="text-align:center; font-size:0.78rem; color:#fde68a; font-weight:800;">
+          🍎 Apple Pay・Google Pay・カード対応 / いつでも1クリック解約
+        </div>
       </div>
-      <div id="gbModalVipStatus" style="display:none; margin-top:10px; padding:9px 12px; border-radius:8px; font-size:0.78rem; font-family:var(--font-mono);"></div>
-      <div style="margin-top:12px; padding-top:10px; border-top:1px solid #241d3d; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; font-size:0.78rem;">
-        <span style="color:#94a3b8;">まだキーをお持ちでない方:</span>
-        <a href="#pricing" onclick="closeGbVipLicenseModal();" style="color:#fde68a; font-weight:800; text-decoration:underline;">💎 Proプラン ($29/月・$199/年) を見る →</a>
-      </div>
+      <details id="gbModalLicenseRestoreDetails" style="margin-top:10px; padding-top:10px; border-top:1px solid #241d3d;">
+        <summary style="cursor:pointer; font-size:0.82rem; font-weight:800; color:#cbd5e1; list-style:none;">
+          🔑 既に購入済み・機種変更でのライセンスキー復元はこちら ▾
+        </summary>
+        <div style="margin-top:10px;">
+          <p style="font-size:0.78rem; color:#94a3b8; line-height:1.5; margin-bottom:8px;">
+            Lemon Squeezy 決済完了メールに記載されたライセンスキーを入力すると、当ページおよび <code>/jp/</code> 全ページの <strong>Web VIP Vault</strong> が一括解放されます。
+          </p>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <input type="text" id="gbModalLicenseKeyInput" placeholder="ライセンスキー (XXXX-XXXX-XXXX-XXXX)" style="background:#090612; border:1px solid #6d28d9; color:#fff; padding:10px 12px; border-radius:8px; font-family:var(--font-mono); font-size:0.84rem; width:100%;">
+            <button type="button" id="btnModalVipSubmit" onclick="submitGbVipLicenseModal()" class="btn-checkout btn-checkout-primary" style="border:none; cursor:pointer; min-height:48px; font-size:0.9rem;">🔑 ライセンスキーを認証してVIP解放</button>
+          </div>
+          <div id="gbModalVipStatus" style="display:none; margin-top:10px; padding:9px 12px; border-radius:8px; font-size:0.78rem; font-family:var(--font-mono);"></div>
+        </div>
+      </details>
     </div>
   </div>
 
@@ -4203,7 +4240,15 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
       });
       document.addEventListener('click', function(e) {
         const btn = e.target && e.target.closest ? e.target.closest('.lemonsqueezy-button') : null;
-        if (btn) bindGbLemonSqueezyCheckout();
+        if (!btn) return;
+        bindGbLemonSqueezyCheckout();
+        const href = btn.getAttribute('href') || '';
+        if (href && href.indexOf('lemonsqueezy.com/checkout') !== -1 && !e.ctrlKey && !e.shiftKey) {
+          if (window.LemonSqueezy && window.LemonSqueezy.Url && typeof window.LemonSqueezy.Url.Open === 'function') {
+            e.preventDefault();
+            window.LemonSqueezy.Url.Open(href);
+          }
+        }
       }, true);
     }
     window.addEventListener('DOMContentLoaded', bindGbLemonSqueezyCheckout);

@@ -9,8 +9,8 @@
 const crypto = require('crypto');
 
 const CHECKOUT_URLS = {
-  monthly: 'https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html',
-  annual: 'https://truthofmarket.lemonsqueezy.com/checkout/buy/667aa482-f17c-47d1-b7f3-a2427c36516b?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html',
+  monthly: 'https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html&locale=ja',
+  annual: 'https://truthofmarket.lemonsqueezy.com/checkout/buy/667aa482-f17c-47d1-b7f3-a2427c36516b?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html&locale=ja',
   enterprise: 'mailto:beable9489@gmail.com'
 };
 
@@ -100,6 +100,7 @@ function createCheckoutUrl(planKey, options = {}) {
   if (options.embed !== false) {
     url.searchParams.set('embed', '1');
   }
+  url.searchParams.set('locale', options.locale || 'ja');
   const redirectUrl = options.redirectUrl !== undefined ? options.redirectUrl : 'https://getbreakai.com/confirmation.html';
   if (redirectUrl) {
     url.searchParams.set('checkout[redirect_url]', redirectUrl);

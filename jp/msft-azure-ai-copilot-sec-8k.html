@@ -85,14 +85,62 @@
   (function(){
     try {
       if (typeof window === 'undefined' || typeof navigator === 'undefined') return;
+      var kst = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
+      var ns = 'gba_getbreakai';
+      window.__gbaSubmitJpSignup = function(ev, formEl, tickerLabel) {
+        if (ev && ev.preventDefault) ev.preventDefault();
+        var input = formEl ? formEl.querySelector('input[type="email"]') : null;
+        var email = input ? String(input.value || '').trim() : '';
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          if (input) input.focus();
+          return false;
+        }
+        try {
+          localStorage.setItem('gba_jp_free_email', email);
+          localStorage.setItem('gba_jp_free_since', kst);
+          var dedupeKey = 'hq_signup_' + ns + '_' + kst + '_' + email.toLowerCase();
+          var ua = navigator.userAgent || '';
+          var host = (location && location.hostname) || '';
+          var isHumanLive = !navigator.webdriver && !/bot|crawl|spider|slurp|headless|python|curl|node/i.test(ua) && host && host !== 'localhost' && host !== '127.0.0.1';
+          if (localStorage.getItem(dedupeKey) !== '1') {
+            localStorage.setItem(dedupeKey, '1');
+            if (isHumanLive) {
+              fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/signup_' + kst, { mode: 'cors', keepalive: true }).catch(function(){});
+              fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/signup_total', { mode: 'cors', keepalive: true }).catch(function(){});
+            }
+          }
+        } catch (_e) {}
+        document.querySelectorAll('.gba-jp-signup-status').forEach(function(el) {
+          el.style.display = 'block';
+          el.innerHTML = '✅ <strong>無料登録が完了しました！</strong> 毎朝8時の「新NISA 3色シグナル＆安全撤退ライン速報」を <strong>' + email.replace(/[<>&"]/g, '') + '</strong> 宛にお届けします（' + String(tickerLabel || '').replace(/[<>&"]/g, '') + '）。';
+        });
+        document.querySelectorAll('.gba-jp-signup-form input[type="email"]').forEach(function(inp) { inp.value = email; });
+        return false;
+      };
+      document.addEventListener('DOMContentLoaded', function() {
+        try {
+          var saved = localStorage.getItem('gba_jp_free_email');
+          if (saved) {
+            document.querySelectorAll('.gba-jp-signup-form input[type="email"]').forEach(function(inp) { inp.value = saved; });
+          }
+        } catch (_e2) {}
+      });
+      if (window.__HQ_KPI_GBA__) return;
+      window.__HQ_KPI_GBA__ = true;
       var ua = navigator.userAgent || '';
       if (navigator.webdriver || /bot|crawl|spider|slurp|headless|python|curl|node/i.test(ua)) return;
       var host = (location && location.hostname) || '';
       if (!host || host === 'localhost' || host === '127.0.0.1') return;
-      var kst = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
-      var ns = 'gba_getbreakai';
       fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/pv_' + kst, { mode: 'cors', keepalive: true }).catch(function(){});
       fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/pv_total', { mode: 'cors', keepalive: true }).catch(function(){});
+      if (localStorage.getItem('hq_uv_' + ns + '_' + kst) !== '1') {
+        localStorage.setItem('hq_uv_' + ns + '_' + kst, '1');
+        fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/uv_' + kst, { mode: 'cors', keepalive: true }).catch(function(){});
+      }
+      if (localStorage.getItem('hq_uv_ever_' + ns) !== '1') {
+        localStorage.setItem('hq_uv_ever_' + ns, '1');
+        fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/uv_total', { mode: 'cors', keepalive: true }).catch(function(){});
+      }
       document.addEventListener('click', function(e) {
         var el = e.target && e.target.closest ? e.target.closest('a, button') : null;
         if (!el) return;
@@ -278,9 +326,40 @@
       <p style="font-size:1.02rem; font-weight:800; color:#1e3a8a; margin-bottom:14px;">
         ⚡ 新NISAの塩漬け損を防ぐため、あなたの資金に合う適正株数と撤退ラインを3秒で無料診断します。
       </p>
-      <div style="background:#ecfdf5; border:1px solid rgba(16,185,129,0.45); border-radius:10px; padding:14px 16px; margin-bottom:22px; color:#065f46; font-weight:700; font-size:0.93rem; line-height:1.65;">
+      <div style="background:#ecfdf5; border:1px solid rgba(16,185,129,0.45); border-radius:10px; padding:14px 16px; margin-bottom:22px; color:#065f46; font-weight:700; font-size:1.05rem; line-height:1.65;">
         🟢 【AI機関投資家シグナル】マイクロソフト(MSFT) は AIカタリストスコア 88.5/100（クラウドAI増収ガイダンス ＆ 機関コア保有）を記録。$50,000（約750万円）口座での推奨購入株数は 24株（約188.6万円）、2.0x ATR損切りラインは $493.48、2.5R利確ターゲットは $599.88 です。
       </div>
+
+      <!-- 上部：50〜70代・新NISA投資家向け 1項目・無料朝刊3色シグナル登録＆1タップ決済 -->
+      <section id="gba-jp-lead-top" style="margin:20px 0 26px; padding:22px; background:linear-gradient(135deg,#ecfdf5 0%,#eff6ff 100%); border:2.5px solid #059669; border-radius:16px; box-shadow:0 8px 22px rgba(5,150,105,0.10);">
+        <div style="display:inline-block; background:#065f46; color:#ffffff; font-size:0.9rem; font-weight:800; padding:5px 14px; border-radius:999px; margin-bottom:10px;">
+          🟢 現在の判定：買い検討・安全管理 ｜ 毎朝8時の無料3色シグナル
+        </div>
+        <h2 style="margin:0 0 8px !important; background:transparent !important; border:none !important; padding:0 !important; font-size:1.38rem; line-height:1.4; color:#0b1f3a !important;">
+          新NISAの塩漬けを防ぐ！マイクロソフト(MSFT)の「3色シグナル＆安全撤退ライン」無料メール登録
+        </h2>
+        <p style="margin:0 0 14px; font-size:1.08rem; line-height:1.65; color:#1e293b !important;">
+          難しい専門用語は不要です。メールアドレス1つ（10秒）で、毎朝8時に<strong>🟢買い検討・🟡様子見・🔴危険撤退</strong>と安全撤退ライン（$493.48）を無料でお届けします。
+        </p>
+        <form class="gba-jp-signup-form" onsubmit="return window.__gbaSubmitJpSignup(event, this, 'MSFT');" style="display:flex; flex-wrap:wrap; gap:10px; align-items:stretch;">
+          <input type="email" required autocomplete="email" placeholder="メールアドレスを入力（例: yamada@yahoo.co.jp）" style="flex:1 1 260px; min-height:58px; padding:12px 16px; font-size:1.08rem; font-weight:700; border-radius:12px; border:2px solid #64748b; background:#ffffff; color:#0f172a;" />
+          <button type="submit" style="min-height:58px; padding:12px 24px; font-size:1.08rem; font-weight:900; border-radius:12px; border:none; background:#059669; color:#ffffff; cursor:pointer; white-space:nowrap;">
+            📩 無料で毎朝の3色シグナルを受け取る →
+          </button>
+        </form>
+        <div class="gba-jp-signup-status" role="status" aria-live="polite" style="display:none; margin-top:12px; padding:12px 14px; border-radius:10px; background:#d1fae5; color:#065f46; font-size:1.05rem; font-weight:800;"></div>
+        <div style="margin-top:14px; padding-top:12px; border-top:1px solid #a7f3d0; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:10px;">
+          <span style="font-size:0.98rem; font-weight:800; color:#0f172a;">💳 今すぐ全銘柄の売買ラインを解放（Apple Pay・JCB・カード1タップ決済）：</span>
+          <div style="display:flex; flex-wrap:wrap; gap:10px;">
+            <a href="https://truthofmarket.lemonsqueezy.com/checkout/custom/f31a6c6c-6b09-409a-beaf-dd19a9eb2af9?signature=15f2b96765f5dfbce4def1891a4a99653a83e23f714b6f13a95d7134ee2041fe&amp;embed=1" data-ls-product-uuid="d5e7e761-8b1b-4ca8-b1fe-771acd1450f8" class="lemonsqueezy-button" style="display:inline-flex; align-items:center; justify-content:center; min-height:54px; padding:10px 18px; border-radius:10px; background:#1d4ed8; color:#ffffff !important; font-size:1rem; font-weight:900; text-decoration:none;">
+              🔓 月額Proを1タップ解放 ($29/月)
+            </a>
+            <a href="https://truthofmarket.lemonsqueezy.com/checkout/custom/19d14007-55e9-42e2-9f61-2dc3b75ac9b4?signature=a03c2e7ef03e726cc279e9b6978e3cfa0eb9edc82058f1068685d1171693f8ce&amp;embed=1" data-ls-product-uuid="667aa482-f17c-47d1-b7f3-a2427c36516b" class="lemonsqueezy-button" style="display:inline-flex; align-items:center; justify-content:center; min-height:54px; padding:10px 18px; border-radius:10px; background:#d97706; color:#ffffff !important; font-size:1rem; font-weight:900; text-decoration:none;">
+              💎 年間VIPパス 43%OFF ($199/年)
+            </a>
+          </div>
+        </div>
+      </section>
 
       <div class="kpi-grid">
         <div class="kpi-card">
@@ -288,15 +367,15 @@
           <div class="kpi-val" style="color:#0b1f3a;">$523.88 <span style="font-size:0.8rem; color:#475569; font-weight:700;">(約¥78,582)</span></div>
         </div>
         <div class="kpi-card">
-          <div class="kpi-label">AIカタリスト総合スコア</div>
+          <div class="kpi-label">AI総合安全スコア</div>
           <div class="kpi-val" style="color:#1d4ed8;">88.5 / 100</div>
         </div>
         <div class="kpi-card">
-          <div class="kpi-label">2.0x ATR損切りライン</div>
+          <div class="kpi-label">安全撤退ライン (2.0x ATR損切り)</div>
           <div class="kpi-val" style="color:var(--accent-rose);">$493.48 <span style="font-size:0.78rem;">(-$30.40)</span></div>
         </div>
         <div class="kpi-card">
-          <div class="kpi-label">2.5R 利確ターゲット</div>
+          <div class="kpi-label">目標利益ライン (2.5R利確目安)</div>
           <div class="kpi-val" style="color:var(--accent-emerald);">$599.88</div>
         </div>
       </div>
@@ -371,17 +450,28 @@
         さらに勝率と資金効率を高めるために、1〜15日間のイベント・ガンマスクイーズ・ATR損切りを管理する当サイト <strong>GetBreakAI.com</strong> と、30〜90日間の半導体セクター恐怖強欲指数および米国株72銘柄のPW-RSI（出来高加重RSI）底値反転を捉える姉妹ターミナル <a href="https://truthofmarket.com/?utm_source=getbreakai_jp_seo&utm_medium=msft-azure-ai-copilot-sec-8k.html" target="_blank" rel="noopener" style="color:var(--accent-sky); font-weight:700;">TruthOfMarket.com</a> を併用してください。<strong>Store #296100で発行されるProライセンスキー（月額 $29/月＝約4,400円、または年間VIPパス $199/年＝43%OFF・約29,800円/年）1つで、両方のサイトのWeb VIP Vault機能がすべてアンロックされます。</strong>
       </p>
 
-      <div style="margin-top:32px; padding:24px; background:#eff6ff; border:2px solid #1d4ed8; border-radius:14px; text-align:center;">
-        <h3 style="margin-top:0; color:#0b1f3a;">🚀 今すぐ マイクロソフト(MSFT) の無料3秒シミュレーション＆VIP全機能を即時解放</h3>
-        <p style="margin-bottom:16px; color:#334155;">1つのProキーで GetBreakAI.com と TruthOfMarket.com の両VIP機能（Pine Script v5全文・Form-4役員自社株買いCSV・全銘柄オーダーブック）を即時アンロックできます。</p>
-        <div style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-bottom:14px;">
-          <a href="https://getbreakai.com/?ticker=NVDA#radar" class="btn-cta btn-cta-lg">📊 無料3秒ターミナルを開く（$MSFT） →</a>
-          <a href="https://truthofmarket.lemonsqueezy.com/checkout/custom/f31a6c6c-6b09-409a-beaf-dd19a9eb2af9?signature=15f2b96765f5dfbce4def1891a4a99653a83e23f714b6f13a95d7134ee2041fe&amp;embed=1" data-ls-product-uuid="d5e7e761-8b1b-4ca8-b1fe-771acd1450f8" class="lemonsqueezy-button btn-cta btn-cta-lg" style="background:linear-gradient(135deg,#059669,#047857);">🔓 Monthly Pro を解放 ($29/月)</a>
-          <a href="https://truthofmarket.lemonsqueezy.com/checkout/custom/19d14007-55e9-42e2-9f61-2dc3b75ac9b4?signature=a03c2e7ef03e726cc279e9b6978e3cfa0eb9edc82058f1068685d1171693f8ce&amp;embed=1" data-ls-product-uuid="667aa482-f17c-47d1-b7f3-a2427c36516b" class="lemonsqueezy-button btn-cta btn-cta-lg" style="background:linear-gradient(135deg,#d97706,#b45309);">💎 Annual Pro VIP 43%OFF ($199/年)</a>
-        </div>
-        <div style="font-size:0.8rem; color:#475569; line-height:1.6;">
-          🔒 Stripe / Lemon Squeezy 安全決済（Apple Pay・Google Pay・JCB・Visa・Master 対応 / いつでも1クリック解約）<br>
-          🏛️ 法人・金融メディア・クオンツAPIデータ提携デスク: <a href="mailto:beable9489@gmail.com?subject=GetBreakAI%20Japan%20B2B%20API%20%26%20Media%20Inquiry" style="color:#1d4ed8; font-weight:800;">beable9489@gmail.com</a>
+      <!-- 下部：無料朝刊3色シグナル登録＆1タップ日本語決済ボックス -->
+      <div id="gba-jp-lead-bottom" style="margin-top:32px; padding:24px; background:linear-gradient(135deg,#ecfdf5 0%,#eff6ff 100%); border:2.5px solid #059669; border-radius:16px;">
+        <h3 style="margin-top:0; font-size:1.32rem; color:#0b1f3a !important;">📩 まずは無料メール登録（10秒）：毎朝8時の「新NISA 3色シグナル＆安全撤退ライン」</h3>
+        <p style="margin-bottom:14px; font-size:1.06rem; color:#1e293b !important;">クレジットカード不要・いつでも1クリック解除可能。マイクロソフト(MSFT) のトレンド変化と撤退ラインを毎朝日本語でお届けします。</p>
+        <form class="gba-jp-signup-form" onsubmit="return window.__gbaSubmitJpSignup(event, this, 'MSFT');" style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:14px;">
+          <input type="email" required autocomplete="email" placeholder="メールアドレスを入力（例: yamada@yahoo.co.jp）" style="flex:1 1 260px; min-height:58px; padding:12px 16px; font-size:1.08rem; font-weight:700; border-radius:12px; border:2px solid #64748b; background:#ffffff; color:#0f172a;" />
+          <button type="submit" style="min-height:58px; padding:12px 24px; font-size:1.08rem; font-weight:900; border-radius:12px; border:none; background:#059669; color:#ffffff; cursor:pointer;">
+            📩 無料メール会員に登録する →
+          </button>
+        </form>
+        <div class="gba-jp-signup-status" role="status" aria-live="polite" style="display:none; margin-bottom:14px; padding:12px 14px; border-radius:10px; background:#d1fae5; color:#065f46; font-size:1.05rem; font-weight:800;"></div>
+        <div style="padding-top:14px; border-top:1px solid #93c5fd; text-align:center;">
+          <div style="font-size:1rem; font-weight:800; color:#0b1f3a; margin-bottom:10px;">🚀 今すぐ マイクロソフト(MSFT) のVIP全機能・全銘柄シグナルを1タップ即時解放：</div>
+          <div style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-bottom:12px;">
+            <a href="https://getbreakai.com/?ticker=NVDA#radar" class="btn-cta btn-cta-lg" style="min-height:56px; display:inline-flex; align-items:center;">📊 無料3秒計算機を開く（$MSFT） →</a>
+            <a href="https://truthofmarket.lemonsqueezy.com/checkout/custom/f31a6c6c-6b09-409a-beaf-dd19a9eb2af9?signature=15f2b96765f5dfbce4def1891a4a99653a83e23f714b6f13a95d7134ee2041fe&amp;embed=1" data-ls-product-uuid="d5e7e761-8b1b-4ca8-b1fe-771acd1450f8" class="lemonsqueezy-button btn-cta btn-cta-lg" style="min-height:56px; display:inline-flex; align-items:center; background:linear-gradient(135deg,#059669,#047857);">🔓 月額Pro 1タップ決済 ($29/月)</a>
+            <a href="https://truthofmarket.lemonsqueezy.com/checkout/custom/19d14007-55e9-42e2-9f61-2dc3b75ac9b4?signature=a03c2e7ef03e726cc279e9b6978e3cfa0eb9edc82058f1068685d1171693f8ce&amp;embed=1" data-ls-product-uuid="667aa482-f17c-47d1-b7f3-a2427c36516b" class="lemonsqueezy-button btn-cta btn-cta-lg" style="min-height:56px; display:inline-flex; align-items:center; background:linear-gradient(135deg,#d97706,#b45309);">💎 年間VIP 43%OFF ($199/年)</a>
+          </div>
+          <div style="font-size:0.86rem; color:#475569; line-height:1.6;">
+            🔒 Stripe / Lemon Squeezy 日本語安全決済（Apple Pay・Google Pay・JCB・Visa・Master 対応 / いつでも1クリック解約）<br>
+            🏛️ 法人・金融メディア・クオンツAPIデータ提携デスク: <a href="mailto:beable9489@gmail.com?subject=GetBreakAI%20Japan%20B2B%20API%20%26%20Media%20Inquiry" style="color:#1d4ed8; font-weight:800;">beable9489@gmail.com</a>
+          </div>
         </div>
       </div>
 

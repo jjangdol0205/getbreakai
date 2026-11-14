@@ -52,7 +52,11 @@ def load_snapshot():
 
 def build_rss_feeds(date_str, outbox_dir, snap):
     os.makedirs(JP_DIR, exist_ok=True)
-    now_rfc822 = datetime.datetime.now(datetime.timezone.utc).strftime("%a, %d %b %Y %H:%M:%S GMT")
+    try:
+        day_dt = datetime.datetime.strptime(str(date_str)[:10], "%Y-%m-%d").replace(tzinfo=datetime.timezone.utc)
+    except Exception:
+        day_dt = datetime.datetime.now(datetime.timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0)
+    now_rfc822 = day_dt.strftime("%a, %d %b %Y 00:00:00 GMT")
 
     # 1. Build /jp/x-feed.xml from x_posts_10.json
     x_posts_path = os.path.join(outbox_dir, "x_posts_10.json") if outbox_dir else None

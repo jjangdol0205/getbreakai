@@ -70,6 +70,6 @@ jobs:
           if git diff --staged --quiet; then
             echo "No changes to commit."
           else
-            git commit -m "chore(autopilot): daily US market EOD sync, 30 JP SEO pages & X/Shorts outbox"
+            git commit -m "chore(autopilot): daily US market EOD sync, 30 JP SEO pages & X/Shorts outbox [skip render]"
             git push origin HEAD:main
           fi

@@ -127,6 +127,71 @@ def generate_daily_jp_column() -> str:
   <meta property="og:url" content="{canonical_url}" />
   <script type="application/ld+json">{ld_json}</script>
   <script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
+  <script>
+  (function(){{
+    try {{
+      if (typeof window === 'undefined' || typeof navigator === 'undefined') return;
+      var kst = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
+      var ns = 'gba_getbreakai';
+      window.__gbaSubmitJpSignup = function(ev, formEl, tickerLabel) {{
+        if (ev && ev.preventDefault) ev.preventDefault();
+        var input = formEl ? formEl.querySelector('input[type="email"]') : null;
+        var email = input ? String(input.value || '').trim() : '';
+        if (!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)) {{
+          if (input) input.focus();
+          return false;
+        }}
+        try {{
+          localStorage.setItem('gba_jp_free_email', email);
+          localStorage.setItem('gba_jp_free_since', kst);
+          var dedupeKey = 'hq_signup_' + ns + '_' + kst + '_' + email.toLowerCase();
+          var ua = navigator.userAgent || '';
+          var host = (location && location.hostname) || '';
+          var isHumanLive = !navigator.webdriver && !/bot|crawl|spider|slurp|headless|python|curl|node/i.test(ua) && host && host !== 'localhost' && host !== '127.0.0.1';
+          if (localStorage.getItem(dedupeKey) !== '1') {{
+            localStorage.setItem(dedupeKey, '1');
+            if (isHumanLive) {{
+              fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/signup_' + kst, {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
+              fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/signup_total', {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
+            }}
+          }}
+        }} catch (_e) {{}}
+        document.querySelectorAll('.gba-jp-signup-status').forEach(function(el) {{
+          el.style.display = 'block';
+          el.innerHTML = '✅ <strong>無料登録が完了しました！</strong> 毎朝8時の「新NISA 3色シグナル＆安全撤退ライン速報」を <strong>' + email.replace(/[<>&"]/g, '') + '</strong> 宛にお届けします。';
+        }});
+        document.querySelectorAll('.gba-jp-signup-form input[type="email"]').forEach(function(inp) {{ inp.value = email; }});
+        return false;
+      }};
+      if (window.__HQ_KPI_GBA__) return;
+      window.__HQ_KPI_GBA__ = true;
+      var ua = navigator.userAgent || '';
+      if (navigator.webdriver || /bot|crawl|spider|slurp|headless|python|curl|node/i.test(ua)) return;
+      var host = (location && location.hostname) || '';
+      if (!host || host === 'localhost' || host === '127.0.0.1') return;
+      fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/pv_' + kst, {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
+      fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/pv_total', {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
+      if (localStorage.getItem('hq_uv_' + ns + '_' + kst) !== '1') {{
+        localStorage.setItem('hq_uv_' + ns + '_' + kst, '1');
+        fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/uv_' + kst, {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
+      }}
+      if (localStorage.getItem('hq_uv_ever_' + ns) !== '1') {{
+        localStorage.setItem('hq_uv_ever_' + ns, '1');
+        fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/uv_total', {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
+      }}
+      document.addEventListener('click', function(e) {{
+        var el = e.target && e.target.closest ? e.target.closest('a, button') : null;
+        if (!el) return;
+        var href = (el.getAttribute('href') || '').toLowerCase();
+        var txt = (el.innerText || el.textContent || '').toLowerCase();
+        if (href.indexOf('lemonsqueezy.com') !== -1 || /\\$29|\\$199|pro|vip/.test(txt)) {{
+          fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_click_' + kst, {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
+          fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_click_total', {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
+        }}
+      }}, true);
+    }} catch (e) {{}}
+  }})();
+  </script>
   <style>
     body {{ margin:0; font-family:'Noto Sans JP',-apple-system,BlinkMacSystemFont,sans-serif; background:#090d16; color:#e2e8f0; line-height:1.8; }}
     a {{ color:#38bdf8; text-decoration:none; }}
@@ -157,15 +222,31 @@ def generate_daily_jp_column() -> str:
   <main class="wrap">
     <span class="tag">新NISA・特定口座 対応クオンツ日報 · {today_iso}</span>
     <h1>{html.escape(title)}</h1>
-    <p style="color:#94a3b8;font-size:0.9rem;">為替参照レート: 1ドル = {usdjpy:.1f}円 · 口座資金100万円（1トレード許容リスク1.5% = 15,000円）基準</p>
+    <p style="color:#94a3b8;font-size:1.02rem;">為替参照レート: 1ドル = {usdjpy:.1f}円 · 口座資金100万円（1トレード許容リスク1.5% = 15,000円）基準</p>
+
+    <section id="gba-daily-lead-top" class="cta" style="margin:1.4rem 0;">
+      <div style="font-size:0.9rem;font-weight:800;color:#6ee7b7;margin-bottom:0.4rem;">🟢買い検討 ・ 🟡様子見 ・ 🔴危険撤退 ｜ 毎朝8時の無料3色シグナル</div>
+      <h2 style="margin:0 0 0.5rem;border:none;padding:0;font-size:1.35rem;color:#ffffff;">新NISAの塩漬けを防ぐ！毎朝8時の「3色シグナル＆安全撤退ライン」無料メール登録</h2>
+      <p style="margin:0 0 0.9rem;color:#e2e8f0;font-size:1.05rem;">メールアドレス1つ（10秒）で、NVDA・PLTR・TSLA等の安全撤退ラインと3色判定を毎朝無料でお届けします。</p>
+      <form class="gba-jp-signup-form" onsubmit="return window.__gbaSubmitJpSignup(event, this, 'NISA_DAILY');" style="display:flex;flex-wrap:wrap;gap:0.65rem;">
+        <input type="email" required autocomplete="email" placeholder="メールアドレスを入力（例: yamada@yahoo.co.jp）" style="flex:1 1 250px;min-height:56px;padding:10px 16px;font-size:1.05rem;font-weight:700;border-radius:10px;border:2px solid #64748b;background:#ffffff;color:#0f172a;" />
+        <button type="submit" style="min-height:56px;padding:10px 22px;font-size:1.05rem;font-weight:900;border-radius:10px;border:none;background:#10b981;color:#042f2e;cursor:pointer;">📩 無料で毎朝の3色シグナルを受け取る →</button>
+      </form>
+      <div class="gba-jp-signup-status" role="status" aria-live="polite" style="display:none;margin-top:0.75rem;padding:0.7rem 0.9rem;border-radius:8px;background:#064e3b;color:#a7f3d0;font-size:1.02rem;font-weight:700;"></div>
+      <div class="btns" style="margin-top:0.95rem;padding-top:0.85rem;border-top:1px solid rgba(148,163,184,0.25);align-items:center;">
+        <span style="font-size:0.95rem;font-weight:700;color:#e2e8f0;">💳 今すぐ全銘柄VIPラインを1タップ決済（Apple Pay・JCB対応）：</span>
+        <a class="btn btn-vip lemonsqueezy-button" style="min-height:52px;display:inline-flex;align-items:center;" data-ls-product-uuid="d5e7e761-8b1b-4ca8-b1fe-771acd1450f8" href="{LS_MONTHLY}">🔓 月額VIPプラン ($29/月)</a>
+        <a class="btn btn-annual lemonsqueezy-button" style="min-height:52px;display:inline-flex;align-items:center;" data-ls-product-uuid="667aa482-f17c-47d1-b7f3-a2427c36516b" href="{LS_ANNUAL}">💎 年間VIPパス ($199/年)</a>
+      </div>
+    </section>
 
     <h2>1. なぜ新NISA成長投資枠での「感覚ナンピン」が最も危険なのか</h2>
-    <p>特定口座（源泉徴収あり・税率20.315%）であれば実現損失を他銘柄の譲渡益や配当と損益通算できますが、新NISA枠で発生した含み損は一切損益通算できません。つまり新NISAで下落トレンド銘柄を塩漬けにすると、非課税枠そのものを死蔵させる二重の機会損失が発生します。</p>
+    <p style="font-size:1.06rem;">特定口座（源泉徴収あり・税率20.315%）であれば実現損失を他銘柄の譲渡益や配当と損益通算できますが、新NISA枠で発生した含み損は一切損益通算できません。つまり新NISAで下落トレンド銘柄を塩漬けにすると、非課税枠そのものを死蔵させる二重の機会損失が発生します。</p>
 
-    <h2>2. 米国主力株 2.0倍ATR防衛ライン＆適正株数一覧 ({today_iso})</h2>
+    <h2>2. 米国主力株 安全撤退ライン（2.0倍ATR逆指値）＆適正株数一覧 ({today_iso})</h2>
     <table>
       <thead>
-        <tr><th>銘柄</th><th>直近終値</th><th>14日ATR</th><th>2.0x ATR逆指値</th><th>2.5R利確目安</th><th>100万円口座適正株数</th></tr>
+        <tr><th>銘柄</th><th>直近終値</th><th>14日ATR</th><th>安全撤退ライン(2.0x ATR)</th><th>目標利益ライン(2.5R)</th><th>100万円口座適正株数</th></tr>
       </thead>
       <tbody>
         {table_rows_html}
@@ -173,15 +254,20 @@ def generate_daily_jp_column() -> str:
     </table>
 
     <h2>3. 新NISA（非課税0%）vs 特定口座（20.315%）の純利益インパクト</h2>
-    <p>例えば30万円相当のポジションで+40%（+12万円）のブレイクアウト利益を確定した場合、特定口座では24,378円が源泉徴収され手取りは95,622円となりますが、新NISA成長投資枠なら120,000円がまるごと手元に残ります。機関投資家の出来高ブレイクを確認してからエントリーし、逆行時は2.0倍ATRで機械的に撤退する規律こそが非課税メリットを最大化します。</p>
+    <p style="font-size:1.06rem;">例えば30万円相当のポジションで+40%（+12万円）のブレイクアウト利益を確定した場合、特定口座では24,378円が源泉徴収され手取りは95,622円となりますが、新NISA成長投資枠なら120,000円がまるごと手元に残ります。機関投資家の出来高ブレイクを確認してからエントリーし、逆行時は安全撤退ライン（2.0倍ATR）で機械的に撤退する規律こそが非課税メリットを最大化します。</p>
 
-    <section class="cta">
-      <h3 style="margin:0 0 0.4rem;color:#f8fafc;">あなたの口座資金（円・ドル）で今すぐ3秒無料診断</h3>
-      <p style="margin:0;color:#cbd5e1;font-size:0.95rem;">登録不要で主要銘柄の最適購入株数・2.0倍ATR逆指値・新NISA税引後手取り額をリアルタイム計算できます。</p>
+    <section id="gba-daily-lead-bottom" class="cta">
+      <h3 style="margin:0 0 0.5rem;color:#f8fafc;font-size:1.3rem;">📩 無料メール会員（登録10秒）＆ 1タップVIP決済</h3>
+      <p style="margin:0 0 0.9rem;color:#cbd5e1;font-size:1.04rem;">毎朝8時の3色シグナルと安全撤退ラインを無料メールで受け取るか、VIPプランで全銘柄リアルタイム価格を今すぐ解放できます。</p>
+      <form class="gba-jp-signup-form" onsubmit="return window.__gbaSubmitJpSignup(event, this, 'NISA_DAILY');" style="display:flex;flex-wrap:wrap;gap:0.65rem;margin-bottom:0.9rem;">
+        <input type="email" required autocomplete="email" placeholder="メールアドレスを入力（例: yamada@yahoo.co.jp）" style="flex:1 1 250px;min-height:56px;padding:10px 16px;font-size:1.05rem;font-weight:700;border-radius:10px;border:2px solid #64748b;background:#ffffff;color:#0f172a;" />
+        <button type="submit" style="min-height:56px;padding:10px 22px;font-size:1.05rem;font-weight:900;border-radius:10px;border:none;background:#10b981;color:#042f2e;cursor:pointer;">📩 無料メール登録 (10秒) →</button>
+      </form>
+      <div class="gba-jp-signup-status" role="status" aria-live="polite" style="display:none;margin-bottom:0.9rem;padding:0.7rem 0.9rem;border-radius:8px;background:#064e3b;color:#a7f3d0;font-size:1.02rem;font-weight:700;"></div>
       <div class="btns">
-        <a class="btn btn-primary" href="/jp/">無料3秒ポジション計算機を開く →</a>
-        <a class="btn btn-vip lemonsqueezy-button" data-ls-product-uuid="d5e7e761-8b1b-4ca8-b1fe-771acd1450f8" href="{LS_MONTHLY}">月額VIPプラン ($29/月)</a>
-        <a class="btn btn-annual lemonsqueezy-button" data-ls-product-uuid="667aa482-f17c-47d1-b7f3-a2427c36516b" href="{LS_ANNUAL}">年間VIPパス ($199/年)</a>
+        <a class="btn btn-primary" style="min-height:52px;display:inline-flex;align-items:center;" href="/jp/">無料3秒ポジション計算機を開く →</a>
+        <a class="btn btn-vip lemonsqueezy-button" style="min-height:52px;display:inline-flex;align-items:center;" data-ls-product-uuid="d5e7e761-8b1b-4ca8-b1fe-771acd1450f8" href="{LS_MONTHLY}">🔓 月額VIP 1タップ決済 ($29/月)</a>
+        <a class="btn btn-annual lemonsqueezy-button" style="min-height:52px;display:inline-flex;align-items:center;" data-ls-product-uuid="667aa482-f17c-47d1-b7f3-a2427c36516b" href="{LS_ANNUAL}">💎 年間VIPパス ($199/年)</a>
       </div>
     </section>
 

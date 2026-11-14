@@ -53,7 +53,8 @@ SEO_PAGES_SPEC = [
     },
     {
         "slug": "soxl-smh-semiconductor-timing.html",
-        "ticker": "NVDA",
+        "ticker": "SOXL",
+        "terminal_ticker": "NVDA",
         "jp_name": "SOXL・SMH (半導体ETF)",
         "title": "SOXL・SMH 半導体ETF3倍レバレッジのボラティリティ管理とATR撤退ルール",
         "title_short": "SOXL・SMH 半導体ETF 3倍レバレッジATR撤退ルール",
@@ -181,7 +182,8 @@ SEO_PAGES_SPEC = [
     },
     {
         "slug": "msft-azure-ai-copilot-sec-8k.html",
-        "ticker": "NVDA",
+        "ticker": "MSFT",
+        "terminal_ticker": "NVDA",
         "jp_name": "マイクロソフト(MSFT)",
         "title": "マイクロソフト(MSFT) Azure AI成長率・SEC開示NLPと新NISAコア戦略",
         "focus": "AzureクラウドにおけるAI貢献度拡大とCopilot法人導入の決算コールNLP解析・低リスクATR押し目買い",
@@ -190,7 +192,8 @@ SEO_PAGES_SPEC = [
     },
     {
         "slug": "aapl-apple-intelligence-cycle-gex.html",
-        "ticker": "NVDA",
+        "ticker": "AAPL",
+        "terminal_ticker": "NVDA",
         "jp_name": "アップル(AAPL)",
         "title": "アップル(AAPL) Apple Intelligence買い替えサイクルとオプションGEX壁",
         "focus": "オンデバイスAI搭載iPhone買い替え需要・サービス部門粗利率70%超えと過去最大規模の自社株買いサポート",
@@ -199,7 +202,8 @@ SEO_PAGES_SPEC = [
     },
     {
         "slug": "amzn-aws-margin-expansion-pead.html",
-        "ticker": "NVDA",
+        "ticker": "AMZN",
+        "terminal_ticker": "NVDA",
         "jp_name": "アマゾン(AMZN)",
         "title": "アマゾン(AMZN) AWS営業利益率改善・決算後ドリフトとATRトレーリング",
         "focus": "AWS生成AIワークロード拡大と北米物流自動化による営業利益率の過去最高更新・機関ダークプール集積",
@@ -208,7 +212,8 @@ SEO_PAGES_SPEC = [
     },
     {
         "slug": "googl-search-cloud-ai-valuation.html",
-        "ticker": "NVDA",
+        "ticker": "GOOGL",
+        "terminal_ticker": "NVDA",
         "jp_name": "アルファベット(GOOGL)",
         "title": "アルファベット(GOOGL) Cloud AI増収・自社株買いとGamma Wall分析",
         "focus": "Google Cloudの営業利益急伸とAI検索オーバービューの広告単価維持・割安PER水準からのGEX上値追い",
@@ -303,6 +308,7 @@ SEO_PAGES_SPEC = [
 def build_page_html(item, date_str, all_specs):
     slug = item["slug"]
     ticker = item["ticker"]
+    term_ticker = item.get("terminal_ticker", ticker)
     jp_name = item["jp_name"]
     title = item["title"]
     focus = item["focus"]
@@ -432,6 +438,7 @@ def build_page_html(item, date_str, all_specs):
     ]
   }}
   </script>
+  <script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
   <script>
   (function(){{
     try {{
@@ -444,6 +451,16 @@ def build_page_html(item, date_str, all_specs):
       var ns = 'gba_getbreakai';
       fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/pv_' + kst, {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
       fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/pv_total', {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
+      document.addEventListener('click', function(e) {{
+        var el = e.target && e.target.closest ? e.target.closest('a, button') : null;
+        if (!el) return;
+        var href = (el.getAttribute('href') || '').toLowerCase();
+        var txt = (el.innerText || el.textContent || '').toLowerCase();
+        if (href.indexOf('lemonsqueezy.com') !== -1 || /\\$29|\\$199|pro|vip/.test(txt)) {{
+          fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_click_' + kst, {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
+          fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_click_total', {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
+        }}
+      }}, true);
     }} catch (e) {{}}
   }})();
   </script>
@@ -600,7 +617,7 @@ def build_page_html(item, date_str, all_specs):
       <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
         <a href="https://www.youtube.com/@GetBreakAI" target="_blank" rel="noopener" class="nav-sublink">📺 公式YouTube (@GetBreakAI)</a>
         <a href="/jp/index.html" class="nav-sublink">📚 全30銘柄レポート一覧</a>
-        <a href="https://getbreakai.com/?ticker={ticker}#radar" class="btn-cta">🎯 {jp_name}をメイン端末で起動 →</a>
+        <a href="https://getbreakai.com/?ticker={term_ticker}#radar" class="btn-cta">🎯 {jp_name}をメイン端末で起動 →</a>
       </div>
     </div>
   </header>
@@ -616,6 +633,9 @@ def build_page_html(item, date_str, all_specs):
         🟢 米国市場最新データ反映 · {date_str} ｜ 対象銘柄・テーマ: {jp_name} (${ticker})
       </div>
       <h1>{title}</h1>
+      <p style="font-size:1.02rem; font-weight:800; color:#1e3a8a; margin-bottom:14px;">
+        ⚡ 新NISAの塩漬け損を防ぐため、あなたの資金に合う適正株数と撤退ラインを3秒で無料診断します。
+      </p>
       <div style="background:{banner_bg}; border:1px solid {banner_border}; border-radius:10px; padding:14px 16px; margin-bottom:22px; color:{banner_color}; font-weight:700; font-size:0.93rem; line-height:1.65;">
         {verdict_banner}
       </div>
@@ -667,7 +687,7 @@ def build_page_html(item, date_str, all_specs):
           </div>
         </div>
         <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap;">
-          <a href="https://getbreakai.com/?ticker={ticker}#radar" class="btn-cta">⚡ フル機能ターミナルで ${ticker} を詳細シミュレーション →</a>
+          <a href="https://getbreakai.com/?ticker={term_ticker}#radar" class="btn-cta">⚡ フル機能ターミナルで ${ticker} を詳細シミュレーション →</a>
           <button type="button" onclick="shareMiniPageOnX()" style="background:#eff6ff; color:#0369a1; border:1px solid #93c5fd; padding:9px 16px; border-radius:8px; font-weight:800; cursor:pointer;">📤 X(Twitter)でこの記事とシグナルを共有</button>
         </div>
       </div>
@@ -709,10 +729,18 @@ def build_page_html(item, date_str, all_specs):
         さらに勝率と資金効率を高めるために、1〜15日間のイベント・ガンマスクイーズ・ATR損切りを管理する当サイト <strong>GetBreakAI.com</strong> と、30〜90日間の半導体セクター恐怖強欲指数および米国株72銘柄のPW-RSI（出来高加重RSI）底値反転を捉える姉妹ターミナル <a href="https://truthofmarket.com/?utm_source=getbreakai_jp_seo&utm_medium={slug}" target="_blank" rel="noopener" style="color:var(--accent-sky); font-weight:700;">TruthOfMarket.com</a> を併用してください。<strong>Store #296100で発行されるProライセンスキー（月額 $29/月＝約4,400円、または年間VIPパス $199/年＝43%OFF・約29,800円/年）1つで、両方のサイトのWeb VIP Vault機能がすべてアンロックされます。</strong>
       </p>
 
-      <div style="margin-top:32px; padding:22px; background:#eff6ff; border:1.5px solid #93c5fd; border-radius:14px; text-align:center;">
-        <h3 style="margin-top:0; color:#0b1f3a;">🚀 今すぐ GetBreakAI メインターミナルで {jp_name} の最新シグナルを確認</h3>
-        <p style="margin-bottom:16px; color:#334155;">Pine Script v5インジケーター全文、Form-4役員自社株買いCSV、全銘柄オーダーブックをWeb VIP Vaultで即時解放できます。</p>
-        <a href="https://getbreakai.com/?ticker={ticker}#radar" class="btn-cta btn-cta-lg">📊 GetBreakAI メインターミナルを開く（${ticker} 自動選択） →</a>
+      <div style="margin-top:32px; padding:24px; background:#eff6ff; border:2px solid #1d4ed8; border-radius:14px; text-align:center;">
+        <h3 style="margin-top:0; color:#0b1f3a;">🚀 今すぐ {jp_name} の無料3秒シミュレーション＆VIP全機能を即時解放</h3>
+        <p style="margin-bottom:16px; color:#334155;">1つのProキーで GetBreakAI.com と TruthOfMarket.com の両VIP機能（Pine Script v5全文・Form-4役員自社株買いCSV・全銘柄オーダーブック）を即時アンロックできます。</p>
+        <div style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-bottom:14px;">
+          <a href="https://getbreakai.com/?ticker={term_ticker}#radar" class="btn-cta btn-cta-lg">📊 無料3秒ターミナルを開く（${ticker}） →</a>
+          <a href="https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8?embed=1&amp;checkout[redirect_url]=https://getbreakai.com/confirmation.html" class="lemonsqueezy-button btn-cta btn-cta-lg" style="background:linear-gradient(135deg,#059669,#047857);">🔓 Monthly Pro を解放 ($29/月)</a>
+          <a href="https://truthofmarket.lemonsqueezy.com/checkout/buy/667aa482-f17c-47d1-b7f3-a2427c36516b?embed=1&amp;checkout[redirect_url]=https://getbreakai.com/confirmation.html" class="lemonsqueezy-button btn-cta btn-cta-lg" style="background:linear-gradient(135deg,#d97706,#b45309);">💎 Annual Pro VIP 43%OFF ($199/年)</a>
+        </div>
+        <div style="font-size:0.8rem; color:#475569; line-height:1.6;">
+          🔒 Stripe / Lemon Squeezy 安全決済（Apple Pay・Google Pay・JCB・Visa・Master 対応 / いつでも1クリック解約）<br>
+          🏛️ 法人・金融メディア・クオンツAPIデータ提携デスク: <a href="mailto:beable9489@gmail.com?subject=GetBreakAI%20Japan%20B2B%20API%20%26%20Media%20Inquiry" style="color:#1d4ed8; font-weight:800;">beable9489@gmail.com</a>
+        </div>
       </div>
 
       <h2>📚 関連する米国株・新NISA AI日本語ディープリサーチ記事</h2>
@@ -779,11 +807,15 @@ def build_hub_html(date_str, all_specs):
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
+  <meta name="google-site-verification" content="lM2Bf7R0XRTUDg-IZvGV9i06u2Q5rz6HJ8-IwoLFcgo">
+  <meta name="google-site-verification" content="nAGlJMEUUPifbzSd8X4PCaBIyr3DtTwaa1a-q9zkbBc">
+  <meta name="google-site-verification" content="G99bl17UU6iKgNm5ndGcSWp0dHFpJ0MjJqBBp0Exfx0">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>米国株・新NISA 銘柄別AI日本語ディープリサーチ全30選 | GetBreakAI</title>
   <meta name="description" content="エヌビディア(NVDA)、パランティア(PLTR)、テスラ(TSLA)、イーライリリー(LLY)、SOXL、SMCIなど米国株30銘柄・テーマのSEC開示・インサイダー買い・Gamma Wall・ATR損切りライン解説一覧。">
   <link rel="canonical" href="https://getbreakai.com/jp/index.html">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
   <script>
     window.CHECKOUT_URLS = {{
       monthly: 'https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html',

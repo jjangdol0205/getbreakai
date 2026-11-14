@@ -80,6 +80,7 @@
     ]
   }
   </script>
+  <script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
   <script>
   (function(){
     try {
@@ -92,6 +93,16 @@
       var ns = 'gba_getbreakai';
       fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/pv_' + kst, { mode: 'cors', keepalive: true }).catch(function(){});
       fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/pv_total', { mode: 'cors', keepalive: true }).catch(function(){});
+      document.addEventListener('click', function(e) {
+        var el = e.target && e.target.closest ? e.target.closest('a, button') : null;
+        if (!el) return;
+        var href = (el.getAttribute('href') || '').toLowerCase();
+        var txt = (el.innerText || el.textContent || '').toLowerCase();
+        if (href.indexOf('lemonsqueezy.com') !== -1 || /\$29|\$199|pro|vip/.test(txt)) {
+          fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_click_' + kst, { mode: 'cors', keepalive: true }).catch(function(){});
+          fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_click_total', { mode: 'cors', keepalive: true }).catch(function(){});
+        }
+      }, true);
     } catch (e) {}
   })();
   </script>
@@ -264,6 +275,9 @@
         🟢 米国市場最新データ反映 · 2026-11-14 ｜ 対象銘柄・テーマ: テスラ(TSLA) ($TSLA)
       </div>
       <h1>テスラ(TSLA) オプションGamma Wall(GEX)・FSD触媒とスイング損切り戦略</h1>
+      <p style="font-size:1.02rem; font-weight:800; color:#1e3a8a; margin-bottom:14px;">
+        ⚡ 新NISAの塩漬け損を防ぐため、あなたの資金に合う適正株数と撤退ラインを3秒で無料診断します。
+      </p>
       <div style="background:#ecfdf5; border:1px solid rgba(16,185,129,0.45); border-radius:10px; padding:14px 16px; margin-bottom:22px; color:#065f46; font-weight:700; font-size:0.93rem; line-height:1.65;">
         🟢 【AI機関投資家シグナル】テスラ(TSLA) は AIカタリストスコア 89.7/100（オプションGamma Flip突破 ＆ 短期モメンタム急騰）を記録。$50,000（約750万円）口座での推奨購入株数は 20株（約107.5万円）、2.0x ATR損切りラインは $322.24、2.5R利確ターゲットは $448.17 です。
       </div>
@@ -357,10 +371,18 @@
         さらに勝率と資金効率を高めるために、1〜15日間のイベント・ガンマスクイーズ・ATR損切りを管理する当サイト <strong>GetBreakAI.com</strong> と、30〜90日間の半導体セクター恐怖強欲指数および米国株72銘柄のPW-RSI（出来高加重RSI）底値反転を捉える姉妹ターミナル <a href="https://truthofmarket.com/?utm_source=getbreakai_jp_seo&utm_medium=tsla-gamma-wall-swing-trade.html" target="_blank" rel="noopener" style="color:var(--accent-sky); font-weight:700;">TruthOfMarket.com</a> を併用してください。<strong>Store #296100で発行されるProライセンスキー（月額 $29/月＝約4,400円、または年間VIPパス $199/年＝43%OFF・約29,800円/年）1つで、両方のサイトのWeb VIP Vault機能がすべてアンロックされます。</strong>
       </p>
 
-      <div style="margin-top:32px; padding:22px; background:#eff6ff; border:1.5px solid #93c5fd; border-radius:14px; text-align:center;">
-        <h3 style="margin-top:0; color:#0b1f3a;">🚀 今すぐ GetBreakAI メインターミナルで テスラ(TSLA) の最新シグナルを確認</h3>
-        <p style="margin-bottom:16px; color:#334155;">Pine Script v5インジケーター全文、Form-4役員自社株買いCSV、全銘柄オーダーブックをWeb VIP Vaultで即時解放できます。</p>
-        <a href="https://getbreakai.com/?ticker=TSLA#radar" class="btn-cta btn-cta-lg">📊 GetBreakAI メインターミナルを開く（$TSLA 自動選択） →</a>
+      <div style="margin-top:32px; padding:24px; background:#eff6ff; border:2px solid #1d4ed8; border-radius:14px; text-align:center;">
+        <h3 style="margin-top:0; color:#0b1f3a;">🚀 今すぐ テスラ(TSLA) の無料3秒シミュレーション＆VIP全機能を即時解放</h3>
+        <p style="margin-bottom:16px; color:#334155;">1つのProキーで GetBreakAI.com と TruthOfMarket.com の両VIP機能（Pine Script v5全文・Form-4役員自社株買いCSV・全銘柄オーダーブック）を即時アンロックできます。</p>
+        <div style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-bottom:14px;">
+          <a href="https://getbreakai.com/?ticker=TSLA#radar" class="btn-cta btn-cta-lg">📊 無料3秒ターミナルを開く（$TSLA） →</a>
+          <a href="https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8?embed=1&amp;checkout[redirect_url]=https://getbreakai.com/confirmation.html" class="lemonsqueezy-button btn-cta btn-cta-lg" style="background:linear-gradient(135deg,#059669,#047857);">🔓 Monthly Pro を解放 ($29/月)</a>
+          <a href="https://truthofmarket.lemonsqueezy.com/checkout/buy/667aa482-f17c-47d1-b7f3-a2427c36516b?embed=1&amp;checkout[redirect_url]=https://getbreakai.com/confirmation.html" class="lemonsqueezy-button btn-cta btn-cta-lg" style="background:linear-gradient(135deg,#d97706,#b45309);">💎 Annual Pro VIP 43%OFF ($199/年)</a>
+        </div>
+        <div style="font-size:0.8rem; color:#475569; line-height:1.6;">
+          🔒 Stripe / Lemon Squeezy 安全決済（Apple Pay・Google Pay・JCB・Visa・Master 対応 / いつでも1クリック解約）<br>
+          🏛️ 法人・金融メディア・クオンツAPIデータ提携デスク: <a href="mailto:beable9489@gmail.com?subject=GetBreakAI%20Japan%20B2B%20API%20%26%20Media%20Inquiry" style="color:#1d4ed8; font-weight:800;">beable9489@gmail.com</a>
+        </div>
       </div>
 
       <h2>📚 関連する米国株・新NISA AI日本語ディープリサーチ記事</h2>

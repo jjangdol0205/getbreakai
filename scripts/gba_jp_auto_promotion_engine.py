@@ -225,6 +225,24 @@ def main() -> int:
         + note_md
     )
 
+    note_paid_funnel_md = (
+        f"# 【無料公開＋Pro実践枠】{title}\n\n"
+        f"> 新NISAの非課税メリットを「塩漬け損」で潰さないための3秒ATRポジション計算レポート（{as_of}）\n\n"
+        + note_md
+        + "\n---\n"
+        + "## 🔒 note有料マガジン読者 ＆ GetBreakAI Pro VIP 共通特典のご案内\n"
+        + "- **TradingView Pine Script v5 自動描画コード全文**（2.0x ATR逆指値＋5日間IV Gamma Wall自動プロット）\n"
+        + "- **米国72銘柄＋東証主力株 機関投資家ダークプール＆SEC Form-4役員自社株買いフルデータ**\n"
+        + "- **Store #296100 共通Proキー**: 月額 $29/月（年間VIP $199/年・43%OFF）1つで `https://getbreakai.com/jp/` と姉妹端末 `https://truthofmarket.com/` の両方を即時解放。\n"
+        + "- **法人・金融メディア・APIデータ提携窓口**: `beable9489@gmail.com`\n"
+    )
+
+    yahoo_bbs_txt = (
+        f"【米国株・新NISA 資金管理メモ {as_of}】\n"
+        f"新NISA枠は特定口座（20.315%）と違い損益通算ができないため、ボラティリティの高いAI・半導体株ほど購入前の「2.0倍ATR逆指値」と「1.5%リスク株数逆算」が重要ですね。\n"
+        f"ドル円150円基準での適正株数早見表は GetBreakAI Japan（getbreakai.com/jp/）の3秒計算機で確認できます。\n"
+    )
+
     syn_res = dispatch_zero_ban_text_bundle(
         div_code="GBA",
         canonical_domain=HOST,
@@ -237,7 +255,9 @@ def main() -> int:
         tags=["quant", "finance", "japan", "stocks"],
         platform_extras={
             "note_com_daily_column_jp.md": note_md,
+            "note_com_paid_magazine_funnel_jp.md": note_paid_funnel_md,
             "zenn_hatena_quant_article_jp.md": zenn_md,
+            "yahoo_finance_hatena_zero_ban_jp.txt": yahoo_bbs_txt,
         },
         div_env_path=ROOT_DIR / ".env",
         dry_run=dry_run,

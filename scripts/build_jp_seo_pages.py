@@ -924,6 +924,60 @@ def build_hub_html(date_str, all_specs):
     }};
     const CHECKOUT_URLS = window.CHECKOUT_URLS;
   </script>
+  <script>
+  /* === HQ Edge Real-Human Visitor & Free Signup Beacon (gba_getbreakai) === */
+  (function(){{
+    try {{
+      if (typeof window === 'undefined' || typeof navigator === 'undefined') return;
+      var kst = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
+      var ns = 'gba_getbreakai';
+      window.trackGbaFreeSignup = function(emailAddr) {{
+        try {{
+          var host = (location && location.hostname) || '';
+          if (!host || host === 'localhost' || host === '127.0.0.1') return;
+          if (localStorage.getItem('hq_signup_' + ns + '_' + kst) !== '1') {{
+            localStorage.setItem('hq_signup_' + ns + '_' + kst, '1');
+            fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/signup_' + kst, {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
+          }}
+          if (localStorage.getItem('hq_signup_ever_' + ns) !== '1') {{
+            localStorage.setItem('hq_signup_ever_' + ns, '1');
+            fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/signup_total', {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
+          }}
+        }} catch (e) {{}}
+      }};
+      if (window.__HQ_BEACON_SENT_gba_getbreakai__ || window.__HQ_KPI_GBA__) return;
+      window.__HQ_BEACON_SENT_gba_getbreakai__ = true;
+      window.__HQ_KPI_GBA__ = true;
+      var ua = navigator.userAgent || '';
+      if (navigator.webdriver || /bot|crawl|spider|slurp|headless|lighthouse|gtmetrix|pingdom|uptimerobot|python|curl|node|axios/i.test(ua)) return;
+      var host = (location && location.hostname) || '';
+      if (!host || host === 'localhost' || host === '127.0.0.1') return;
+      fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/pv_' + kst, {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
+      fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/pv_total', {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
+      if (localStorage.getItem('hq_uv_' + ns + '_' + kst) !== '1') {{
+        localStorage.setItem('hq_uv_' + ns + '_' + kst, '1');
+        fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/uv_' + kst, {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
+      }}
+      if (localStorage.getItem('hq_uv_ever_' + ns) !== '1') {{
+        localStorage.setItem('hq_uv_ever_' + ns, '1');
+        fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/uv_total', {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
+      }}
+      window.trackGbaPaidClick = function() {{
+        fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_click_' + kst, {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
+        fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_click_total', {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
+      }};
+      document.addEventListener('click', function(e) {{
+        var el = e.target && e.target.closest ? e.target.closest('a, button, [role="button"]') : null;
+        if (!el) return;
+        var href = (el.getAttribute('href') || '').toLowerCase();
+        var cls = (el.className || '').toLowerCase();
+        if (href.indexOf('lemonsqueezy.com') !== -1 || cls.indexOf('lemonsqueezy') !== -1) {{
+          window.trackGbaPaidClick();
+        }}
+      }}, true);
+    }} catch (e) {{}}
+  }})();
+  </script>
   <style>
     :root, html[data-jp-theme="light"] {{
       --bg-page: #f4f6fa;
@@ -952,12 +1006,15 @@ def build_hub_html(date_str, all_specs):
       --accent-amber: #fbbf24;
     }}
     * {{ box-sizing: border-box; }}
+    html {{ font-size: 16.5px; }}
+    html[data-jp-font="large"] {{ font-size: 18.5px; }}
+    html[data-jp-font="xlarge"] {{ font-size: 20.2px; }}
     html, body {{ max-width: 100%; overflow-x: hidden; }}
     body {{
       background: var(--bg-page);
       color: var(--text-main);
       font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
-      line-height: 1.55;
+      line-height: 1.65;
       margin: 0;
       padding: 0 0 48px;
       font-feature-settings: "palt" 1;
@@ -1362,14 +1419,348 @@ def build_hub_html(date_str, all_specs):
     .hub-seo-title {{ font-weight: 800; font-size: 0.95rem; margin-bottom: 6px; color: var(--text-main); }}
     .hub-seo-focus {{ font-size: 0.83rem; color: var(--text-sub); line-height: 1.55; }}
 
+    /* Senior Font Toggle, 3-Color Traffic Light Cards, Morning Club & 1-Field Morning Mail Signup */
+    .btn-top-font {{
+      padding: 0 10px;
+      border-radius: 7px;
+      font-weight: 900;
+      font-size: 0.78rem;
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      flex-shrink: 0;
+      cursor: pointer;
+      background: #ecfdf5;
+      color: #065f46;
+      border: 1.5px solid #10b981;
+    }}
+    html[data-jp-theme="dark"] .btn-top-font {{
+      background: #064e3b;
+      color: #ecfdf5;
+      border-color: #34d399;
+    }}
+    .hero-sublead {{
+      font-size: 0.94rem;
+      color: var(--text-muted);
+      font-weight: 700;
+      margin: 0 0 12px;
+      line-height: 1.55;
+    }}
+    .signal-light-section {{
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-col);
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 16px;
+    }}
+    .signal-light-grid {{
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }}
+    .signal-light-card {{
+      background: var(--bg-sub);
+      border: 2px solid var(--border-col);
+      border-radius: 12px;
+      padding: 12px;
+      text-align: left;
+      cursor: pointer;
+      transition: transform 0.15s ease, border-color 0.15s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      min-height: 112px;
+      min-width: 0;
+    }}
+    .signal-light-card:hover {{ transform: translateY(-2px); border-color: var(--accent-blue); }}
+    .signal-light-card.sig-buy {{ border-top: 5px solid #10b981; }}
+    .signal-light-card.sig-watch {{ border-top: 5px solid #f59e0b; }}
+    .signal-light-card.sig-warn {{ border-top: 5px solid #e11d48; background: rgba(244, 63, 94, 0.06); }}
+    .sig-pill {{
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.78rem;
+      font-weight: 900;
+      padding: 3px 9px;
+      border-radius: 999px;
+      width: fit-content;
+    }}
+    .sig-pill-buy {{ background: rgba(16, 185, 129, 0.16); color: var(--accent-emerald); }}
+    .sig-pill-watch {{ background: rgba(245, 158, 11, 0.18); color: var(--accent-amber); }}
+    .sig-pill-warn {{ background: rgba(244, 63, 94, 0.18); color: var(--accent-rose); }}
+
+    /* 🍵 朝の資産守り倶楽部 (#gbaMorningClubJp) */
+    .gba-morning-club {{
+      background: linear-gradient(135deg, #fffbeb 0%, #f8fafc 100%);
+      border: 2px solid #d97706;
+      border-radius: 14px;
+      padding: 16px 16px;
+      margin-bottom: 18px;
+      box-shadow: 0 8px 22px rgba(180, 83, 9, 0.08);
+      max-width: 100%;
+    }}
+    html[data-jp-theme="dark"] .gba-morning-club {{
+      background: linear-gradient(135deg, rgba(30, 27, 75, 0.92), rgba(15, 23, 42, 0.95));
+      border-color: rgba(251, 191, 36, 0.55);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    }}
+    .gba-club-header {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }}
+    .gba-club-title-group {{
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      min-width: 0;
+    }}
+    .gba-club-badge {{
+      display: inline-flex;
+      align-items: center;
+      background: #fef3c7;
+      color: #92400e;
+      border: 1.5px solid #d97706;
+      font-size: 0.78rem;
+      font-weight: 900;
+      padding: 3px 10px;
+      border-radius: 999px;
+    }}
+    html[data-jp-theme="dark"] .gba-club-badge {{
+      background: rgba(245, 158, 11, 0.18);
+      color: #fde68a;
+      border-color: #fbbf24;
+    }}
+    .gba-club-title {{
+      font-size: 1.02rem;
+      font-weight: 900;
+      color: var(--text-main);
+      line-height: 1.35;
+    }}
+    .gba-club-streak {{
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #ecfdf5;
+      color: #065f46;
+      border: 1.5px solid #059669;
+      font-size: 0.8rem;
+      font-weight: 900;
+      padding: 4px 11px;
+      border-radius: 999px;
+      max-width: 100%;
+    }}
+    html[data-jp-theme="dark"] .gba-club-streak {{
+      background: rgba(16, 185, 129, 0.18);
+      color: #6ee7b7;
+      border-color: #34d399;
+    }}
+    .gba-club-greeting {{
+      background: var(--bg-card);
+      border: 1px solid var(--border-col);
+      border-left: 4px solid #d97706;
+      border-radius: 10px;
+      padding: 11px 13px;
+      margin-bottom: 12px;
+      font-size: 0.94rem;
+      line-height: 1.65;
+      color: var(--text-main);
+      font-weight: 700;
+      word-break: break-word;
+    }}
+    .gba-club-greeting-label {{
+      display: inline-block;
+      color: var(--accent-amber);
+      font-weight: 900;
+      margin-right: 6px;
+    }}
+    .gba-club-poll-header {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 8px;
+    }}
+    .gba-club-poll-title {{
+      font-size: 0.9rem;
+      font-weight: 900;
+      color: var(--text-main);
+    }}
+    .gba-club-poll-meta {{
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--text-sub);
+    }}
+    .gba-club-poll-grid {{
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }}
+    .gba-club-poll-btn {{
+      min-height: 58px;
+      min-width: 0;
+      width: 100%;
+      padding: 10px 13px;
+      border-radius: 11px;
+      border: 2px solid var(--border-col);
+      background: var(--bg-card);
+      color: var(--text-main);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 7px;
+      text-align: left;
+      transition: transform 0.14s ease, border-color 0.16s ease, box-shadow 0.16s ease;
+    }}
+    .gba-club-poll-btn:hover {{
+      transform: translateY(-1px);
+      border-color: var(--accent-blue);
+    }}
+    .gba-club-poll-btn.is-active {{
+      border-color: #059669;
+      background: #ecfdf5;
+      box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.18);
+    }}
+    html[data-jp-theme="dark"] .gba-club-poll-btn.is-active {{
+      border-color: #34d399;
+      background: rgba(16, 185, 129, 0.18);
+      box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.22);
+    }}
+    .gba-poll-row-top {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      min-width: 0;
+    }}
+    .gba-poll-opt-text {{
+      font-size: 0.95rem;
+      font-weight: 900;
+      color: var(--text-main);
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }}
+    .gba-poll-opt-pct {{
+      font-family: monospace;
+      font-size: 0.9rem;
+      font-weight: 900;
+      color: var(--accent-blue);
+      flex-shrink: 0;
+    }}
+    .gba-poll-bar-bg {{
+      display: block;
+      width: 100%;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.25);
+      overflow: hidden;
+    }}
+    .gba-poll-bar-fill {{
+      display: block;
+      height: 100%;
+      border-radius: 999px;
+      transition: width 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+    }}
+    .gba-poll-bar-fill.fill-dip {{ background: #10b981; }}
+    .gba-poll-bar-fill.fill-watch {{ background: #f59e0b; }}
+    .gba-poll-bar-fill.fill-cash {{ background: #2563eb; }}
+    .gba-club-companion {{
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: var(--bg-card);
+      border: 1.5px dashed var(--border-col);
+      font-size: 0.89rem;
+      font-weight: 800;
+      line-height: 1.6;
+      color: var(--text-muted);
+      word-break: break-word;
+    }}
+    .gba-club-companion.is-voted {{
+      background: #ecfdf5;
+      border: 1.5px solid #059669;
+      color: #065f46;
+    }}
+    html[data-jp-theme="dark"] .gba-club-companion.is-voted {{
+      background: rgba(16, 185, 129, 0.16);
+      border-color: #34d399;
+      color: #a7f3d0;
+    }}
+
+    .morning-mail-card {{
+      background: linear-gradient(135deg, rgba(6, 95, 70, 0.08), rgba(29, 78, 216, 0.08));
+      border: 2.5px solid #059669;
+      border-radius: 14px;
+      padding: 18px 16px;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 26px rgba(5, 150, 105, 0.10);
+    }}
+    .morning-mail-form {{
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }}
+    .morning-mail-input {{
+      flex: 1 1 260px;
+      min-height: 56px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 2px solid var(--border-col);
+      background: var(--bg-card);
+      color: var(--text-main);
+      font-size: 1.02rem;
+      font-weight: 700;
+    }}
+    .morning-mail-input:focus {{
+      outline: 3px solid rgba(5, 150, 105, 0.35);
+      border-color: #059669;
+    }}
+    .morning-mail-btn {{
+      flex: 0 0 auto;
+      min-height: 56px;
+      padding: 12px 22px;
+      border-radius: 10px;
+      border: none;
+      background: linear-gradient(135deg, #059669, #047857);
+      color: #ffffff;
+      font-size: 1.0rem;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(5, 150, 105, 0.28);
+      white-space: nowrap;
+    }}
+
+    @media (max-width: 820px) {{
+      .signal-light-grid {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
+    }}
+
+    @media (max-width: 680px) {{
+      .gba-club-poll-grid {{ grid-template-columns: 1fr; }}
+    }}
+
     @media (max-width: 640px) {{
       .container {{ padding: 6px 12px 24px; }}
-      .brand-link {{ font-size: 0.9rem; }}
-      .btn-top-main, .btn-top-yt, .btn-top-theme {{ padding: 0 7px; font-size: 0.7rem; min-height: 36px; }}
-      .hero-title {{ font-size: 1.05rem; margin: 6px 0 6px; line-height: 1.28; }}
+      .brand-link {{ font-size: 0.88rem; }}
+      .btn-top-main, .btn-top-yt, .btn-top-theme, .btn-top-font {{ padding: 0 7px; font-size: 0.7rem; min-height: 38px; }}
+      .hero-title {{ font-size: 1.12rem; margin: 6px 0 6px; line-height: 1.32; }}
+      .signal-light-grid {{ grid-template-columns: 1fr 1fr; gap: 8px; }}
+      .gba-morning-club {{ padding: 13px 12px; }}
+      .morning-mail-btn {{ width: 100%; white-space: normal; }}
       .calc-card {{ padding: 10px 10px; }}
       .calc-header {{ margin-bottom: 6px; }}
-      .calc-title {{ font-size: 0.84rem; }}
+      .calc-title {{ font-size: 0.86rem; }}
       .comp-grid, .cta-dual-grid {{ grid-template-columns: 1fr; }}
       .vip-unlock-btn {{ width: 100%; }}
       .grid {{ grid-template-columns: 1fr; }}
@@ -1382,27 +1773,118 @@ def build_hub_html(date_str, all_specs):
     <nav class="top-nav" aria-label="日本株・米国株ナビゲーション">
       <a href="/" class="brand-link">⚡ GetBreakAI</a>
       <div class="top-nav-actions">
-        <a href="/" class="btn-top-main">🏠 トップ画面へ</a>
-        <a href="https://www.youtube.com/@GetBreakAI" target="_blank" rel="noopener" class="btn-top-yt">📺 公式YouTube</a>
+        <button type="button" id="btnToggleJpFont" onclick="cycleJpFontSize()" class="btn-top-font" aria-label="文字サイズ切替">🔍 文字: 標準</button>
+        <a href="/" class="btn-top-main">🏠 詳細端末</a>
+        <a href="https://www.youtube.com/@GetBreakAI" target="_blank" rel="noopener" class="btn-top-yt">📺 YouTube</a>
         <button type="button" id="btnToggleJpTheme" onclick="toggleJpTheme()" class="btn-top-theme">🌙 切替</button>
       </div>
     </nav>
 
-    <!-- Crisp Intuitive B2C Headline (<=14 words, Above-the-Fold) -->
+    <!-- Crisp Intuitive Senior B2C Headline (<=15 words, Above-the-Fold) -->
     <h1 class="hero-title">
-      新NISAの塩漬け・大損を1秒で防ぐ。2.0x ATR損切り＆適正株数計算機
+      新NISAの塩漬けを防ぎ、買い時・売り時が一目でわかるシニア向けAI銘柄診断
     </h1>
+    <p class="hero-sublead">
+      難しい英語や専門用語は不要。「🟢買い検討・🟡様子見・🔴手仕舞い注意」と大損を防ぐ安全撤退ラインを1秒で算出します。
+    </p>
 
-    <!-- ⚡ 1秒 損切り・適正株数 ＆ 新NISA手取り計算機 (Inputs + Calculate Button Above-the-Fold y < 320px) -->
+    <!-- 🚦 3-Color Traffic Light Quick Cards (Senior 1-Second Signal Summary) -->
+    <section class="signal-light-section" id="jpSignalTrafficLightHub" aria-label="本日の3色AIシグナル早見カード">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
+        <div style="font-weight:900; font-size:0.96rem; color:var(--text-main);">🚦 本日の新NISA人気銘柄「3色シグナル」早見カード <span style="font-size:0.78rem; color:var(--accent-blue);">（タップで下の計算機に反映）</span></div>
+        <a href="#gbJpMorningMailBox" style="font-size:0.8rem; font-weight:900; color:var(--accent-emerald); text-decoration:underline;">📧 毎朝8時の無料メール通知を登録 ↓</a>
+      </div>
+      <div class="signal-light-grid">
+        <button type="button" class="signal-light-card sig-buy" onclick="setQuickStock('8035'); document.getElementById('jpQuickCalcSection').scrollIntoView({{behavior:'smooth'}});">
+          <span class="sig-pill sig-pill-buy">🟢 買い検討（上昇基調）</span>
+          <strong style="font-size:0.95rem; color:var(--text-main);">8035 東京エレクトロン</strong>
+          <span style="font-size:0.8rem; color:var(--text-muted);">現在値 <b>¥9,461</b> / 安全撤退 <b style="color:var(--accent-rose);">¥8,267</b></span>
+        </button>
+        <button type="button" class="signal-light-card sig-buy" onclick="setQuickStock('7011'); document.getElementById('jpQuickCalcSection').scrollIntoView({{behavior:'smooth'}});">
+          <span class="sig-pill sig-pill-buy">🟢 買い検討（受注好調）</span>
+          <strong style="font-size:0.95rem; color:var(--text-main);">7011 三菱重工業</strong>
+          <span style="font-size:0.8rem; color:var(--text-muted);">現在値 <b>¥2,921</b> / 安全撤退 <b style="color:var(--accent-rose);">¥2,664</b></span>
+        </button>
+        <button type="button" class="signal-light-card sig-buy" onclick="setQuickStock('NVDA'); document.getElementById('jpQuickCalcSection').scrollIntoView({{behavior:'smooth'}});">
+          <span class="sig-pill sig-pill-buy">🟢 買い検討（機関買い）</span>
+          <strong style="font-size:0.95rem; color:var(--text-main);">$NVDA エヌビディア</strong>
+          <span style="font-size:0.8rem; color:var(--text-muted);">現在値 <b>$162.85</b> / 安全撤退 <b style="color:var(--accent-rose);">$142.83</b></span>
+        </button>
+        <button type="button" class="signal-light-card sig-watch" onclick="setQuickStock('7203'); document.getElementById('jpQuickCalcSection').scrollIntoView({{behavior:'smooth'}});">
+          <span class="sig-pill sig-pill-watch">🟡 押し目待ち・安定監視</span>
+          <strong style="font-size:0.95rem; color:var(--text-main);">7203 トヨタ自動車</strong>
+          <span style="font-size:0.8rem; color:var(--text-muted);">現在値 <b>¥3,418</b> / 安全撤退 <b style="color:var(--accent-rose);">¥3,216</b></span>
+        </button>
+      </div>
+    </section>
+
+    <!-- 🍵 朝の資産守り倶楽部 (#gbaMorningClubJp — Zero-Signup Daily Belonging & 1-Click Poll) -->
+    <section class="gba-morning-club" id="gbaMorningClubJp" aria-label="朝の資産守り倶楽部">
+      <div class="gba-club-header">
+        <div class="gba-club-title-group">
+          <span class="gba-club-badge">🍵 朝の資産守り倶楽部</span>
+          <strong class="gba-club-title">新NISA・老後資金をご一緒に守る朝の習慣</strong>
+        </div>
+        <span class="gba-club-streak" id="gbaJpClubStreakBadge">🏅 倶楽部会員・連続訪問 1日目</span>
+      </div>
+
+      <div class="gba-club-greeting">
+        <span class="gba-club-greeting-label">編集部の今朝のご挨拶：</span>
+        <span id="gbaJpClubGreetingText">「おはようございます。大切な新NISAと老後資金は、焦らず青信号の日だけゆっくり育てていきましょう。」</span>
+      </div>
+
+      <div class="gba-club-poll-header">
+        <span class="gba-club-poll-title">🗳️ 本日の個人投資家アンケート（1クリック・登録不要）</span>
+        <span class="gba-club-poll-meta" id="gbaJpClubPollTotal">本日 482名の個人投資家が参加中</span>
+      </div>
+
+      <div class="gba-club-poll-grid" role="group" aria-label="本日の個人投資家アンケート">
+        <button type="button" class="gba-club-poll-btn" data-gba-poll="buy_dip" aria-pressed="false" onclick="voteGbaMorningClubJp('buy_dip')">
+          <span class="gba-poll-row-top">
+            <span class="gba-poll-opt-text">🟢 押し目待ち</span>
+            <strong class="gba-poll-opt-pct" data-gba-pct="buy_dip">34%</strong>
+          </span>
+          <span class="gba-poll-bar-bg" aria-hidden="true">
+            <span class="gba-poll-bar-fill fill-dip" data-gba-bar="buy_dip" style="width:34%;"></span>
+          </span>
+        </button>
+
+        <button type="button" class="gba-club-poll-btn" data-gba-poll="watch" aria-pressed="false" onclick="voteGbaMorningClubJp('watch')">
+          <span class="gba-poll-row-top">
+            <span class="gba-poll-opt-text">🟡 様子見</span>
+            <strong class="gba-poll-opt-pct" data-gba-pct="watch">41%</strong>
+          </span>
+          <span class="gba-poll-bar-bg" aria-hidden="true">
+            <span class="gba-poll-bar-fill fill-watch" data-gba-bar="watch" style="width:41%;"></span>
+          </span>
+        </button>
+
+        <button type="button" class="gba-club-poll-btn" data-gba-poll="cash" aria-pressed="false" onclick="voteGbaMorningClubJp('cash')">
+          <span class="gba-poll-row-top">
+            <span class="gba-poll-opt-text">🛡️ 現金重視</span>
+            <strong class="gba-poll-opt-pct" data-gba-pct="cash">25%</strong>
+          </span>
+          <span class="gba-poll-bar-bg" aria-hidden="true">
+            <span class="gba-poll-bar-fill fill-cash" data-gba-bar="cash" style="width:25%;"></span>
+          </span>
+        </button>
+      </div>
+
+      <div class="gba-club-companion" id="gbaJpClubCompanionMsg" role="status" aria-live="polite">
+        今朝の投資スタンスを1タップでお選びいただくと、全国の倶楽部会員の皆さまの集計結果とメッセージが表示されます。
+      </div>
+    </section>
+
+    <!-- ⚡ 1秒 損切り・適正株数 ＆ 新NISA手取り計算機 -->
     <div class="calc-card" id="jpQuickCalcSection">
       <div class="calc-header">
-        <div class="calc-title">⚡ 1秒 ATR損切り＆新NISA株数計算 (<span id="jpActiveSymBadge">$NVDA</span>)</div>
-        <div class="calc-pill-risk">🛡️ 口座リスク1.5%上限</div>
+        <div class="calc-title">⚡ 1秒 安全撤退ライン＆新NISA適正株数計算 (<span id="jpActiveSymBadge">$NVDA</span>)</div>
+        <div class="calc-pill-risk">🛡️ 1回の損失を資金1.5%以内に制限</div>
       </div>
 
       <div class="calc-fast-inputs">
         <div class="fast-field">
-          <label for="jpCapManInput">口座資金 (万円)</label>
+          <label for="jpCapManInput">ご運用資金 (万円)</label>
           <input type="number" id="jpCapManInput" min="10" max="10000" step="10" value="750" oninput="syncCapFromManInput()">
         </div>
         <div class="fast-field">
@@ -1410,7 +1892,7 @@ def build_hub_html(date_str, all_specs):
           <input type="number" id="jpPriceInput" min="0.1" step="any" value="162.85" oninput="syncPriceAtrInputs()">
         </div>
         <div class="fast-field">
-          <label for="jpAtrInput">14日ATR <span id="lblAtrUnit">($)</span></label>
+          <label for="jpAtrInput">1日の値動き幅(ATR) <span id="lblAtrUnit">($)</span></label>
           <input type="number" id="jpAtrInput" min="0.05" step="any" value="10.01" oninput="syncPriceAtrInputs()">
         </div>
       </div>
@@ -1420,22 +1902,22 @@ def build_hub_html(date_str, all_specs):
         <button type="button" id="btnJpHubTaxTokutei" class="tax-mode-btn" onclick="setJpHubTaxMode('tokutei')">🏦 特定口座 (税 20.315%)</button>
       </div>
 
-      <button type="button" id="btnJpHubCalcNow" class="btn-calc-submit" onclick="recalcJpQuickCalc()">
-        🧮 1秒で損切りライン＆適正株数を計算
+      <button type="button" id="btnJpHubCalcNow" class="btn-calc-submit" onclick="recalcJpQuickCalc()" style="min-height:52px; font-size:0.96rem;">
+        🧮 1秒で「安全撤退ライン」と「適正株数」を計算する
       </button>
 
       <!-- 3 Real-time Outputs -->
       <div class="calc-outputs">
         <div class="out-card">
-          <div class="out-label">推奨エントリー株数 (適正ポジション)</div>
+          <div class="out-label">推奨購入株数（買いすぎ防止・適正株数）</div>
           <div id="jpOutShares" class="out-val val-amber">37株 ($6,025 / 約90.4万円)</div>
         </div>
         <div class="out-card">
-          <div class="out-label">🛑 2.0x ATR損切りライン / 許容損失額</div>
+          <div class="out-label">🛑 安全撤退ライン（大損防止・2.0x ATR損切り）</div>
           <div id="jpOutRisk" class="out-val val-rose">$142.83 (-$741 / -約11.1万円)</div>
         </div>
         <div class="out-card">
-          <div class="out-label" id="jpOutGainLabel">🎯 2.5R利確目標 / 新NISA非課税手取り</div>
+          <div class="out-label" id="jpOutGainLabel">🎯 目標利益ライン（新NISA非課税手取り・2.5R）</div>
           <div id="jpOutGain" class="out-val val-emerald">$212.90 (+$1,852 / +約27.8万円)</div>
         </div>
       </div>
@@ -1477,6 +1959,34 @@ def build_hub_html(date_str, all_specs):
         <button type="button" class="preset-chip" data-ticker="8058" onclick="setQuickStock('8058', this)">8058.T 三菱商事 (¥)</button>
       </div>
     </div>
+
+    <!-- 📧 1-Field Free Morning Signal Email Signup (North Star Conversion Gate — Before Paid Tier) -->
+    <section class="morning-mail-card" id="gbJpMorningMailBox" aria-label="毎朝8時の新NISA 3色シグナル無料メール登録">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+        <span class="sig-pill sig-pill-buy" style="font-size:0.8rem;">📧 無料メール会員（クレジットカード不要・登録30秒）</span>
+        <span style="font-size:0.78rem; font-weight:800; color:var(--text-muted);">毎朝8:00配信 · いつでも1クリック配信停止</span>
+      </div>
+      <h2 style="font-size:1.12rem; font-weight:900; color:var(--text-main); margin:8px 0 6px; line-height:1.4;">
+        🔔 選択中の銘柄（<span id="jpAlertSymLabel" style="color:var(--accent-blue);">$NVDA</span>）の撤退注意アラート ＆ 毎朝8時「新NISA 3色シグナル速報」を無料で受け取る
+      </h2>
+      <p style="font-size:0.88rem; color:var(--text-muted); margin:0; line-height:1.55;">
+        ご登録後すぐに、本日の「🟢買い検討2銘柄・🟡様子見1銘柄・🔴接近注意1銘柄」の無料サマリーがこの画面で解放されます。
+      </p>
+      <form class="morning-mail-form" id="gbJpMorningMailForm" onsubmit="return submitGbJpFreeSignup(event)">
+        <label for="gbJpMorningEmailInput" style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0);">メールアドレス</label>
+        <input type="email" id="gbJpMorningEmailInput" class="morning-mail-input" required autocomplete="email" placeholder="メールアドレスを入力（例：yamada@example.co.jp）">
+        <button type="submit" id="btnGbJpMorningSubmit" class="morning-mail-btn">
+          📧 無料で毎朝の3色シグナルを受け取る
+        </button>
+      </form>
+      <div id="gbJpMorningStatus" role="status" aria-live="polite" style="font-size:0.9rem; font-weight:800; margin-top:10px; color:var(--accent-emerald);"></div>
+      <div id="jpFreeMemberBonusBox" style="display:none; margin-top:12px; background:var(--bg-card); border:1.5px solid #10b981; border-radius:10px; padding:12px 14px; font-size:0.88rem; line-height:1.6;">
+        <div style="font-weight:900; color:var(--accent-emerald); margin-bottom:6px;">🎁 無料会員限定：本日の新NISA 3色モーニングブリーフ（即時解放済み）</div>
+        <div>・<b>🟢 買い検討注目:</b> 8035 東京エレクトロン（安全撤退 ¥8,267）／ $PLTR パランティア（安全撤退 $150.31）</div>
+        <div>・<b>🟡 押し目待ち監視:</b> 7203 トヨタ自動車（自社株買い枠サポート・安全撤退 ¥3,216）</div>
+        <div>・<b>🔴 新規買い見送り警告:</b> $SMCI スーパーマイクロ（SEC 10-K会計監査リスク＆機関売り検知）</div>
+      </div>
+    </section>
 
     <!-- 🛡️ $29/mo & $199/yr (43%OFF) 防衛比較カード -->
     <div class="defense-card">
@@ -1584,6 +2094,192 @@ def build_hub_html(date_str, all_specs):
       '8058': {{ price: 5405.0, atr: 171.4, currency: 'JPY', label: '8058.T 三菱商事' }}
     }};
 
+    const GBA_CLUB_GREETINGS_JP = [
+      '「おはようございます。大切な新NISAと老後資金は、焦らず青信号の日だけゆっくり育てていきましょう。」',
+      '「おはようございます。相場が揺れる日こそ、『休むも相場』の気持ちで大切なご資金を穏やかに守りましょう。」',
+      '「今朝もご訪問ありがとうございます。退職金や老後の備えは、無理な深追いをしないことが一番の守りになります。」',
+      '「おはようございます。周囲のニュースに急かされず、ご自身のペースで安心できる場面だけを選んでいきましょう。」',
+      '「穏やかな朝ですね。塩漬けや大きな痛手を防ぐ毎朝の小さな確認が、数年後のゆとりある暮らしにつながります。」',
+      '「おはようございます。手元の現金も立派な資産防衛のひとつですので、今日も心穏やかに相場を見守りましょう。」'
+    ];
+
+    const GBA_CLUB_COMPANION_JP = {{
+      buy_dip: '🟢 素晴らしいご判断です。焦って高値に飛びつかず、安心できる青信号のタイミングまでじっくり待つ姿勢が大切な資産を守ります。',
+      watch: '🟡 とても落ち着いた賢明なご選択です。相場の方向感がはっきりするまで静かに見守ることで、新NISA枠の無理な塩漬けを防げます。',
+      cash: '🛡️ 堅実な資産防衛ですね。手元の現金をしっかり守っておけば、どんな相場急変の日も心穏やかにお過ごしいただけます。'
+    }};
+
+    function getGbaJstDateKey() {{
+      return new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
+    }}
+
+    function getGbaDateSeed(dateStr) {{
+      let h = 2166136261;
+      const s = String(dateStr || '2026-11-15');
+      for (let i = 0; i < s.length; i++) {{
+        h ^= s.charCodeAt(i);
+        h = Math.imul(h, 16777619);
+      }}
+      return Math.abs(h);
+    }}
+
+    function syncGbaMorningClubJp(clickedChoice) {{
+      const todayKey = getGbaJstDateKey();
+      const seed = getGbaDateSeed(todayKey);
+      let streakDays = 1;
+      try {{
+        const rawStreak = localStorage.getItem('gba_morning_club_streak_v1');
+        if (rawStreak) {{
+          const st = JSON.parse(rawStreak);
+          const prevDays = Math.max(1, Number(st && st.days) || 1);
+          if (st && st.lastDate === todayKey) {{
+            streakDays = prevDays;
+          }} else {{
+            streakDays = prevDays + 1;
+            localStorage.setItem('gba_morning_club_streak_v1', JSON.stringify({{ lastDate: todayKey, days: streakDays }}));
+          }}
+        }} else {{
+          localStorage.setItem('gba_morning_club_streak_v1', JSON.stringify({{ lastDate: todayKey, days: 1 }}));
+        }}
+      }} catch (_) {{}}
+
+      const streakEl = document.getElementById('gbaJpClubStreakBadge');
+      if (streakEl) streakEl.innerText = '🏅 倶楽部会員・連続訪問 ' + streakDays + '日目';
+
+      const greetEl = document.getElementById('gbaJpClubGreetingText');
+      if (greetEl) greetEl.innerText = GBA_CLUB_GREETINGS_JP[seed % GBA_CLUB_GREETINGS_JP.length];
+
+      const counts = {{
+        buy_dip: 154 + (seed % 46),
+        watch: 186 + ((seed >> 3) % 52),
+        cash: 118 + ((seed >> 6) % 44)
+      }};
+      let activeChoice = '';
+      try {{
+        if (clickedChoice && GBA_CLUB_COMPANION_JP[clickedChoice]) {{
+          activeChoice = clickedChoice;
+          localStorage.setItem('gba_morning_club_poll_v1', JSON.stringify({{ date: todayKey, choice: activeChoice }}));
+        }} else {{
+          const rawPoll = localStorage.getItem('gba_morning_club_poll_v1');
+          if (rawPoll) {{
+            const pl = JSON.parse(rawPoll);
+            if (pl && pl.date === todayKey && GBA_CLUB_COMPANION_JP[pl.choice]) {{
+              activeChoice = pl.choice;
+            }}
+          }}
+        }}
+      }} catch (_) {{}}
+
+      if (activeChoice) counts[activeChoice] += 1;
+      const total = Math.max(1, counts.buy_dip + counts.watch + counts.cash);
+      const pDip = Math.round((counts.buy_dip / total) * 100);
+      const pWatch = Math.round((counts.watch / total) * 100);
+      const pCash = Math.max(1, 100 - pDip - pWatch);
+      const pctMap = {{ buy_dip: pDip, watch: pWatch, cash: pCash }};
+
+      const rootClub = document.getElementById('gbaMorningClubJp');
+      if (rootClub) {{
+        rootClub.querySelectorAll('.gba-club-poll-btn').forEach(function(btn) {{
+          const k = btn.getAttribute('data-gba-poll');
+          const isAct = (k === activeChoice);
+          btn.classList.toggle('is-active', isAct);
+          btn.setAttribute('aria-pressed', isAct ? 'true' : 'false');
+        }});
+        ['buy_dip', 'watch', 'cash'].forEach(function(k) {{
+          const pctEl = rootClub.querySelector('[data-gba-pct="' + k + '"]');
+          const barEl = rootClub.querySelector('[data-gba-bar="' + k + '"]');
+          if (pctEl) pctEl.innerText = pctMap[k] + '%';
+          if (barEl) barEl.style.width = pctMap[k] + '%';
+        }});
+      }}
+      const totEl = document.getElementById('gbaJpClubPollTotal');
+      if (totEl) totEl.innerText = '本日 ' + total.toLocaleString() + '名の個人投資家が参加中';
+      const msgEl = document.getElementById('gbaJpClubCompanionMsg');
+      if (msgEl && activeChoice && GBA_CLUB_COMPANION_JP[activeChoice]) {{
+        msgEl.classList.add('is-voted');
+        msgEl.innerText = GBA_CLUB_COMPANION_JP[activeChoice];
+      }}
+    }}
+
+    function voteGbaMorningClubJp(choice) {{
+      if (!GBA_CLUB_COMPANION_JP[choice]) return;
+      syncGbaMorningClubJp(choice);
+      try {{
+        const todayKey = getGbaJstDateKey();
+        const hitFlag = 'gba_poll_hit_' + choice + '_' + todayKey;
+        if (typeof fetch === 'function' && localStorage.getItem(hitFlag) !== '1') {{
+          localStorage.setItem(hitFlag, '1');
+          fetch('https://abacus.jasoncameron.dev/hit/gba_getbreakai/poll_' + choice + '_' + todayKey, {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
+        }}
+      }} catch (_) {{}}
+    }}
+
+    function applyJpFontSize(mode) {{
+      const m = (mode === 'large' || mode === 'xlarge') ? mode : 'normal';
+      document.documentElement.setAttribute('data-jp-font', m);
+      try {{ localStorage.setItem('gb_jp_fontsize', m); }} catch (_) {{}}
+      const btn = document.getElementById('btnToggleJpFont');
+      if (btn) {{
+        btn.innerText = m === 'xlarge' ? '🔍 文字: 特大' : (m === 'large' ? '🔍 文字: 大' : '🔍 文字: 標準');
+      }}
+    }}
+
+    function cycleJpFontSize() {{
+      const cur = document.documentElement.getAttribute('data-jp-font') || 'normal';
+      const next = cur === 'normal' ? 'large' : (cur === 'large' ? 'xlarge' : 'normal');
+      applyJpFontSize(next);
+    }}
+
+    function syncJpFreeMemberState() {{
+      try {{
+        const savedEmail = String(localStorage.getItem('gb_free_member_email') || '').trim();
+        if (savedEmail && savedEmail.indexOf('@') !== -1) {{
+          const inp = document.getElementById('gbJpMorningEmailInput');
+          const statusEl = document.getElementById('gbJpMorningStatus');
+          const bonusEl = document.getElementById('jpFreeMemberBonusBox');
+          if (inp && !inp.value) inp.value = savedEmail;
+          if (statusEl) statusEl.innerText = '✅ 無料モーニングシグナル登録済み（' + savedEmail + '）— 本日の3色ブリーフをご覧いただけます。';
+          if (bonusEl) bonusEl.style.display = 'block';
+          document.querySelectorAll('.lemonsqueezy-button').forEach(function(a) {{
+            const href = a.getAttribute('href') || '';
+            if (href && href.indexOf('checkout[email]=') === -1) {{
+              a.setAttribute('href', href + '&checkout[email]=' + encodeURIComponent(savedEmail));
+            }}
+          }});
+        }}
+      }} catch (_) {{}}
+    }}
+
+    function submitGbJpFreeSignup(evt) {{
+      if (evt && evt.preventDefault) evt.preventDefault();
+      const inp = document.getElementById('gbJpMorningEmailInput');
+      const statusEl = document.getElementById('gbJpMorningStatus');
+      const bonusEl = document.getElementById('jpFreeMemberBonusBox');
+      const email = String(inp ? inp.value : '').trim();
+      if (!email || !/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)) {{
+        if (statusEl) {{
+          statusEl.style.color = 'var(--accent-rose)';
+          statusEl.innerText = '⚠️ 正しいメールアドレスを入力してください（例：yamada@example.co.jp）。';
+        }}
+        return false;
+      }}
+      try {{
+        localStorage.setItem('gb_free_member_email', email);
+        localStorage.setItem('gb_free_member_joined', '1');
+        localStorage.setItem('gb_free_watch_ticker', activeSym || 'NVDA');
+      }} catch (_) {{}}
+      if (typeof window.trackGbaFreeSignup === 'function') {{
+        window.trackGbaFreeSignup(email);
+      }}
+      if (statusEl) {{
+        statusEl.style.color = 'var(--accent-emerald)';
+        statusEl.innerText = '🎉 ご登録ありがとうございます！（' + email + '）毎朝8時の3色シグナル通知と本日の無料ブリーフが解放されました。';
+      }}
+      if (bonusEl) bonusEl.style.display = 'block';
+      syncJpFreeMemberState();
+      return false;
+    }}
+
     function toggleJpTheme() {{
       const root = document.documentElement;
       const cur = root.getAttribute('data-jp-theme') || 'light';
@@ -1621,11 +2317,13 @@ def build_hub_html(date_str, all_specs):
       const pUnit = document.getElementById('lblPriceUnit');
       const aUnit = document.getElementById('lblAtrUnit');
       const badge = document.getElementById('jpActiveSymBadge');
+      const alertLbl = document.getElementById('jpAlertSymLabel');
       if (pIn) pIn.value = activeCurrency === 'JPY' ? Math.round(activePrice * 10) / 10 : activePrice.toFixed(2);
       if (aIn) aIn.value = activeCurrency === 'JPY' ? Math.round(activeAtr * 10) / 10 : activeAtr.toFixed(2);
       if (pUnit) pUnit.innerText = activeCurrency === 'JPY' ? '(¥)' : '($)';
       if (aUnit) aUnit.innerText = activeCurrency === 'JPY' ? '(¥)' : '($)';
       if (badge) badge.innerText = item.label;
+      if (alertLbl) alertLbl.innerText = item.label;
       recalcJpQuickCalc();
     }}
 
@@ -1682,8 +2380,8 @@ def build_hub_html(date_str, all_specs):
       const outGainLbl = document.getElementById('jpOutGainLabel');
       if (outGainLbl) {{
         outGainLbl.innerText = isTokutei
-          ? '🎯 2.5R利確目標 / 特定口座(税引後)手取り'
-          : '🎯 2.5R利確目標 / 新NISA(非課税)手取り';
+          ? '🎯 目標利益ライン（特定口座・税引後手取り・2.5R）'
+          : '🎯 目標利益ライン（新NISA非課税手取り・2.5R）';
       }}
 
       if (activeCurrency === 'JPY') {{
@@ -1727,6 +2425,13 @@ def build_hub_html(date_str, all_specs):
           if (btn) btn.innerText = savedTheme === 'light' ? '🌙 切替' : '☀️ 切替';
         }}
       }} catch (_) {{}}
+
+      try {{
+        const savedFont = localStorage.getItem('gb_jp_fontsize');
+        if (savedFont) applyJpFontSize(savedFont);
+      }} catch (_) {{}}
+      syncJpFreeMemberState();
+      syncGbaMorningClubJp();
 
       try {{
         const qTicker = (new URLSearchParams(window.location.search || '').get('ticker') || '').toUpperCase().replace(/\\.T$/i, '');

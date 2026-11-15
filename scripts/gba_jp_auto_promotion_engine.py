@@ -33,6 +33,10 @@ HQ_TEXT_DIR = ROOT_DIR.parent / "text_automation_hq"
 if str(HQ_TEXT_DIR) not in sys.path:
     sys.path.insert(0, str(HQ_TEXT_DIR))
 
+from fandom_editor_letter_builder import (  # noqa: E402
+    compose_fandom_editor_letter_md,
+    validate_fandom_editor_letter,
+)
 from indexnow_delta_gate import (  # noqa: E402
     ping_websub_if_feed_changed,
     publish_daily_unique_telegraph_summary,
@@ -153,7 +157,9 @@ def build_url_map() -> dict[str, Path]:
 
 def main() -> int:
     dry_run = "--dry-run" in sys.argv
-    sync_remote_before_build("GBA", dry_run=dry_run)
+    no_deploy = "--no-deploy" in sys.argv
+    if not no_deploy:
+        sync_remote_before_build("GBA", dry_run=dry_run)
     (ROOT_DIR / f"{INDEXNOW_KEY}.txt").write_text(INDEXNOW_KEY, encoding="utf-8")
 
     # 1. Generate today's Japanese Daily NISA Quant Column HTML + Refresh RSS feeds
@@ -169,10 +175,17 @@ def main() -> int:
     as_of = update_dual_llms_txt()
 
     build_dist_js = ROOT_DIR / "scripts" / "build_dist.js"
-    if build_dist_js.exists():
+    if no_deploy:
+        dist_jp = ROOT_DIR / "dist" / "jp"
+        if dist_jp.exists() and (JP_DIR / "daily-nisa-quant-report.html").exists():
+            (dist_jp / "daily-nisa-quant-report.html").write_text(
+                (JP_DIR / "daily-nisa-quant-report.html").read_text(encoding="utf-8"),
+                encoding="utf-8",
+            )
+    elif build_dist_js.exists():
         subprocess.run(["node", str(build_dist_js)], cwd=str(ROOT_DIR), check=False, capture_output=True)
 
-    deploy_res = deploy_division_live("GBA", dry_run=dry_run)
+    deploy_res = {"status": "SKIPPED_NO_DEPLOY"} if no_deploy else deploy_division_live("GBA", dry_run=dry_run)
 
     # 3. Rotate daily theme & run 1x/day Telegraph + Zero-Ban Syndication
     usd_jpy = load_live_usd_jpy()
@@ -180,23 +193,25 @@ def main() -> int:
     theme = JP_DAILY_THEMES[day_ord % len(JP_DAILY_THEMES)]
     target_slug = theme["slug"] if (JP_DIR / theme["slug"]).exists() else "daily-nisa-quant-report.html"
     canonical_url = f"https://getbreakai.com/jp/{target_slug}"
-    title = f"【新NISA・老後資金防衛日報 {as_of}】{theme['title_prefix']}"
+    title = f"【朝の資産防衛レター {as_of}】{theme['title_prefix']}"
 
     nodes = [
         {
             "tag": "blockquote",
-            "children": [f"GetBreakAI 新NISA・老後資金3色シグナル日報 ({as_of} / 実勢レート 1ドル＝約{usd_jpy:.1f}円基準)"],
-        },
-        {
-            "tag": "p",
             "children": [
-                "新NISA成長投資枠は利益が非課税（0%）になる心強い制度ですが、特定口座（20.315%）と異なり他の利益と損益通算ができません。だからこそ「なんとなく安そうだから」と下落中の株を買い増して何年も塩漬けにしないことが、大切な老後資金を守る一番の近道です。"
+                f"☀️ GetBreakAI 朝の資産防衛クラブ ({as_of} / 実勢レート 1ドル＝約{usd_jpy:.1f}円): おはようございます。昨夜の相場ニュースで新NISA枠や老後資金が不安になった方も、まずは温かいお茶を飲んでご安心ください。今朝も編集部があなたの味方として寄り添います。"
             ],
         },
         {
             "tag": "p",
             "children": [
-                "メール1つで毎朝届く無料の「3色売買シグナル（青＝順張り維持・黄＝様子見・赤＝安全撤退ライン）」登録と、3秒適正株数シミュレーターはこちら：",
+                "新NISA成長投資枠は利益が非課税（0%）になる心強い制度ですが、特定口座（20.315%）と異なり他の利益と損益通算ができません。だからこそ「なんとなく安そうだから」と下落中の株をナンピンして何年も塩漬けにしないことが、大切な老後資金を守る一番の近道です。"
+            ],
+        },
+        {
+            "tag": "p",
+            "children": [
+                "今日1分の小さな安心ミッション：買う前にまず3秒シミュレーターでご資金に合う適正株数を確認してみましょう（無料メール1つで毎朝の3色シグナルも受け取れます）：",
                 {"tag": "a", "attrs": {"href": canonical_url}, "children": [canonical_url]},
             ],
         },
@@ -206,7 +221,7 @@ def main() -> int:
         div_code="GBA",
         account_file=TELEGRAPH_ACCT_PATH,
         short_name="GetBreakAI_JP",
-        author_name="GetBreakAI 新NISA・資産防衛デスク",
+        author_name="GetBreakAI 朝の資産防衛パートナー",
         author_url="https://getbreakai.com/jp/",
         title=title,
         content_nodes=nodes,
@@ -228,26 +243,36 @@ def main() -> int:
         tg_url = logs[-1].get("url", "")
 
     reply_post = (
-        f"📩 メール1つで毎朝届く無料「3色売買シグナル（青・黄・赤）」＆3秒適正株数シミュレーターはこちら：\n"
+        f"☀️ 今朝の資産防衛レター全文＆無料の3秒適正株数シミュレーターはこちら：\n"
         f"{canonical_url}?utm_source=social_thread&utm_medium=organic"
     )
 
-    note_md = (
-        f"# {title}\n\n"
-        f"40代・50代・60代から新NISA成長投資枠や特定口座で米国株・半導体株（エヌビディア・マイクロソフト・ブロードコムなど）を運用するとき、"
-        f"一番大切なのは「大きく当てること」よりも**「大切な老後資金を深い塩漬け損から守ること」**です。\n\n"
-        f"## 1. 新NISA（非課税0%）と特定口座（20.315%）の知っておきたい違い\n"
-        f"- **特定口座（源泉徴収あり）**: 利益に20.315%の税金がかかりますが、万が一の損切り額を他の利益と相殺（損益通算）できます。\n"
-        f"- **新NISA成長投資枠**: 利益がまるごと非課税（0%）になる反面、損失が出ても損益通算や繰越控除はできません。\n\n"
-        f"## 2. 迷わないための「毎朝の3色売買シグナル」\n"
-        f"- **🔵 青シグナル（順張り維持）**: 上昇トレンドと大口資金の買い支えが確認された状態。\n"
-        f"- **🟡 黄シグナル（様子見・待機）**: 値動きが荒く、飛びつき買いを控えて静観する局面。\n"
-        f"- **🔴 赤シグナル（安全撤退ライン）**: 傷が浅いうちに現金を守り、次のチャンスに備える防衛ライン。\n\n"
-        f"## 3. 無料の毎朝メール配信＆3秒適正株数シミュレーター（1ドル＝約{usd_jpy:.1f}円連動）\n"
-        f"ご資金（100万円・300万円など）を入れるだけで夜ぐっすり眠れる購入株数を3秒で確認でき、メールアドレス1つで毎朝の3色シグナルを無料受信できます：\n"
-        f"👉 {canonical_url}\n\n"
-        f"※本記事は統計データに基づく教育・情報提供であり、個別銘柄の投資助言ではありません。\n"
+    note_md = compose_fandom_editor_letter_md(
+        div_code="GBA",
+        title=title,
+        canonical_url=canonical_url,
+        empathy_two_lines=[
+            "おはようございます。昨夜の米国株ニュースを見て「せっかく積み立てた新NISA枠や大切な老後資金が減ってしまったらどうしよう」と不安を感じた方は、まず深呼吸して温かい飲み物を一口どうぞ。",
+            "50代・60代からの資産運用で一番大切なのは、無理に大勝ちを狙うことではなく、長年働いて築いたご資産を深い塩漬け損から穏やかに守り抜くことです。",
+        ],
+        three_insights=[
+            "**新NISA（非課税0%）と特定口座（20.315%）のやさしい使い分け**: 特定口座は利益に20.315%課税される代わりに損切り額を損益通算できますが、新NISA枠は利益がまるごと非課税（0%）になる反面、損失の損益通算ができないため早めの安全撤退ルールが命綱になります。",
+            "**迷わない毎朝の3色シグナル（Donchian 20日高値＆2.0倍ATR基準）**: 🔵青シグナル（上昇トレンド維持）・🟡黄シグナル（様子見・待機）・🔴赤シグナル（2.0倍ATR安全撤退ライン）の3色だけで落ち着いて手取りを守れます。",
+            f"**実勢レート（1ドル＝約{usd_jpy:.1f}円）連動の適正株数ルール**: 例えば口座資金100万円なら1回の許容損失を1.5%（15,000円）以内に抑える株数だけを持つことで、夜ぐっすり眠れる運用が続けられます。",
+        ],
+        daily_mission=(
+            "今日1分だけ、気になっている米国株1銘柄（NVDA・MSFT・AVGOなど）の「安全撤退ライン（2.0倍ATR）」を手帳やスマホのメモに書き留めてから相場を眺めてみましょう。"
+        ),
+        gentle_bridge_lines=[
+            f"**今朝の資産防衛レター全文＆日課スタンプを押す**: {canonical_url}",
+            f"**無料の3秒適正株数シミュレーター＆毎朝8時の無料3色シグナル配信（メール1つで開始）**: https://getbreakai.com/jp/ （まずは無料ツールだけで十分お役立ていただけます）",
+            "**さらに詳しく見たい方へ（任意・Pro VIP）**: 全72銘柄のリアルタイム価格とTradingView自動描画をご希望の方には、月額 $29/月・年間パス $199/年プランもご用意しております。",
+        ],
+        footer_disclaimer="※本レターはGetBreakAI 朝の資産防衛クラブによる統計・教育目的の情報提供であり、個別銘柄の売買推奨や投資助言ではありません。",
     )
+    gba_letter_check = validate_fandom_editor_letter("GBA", note_md)
+    if not gba_letter_check["passed"]:
+        raise RuntimeError(f"GBA Fandom Editor Letter validation failed: {gba_letter_check}")
 
     zenn_md = (
         f"---\ntitle: \"{title}\"\nemoji: \"📊\"\ntype: \"idea\"\ntopics: [\"nisa\", \"finance\", \"usstocks\", \"assetmanagement\"]\npublished: true\n---\n\n"

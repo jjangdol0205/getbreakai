@@ -21,8 +21,15 @@ import html
 import json
 import pathlib
 import re
+import sys
 
 ROOT_DIR = pathlib.Path(__file__).resolve().parent.parent
+HQ_TEXT_DIR = ROOT_DIR.parent / "text_automation_hq"
+if str(HQ_TEXT_DIR) not in sys.path:
+    sys.path.insert(0, str(HQ_TEXT_DIR))
+
+from fandom_editor_letter_builder import build_html_morning_letter_and_stamp_card  # noqa: E402
+
 JP_DIR = ROOT_DIR / "jp"
 SNAP_PATH = ROOT_DIR / "data" / "live_market_snapshot.json"
 SITEMAP_PATH = ROOT_DIR / "sitemap.xml"
@@ -69,8 +76,15 @@ def generate_daily_jp_column() -> str:
         )
 
     canonical_url = "https://getbreakai.com/jp/daily-nisa-quant-report.html"
-    title = f"【米国株・新NISAクオンツ日報 {today_iso}】2.0倍ATR逆指値と特定口座(20.315%)税引後リターン検証"
+    title = f"【朝の資産防衛レター・新NISA日報 {today_iso}】大切な老後資金を塩漬けから守る安全撤退ラインと特定口座(20.315%)手取り比較"
     desc = f"{today_iso}最新：ドル円({usdjpy:.1f}円)連動のNVDA・PLTR・TSLA適正株数シミュレーション。新NISA成長投資枠(非課税0%)と特定口座(20.315%)の手取り比較。"
+    jp_morning_letter_html = build_html_morning_letter_and_stamp_card(
+        div_code="GBA",
+        date_str=today_iso,
+        empathy_line_1="おはようございます。昨夜の米国株ニュースを見て「大切な新NISA枠や老後資金が減ってしまったらどうしよう」と胸がざわついた方は、まず温かいお茶を一口飲んでご安心ください。",
+        empathy_line_2="長年コツコツ築いてこられた大切なご資産を深い塩漬け損から守るため、今朝も編集部があなたの味方として寄り添い、迷わない3色判断基準をお届けします。",
+        mission_text="今日1つだけ、ご自身の主力保有株（またはNVDA）の「安全撤退ライン（2.0倍ATR）」を手帳やメモに控えてから落ち着いて相場を確認しましょう。",
+    )
 
     ld_json = json.dumps(
         {
@@ -220,9 +234,10 @@ def generate_daily_jp_column() -> str:
     </div>
   </header>
   <main class="wrap">
-    <span class="tag">新NISA・特定口座 対応クオンツ日報 · {today_iso}</span>
+    <span class="tag">GetBreakAI 朝の資産防衛クラブ · 新NISA・特定口座 対応レター · {today_iso}</span>
     <h1>{html.escape(title)}</h1>
     <p style="color:#94a3b8;font-size:1.02rem;">為替参照レート: 1ドル = {usdjpy:.1f}円 · 口座資金100万円（1トレード許容リスク1.5% = 15,000円）基準</p>
+    {jp_morning_letter_html}
 
     <section id="gba-daily-lead-top" class="cta" style="margin:1.4rem 0;">
       <div style="font-size:0.9rem;font-weight:800;color:#6ee7b7;margin-bottom:0.4rem;">🟢買い検討 ・ 🟡様子見 ・ 🔴危険撤退 ｜ 毎朝8時の無料3色シグナル</div>

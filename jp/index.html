@@ -23,8 +23,8 @@
   <script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
   <script>
     window.CHECKOUT_URLS = {
-      monthly: 'https://truthofmarket.lemonsqueezy.com/checkout/custom/f31a6c6c-6b09-409a-beaf-dd19a9eb2af9?signature=15f2b96765f5dfbce4def1891a4a99653a83e23f714b6f13a95d7134ee2041fe&embed=1',
-      annual: 'https://truthofmarket.lemonsqueezy.com/checkout/custom/19d14007-55e9-42e2-9f61-2dc3b75ac9b4?signature=a03c2e7ef03e726cc279e9b6978e3cfa0eb9edc82058f1068685d1171693f8ce&embed=1',
+      monthly: 'https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html&locale=ja',
+      annual: 'https://truthofmarket.lemonsqueezy.com/checkout/buy/667aa482-f17c-47d1-b7f3-a2427c36516b?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html&locale=ja',
       enterprise: 'mailto:beable9489@gmail.com?subject=GetBreakAI%20Enterprise%20Inquiry'
     };
     const CHECKOUT_URLS = window.CHECKOUT_URLS;
@@ -386,16 +386,18 @@
     .btn-checkout-primary, .btn-checkout-annual {
       color: #ffffff !important;
       text-decoration: none;
-      padding: 13px 16px;
-      border-radius: 10px;
-      font-size: 0.92rem;
+      padding: 14px 18px;
+      border-radius: 12px;
+      font-size: 1.05rem;
       font-weight: 900;
       display: flex;
+      flex-direction: column;
+      gap: 3px;
       align-items: center;
       justify-content: center;
       width: 100%;
       text-align: center;
-      min-height: 48px;
+      min-height: 66px;
     }
     .btn-checkout-primary { background: linear-gradient(135deg, #1d4ed8, #1e3a8a); }
     .btn-checkout-annual { background: linear-gradient(135deg, #065f46, #047857); }
@@ -611,38 +613,46 @@
       <!-- Checkout CTA Buttons (Lemon Squeezy Store #296100 Live UUIDs) -->
       <div class="cta-container">
         <div class="cta-dual-grid">
-          <a href="https://truthofmarket.lemonsqueezy.com/checkout/custom/f31a6c6c-6b09-409a-beaf-dd19a9eb2af9?signature=15f2b96765f5dfbce4def1891a4a99653a83e23f714b6f13a95d7134ee2041fe&amp;embed=1" data-ls-product-uuid="d5e7e761-8b1b-4ca8-b1fe-771acd1450f8" class="btn-checkout-primary lemonsqueezy-button">
-            ⚡ 月額プラン $29/月 (約4,350円) で始める →
+          <a href="https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8?embed=1&amp;checkout[redirect_url]=https://getbreakai.com/confirmation.html&amp;locale=ja" data-ls-product-uuid="d5e7e761-8b1b-4ca8-b1fe-771acd1450f8" class="btn-checkout-primary lemonsqueezy-button">
+            <span>⚡ 月額Proプラン $29/月</span>
+            <span style="font-size:0.76rem; font-weight:700; opacity:0.92;">約4,400円・税込 / 決済完了と同時に自動ロック解除</span>
           </a>
-          <a href="https://truthofmarket.lemonsqueezy.com/checkout/custom/19d14007-55e9-42e2-9f61-2dc3b75ac9b4?signature=a03c2e7ef03e726cc279e9b6978e3cfa0eb9edc82058f1068685d1171693f8ce&amp;embed=1" data-ls-product-uuid="667aa482-f17c-47d1-b7f3-a2427c36516b" class="btn-checkout-annual lemonsqueezy-button">
-            👑 年間VIPパス $199/年 (43%OFF・約29,800円) →
+          <a href="https://truthofmarket.lemonsqueezy.com/checkout/buy/667aa482-f17c-47d1-b7f3-a2427c36516b?embed=1&amp;checkout[redirect_url]=https://getbreakai.com/confirmation.html&amp;locale=ja" data-ls-product-uuid="667aa482-f17c-47d1-b7f3-a2427c36516b" class="btn-checkout-annual lemonsqueezy-button">
+            <span>👑 年間VIPパス $199/年</span>
+            <span style="font-size:0.76rem; font-weight:800; opacity:0.95;">43%OFF・約29,800円/年 / 一番人気・自動ロック解除</span>
           </a>
         </div>
+        <div style="margin-top:10px; font-size:0.86rem; font-weight:900; color:var(--text-main);">
+          🍎 Apple Pay・Google Pay・カード対応 / いつでも1クリック解約
+        </div>
         <div class="cta-subnote">
+          ✨ ご決済完了と同時にこのブラウザでVIP全機能が自動的に解放されます（キーのコピー＆ペースト不要）。<br>
           🔒 Lemon Squeezy Store #296100 安全決済（🍎 Apple Pay・Google Pay・JCB・Visa・Master・PayPal 対応 / いつでも1クリック解約可能）<br>
           🎁 <b>購入特典</b>：姉妹ターミナル <b>TruthOfMarket.com</b> のVIP権限も同時付与！法人・API契約：<a href="mailto:beable9489@gmail.com?subject=GetBreakAI%20Enterprise%20Inquiry" style="color:var(--accent-blue); font-weight:800;">beable9489@gmail.com</a>
         </div>
       </div>
     </div>
 
-    <!-- 🔐 Web VIP Vault & 公式Web/SNS配信ハブ -->
-    <div class="vip-vault-card" id="jpHubVipVaultBox">
-      <div style="font-size:1.0rem; font-weight:900; color:var(--text-main);">
-        🔐 Web VIP Vault ライセンスキー即時認証（全ページ共通連動）
+    <!-- 🔐 Web VIP Vault 機種変更・既存ライセンス復元（新規決済は自動解放） -->
+    <details class="vip-vault-card" id="jpHubVipVaultBox">
+      <summary style="cursor:pointer; font-size:0.92rem; font-weight:900; color:var(--text-main); list-style:none;">
+        🔑 既に購入済み・機種変更でのライセンスキー復元はこちら（新規決済時は自動でロック解除されます） ▾
+      </summary>
+      <div style="margin-top:10px;">
+        <p style="font-size:0.83rem; color:var(--text-muted); margin:6px 0 8px;">
+          決済完了メールに記載された Lemon Squeezy ライセンスキーを入力すると、当ページおよびトップページのVIP特典が一括でアンロックされます。
+        </p>
+        <div class="vip-input-row">
+          <input type="text" id="jpHubLicenseInput" class="vip-key-input" placeholder="ライセンスキーを入力 (XXXX-XXXX-XXXX-XXXX)">
+          <button type="button" id="btnJpHubUnlockVip" class="vip-unlock-btn" onclick="unlockJpHubVipVault()">🔑 VIPロック解除</button>
+        </div>
+        <div id="jpHubVipStatus" style="font-size:0.82rem; font-weight:700; margin-top:8px; color:var(--accent-emerald);"></div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; font-size:0.8rem;">
+          <a href="https://www.youtube.com/@GetBreakAI" target="_blank" rel="noopener" style="color:var(--accent-blue); font-weight:800; text-decoration:none;">📺 公式YouTube (@GetBreakAI)</a>
+          <a href="https://getbreakai.com/#gbQuickMatrixSection" style="color:var(--accent-emerald); font-weight:800; text-decoration:none;">📊 本日の日米ブレイク銘柄早見表 →</a>
+        </div>
       </div>
-      <p style="font-size:0.83rem; color:var(--text-muted); margin:6px 0 8px;">
-        決済完了メールに記載された Lemon Squeezy ライセンスキーを入力すると、当ページおよびトップページのVIP特典が一括でアンロックされます。
-      </p>
-      <div class="vip-input-row">
-        <input type="text" id="jpHubLicenseInput" class="vip-key-input" placeholder="ライセンスキーを入力 (XXXX-XXXX-XXXX-XXXX)">
-        <button type="button" id="btnJpHubUnlockVip" class="vip-unlock-btn" onclick="unlockJpHubVipVault()">🔑 VIPロック解除</button>
-      </div>
-      <div id="jpHubVipStatus" style="font-size:0.82rem; font-weight:700; margin-top:8px; color:var(--accent-emerald);"></div>
-      <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; font-size:0.8rem;">
-        <a href="https://www.youtube.com/@GetBreakAI" target="_blank" rel="noopener" style="color:var(--accent-blue); font-weight:800; text-decoration:none;">📺 公式YouTube (@GetBreakAI)</a>
-        <a href="https://getbreakai.com/#gbQuickMatrixSection" style="color:var(--accent-emerald); font-weight:800; text-decoration:none;">📊 本日の日米ブレイク銘柄早見表 →</a>
-      </div>
-    </div>
+    </details>
 
     <!-- 📚 30選ディープリサーチ記事一覧 -->
     <div style="border-top:1px solid var(--border-col); padding-top:20px; margin-top:16px;">
@@ -950,8 +960,69 @@
       }
     }
 
+    function applyJpHubCheckoutAutoUnlock(rawOrderKey) {
+      const orderKey = String(rawOrderKey || 'LS-VERIFIED-CHECKOUT-SESSION-2026').trim();
+      try {
+        localStorage.setItem('gb_vip_unlocked', 'true');
+        localStorage.setItem('gb_vip_license_key', orderKey);
+        localStorage.setItem('gb_vip_key', orderKey);
+      } catch (_) {}
+      syncStoredVipKeysOnHub();
+      const box = document.getElementById('jpHubVipVaultBox');
+      if (box) box.open = true;
+      const statusEl = document.getElementById('jpHubVipStatus');
+      if (statusEl) {
+        statusEl.style.color = 'var(--accent-emerald)';
+        statusEl.innerText = '🎉 ご決済ありがとうございます！ブラウザ上でVIP全機能が自動的に解放されました。メインターミナルへ移動します...';
+      }
+      setTimeout(function() { window.location.href = '/?unlock=1#vip-vault'; }, 1100);
+    }
+
+    function bindJpHubLemonSqueezyOverlay() {
+      try {
+        if (typeof window.createLemonSqueezy === 'function') window.createLemonSqueezy();
+        if (window.LemonSqueezy && typeof window.LemonSqueezy.Setup === 'function') {
+          window.LemonSqueezy.Setup({
+            eventHandler: function(ev) {
+              if (ev && ev.event === 'Checkout.Success') {
+                const orderKey = (ev.data && ev.data.order && ev.data.order.data && ev.data.order.data.attributes && ev.data.order.data.attributes.identifier) || 'LS-VERIFIED-CHECKOUT-SESSION-2026';
+                applyJpHubCheckoutAutoUnlock(orderKey);
+              }
+            }
+          });
+        }
+      } catch (_) {}
+    }
+
+    if (!window.__jpHubLsBound) {
+      window.__jpHubLsBound = true;
+      window.addEventListener('message', function(msgEvt) {
+        try {
+          if (!msgEvt || !String(msgEvt.origin || '').includes('lemonsqueezy.com')) return;
+          const payload = typeof msgEvt.data === 'string' ? JSON.parse(msgEvt.data) : msgEvt.data;
+          if (payload && payload.event === 'Checkout.Success') {
+            const orderKey = (payload.data && payload.data.order && payload.data.order.data && payload.data.order.data.attributes && payload.data.order.data.attributes.identifier) || 'LS-VERIFIED-CHECKOUT-SESSION-2026';
+            applyJpHubCheckoutAutoUnlock(orderKey);
+          }
+        } catch (_) {}
+      });
+      document.addEventListener('click', function(e) {
+        const btn = e.target && e.target.closest ? e.target.closest('.lemonsqueezy-button') : null;
+        if (!btn) return;
+        bindJpHubLemonSqueezyOverlay();
+        const href = btn.getAttribute('href') || '';
+        if (href && href.indexOf('lemonsqueezy.com/checkout') !== -1 && !e.ctrlKey && !e.shiftKey) {
+          if (window.LemonSqueezy && window.LemonSqueezy.Url && typeof window.LemonSqueezy.Url.Open === 'function') {
+            e.preventDefault();
+            window.LemonSqueezy.Url.Open(href);
+          }
+        }
+      }, true);
+    }
+
     window.addEventListener('DOMContentLoaded', function() {
       syncStoredVipKeysOnHub();
+      bindJpHubLemonSqueezyOverlay();
 
       (async function syncSameOriginPrices() {
         try {

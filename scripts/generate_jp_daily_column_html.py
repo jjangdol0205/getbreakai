@@ -27,8 +27,8 @@ JP_DIR = ROOT_DIR / "jp"
 SNAP_PATH = ROOT_DIR / "data" / "live_market_snapshot.json"
 SITEMAP_PATH = ROOT_DIR / "sitemap.xml"
 
-LS_MONTHLY = "https://truthofmarket.lemonsqueezy.com/checkout/custom/f31a6c6c-6b09-409a-beaf-dd19a9eb2af9?signature=15f2b96765f5dfbce4def1891a4a99653a83e23f714b6f13a95d7134ee2041fe&embed=1"
-LS_ANNUAL = "https://truthofmarket.lemonsqueezy.com/checkout/custom/19d14007-55e9-42e2-9f61-2dc3b75ac9b4?signature=a03c2e7ef03e726cc279e9b6978e3cfa0eb9edc82058f1068685d1171693f8ce&embed=1"
+LS_MONTHLY = "https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html&locale=ja"
+LS_ANNUAL = "https://truthofmarket.lemonsqueezy.com/checkout/buy/667aa482-f17c-47d1-b7f3-a2427c36516b?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html&locale=ja"
 
 
 def generate_daily_jp_column() -> str:

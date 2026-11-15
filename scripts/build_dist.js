@@ -28,7 +28,9 @@ const ROOT_FILES = [
   'gba2026indexnowkey88429104.txt',
   '58b3e91c42f04a7d916503ce8a72b419.txt',
   'flow_24_prompts_studio.html',
-  'yt_ig_setup_studio.html'
+  'yt_ig_setup_studio.html',
+  'hq-mailing-endpoint.json',
+  'hq_member_crm_client.js'
 ];
 
 const DIRS_TO_COPY = [
@@ -68,6 +70,16 @@ function buildDist() {
     if (fs.existsSync(srcPath)) {
       fs.copyFileSync(srcPath, path.join(DIST_DIR, fileName));
       copiedFiles++;
+    }
+  }
+
+  const jpRootDir = path.join(ROOT_DIR, 'jp');
+  if (fs.existsSync(jpRootDir)) {
+    for (const crmAsset of ['hq-mailing-endpoint.json', 'hq_member_crm_client.js']) {
+      const crmSrc = path.join(ROOT_DIR, crmAsset);
+      if (fs.existsSync(crmSrc)) {
+        fs.copyFileSync(crmSrc, path.join(jpRootDir, crmAsset));
+      }
     }
   }
 

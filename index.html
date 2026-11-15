@@ -31,6 +31,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
   <script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
+  <script src="/hq_member_crm_client.js" defer></script>
   <script>
     window.CHECKOUT_URLS = {
       monthly: 'https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html&locale=ja',
@@ -1856,9 +1857,166 @@
       border-color: #34d399;
       color: #a7f3d0;
     }
+    .gba-root-pwless-box {
+      margin-top: 14px;
+      padding: 15px 16px;
+      border-radius: 12px;
+      background: var(--bg-card);
+      border: 2px solid #059669;
+      box-shadow: 0 6px 18px rgba(5, 150, 105, 0.10);
+      box-sizing: border-box;
+    }
+    html[data-jp-theme="dark"] .gba-root-pwless-box {
+      background: rgba(15, 23, 42, 0.88);
+      border-color: #10b981;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+    }
+    .gba-root-pwless-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .gba-root-pwless-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #059669;
+      color: #ffffff;
+      font-size: 0.82rem;
+      font-weight: 900;
+      padding: 4px 12px;
+      border-radius: 999px;
+    }
+    .gba-root-pwless-heading {
+      font-size: 1.04rem;
+      font-weight: 900;
+      color: var(--text-main);
+      line-height: 1.45;
+      margin: 0 0 5px;
+    }
+    .gba-root-pwless-sub {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin: 0 0 10px;
+    }
+    .gba-root-seg-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .gba-root-seg-btn {
+      appearance: none;
+      min-height: 46px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1.8px solid var(--border-color);
+      background: var(--bg-sub, var(--bg-card));
+      color: var(--text-main);
+      font-size: 0.86rem;
+      font-weight: 800;
+      font-family: inherit;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      line-height: 1.35;
+      transition: all 0.15s ease;
+    }
+    .gba-root-seg-btn:hover { border-color: #059669; }
+    .gba-root-seg-btn.is-active {
+      background: #ecfdf5;
+      border-color: #059669;
+      color: #065f46;
+      box-shadow: 0 0 0 2px rgba(5, 150, 105, 0.18);
+    }
+    html[data-jp-theme="dark"] .gba-root-seg-btn.is-active {
+      background: rgba(16, 185, 129, 0.20);
+      border-color: #34d399;
+      color: #a7f3d0;
+    }
+    .gba-root-pwless-form {
+      display: grid;
+      grid-template-columns: minmax(150px, 0.85fr) minmax(230px, 1.45fr) auto;
+      gap: 10px;
+      align-items: stretch;
+    }
+    .gba-root-pwless-input {
+      min-height: 48px;
+      padding: 10px 13px;
+      border-radius: 10px;
+      border: 1.8px solid var(--border-color);
+      background: var(--bg-card);
+      color: var(--text-main);
+      font-size: 0.95rem;
+      font-weight: 700;
+      font-family: inherit;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .gba-root-pwless-submit {
+      appearance: none;
+      min-height: 48px;
+      padding: 10px 18px;
+      border-radius: 10px;
+      border: none;
+      background: linear-gradient(135deg, #059669, #047857);
+      color: #ffffff;
+      font-size: 0.94rem;
+      font-weight: 900;
+      font-family: inherit;
+      cursor: pointer;
+      white-space: nowrap;
+      box-shadow: 0 6px 16px rgba(5, 150, 105, 0.25);
+    }
+    .gba-root-pwless-feedback {
+      display: none;
+      margin-top: 10px;
+      padding: 11px 13px;
+      border-radius: 10px;
+      background: #ecfdf5;
+      border: 1.5px solid #059669;
+      color: #065f46;
+      font-size: 0.9rem;
+      font-weight: 800;
+      line-height: 1.62;
+    }
+    html[data-jp-theme="dark"] .gba-root-pwless-feedback {
+      background: rgba(16, 185, 129, 0.16);
+      border-color: #34d399;
+      color: #a7f3d0;
+    }
+    .gba-root-pwless-feedback.is-error {
+      background: #fff1f2;
+      border-color: #e11d48;
+      color: #9f1239;
+    }
+    .gba-root-club-manual-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 8px;
+      min-height: 44px;
+      padding: 7px 14px;
+      border-radius: 10px;
+      background: #059669;
+      color: #ffffff !important;
+      font-size: 0.9rem;
+      font-weight: 900;
+      text-decoration: none;
+    }
+    @media (max-width: 860px) {
+      .gba-root-pwless-form { grid-template-columns: 1fr; }
+      .gba-root-pwless-submit { width: 100%; white-space: normal; }
+    }
     @media (max-width: 680px) {
       .gba-root-club { padding: 13px 12px; }
-      .gba-root-poll-grid { grid-template-columns: 1fr; }
+      .gba-root-poll-grid, .gba-root-seg-grid { grid-template-columns: 1fr; }
     }
 
     /* 📘 ¥0 無料公開商品：はじめての新NISA＆証券アプリ基本マニュアル (#gbaFreeStarterManualRoot & #gbaStarterManualModal) */
@@ -2492,6 +2650,46 @@
 
       <div class="gba-root-companion" id="gbaRootClubCompanionMsg" role="status" aria-live="polite">
         今朝の投資スタンスを1タップでお選びいただくと、全国の倶楽部会員の皆さまの集計結果とメッセージが表示されます。
+      </div>
+
+      <!-- 朝の資産守り＆日米マクロ倶楽部 無料正会員登録（3秒完了） -->
+      <div class="gba-root-pwless-box" id="gba-root-passwordless-signup">
+        <div class="gba-root-pwless-top">
+          <span class="gba-root-pwless-badge">無料正会員・パスワード不要（3秒登録）</span>
+          <span style="font-size:0.78rem; font-weight:800; color:var(--text-muted);">毎朝配信 ・ クレジットカード不要 ・ いつでも1クリック配信停止</span>
+        </div>
+        <h3 class="gba-root-pwless-heading">毎朝の日米マクロ市場＆新NISA 3色安全シグナルを無料メールでお届け</h3>
+        <p class="gba-root-pwless-sub">パスワード登録は一切不要。関心テーマを選んでメールアドレスを入力するだけで、毎朝の金利・円ドル為替・高値掴み防止ブリーフィングが届きます。</p>
+
+        <div class="gba-root-seg-grid" role="group" aria-label="関心テーマ選択">
+          <button type="button" class="gba-root-seg-btn is-active" data-gba-root-seg="nisa_wealth_defense" aria-pressed="true" onclick="selectGbaRootClubSegment('nisa_wealth_defense')">
+            新NISA・老後資金の塩漬け防止
+          </button>
+          <button type="button" class="gba-root-seg-btn" data-gba-root-seg="jp_us_macro_fx" aria-pressed="false" onclick="selectGbaRootClubSegment('jp_us_macro_fx')">
+            日米マクロ市場・円ドル為替・金利
+          </button>
+          <button type="button" class="gba-root-seg-btn" data-gba-root-seg="semis_high_dividend" aria-pressed="false" onclick="selectGbaRootClubSegment('semis_high_dividend')">
+            半導体・日米高配当株シグナル
+          </button>
+        </div>
+
+        <form class="gba-root-pwless-form" id="gba-root-club-form" onsubmit="return submitGbaRootPasswordlessClub(event)">
+          <label for="gba-root-club-nickname" style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0);">ニックネーム（任意）</label>
+          <input type="text" id="gba-root-club-nickname" class="gba-root-pwless-input" autocomplete="nickname" maxlength="40" placeholder="ニックネーム（任意）">
+          <label for="gba-root-club-email" style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0);">メールアドレス</label>
+          <input type="email" id="gba-root-club-email" class="gba-root-pwless-input" required autocomplete="email" placeholder="メールアドレスを入力（例: taro@example.jp）">
+          <input type="text" id="gba-root-club-hp" name="website_hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none">
+          <button type="submit" id="gba-root-club-submit" class="gba-root-pwless-submit">
+            無料で朝の資産守り倶楽部に参加する（3秒完了） →
+          </button>
+        </form>
+
+        <div class="gba-root-pwless-feedback" id="gba-root-club-feedback" role="status" aria-live="polite">
+          <div id="gba-root-club-feedback-text"></div>
+          <a href="#gbaFreeStarterManualRoot" class="gba-root-club-manual-cta" id="gba-root-club-manual-btn" onclick="var el=document.getElementById('gbaFreeStarterManualRoot'); if(el&&el.scrollIntoView){el.scrollIntoView({behavior:'smooth',block:'start'});}">
+            ¥0 無料・楽天／SBI証券 新NISA安全注文マニュアルを開く →
+          </a>
+        </div>
       </div>
     </section>
 
@@ -5155,6 +5353,126 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
       applyRootJpFontSize(next);
     }
 
+    const GBA_ROOT_CLUB_SEGMENT_LABELS = {
+      nisa_wealth_defense: '新NISA・老後資金の塩漬け防止',
+      jp_us_macro_fx: '日米マクロ市場・円ドル為替・金利',
+      semis_high_dividend: '半導体・日米高配当株シグナル'
+    };
+    let gbaRootActiveClubSegment = 'nisa_wealth_defense';
+
+    function selectGbaRootClubSegment(seg) {
+      if (!GBA_ROOT_CLUB_SEGMENT_LABELS[seg]) return;
+      gbaRootActiveClubSegment = seg;
+      const box = document.getElementById('gba-root-passwordless-signup');
+      if (!box) return;
+      box.querySelectorAll('.gba-root-seg-btn').forEach(function(btn) {
+        const isAct = btn.getAttribute('data-gba-root-seg') === seg;
+        btn.classList.toggle('is-active', isAct);
+        btn.setAttribute('aria-pressed', isAct ? 'true' : 'false');
+      });
+    }
+
+    function renderGbaRootClubFeedback(member, isError, errText) {
+      const fbBox = document.getElementById('gba-root-club-feedback');
+      const fbTxt = document.getElementById('gba-root-club-feedback-text');
+      const manualBtn = document.getElementById('gba-root-club-manual-btn');
+      if (!fbBox || !fbTxt) return;
+      fbBox.style.display = 'block';
+      fbBox.classList.toggle('is-error', Boolean(isError));
+      if (isError) {
+        fbTxt.innerText = errText || '⚠️ 正しいメールアドレスを入力してください（例: taro@example.jp）。';
+        if (manualBtn) manualBtn.style.display = 'none';
+        return;
+      }
+      const nick = member && member.nickname ? (member.nickname + '様、') : '';
+      const segKey = (member && member.segment && GBA_ROOT_CLUB_SEGMENT_LABELS[member.segment]) ? member.segment : 'nisa_wealth_defense';
+      const segLabel = GBA_ROOT_CLUB_SEGMENT_LABELS[segKey];
+      const mailStr = member && member.email ? ('（' + member.email + '）') : '';
+      fbTxt.innerText = '✅ ' + nick + '朝の資産守り＆日米マクロ倶楽部への無料正会員登録が完了いたしました' + mailStr + '。毎朝の日米マクロ市場＆新NISA 3色安全シグナル（「' + segLabel + '」重視）を無料メールでお届けいたします。';
+      if (manualBtn) manualBtn.style.display = 'inline-flex';
+    }
+
+    function syncGbaRootPasswordlessClub() {
+      try {
+        let saved = null;
+        if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.getLocalMember === 'function') {
+          saved = window.DreamCompanyCRM.getLocalMember('GBA');
+        }
+        if (!saved) {
+          const raw = localStorage.getItem('dc_member_GBA');
+          if (raw) saved = JSON.parse(raw);
+        }
+        if (saved && saved.email && String(saved.email).indexOf('@') !== -1) {
+          const emailInp = document.getElementById('gba-root-club-email');
+          const nickInp = document.getElementById('gba-root-club-nickname');
+          if (emailInp && !emailInp.value) emailInp.value = saved.email;
+          if (nickInp && saved.nickname && !nickInp.value) nickInp.value = saved.nickname;
+          if (saved.segment && GBA_ROOT_CLUB_SEGMENT_LABELS[saved.segment]) {
+            selectGbaRootClubSegment(saved.segment);
+          }
+          renderGbaRootClubFeedback(saved, false, '');
+        }
+      } catch (_) {}
+    }
+
+    function submitGbaRootPasswordlessClub(evt) {
+      if (evt && evt.preventDefault) evt.preventDefault();
+      const emailInp = document.getElementById('gba-root-club-email');
+      const nickInp = document.getElementById('gba-root-club-nickname');
+      const hpInp = document.getElementById('gba-root-club-hp');
+      const submitBtn = document.getElementById('gba-root-club-submit');
+      const email = String(emailInp ? emailInp.value : '').trim().toLowerCase();
+      const nickname = String(nickInp ? nickInp.value : '').trim();
+      const websiteHp = String(hpInp ? hpInp.value : '').trim();
+      const segment = gbaRootActiveClubSegment || 'nisa_wealth_defense';
+
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+        renderGbaRootClubFeedback(null, true, '⚠️ 正しいメールアドレスを入力してください（例: taro@example.jp）。');
+        return false;
+      }
+
+      try {
+        localStorage.setItem('gb_free_member_email', email);
+        localStorage.setItem('gb_free_member_joined', '1');
+      } catch (_) {}
+
+      if (typeof window.trackGbaFreeSignup === 'function') {
+        window.trackGbaFreeSignup(email);
+      }
+
+      if (submitBtn) submitBtn.disabled = true;
+
+      const memberRecord = { div: 'GBA', email: email, nickname: nickname, segment: segment, lang: 'en-US', website_hp: websiteHp };
+      if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.registerMember === 'function') {
+        window.DreamCompanyCRM.registerMember(memberRecord)
+          .then(function(res) {
+            if (submitBtn) submitBtn.disabled = false;
+            if (res && res.ok === false) {
+              renderGbaRootClubFeedback(null, true, '⚠️ 正しいメールアドレスを入力してください（例: taro@example.jp）。');
+              return;
+            }
+            renderGbaRootClubFeedback(memberRecord, false, '');
+          })
+          .catch(function() {
+            if (submitBtn) submitBtn.disabled = false;
+            renderGbaRootClubFeedback(memberRecord, false, '');
+          });
+      } else {
+        try {
+          localStorage.setItem('dc_member_GBA', JSON.stringify({
+            div: 'GBA',
+            email: email,
+            nickname: nickname,
+            segment: segment,
+            joined_at: new Date().toISOString()
+          }));
+        } catch (_) {}
+        if (submitBtn) submitBtn.disabled = false;
+        renderGbaRootClubFeedback(memberRecord, false, '');
+      }
+      return false;
+    }
+
     function submitGbRootFreeSignup(evt) {
       if (evt && evt.preventDefault) evt.preventDefault();
       const inp = document.getElementById('gbRootMorningEmailInput');
@@ -5173,6 +5491,12 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
       } catch (_) {}
       if (typeof window.trackGbaFreeSignup === 'function') {
         window.trackGbaFreeSignup(email);
+      }
+      const segment = gbaRootActiveClubSegment || 'nisa_wealth_defense';
+      if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.registerMember === 'function') {
+        window.DreamCompanyCRM.registerMember({ div: 'GBA', email: email, segment: segment, lang: 'en-US' })
+          .then(function() { syncGbaRootPasswordlessClub(); })
+          .catch(function() {});
       }
       if (statusEl) {
         statusEl.style.color = 'var(--accent-emerald)';
@@ -5421,6 +5745,8 @@ atrMult = input.float(2.0, "ATR Stop Multiplier")
         }
       } catch (_) {}
       syncGbaMorningClubRoot();
+      syncGbaRootPasswordlessClub();
+      window.addEventListener('DOMContentLoaded', syncGbaRootPasswordlessClub);
 
       try {
         const savedTheme = localStorage.getItem('gb_jp_theme');

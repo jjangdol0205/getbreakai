@@ -83,9 +83,9 @@ def build_rss_feeds(date_str, outbox_dir, snap):
     x_feed_xml = f"""<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>GetBreakAI 米国株・新NISA 機関投資家シグナル速報 (X/Threads自動配信フィード)</title>
-    <link>https://getbreakai.com/</link>
-    <description>米国SEC 8-K/Form-4・オプションGamma壁・2.0x ATR損切り＆新NISA税引後シミュレーター公式フィード</description>
+    <title>GetBreakAI 新NISA・老後資金を守る米国株＆日本株 3色シグナル速報 (X/Threads公式フィード)</title>
+    <link>https://getbreakai.com/jp/</link>
+    <description>大切な新NISA非課税枠と老後資金を「高値掴み・塩漬け損」から守る毎朝の3色売買シグナル（青・黄・赤）＆3秒適正株数シミュレーター公式フィード</description>
     <language>ja</language>
     <lastBuildDate>{now_rfc822}</lastBuildDate>
     <atom:link href="https://getbreakai.com/jp/x-feed.xml" rel="self" type="application/rss+xml"/>
@@ -97,29 +97,29 @@ def build_rss_feeds(date_str, outbox_dir, snap):
     with open(x_feed_path, "w", encoding="utf-8") as f:
         f.write(x_feed_xml)
 
-    # 2. Build /jp/feed.xml for SEO research articles & note.com / blog syndication
+    # 2. Build /jp/feed.xml for SEO research articles & note.com / blog syndication (excluding GSC verification files)
     seo_files = sorted([
         fn for fn in os.listdir(JP_DIR)
-        if fn.endswith(".html") and fn not in ("index.html", "confirmation.html")
+        if fn.endswith(".html") and fn not in ("index.html", "confirmation.html") and not fn.startswith("google")
     ])
     article_items_xml = []
     for fn in seo_files[:20]:
         url = f"https://getbreakai.com/jp/{fn}"
         slug_title = fn.replace(".html", "").replace("-", " ").upper()
         article_items_xml.append(f"""    <item>
-      <title>【米国株AI解析】{escape(slug_title)} — SEC一次情報・Gamma壁・2.0x ATR損切りライン ({date_str}更新)</title>
+      <title>【新NISA・米国株防衛コラム】{escape(slug_title)} — 3色売買シグナル＆適正株数チェック ({date_str}更新)</title>
       <link>{escape(url)}</link>
       <guid isPermaLink="true">{escape(url)}</guid>
       <pubDate>{now_rfc822}</pubDate>
-      <description>{escape(f"新NISA・特定口座(20.315%)対応の米国株機関投資家シグナル＆ATR適正株数レポート: {url}")}</description>
+      <description>{escape(f"新NISA(非課税0%)と特定口座(20.315%)の手取り比較・メール1つで届く毎朝の無料3色シグナル解説: {url}")}</description>
     </item>""")
 
     main_feed_xml = f"""<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>GetBreakAI 日本公式リサーチ＆米国株AIシグナル (RSS 2.0)</title>
+    <title>GetBreakAI 日本公式｜新NISA・老後資金を守る毎朝の3色売買シグナル日報 (RSS 2.0)</title>
     <link>https://getbreakai.com/jp/</link>
-    <description>ウォール街のSEC開示・インサイダー買い・ガンマウォールを日本語で毎日自動更新</description>
+    <description>40代〜70代の個人投資家向けに米国株・半導体株の安全撤退ラインと適正株数を分かりやすい日本語で毎日自動更新</description>
     <language>ja</language>
     <lastBuildDate>{now_rfc822}</lastBuildDate>
     <atom:link href="https://getbreakai.com/jp/feed.xml" rel="self" type="application/rss+xml"/>

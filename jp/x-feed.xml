@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>GetBreakAI 米国株・新NISA 機関投資家シグナル速報 (X/Threads自動配信フィード)</title>
-    <link>https://getbreakai.com/</link>
-    <description>米国SEC 8-K/Form-4・オプションGamma壁・2.0x ATR損切り＆新NISA税引後シミュレーター公式フィード</description>
+    <title>GetBreakAI 新NISA・老後資金を守る米国株＆日本株 3色シグナル速報 (X/Threads公式フィード)</title>
+    <link>https://getbreakai.com/jp/</link>
+    <description>大切な新NISA非課税枠と老後資金を「高値掴み・塩漬け損」から守る毎朝の3色売買シグナル（青・黄・赤）＆3秒適正株数シミュレーター公式フィード</description>
     <language>ja</language>
     <lastBuildDate>Sun, 15 Nov 2026 00:00:00 GMT</lastBuildDate>
     <atom:link href="https://getbreakai.com/jp/x-feed.xml" rel="self" type="application/rss+xml"/>

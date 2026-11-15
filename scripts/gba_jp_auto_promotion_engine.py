@@ -49,26 +49,51 @@ BACKLINKS_LOG_PATH = DATA_DIR / "jp_external_backlinks.json"
 JP_DAILY_THEMES = [
     {
         "slug": "daily-nisa-quant-report.html",
-        "title_prefix": "新NISA成長投資枠 vs 特定口座(20.315%)：2.0倍ATR逆指値と適正株数レポート",
-        "hook": "新NISAで一番危険な「塩漬け損」を防ぐ、資金別の適正株数を3秒で無料診断。\n\n損益通算ができない新NISAこそ、下落銘柄の感覚ナンピンを卒業し機械的な撤退ラインで非課税枠を守りましょう。 #新NISA #米国株",
+        "title_prefix": "新NISA成長投資枠と特定口座(20.315%)：大切な老後資金を「塩漬け損」から守る朝の3色シグナル",
+        "hook": "新NISAで一番怖い「塩漬け損」を防ぐ適正株数を、3秒で無料診断できます。\n\n損益通算ができない新NISAこそ、感覚ナンピンを卒業し「青・黄・赤」の明確な撤退ルールで非課税枠を守りましょう。 #新NISA #米国株",
     },
     {
-        "slug": "atr-breakout-position-sizing-guide.html",
-        "title_prefix": "口座資金100万円の1.5%リスク黄金律：ドル円連動ATRポジションサイジング解説",
-        "hook": "米国株で退場する原因の9割は「銘柄選び」ではなく「1銘柄への買いすぎ」です。\n\n資金100万円なら1回の許容損失は15,000円まで。値動きに合わせて夜ぐっすり眠れる適正株数を自動計算します。 #米国株 #資産運用",
+        "slug": "shin-nisa-us-stock-atr-risk-management.html",
+        "title_prefix": "資金100万円なら許容損失は1.5万円まで：夜ぐっすり眠れる新NISA適正株数の決め方",
+        "hook": "米国株で資産を減らす原因の9割は「1銘柄への買いすぎ」にあります。\n\n資金100万円なら1回の許容損失は15,000円まで。値動きに合わせて夜ぐっすり眠れる購入株数を3秒で無料計算します。 #新NISA #資産運用",
     },
     {
-        "slug": "nvda-gamma-squeeze-breakout-analysis.html",
-        "title_prefix": "エヌビディア($NVDA)・半導体主力株の機関投資家出来高ブレイクとATR防衛線",
-        "hook": "半導体株の急落で「なんとなく安いから」と買うと、何年も資金が拘束されます。\n\n底値を当てにいかず、機関投資家の大口買い集めとトレンド転換を確認してから乗るのが資産を守る鉄則です。 #米国株 #半導体株",
+        "slug": "nvda-sec-gamma-atr-analysis.html",
+        "title_prefix": "エヌビディア・半導体株の急落で慌てない！高値掴みと塩漬けを防ぐ3色売買ルール",
+        "hook": "半導体株の急落で「なんとなく安いから」と買うと資金が何年も眠ります。\n\n底値を当てにいかず、大口資金の買い集めと「青シグナル（順張り転換）」を確認してから落ち着いて検討するのが鉄則です。 #米国株 #半導体株",
+    },
+    {
+        "slug": "us-stock-stop-loss-2percent-rule.html",
+        "title_prefix": "「いつか戻る」が一番危険？退職金・老後資金を減らさない米国株の安全撤退ライン入門",
+        "hook": "「いつか戻る」と待つうちに、大切な老後資金が半分になることがあります。\n\n株価が50%下がると元に戻すには+100%の上昇が必要です。浅い傷のうちに守る「赤シグナル撤退線」を無料確認できます。 #新NISA #老後資金",
+    },
+    {
+        "slug": "unh-defensive-healthcare-insider-buy.html",
+        "title_prefix": "ハイテク株だけに偏っていませんか？守りのヘルスケア株を添える大人の新NISA資産防衛術",
+        "hook": "ハイテク株だけに偏らず、守りの銘柄を添えると新NISAはぐっと安定します。\n\n値動きの大きい半導体株と堅実なヘルスケア株を組み合わせ、急落時も慌てない資産配分と適正株数を無料診断しましょう。 #新NISA #資産防衛",
     },
 ]
+
+
+def load_live_usd_jpy() -> float:
+    snap_path = DATA_DIR / "live_market_snapshot.json"
+    try:
+        if snap_path.exists():
+            snap = json.loads(snap_path.read_text(encoding="utf-8"))
+            rate = float(snap.get("usd_jpy") or 0)
+            if rate > 80.0:
+                return round(rate, 2)
+    except Exception:
+        pass
+    return 155.0
 
 
 def update_dual_llms_txt() -> str:
     today_str = datetime.datetime.now(JST).strftime("%Y-%m-%d")
     seo_pages = sorted(
-        p.name for p in JP_DIR.glob("*.html") if p.name not in ("index.html", "confirmation.html")
+        p.name
+        for p in JP_DIR.glob("*.html")
+        if p.name not in ("index.html", "confirmation.html") and not p.name.startswith("google")
     )
 
     # 1. Global English root /llms.txt (Preserve English identity at root!)
@@ -89,21 +114,22 @@ def update_dual_llms_txt() -> str:
         en_lines.append(f"- https://getbreakai.com/jp/{fn}")
     (ROOT_DIR / "llms.txt").write_text("\n".join(en_lines) + "\n", encoding="utf-8")
 
-    # 2. Dedicated Japanese /jp/llms.txt (Zero confirmation.html!)
+    # 2. Dedicated Japanese /jp/llms.txt (Zero confirmation.html & Zero Hangul!)
     jp_lines = [
         "# GetBreakAI Japan (https://getbreakai.com/jp/)",
         "",
-        "> 米国株（NVDA・TSLA・PLTR・MSFT・META・AMZN・AVGO）および東証プライム主力株対応の機関投資家クオンツAI＆3秒ポジションサイズ計算ターミナル（新NISA成長投資枠 0%非課税 vs 特定口座 20.315% 税引後シミュレーター搭載）。",
+        "> 日本の40代〜70代個人投資家・新NISA運用層のための「毎朝の3色売買シグナル（青＝順張り維持・黄＝様子見・赤＝安全撤退ライン）」＆3秒適正株数シミュレーター（新NISA成長投資枠 0%非課税 vs 特定口座 20.315% 手取り純利益比較対応）。",
         f"> 最終更新日: {today_str} (JST)",
         "",
-        "## 1. コア機能（完全無料・登録不要の3秒計算機）",
-        "- **ドル($)・日本円(¥)同時対応 3秒ポジションサイズ計算機**: 口座資金（例：100万円・300万円）と許容リスク（1.5%黄金律）から最適購入株数・2.0倍ATR逆指値・2.5R利確目標を3秒で算出。",
-        "- **新NISA（非課税 0%）vs 特定口座（源泉徴収 20.315%）手取り純利益比較**: 利確時の税引後リターンと損益通算条件をリアルタイム比較。",
+        "## 1. コア機能（メール1つで毎朝の無料3色シグナル受信＆3秒計算機）",
+        "- **毎朝の無料3色売買シグナル配信**: メールアドレス1つで、米国主力株・日本半導体株の「青・黄・赤」安全判定を毎朝無料でお届けします。",
+        "- **ドル($)・日本円(¥)同時対応 3秒適正株数シミュレーター**: ご資金（例：100万円・300万円）と許容リスク（1.5%ルール）から、夜ぐっすり眠れる購入株数と撤退ラインを3秒で算出。",
+        "- **新NISA（非課税 0%）vs 特定口座（源泉徴収 20.315%）手取り比較**: 利確時の税引後手取り額と損益通算の違いを分かりやすく比較。",
         "",
-        "## 2. 主要日本語クオンツ解析ページ一覧",
+        "## 2. 主要日本語コラム・解析ページ一覧",
         "- 日本語メインターミナル: https://getbreakai.com/jp/",
-        "- 日刊クオンツ日報: https://getbreakai.com/jp/daily-nisa-quant-report.html",
-        "- 日本語RSSフィード (Blog/Note連携): https://getbreakai.com/jp/feed.xml",
+        "- 本日の新NISA・老後資金3色シグナル日報: https://getbreakai.com/jp/daily-nisa-quant-report.html",
+        "- 日本語RSSフィード (Blog/note連携): https://getbreakai.com/jp/feed.xml",
     ]
     for fn in seo_pages[:31]:
         jp_lines.append(f"- https://getbreakai.com/jp/{fn}")
@@ -119,7 +145,7 @@ def build_url_map() -> dict[str, Path]:
     if (JP_DIR / "index.html").exists():
         mapping["https://getbreakai.com/jp/"] = JP_DIR / "index.html"
     for p in sorted(JP_DIR.glob("*.html")):
-        if p.name in ("index.html", "confirmation.html"):
+        if p.name in ("index.html", "confirmation.html") or p.name.startswith("google"):
             continue
         mapping[f"https://getbreakai.com/jp/{p.name}"] = p
     return mapping
@@ -149,27 +175,28 @@ def main() -> int:
     deploy_res = deploy_division_live("GBA", dry_run=dry_run)
 
     # 3. Rotate daily theme & run 1x/day Telegraph + Zero-Ban Syndication
+    usd_jpy = load_live_usd_jpy()
     day_ord = datetime.date.today().toordinal()
     theme = JP_DAILY_THEMES[day_ord % len(JP_DAILY_THEMES)]
     target_slug = theme["slug"] if (JP_DIR / theme["slug"]).exists() else "daily-nisa-quant-report.html"
     canonical_url = f"https://getbreakai.com/jp/{target_slug}"
-    title = f"【米国株・新NISAクオンツ {as_of}】{theme['title_prefix']}"
+    title = f"【新NISA・老後資金防衛日報 {as_of}】{theme['title_prefix']}"
 
     nodes = [
         {
             "tag": "blockquote",
-            "children": [f"GetBreakAI 米国株・新NISAクオンツ日報 ({as_of}) — ドル円連動 2.0倍ATR逆指値＆適正株数検証"],
+            "children": [f"GetBreakAI 新NISA・老後資金3色シグナル日報 ({as_of} / 実勢レート 1ドル＝約{usd_jpy:.1f}円基準)"],
         },
         {
             "tag": "p",
             "children": [
-                "新NISA成長投資枠は利益が非課税（0%）になる強力な制度ですが、特定口座（20.315%）と異なり損益通算ができないため、下落トレンド銘柄の塩漬けは致命的な機会損失を生みます。"
+                "新NISA成長投資枠は利益が非課税（0%）になる心強い制度ですが、特定口座（20.315%）と異なり他の利益と損益通算ができません。だからこそ「なんとなく安そうだから」と下落中の株を買い増して何年も塩漬けにしないことが、大切な老後資金を守る一番の近道です。"
             ],
         },
         {
             "tag": "p",
             "children": [
-                "口座資金（日本円・米ドル）に応じた最適購入株数と2.0倍ATR逆指値ラインの最新レポート全文はこちら：",
+                "メール1つで毎朝届く無料の「3色売買シグナル（青＝順張り維持・黄＝様子見・赤＝安全撤退ライン）」登録と、3秒適正株数シミュレーターはこちら：",
                 {"tag": "a", "attrs": {"href": canonical_url}, "children": [canonical_url]},
             ],
         },
@@ -179,7 +206,7 @@ def main() -> int:
         div_code="GBA",
         account_file=TELEGRAPH_ACCT_PATH,
         short_name="GetBreakAI_JP",
-        author_name="GetBreakAI 米国株・新NISA研究所",
+        author_name="GetBreakAI 新NISA・資産防衛デスク",
         author_url="https://getbreakai.com/jp/",
         title=title,
         content_nodes=nodes,
@@ -201,46 +228,47 @@ def main() -> int:
         tg_url = logs[-1].get("url", "")
 
     reply_post = (
-        f"登録不要・完全無料の3秒適正株数計算機＆新NISA手取り比較はこちら：\n"
+        f"📩 メール1つで毎朝届く無料「3色売買シグナル（青・黄・赤）」＆3秒適正株数シミュレーターはこちら：\n"
         f"{canonical_url}?utm_source=social_thread&utm_medium=organic"
     )
 
     note_md = (
         f"# {title}\n\n"
-        f"米国株や半導体主力株（$NVDA / $PLTR / $TSLA）を新NISA成長投資枠や特定口座で運用する際、"
-        f"最も成績を左右するのは「どの銘柄を買うか」以上に**「どこで撤退し、何株買うか」**という資金管理の数学です。\n\n"
-        f"## 1. 新NISA（非課税0%）と特定口座（20.315%）の決定的な違い\n"
-        f"- **特定口座（源泉徴収あり）**: 利益に20.315%課税される一方、損切りした損失は他銘柄の利益と損益通算が可能。\n"
-        f"- **新NISA成長投資枠**: 利益は100%非課税ですが、損失が出ても損益通算・繰越控除が一切不可。\n\n"
-        f"だからこそ新NISAでは「落ちるナイフのナンピン」を厳禁とし、出来高を伴うブレイクアウト確認後のエントリーと"
-        f"**2.0倍ATR（14日平均真の値幅）逆指値**の徹底が不可欠になります。\n\n"
-        f"## 2. 無料3秒ポジションサイズ計算ターミナル\n"
-        f"口座資金（円・ドル）と許容リスク（1.5%基準）を入れるだけで最適株数を自動計算できます：\n"
+        f"40代・50代・60代から新NISA成長投資枠や特定口座で米国株・半導体株（エヌビディア・マイクロソフト・ブロードコムなど）を運用するとき、"
+        f"一番大切なのは「大きく当てること」よりも**「大切な老後資金を深い塩漬け損から守ること」**です。\n\n"
+        f"## 1. 新NISA（非課税0%）と特定口座（20.315%）の知っておきたい違い\n"
+        f"- **特定口座（源泉徴収あり）**: 利益に20.315%の税金がかかりますが、万が一の損切り額を他の利益と相殺（損益通算）できます。\n"
+        f"- **新NISA成長投資枠**: 利益がまるごと非課税（0%）になる反面、損失が出ても損益通算や繰越控除はできません。\n\n"
+        f"## 2. 迷わないための「毎朝の3色売買シグナル」\n"
+        f"- **🔵 青シグナル（順張り維持）**: 上昇トレンドと大口資金の買い支えが確認された状態。\n"
+        f"- **🟡 黄シグナル（様子見・待機）**: 値動きが荒く、飛びつき買いを控えて静観する局面。\n"
+        f"- **🔴 赤シグナル（安全撤退ライン）**: 傷が浅いうちに現金を守り、次のチャンスに備える防衛ライン。\n\n"
+        f"## 3. 無料の毎朝メール配信＆3秒適正株数シミュレーター（1ドル＝約{usd_jpy:.1f}円連動）\n"
+        f"ご資金（100万円・300万円など）を入れるだけで夜ぐっすり眠れる購入株数を3秒で確認でき、メールアドレス1つで毎朝の3色シグナルを無料受信できます：\n"
         f"👉 {canonical_url}\n\n"
-        f"※本記事は統計・クオンツモデルの情報提供であり、投資助言ではありません。\n"
+        f"※本記事は統計データに基づく教育・情報提供であり、個別銘柄の投資助言ではありません。\n"
     )
 
     zenn_md = (
-        f"---\ntitle: \"{title}\"\nemoji: \"📊\"\ntype: \"idea\"\ntopics: [\"quant\", \"python\", \"finance\", \"usstocks\"]\npublished: true\n---\n\n"
+        f"---\ntitle: \"{title}\"\nemoji: \"📊\"\ntype: \"idea\"\ntopics: [\"nisa\", \"finance\", \"usstocks\", \"assetmanagement\"]\npublished: true\n---\n\n"
         + note_md
     )
 
     note_paid_funnel_md = (
-        f"# 【無料公開＋Pro実践枠】{title}\n\n"
-        f"> 新NISAの非課税メリットを「塩漬け損」で潰さないための3秒ATRポジション計算レポート（{as_of}）\n\n"
+        f"# 【無料公開＋Pro実践ガイド】{title}\n\n"
+        f"> 大切な新NISA非課税枠と老後資金を「高値掴み・塩漬け損」から守る朝の3色シグナル日報（{as_of}）\n\n"
         + note_md
         + "\n---\n"
-        + "## 🔒 note有料マガジン読者 ＆ GetBreakAI Pro VIP 共通特典のご案内\n"
-        + "- **TradingView Pine Script v5 自動描画コード全文**（2.0x ATR逆指値＋5日間IV Gamma Wall自動プロット）\n"
-        + "- **米国72銘柄＋東証主力株 機関投資家ダークプール＆SEC Form-4役員自社株買いフルデータ**\n"
-        + "- **Store #296100 共通Proキー**: 月額 $29/月（年間VIP $199/年・43%OFF）1つで `https://getbreakai.com/jp/` と姉妹端末 `https://truthofmarket.com/` の両方を即時解放。\n"
-        + "- **法人・金融メディア・APIデータ提携窓口**: `beable9489@gmail.com`\n"
+        + "## 🔒 GetBreakAI Pro VIP メンバーシップのご案内\n"
+        + "- **毎朝の無料3色シグナル登録**: `https://getbreakai.com/jp/` からメールアドレス1つで無料スタート\n"
+        + "- **全72銘柄アンロック＆TradingView自動描画インジケーター（Pro VIP）**: 月額 $29/月（年間パス $199/年・43%割引）1つで `https://getbreakai.com/jp/` と姉妹端末 `https://truthofmarket.com/` の両方を即時解放。\n"
+        + "- **法人・メディア提携窓口**: `beable9489@gmail.com`\n"
     )
 
     yahoo_bbs_txt = (
-        f"【米国株・新NISA 資金管理メモ {as_of}】\n"
-        f"新NISA枠は特定口座（20.315%）と違い損益通算ができないため、ボラティリティの高いAI・半導体株ほど購入前の「2.0倍ATR逆指値」と「1.5%リスク株数逆算」が重要ですね。\n"
-        f"ドル円150円基準での適正株数早見表は GetBreakAI Japan（getbreakai.com/jp/）の3秒計算機で確認できます。\n"
+        f"【新NISA・老後資金の守り方メモ {as_of}】\n"
+        f"新NISA枠は特定口座（20.315%）と違って損益通算ができないため、値動きの大きい半導体株ほど買う前に「資金100万円なら許容損失1.5万円まで」と株数を決めておくと安心ですね。\n"
+        f"実勢レート（1ドル＝約{usd_jpy:.1f}円）連動の3秒適正株数計算機と毎朝の無料3色シグナルは GetBreakAI Japan（getbreakai.com/jp/）で確認できます。\n"
     )
 
     syn_res = dispatch_zero_ban_text_bundle(
@@ -248,11 +276,11 @@ def main() -> int:
         canonical_domain=HOST,
         canonical_url=canonical_url,
         title=title,
-        summary="新NISA成長投資枠(0%) vs 特定口座(20.315%)対応・2.0倍ATR適正株数クオンツ日報",
+        summary=f"新NISA(非課税0%)・特定口座(20.315%)対応：大切な老後資金を塩漬け損から守る毎朝の3色売買シグナル日報（1ドル＝約{usd_jpy:.1f}円）",
         main_social_hook=theme["hook"],
         reply_social_link=reply_post,
         longform_markdown=note_md,
-        tags=["quant", "finance", "japan", "stocks"],
+        tags=["nisa", "finance", "japan", "stocks"],
         platform_extras={
             "note_com_daily_column_jp.md": note_md,
             "note_com_paid_magazine_funnel_jp.md": note_paid_funnel_md,

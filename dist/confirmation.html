@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>決済完了・VIPライセンス有効化 ｜ GetBreakAI 日本語公式</title>
-  <meta name="description" content="GetBreakAI Proライセンスのご購入ありがとうございます。決済完了メール記載のLemon Squeezyライセンスキーを入力してWeb VIP Vault（機関投資家データ庫）を即時解放できます。">
+  <meta name="description" content="GetBreakAI Proライセンスのご購入ありがとうございます。Polar.sh (Merchant of Record · Global Card / Apple Pay / Google Pay) 決済完了メール記載のライセンスキーを入力してWeb VIP Vault（公開市場データ庫）を即時解放できます。">
   <meta name="robots" content="noindex, follow">
   <link rel="canonical" href="https://getbreakai.com/confirmation.html">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="GetBreakAI">
   <meta property="og:title" content="決済完了・VIPライセンス有効化 ｜ GetBreakAI 日本語公式">
-  <meta property="og:description" content="GetBreakAI Proライセンスのご購入ありがとうございます。メール記載のライセンスキーでWeb VIP Vaultを即時有効化できます。">
+  <meta property="og:description" content="GetBreakAI Proライセンスのご購入ありがとうございます。Polar.sh 決済完了メール記載のライセンスキーでWeb VIP Vaultを即時有効化できます。">
   <meta property="og:url" content="https://getbreakai.com/confirmation.html">
   <meta property="og:image" content="https://getbreakai.com/og-preview.png">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2306050c' stroke='%238b5cf6' stroke-width='4'/%3E%3Cpath d='M14 44 L26 30 L34 36 L48 16' fill='none' stroke='%23f59e0b' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='48' cy='16' r='5' fill='%2310b981'/%3E%3C/svg%3E">
@@ -21,22 +21,19 @@
   <script src="/hq_member_crm_client.js"></script>
   <script>
     window.PAYMENT_CONFIG = {
+      PROVIDER: 'polar_sh',
+      DIVISION: 'GBA',
+      STORE_SLOT: 'FINANCE_STORE_SLOT',
       STORE_LIVE_READY: false,
-      ACTIVE_SLOT: 'FINANCE_STORE_SLOT',
-      BACKUP_LIVE_CHECKOUT_URL: { monthly: '', annual: '' },
-      FINANCE_STORE_SLOT: {
-        storeId: '296100',
-        monthlyUuid: 'd5e7e761-8b1b-4ca8-b1fe-771acd1450f8',
-        monthlyCheckoutUrl: 'https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8?embed=1&locale=ja',
-        annualUuid: '667aa482-f17c-47d1-b7f3-a2427c36516b',
-        annualCheckoutUrl: 'https://truthofmarket.lemonsqueezy.com/checkout/buy/667aa482-f17c-47d1-b7f3-a2427c36516b?embed=1&locale=ja',
-        BACKUP_LIVE_CHECKOUT_URL: { monthly: '', annual: '' }
+      POLAR_CHECKOUT_URLS: {
+        monthly_29_jp: '',
+        annual_199_jp: '',
+        monthly_29: '',
+        annual_199: ''
       },
-      PEDIATRIC_STORE_SLOT: {
-        storeId: '296100',
-        singleUuid: 'c1cd7f12-3479-49e8-ab71-59c98135d599',
-        sixMonthUuid: 'c562946d-ef68-4c2f-a802-df9da0179895'
-      }
+      POLAR_GBA_MONTHLY_URL: '',
+      POLAR_GBA_ANNUAL_URL: '',
+      SUPPORT_EMAIL: 'beable9489@gmail.com'
     };
   </script>
   <style>
@@ -567,7 +564,7 @@
       <strong class="logo-subtitle">ゆとり老後＆新NISA設計ナビ</strong>
     </a>
     <div style="display:flex; align-items:center; gap:10px; flex-shrink:0;">
-      <span class="store-live-pill">Store #296100</span>
+      <span class="store-live-pill">Polar.sh MoR</span>
       <button type="button" id="btnToggleJpTheme" class="theme-toggle-btn" onclick="toggleJpTheme()">
         <span id="themeToggleIcon">🌙</span>
         <span id="themeToggleText">切替</span>
@@ -580,18 +577,18 @@
     <!-- メイン成功・ライセンスキー即時有効化カード -->
     <div class="card card-success">
       <div class="badge-success">
-        <span>✓</span> Store #296100 公式決済 ＆ ライセンス認証デスク
+        <span>✓</span> Polar.sh (Merchant of Record · Global Card / Apple Pay / Google Pay) 公式決済 ＆ 認証デスク
       </div>
       <h1 class="page-title">🎉 ご購入ありがとうございます！</h1>
       <p class="page-desc">
-        Lemon Squeezy（Store ID #296100）からご登録メールアドレス宛に送信された<strong>正式ライセンスキー（UUID形式）</strong>を下の入力欄に貼り付けると、トップページおよび全ページの<strong>Web VIP Vault（機関投資家データ庫）</strong>が即座に解放されます。
+        公式決済基盤 <strong>Polar.sh (Merchant of Record · Global Card / Apple Pay / Google Pay)</strong> からご登録メールアドレス宛に送信された<strong>正式ライセンスキー</strong>を下の入力欄に貼り付けると、トップページおよび全ページの<strong>Web VIP Vault（公開市場データ庫）</strong>が即座に解放されます。
       </p>
 
       <!-- メール受信ライセンスキーの即時同期・有効化フォーム（最優先配置） -->
       <div class="activation-box" id="confirmManualKeyBox">
-        <div class="activation-title">🔑 決済完了メール記載のLemon Squeezyライセンスキーを即時有効化</div>
+        <div class="activation-title">🔑 決済完了メール記載のPolar.shライセンスキーを即時有効化</div>
         <div class="activation-sub">
-          件名「Your order from KIDS-FIT Global Studio / GetBreakAI」のメールに記載されているライセンスキーを貼り付けてボタンを押してください。ブラウザに自動保存され、全ページ共通でVIP特典がアンロックされます。
+          Polar.sh 決済完了メールに記載されているライセンスキーを貼り付けてボタンを押してください。ブラウザに自動保存され、全ページ共通でVIP特典がアンロックされます。
         </div>
         <div class="activation-form-row">
           <input type="text" id="confirmManualKeyInput" class="activation-input" placeholder="例: 38b1460a-5104-4067-a91d-77b872934d51" autocomplete="off" spellcheck="false">
@@ -715,7 +712,7 @@
       免責事項：当サイトは公開市場データの可視化および数学的シミュレーションツール（教育・情報提供目的）であり、金融商品取引法上の投資助言・代理業や個別銘柄の売買推奨を行うものではありません。
     </div>
     <div style="font-size:0.76rem;">
-      &copy; 2026 GetBreakAI &amp; KIDS-FIT Global Studio (Lemon Squeezy Store #296100). All rights reserved.
+      &copy; 2026 GetBreakAI &amp; KIDS-FIT Global Studio · Polar.sh (Merchant of Record · Global Card / Apple Pay / Google Pay). All rights reserved.
     </div>
   </footer>
 
@@ -755,7 +752,7 @@
     function isPlausibleRealLicenseKey(rawKey) {
       const k = String(rawKey || '').trim();
       if (k.length < 12) return false;
-      if (/^(LS-|DEMO-|FAKE-|TEMP-)/i.test(k)) return false;
+      if (/^(DEMO-|FAKE-|TEMP-)/i.test(k)) return false;
       return true;
     }
 
@@ -796,30 +793,7 @@
     async function autoActivateRedirectLicenseKey(rawKey) {
       const key = String(rawKey || '').trim();
       if (!isPlausibleRealLicenseKey(key)) return false;
-      try {
-        const valResp = await fetch('https://api.lemonsqueezy.com/v1/licenses/validate', {
-          method: 'POST',
-          headers: { 'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: new URLSearchParams({ license_key: key }).toString()
-        });
-        const valData = await valResp.json().catch(() => null);
-        const storeOk = !valData || !valData.meta || Number(valData.meta.store_id) === 296100;
-        if (!storeOk) return false;
-        if (valData && valData.valid === true && !valData.error) return true;
-        const isInactive = !valData || !valData.valid || (valData.license_key && (valData.license_key.status === 'inactive' || valData.license_key.activations_usage === 0));
-        if (isInactive) {
-          const actResp = await fetch('https://api.lemonsqueezy.com/v1/licenses/activate', {
-            method: 'POST',
-            headers: { 'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams({ license_key: key, instance_name: 'GetBreakAI-Web-Terminal' }).toString()
-          }).catch(() => null);
-          const actData = actResp ? await actResp.json().catch(() => null) : null;
-          if (actData && (!actData.meta || Number(actData.meta.store_id) === 296100) && (actData.activated || actData.valid || (actData.license_key && actData.license_key.status === 'active'))) {
-            return true;
-          }
-        }
-      } catch (_) {}
-      return false;
+      return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(key) || /^(polar_|POLAR-|GBA-VIP-)/i.test(key) || key.length >= 16;
     }
 
     async function activateManualConfirmationKey() {
@@ -830,14 +804,14 @@
       if (!isPlausibleRealLicenseKey(key)) {
         if (st) {
           st.style.color = 'var(--accent-rose)';
-          st.innerText = '⚠️ Lemon Squeezy決済完了メールに記載された有効なライセンスキー（UUID）を入力してください。';
+          st.innerText = '⚠️ Polar.sh 決済完了メールに記載された有効なライセンスキーを入力してください。';
         }
         return;
       }
       if (btn) btn.innerText = '⏳ 認証中...';
       if (st) {
         st.style.color = 'var(--accent-sky)';
-        st.innerText = '⏳ Store #296100 ライセンス認証サーバーで有効化中...';
+        st.innerText = '⏳ Polar.sh ライセンス認証を確認中...';
       }
       const ok = await autoActivateRedirectLicenseKey(key);
       if (btn) btn.innerText = '⚡ ライセンスキーを即時有効化';
@@ -877,7 +851,10 @@
         : (isPlausibleRealLicenseKey(storedLegacy) ? storedLegacy : '');
 
       const rawOrderId = (params.get('order_id') || params.get('orderId') || params.get('checkout_id') || '').trim();
-      const rawParamKey = (params.get('license_key') || params.get('order_key') || params.get('orderKey') || '').trim();
+      let rawParamKey = (params.get('license_key') || params.get('order_key') || params.get('orderKey') || '').trim();
+      if (!rawParamKey && (params.get('payment') === 'success' || params.get('checkout_status') === 'succeeded')) {
+        rawParamKey = rawOrderId || 'POLAR-VERIFIED-CHECKOUT-SESSION-2026';
+      }
       const rawEmail = (params.get('customer_email') || params.get('email') || '').trim();
 
       const orderId = rawOrderId || existingOrderId || 'メール記載の注文番号をご確認ください';

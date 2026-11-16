@@ -35,33 +35,44 @@ test('STEP 1: Unified Root /index.html & /jp/index.html 50-70s Shin-NISA Hybrid 
   }
 });
 
-test('STEP 2: PAYMENT_CONFIG, STORE_LIVE_READY:false, VIP Waitlist Modal & 6 Legal Pages', () => {
-  const html = fs.readFileSync(JP_INDEX_PATH, 'utf8');
-  assert.ok(html.includes('window.PAYMENT_CONFIG'), 'Must define window.PAYMENT_CONFIG');
-  assert.ok(html.includes('STORE_LIVE_READY: false'), 'Must default STORE_LIVE_READY: false');
-  assert.ok(html.includes('FINANCE_STORE_SLOT'), 'Must define FINANCE_STORE_SLOT');
-  assert.ok(html.includes('PEDIATRIC_STORE_SLOT'), 'Must define PEDIATRIC_STORE_SLOT');
-  assert.ok(html.includes('d5e7e761-8b1b-4ca8-b1fe-771acd1450f8?embed=1&locale=ja'));
-  assert.ok(html.includes('667aa482-f17c-47d1-b7f3-a2427c36516b?embed=1&locale=ja'));
-  assert.ok(html.includes('c1cd7f12-3479-49e8-ab71-59c98135d599'));
-  assert.ok(html.includes('c562946d-ef68-4c2f-a802-df9da0179895'));
-  assert.ok(html.includes('月額 $29 / 約4,400円（税込）'));
-  assert.ok(html.includes('年額 $199（約30,000円・税込）'));
-  assert.ok(html.includes('VIP創設メンバー先行案内＆早期20%割引クーポン予約（1秒メール登録）'));
-  assert.ok(html.includes("segment: 'vip_waitlist'"));
-  assert.ok(html.includes('Checkout.Success'));
-  assert.ok(html.includes('mailto:beable9489@gmail.com'));
-  assert.ok(html.includes('read_complete'));
-  assert.ok(html.includes('このマニュアルをメールで受け取る（無料倶楽部登録）'));
-  assert.ok(html.includes('Instagram|FBAN|FBAV|KAKAOTALK'));
+test('STEP 2: Polar.sh Native PAYMENT_CONFIG, STORE_LIVE_READY:false, VIP Waitlist Modal & Legal Pages', () => {
+  for (const [label, fp] of [['index.html', INDEX_PATH], ['jp/index.html', JP_INDEX_PATH]]) {
+    const html = fs.readFileSync(fp, 'utf8');
+    assert.ok(html.includes('window.PAYMENT_CONFIG'), `${label} must define window.PAYMENT_CONFIG`);
+    assert.ok(html.includes("PROVIDER: 'polar_sh'"), `${label} must set PROVIDER: 'polar_sh'`);
+    assert.ok(html.includes("DIVISION: 'GBA'"), `${label} must set DIVISION: 'GBA'`);
+    assert.ok(html.includes("STORE_SLOT: 'FINANCE_STORE_SLOT'"), `${label} must define FINANCE_STORE_SLOT`);
+    assert.ok(html.includes('STORE_LIVE_READY: false'), `${label} must default STORE_LIVE_READY: false`);
+    assert.ok(html.includes('POLAR_CHECKOUT_URLS'), `${label} must define POLAR_CHECKOUT_URLS`);
+    assert.ok(html.includes('POLAR_GBA_MONTHLY_URL'), `${label} must define POLAR_GBA_MONTHLY_URL`);
+    assert.ok(html.includes('POLAR_GBA_ANNUAL_URL'), `${label} must define POLAR_GBA_ANNUAL_URL`);
+    assert.ok(html.includes('Polar.sh (Merchant of Record · Global Card / Apple Pay / Google Pay)'), `${label} must display unified Polar.sh MoR label`);
+    assert.ok(!/lemonsqueezy|lemon\s*squeezy|296100|d5e7e761|667aa482/i.test(html), `${label} must have 0 Lemon Squeezy or legacy Store #296100 references`);
+    assert.ok(html.includes('月額 $29 / 約4,400円（税込）'));
+    assert.ok(html.includes('年額 $199（約30,000円・税込）'));
+    assert.ok(html.includes('随時更新・新NISA老後取り崩し実践PDFガイド＋3つの財布シミュレーター同梱'));
+    assert.ok(html.includes('14日間返金保証'));
+    assert.ok(html.includes('VIP創設メンバー先行案内＆早期20%割引クーポン予約（1秒メール登録）'));
+    assert.ok(html.includes("segment: 'vip_waitlist'"));
+    assert.ok(html.includes("payment') === 'success'"));
+    assert.ok(html.includes('Checkout.Success'));
+    assert.ok(html.includes('mailto:beable9489@gmail.com'));
+    assert.ok(html.includes('read_complete'));
+    assert.ok(html.includes('このマニュアルをメールで受け取る（無料倶楽部登録）'));
+    assert.ok(html.includes('Instagram|FBAN|FBAV|KAKAOTALK|Line'));
+  }
 
   for (const rel of [
-    'terms.html', 'privacy.html', 'refund.html',
-    'jp/terms.html', 'jp/privacy.html', 'jp/refund.html',
-    'dist/terms.html', 'dist/privacy.html', 'dist/refund.html',
-    'dist/jp/terms.html', 'dist/jp/privacy.html', 'dist/jp/refund.html'
+    'terms.html', 'privacy.html', 'refund.html', 'contact.html',
+    'jp/terms.html', 'jp/privacy.html', 'jp/refund.html', 'jp/contact.html',
+    'dist/terms.html', 'dist/privacy.html', 'dist/refund.html', 'dist/contact.html',
+    'dist/jp/terms.html', 'dist/jp/privacy.html', 'dist/jp/refund.html', 'dist/jp/contact.html'
   ]) {
-    assert.ok(fs.existsSync(path.join(ROOT, rel)), `Required legal page must exist: ${rel}`);
+    const fullPath = path.join(ROOT, rel);
+    assert.ok(fs.existsSync(fullPath), `Required legal page must exist: ${rel}`);
+    const lhtml = fs.readFileSync(fullPath, 'utf8');
+    assert.ok(lhtml.includes('Polar.sh (Merchant of Record · Global Card / Apple Pay / Google Pay)'), `${rel} must display Polar.sh MoR label`);
+    assert.ok(!/lemonsqueezy|lemon\s*squeezy|296100|d5e7e761|667aa482/i.test(lhtml), `${rel} must have 0 Lemon Squeezy references`);
   }
 });
 
@@ -82,7 +93,8 @@ test('STEP 3: 30 Japanese Static SEO Research Pages (/jp/*.html) + Canonical Sit
     assert.ok(!/[가-힣ㄱ-ㅎㅏ-ㅣ]/.test(content), `${f} must have 0 Hangul`);
     assert.ok(!/telegram|t\.me|semifeargreedbot|テレグラム/i.test(content), `${f} must have 0 Telegram`);
     assert.ok(!/機関投資家機関投資家|機関需給\s*Squeeze|SEC\s*Form\s*公式業績発表/.test(content), `${f} must have 0 machine-replaced typos`);
-    assert.ok(content.includes('window.PAYMENT_CONFIG'), `${f} must include window.PAYMENT_CONFIG`);
+    assert.ok(!/lemonsqueezy|lemon\s*squeezy|296100|d5e7e761|667aa482/i.test(content), `${f} must have 0 Lemon Squeezy references`);
+    assert.ok(content.includes('window.PAYMENT_CONFIG') && content.includes("PROVIDER: 'polar_sh'"), `${f} must include Polar.sh window.PAYMENT_CONFIG`);
     assert.ok(content.includes('/hq_member_crm_client.js'), `${f} must load hq_member_crm_client.js`);
     assert.ok(content.includes('月額 $29 / 約4,400円（税込）'), `${f} must display JPY monthly price`);
     assert.ok(content.includes(MANDATORY_DISCLAIMER), `${f} must display mandatory FIEA disclaimer`);

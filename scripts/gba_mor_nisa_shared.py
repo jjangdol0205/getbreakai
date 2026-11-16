@@ -1,23 +1,17 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Division 3 (GBA — getbreakai.com) Shared MoR, FIEA (Kinsho-ho), FSA Shin-NISA Hybrid,
+Division 3 (GBA — getbreakai.com) Shared Polar.sh MoR, FIEA (Kinsho-ho), FSA Shin-NISA Hybrid,
 PAYMENT_CONFIG, VIP Waitlist Modal, CRM & Read-Complete Runtime Generator.
-Strictly Zero-Hangul and Zero-Chat-App references.
+Strictly Zero-Hangul, Zero-LemonSqueezy, and Zero-Chat-App references.
 """
 
 from __future__ import annotations
 import os
 
-LS_MONTHLY_UUID = "d5e7e761-8b1b-4ca8-b1fe-771acd1450f8"
-LS_ANNUAL_UUID = "667aa482-f17c-47d1-b7f3-a2427c36516b"
-LS_MONTHLY_URL = f"https://truthofmarket.lemonsqueezy.com/checkout/buy/{LS_MONTHLY_UUID}?embed=1&locale=ja"
-LS_ANNUAL_URL = f"https://truthofmarket.lemonsqueezy.com/checkout/buy/{LS_ANNUAL_UUID}?embed=1&locale=ja"
-LS_MONTHLY_URL_HTML = f"https://truthofmarket.lemonsqueezy.com/checkout/buy/{LS_MONTHLY_UUID}?embed=1&amp;locale=ja"
-LS_ANNUAL_URL_HTML = f"https://truthofmarket.lemonsqueezy.com/checkout/buy/{LS_ANNUAL_UUID}?embed=1&amp;locale=ja"
-
-PEDIATRIC_SINGLE_UUID = "c1cd7f12-3479-49e8-ab71-59c98135d599"
-PEDIATRIC_PASS_UUID = "c562946d-ef68-4c2f-a802-df9da0179895"
+MOR_LABEL_EN_JP = "Polar.sh (Merchant of Record · Global Card / Apple Pay / Google Pay)"
+POLAR_MONTHLY_CTA_HREF = "#gbaVipWaitlistModal"
+POLAR_ANNUAL_CTA_HREF = "#gbaVipWaitlistModal"
 
 PRICE_LABEL_MONTHLY_JP = "月額 $29 / 約4,400円（税込）"
 PRICE_LABEL_ANNUAL_JP = "年額 $199（約30,000円・税込）"
@@ -48,182 +42,214 @@ MAIN_HUB_EXCLUDED_SLUGS = {
 
 
 def build_payment_and_kpi_head_html() -> str:
-    """Returns global head scripts for Lemon.js, CRM client, PAYMENT_CONFIG, single-fire paid_click, signup & read_complete."""
-    return f"""  <script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
-  <script src="/hq_member_crm_client.js"></script>
+    """Returns global head scripts for Polar.sh PAYMENT_CONFIG, CRM client, single-fire paid_click, waitlist/checkout router, ?payment=success unlock, signup & read_complete."""
+    return r"""  <script src="/hq_member_crm_client.js"></script>
   <script>
-    window.PAYMENT_CONFIG = {{
+    window.PAYMENT_CONFIG = {
+      PROVIDER: 'polar_sh',
+      DIVISION: 'GBA',
+      STORE_SLOT: 'FINANCE_STORE_SLOT',
       STORE_LIVE_READY: false,
-      ACTIVE_SLOT: 'FINANCE_STORE_SLOT',
-      BACKUP_LIVE_CHECKOUT_URL: {{
-        monthly: '',
-        annual: ''
-      }},
-      FINANCE_STORE_SLOT: {{
-        storeId: '296100',
-        storeDomain: 'truthofmarket.lemonsqueezy.com',
-        monthlyProductId: '1491888',
-        monthlyUuid: '{LS_MONTHLY_UUID}',
-        monthlyLabel: '{PRICE_LABEL_MONTHLY_JP}',
-        monthlyCheckoutUrl: '{LS_MONTHLY_URL}',
-        annualProductId: '1491891',
-        annualUuid: '{LS_ANNUAL_UUID}',
-        annualLabel: '{PRICE_LABEL_ANNUAL_JP}',
-        annualCheckoutUrl: '{LS_ANNUAL_URL}',
-        institutionalDeskUrl: 'mailto:beable9489@gmail.com',
-        supportEmail: 'beable9489@gmail.com',
-        BACKUP_LIVE_CHECKOUT_URL: {{
-          monthly: '',
-          annual: ''
-        }}
-      }},
-      PEDIATRIC_STORE_SLOT: {{
-        storeId: '296100',
-        singleProductId: '1468224',
-        singleUuid: '{PEDIATRIC_SINGLE_UUID}',
-        singleCheckoutUrl: 'https://truthofmarket.lemonsqueezy.com/checkout/buy/{PEDIATRIC_SINGLE_UUID}?embed=1&locale=en',
-        sixMonthProductId: '1468243',
-        sixMonthUuid: '{PEDIATRIC_PASS_UUID}',
-        sixMonthCheckoutUrl: 'https://truthofmarket.lemonsqueezy.com/checkout/buy/{PEDIATRIC_PASS_UUID}?embed=1&locale=en',
-        BACKUP_LIVE_CHECKOUT_URL: {{
-          single: '',
-          sixMonth: ''
-        }}
-      }}
-    }};
-    window.CHECKOUT_URLS = {{
-      monthly: window.PAYMENT_CONFIG.FINANCE_STORE_SLOT.monthlyCheckoutUrl,
-      annual: window.PAYMENT_CONFIG.FINANCE_STORE_SLOT.annualCheckoutUrl,
+      POLAR_CHECKOUT_URLS: {
+        monthly_29_jp: '',
+        annual_199_jp: '',
+        monthly_29: '',
+        annual_199: ''
+      },
+      POLAR_GBA_MONTHLY_URL: '',
+      POLAR_GBA_ANNUAL_URL: '',
+      SUPPORT_EMAIL: 'beable9489@gmail.com'
+    };
+    window.CHECKOUT_URLS = {
+      monthly: window.PAYMENT_CONFIG.POLAR_CHECKOUT_URLS.monthly_29_jp || window.PAYMENT_CONFIG.POLAR_CHECKOUT_URLS.monthly_29 || window.PAYMENT_CONFIG.POLAR_GBA_MONTHLY_URL || '',
+      annual: window.PAYMENT_CONFIG.POLAR_CHECKOUT_URLS.annual_199_jp || window.PAYMENT_CONFIG.POLAR_CHECKOUT_URLS.annual_199 || window.PAYMENT_CONFIG.POLAR_GBA_ANNUAL_URL || '',
       enterprise: 'mailto:beable9489@gmail.com'
-    }};
+    };
     const CHECKOUT_URLS = window.CHECKOUT_URLS;
 
-    (function() {{
-      try {{
+    (function() {
+      try {
         if (typeof window === 'undefined') return;
         var ns = 'gba_getbreakai';
         var kst = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
 
-        window.isGbaInAppWebView = function() {{
+        window.isGbaInAppWebView = function() {
           var ua = (typeof navigator !== 'undefined' && navigator.userAgent) ? navigator.userAgent : '';
-          return /Instagram|FBAN|FBAV|KAKAOTALK/i.test(ua);
-        }};
+          return /Instagram|FBAN|FBAV|KAKAOTALK|Line/i.test(ua);
+        };
 
-        window.trackGbaFreeSignup = function(emailAddr) {{
-          try {{
-            fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/signup', {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
-            fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/signup_total', {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
-            if (localStorage.getItem('hq_signup_' + ns + '_' + kst) !== '1') {{
+        window.getGbaSavedMemberEmail = function() {
+          try {
+            var e1 = String(localStorage.getItem('gb_free_member_email') || localStorage.getItem('gba_jp_free_email') || localStorage.getItem('gb_vip_customer_email') || '').trim();
+            if (e1 && e1.indexOf('@') !== -1) return e1;
+            if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.getLocalMember === 'function') {
+              var m = window.DreamCompanyCRM.getLocalMember('GBA');
+              if (m && m.email && String(m.email).indexOf('@') !== -1) return String(m.email).trim();
+            }
+          } catch (_e) {}
+          return '';
+        };
+
+        window.resolveGbaPolarCheckoutUrl = function(plan) {
+          var cfg = window.PAYMENT_CONFIG || {};
+          var urls = cfg.POLAR_CHECKOUT_URLS || {};
+          if (plan === 'annual') {
+            return String(urls.annual_199_jp || urls.annual_199 || cfg.POLAR_GBA_ANNUAL_URL || '').trim();
+          }
+          return String(urls.monthly_29_jp || urls.monthly_29 || cfg.POLAR_GBA_MONTHLY_URL || '').trim();
+        };
+
+        window.trackGbaFreeSignup = function(emailAddr) {
+          try {
+            fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/signup', { mode: 'cors', keepalive: true }).catch(function(){});
+            fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/signup_total', { mode: 'cors', keepalive: true }).catch(function(){});
+            if (localStorage.getItem('hq_signup_' + ns + '_' + kst) !== '1') {
               localStorage.setItem('hq_signup_' + ns + '_' + kst, '1');
-              fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/signup_' + kst, {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
-            }}
-          }} catch (_e) {{}}
-        }};
+              fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/signup_' + kst, { mode: 'cors', keepalive: true }).catch(function(){});
+            }
+          } catch (_e) {}
+        };
 
-        window.trackGbaVipWaitlistBeacons = function() {{
-          try {{
-            fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/vip_waitlist', {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
-            fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/signup', {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
-            fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/signup_total', {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
-            if (localStorage.getItem('hq_signup_' + ns + '_' + kst) !== '1') {{
+        window.trackGbaVipWaitlistBeacons = function() {
+          try {
+            fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/vip_waitlist_' + kst, { mode: 'cors', keepalive: true }).catch(function(){});
+            fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/vip_waitlist_total', { mode: 'cors', keepalive: true }).catch(function(){});
+            fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/vip_waitlist', { mode: 'cors', keepalive: true }).catch(function(){});
+            fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/signup', { mode: 'cors', keepalive: true }).catch(function(){});
+            fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/signup_total', { mode: 'cors', keepalive: true }).catch(function(){});
+            if (localStorage.getItem('hq_signup_' + ns + '_' + kst) !== '1') {
               localStorage.setItem('hq_signup_' + ns + '_' + kst, '1');
-              fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/signup_' + kst, {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
-            }}
-          }} catch (_e) {{}}
-        }};
+              fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/signup_' + kst, { mode: 'cors', keepalive: true }).catch(function(){});
+            }
+          } catch (_e) {}
+        };
 
-        window.__gbaSubmitJpSignup = function(ev, formEl, tickerLabel) {{
+        window.__gbaSubmitJpSignup = function(ev, formEl, tickerLabel) {
           if (ev && ev.preventDefault) ev.preventDefault();
           var input = formEl ? formEl.querySelector('input[type="email"]') : null;
           var email = input ? String(input.value || '').trim().toLowerCase() : '';
-          if (!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]{{2,}}$/.test(email)) {{
+          if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
             if (input && input.focus) input.focus();
             return false;
-          }}
-          try {{
+          }
+          try {
             localStorage.setItem('gba_jp_free_email', email);
             localStorage.setItem('gb_free_member_email', email);
             localStorage.setItem('gba_jp_free_since', kst);
-          }} catch (_e) {{}}
+          } catch (_e) {}
           window.trackGbaFreeSignup(email);
           var noteCtx = 'site=getbreakai.com | source=' + String(tickerLabel || (location && location.pathname) || 'jp_subpage');
-          if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.registerMember === 'function') {{
-            window.DreamCompanyCRM.registerMember({{
+          if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.registerMember === 'function') {
+            window.DreamCompanyCRM.registerMember({
               div: 'GBA',
               email: email,
               segment: 'nisa_wealth_defense',
               lang: 'ja-JP',
               notes: noteCtx
-            }}).catch(function(){{}});
-          }}
-          document.querySelectorAll('.gba-jp-signup-status').forEach(function(el) {{
+            }).catch(function(){});
+          }
+          document.querySelectorAll('.gba-jp-signup-status').forEach(function(el) {
             el.style.display = 'block';
             el.innerHTML = '✅ <strong>無料倶楽部へのご登録が完了しました！</strong> 毎朝8時の「新NISA 3色バランス指標＆公開データ試算ブリーフ」を <strong>' + email.replace(/[<>&"]/g, '') + '</strong> 宛にお届けいたします。';
-          }});
-          document.querySelectorAll('.gba-jp-signup-form input[type="email"]').forEach(function(inp) {{ inp.value = email; }});
+          });
+          document.querySelectorAll('.gba-jp-signup-form input[type="email"]').forEach(function(inp) { inp.value = email; });
           return false;
-        }};
+        };
 
-        if (!window.__GBA_PAID_CLICK_BOUND_V1__) {{
+        // Support ?payment=success return from Polar.sh hosted checkout on any GBA page
+        try {
+          var qParams = new URLSearchParams((window.location && window.location.search) || '');
+          if (qParams.get('payment') === 'success' || qParams.get('checkout_status') === 'succeeded') {
+            var pKey = String(qParams.get('license_key') || qParams.get('checkout_id') || qParams.get('order_id') || ('POLAR-VERIFIED-SESSION-' + kst)).trim();
+            var pEmail = String(qParams.get('customer_email') || qParams.get('email') || '').trim();
+            localStorage.setItem('gb_vip_unlocked', 'true');
+            localStorage.setItem('gb_vip_license_key', pKey);
+            localStorage.setItem('gb_vip_key', pKey);
+            if (pEmail && pEmail.indexOf('@') !== -1) {
+              localStorage.setItem('gb_vip_customer_email', pEmail);
+            }
+            if (typeof sessionStorage !== 'undefined' && sessionStorage.getItem('gba_polar_paid_hit') !== '1') {
+              sessionStorage.setItem('gba_polar_paid_hit', '1');
+              fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_success_' + kst, { mode: 'cors', keepalive: true }).catch(function(){});
+              fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_success_total', { mode: 'cors', keepalive: true }).catch(function(){});
+            }
+          }
+        } catch (_pe) {}
+
+        if (!window.__GBA_PAID_CLICK_BOUND_V1__) {
           window.__GBA_PAID_CLICK_BOUND_V1__ = true;
-          window.addEventListener('click', function(e) {{
+          window.addEventListener('click', function(e) {
             var btn = e.target && e.target.closest
-              ? e.target.closest('[data-gba-paid-plan], .lemonsqueezy-button, a[href*="lemonsqueezy.com/checkout/buy/"]')
+              ? e.target.closest('[data-gba-paid-plan], .polar-checkout-button, a[href*="buy.polar.sh"], a[href*="polar.sh/checkout"]')
               : null;
             if (!btn) return;
             var href = String(btn.getAttribute('href') || '');
             var planAttr = String(btn.getAttribute('data-gba-paid-plan') || '').toLowerCase();
-            var uuidAttr = String(btn.getAttribute('data-ls-product-uuid') || '');
-            var selectedPlan = (planAttr === 'annual' || uuidAttr === '{LS_ANNUAL_UUID}' || href.indexOf('{LS_ANNUAL_UUID}') !== -1)
+            var slotAttr = String(btn.getAttribute('data-polar-slot') || '').toLowerCase();
+            var selectedPlan = (planAttr === 'annual' || slotAttr.indexOf('annual') !== -1 || href.indexOf('annual') !== -1)
               ? 'annual'
               : 'monthly';
 
-            fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_click', {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
-            fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_click_total', {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
+            fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_click_' + kst, { mode: 'cors', keepalive: true }).catch(function(){});
+            fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_click_total', { mode: 'cors', keepalive: true }).catch(function(){});
+            fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_click', { mode: 'cors', keepalive: true }).catch(function(){});
 
-            var cfg = window.PAYMENT_CONFIG || {{}};
-            var slot = cfg.FINANCE_STORE_SLOT || {{}};
-            var backupTop = cfg.BACKUP_LIVE_CHECKOUT_URL || {{}};
-            var backupSlot = slot.BACKUP_LIVE_CHECKOUT_URL || {{}};
-            var backupUrl = String(backupTop[selectedPlan] || backupSlot[selectedPlan] || '').trim();
-            var isLiveReady = (cfg.STORE_LIVE_READY === true) || Boolean(backupUrl);
+            var cfg = window.PAYMENT_CONFIG || {};
+            var resolvedUrl = window.resolveGbaPolarCheckoutUrl(selectedPlan);
+            if (!resolvedUrl && /^https:\/\/buy\.polar\.sh\/.+/i.test(href)) {
+              resolvedUrl = href;
+            }
+            var isLiveReady = (cfg.STORE_LIVE_READY === true) && /^https:\/\/buy\.polar\.sh\/.+/i.test(resolvedUrl);
 
-            if (!isLiveReady) {{
+            if (!isLiveReady) {
               e.preventDefault();
               e.stopImmediatePropagation();
-              if (typeof window.openGbaVipWaitlistModal === 'function') {{
+              if (typeof window.openGbaVipWaitlistModal === 'function') {
                 window.openGbaVipWaitlistModal(selectedPlan);
-              }}
+              }
               return false;
-            }}
+            }
 
-            var liveTarget = backupUrl || href || (selectedPlan === 'annual' ? slot.annualCheckoutUrl : slot.monthlyCheckoutUrl);
-            if (liveTarget && !e.ctrlKey && !e.shiftKey) {{
+            var checkoutUrl = resolvedUrl;
+            var memberEmail = window.getGbaSavedMemberEmail();
+            if (memberEmail && checkoutUrl.indexOf('customer_email=') === -1) {
+              var sep = checkoutUrl.indexOf('?') === -1 ? '?' : '&';
+              checkoutUrl = checkoutUrl + sep + 'customer_email=' + encodeURIComponent(memberEmail);
+            }
+
+            if (checkoutUrl && !e.ctrlKey && !e.shiftKey && !e.metaKey) {
               e.preventDefault();
               e.stopImmediatePropagation();
-              if (liveTarget.indexOf('lemonsqueezy.com/checkout') !== -1 && window.LemonSqueezy && window.LemonSqueezy.Url && typeof window.LemonSqueezy.Url.Open === 'function') {{
-                window.LemonSqueezy.Url.Open(liveTarget);
-              }} else {{
-                window.location.href = liveTarget;
-              }}
-            }}
-          }}, true);
-        }}
+              if (window.isGbaInAppWebView()) {
+                window.location.href = checkoutUrl;
+                return false;
+              }
+              if (window.PolarEmbedCheckout && typeof window.PolarEmbedCheckout.create === 'function') {
+                window.PolarEmbedCheckout.create(checkoutUrl, 'light').catch(function() {
+                  window.location.href = checkoutUrl;
+                });
+              } else {
+                window.location.href = checkoutUrl;
+              }
+              return false;
+            }
+          }, true);
+        }
 
-        if (!window.__GBA_READ_COMPLETE_BOUND_V1__) {{
+        if (!window.__GBA_READ_COMPLETE_BOUND_V1__) {
           window.__GBA_READ_COMPLETE_BOUND_V1__ = true;
           var ssKey = 'gba_read_complete_v1';
-          if (typeof sessionStorage !== 'undefined' && sessionStorage.getItem(ssKey) !== '1') {{
+          if (typeof sessionStorage !== 'undefined' && sessionStorage.getItem(ssKey) !== '1') {
             var scrolled70 = false;
             var dwelled15 = false;
             var firedRead = false;
-            var tryFireReadComplete = function() {{
+            var tryFireReadComplete = function() {
               if (firedRead || !scrolled70 || !dwelled15) return;
               firedRead = true;
-              try {{ sessionStorage.setItem(ssKey, '1'); }} catch (_e) {{}}
-              fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/read_complete', {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
-            }};
-            var checkScrollDepth = function() {{
+              try { sessionStorage.setItem(ssKey, '1'); } catch (_e) {}
+              fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/read_complete', { mode: 'cors', keepalive: true }).catch(function(){});
+            };
+            var checkScrollDepth = function() {
               if (scrolled70) return;
               var doc = document.documentElement;
               var body = document.body;
@@ -235,41 +261,41 @@ def build_payment_and_kpi_head_html() -> str:
                 body ? body.offsetHeight : 0,
                 doc ? doc.offsetHeight : 0
               );
-              if (fullH <= 0 || ((scrollTop + viewH) / fullH) >= 0.70) {{
+              if (fullH <= 0 || ((scrollTop + viewH) / fullH) >= 0.70) {
                 scrolled70 = true;
                 window.removeEventListener('scroll', checkScrollDepth);
                 tryFireReadComplete();
-              }}
-            }};
-            window.addEventListener('scroll', checkScrollDepth, {{ passive: true }});
-            setTimeout(function() {{
+              }
+            };
+            window.addEventListener('scroll', checkScrollDepth, { passive: true });
+            setTimeout(function() {
               dwelled15 = true;
               checkScrollDepth();
               tryFireReadComplete();
-            }}, 15000);
+            }, 15000);
             window.addEventListener('DOMContentLoaded', checkScrollDepth);
-          }}
-        }}
+          }
+        }
 
-        if (!window.__HQ_KPI_GBA__) {{
+        if (!window.__HQ_KPI_GBA__) {
           window.__HQ_KPI_GBA__ = true;
           var ua = (typeof navigator !== 'undefined' && navigator.userAgent) ? navigator.userAgent : '';
           var host = (location && location.hostname) || '';
-          if (!navigator.webdriver && !/bot|crawl|spider|slurp|headless|lighthouse|gtmetrix|pingdom|uptimerobot|python|curl|node|axios/i.test(ua) && host && host !== 'localhost' && host !== '127.0.0.1') {{
-            fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/pv_' + kst, {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
-            fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/pv_total', {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
-            if (localStorage.getItem('hq_uv_' + ns + '_' + kst) !== '1') {{
+          if (!navigator.webdriver && !/bot|crawl|spider|slurp|headless|lighthouse|gtmetrix|pingdom|uptimerobot|python|curl|node|axios/i.test(ua) && host && host !== 'localhost' && host !== '127.0.0.1') {
+            fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/pv_' + kst, { mode: 'cors', keepalive: true }).catch(function(){});
+            fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/pv_total', { mode: 'cors', keepalive: true }).catch(function(){});
+            if (localStorage.getItem('hq_uv_' + ns + '_' + kst) !== '1') {
               localStorage.setItem('hq_uv_' + ns + '_' + kst, '1');
-              fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/uv_' + kst, {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
-            }}
-            if (localStorage.getItem('hq_uv_ever_' + ns) !== '1') {{
+              fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/uv_' + kst, { mode: 'cors', keepalive: true }).catch(function(){});
+            }
+            if (localStorage.getItem('hq_uv_ever_' + ns) !== '1') {
               localStorage.setItem('hq_uv_ever_' + ns, '1');
-              fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/uv_total', {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
-            }}
-          }}
-        }}
-      }} catch (_err) {{}}
-    }})();
+              fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/uv_total', { mode: 'cors', keepalive: true }).catch(function(){});
+            }
+          }
+        }
+      } catch (_err) {}
+    })();
   </script>"""
 
 
@@ -435,7 +461,7 @@ def build_vip_waitlist_modal_html() -> str:
       </div>
       <h2 class="gba-vip-wl-title" id="gbaVipWaitlistModalTitle">{VIP_WAITLIST_MODAL_TITLE_JP}</h2>
       <p class="gba-vip-wl-desc">
-        現在、日本国内クレジットカード（JCB・Visa・Mastercard・Apple Pay）向けの決済システム最終確認を実施しております。メールアドレスをご登録いただくと、受付開始と同時に<strong>【創設メンバー限定・早期20%割引クーポン】</strong>を最優先でお届けいたします（本日の課金は一切発生いたしません）。
+        現在、公式グローバル決済基盤 <strong>{MOR_LABEL_EN_JP}</strong>（日本国内クレジットカード JCB・Visa・Mastercard・Apple Pay・Google Pay対応）の決済窓口最終確認を実施しております。メールアドレスをご登録いただくと、受付開始と同時に<strong>【創設メンバー限定・早期20%割引クーポン】</strong>を最優先でお届けいたします（本日の課金は一切発生いたしません）。
       </p>
 
       <div class="gba-vip-wl-plans" role="group" aria-label="ご希望プラン選択">
@@ -456,6 +482,7 @@ def build_vip_waitlist_modal_html() -> str:
       <div class="gba-vip-wl-status" id="gbaVipWaitlistStatus" role="status" aria-live="polite"></div>
 
       <div style="margin-top:12px; font-size:0.84rem; color:#475569; line-height:1.58;">
+        💳 決済・税務管理：{MOR_LABEL_EN_JP}（14日間返金保証・いつでも1クリック解約）<br>
         🔒 パスワード登録不要・いつでも1クリック配信停止可能 ｜ お問い合わせ窓口: <a href="mailto:beable9489@gmail.com" style="color:#1d4ed8; font-weight:800;">beable9489@gmail.com</a>
       </div>
     </div>
@@ -512,12 +539,13 @@ def build_vip_waitlist_modal_html() -> str:
         var selectedPlan = activeWaitlistPlan || 'monthly';
         if (btn) btn.disabled = true;
 
+        var kstDay = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
         if (typeof window.trackGbaVipWaitlistBeacons === 'function') {{
           window.trackGbaVipWaitlistBeacons();
         }} else {{
+          fetch('https://abacus.jasoncameron.dev/hit/gba_getbreakai/vip_waitlist_' + kstDay, {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
+          fetch('https://abacus.jasoncameron.dev/hit/gba_getbreakai/vip_waitlist_total', {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
           fetch('https://abacus.jasoncameron.dev/hit/gba_getbreakai/vip_waitlist', {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
-          fetch('https://abacus.jasoncameron.dev/hit/gba_getbreakai/signup', {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
-          fetch('https://abacus.jasoncameron.dev/hit/gba_getbreakai/signup_total', {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
         }}
 
         var finishUi = function() {{
@@ -525,7 +553,7 @@ def build_vip_waitlist_modal_html() -> str:
           if (statusEl) {{
             var planLabel = selectedPlan === 'annual' ? '{PRICE_LABEL_ANNUAL_JP}' : '{PRICE_LABEL_MONTHLY_JP}';
             statusEl.style.display = 'block';
-            statusEl.innerHTML = '✅ <strong>VIP創設メンバー先行案内＆早期20%割引クーポンのご予約が完了いたしました！</strong>（' + email.replace(/[<>&"]/g, '') + ' ／ 選択プラン: ' + planLabel + '）<br>決済受付の開始と同時に優先ご案内メールをお送りいたします。また毎朝8時の無料「3色バランス指標ブリーフ」も本日よりお届けいたします。';
+            statusEl.innerHTML = '✅ <strong>VIP創設メンバー先行案内＆早期20%割引クーポンのご予約が完了いたしました！</strong>（' + email.replace(/[<>&"]/g, '') + ' ／ 選択プラン: ' + planLabel + '）<br>Polar.sh 公式決済受付の開始と同時に優先ご案内メールをお送りいたします。また毎朝8時の無料「3色バランス指標ブリーフ」も本日よりお届けいたします。';
           }}
         }};
 
@@ -540,7 +568,7 @@ def build_vip_waitlist_modal_html() -> str:
             email: email,
             segment: 'vip_waitlist',
             lang: 'ja-JP',
-            notes: 'site=getbreakai.com | plan=' + selectedPlan
+            notes: 'site=getbreakai.com | provider=polar_sh | plan=' + selectedPlan
           }}).then(finishUi).catch(finishUi);
         }} else {{
           finishUi();
@@ -583,7 +611,7 @@ def build_starter_manual_modal_html() -> str:
       <!-- In-App WebView Safe Email Delivery Strip ("このマニュアルをメールで受け取る（無料倶楽部登録）") -->
       <div id="gbaManualWebViewMailBox" style="padding:14px 18px; background:linear-gradient(135deg, #ecfdf5 0%, #eff6ff 100%); border-bottom:2px solid #059669;">
         <div id="gbaManualWebViewNotice" style="display:none; font-size:0.9rem; font-weight:900; color:#065f46; margin-bottom:6px;">
-          📱 アプリ内ブラウザ（Instagram・Facebook等）では印刷機能が制限されるため、全章をこのまま画面でお読みいただくか、下記よりメールで保存版をお受け取りいただけます。
+          📱 アプリ内ブラウザ（Instagram・Facebook・LINE等）では印刷機能が制限されるため、全章をこのまま画面でお読みいただくか、下記よりメールで保存版をお受け取りいただけます。
         </div>
         <div style="font-size:1rem; font-weight:900; color:#0b1f3a; margin-bottom:8px;">
           📩 このマニュアルをメールで受け取る（無料倶楽部登録）
@@ -692,8 +720,8 @@ def build_starter_manual_modal_html() -> str:
             </button>
           </div>
           <div class="gba-manual-funnel-links">
-            <a href="{LS_MONTHLY_URL_HTML}" data-gba-paid-plan="monthly" data-ls-product-uuid="{LS_MONTHLY_UUID}" class="gba-manual-pro-link lemonsqueezy-button">⚡ {PRICE_LABEL_MONTHLY_JP}</a>
-            <a href="{LS_ANNUAL_URL_HTML}" data-gba-paid-plan="annual" data-ls-product-uuid="{LS_ANNUAL_UUID}" class="gba-manual-vip-link lemonsqueezy-button">👑 {PRICE_LABEL_ANNUAL_JP}</a>
+            <a href="{POLAR_MONTHLY_CTA_HREF}" data-gba-paid-plan="monthly" data-polar-slot="monthly_29_jp" class="gba-manual-pro-link polar-checkout-button">⚡ {PRICE_LABEL_MONTHLY_JP}</a>
+            <a href="{POLAR_ANNUAL_CTA_HREF}" data-gba-paid-plan="annual" data-polar-slot="annual_199_jp" class="gba-manual-vip-link polar-checkout-button">👑 {PRICE_LABEL_ANNUAL_JP}</a>
           </div>
         </div>
       </div>
@@ -812,7 +840,7 @@ def build_starter_manual_modal_html() -> str:
 
 
 def build_legal_footer_html() -> str:
-    """Returns prominent MoR & FIEA compliant footer legal bar linking both /jp/*.html and root /*.html legal pages."""
+    """Returns prominent Polar.sh MoR & FIEA compliant footer legal bar linking both /jp/*.html and root /*.html legal pages."""
     return f"""
   <footer class="gba-fixed-legal-footer" style="margin-top:32px; padding:24px 16px 36px; border-top:2px solid #cbd5e1; background:rgba(15,23,42,0.03); font-size:0.9rem; line-height:1.72; color:var(--text-muted, #334155);">
     <div style="max-width:1040px; margin:0 auto;">
@@ -842,7 +870,8 @@ def build_legal_footer_html() -> str:
       <div style="max-width:920px; margin:0 auto; padding:12px 15px; border-radius:10px; background:var(--bg-card, #ffffff); border:1px solid var(--border-col, #cbd5e1); font-size:0.84rem; color:var(--text-sub, #475569);">
         <strong>【{SOFTWARE_POSITIONING_JP}】</strong><br>
         {MANDATORY_DISCLAIMER_JP}<br>
-        Operated by Yoonju Lee · KIDS-FIT Global Studio &amp; GetBreakAI (Lemon Squeezy Store #296100). Support Desk: <a href="mailto:beable9489@gmail.com" style="color:var(--accent-blue, #1d4ed8); font-weight:800;">beable9489@gmail.com</a>
+        公式決済・税務管理基盤：<strong>{MOR_LABEL_EN_JP}</strong>（日本国内発行クレジットカード・Apple Pay・Google Pay対応 ／ 14日間返金保証）<br>
+        Operated by Yoonju Lee · KIDS-FIT Global Studio &amp; GetBreakAI · Official Billing via {MOR_LABEL_EN_JP}. Support Desk: <a href="mailto:beable9489@gmail.com" style="color:var(--accent-blue, #1d4ed8); font-weight:800;">beable9489@gmail.com</a>
       </div>
     </div>
   </footer>"""
@@ -860,7 +889,7 @@ def _render_legal_doc(slug: str, title_jp: str, badge_text: str, body_html: str,
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{title_jp} ｜ GetBreakAI</title>
-  <meta name="description" content="GetBreakAI ({canonical}) — {title_jp}・{SOFTWARE_POSITIONING_JP}。サポート窓口: beable9489@gmail.com">
+  <meta name="description" content="GetBreakAI ({canonical}) — {title_jp}・{SOFTWARE_POSITIONING_JP}・{MOR_LABEL_EN_JP}。サポート窓口: beable9489@gmail.com">
   <link rel="canonical" href="{canonical}">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 {head_scripts}
@@ -986,7 +1015,7 @@ def build_all_legal_pages(root_dir: str, jp_dir: str) -> None:
       </ul>
       <h2>第2条（決済管理・ライセンス利用権）</h2>
       <p>
-        有料ソフトウェアプラン（{PRICE_LABEL_MONTHLY_JP} ／ {PRICE_LABEL_ANNUAL_JP}）の決済処理・税務管理・領収書発行は、公式 Merchant of Record である <strong>Lemon Squeezy, LLC (Store ID #296100)</strong> によって安全に処理されます。発行されたライセンスキーはご購入者様ご本人の個人利用に限り有効であり、第三者への転売・再配布は禁止されます。
+        有料ソフトウェアプラン（{PRICE_LABEL_MONTHLY_JP} ／ {PRICE_LABEL_ANNUAL_JP}）の決済処理・消費税等を含む税務管理・領収書発行は、公式決済代行基盤 <strong>{MOR_LABEL_EN_JP}</strong>（Stripe提携・日本国内発行クレジットカード／Apple Pay／Google Pay対応の公式 Merchant of Record）によって安全に処理されます。発行されたライセンスはご購入者様ご本人の個人利用に限り有効であり、第三者への転売・再配布は禁止されます。
       </p>
       <h2>第3条（無保証および免責事項）</h2>
       <p>
@@ -994,47 +1023,47 @@ def build_all_legal_pages(root_dir: str, jp_dir: str) -> None:
       </p>
       <h2>English Summary — Self-Directed Educational Calculator Software Terms</h2>
       <p>
-        <strong>GetBreakAI</strong> is a self-directed public market data visualization and mathematical dividend/asset-allocation calculator software operated by <strong>Yoonju Lee · KIDS-FIT Global Studio (Lemon Squeezy Store #296100)</strong>. GetBreakAI is NOT an investment advisor, broker-dealer, or financial instruments business operator under Japan&apos;s Financial Instruments and Exchange Act or U.S. law. Support: <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a>.
+        <strong>GetBreakAI</strong> is a self-directed public market data visualization and mathematical dividend/asset-allocation calculator software operated by <strong>Yoonju Lee · KIDS-FIT Global Studio</strong>, with global checkout, tax compliance, and invoicing handled by <strong>{MOR_LABEL_EN_JP}</strong>. GetBreakAI is NOT an investment advisor, broker-dealer, or financial instruments business operator under Japan&apos;s Financial Instruments and Exchange Act or U.S. law. Support: <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a>.
       </p>"""
 
     privacy_body = f"""      <p>
-        <strong>GetBreakAI</strong>（運営：Yoonju Lee · KIDS-FIT Global Studio / Store #296100）は、お客様の個人情報およびプライバシー保護を最優先事項として管理いたします。
+        <strong>GetBreakAI</strong>（運営：Yoonju Lee · KIDS-FIT Global Studio ／ 公式決済基盤：{MOR_LABEL_EN_JP}）は、お客様の個人情報およびプライバシー保護を最優先事項として管理いたします。
       </p>
       <h2>1. 取得する情報と決済セキュリティ</h2>
       <ul>
-        <li><strong>クレジットカード・決済情報：</strong> 決済処理はすべて PCI-DSS Level 1 準拠の公式 Merchant of Record である <strong>Lemon Squeezy, LLC</strong>（Stripe決済基盤）により暗号化処理され、当サイトのサーバーがカード番号を保持・閲覧することは一切ありません。</li>
+        <li><strong>クレジットカード・決済情報：</strong> 決済処理はすべて PCI-DSS Level 1 準拠の公式決済代行基盤 <strong>{MOR_LABEL_EN_JP}</strong>（Stripe決済インフラ提携）により暗号化処理され、当サイトのサーバーがカード番号を保持・閲覧することは一切ありません。</li>
         <li><strong>メール倶楽部・先行案内登録情報：</strong> ご登録いただいたメールアドレスおよび任意のニックネームは、毎朝の公開市場ブリーフィング配信・先行割引クーポンのご案内・カスタマーサポートの目的でのみ利用し、メール下部の解除リンクからいつでも1クリックで配信停止できます。</li>
         <li><strong>ブラウザ内計算データ（localStorage）：</strong> 老後キャッシュフローシミュレーターの試算条件や文字サイズ・テーマ設定はお使いのブラウザ内にのみ保存され、第三者へ販売・提供されることはありません。</li>
       </ul>
       <h2>2. 第三者提供の禁止および開示・削除請求</h2>
       <p>
-        法令に基づく場合または決済代行事業者（Lemon Squeezy）の決済処理に必要な範囲を除き、個人情報を第三者へ提供することはありません。登録情報の照会・訂正・削除のご請求は <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a> までご連絡ください。原則1営業日（24時間）以内に対応いたします。
+        法令に基づく場合または公式決済代行事業者（{MOR_LABEL_EN_JP}）の決済・領収書発行処理に必要な範囲を除き、個人情報を第三者へ提供することはありません。登録情報の照会・訂正・削除のご請求は <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a> までご連絡ください。原則1営業日（24時間）以内に対応いたします。
       </p>
       <h2>English Summary — Privacy Policy (APPI &amp; GDPR Compliant)</h2>
       <p>
-        Payment credentials are processed exclusively by <strong>Lemon Squeezy, LLC (Store #296100)</strong> and are never stored on GetBreakAI servers. Email addresses submitted for morning market summaries or VIP waitlist coupons include 1-click unsubscribe links and are never sold or rented. Contact <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a> for data deletion requests.
+        Payment credentials are processed exclusively by <strong>{MOR_LABEL_EN_JP}</strong> and are never stored on GetBreakAI servers. Email addresses submitted for morning market summaries or VIP waitlist coupons include 1-click unsubscribe links and are never sold or rented. Contact <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a> for data deletion requests.
       </p>"""
 
     refund_body = f"""      <p>
-        <strong>GetBreakAI</strong>（Lemon Squeezy Store <strong>#296100</strong>）では、シニア・個人投資家の皆さまに安心してご利用いただけるよう、<strong>いつでも可能な1クリック解約</strong>と<strong>初回ご購入後14日間の全額返金保証</strong>を設けています。
+        <strong>GetBreakAI</strong>（公式決済基盤：<strong>{MOR_LABEL_EN_JP}</strong>）では、シニア・個人投資家の皆さまに安心してご利用いただけるよう、<strong>いつでも可能な1クリック解約</strong>と<strong>初回ご購入後14日間の全額返金保証（14日間返金保証）</strong>を設けています。
       </p>
       <div class="disclaimer-box">
-        ✅ <strong>14日間返金ポリシー（初回ご満足保証）＆ いつでも1クリック自動更新停止（違約金0円）</strong><br>
+        ✅ <strong>14日間返金ポリシー（初回14日間返金保証）＆ いつでも1クリック自動更新停止（違約金0円）</strong><br>
         ご購入から14日以内に <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a> までご連絡いただければ、理由を問わず迅速に100%全額返金いたします。
       </div>
       <h2>1. サブスクリプションの1クリック解約手順</h2>
       <p>
-        月額プラン（{PRICE_LABEL_MONTHLY_JP}）および年間プラン（{PRICE_LABEL_ANNUAL_JP}）は、ご購入時の領収書メール内の「Manage Subscription / My Orders」リンク、または <a href="https://app.lemonsqueezy.com/my-orders" target="_blank" rel="noopener noreferrer">Lemon Squeezy Customer Portal</a>、もしくは <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a> へのメール連絡により24時間いつでも解約できます。
+        月額プラン（{PRICE_LABEL_MONTHLY_JP}）および年間プラン（{PRICE_LABEL_ANNUAL_JP}）は、ご購入時の領収書メール内の「Manage Subscription / Customer Portal」リンク、または <a href="https://polar.sh" target="_blank" rel="noopener noreferrer">Polar.sh Customer Portal</a>、もしくは <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a> へのメール連絡により24時間いつでも解約できます。
       </p>
       <h2>2. 14日間返金保証の申請方法と返金時期</h2>
       <ul>
         <li><strong>初回14日間返金保証：</strong> ご購入後14日以内に決済時のメールアドレスまたは注文番号（Order ID）を添えて <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a> 宛にご連絡ください。</li>
         <li><strong>重複課金・技術的不具合：</strong> 万が一の重複決済やライセンス未着時は即時100%返金または再発行いたします。</li>
-        <li><strong>処理日数：</strong> ご連絡から原則1営業日（24時間）以内に Lemon Squeezy 経由でお支払い元のカード・Apple Pay等へ返金手続きを実行いたします（明細反映はカード会社により通常3〜5営業日）。</li>
+        <li><strong>処理日数：</strong> ご連絡から原則1営業日（24時間）以内に <strong>{MOR_LABEL_EN_JP}</strong> 経由でお支払い元のカード・Apple Pay・Google Pay等へ返金手続きを実行いたします（明細反映はカード会社により通常3〜5営業日）。</li>
       </ul>
       <h2>English Summary — 14-Day Money-Back Guarantee &amp; 1-Click Cancellation</h2>
       <p>
-        Cancel anytime in 1 click via the Lemon Squeezy Customer Portal with zero penalties. If you are not satisfied within 14 calendar days of your initial purchase, email <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a> with your checkout email or Order ID for a 100% full refund processed within 1 business day.
+        All billing and refunds are processed via <strong>{MOR_LABEL_EN_JP}</strong>. Cancel anytime in 1 click via the Polar.sh Customer Portal or receipt email with zero penalties. If you are not satisfied within 14 calendar days of your initial purchase, email <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a> with your checkout email or Order ID for a 100% full refund processed within 1 business day.
       </p>"""
 
     contact_body = f"""      <p>
@@ -1048,11 +1077,15 @@ def build_all_legal_pages(root_dir: str, jp_dir: str) -> None:
           </tr>
           <tr>
             <th>公式決済代行 (MoR)</th>
-            <td><strong>Lemon Squeezy, LLC (Store ID #296100)</strong> — Stripe提携グローバルPCI-DSS準拠決済基盤</td>
+            <td><strong>{MOR_LABEL_EN_JP}</strong> — Stripe提携・PCI-DSS Level 1準拠グローバル決済・税務管理基盤（JCB・Visa・Mastercard・Apple Pay・Google Pay対応）</td>
           </tr>
           <tr>
             <th>カスタマーサポート窓口</th>
             <td><a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a>（24時間メール受付・原則1営業日以内に日本語または英語でご返信）</td>
+          </tr>
+          <tr>
+            <th>法人・メディア提携窓口</th>
+            <td>法人・メディア提携窓口: <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a></td>
           </tr>
           <tr>
             <th>提供ソフトウェア区分</th>
@@ -1061,20 +1094,20 @@ def build_all_legal_pages(root_dir: str, jp_dir: str) -> None:
           <tr>
             <th>販売価格（税込目安）</th>
             <td>
-              ・月額Proプラン：{PRICE_LABEL_MONTHLY_JP}<br>
-              ・年間Pro VIPプラン：{PRICE_LABEL_ANNUAL_JP}<br>
+              ・月額Proプラン：{PRICE_LABEL_MONTHLY_JP}（随時更新・新NISA老後取り崩し実践PDFガイド＋3つの財布シミュレーター同梱）<br>
+              ・年間Pro VIPプラン：{PRICE_LABEL_ANNUAL_JP}（随時更新・新NISA老後取り崩し実践PDFガイド＋3つの財布シミュレーター同梱）<br>
               ・法人・データ提携デスク：個別お見積り（<a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a>）
             </td>
           </tr>
           <tr>
             <th>解約・14日間返金ポリシー</th>
-            <td>いつでも1クリックで次回更新停止可能。初回購入後14日以内の返金保証あり（詳細は <a href="/jp/refund.html">14日間返金ポリシー</a> をご参照ください）。</td>
+            <td>いつでも1クリックで次回更新停止可能。初回購入後14日間返金保証あり（詳細は <a href="/jp/refund.html">14日間返金ポリシー</a> をご参照ください）。</td>
           </tr>
         </tbody>
       </table>"""
 
     specs = [
-        ("terms.html", "利用規約 (Terms of Service)", "TERMS OF SERVICE · SELF-DIRECTED CALCULATOR SOFTWARE", terms_body),
+        ("terms.html", "利用規約 (Terms of Service)", "TERMS OF SERVICE · POLAR.SH MERCHANT OF RECORD", terms_body),
         ("privacy.html", "プライバシーポリシー (Privacy Policy)", "PRIVACY POLICY · APPI & GDPR COMPLIANT", privacy_body),
         ("refund.html", "14日間返金ポリシー・解約規約 (14-Day Refund Policy)", "14-DAY REFUND POLICY · 1-CLICK CANCELLATION", refund_body),
         ("contact.html", "特定商取引法に基づく表記・お問い合わせ (Contact)", "COMMERCIAL DISCLOSURE & SUPPORT DESK", contact_body),

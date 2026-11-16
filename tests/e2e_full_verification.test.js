@@ -200,15 +200,15 @@ test('Tier 1.1: Lemon Squeezy 3-Tier SaaS on Live Store #296100', () => {
   assert.ok(plans.institutional_enterprise, 'Must configure institutional_enterprise (mailto inquiry)');
   assert.equal(plans.institutional_enterprise.checkoutUrl, 'mailto:beable9489@gmail.com');
 
-  // 2. Verify index.html contains live UUID checkout buttons, PAYMENT_CONFIG, and zero broken 404 slugs
+  // 2. Verify index.html contains Polar.sh PAYMENT_CONFIG, VIP waitlist, and zero legacy Lemon Squeezy references
   const indexHtml = fs.readFileSync(INDEX_HTML_PATH, 'utf8');
   assert.ok(indexHtml.includes('window.PAYMENT_CONFIG'));
+  assert.ok(indexHtml.includes("PROVIDER: 'polar_sh'"));
   assert.ok(indexHtml.includes('STORE_LIVE_READY: false'));
-  assert.ok(indexHtml.includes('d5e7e761-8b1b-4ca8-b1fe-771acd1450f8'));
-  assert.ok(indexHtml.includes('667aa482-f17c-47d1-b7f3-a2427c36516b'));
+  assert.ok(indexHtml.includes('POLAR_CHECKOUT_URLS'));
+  assert.ok(indexHtml.includes('Polar.sh (Merchant of Record · Global Card / Apple Pay / Google Pay)'));
   assert.ok(indexHtml.includes('mailto:beable9489@gmail.com'));
-  assert.ok(indexHtml.includes('truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8?embed=1&locale=ja'));
-  assert.ok(indexHtml.includes('truthofmarket.lemonsqueezy.com/checkout/buy/667aa482-f17c-47d1-b7f3-a2427c36516b?embed=1&locale=ja'));
+  assert.ok(!/lemonsqueezy|296100|d5e7e761|667aa482/i.test(indexHtml));
 
   // 3. Dynamic checkout URL generator
   const customCheckout = createCheckoutUrl('pro_annual', {
@@ -497,9 +497,11 @@ test('Tier 4.1: End-to-End User Conversion & VIP Onboarding Journey', () => {
   assert.equal(session.customerEmail, 'investor@hedge-fund.co.jp');
   assert.equal(session.isUnlocked, true);
 
-  // Step 5: User is directed to Web VIP Vault + @GetBreakAI YouTube (ZERO Telegram)
+  // Step 5: User is directed to Web VIP Vault + @GetBreakAI YouTube (ZERO Telegram, ZERO Lemon Squeezy)
   const confirmHtml = fs.readFileSync(CONFIRMATION_HTML_PATH, 'utf8');
   assert.ok(!/telegram|t\.me|semifeargreedbot/i.test(confirmHtml), 'Must have ZERO Telegram references in confirmation.html');
+  assert.ok(!/lemonsqueezy|296100|d5e7e761|667aa482/i.test(confirmHtml), 'Must have ZERO Lemon Squeezy references in confirmation.html');
+  assert.ok(confirmHtml.includes('Polar.sh (Merchant of Record · Global Card / Apple Pay / Google Pay)'));
   assert.ok(confirmHtml.includes('https://www.youtube.com/@GetBreakAI'), 'Must link to @GetBreakAI YouTube');
   assert.ok(confirmHtml.includes('https://getbreakai.com/#vip-vault'));
   assert.ok(confirmHtml.includes('beable9489@gmail.com'));

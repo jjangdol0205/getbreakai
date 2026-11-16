@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 /**
  * GetBreakAI (Division 3) — Static Site Distribution Builder (./dist)
- * Ensures Render Static Site (Publish Directory: ./dist) always has
- * 100% synchronized HTML, JP deep research pages, assets, and SEO files.
+ * Ensures GitHub Pages / Static Distribution (./dist) always has
+ * 100% synchronized HTML, JP deep research pages, Polar.sh MoR legal pages, assets, and SEO files.
  */
 
 const fs = require('fs');

@@ -23,10 +23,9 @@ if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
 
 from gba_mor_nisa_shared import (  # noqa: E402
-    LS_MONTHLY_UUID,
-    LS_ANNUAL_UUID,
-    LS_MONTHLY_URL_HTML,
-    LS_ANNUAL_URL_HTML,
+    MOR_LABEL_EN_JP,
+    POLAR_MONTHLY_CTA_HREF,
+    POLAR_ANNUAL_CTA_HREF,
     PRICE_LABEL_MONTHLY_JP,
     PRICE_LABEL_ANNUAL_JP,
     MANDATORY_DISCLAIMER_JP,
@@ -217,10 +216,11 @@ def generate_daily_jp_column() -> str:
       </form>
       <div class="gba-jp-signup-status" role="status" aria-live="polite" style="display:none;margin-top:0.75rem;padding:0.75rem 0.95rem;border-radius:8px;background:#d1fae5;color:#065f46;font-size:1rem;font-weight:800;"></div>
       <div class="btns" style="margin-top:1rem;padding-top:0.9rem;border-top:1px solid #a7f3d0;align-items:center;">
-        <span style="font-size:0.95rem;font-weight:800;color:#0f172a;">💎 配当・資産配分計算Proソフトウェア：</span>
-        <a class="btn btn-vip lemonsqueezy-button" data-gba-paid-plan="monthly" data-ls-product-uuid="{LS_MONTHLY_UUID}" href="{LS_MONTHLY_URL_HTML}">⚡ {PRICE_LABEL_MONTHLY_JP}</a>
-        <a class="btn btn-annual lemonsqueezy-button" data-gba-paid-plan="annual" data-ls-product-uuid="{LS_ANNUAL_UUID}" href="{LS_ANNUAL_URL_HTML}">👑 {PRICE_LABEL_ANNUAL_JP}</a>
+        <span style="font-size:0.95rem;font-weight:800;color:#0f172a;">💎 配当・資産配分計算Proソフトウェア（随時更新・新NISA老後取り崩し実践PDFガイド＋3つの財布シミュレーター同梱）：</span>
+        <a class="btn btn-vip polar-checkout-button" data-gba-paid-plan="monthly" data-polar-slot="monthly_29_jp" href="{POLAR_MONTHLY_CTA_HREF}">⚡ {PRICE_LABEL_MONTHLY_JP}</a>
+        <a class="btn btn-annual polar-checkout-button" data-gba-paid-plan="annual" data-polar-slot="annual_199_jp" href="{POLAR_ANNUAL_CTA_HREF}">👑 {PRICE_LABEL_ANNUAL_JP}</a>
       </div>
+      <div style="margin-top:0.5rem;font-size:0.84rem;color:#334155;font-weight:700;">💳 公式決済・税務管理：{MOR_LABEL_EN_JP}（14日間返金保証）</div>
 {disclaimer_box}
     </section>
 
@@ -251,9 +251,10 @@ def generate_daily_jp_column() -> str:
       <div class="gba-jp-signup-status" role="status" aria-live="polite" style="display:none;margin-bottom:0.9rem;padding:0.75rem 0.95rem;border-radius:8px;background:#d1fae5;color:#065f46;font-size:1rem;font-weight:800;"></div>
       <div class="btns">
         <a class="btn btn-primary" href="/jp/#gba-retirement-architect-jp">🧭 30秒・老後キャッシュフローシミュレーターを開く →</a>
-        <a class="btn btn-vip lemonsqueezy-button" data-gba-paid-plan="monthly" data-ls-product-uuid="{LS_MONTHLY_UUID}" href="{LS_MONTHLY_URL_HTML}">⚡ {PRICE_LABEL_MONTHLY_JP}</a>
-        <a class="btn btn-annual lemonsqueezy-button" data-gba-paid-plan="annual" data-ls-product-uuid="{LS_ANNUAL_UUID}" href="{LS_ANNUAL_URL_HTML}">👑 {PRICE_LABEL_ANNUAL_JP}</a>
+        <a class="btn btn-vip polar-checkout-button" data-gba-paid-plan="monthly" data-polar-slot="monthly_29_jp" href="{POLAR_MONTHLY_CTA_HREF}">⚡ {PRICE_LABEL_MONTHLY_JP}</a>
+        <a class="btn btn-annual polar-checkout-button" data-gba-paid-plan="annual" data-polar-slot="annual_199_jp" href="{POLAR_ANNUAL_CTA_HREF}">👑 {PRICE_LABEL_ANNUAL_JP}</a>
       </div>
+      <div style="margin-top:0.6rem;font-size:0.84rem;color:#334155;font-weight:700;">💳 {MOR_LABEL_EN_JP} ｜ 🏛️ 法人・メディア提携窓口: <a href="mailto:beable9489@gmail.com" style="font-weight:800;">beable9489@gmail.com</a></div>
 {disclaimer_box}
     </section>
   </main>

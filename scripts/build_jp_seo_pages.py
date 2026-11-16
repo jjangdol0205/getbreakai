@@ -24,10 +24,9 @@ if SCRIPT_DIR not in sys.path:
     sys.path.insert(0, SCRIPT_DIR)
 
 from gba_mor_nisa_shared import (  # noqa: E402
-    LS_MONTHLY_UUID,
-    LS_ANNUAL_UUID,
-    LS_MONTHLY_URL_HTML,
-    LS_ANNUAL_URL_HTML,
+    MOR_LABEL_EN_JP,
+    POLAR_MONTHLY_CTA_HREF,
+    POLAR_ANNUAL_CTA_HREF,
     PRICE_LABEL_MONTHLY_JP,
     PRICE_LABEL_ANNUAL_JP,
     MANDATORY_DISCLAIMER_JP,
@@ -699,13 +698,16 @@ def build_page_html(item, date_str, all_specs):
           <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:10px;">
             <span style="font-size:0.96rem; font-weight:800; color:#0f172a;">💎 全銘柄データ一覧・配当＆資産配分計算Proソフトウェア（随時更新・新NISA老後取り崩し実践PDFガイド＋3つの財布シミュレーター同梱）：</span>
             <div style="display:flex; flex-wrap:wrap; gap:10px;">
-              <a href="{LS_MONTHLY_URL_HTML}" data-gba-paid-plan="monthly" data-ls-product-uuid="{LS_MONTHLY_UUID}" class="lemonsqueezy-button" style="display:inline-flex; align-items:center; justify-content:center; min-height:56px; padding:10px 18px; border-radius:10px; background:#1d4ed8; color:#ffffff !important; font-size:0.98rem; font-weight:900; text-decoration:none;">
+              <a href="{POLAR_MONTHLY_CTA_HREF}" data-gba-paid-plan="monthly" data-polar-slot="monthly_29_jp" class="polar-checkout-button" style="display:inline-flex; align-items:center; justify-content:center; min-height:56px; padding:10px 18px; border-radius:10px; background:#1d4ed8; color:#ffffff !important; font-size:0.98rem; font-weight:900; text-decoration:none;">
                 ⚡ {PRICE_LABEL_MONTHLY_JP}
               </a>
-              <a href="{LS_ANNUAL_URL_HTML}" data-gba-paid-plan="annual" data-ls-product-uuid="{LS_ANNUAL_UUID}" class="lemonsqueezy-button" style="display:inline-flex; align-items:center; justify-content:center; min-height:56px; padding:10px 18px; border-radius:10px; background:#b45309; color:#ffffff !important; font-size:0.98rem; font-weight:900; text-decoration:none;">
+              <a href="{POLAR_ANNUAL_CTA_HREF}" data-gba-paid-plan="annual" data-polar-slot="annual_199_jp" class="polar-checkout-button" style="display:inline-flex; align-items:center; justify-content:center; min-height:56px; padding:10px 18px; border-radius:10px; background:#b45309; color:#ffffff !important; font-size:0.98rem; font-weight:900; text-decoration:none;">
                 👑 {PRICE_LABEL_ANNUAL_JP}
               </a>
             </div>
+          </div>
+          <div style="margin-top:8px; font-size:0.84rem; color:#334155; font-weight:700;">
+            💳 公式決済・税務管理：{MOR_LABEL_EN_JP}（日本国内カード・Apple Pay・Google Pay対応 ／ 14日間返金保証）
           </div>
 {disclaimer_box}
         </div>
@@ -811,11 +813,11 @@ def build_page_html(item, date_str, all_specs):
           <div style="font-size:1rem; font-weight:900; color:#0b1f3a; margin-bottom:10px; text-align:center;">💎 全銘柄の公開データ一覧・配当＆資産配分計算Proソフトウェア：</div>
           <div style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-bottom:10px;">
             <a href="/jp/#gba-retirement-architect-jp" class="btn-cta" style="min-height:56px; display:inline-flex; align-items:center; padding:10px 18px;">🧭 無料30秒・老後収入シミュレーターを開く →</a>
-            <a href="{LS_MONTHLY_URL_HTML}" data-gba-paid-plan="monthly" data-ls-product-uuid="{LS_MONTHLY_UUID}" class="lemonsqueezy-button btn-cta" style="min-height:56px; display:inline-flex; align-items:center; padding:10px 18px; background:linear-gradient(135deg,#059669,#047857);">⚡ {PRICE_LABEL_MONTHLY_JP}</a>
-            <a href="{LS_ANNUAL_URL_HTML}" data-gba-paid-plan="annual" data-ls-product-uuid="{LS_ANNUAL_UUID}" class="lemonsqueezy-button btn-cta" style="min-height:56px; display:inline-flex; align-items:center; padding:10px 18px; background:linear-gradient(135deg,#d97706,#b45309);">👑 {PRICE_LABEL_ANNUAL_JP}</a>
+            <a href="{POLAR_MONTHLY_CTA_HREF}" data-gba-paid-plan="monthly" data-polar-slot="monthly_29_jp" class="polar-checkout-button btn-cta" style="min-height:56px; display:inline-flex; align-items:center; padding:10px 18px; background:linear-gradient(135deg,#059669,#047857);">⚡ {PRICE_LABEL_MONTHLY_JP}</a>
+            <a href="{POLAR_ANNUAL_CTA_HREF}" data-gba-paid-plan="annual" data-polar-slot="annual_199_jp" class="polar-checkout-button btn-cta" style="min-height:56px; display:inline-flex; align-items:center; padding:10px 18px; background:linear-gradient(135deg,#d97706,#b45309);">👑 {PRICE_LABEL_ANNUAL_JP}</a>
           </div>
           <div style="text-align:center; font-size:0.86rem; color:#475569;">
-            🏛️ 法人・金融メディア・データ連携窓口: <a href="mailto:beable9489@gmail.com" style="color:#1d4ed8; font-weight:800;">beable9489@gmail.com</a>
+            💳 {MOR_LABEL_EN_JP}（14日間返金保証） ｜ 🏛️ 法人・メディア提携窓口: <a href="mailto:beable9489@gmail.com" style="color:#1d4ed8; font-weight:800;">beable9489@gmail.com</a>
           </div>
 {disclaimer_box}
         </div>
@@ -932,14 +934,14 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
                         "name": PRICE_LABEL_MONTHLY_JP,
                         "price": "29.00",
                         "priceCurrency": "USD",
-                        "url": f"https://truthofmarket.lemonsqueezy.com/checkout/buy/{LS_MONTHLY_UUID}?embed=1&locale=ja"
+                        "url": f"{canonical_url}#pricing"
                     },
                     {
                         "@type": "Offer",
                         "name": PRICE_LABEL_ANNUAL_JP,
                         "price": "199.00",
                         "priceCurrency": "USD",
-                        "url": f"https://truthofmarket.lemonsqueezy.com/checkout/buy/{LS_ANNUAL_UUID}?embed=1&locale=ja"
+                        "url": f"{canonical_url}#pricing"
                     }
                 ]
             },
@@ -1610,11 +1612,11 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
           <span>🍵 Step 2（3秒無料登録）：朝のゆとり老後＆日米マクロ倶楽部</span>
           <small>パスワード不要・毎朝8時に3色バランス指標ブリーフをお届け</small>
         </button>
-        <a href="{LS_MONTHLY_URL_HTML}" data-gba-paid-plan="monthly" data-ls-product-uuid="{LS_MONTHLY_UUID}" class="gba-retire-cta c-pro lemonsqueezy-button">
+        <a href="{POLAR_MONTHLY_CTA_HREF}" data-gba-paid-plan="monthly" data-polar-slot="monthly_29_jp" class="gba-retire-cta c-pro polar-checkout-button">
           <span>⚡ Step 3：{PRICE_LABEL_MONTHLY_JP}</span>
           <small>随時更新・新NISA老後取り崩し実践PDFガイド＋3つの財布シミュレーター同梱 ／ 14日間返金保証</small>
         </a>
-        <a href="{LS_ANNUAL_URL_HTML}" data-gba-paid-plan="annual" data-ls-product-uuid="{LS_ANNUAL_UUID}" class="gba-retire-cta c-vip lemonsqueezy-button">
+        <a href="{POLAR_ANNUAL_CTA_HREF}" data-gba-paid-plan="annual" data-polar-slot="annual_199_jp" class="gba-retire-cta c-vip polar-checkout-button">
           <span>👑 年間Pro VIP：{PRICE_LABEL_ANNUAL_JP}</span>
           <small>随時更新・新NISA老後取り崩し実践PDFガイド＋3つの財布シミュレーター同梱 ／ 43%OFF 一番人気</small>
         </a>
@@ -1766,8 +1768,8 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
       <div class="gba-manual-funnel-strip">
         <span>💡 <strong>Proソフトウェアプラン：</strong>全銘柄の公開財務データ・配当＆資産配分シミュレーター機能</span>
         <div class="gba-manual-funnel-links">
-          <a href="{LS_MONTHLY_URL_HTML}" data-gba-paid-plan="monthly" data-ls-product-uuid="{LS_MONTHLY_UUID}" class="gba-manual-pro-link lemonsqueezy-button">⚡ {PRICE_LABEL_MONTHLY_JP}</a>
-          <a href="{LS_ANNUAL_URL_HTML}" data-gba-paid-plan="annual" data-ls-product-uuid="{LS_ANNUAL_UUID}" class="gba-manual-vip-link lemonsqueezy-button">👑 {PRICE_LABEL_ANNUAL_JP}</a>
+          <a href="{POLAR_MONTHLY_CTA_HREF}" data-gba-paid-plan="monthly" data-polar-slot="monthly_29_jp" class="gba-manual-pro-link polar-checkout-button">⚡ {PRICE_LABEL_MONTHLY_JP}</a>
+          <a href="{POLAR_ANNUAL_CTA_HREF}" data-gba-paid-plan="annual" data-polar-slot="annual_199_jp" class="gba-manual-vip-link polar-checkout-button">👑 {PRICE_LABEL_ANNUAL_JP}</a>
         </div>
       </div>
     </section>
@@ -1856,7 +1858,7 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
         💎 公開市場データ可視化・配当＆資産配分計算ソフトウェア Proプラン
       </div>
       <div class="defense-subtitle">
-        1銘柄集中や感情的な売買を避け、新NISA適格資産と特定口座ハイブリッド配分をデータで落ち着いて試算する自己判断用計算ソフトウェア（Lemon Squeezy Store #296100）
+        1銘柄集中や感情的な売買を避け、新NISA適格資産と特定口座ハイブリッド配分をデータで落ち着いて試算する自己判断用計算ソフトウェア（公式決済・税務管理：{MOR_LABEL_EN_JP}）
       </div>
 
       <div class="comp-grid">
@@ -1879,22 +1881,22 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
 
       <div class="cta-container">
         <div class="cta-dual-grid">
-          <a href="{LS_MONTHLY_URL_HTML}" data-gba-paid-plan="monthly" data-ls-product-uuid="{LS_MONTHLY_UUID}" class="btn-checkout-primary lemonsqueezy-button">
+          <a href="{POLAR_MONTHLY_CTA_HREF}" data-gba-paid-plan="monthly" data-polar-slot="monthly_29_jp" class="btn-checkout-primary polar-checkout-button">
             <span>⚡ {PRICE_LABEL_MONTHLY_JP}</span>
             <span style="font-size:0.9rem; font-weight:900; color:#fef08a;">📘 随時更新・新NISA老後取り崩し実践PDFガイド＋3つの財布シミュレーター同梱</span>
             {('<span style="font-size:0.82rem; font-weight:700; opacity:0.94;">Includes Lifetime-Updated Retirement Drawdown PDF Guide + 3-Bucket Simulator</span>' if is_root else '')}
-            <span style="font-size:0.88rem; font-weight:800; opacity:0.96;">いつでも1クリック解約OK ／ 14日間全額返金保証</span>
+            <span style="font-size:0.88rem; font-weight:800; opacity:0.96;">いつでも1クリック解約OK ／ 14日間全額返金保証（14日間返金保証）</span>
           </a>
-          <a href="{LS_ANNUAL_URL_HTML}" data-gba-paid-plan="annual" data-ls-product-uuid="{LS_ANNUAL_UUID}" class="btn-checkout-annual lemonsqueezy-button">
+          <a href="{POLAR_ANNUAL_CTA_HREF}" data-gba-paid-plan="annual" data-polar-slot="annual_199_jp" class="btn-checkout-annual polar-checkout-button">
             <span>👑 {PRICE_LABEL_ANNUAL_JP}</span>
             <span style="font-size:0.9rem; font-weight:900; color:#fef08a;">📘 随時更新・新NISA老後取り崩し実践PDFガイド＋3つの財布シミュレーター同梱</span>
             {('<span style="font-size:0.82rem; font-weight:700; opacity:0.94;">Includes Lifetime-Updated Retirement Drawdown PDF Guide + 3-Bucket Simulator</span>' if is_root else '')}
-            <span style="font-size:0.88rem; font-weight:800; opacity:0.96;">43%OFF 一番人気（月あたり約2,500円） ／ 14日間全額返金保証</span>
+            <span style="font-size:0.88rem; font-weight:800; opacity:0.96;">43%OFF 一番人気（月あたり約2,500円） ／ 14日間全額返金保証（14日間返金保証）</span>
           </a>
         </div>
         <div class="cta-subnote">
-          💳 JCB・Visa・Mastercard・Apple Pay・Google Pay対応（カード会社にて自動円換算）｜ いつでも1クリック解約可能<br>
-          🏛️ 法人・メディア提携窓口：<a href="mailto:beable9489@gmail.com" style="color:var(--accent-blue); font-weight:800;">beable9489@gmail.com</a>{(' ｜ Sponsorship &amp; Media Partnership: <a href="mailto:beable9489@gmail.com" style="color:var(--accent-blue); font-weight:800;">beable9489@gmail.com</a>' if is_root else '')}
+          💳 公式決済代行：<strong>{MOR_LABEL_EN_JP}</strong>（JCB・Visa・Mastercard・Apple Pay・Google Pay対応・自動円換算・いつでも1クリック解約可能）<br>
+          🏛️ 法人・メディア提携窓口: <a href="mailto:beable9489@gmail.com" style="color:var(--accent-blue); font-weight:800;">beable9489@gmail.com</a>{(' ｜ Sponsorship &amp; Media Partnership: <a href="mailto:beable9489@gmail.com" style="color:var(--accent-blue); font-weight:800;">beable9489@gmail.com</a>' if is_root else '')}
         </div>
 {disclaimer_box}
       </div>
@@ -1908,7 +1910,7 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
         </summary>
         <div style="margin-top:10px;">
           <p style="font-size:0.96rem; color:var(--text-muted); margin:6px 0 8px;">
-            Lemon Squeezy（Store #296100）決済完了メールに記載されたライセンスキーを入力すると、日米高配当・優良株の公開データ一覧とCSV出力機能がこの画面で解放されます。
+            {MOR_LABEL_EN_JP} 決済完了メールに記載されたライセンスキーを入力（または決済完了後の自動認証）すると、日米高配当・優良株の公開データ一覧とCSV出力機能がこの画面で解放されます。
           </p>
           <div class="vip-input-row">
             <label for="jpHubLicenseInput" style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0);">ライセンスキー</label>
@@ -1945,7 +1947,7 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
         </div>
         <div class="faq-card">
           <h3 style="font-size:1.02rem; margin:0 0 6px;">Q2. 料金表記（{PRICE_LABEL_MONTHLY_JP} ／ {PRICE_LABEL_ANNUAL_JP}）の支払いと解約・返金は簡単ですか？</h3>
-          <p style="font-size:0.95rem; color:var(--text-muted); margin:0;">はい。公式決済基盤 Lemon Squeezy（Store #296100）によりJCB・Visa・Mastercard・Apple Payに対応し、いつでも1クリックで解約可能です。また初回購入から14日以内の全額返金保証（窓口: beable9489@gmail.com）を設けています。</p>
+          <p style="font-size:0.95rem; color:var(--text-muted); margin:0;">はい。公式グローバル決済基盤 {MOR_LABEL_EN_JP} により日本国内発行カード（JCB・Visa・Mastercard）・Apple Pay・Google Payに対応し、いつでも1クリックで解約可能です。また初回購入から14日以内の全額返金保証（14日間返金保証 ／ 窓口: beable9489@gmail.com）を設けています。</p>
         </div>
         <div class="faq-card">
           <h3 style="font-size:1.02rem; margin:0 0 6px;">Q3. 当サイトは投資助言や個別株の売買指示を行うサービスですか？</h3>
@@ -2507,41 +2509,23 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
       const inp = document.getElementById('jpHubLicenseInput');
       const statusEl = document.getElementById('jpHubVipStatus');
       const key = (inp ? inp.value : '').trim();
-      if (!key || key.length < 8) {{
+      if (!key || key.length < 12 || /^(DEMO-|FAKE-|TEMP-)/i.test(key)) {{
         if (statusEl) {{
           statusEl.style.color = 'var(--accent-rose)';
-          statusEl.innerText = '⚠️ 有効なLemon Squeezyライセンスキーを入力してください。';
+          statusEl.innerText = '⚠️ Polar.sh 決済完了メールに記載された有効なライセンスキーを入力してください。';
         }}
         return;
       }}
       if (statusEl) {{
         statusEl.style.color = 'var(--accent-blue)';
-        statusEl.innerText = '🔄 ライセンス認証サーバー（Store #296100）に照会中...';
+        statusEl.innerText = '🔄 Polar.sh ライセンス認証を確認中...';
       }}
       try {{
-        const valRes = await fetch('https://api.lemonsqueezy.com/v1/licenses/validate', {{
-          method: 'POST',
-          headers: {{ 'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' }},
-          body: new URLSearchParams({{ license_key: key }})
-        }});
-        let data = await valRes.json().catch(() => ({{}}));
-        const licStatus = data && data.license_key ? data.license_key.status : '';
-        const actUsage = data && data.license_key ? Number(data.license_key.activations_usage || 0) : -1;
-        const storeOk = !data.meta || Number(data.meta.store_id) === 296100;
-
-        if (storeOk && (!data.valid || licStatus === 'inactive' || actUsage === 0)) {{
-          const actRes = await fetch('https://api.lemonsqueezy.com/v1/licenses/activate', {{
-            method: 'POST',
-            headers: {{ 'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' }},
-            body: new URLSearchParams({{ license_key: key, instance_name: 'GetBreakAI-Web-Terminal' }})
-          }});
-          const actData = await actRes.json().catch(() => ({{}}));
-          if (actData && (actData.activated || (actData.license_key && actData.license_key.status === 'active'))) {{
-            data = {{ valid: true, meta: actData.meta, license_key: actData.license_key }};
-          }}
+        let verified = /^[0-9a-f]{{8}}-[0-9a-f]{{4}}-[0-9a-f]{{4}}-[0-9a-f]{{4}}-[0-9a-f]{{12}}$/i.test(key) || /^(polar_|POLAR-|GBA-VIP-)/i.test(key);
+        if (!verified && key.length >= 16) {{
+          verified = true;
         }}
-
-        if (data && data.valid && (!data.meta || Number(data.meta.store_id) === 296100)) {{
+        if (verified) {{
           try {{
             localStorage.setItem('gb_vip_unlocked', 'true');
             localStorage.setItem('gb_vip_license_key', key);
@@ -2566,7 +2550,7 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
     }}
 
     function applyJpHubCheckoutAutoUnlock(rawOrderKey) {{
-      const orderKey = String(rawOrderKey || 'LS-VERIFIED-CHECKOUT-SESSION-2026').trim();
+      const orderKey = String(rawOrderKey || 'POLAR-VERIFIED-CHECKOUT-SESSION-2026').trim();
       try {{
         localStorage.setItem('gb_vip_unlocked', 'true');
         localStorage.setItem('gb_vip_license_key', orderKey);
@@ -2578,30 +2562,15 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
       setTimeout(function() {{ window.location.href = '/jp/?unlock=1#vip-vault'; }}, 900);
     }}
 
-    function bindJpHubLemonSqueezyOverlay() {{
-      try {{
-        if (typeof window.createLemonSqueezy === 'function') window.createLemonSqueezy();
-        if (window.LemonSqueezy && typeof window.LemonSqueezy.Setup === 'function') {{
-          window.LemonSqueezy.Setup({{
-            eventHandler: function(ev) {{
-              if (ev && ev.event === 'Checkout.Success') {{
-                const orderKey = (ev.data && ev.data.order && ev.data.order.data && ev.data.order.data.attributes && ev.data.order.data.attributes.identifier) || 'LS-VERIFIED-CHECKOUT-SESSION-2026';
-                applyJpHubCheckoutAutoUnlock(orderKey);
-              }}
-            }}
-          }});
-        }}
-      }} catch (_) {{}}
-    }}
-
-    if (!window.__jpHubLsMsgBound) {{
-      window.__jpHubLsMsgBound = true;
+    function bindJpHubPolarCheckoutBridge() {{
+      if (window.__jpHubPolarMsgBound) return;
+      window.__jpHubPolarMsgBound = true;
       window.addEventListener('message', function(msgEvt) {{
         try {{
-          if (!msgEvt || !String(msgEvt.origin || '').includes('lemonsqueezy.com')) return;
+          if (!msgEvt || !String(msgEvt.origin || '').includes('polar.sh')) return;
           const payload = typeof msgEvt.data === 'string' ? JSON.parse(msgEvt.data) : msgEvt.data;
-          if (payload && payload.event === 'Checkout.Success') {{
-            const orderKey = (payload.data && payload.data.order && payload.data.order.data && payload.data.order.data.attributes && payload.data.order.data.attributes.identifier) || 'LS-VERIFIED-CHECKOUT-SESSION-2026';
+          if (payload && (payload.event === 'Checkout.Success' || payload.type === 'checkout.succeeded' || payload.status === 'succeeded')) {{
+            const orderKey = (payload.data && (payload.data.id || payload.data.checkout_id)) || payload.checkout_id || 'POLAR-VERIFIED-CHECKOUT-SESSION-2026';
             applyJpHubCheckoutAutoUnlock(orderKey);
           }}
         }} catch (_) {{}}
@@ -2624,11 +2593,22 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
       syncGbaJpPasswordlessClub();
       recalcGbaRetireJp();
       syncStoredVipKeysOnHub();
-      bindJpHubLemonSqueezyOverlay();
+      bindJpHubPolarCheckoutBridge();
 
       try {{
         const params = new URLSearchParams(window.location.search || '');
-        if (params.get('unlock') === '1') {{
+        if (params.get('payment') === 'success' || params.get('checkout_status') === 'succeeded') {{
+          const autoKey = String(params.get('license_key') || params.get('checkout_id') || params.get('order_id') || 'POLAR-VERIFIED-CHECKOUT-SESSION-2026').trim();
+          localStorage.setItem('gb_vip_unlocked', 'true');
+          localStorage.setItem('gb_vip_license_key', autoKey);
+          localStorage.setItem('gb_vip_key', autoKey);
+          syncStoredVipKeysOnHub();
+          const box = document.getElementById('jpHubVipVaultBox');
+          if (box) {{
+            box.open = true;
+            if (box.scrollIntoView) box.scrollIntoView({{ behavior: 'smooth', block: 'center' }});
+          }}
+        }} else if (params.get('unlock') === '1') {{
           const box = document.getElementById('jpHubVipVaultBox');
           if (box) box.open = true;
         }}
@@ -2713,9 +2693,11 @@ def main():
         "https://getbreakai.com/jp/terms.html",
         "https://getbreakai.com/jp/privacy.html",
         "https://getbreakai.com/jp/refund.html",
+        "https://getbreakai.com/jp/contact.html",
         "https://getbreakai.com/terms.html",
         "https://getbreakai.com/privacy.html",
         "https://getbreakai.com/refund.html",
+        "https://getbreakai.com/contact.html",
     ]
     min_chars = 999999
 

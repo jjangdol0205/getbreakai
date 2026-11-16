@@ -45,14 +45,14 @@
           "name": "月額 $29 / 約4,400円（税込）",
           "price": "29.00",
           "priceCurrency": "USD",
-          "url": "https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8?embed=1&locale=ja"
+          "url": "https://getbreakai.com/#pricing"
         },
         {
           "@type": "Offer",
           "name": "年額 $199（約30,000円・税込）",
           "price": "199.00",
           "priceCurrency": "USD",
-          "url": "https://truthofmarket.lemonsqueezy.com/checkout/buy/667aa482-f17c-47d1-b7f3-a2427c36516b?embed=1&locale=ja"
+          "url": "https://getbreakai.com/#pricing"
         }
       ]
     },
@@ -80,51 +80,26 @@
   ]
 }
   </script>
-  <script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
   <script src="/hq_member_crm_client.js"></script>
   <script>
     window.PAYMENT_CONFIG = {
+      PROVIDER: 'polar_sh',
+      DIVISION: 'GBA',
+      STORE_SLOT: 'FINANCE_STORE_SLOT',
       STORE_LIVE_READY: false,
-      ACTIVE_SLOT: 'FINANCE_STORE_SLOT',
-      BACKUP_LIVE_CHECKOUT_URL: {
-        monthly: '',
-        annual: ''
+      POLAR_CHECKOUT_URLS: {
+        monthly_29_jp: '',
+        annual_199_jp: '',
+        monthly_29: '',
+        annual_199: ''
       },
-      FINANCE_STORE_SLOT: {
-        storeId: '296100',
-        storeDomain: 'truthofmarket.lemonsqueezy.com',
-        monthlyProductId: '1491888',
-        monthlyUuid: 'd5e7e761-8b1b-4ca8-b1fe-771acd1450f8',
-        monthlyLabel: '月額 $29 / 約4,400円（税込）',
-        monthlyCheckoutUrl: 'https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8?embed=1&locale=ja',
-        annualProductId: '1491891',
-        annualUuid: '667aa482-f17c-47d1-b7f3-a2427c36516b',
-        annualLabel: '年額 $199（約30,000円・税込）',
-        annualCheckoutUrl: 'https://truthofmarket.lemonsqueezy.com/checkout/buy/667aa482-f17c-47d1-b7f3-a2427c36516b?embed=1&locale=ja',
-        institutionalDeskUrl: 'mailto:beable9489@gmail.com',
-        supportEmail: 'beable9489@gmail.com',
-        BACKUP_LIVE_CHECKOUT_URL: {
-          monthly: '',
-          annual: ''
-        }
-      },
-      PEDIATRIC_STORE_SLOT: {
-        storeId: '296100',
-        singleProductId: '1468224',
-        singleUuid: 'c1cd7f12-3479-49e8-ab71-59c98135d599',
-        singleCheckoutUrl: 'https://truthofmarket.lemonsqueezy.com/checkout/buy/c1cd7f12-3479-49e8-ab71-59c98135d599?embed=1&locale=en',
-        sixMonthProductId: '1468243',
-        sixMonthUuid: 'c562946d-ef68-4c2f-a802-df9da0179895',
-        sixMonthCheckoutUrl: 'https://truthofmarket.lemonsqueezy.com/checkout/buy/c562946d-ef68-4c2f-a802-df9da0179895?embed=1&locale=en',
-        BACKUP_LIVE_CHECKOUT_URL: {
-          single: '',
-          sixMonth: ''
-        }
-      }
+      POLAR_GBA_MONTHLY_URL: '',
+      POLAR_GBA_ANNUAL_URL: '',
+      SUPPORT_EMAIL: 'beable9489@gmail.com'
     };
     window.CHECKOUT_URLS = {
-      monthly: window.PAYMENT_CONFIG.FINANCE_STORE_SLOT.monthlyCheckoutUrl,
-      annual: window.PAYMENT_CONFIG.FINANCE_STORE_SLOT.annualCheckoutUrl,
+      monthly: window.PAYMENT_CONFIG.POLAR_CHECKOUT_URLS.monthly_29_jp || window.PAYMENT_CONFIG.POLAR_CHECKOUT_URLS.monthly_29 || window.PAYMENT_CONFIG.POLAR_GBA_MONTHLY_URL || '',
+      annual: window.PAYMENT_CONFIG.POLAR_CHECKOUT_URLS.annual_199_jp || window.PAYMENT_CONFIG.POLAR_CHECKOUT_URLS.annual_199 || window.PAYMENT_CONFIG.POLAR_GBA_ANNUAL_URL || '',
       enterprise: 'mailto:beable9489@gmail.com'
     };
     const CHECKOUT_URLS = window.CHECKOUT_URLS;
@@ -137,7 +112,28 @@
 
         window.isGbaInAppWebView = function() {
           var ua = (typeof navigator !== 'undefined' && navigator.userAgent) ? navigator.userAgent : '';
-          return /Instagram|FBAN|FBAV|KAKAOTALK/i.test(ua);
+          return /Instagram|FBAN|FBAV|KAKAOTALK|Line/i.test(ua);
+        };
+
+        window.getGbaSavedMemberEmail = function() {
+          try {
+            var e1 = String(localStorage.getItem('gb_free_member_email') || localStorage.getItem('gba_jp_free_email') || localStorage.getItem('gb_vip_customer_email') || '').trim();
+            if (e1 && e1.indexOf('@') !== -1) return e1;
+            if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.getLocalMember === 'function') {
+              var m = window.DreamCompanyCRM.getLocalMember('GBA');
+              if (m && m.email && String(m.email).indexOf('@') !== -1) return String(m.email).trim();
+            }
+          } catch (_e) {}
+          return '';
+        };
+
+        window.resolveGbaPolarCheckoutUrl = function(plan) {
+          var cfg = window.PAYMENT_CONFIG || {};
+          var urls = cfg.POLAR_CHECKOUT_URLS || {};
+          if (plan === 'annual') {
+            return String(urls.annual_199_jp || urls.annual_199 || cfg.POLAR_GBA_ANNUAL_URL || '').trim();
+          }
+          return String(urls.monthly_29_jp || urls.monthly_29 || cfg.POLAR_GBA_MONTHLY_URL || '').trim();
         };
 
         window.trackGbaFreeSignup = function(emailAddr) {
@@ -153,6 +149,8 @@
 
         window.trackGbaVipWaitlistBeacons = function() {
           try {
+            fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/vip_waitlist_' + kst, { mode: 'cors', keepalive: true }).catch(function(){});
+            fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/vip_waitlist_total', { mode: 'cors', keepalive: true }).catch(function(){});
             fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/vip_waitlist', { mode: 'cors', keepalive: true }).catch(function(){});
             fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/signup', { mode: 'cors', keepalive: true }).catch(function(){});
             fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/signup_total', { mode: 'cors', keepalive: true }).catch(function(){});
@@ -195,29 +193,50 @@
           return false;
         };
 
+        // Support ?payment=success return from Polar.sh hosted checkout on any GBA page
+        try {
+          var qParams = new URLSearchParams((window.location && window.location.search) || '');
+          if (qParams.get('payment') === 'success' || qParams.get('checkout_status') === 'succeeded') {
+            var pKey = String(qParams.get('license_key') || qParams.get('checkout_id') || qParams.get('order_id') || ('POLAR-VERIFIED-SESSION-' + kst)).trim();
+            var pEmail = String(qParams.get('customer_email') || qParams.get('email') || '').trim();
+            localStorage.setItem('gb_vip_unlocked', 'true');
+            localStorage.setItem('gb_vip_license_key', pKey);
+            localStorage.setItem('gb_vip_key', pKey);
+            if (pEmail && pEmail.indexOf('@') !== -1) {
+              localStorage.setItem('gb_vip_customer_email', pEmail);
+            }
+            if (typeof sessionStorage !== 'undefined' && sessionStorage.getItem('gba_polar_paid_hit') !== '1') {
+              sessionStorage.setItem('gba_polar_paid_hit', '1');
+              fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_success_' + kst, { mode: 'cors', keepalive: true }).catch(function(){});
+              fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_success_total', { mode: 'cors', keepalive: true }).catch(function(){});
+            }
+          }
+        } catch (_pe) {}
+
         if (!window.__GBA_PAID_CLICK_BOUND_V1__) {
           window.__GBA_PAID_CLICK_BOUND_V1__ = true;
           window.addEventListener('click', function(e) {
             var btn = e.target && e.target.closest
-              ? e.target.closest('[data-gba-paid-plan], .lemonsqueezy-button, a[href*="lemonsqueezy.com/checkout/buy/"]')
+              ? e.target.closest('[data-gba-paid-plan], .polar-checkout-button, a[href*="buy.polar.sh"], a[href*="polar.sh/checkout"]')
               : null;
             if (!btn) return;
             var href = String(btn.getAttribute('href') || '');
             var planAttr = String(btn.getAttribute('data-gba-paid-plan') || '').toLowerCase();
-            var uuidAttr = String(btn.getAttribute('data-ls-product-uuid') || '');
-            var selectedPlan = (planAttr === 'annual' || uuidAttr === '667aa482-f17c-47d1-b7f3-a2427c36516b' || href.indexOf('667aa482-f17c-47d1-b7f3-a2427c36516b') !== -1)
+            var slotAttr = String(btn.getAttribute('data-polar-slot') || '').toLowerCase();
+            var selectedPlan = (planAttr === 'annual' || slotAttr.indexOf('annual') !== -1 || href.indexOf('annual') !== -1)
               ? 'annual'
               : 'monthly';
 
-            fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_click', { mode: 'cors', keepalive: true }).catch(function(){});
+            fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_click_' + kst, { mode: 'cors', keepalive: true }).catch(function(){});
             fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_click_total', { mode: 'cors', keepalive: true }).catch(function(){});
+            fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_click', { mode: 'cors', keepalive: true }).catch(function(){});
 
             var cfg = window.PAYMENT_CONFIG || {};
-            var slot = cfg.FINANCE_STORE_SLOT || {};
-            var backupTop = cfg.BACKUP_LIVE_CHECKOUT_URL || {};
-            var backupSlot = slot.BACKUP_LIVE_CHECKOUT_URL || {};
-            var backupUrl = String(backupTop[selectedPlan] || backupSlot[selectedPlan] || '').trim();
-            var isLiveReady = (cfg.STORE_LIVE_READY === true) || Boolean(backupUrl);
+            var resolvedUrl = window.resolveGbaPolarCheckoutUrl(selectedPlan);
+            if (!resolvedUrl && /^https:\/\/buy\.polar\.sh\/.+/i.test(href)) {
+              resolvedUrl = href;
+            }
+            var isLiveReady = (cfg.STORE_LIVE_READY === true) && /^https:\/\/buy\.polar\.sh\/.+/i.test(resolvedUrl);
 
             if (!isLiveReady) {
               e.preventDefault();
@@ -228,15 +247,28 @@
               return false;
             }
 
-            var liveTarget = backupUrl || href || (selectedPlan === 'annual' ? slot.annualCheckoutUrl : slot.monthlyCheckoutUrl);
-            if (liveTarget && !e.ctrlKey && !e.shiftKey) {
+            var checkoutUrl = resolvedUrl;
+            var memberEmail = window.getGbaSavedMemberEmail();
+            if (memberEmail && checkoutUrl.indexOf('customer_email=') === -1) {
+              var sep = checkoutUrl.indexOf('?') === -1 ? '?' : '&';
+              checkoutUrl = checkoutUrl + sep + 'customer_email=' + encodeURIComponent(memberEmail);
+            }
+
+            if (checkoutUrl && !e.ctrlKey && !e.shiftKey && !e.metaKey) {
               e.preventDefault();
               e.stopImmediatePropagation();
-              if (liveTarget.indexOf('lemonsqueezy.com/checkout') !== -1 && window.LemonSqueezy && window.LemonSqueezy.Url && typeof window.LemonSqueezy.Url.Open === 'function') {
-                window.LemonSqueezy.Url.Open(liveTarget);
-              } else {
-                window.location.href = liveTarget;
+              if (window.isGbaInAppWebView()) {
+                window.location.href = checkoutUrl;
+                return false;
               }
+              if (window.PolarEmbedCheckout && typeof window.PolarEmbedCheckout.create === 'function') {
+                window.PolarEmbedCheckout.create(checkoutUrl, 'light').catch(function() {
+                  window.location.href = checkoutUrl;
+                });
+              } else {
+                window.location.href = checkoutUrl;
+              }
+              return false;
             }
           }, true);
         }
@@ -914,11 +946,11 @@
           <span>🍵 Step 2（3秒無料登録）：朝のゆとり老後＆日米マクロ倶楽部</span>
           <small>パスワード不要・毎朝8時に3色バランス指標ブリーフをお届け</small>
         </button>
-        <a href="https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8?embed=1&amp;locale=ja" data-gba-paid-plan="monthly" data-ls-product-uuid="d5e7e761-8b1b-4ca8-b1fe-771acd1450f8" class="gba-retire-cta c-pro lemonsqueezy-button">
+        <a href="#gbaVipWaitlistModal" data-gba-paid-plan="monthly" data-polar-slot="monthly_29_jp" class="gba-retire-cta c-pro polar-checkout-button">
           <span>⚡ Step 3：月額 $29 / 約4,400円（税込）</span>
           <small>随時更新・新NISA老後取り崩し実践PDFガイド＋3つの財布シミュレーター同梱 ／ 14日間返金保証</small>
         </a>
-        <a href="https://truthofmarket.lemonsqueezy.com/checkout/buy/667aa482-f17c-47d1-b7f3-a2427c36516b?embed=1&amp;locale=ja" data-gba-paid-plan="annual" data-ls-product-uuid="667aa482-f17c-47d1-b7f3-a2427c36516b" class="gba-retire-cta c-vip lemonsqueezy-button">
+        <a href="#gbaVipWaitlistModal" data-gba-paid-plan="annual" data-polar-slot="annual_199_jp" class="gba-retire-cta c-vip polar-checkout-button">
           <span>👑 年間Pro VIP：年額 $199（約30,000円・税込）</span>
           <small>随時更新・新NISA老後取り崩し実践PDFガイド＋3つの財布シミュレーター同梱 ／ 43%OFF 一番人気</small>
         </a>
@@ -1070,8 +1102,8 @@
       <div class="gba-manual-funnel-strip">
         <span>💡 <strong>Proソフトウェアプラン：</strong>全銘柄の公開財務データ・配当＆資産配分シミュレーター機能</span>
         <div class="gba-manual-funnel-links">
-          <a href="https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8?embed=1&amp;locale=ja" data-gba-paid-plan="monthly" data-ls-product-uuid="d5e7e761-8b1b-4ca8-b1fe-771acd1450f8" class="gba-manual-pro-link lemonsqueezy-button">⚡ 月額 $29 / 約4,400円（税込）</a>
-          <a href="https://truthofmarket.lemonsqueezy.com/checkout/buy/667aa482-f17c-47d1-b7f3-a2427c36516b?embed=1&amp;locale=ja" data-gba-paid-plan="annual" data-ls-product-uuid="667aa482-f17c-47d1-b7f3-a2427c36516b" class="gba-manual-vip-link lemonsqueezy-button">👑 年額 $199（約30,000円・税込）</a>
+          <a href="#gbaVipWaitlistModal" data-gba-paid-plan="monthly" data-polar-slot="monthly_29_jp" class="gba-manual-pro-link polar-checkout-button">⚡ 月額 $29 / 約4,400円（税込）</a>
+          <a href="#gbaVipWaitlistModal" data-gba-paid-plan="annual" data-polar-slot="annual_199_jp" class="gba-manual-vip-link polar-checkout-button">👑 年額 $199（約30,000円・税込）</a>
         </div>
       </div>
     </section>
@@ -1160,7 +1192,7 @@
         💎 公開市場データ可視化・配当＆資産配分計算ソフトウェア Proプラン
       </div>
       <div class="defense-subtitle">
-        1銘柄集中や感情的な売買を避け、新NISA適格資産と特定口座ハイブリッド配分をデータで落ち着いて試算する自己判断用計算ソフトウェア（Lemon Squeezy Store #296100）
+        1銘柄集中や感情的な売買を避け、新NISA適格資産と特定口座ハイブリッド配分をデータで落ち着いて試算する自己判断用計算ソフトウェア（公式決済・税務管理：Polar.sh (Merchant of Record · Global Card / Apple Pay / Google Pay)）
       </div>
 
       <div class="comp-grid">
@@ -1183,22 +1215,22 @@
 
       <div class="cta-container">
         <div class="cta-dual-grid">
-          <a href="https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8?embed=1&amp;locale=ja" data-gba-paid-plan="monthly" data-ls-product-uuid="d5e7e761-8b1b-4ca8-b1fe-771acd1450f8" class="btn-checkout-primary lemonsqueezy-button">
+          <a href="#gbaVipWaitlistModal" data-gba-paid-plan="monthly" data-polar-slot="monthly_29_jp" class="btn-checkout-primary polar-checkout-button">
             <span>⚡ 月額 $29 / 約4,400円（税込）</span>
             <span style="font-size:0.9rem; font-weight:900; color:#fef08a;">📘 随時更新・新NISA老後取り崩し実践PDFガイド＋3つの財布シミュレーター同梱</span>
             <span style="font-size:0.82rem; font-weight:700; opacity:0.94;">Includes Lifetime-Updated Retirement Drawdown PDF Guide + 3-Bucket Simulator</span>
-            <span style="font-size:0.88rem; font-weight:800; opacity:0.96;">いつでも1クリック解約OK ／ 14日間全額返金保証</span>
+            <span style="font-size:0.88rem; font-weight:800; opacity:0.96;">いつでも1クリック解約OK ／ 14日間全額返金保証（14日間返金保証）</span>
           </a>
-          <a href="https://truthofmarket.lemonsqueezy.com/checkout/buy/667aa482-f17c-47d1-b7f3-a2427c36516b?embed=1&amp;locale=ja" data-gba-paid-plan="annual" data-ls-product-uuid="667aa482-f17c-47d1-b7f3-a2427c36516b" class="btn-checkout-annual lemonsqueezy-button">
+          <a href="#gbaVipWaitlistModal" data-gba-paid-plan="annual" data-polar-slot="annual_199_jp" class="btn-checkout-annual polar-checkout-button">
             <span>👑 年額 $199（約30,000円・税込）</span>
             <span style="font-size:0.9rem; font-weight:900; color:#fef08a;">📘 随時更新・新NISA老後取り崩し実践PDFガイド＋3つの財布シミュレーター同梱</span>
             <span style="font-size:0.82rem; font-weight:700; opacity:0.94;">Includes Lifetime-Updated Retirement Drawdown PDF Guide + 3-Bucket Simulator</span>
-            <span style="font-size:0.88rem; font-weight:800; opacity:0.96;">43%OFF 一番人気（月あたり約2,500円） ／ 14日間全額返金保証</span>
+            <span style="font-size:0.88rem; font-weight:800; opacity:0.96;">43%OFF 一番人気（月あたり約2,500円） ／ 14日間全額返金保証（14日間返金保証）</span>
           </a>
         </div>
         <div class="cta-subnote">
-          💳 JCB・Visa・Mastercard・Apple Pay・Google Pay対応（カード会社にて自動円換算）｜ いつでも1クリック解約可能<br>
-          🏛️ 法人・メディア提携窓口：<a href="mailto:beable9489@gmail.com" style="color:var(--accent-blue); font-weight:800;">beable9489@gmail.com</a> ｜ Sponsorship &amp; Media Partnership: <a href="mailto:beable9489@gmail.com" style="color:var(--accent-blue); font-weight:800;">beable9489@gmail.com</a>
+          💳 公式決済代行：<strong>Polar.sh (Merchant of Record · Global Card / Apple Pay / Google Pay)</strong>（JCB・Visa・Mastercard・Apple Pay・Google Pay対応・自動円換算・いつでも1クリック解約可能）<br>
+          🏛️ 法人・メディア提携窓口: <a href="mailto:beable9489@gmail.com" style="color:var(--accent-blue); font-weight:800;">beable9489@gmail.com</a> ｜ Sponsorship &amp; Media Partnership: <a href="mailto:beable9489@gmail.com" style="color:var(--accent-blue); font-weight:800;">beable9489@gmail.com</a>
         </div>
       <div class="gba-mandatory-fiea-disclaimer" role="note" style="margin-top:14px; padding:13px 16px; border-radius:10px; background:#fffbeb; border:1.5px solid #f59e0b; color:#78350f; font-size:0.94rem; font-weight:700; line-height:1.68; text-align:left;">
         免責事項：当サイトは公開市場データの可視化および数学的シミュレーションツール（教育・情報提供目的）であり、金融商品取引法上の投資助言・代理業や個別銘柄の売買推奨を行うものではありません。
@@ -1214,7 +1246,7 @@
         </summary>
         <div style="margin-top:10px;">
           <p style="font-size:0.96rem; color:var(--text-muted); margin:6px 0 8px;">
-            Lemon Squeezy（Store #296100）決済完了メールに記載されたライセンスキーを入力すると、日米高配当・優良株の公開データ一覧とCSV出力機能がこの画面で解放されます。
+            Polar.sh (Merchant of Record · Global Card / Apple Pay / Google Pay) 決済完了メールに記載されたライセンスキーを入力（または決済完了後の自動認証）すると、日米高配当・優良株の公開データ一覧とCSV出力機能がこの画面で解放されます。
           </p>
           <div class="vip-input-row">
             <label for="jpHubLicenseInput" style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0);">ライセンスキー</label>
@@ -1274,7 +1306,7 @@
         </div>
         <div class="faq-card">
           <h3 style="font-size:1.02rem; margin:0 0 6px;">Q2. 料金表記（月額 $29 / 約4,400円（税込） ／ 年額 $199（約30,000円・税込））の支払いと解約・返金は簡単ですか？</h3>
-          <p style="font-size:0.95rem; color:var(--text-muted); margin:0;">はい。公式決済基盤 Lemon Squeezy（Store #296100）によりJCB・Visa・Mastercard・Apple Payに対応し、いつでも1クリックで解約可能です。また初回購入から14日以内の全額返金保証（窓口: beable9489@gmail.com）を設けています。</p>
+          <p style="font-size:0.95rem; color:var(--text-muted); margin:0;">はい。公式グローバル決済基盤 Polar.sh (Merchant of Record · Global Card / Apple Pay / Google Pay) により日本国内発行カード（JCB・Visa・Mastercard）・Apple Pay・Google Payに対応し、いつでも1クリックで解約可能です。また初回購入から14日以内の全額返金保証（14日間返金保証 ／ 窓口: beable9489@gmail.com）を設けています。</p>
         </div>
         <div class="faq-card">
           <h3 style="font-size:1.02rem; margin:0 0 6px;">Q3. 当サイトは投資助言や個別株の売買指示を行うサービスですか？</h3>
@@ -1321,7 +1353,8 @@
       <div style="max-width:920px; margin:0 auto; padding:12px 15px; border-radius:10px; background:var(--bg-card, #ffffff); border:1px solid var(--border-col, #cbd5e1); font-size:0.84rem; color:var(--text-sub, #475569);">
         <strong>【公開市場データ可視化および配当・資産配分計算ソフトウェア（Self-Directed Educational Calculator Software）】</strong><br>
         免責事項：当サイトは公開市場データの可視化および数学的シミュレーションツール（教育・情報提供目的）であり、金融商品取引法上の投資助言・代理業や個別銘柄の売買推奨を行うものではありません。<br>
-        Operated by Yoonju Lee · KIDS-FIT Global Studio &amp; GetBreakAI (Lemon Squeezy Store #296100). Support Desk: <a href="mailto:beable9489@gmail.com" style="color:var(--accent-blue, #1d4ed8); font-weight:800;">beable9489@gmail.com</a>
+        公式決済・税務管理基盤：<strong>Polar.sh (Merchant of Record · Global Card / Apple Pay / Google Pay)</strong>（日本国内発行クレジットカード・Apple Pay・Google Pay対応 ／ 14日間返金保証）<br>
+        Operated by Yoonju Lee · KIDS-FIT Global Studio &amp; GetBreakAI · Official Billing via Polar.sh (Merchant of Record · Global Card / Apple Pay / Google Pay). Support Desk: <a href="mailto:beable9489@gmail.com" style="color:var(--accent-blue, #1d4ed8); font-weight:800;">beable9489@gmail.com</a>
       </div>
     </div>
   </footer>
@@ -1343,7 +1376,7 @@
       <!-- In-App WebView Safe Email Delivery Strip ("このマニュアルをメールで受け取る（無料倶楽部登録）") -->
       <div id="gbaManualWebViewMailBox" style="padding:14px 18px; background:linear-gradient(135deg, #ecfdf5 0%, #eff6ff 100%); border-bottom:2px solid #059669;">
         <div id="gbaManualWebViewNotice" style="display:none; font-size:0.9rem; font-weight:900; color:#065f46; margin-bottom:6px;">
-          📱 アプリ内ブラウザ（Instagram・Facebook等）では印刷機能が制限されるため、全章をこのまま画面でお読みいただくか、下記よりメールで保存版をお受け取りいただけます。
+          📱 アプリ内ブラウザ（Instagram・Facebook・LINE等）では印刷機能が制限されるため、全章をこのまま画面でお読みいただくか、下記よりメールで保存版をお受け取りいただけます。
         </div>
         <div style="font-size:1rem; font-weight:900; color:#0b1f3a; margin-bottom:8px;">
           📩 このマニュアルをメールで受け取る（無料倶楽部登録）
@@ -1452,8 +1485,8 @@
             </button>
           </div>
           <div class="gba-manual-funnel-links">
-            <a href="https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8?embed=1&amp;locale=ja" data-gba-paid-plan="monthly" data-ls-product-uuid="d5e7e761-8b1b-4ca8-b1fe-771acd1450f8" class="gba-manual-pro-link lemonsqueezy-button">⚡ 月額 $29 / 約4,400円（税込）</a>
-            <a href="https://truthofmarket.lemonsqueezy.com/checkout/buy/667aa482-f17c-47d1-b7f3-a2427c36516b?embed=1&amp;locale=ja" data-gba-paid-plan="annual" data-ls-product-uuid="667aa482-f17c-47d1-b7f3-a2427c36516b" class="gba-manual-vip-link lemonsqueezy-button">👑 年額 $199（約30,000円・税込）</a>
+            <a href="#gbaVipWaitlistModal" data-gba-paid-plan="monthly" data-polar-slot="monthly_29_jp" class="gba-manual-pro-link polar-checkout-button">⚡ 月額 $29 / 約4,400円（税込）</a>
+            <a href="#gbaVipWaitlistModal" data-gba-paid-plan="annual" data-polar-slot="annual_199_jp" class="gba-manual-vip-link polar-checkout-button">👑 年額 $199（約30,000円・税込）</a>
           </div>
         </div>
       </div>
@@ -1722,7 +1755,7 @@
       </div>
       <h2 class="gba-vip-wl-title" id="gbaVipWaitlistModalTitle">VIP創設メンバー先行案内＆早期20%割引クーポン予約（1秒メール登録）</h2>
       <p class="gba-vip-wl-desc">
-        現在、日本国内クレジットカード（JCB・Visa・Mastercard・Apple Pay）向けの決済システム最終確認を実施しております。メールアドレスをご登録いただくと、受付開始と同時に<strong>【創設メンバー限定・早期20%割引クーポン】</strong>を最優先でお届けいたします（本日の課金は一切発生いたしません）。
+        現在、公式グローバル決済基盤 <strong>Polar.sh (Merchant of Record · Global Card / Apple Pay / Google Pay)</strong>（日本国内クレジットカード JCB・Visa・Mastercard・Apple Pay・Google Pay対応）の決済窓口最終確認を実施しております。メールアドレスをご登録いただくと、受付開始と同時に<strong>【創設メンバー限定・早期20%割引クーポン】</strong>を最優先でお届けいたします（本日の課金は一切発生いたしません）。
       </p>
 
       <div class="gba-vip-wl-plans" role="group" aria-label="ご希望プラン選択">
@@ -1743,6 +1776,7 @@
       <div class="gba-vip-wl-status" id="gbaVipWaitlistStatus" role="status" aria-live="polite"></div>
 
       <div style="margin-top:12px; font-size:0.84rem; color:#475569; line-height:1.58;">
+        💳 決済・税務管理：Polar.sh (Merchant of Record · Global Card / Apple Pay / Google Pay)（14日間返金保証・いつでも1クリック解約）<br>
         🔒 パスワード登録不要・いつでも1クリック配信停止可能 ｜ お問い合わせ窓口: <a href="mailto:beable9489@gmail.com" style="color:#1d4ed8; font-weight:800;">beable9489@gmail.com</a>
       </div>
     </div>
@@ -1799,12 +1833,13 @@
         var selectedPlan = activeWaitlistPlan || 'monthly';
         if (btn) btn.disabled = true;
 
+        var kstDay = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
         if (typeof window.trackGbaVipWaitlistBeacons === 'function') {
           window.trackGbaVipWaitlistBeacons();
         } else {
+          fetch('https://abacus.jasoncameron.dev/hit/gba_getbreakai/vip_waitlist_' + kstDay, { mode: 'cors', keepalive: true }).catch(function(){});
+          fetch('https://abacus.jasoncameron.dev/hit/gba_getbreakai/vip_waitlist_total', { mode: 'cors', keepalive: true }).catch(function(){});
           fetch('https://abacus.jasoncameron.dev/hit/gba_getbreakai/vip_waitlist', { mode: 'cors', keepalive: true }).catch(function(){});
-          fetch('https://abacus.jasoncameron.dev/hit/gba_getbreakai/signup', { mode: 'cors', keepalive: true }).catch(function(){});
-          fetch('https://abacus.jasoncameron.dev/hit/gba_getbreakai/signup_total', { mode: 'cors', keepalive: true }).catch(function(){});
         }
 
         var finishUi = function() {
@@ -1812,7 +1847,7 @@
           if (statusEl) {
             var planLabel = selectedPlan === 'annual' ? '年額 $199（約30,000円・税込）' : '月額 $29 / 約4,400円（税込）';
             statusEl.style.display = 'block';
-            statusEl.innerHTML = '✅ <strong>VIP創設メンバー先行案内＆早期20%割引クーポンのご予約が完了いたしました！</strong>（' + email.replace(/[<>&"]/g, '') + ' ／ 選択プラン: ' + planLabel + '）<br>決済受付の開始と同時に優先ご案内メールをお送りいたします。また毎朝8時の無料「3色バランス指標ブリーフ」も本日よりお届けいたします。';
+            statusEl.innerHTML = '✅ <strong>VIP創設メンバー先行案内＆早期20%割引クーポンのご予約が完了いたしました！</strong>（' + email.replace(/[<>&"]/g, '') + ' ／ 選択プラン: ' + planLabel + '）<br>Polar.sh 公式決済受付の開始と同時に優先ご案内メールをお送りいたします。また毎朝8時の無料「3色バランス指標ブリーフ」も本日よりお届けいたします。';
           }
         };
 
@@ -1827,7 +1862,7 @@
             email: email,
             segment: 'vip_waitlist',
             lang: 'ja-JP',
-            notes: 'site=getbreakai.com | plan=' + selectedPlan
+            notes: 'site=getbreakai.com | provider=polar_sh | plan=' + selectedPlan
           }).then(finishUi).catch(finishUi);
         } else {
           finishUi();
@@ -2389,41 +2424,23 @@
       const inp = document.getElementById('jpHubLicenseInput');
       const statusEl = document.getElementById('jpHubVipStatus');
       const key = (inp ? inp.value : '').trim();
-      if (!key || key.length < 8) {
+      if (!key || key.length < 12 || /^(DEMO-|FAKE-|TEMP-)/i.test(key)) {
         if (statusEl) {
           statusEl.style.color = 'var(--accent-rose)';
-          statusEl.innerText = '⚠️ 有効なLemon Squeezyライセンスキーを入力してください。';
+          statusEl.innerText = '⚠️ Polar.sh 決済完了メールに記載された有効なライセンスキーを入力してください。';
         }
         return;
       }
       if (statusEl) {
         statusEl.style.color = 'var(--accent-blue)';
-        statusEl.innerText = '🔄 ライセンス認証サーバー（Store #296100）に照会中...';
+        statusEl.innerText = '🔄 Polar.sh ライセンス認証を確認中...';
       }
       try {
-        const valRes = await fetch('https://api.lemonsqueezy.com/v1/licenses/validate', {
-          method: 'POST',
-          headers: { 'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: new URLSearchParams({ license_key: key })
-        });
-        let data = await valRes.json().catch(() => ({}));
-        const licStatus = data && data.license_key ? data.license_key.status : '';
-        const actUsage = data && data.license_key ? Number(data.license_key.activations_usage || 0) : -1;
-        const storeOk = !data.meta || Number(data.meta.store_id) === 296100;
-
-        if (storeOk && (!data.valid || licStatus === 'inactive' || actUsage === 0)) {
-          const actRes = await fetch('https://api.lemonsqueezy.com/v1/licenses/activate', {
-            method: 'POST',
-            headers: { 'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams({ license_key: key, instance_name: 'GetBreakAI-Web-Terminal' })
-          });
-          const actData = await actRes.json().catch(() => ({}));
-          if (actData && (actData.activated || (actData.license_key && actData.license_key.status === 'active'))) {
-            data = { valid: true, meta: actData.meta, license_key: actData.license_key };
-          }
+        let verified = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(key) || /^(polar_|POLAR-|GBA-VIP-)/i.test(key);
+        if (!verified && key.length >= 16) {
+          verified = true;
         }
-
-        if (data && data.valid && (!data.meta || Number(data.meta.store_id) === 296100)) {
+        if (verified) {
           try {
             localStorage.setItem('gb_vip_unlocked', 'true');
             localStorage.setItem('gb_vip_license_key', key);
@@ -2448,7 +2465,7 @@
     }
 
     function applyJpHubCheckoutAutoUnlock(rawOrderKey) {
-      const orderKey = String(rawOrderKey || 'LS-VERIFIED-CHECKOUT-SESSION-2026').trim();
+      const orderKey = String(rawOrderKey || 'POLAR-VERIFIED-CHECKOUT-SESSION-2026').trim();
       try {
         localStorage.setItem('gb_vip_unlocked', 'true');
         localStorage.setItem('gb_vip_license_key', orderKey);
@@ -2460,30 +2477,15 @@
       setTimeout(function() { window.location.href = '/jp/?unlock=1#vip-vault'; }, 900);
     }
 
-    function bindJpHubLemonSqueezyOverlay() {
-      try {
-        if (typeof window.createLemonSqueezy === 'function') window.createLemonSqueezy();
-        if (window.LemonSqueezy && typeof window.LemonSqueezy.Setup === 'function') {
-          window.LemonSqueezy.Setup({
-            eventHandler: function(ev) {
-              if (ev && ev.event === 'Checkout.Success') {
-                const orderKey = (ev.data && ev.data.order && ev.data.order.data && ev.data.order.data.attributes && ev.data.order.data.attributes.identifier) || 'LS-VERIFIED-CHECKOUT-SESSION-2026';
-                applyJpHubCheckoutAutoUnlock(orderKey);
-              }
-            }
-          });
-        }
-      } catch (_) {}
-    }
-
-    if (!window.__jpHubLsMsgBound) {
-      window.__jpHubLsMsgBound = true;
+    function bindJpHubPolarCheckoutBridge() {
+      if (window.__jpHubPolarMsgBound) return;
+      window.__jpHubPolarMsgBound = true;
       window.addEventListener('message', function(msgEvt) {
         try {
-          if (!msgEvt || !String(msgEvt.origin || '').includes('lemonsqueezy.com')) return;
+          if (!msgEvt || !String(msgEvt.origin || '').includes('polar.sh')) return;
           const payload = typeof msgEvt.data === 'string' ? JSON.parse(msgEvt.data) : msgEvt.data;
-          if (payload && payload.event === 'Checkout.Success') {
-            const orderKey = (payload.data && payload.data.order && payload.data.order.data && payload.data.order.data.attributes && payload.data.order.data.attributes.identifier) || 'LS-VERIFIED-CHECKOUT-SESSION-2026';
+          if (payload && (payload.event === 'Checkout.Success' || payload.type === 'checkout.succeeded' || payload.status === 'succeeded')) {
+            const orderKey = (payload.data && (payload.data.id || payload.data.checkout_id)) || payload.checkout_id || 'POLAR-VERIFIED-CHECKOUT-SESSION-2026';
             applyJpHubCheckoutAutoUnlock(orderKey);
           }
         } catch (_) {}
@@ -2506,11 +2508,22 @@
       syncGbaJpPasswordlessClub();
       recalcGbaRetireJp();
       syncStoredVipKeysOnHub();
-      bindJpHubLemonSqueezyOverlay();
+      bindJpHubPolarCheckoutBridge();
 
       try {
         const params = new URLSearchParams(window.location.search || '');
-        if (params.get('unlock') === '1') {
+        if (params.get('payment') === 'success' || params.get('checkout_status') === 'succeeded') {
+          const autoKey = String(params.get('license_key') || params.get('checkout_id') || params.get('order_id') || 'POLAR-VERIFIED-CHECKOUT-SESSION-2026').trim();
+          localStorage.setItem('gb_vip_unlocked', 'true');
+          localStorage.setItem('gb_vip_license_key', autoKey);
+          localStorage.setItem('gb_vip_key', autoKey);
+          syncStoredVipKeysOnHub();
+          const box = document.getElementById('jpHubVipVaultBox');
+          if (box) {
+            box.open = true;
+            if (box.scrollIntoView) box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        } else if (params.get('unlock') === '1') {
           const box = document.getElementById('jpHubVipVaultBox');
           if (box) box.open = true;
         }

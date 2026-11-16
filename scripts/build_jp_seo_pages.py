@@ -697,7 +697,7 @@ def build_page_html(item, date_str, all_specs):
 
         <div style="margin-top:16px; padding-top:14px; border-top:1px solid #a7f3d0;">
           <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:10px;">
-            <span style="font-size:0.96rem; font-weight:800; color:#0f172a;">💎 全銘柄データ一覧・配当＆資産配分計算Proソフトウェア：</span>
+            <span style="font-size:0.96rem; font-weight:800; color:#0f172a;">💎 全銘柄データ一覧・配当＆資産配分計算Proソフトウェア（随時更新・新NISA老後取り崩し実践PDFガイド＋3つの財布シミュレーター同梱）：</span>
             <div style="display:flex; flex-wrap:wrap; gap:10px;">
               <a href="{LS_MONTHLY_URL_HTML}" data-gba-paid-plan="monthly" data-ls-product-uuid="{LS_MONTHLY_UUID}" class="lemonsqueezy-button" style="display:inline-flex; align-items:center; justify-content:center; min-height:56px; padding:10px 18px; border-radius:10px; background:#1d4ed8; color:#ffffff !important; font-size:0.98rem; font-weight:900; text-decoration:none;">
                 ⚡ {PRICE_LABEL_MONTHLY_JP}
@@ -1612,11 +1612,11 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
         </button>
         <a href="{LS_MONTHLY_URL_HTML}" data-gba-paid-plan="monthly" data-ls-product-uuid="{LS_MONTHLY_UUID}" class="gba-retire-cta c-pro lemonsqueezy-button">
           <span>⚡ Step 3：{PRICE_LABEL_MONTHLY_JP}</span>
-          <small>いつでも1クリック解約OK・14日間返金保証・全データ計算機能</small>
+          <small>随時更新・新NISA老後取り崩し実践PDFガイド＋3つの財布シミュレーター同梱 ／ 14日間返金保証</small>
         </a>
         <a href="{LS_ANNUAL_URL_HTML}" data-gba-paid-plan="annual" data-ls-product-uuid="{LS_ANNUAL_UUID}" class="gba-retire-cta c-vip lemonsqueezy-button">
           <span>👑 年間Pro VIP：{PRICE_LABEL_ANNUAL_JP}</span>
-          <small>43%OFF 一番人気・月あたり約2,500円・14日間返金保証</small>
+          <small>随時更新・新NISA老後取り崩し実践PDFガイド＋3つの財布シミュレーター同梱 ／ 43%OFF 一番人気</small>
         </a>
       </div>
     </section>
@@ -1881,16 +1881,20 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
         <div class="cta-dual-grid">
           <a href="{LS_MONTHLY_URL_HTML}" data-gba-paid-plan="monthly" data-ls-product-uuid="{LS_MONTHLY_UUID}" class="btn-checkout-primary lemonsqueezy-button">
             <span>⚡ {PRICE_LABEL_MONTHLY_JP}</span>
-            <span style="font-size:0.9rem; font-weight:800; opacity:0.96;">いつでも1クリック解約OK ／ 14日間全額返金保証</span>
+            <span style="font-size:0.9rem; font-weight:900; color:#fef08a;">📘 随時更新・新NISA老後取り崩し実践PDFガイド＋3つの財布シミュレーター同梱</span>
+            {('<span style="font-size:0.82rem; font-weight:700; opacity:0.94;">Includes Lifetime-Updated Retirement Drawdown PDF Guide + 3-Bucket Simulator</span>' if is_root else '')}
+            <span style="font-size:0.88rem; font-weight:800; opacity:0.96;">いつでも1クリック解約OK ／ 14日間全額返金保証</span>
           </a>
           <a href="{LS_ANNUAL_URL_HTML}" data-gba-paid-plan="annual" data-ls-product-uuid="{LS_ANNUAL_UUID}" class="btn-checkout-annual lemonsqueezy-button">
             <span>👑 {PRICE_LABEL_ANNUAL_JP}</span>
-            <span style="font-size:0.9rem; font-weight:800; opacity:0.96;">43%OFF 一番人気（月あたり約2,500円） ／ 14日間全額返金保証</span>
+            <span style="font-size:0.9rem; font-weight:900; color:#fef08a;">📘 随時更新・新NISA老後取り崩し実践PDFガイド＋3つの財布シミュレーター同梱</span>
+            {('<span style="font-size:0.82rem; font-weight:700; opacity:0.94;">Includes Lifetime-Updated Retirement Drawdown PDF Guide + 3-Bucket Simulator</span>' if is_root else '')}
+            <span style="font-size:0.88rem; font-weight:800; opacity:0.96;">43%OFF 一番人気（月あたり約2,500円） ／ 14日間全額返金保証</span>
           </a>
         </div>
         <div class="cta-subnote">
           💳 JCB・Visa・Mastercard・Apple Pay・Google Pay対応（カード会社にて自動円換算）｜ いつでも1クリック解約可能<br>
-          🏛️ 法人・金融メディア・APIデータ窓口：<a href="mailto:beable9489@gmail.com" style="color:var(--accent-blue); font-weight:800;">beable9489@gmail.com</a>
+          🏛️ 法人・メディア提携窓口：<a href="mailto:beable9489@gmail.com" style="color:var(--accent-blue); font-weight:800;">beable9489@gmail.com</a>{(' ｜ Sponsorship &amp; Media Partnership: <a href="mailto:beable9489@gmail.com" style="color:var(--accent-blue); font-weight:800;">beable9489@gmail.com</a>' if is_root else '')}
         </div>
 {disclaimer_box}
       </div>

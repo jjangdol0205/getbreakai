@@ -19,7 +19,6 @@ DATA_DIR = os.path.join(ROOT_DIR, "data")
 STATIC_API_DIR = os.path.join(ROOT_DIR, "static_api")
 SNAPSHOT_PATH = os.path.join(DATA_DIR, "live_market_snapshot.json")
 STOCKS_FREE_PATH = os.path.join(STATIC_API_DIR, "stocks_free.json")
-SISTER_LOCAL_STOCKS_FREE = os.path.abspath(os.path.join(ROOT_DIR, "..", "1사업부", "static_api", "stocks_free.json"))
 INDEX_HTML_PATH = os.path.join(ROOT_DIR, "index.html")
 
 JST = timezone(timedelta(hours=9))
@@ -188,18 +187,9 @@ def _fetch_yfinance_bundle(symbols):
 
 
 def _sync_stocks_free_json(us_results, latest_bar_date):
-    """Keep static_api/stocks_free.json 100% synchronized with Division 1 + live yfinance closes."""
+    """Keep static_api/stocks_free.json 100% synchronized with live yfinance closes and Zero-Hangul."""
     os.makedirs(STATIC_API_DIR, exist_ok=True)
     base_list = []
-
-    if os.path.exists(SISTER_LOCAL_STOCKS_FREE):
-        try:
-            with open(SISTER_LOCAL_STOCKS_FREE, "r", encoding="utf-8") as f:
-                loaded = json.load(f)
-                if isinstance(loaded, list):
-                    base_list = loaded
-        except Exception:
-            pass
 
     if not base_list:
         try:
@@ -219,10 +209,16 @@ def _sync_stocks_free_json(us_results, latest_bar_date):
         except Exception:
             pass
 
+    hangul_re = re.compile(r"[\uac00-\ud7a3\u3131-\u318e]")
     seen = set()
     for row in base_list:
         sym = str(row.get("ticker", "")).upper()
         seen.add(sym)
+        if hangul_re.search(str(row.get("name", ""))):
+            row["name"] = sym
+        for k in list(row.keys()):
+            if isinstance(row[k], str) and hangul_re.search(row[k]):
+                row[k] = sym if k == "name" else ""
         if sym in us_results:
             u = us_results[sym]
             row["close"] = u["entry"]
@@ -258,14 +254,6 @@ def fetch_live_prices_and_atr():
 
     # 1. Sister endpoint baseline for US stocks
     sister_map = {}
-    if os.path.exists(SISTER_LOCAL_STOCKS_FREE):
-        try:
-            sister_items = json.load(open(SISTER_LOCAL_STOCKS_FREE, "r", encoding="utf-8"))
-            if isinstance(sister_items, list):
-                for it in sister_items:
-                    sister_map[str(it.get("ticker", "")).upper()] = it
-        except Exception:
-            pass
     if not sister_map:
         try:
             import requests

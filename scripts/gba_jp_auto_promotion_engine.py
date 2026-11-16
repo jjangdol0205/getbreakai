@@ -53,28 +53,23 @@ BACKLINKS_LOG_PATH = DATA_DIR / "jp_external_backlinks.json"
 JP_DAILY_THEMES = [
     {
         "slug": "daily-nisa-quant-report.html",
-        "title_prefix": "新NISA成長投資枠と特定口座(20.315%)：大切な老後資金を「塩漬け損」から守る朝の3色シグナル",
-        "hook": "新NISAで一番怖い「塩漬け損」を防ぐ適正株数を、3秒で無料診断できます。\n\n損益通算ができない新NISAこそ、感覚ナンピンを卒業し「青・黄・赤」の明確な撤退ルールで非課税枠を守りましょう。 #新NISA #米国株",
+        "title_prefix": "新NISA適格（VYM・HDV・1489）＋特定口座（SGOV・JEPI）ハイブリッド老後キャッシュフロー設計",
+        "hook": "年金＋新NISAで毎月いくらのゆとり収入が作れるか、30秒で無料試算できます。\n\n金融庁ルールに準拠した新NISA適格コアと特定口座のハイブリッド設計で大切な老後資金を守りましょう。 #新NISA #老後資金",
     },
     {
         "slug": "shin-nisa-us-stock-atr-risk-management.html",
-        "title_prefix": "資金100万円なら許容損失は1.5万円まで：夜ぐっすり眠れる新NISA適正株数の決め方",
-        "hook": "米国株で資産を減らす原因の9割は「1銘柄への買いすぎ」にあります。\n\n資金100万円なら1回の許容損失は15,000円まで。値動きに合わせて夜ぐっすり眠れる購入株数を3秒で無料計算します。 #新NISA #資産運用",
+        "title_prefix": "1銘柄集中を防ぐ分散比率計算：夜ぐっすり眠れる新NISA資産配分の決め方",
+        "hook": "老後資産運用で大切なのは1銘柄に偏らない穏やかな分散配分です。\n\n個人向け国債・高配当ETF・インデックス投信の3つの財布バランスを年2〜4回ゆったり点検しましょう。 #新NISA #資産運用",
     },
     {
-        "slug": "nvda-sec-gamma-atr-analysis.html",
-        "title_prefix": "エヌビディア・半導体株の急落で慌てない！高値掴みと塩漬けを防ぐ3色売買ルール",
-        "hook": "半導体株の急落で「なんとなく安いから」と買うと資金が何年も眠ります。\n\n底値を当てにいかず、大口資金の買い集めと「青シグナル（順張り転換）」を確認してから落ち着いて検討するのが鉄則です。 #米国株 #半導体株",
-    },
-    {
-        "slug": "us-stock-stop-loss-2percent-rule.html",
-        "title_prefix": "「いつか戻る」が一番危険？退職金・老後資金を減らさない米国株の安全撤退ライン入門",
-        "hook": "「いつか戻る」と待つうちに、大切な老後資金が半分になることがあります。\n\n株価が50%下がると元に戻すには+100%の上昇が必要です。浅い傷のうちに守る「赤シグナル撤退線」を無料確認できます。 #新NISA #老後資金",
+        "slug": "msft-azure-ai-copilot-sec-8k.html",
+        "title_prefix": "米SEC公式決算開示（Form 8-K/10-Q）と連続増配データの落ち着いた読み方",
+        "hook": "ニュースの騒音に振り回されず、企業の一次公開データと増配実績を落ち着いて確認する習慣が長期の安心につながります。 #米国株 #新NISA",
     },
     {
         "slug": "unh-defensive-healthcare-insider-buy.html",
-        "title_prefix": "ハイテク株だけに偏っていませんか？守りのヘルスケア株を添える大人の新NISA資産防衛術",
-        "hook": "ハイテク株だけに偏らず、守りの銘柄を添えると新NISAはぐっと安定します。\n\n値動きの大きい半導体株と堅実なヘルスケア株を組み合わせ、急落時も慌てない資産配分と適正株数を無料診断しましょう。 #新NISA #資産防衛",
+        "title_prefix": "ハイテク株だけに偏っていませんか？守りのヘルスケア・高配当を添える大人の新NISA配分",
+        "hook": "成長株だけでなく、個人向け国債や高配当ETF・ディフェンシブ銘柄を組み合わせることで資産寿命は大きく安定します。 #新NISA #高配当株",
     },
 ]
 
@@ -89,51 +84,56 @@ def load_live_usd_jpy() -> float:
                 return round(rate, 2)
     except Exception:
         pass
-    return 155.0
+    return 150.0
 
 
 def update_dual_llms_txt() -> str:
     today_str = datetime.datetime.now(JST).strftime("%Y-%m-%d")
+    excluded_names = {
+        "index.html", "confirmation.html", "terms.html", "privacy.html", "refund.html", "contact.html",
+        "soxl-smh-semiconductor-timing.html", "mstr-bitcoin-volatility-atr-sizing.html",
+    }
     seo_pages = sorted(
         p.name
         for p in JP_DIR.glob("*.html")
-        if p.name not in ("index.html", "confirmation.html") and not p.name.startswith("google")
+        if p.name not in excluded_names and not p.name.startswith("google")
     )
 
-    # 1. Global English root /llms.txt (Preserve English identity at root!)
     en_lines = [
-        "# GetBreakAI — Institutional Breakout & ATR Position-Sizing Quant Terminal (https://getbreakai.com)",
+        "# GetBreakAI — Japanese 50-70s Shin-NISA & Retirement Cashflow Calculator Software (https://getbreakai.com/jp/)",
         "",
-        f"> Updated: {today_str} | Multi-currency (USD / JPY) 20-Day Donchian Breakout, 2.0x ATR Mechanical Stop-Loss, and Japan Shin-NISA (0% Tax-Free) vs Specific Account (20.315%) Net Return Simulator.",
+        f"> Updated: {today_str} | Self-Directed Public Market Data Visualization & Dividend / Asset-Allocation Calculator Software (FSA Shin-NISA Eligible VYM/HDV/1489/All-Country/S&P500 + Tokutei Account SGOV/JEPI Hybrid Architecture).",
         "",
-        "## 1. Live Quantitative Terminals",
-        "- Global English Terminal: https://getbreakai.com/",
-        "- Japan Shin-NISA & US/TSE Quant Terminal: https://getbreakai.com/jp/",
-        "- Daily Japanese NISA Quant Report: https://getbreakai.com/jp/daily-nisa-quant-report.html",
+        "## 1. Core Japanese Calculators & Legal Pages",
+        "- Main Retirement & Shin-NISA Hub: https://getbreakai.com/jp/",
+        "- Root Canonical Mirror: https://getbreakai.com/",
+        "- Daily Public Market Data Report: https://getbreakai.com/jp/daily-nisa-quant-report.html",
+        "- Terms of Service: https://getbreakai.com/jp/terms.html",
+        "- Privacy Policy: https://getbreakai.com/jp/privacy.html",
+        "- 14-Day Refund Policy: https://getbreakai.com/jp/refund.html",
         "- Japanese Research RSS Feed: https://getbreakai.com/jp/feed.xml",
         "",
-        "## 2. Featured Japanese Institutional Research Guides (/jp/)",
+        "## 2. Featured Japanese Public Market Data & Shin-NISA Guides (/jp/)",
     ]
     for fn in seo_pages[:31]:
         en_lines.append(f"- https://getbreakai.com/jp/{fn}")
     (ROOT_DIR / "llms.txt").write_text("\n".join(en_lines) + "\n", encoding="utf-8")
 
-    # 2. Dedicated Japanese /jp/llms.txt (Zero confirmation.html & Zero Hangul!)
     jp_lines = [
         "# GetBreakAI Japan (https://getbreakai.com/jp/)",
         "",
-        "> 日本の40代〜70代個人投資家・新NISA運用層のための「毎朝の3色売買シグナル（青＝順張り維持・黄＝様子見・赤＝安全撤退ライン）」＆3秒適正株数シミュレーター（新NISA成長投資枠 0%非課税 vs 特定口座 20.315% 手取り純利益比較対応）。",
+        "> 日本の50代〜70代個人投資家・新NISA運用層のための公開市場データ可視化および配当・資産配分計算ソフトウェア（Self-Directed Educational Calculator Software）。金融庁規定準拠『新NISA 適格（四半期配当 VYM・HDV・1489・オルカン・S&P500 時間差組み合わせ）＋ 特定口座（毎月分配 SGOV・JEPI）ハイブリッド設計』対応。",
         f"> 最終更新日: {today_str} (JST)",
         "",
-        "## 1. コア機能（メール1つで毎朝の無料3色シグナル受信＆3秒計算機）",
-        "- **毎朝の無料3色売買シグナル配信**: メールアドレス1つで、米国主力株・日本半導体株の「青・黄・赤」安全判定を毎朝無料でお届けします。",
-        "- **ドル($)・日本円(¥)同時対応 3秒適正株数シミュレーター**: ご資金（例：100万円・300万円）と許容リスク（1.5%ルール）から、夜ぐっすり眠れる購入株数と撤退ラインを3秒で算出。",
-        "- **新NISA（非課税 0%）vs 特定口座（源泉徴収 20.315%）手取り比較**: 利確時の税引後手取り額と損益通算の違いを分かりやすく比較。",
+        "## 1. コア計算ツール（投資助言・売買推奨を行わない自己判断用教育計算ソフトウェア）",
+        "- **30秒・ゆとり老後＆新NISA毎月キャッシュフロー設計シミュレーター**: 公的年金＋新NISA非課税枠・特定口座ハイブリッド配分の試算。",
+        "- **ドル($)・日本円(¥)同時対応 1銘柄分散配分シミュレーター**: 1銘柄への過度な集中を防ぐ保有株数目安の計算。",
+        "- **法務・サポート窓口**: 利用規約 https://getbreakai.com/jp/terms.html / プライバシーポリシー https://getbreakai.com/jp/privacy.html / 14日間返金ポリシー https://getbreakai.com/jp/refund.html / サポート beable9489@gmail.com",
         "",
-        "## 2. 主要日本語コラム・解析ページ一覧",
-        "- 日本語メインターミナル: https://getbreakai.com/jp/",
-        "- 本日の新NISA・老後資金3色シグナル日報: https://getbreakai.com/jp/daily-nisa-quant-report.html",
-        "- 日本語RSSフィード (Blog/note連携): https://getbreakai.com/jp/feed.xml",
+        "## 2. 主要日本語リサーチ・公開データ解説ページ一覧",
+        "- 日本語メインハブ: https://getbreakai.com/jp/",
+        "- 本日の新NISA・公開市場データ日報: https://getbreakai.com/jp/daily-nisa-quant-report.html",
+        "- 日本語RSSフィード: https://getbreakai.com/jp/feed.xml",
     ]
     for fn in seo_pages[:31]:
         jp_lines.append(f"- https://getbreakai.com/jp/{fn}")
@@ -301,7 +301,7 @@ def main() -> int:
         canonical_domain=HOST,
         canonical_url=canonical_url,
         title=title,
-        summary=f"新NISA(非課税0%)・特定口座(20.315%)対応：大切な老後資金を塩漬け損から守る毎朝の3色売買シグナル日報（1ドル＝約{usd_jpy:.1f}円）",
+        summary=f"新NISA適格（1489・VYM・HDV・オルカン）×特定口座（SGOV・JEPI）ハイブリッド対応：大切な老後資金を守る毎朝の3色バランス指標日報（1ドル＝約{usd_jpy:.1f}円）",
         main_social_hook=theme["hook"],
         reply_social_link=reply_post,
         longform_markdown=note_md,

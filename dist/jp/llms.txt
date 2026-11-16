@@ -1,17 +1,17 @@
 # GetBreakAI Japan (https://getbreakai.com/jp/)
 
-> 日本の40代〜70代個人投資家・新NISA運用層のための「毎朝の3色売買シグナル（青＝順張り維持・黄＝様子見・赤＝安全撤退ライン）」＆3秒適正株数シミュレーター（新NISA成長投資枠 0%非課税 vs 特定口座 20.315% 手取り純利益比較対応）。
+> 日本の50代〜70代個人投資家・新NISA運用層のための公開市場データ可視化および配当・資産配分計算ソフトウェア（Self-Directed Educational Calculator Software）。金融庁規定準拠『新NISA 適格（四半期配当 VYM・HDV・1489・オルカン・S&P500 時間差組み合わせ）＋ 特定口座（毎月分配 SGOV・JEPI）ハイブリッド設計』対応。
 > 最終更新日: 2026-11-16 (JST)
 
-## 1. コア機能（メール1つで毎朝の無料3色シグナル受信＆3秒計算機）
-- **毎朝の無料3色売買シグナル配信**: メールアドレス1つで、米国主力株・日本半導体株の「青・黄・赤」安全判定を毎朝無料でお届けします。
-- **ドル($)・日本円(¥)同時対応 3秒適正株数シミュレーター**: ご資金（例：100万円・300万円）と許容リスク（1.5%ルール）から、夜ぐっすり眠れる購入株数と撤退ラインを3秒で算出。
-- **新NISA（非課税 0%）vs 特定口座（源泉徴収 20.315%）手取り比較**: 利確時の税引後手取り額と損益通算の違いを分かりやすく比較。
+## 1. コア計算ツール（投資助言・売買推奨を行わない自己判断用教育計算ソフトウェア）
+- **30秒・ゆとり老後＆新NISA毎月キャッシュフロー設計シミュレーター**: 公的年金＋新NISA非課税枠・特定口座ハイブリッド配分の試算。
+- **ドル($)・日本円(¥)同時対応 1銘柄分散配分シミュレーター**: 1銘柄への過度な集中を防ぐ保有株数目安の計算。
+- **法務・サポート窓口**: 利用規約 https://getbreakai.com/jp/terms.html / プライバシーポリシー https://getbreakai.com/jp/privacy.html / 14日間返金ポリシー https://getbreakai.com/jp/refund.html / サポート beable9489@gmail.com
 
-## 2. 主要日本語コラム・解析ページ一覧
-- 日本語メインターミナル: https://getbreakai.com/jp/
-- 本日の新NISA・老後資金3色シグナル日報: https://getbreakai.com/jp/daily-nisa-quant-report.html
-- 日本語RSSフィード (Blog/note連携): https://getbreakai.com/jp/feed.xml
+## 2. 主要日本語リサーチ・公開データ解説ページ一覧
+- 日本語メインハブ: https://getbreakai.com/jp/
+- 本日の新NISA・公開市場データ日報: https://getbreakai.com/jp/daily-nisa-quant-report.html
+- 日本語RSSフィード: https://getbreakai.com/jp/feed.xml
 - https://getbreakai.com/jp/aapl-apple-intelligence-cycle-gex.html
 - https://getbreakai.com/jp/ai-datacenter-power-stocks-2026.html
 - https://getbreakai.com/jp/amd-mi350-gamma-squeeze-target.html
@@ -29,7 +29,6 @@
 - https://getbreakai.com/jp/lly-form4-insider-cluster-buy.html
 - https://getbreakai.com/jp/meta-ai-capex-earnings-nlp.html
 - https://getbreakai.com/jp/msft-azure-ai-copilot-sec-8k.html
-- https://getbreakai.com/jp/mstr-bitcoin-volatility-atr-sizing.html
 - https://getbreakai.com/jp/nvda-sec-gamma-atr-analysis.html
 - https://getbreakai.com/jp/options-gamma-squeeze-gex-guide.html
 - https://getbreakai.com/jp/pltr-insider-buying-analysis.html
@@ -37,7 +36,6 @@
 - https://getbreakai.com/jp/semiconductor-cycle-truthofmarket-guide.html
 - https://getbreakai.com/jp/shin-nisa-us-stock-atr-risk-management.html
 - https://getbreakai.com/jp/smci-accounting-risk-warning.html
-- https://getbreakai.com/jp/soxl-smh-semiconductor-timing.html
 - https://getbreakai.com/jp/tradingview-pine-script-v5-atr-guide.html
 - https://getbreakai.com/jp/tsla-gamma-wall-swing-trade.html
 - https://getbreakai.com/jp/unh-defensive-healthcare-insider-buy.html

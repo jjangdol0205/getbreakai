@@ -18,6 +18,27 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
+  <script src="/hq_member_crm_client.js"></script>
+  <script>
+    window.PAYMENT_CONFIG = {
+      STORE_LIVE_READY: false,
+      ACTIVE_SLOT: 'FINANCE_STORE_SLOT',
+      BACKUP_LIVE_CHECKOUT_URL: { monthly: '', annual: '' },
+      FINANCE_STORE_SLOT: {
+        storeId: '296100',
+        monthlyUuid: 'd5e7e761-8b1b-4ca8-b1fe-771acd1450f8',
+        monthlyCheckoutUrl: 'https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8?embed=1&locale=ja',
+        annualUuid: '667aa482-f17c-47d1-b7f3-a2427c36516b',
+        annualCheckoutUrl: 'https://truthofmarket.lemonsqueezy.com/checkout/buy/667aa482-f17c-47d1-b7f3-a2427c36516b?embed=1&locale=ja',
+        BACKUP_LIVE_CHECKOUT_URL: { monthly: '', annual: '' }
+      },
+      PEDIATRIC_STORE_SLOT: {
+        storeId: '296100',
+        singleUuid: 'c1cd7f12-3479-49e8-ab71-59c98135d599',
+        sixMonthUuid: 'c562946d-ef68-4c2f-a802-df9da0179895'
+      }
+    };
+  </script>
   <style>
     /* === Dark Mode (Terminal) === */
     :root,
@@ -541,12 +562,12 @@
 <body>
 
   <header>
-    <a href="https://getbreakai.com/" class="logo-group">
+    <a href="https://getbreakai.com/jp/" class="logo-group">
       <span class="logo-badge">GetBreakAI</span>
-      <strong class="logo-subtitle">日米クオンツAIターミナル</strong>
+      <strong class="logo-subtitle">ゆとり老後＆新NISA設計ナビ</strong>
     </a>
     <div style="display:flex; align-items:center; gap:10px; flex-shrink:0;">
-      <span class="store-live-pill">Store #296100 Live</span>
+      <span class="store-live-pill">Store #296100</span>
       <button type="button" id="btnToggleJpTheme" class="theme-toggle-btn" onclick="toggleJpTheme()">
         <span id="themeToggleIcon">🌙</span>
         <span id="themeToggleText">切替</span>
@@ -611,48 +632,48 @@
 
       <!-- メインターミナルへの誘導ボタン -->
       <div class="actions-grid">
-        <a href="https://getbreakai.com/#vip-vault" class="btn-checkout btn-checkout-primary">
+        <a href="https://getbreakai.com/jp/?unlock=1#vip-vault" class="btn-checkout btn-checkout-primary">
           🔑 Web VIP Vault を開く →
         </a>
-        <a href="https://getbreakai.com/jp/" class="btn-checkout btn-checkout-secondary">
-          🧮 新NISA・1秒ATR計算ハブへ →
+        <a href="https://getbreakai.com/#vip-vault" class="btn-checkout btn-checkout-secondary">
+          🧭 30秒・老後キャッシュフロー試算へ →
         </a>
         <a href="https://truthofmarket.com/?utm_source=getbreakai_confirmation" target="_blank" rel="noopener" class="btn-checkout btn-checkout-secondary">
-          🧭 姉妹サイト TruthOfMarket.com を開く ↗
+          🌐 姉妹サイト TruthOfMarket.com ↗
         </a>
       </div>
     </div>
 
-    <!-- Web VIP Vault ＆ 公式YouTube (@GetBreakAI) / 公式X / Web＆メール配信 オンボーディングカード -->
+    <!-- Web VIP Vault ＆ 公式YouTube (@GetBreakAI) / Web＆メール配信 オンボーディングカード -->
     <div class="card-vip-channels">
       <div class="channels-title">
         <span>🔔</span>
-        <span>Webブラウザ＆メール即時シグナル配信 ・ 公式YouTube (@GetBreakAI) 連携</span>
+        <span>Web VIP Vault 公開データ一覧 ・ 公式YouTube (@GetBreakAI) 連携</span>
       </div>
       <p style="color:var(--text-muted); font-size:0.92rem; line-height:1.65;">
-        外部チャットアプリのインストールは一切不要です。<strong>Web VIP Vault（ブラウザ画面）＆ご登録メールでの即時シグナル配信</strong>に加え、毎朝1分で日米ブレイク銘柄＆2.0x ATR損切りラインを解説する<strong>公式YouTube（@GetBreakAI）</strong>と<strong>公式X（#株クラ 速報共有）</strong>をあわせてご活用ください。
+        外部チャットアプリのインストールは一切不要です。<strong>Web VIP Vault（ブラウザ画面）＆ご登録メールでの公開市場データ要約配信</strong>に加え、毎朝1分で日米マクロと新NISA×特定口座ハイブリッド資産配分を解説する<strong>公式YouTube（@GetBreakAI）</strong>をあわせてご活用ください。
       </p>
 
       <ul class="step-list">
         <li class="step-item">
           <span class="step-num">1</span>
           <div>
-            <strong>Web VIP Vault（機関投資家データ庫）へ直行</strong><br>
-            ライセンスキー有効化後、ブラウザ上で全銘柄のGamma Flip・2.0x ATR一覧(.CSV)、Form-4役員自社株買い台帳、TradingView Pine Script v5全文が即座にアンロックされます。
+            <strong>Web VIP Vault（公開市場データ一覧）へ直行</strong><br>
+            ライセンスキー有効化後、ブラウザ上で新NISA適格コア（1489・VYM・HDV・オルカン・S&amp;P500）＋特定口座（SGOV・JEPI）および米SEC公開開示・配当統計一覧が即座に解放されます。
           </div>
         </li>
         <li class="step-item">
           <span class="step-num">2</span>
           <div>
-            <strong>📺 公式YouTube (@GetBreakAI — 毎朝1分 日米株ATR＆ブレイク速報) をチャンネル登録</strong><br>
-            東証プライム主力株（8035・6857・7011）および米国株（$NVDA・$PLTR・$MSFT・$TSLA）の実チャートと新NISAシミュレーション速報ショートを公開しています。
+            <strong>📺 公式YouTube (@GetBreakAI — 毎朝1分 新NISA＆老後キャッシュフロー解説) をチャンネル登録</strong><br>
+            日米高配当ETFとマクロ金利・為替統計をやさしい日本語で毎日公開しています。
           </div>
         </li>
         <li class="step-item">
           <span class="step-num">3</span>
           <div>
-            <strong>🔔 Webブラウザ＆メール即時シグナル配信 ＋ 𝕏 公式X (#株クラ 速報共有)</strong><br>
-            TradingViewアラート用Webhook JSONと日次レポート配信で、チャートに張り付かず2.0x ATR逆指値と2.5R利確目標を機械的に管理できます。
+            <strong>🔔 年2〜4回の穏やかな資産配分点検ツール</strong><br>
+            3色バランス指標と非課税シミュレーションを活用し、画面に張り付かず落ち着いた老後資産管理を行えます。
           </div>
         </li>
       </ul>
@@ -661,20 +682,17 @@
         <a href="https://www.youtube.com/@GetBreakAI" target="_blank" rel="noopener" class="btn-checkout btn-checkout-youtube">
           📺 公式YouTube (@GetBreakAI) を開く →
         </a>
-        <a href="https://x.com/intent/tweet?text=%E7%B1%B3%E5%9B%BD%E6%A0%AA%E3%83%BB%E6%96%B0NISA%E5%B0%82%E7%94%A8%20GetBreakAI%20VIP%E3%82%BF%E3%83%BC%E3%83%9F%E3%83%8A%E3%83%AB%EF%BC%882.0x%20ATR%E6%90%8D%E5%88%87%E3%82%8A%EF%BC%86SEC%208-K%E9%80%9F%E5%A0%B1%EF%BC%89%20https%3A%2F%2Fgetbreakai.com%20%23%E6%A0%AA%E3%82%AF%E3%83%A9%20%23%E6%96%B0NISA%20%23%E7%B1%B3%E5%9B%BD%E6%A0%AA" target="_blank" rel="noopener" class="btn-checkout btn-checkout-secondary">
-          𝕏 公式X (#株クラ 速報共有) ↗
-        </a>
-        <a href="https://getbreakai.com/#vip-vault" class="btn-checkout btn-checkout-secondary">
-          🔔 Web VIP Vault シグナル設定へ →
+        <a href="https://getbreakai.com/jp/?unlock=1#vip-vault" class="btn-checkout btn-checkout-secondary">
+          🔔 Web VIP Vault データ一覧へ →
         </a>
       </div>
     </div>
 
     <!-- お困りの場合のサポート案内 -->
     <div class="card" style="padding:22px; text-align:center;">
-      <h3 style="font-size:1rem; margin-bottom:8px; color:var(--text-main);">🛎️ サポート・お問い合わせ</h3>
+      <h3 style="font-size:1rem; margin-bottom:8px; color:var(--text-main);">🛎️ サポート・14日間返金保証窓口</h3>
       <p style="font-size:0.86rem; color:var(--text-muted); line-height:1.6;">
-        ライセンスキーの再送や認証に関するご不明点は、公式サポートデスク <a href="mailto:beable9489@gmail.com" style="color:var(--accent-sky); font-weight:700;">beable9489@gmail.com</a> までお気軽にご連絡ください。<br>
+        ライセンスキーの再送・認証サポートや14日間返金保証のご相談は、公式サポートデスク <a href="mailto:beable9489@gmail.com" style="color:var(--accent-sky); font-weight:700;">beable9489@gmail.com</a> までお気軽にご連絡ください。<br>
         年中無休・原則24時間以内に日本語および英語で対応いたします。
       </p>
     </div>
@@ -683,15 +701,21 @@
 
   <footer>
     <div style="margin-bottom:8px;">
-      <a href="https://getbreakai.com/">ホーム</a>
-      <a href="https://getbreakai.com/#pricing">料金プラン</a>
-      <a href="https://getbreakai.com/#vip-vault">Web VIP Vault</a>
+      <a href="/jp/">ホーム (/jp/)</a>
+      <a href="/jp/terms.html">利用規約</a>
+      <a href="/jp/privacy.html">プライバシーポリシー</a>
+      <a href="/jp/refund.html">14日間返金ポリシー</a>
+      <a href="/terms.html">Terms</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/refund.html">Refund</a>
       <a href="https://www.youtube.com/@GetBreakAI" target="_blank" rel="noopener">公式YouTube (@GetBreakAI)</a>
-      <a href="https://getbreakai.com/jp/">新NISA計算ハブ</a>
       <a href="mailto:beable9489@gmail.com">サポート (beable9489@gmail.com)</a>
     </div>
+    <div style="font-size:0.78rem; max-width:860px; margin:6px auto;">
+      免責事項：当サイトは公開市場データの可視化および数学的シミュレーションツール（教育・情報提供目的）であり、金融商品取引法上の投資助言・代理業や個別銘柄の売買推奨を行うものではありません。
+    </div>
     <div style="font-size:0.76rem;">
-      &copy; 2026 GetBreakAI &amp; TruthOfMarket Analytics (Store #296100). All rights reserved.
+      &copy; 2026 GetBreakAI &amp; KIDS-FIT Global Studio (Lemon Squeezy Store #296100). All rights reserved.
     </div>
   </footer>
 

@@ -7,130 +7,102 @@ const path = require('node:path');
 
 const ROOT = path.resolve(__dirname, '..');
 const INDEX_PATH = path.join(ROOT, 'index.html');
+const JP_INDEX_PATH = path.join(ROOT, 'jp', 'index.html');
 const SITEMAP_PATH = path.join(ROOT, 'sitemap.xml');
 const JP_DIR = path.join(ROOT, 'jp');
+const DIST_DIR = path.join(ROOT, 'dist');
 const WORKFLOW_PATH = path.join(ROOT, '.github', 'workflows', 'getbreakai_jp_autopilot.yml');
 
-test('STEP 1: 100% Native Japanese Localization & USD/JPY Dual Sizer in index.html', () => {
-  const html = fs.readFileSync(INDEX_PATH, 'utf8');
-  assert.match(html, /<html lang="ja"/);
-  assert.match(html, /Noto\+Sans\+JP/);
-  assert.ok(html.includes('ウォール街の英語'));
-  assert.ok(html.includes('新NISA・米国株スイング投資家のためのATR損切り＆適正株数ターミナル'));
-  assert.ok(html.includes('🔰 3ステップで完了：米国株機関投資家シグナル＆ATRリスク管理ガイド'));
-  assert.ok(html.includes('🟢 AI日本語アクションプラン・適正株数＆損切りライン'));
-  assert.ok(html.includes('🔴 エントリー禁止 / 会計リスク・ダークプール機関売り警告 (DO NOT BUY / AVOID)'));
-  assert.ok(html.includes('📤 X(Twitter)で銘柄シグナルを共有'));
-  assert.ok(html.includes('USD_JPY_RATE = 150.0'));
+const MANDATORY_DISCLAIMER = '免責事項：当サイトは公開市場データの可視化および数学的シミュレーションツール（教育・情報提供目的）であり、金融商品取引法上の投資助言・代理業や個別銘柄の売買推奨を行うものではありません。';
+const FSA_HYBRID_PHRASE = '『新NISA 適格（四半期配当 VYM・HDV・1489・オルカン・S&P500 時間差組み合わせ）＋ 特定口座（毎月分配 SGOV・JEPI）ハイブリッド設計』';
+
+test('STEP 1: Unified Root /index.html & /jp/index.html 50-70s Shin-NISA Hybrid Cashflow Edition', () => {
+  for (const [label, fp] of [['index.html', INDEX_PATH], ['jp/index.html', JP_INDEX_PATH]]) {
+    const html = fs.readFileSync(fp, 'utf8');
+    assert.match(html, /<html lang="ja" data-jp-theme="light">/);
+    assert.ok(!/[가-힣ㄱ-ㅎㅏ-ㅣ]/.test(html), `${label} must have 0 Hangul`);
+    assert.ok(!/telegram|t\.me|semifeargreedbot|テレグラム/i.test(html), `${label} must have 0 Telegram references`);
+    assert.ok(html.includes('id="gba-retirement-architect-jp"'), `${label} must preserve #gba-retirement-architect-jp`);
+    assert.ok(html.includes('id="gbaMorningClubJp"'), `${label} must preserve #gbaMorningClubJp`);
+    assert.ok(html.includes('id="gba-jp-passwordless-signup"'), `${label} must preserve #gba-jp-passwordless-signup`);
+    assert.ok(html.includes('id="gba-jp-club-email"'), `${label} must include #gba-jp-club-email`);
+    assert.ok(!html.includes('gbaJpPwlessEmail'), `${label} must not reference non-existent #gbaJpPwlessEmail`);
+    assert.ok(html.includes('id="gbaFreeStarterManualJp"'), `${label} must preserve #gbaFreeStarterManualJp`);
+    assert.ok(html.includes(FSA_HYBRID_PHRASE), `${label} must display FSA Shin-NISA Hybrid phrase`);
+    assert.ok(html.includes(MANDATORY_DISCLAIMER), `${label} must display mandatory FIEA disclaimer`);
+    assert.ok(!/['"]\/\?unlock=1#vip-vault/.test(html), `${label} must never point to old root /?unlock=1#vip-vault`);
+    assert.ok(html.includes('/jp/?unlock=1#vip-vault'), `${label} must route VIP unlock to /jp/?unlock=1#vip-vault`);
+  }
 });
 
-test('STEP 5: Japanese Securities (SBI/Kabutan/Buffett-Code) High-Trust Fintech UI/UX', () => {
-  const html = fs.readFileSync(INDEX_PATH, 'utf8');
-  assert.ok(html.includes('data-jp-theme="light"'), 'Default theme must be High-Trust Japanese Financial Light/Navy');
-  assert.ok(html.includes('id="btnToggleJpTheme"'), 'Must include 1-click Dark/Light theme switcher');
-  assert.ok(html.includes('SBI証券・楽天証券・マネックス対応'), 'Must include Japanese brokerage compatibility badge');
-  assert.ok(html.includes('id="gbQuickMatrixTable"'), 'Must include Kabutan-style at-a-glance quick matrix table');
-  assert.ok(html.includes('setJpAccountPreset('), 'Must include 1-tap Japanese Yen capital preset buttons (100万円~1,200万円 新NISA枠)');
-  assert.ok(html.includes('setJpFxRate('), 'Must include 1-tap USD/JPY exchange rate preset buttons (145円~160円)');
-  assert.ok(html.includes('id="gbVisualRangeBar"'), 'Must include visual price range thermometer bar');
-  assert.ok(html.includes('id="gbJpTaxAndFxBox"'), 'Must include Japanese US-stock Tax (NISA 0% vs Tokutei 20.315%), Commission & FX simulator');
-  assert.ok(html.includes("setJpTaxMode('nisa')") && html.includes("setJpTaxMode('tokutei')"), 'Must include NISA vs Tokutei tax mode toggle');
-  assert.ok(html.includes('id="jp-faq"'), 'Must include Japanese buyer Q&A section');
-  assert.ok(html.includes('class="jp-mobile-bottom-nav"'), 'Must include smartphone one-handed sticky bottom navigation bar');
-});
-
-test('STEP 2: Japanese 3x Checkout Conversion Boosters & Store #296100 Live Checkout Links', () => {
-  const html = fs.readFileSync(INDEX_PATH, 'utf8');
-  assert.ok(!html.includes('kidsfit.lemonsqueezy.com'), 'Must not contain kidsfit.lemonsqueezy.com');
-  assert.ok(!html.includes('gb-starter-29') && !html.includes('gb-pro-49') && !html.includes('gb-inst-1499'), 'Must not contain broken 404 checkout slugs');
-  assert.ok(!/telegram|t\.me|semifeargreedbot/i.test(html), 'Must contain ZERO Telegram/SemifearGreedbot references');
-  assert.ok(html.includes('d5e7e761-8b1b-4ca8-b1fe-771acd1450f8'));
-  assert.ok(html.includes('667aa482-f17c-47d1-b7f3-a2427c36516b'));
-  assert.ok(html.includes('https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html'));
-  assert.ok(html.includes('https://truthofmarket.lemonsqueezy.com/checkout/buy/667aa482-f17c-47d1-b7f3-a2427c36516b?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html'));
-  assert.ok(html.includes('mailto:beable9489@gmail.com'));
-  assert.ok(html.includes('$29'));
-  assert.ok(html.includes('$199'));
-  assert.ok(html.includes('43%OFF'));
-  assert.ok(html.includes('https://www.youtube.com/@GetBreakAI'));
-  assert.ok(html.includes('🔒 Stripe / Lemon Squeezy 安全決済（🍎 Apple Pay・Google Pay・JCB・Visa・Master・PayPal 対応 / いつでも1クリックで解約可能）'));
-  assert.ok(html.includes('🔑 決済完了後、メールで届くライセンスキー（XXXX-XXXX-...）を入力すると即座にVIP全機能が解放されます。'));
+test('STEP 2: PAYMENT_CONFIG, STORE_LIVE_READY:false, VIP Waitlist Modal & 6 Legal Pages', () => {
+  const html = fs.readFileSync(JP_INDEX_PATH, 'utf8');
+  assert.ok(html.includes('window.PAYMENT_CONFIG'), 'Must define window.PAYMENT_CONFIG');
+  assert.ok(html.includes('STORE_LIVE_READY: false'), 'Must default STORE_LIVE_READY: false');
+  assert.ok(html.includes('FINANCE_STORE_SLOT'), 'Must define FINANCE_STORE_SLOT');
+  assert.ok(html.includes('PEDIATRIC_STORE_SLOT'), 'Must define PEDIATRIC_STORE_SLOT');
+  assert.ok(html.includes('d5e7e761-8b1b-4ca8-b1fe-771acd1450f8?embed=1&locale=ja'));
+  assert.ok(html.includes('667aa482-f17c-47d1-b7f3-a2427c36516b?embed=1&locale=ja'));
+  assert.ok(html.includes('c1cd7f12-3479-49e8-ab71-59c98135d599'));
+  assert.ok(html.includes('c562946d-ef68-4c2f-a802-df9da0179895'));
+  assert.ok(html.includes('月額 $29 / 約4,400円（税込）'));
+  assert.ok(html.includes('年額 $199（約30,000円・税込）'));
+  assert.ok(html.includes('VIP創設メンバー先行案内＆早期20%割引クーポン予約（1秒メール登録）'));
+  assert.ok(html.includes("segment: 'vip_waitlist'"));
   assert.ok(html.includes('Checkout.Success'));
-  assert.ok(html.includes('特定商取引法に基づく表記'));
-  assert.ok(html.includes('利用規約'));
-  assert.ok(html.includes('プライバシーポリシー'));
-  assert.ok(html.includes('返金ポリシー'));
-  assert.ok(html.includes('1つのProライセンスキーで'));
-  assert.ok(fs.existsSync(path.join(ROOT, 'confirmation.html')), 'confirmation.html must exist');
-  assert.ok(fs.existsSync(path.join(JP_DIR, 'confirmation.html')), 'jp/confirmation.html must exist');
+  assert.ok(html.includes('mailto:beable9489@gmail.com'));
+  assert.ok(html.includes('read_complete'));
+  assert.ok(html.includes('このマニュアルをメールで受け取る（無料倶楽部登録）'));
+  assert.ok(html.includes('Instagram|FBAN|FBAV|KAKAOTALK'));
+
+  for (const rel of [
+    'terms.html', 'privacy.html', 'refund.html',
+    'jp/terms.html', 'jp/privacy.html', 'jp/refund.html',
+    'dist/terms.html', 'dist/privacy.html', 'dist/refund.html',
+    'dist/jp/terms.html', 'dist/jp/privacy.html', 'dist/jp/refund.html'
+  ]) {
+    assert.ok(fs.existsSync(path.join(ROOT, rel)), `Required legal page must exist: ${rel}`);
+  }
 });
 
-test('STEP 3: 6 Technical Defect Fixes (VIP Paywall Lock + Auto-Activate, Live Sync, Abacus Beacon, OG/JSON-LD, Deep-Link)', () => {
-  const html = fs.readFileSync(INDEX_PATH, 'utf8');
-  assert.ok(html.includes('https://api.lemonsqueezy.com/v1/licenses/validate'));
-  assert.ok(html.includes('https://api.lemonsqueezy.com/v1/licenses/activate'));
-  assert.ok(html.includes('GetBreakAI-Web-Terminal'));
-  assert.ok(html.includes('./static_api/stocks_free.json'));
-  assert.ok(fs.existsSync(path.join(ROOT, 'static_api', 'stocks_free.json')));
-  assert.ok(html.includes('🔒 [VIP限定] Proライセンスキー認証後にPine Script v5全文およびTradingViewウォッチリストをコピーできます'));
-  assert.ok(html.includes('gba_getbreakai'));
-  assert.ok(html.includes('paid_click_'));
-  assert.ok(html.includes('hreflang="ja"'));
-  assert.ok(fs.existsSync(path.join(ROOT, 'og-preview.png')));
-  assert.ok(fs.statSync(path.join(ROOT, 'og-preview.png')).size > 30000);
-  assert.ok(fs.existsSync(path.join(ROOT, 'scripts', 'sync_getbreakai_live_data.py')));
-  assert.ok(fs.existsSync(path.join(ROOT, 'data', 'live_market_snapshot.json')));
-});
-
-test('STEP 4.1: 30 Japanese Static SEO Research Pages (/jp/*.html) >= 2,500 chars + Sitemap', () => {
+test('STEP 3: 30 Japanese Static SEO Research Pages (/jp/*.html) + Canonical Sitemap (0 Redirects)', () => {
+  const excluded = new Set([
+    'index.html', 'confirmation.html', 'daily-nisa-quant-report.html',
+    'terms.html', 'privacy.html', 'refund.html', 'contact.html'
+  ]);
   const files = fs.readdirSync(JP_DIR).filter(f =>
-    f.endsWith('.html') &&
-    f !== 'index.html' &&
-    f !== 'confirmation.html' &&
-    f !== 'daily-nisa-quant-report.html' &&
-    !/^google[a-z0-9]+\.html$/i.test(f)
+    f.endsWith('.html') && !excluded.has(f) && !/^google[a-z0-9]+\.html$/i.test(f)
   );
   assert.equal(files.length, 30, 'Must have exactly 30 Japanese SEO research pages');
-  const requiredSlugs = [
-    'nvda-sec-gamma-atr-analysis.html',
-    'pltr-insider-buying-analysis.html',
-    'tsla-gamma-wall-swing-trade.html',
-    'soxl-smh-semiconductor-timing.html',
-    'smci-accounting-risk-warning.html',
-    'shin-nisa-us-stock-atr-risk-management.html'
-  ];
-  for (const slug of requiredSlugs) {
-    assert.ok(files.includes(slug), `Missing required SEO slug: ${slug}`);
-  }
+
   for (const f of files) {
     const content = fs.readFileSync(path.join(JP_DIR, f), 'utf8');
     const textOnly = content.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>|<[^>]+>/g, '').trim();
     assert.ok(textOnly.length >= 2500, `${f} visible text length (${textOnly.length}) must be >= 2500 chars`);
+    assert.ok(!/[가-힣ㄱ-ㅎㅏ-ㅣ]/.test(content), `${f} must have 0 Hangul`);
+    assert.ok(!/telegram|t\.me|semifeargreedbot|テレグラム/i.test(content), `${f} must have 0 Telegram`);
+    assert.ok(!/機関投資家機関投資家|機関需給\s*Squeeze|SEC\s*Form\s*公式業績発表/.test(content), `${f} must have 0 machine-replaced typos`);
+    assert.ok(content.includes('window.PAYMENT_CONFIG'), `${f} must include window.PAYMENT_CONFIG`);
+    assert.ok(content.includes('/hq_member_crm_client.js'), `${f} must load hq_member_crm_client.js`);
+    assert.ok(content.includes('月額 $29 / 約4,400円（税込）'), `${f} must display JPY monthly price`);
+    assert.ok(content.includes(MANDATORY_DISCLAIMER), `${f} must display mandatory FIEA disclaimer`);
+    assert.ok(content.includes(FSA_HYBRID_PHRASE), `${f} must include FSA Shin-NISA Hybrid guidance`);
+    assert.ok(content.includes('read_complete'), `${f} must include read_complete beacon`);
     assert.ok(content.includes('FAQPage'), `${f} must include FAQPage JSON-LD`);
-    assert.ok(content.includes('recalcMiniWidget'), `${f} must include interactive Mini ATR calculator widget`);
+    assert.ok(content.includes('recalcMiniWidget'), `${f} must include interactive Mini calculator`);
   }
-  const sitemap = fs.readFileSync(SITEMAP_PATH, 'utf8');
-  assert.ok(sitemap.includes('https://getbreakai.com/jp/nvda-sec-gamma-atr-analysis.html'));
-});
 
-test('STEP 4.2 & 4.3: Japanese Shorts (.mp4), Summary Cards (.png), 10 X Posts & GitHub Actions Autopilot Workflow', () => {
+  const hubHtml = fs.readFileSync(JP_INDEX_PATH, 'utf8');
+  assert.ok(!hubHtml.includes('soxl-smh-semiconductor-timing.html'), 'Hub must de-feature SOXL 3x leveraged article');
+
+  const sitemap = fs.readFileSync(SITEMAP_PATH, 'utf8');
+  assert.ok(sitemap.includes('<loc>https://getbreakai.com/</loc>'));
+  assert.ok(sitemap.includes('<loc>https://getbreakai.com/jp/</loc>'));
+  assert.ok(!sitemap.includes('index.html</loc>'), 'sitemap.xml must never contain /index.html redirect URLs');
+  assert.ok(sitemap.includes('<loc>https://getbreakai.com/jp/terms.html</loc>'));
+  assert.ok(sitemap.includes('<loc>https://getbreakai.com/jp/privacy.html</loc>'));
+  assert.ok(sitemap.includes('<loc>https://getbreakai.com/jp/refund.html</loc>'));
   assert.ok(fs.existsSync(WORKFLOW_PATH), 'getbreakai_jp_autopilot.yml must exist');
-  const outboxBase = path.join(ROOT, 'marketing_outbox_jp');
-  const dateFolders = fs.readdirSync(outboxBase).filter(d => /^\d{4}-\d{2}-\d{2}$/.test(d)).sort();
-  assert.ok(dateFolders.length >= 1, 'Must have at least 1 dated folder in marketing_outbox_jp');
-  const latestDir = path.join(outboxBase, dateFolders[dateFolders.length - 1]);
-  for (const mp4 of ['jp_shorts_01_NVDA_gamma_atr.mp4', 'jp_shorts_02_PLTR_sec8k_atr.mp4', 'jp_shorts_03_TSLA_gex_atr.mp4']) {
-    const p = path.join(latestDir, mp4);
-    assert.ok(fs.existsSync(p), `Missing Japanese Shorts MP4: ${mp4}`);
-    assert.ok(fs.statSync(p).size > 50000, `${mp4} must be a valid non-empty MP4 file`);
-  }
-  for (const png of ['card_01_NVDA_signal.png', 'card_02_PLTR_signal.png', 'card_03_TSLA_signal.png']) {
-    assert.ok(fs.existsSync(path.join(latestDir, png)), `Missing Japanese X Summary Card: ${png}`);
-  }
-  const xPosts = JSON.parse(fs.readFileSync(path.join(latestDir, 'x_posts_10.json'), 'utf8'));
-  assert.equal(xPosts.length, 10, 'Must have 10 Japanese X posts');
-  assert.ok(fs.existsSync(path.join(latestDir, 'note_com_article_jp.md')));
-  assert.ok(fs.existsSync(path.join(latestDir, 'yt_ig_reels_kit_jp.md')), 'Must generate YouTube Shorts & Instagram Reels copy-paste kit');
-  assert.ok(fs.existsSync(path.join(JP_DIR, 'feed.xml')), 'Must generate /jp/feed.xml RSS 2.0 feed');
-  assert.ok(fs.existsSync(path.join(JP_DIR, 'x-feed.xml')), 'Must generate /jp/x-feed.xml X/Threads auto-post RSS feed');
+  assert.ok(fs.existsSync(path.join(JP_DIR, 'feed.xml')));
+  assert.ok(fs.existsSync(path.join(JP_DIR, 'x-feed.xml')));
 });

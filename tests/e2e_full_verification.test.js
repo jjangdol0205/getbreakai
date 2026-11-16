@@ -200,13 +200,15 @@ test('Tier 1.1: Lemon Squeezy 3-Tier SaaS on Live Store #296100', () => {
   assert.ok(plans.institutional_enterprise, 'Must configure institutional_enterprise (mailto inquiry)');
   assert.equal(plans.institutional_enterprise.checkoutUrl, 'mailto:beable9489@gmail.com');
 
-  // 2. Verify index.html contains live UUID checkout buttons and zero broken 404 slugs
+  // 2. Verify index.html contains live UUID checkout buttons, PAYMENT_CONFIG, and zero broken 404 slugs
   const indexHtml = fs.readFileSync(INDEX_HTML_PATH, 'utf8');
+  assert.ok(indexHtml.includes('window.PAYMENT_CONFIG'));
+  assert.ok(indexHtml.includes('STORE_LIVE_READY: false'));
   assert.ok(indexHtml.includes('d5e7e761-8b1b-4ca8-b1fe-771acd1450f8'));
   assert.ok(indexHtml.includes('667aa482-f17c-47d1-b7f3-a2427c36516b'));
   assert.ok(indexHtml.includes('mailto:beable9489@gmail.com'));
-  assert.ok(indexHtml.includes('truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html'));
-  assert.ok(indexHtml.includes('truthofmarket.lemonsqueezy.com/checkout/buy/667aa482-f17c-47d1-b7f3-a2427c36516b?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html'));
+  assert.ok(indexHtml.includes('truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8?embed=1&locale=ja'));
+  assert.ok(indexHtml.includes('truthofmarket.lemonsqueezy.com/checkout/buy/667aa482-f17c-47d1-b7f3-a2427c36516b?embed=1&locale=ja'));
 
   // 3. Dynamic checkout URL generator
   const customCheckout = createCheckoutUrl('pro_annual', {
@@ -255,11 +257,11 @@ test('Tier 1.2: Dual-Market Quant Coverage (TSE Prime vs US Tech Equities)', () 
     assert.ok(item.target_25r > item.entry);
   }
 
-  // Verify index.html contains matrix filter buttons for dual market
+  // Verify index.html contains unified 50-70s Shin-NISA & TSE/US stock presets
   const indexHtml = fs.readFileSync(INDEX_HTML_PATH, 'utf8');
-  assert.ok(indexHtml.includes("filterMatrixMarket('all', this)"), 'Matrix must have all filter');
-  assert.ok(indexHtml.includes("filterMatrixMarket('tse', this)"), 'Matrix must have tse filter');
-  assert.ok(indexHtml.includes("filterMatrixMarket('us', this)"), 'Matrix must have us filter');
+  assert.ok(indexHtml.includes("setQuickStock('1489'"), 'Hub must have 1489 preset');
+  assert.ok(indexHtml.includes("setQuickStock('VYM'"), 'Hub must have VYM preset');
+  assert.ok(indexHtml.includes("setQuickStock('HDV'"), 'Hub must have HDV preset');
 });
 
 test('Tier 1.3: Donchian & ATR Calculator Engine in JPY and USD', () => {
@@ -414,55 +416,37 @@ test('Tier 3.1: Theme Toggle & Responsive Navigation Component States', () => {
   assert.ok(confirmHtml.includes('function toggleJpTheme()'));
 
   // 2. Responsive mobile bottom navigation bar exists with valid anchors
-  assert.ok(indexHtml.includes('class="jp-mobile-bottom-nav"'));
-  assert.ok(indexHtml.includes('href="#radar"'));
-  assert.ok(indexHtml.includes('href="#gbQuickMatrixSection"'));
-  assert.ok(indexHtml.includes('href="#vip-vault"'));
+  assert.ok(indexHtml.includes('.jp-mobile-bottom-nav'));
+  assert.ok(indexHtml.includes('href="#gba-retirement-architect-jp"'));
+  assert.ok(indexHtml.includes('href="#gba-jp-passwordless-signup"'));
+  assert.ok(indexHtml.includes('href="#gbaFreeStarterManualJp"'));
   assert.ok(indexHtml.includes('href="#pricing"'));
 
   // 3. Responsive media queries configured
   assert.ok(indexHtml.includes('(max-width: 768px)'));
-  assert.ok(indexHtml.includes('(max-width: 1024px)'));
+  assert.ok(indexHtml.includes('(max-width: 920px)'));
 });
 
-test('Tier 3.2: Market Selector + Preset Sync + Action Plan Synchronization', () => {
+test('Tier 3.2: Retirement Cashflow Simulator + Preset Sync + Hybrid Tax Toggle', () => {
   const indexHtml = fs.readFileSync(INDEX_HTML_PATH, 'utf8');
 
-  // Account capital presets (Japanese Yen: 100万, 300万, 600万, 1200万)
-  assert.ok(indexHtml.includes('setJpAccountPreset('));
-  assert.ok(indexHtml.includes('setJpFxRate('));
-  assert.ok(indexHtml.includes('setJpTaxMode('));
-
-  // Visual Range Thermometer Bar
-  assert.ok(indexHtml.includes('id="gbVisualRangeBar"'));
-  assert.ok(indexHtml.includes('id="barStopVal"'));
-  assert.ok(indexHtml.includes('id="barEntryVal"'));
-  assert.ok(indexHtml.includes('id="barWallVal"'));
-  assert.ok(indexHtml.includes('id="barTargetVal"'));
-
-  // Action plan box
-  assert.ok(indexHtml.includes('id="gbPlainEnglishActionBox"'));
-  assert.ok(indexHtml.includes('id="gbPlainRewardBadge"'));
+  assert.ok(indexHtml.includes('setGbaRetirePreset('));
+  assert.ok(indexHtml.includes('recalcGbaRetireJp()'));
+  assert.ok(indexHtml.includes('setJpHubTaxMode('));
+  assert.ok(indexHtml.includes('setQuickCapital('));
+  assert.ok(indexHtml.includes('id="gba-retirement-architect-jp"'));
+  assert.ok(indexHtml.includes('id="gbaSeniorCoreStripJp"'));
+  assert.ok(indexHtml.includes('id="jpQuickCalcSection"'));
 });
 
-test('Tier 3.3: VIP Vault Paywall Gate & Real-Time Unlock State Flow', () => {
+test('Tier 3.3: VIP Vault Paywall Gate, Waitlist Modal & Real-Time Unlock State Flow', () => {
   const indexHtml = fs.readFileSync(INDEX_HTML_PATH, 'utf8');
 
-  // 1. VIP vault lock functions exist
-  assert.ok(indexHtml.includes('function hasValidStoredVipSession()'));
-  assert.ok(indexHtml.includes('function requireVipOrScrollToPricing('));
-  assert.ok(indexHtml.includes('function unlockGbVipVault('));
-  assert.ok(indexHtml.includes('function renderVipVaultState()'));
-
-  // 2. VIP features gated before unlock
-  assert.ok(indexHtml.includes('downloadGbCatalystCsv()'));
-  assert.ok(indexHtml.includes('downloadGbInsiderCsv()'));
-  assert.ok(indexHtml.includes('copyGbPineScript()'));
-  assert.ok(indexHtml.includes('copyGbTvWatchlist()'));
-  assert.ok(indexHtml.includes('copyGbWebhookJson()'));
-
-  // 3. Lemon.js Checkout.Success auto-unlock hook
-  assert.ok(indexHtml.includes('Lemon.js Checkout.Success'));
+  assert.ok(indexHtml.includes('function syncStoredVipKeysOnHub()'));
+  assert.ok(indexHtml.includes('async function unlockJpHubVipVault()'));
+  assert.ok(indexHtml.includes('window.openGbaVipWaitlistModal'));
+  assert.ok(indexHtml.includes('window.submitGbaVipWaitlist'));
+  assert.ok(indexHtml.includes('Checkout.Success'));
   assert.ok(indexHtml.includes("localStorage.setItem('gb_vip_unlocked', 'true')"));
 });
 

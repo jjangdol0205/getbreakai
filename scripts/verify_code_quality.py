@@ -122,7 +122,10 @@ def validate_html_link_integrity():
     print("=" * 72)
 
     # Required target HTML files
-    target_files = ['index.html', 'confirmation.html', 'jp/index.html', 'jp/confirmation.html']
+    target_files = [
+        'index.html', 'confirmation.html', 'terms.html', 'privacy.html', 'refund.html', 'contact.html',
+        'jp/index.html', 'jp/confirmation.html', 'jp/terms.html', 'jp/privacy.html', 'jp/refund.html', 'jp/contact.html'
+    ]
     jp_articles = glob.glob(os.path.join(PROJECT_ROOT, 'jp', '*.html'))
     for jpa in jp_articles:
         rel = os.path.relpath(jpa, PROJECT_ROOT).replace('\\', '/')
@@ -344,11 +347,13 @@ def validate_build():
     try:
         with open(sitemap_path, 'r', encoding='utf-8') as f:
             sitemap_content = f.read()
-        if 'https://getbreakai.com/' not in sitemap_content or 'https://getbreakai.com/jp/index.html' not in sitemap_content:
-            errors.append("sitemap.xml missing root or jp/index.html location")
+        if '<loc>https://getbreakai.com/</loc>' not in sitemap_content or '<loc>https://getbreakai.com/jp/</loc>' not in sitemap_content:
+            errors.append("sitemap.xml missing canonical root (/) or /jp/ location")
+        elif 'index.html</loc>' in sitemap_content:
+            errors.append("sitemap.xml must not contain /index.html redirect loc entries")
         else:
             loc_count = sitemap_content.count('<loc>')
-            print(f"  ✓ [PASS] sitemap.xml verified: {loc_count} URLs indexed")
+            print(f"  ✓ [PASS] sitemap.xml verified: {loc_count} canonical URLs indexed (0 index.html redirects)")
     except Exception as e:
         errors.append(f"Failed to read sitemap.xml: {e}")
 

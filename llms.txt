@@ -1,14 +1,17 @@
-# GetBreakAI — Institutional Breakout & ATR Position-Sizing Quant Terminal (https://getbreakai.com)
+# GetBreakAI — Japanese 50-70s Shin-NISA & Retirement Cashflow Calculator Software (https://getbreakai.com/jp/)
 
-> Updated: 2026-11-16 | Multi-currency (USD / JPY) 20-Day Donchian Breakout, 2.0x ATR Mechanical Stop-Loss, and Japan Shin-NISA (0% Tax-Free) vs Specific Account (20.315%) Net Return Simulator.
+> Updated: 2026-11-16 | Self-Directed Public Market Data Visualization & Dividend / Asset-Allocation Calculator Software (FSA Shin-NISA Eligible VYM/HDV/1489/All-Country/S&P500 + Tokutei Account SGOV/JEPI Hybrid Architecture).
 
-## 1. Live Quantitative Terminals
-- Global English Terminal: https://getbreakai.com/
-- Japan Shin-NISA & US/TSE Quant Terminal: https://getbreakai.com/jp/
-- Daily Japanese NISA Quant Report: https://getbreakai.com/jp/daily-nisa-quant-report.html
+## 1. Core Japanese Calculators & Legal Pages
+- Main Retirement & Shin-NISA Hub: https://getbreakai.com/jp/
+- Root Canonical Mirror: https://getbreakai.com/
+- Daily Public Market Data Report: https://getbreakai.com/jp/daily-nisa-quant-report.html
+- Terms of Service: https://getbreakai.com/jp/terms.html
+- Privacy Policy: https://getbreakai.com/jp/privacy.html
+- 14-Day Refund Policy: https://getbreakai.com/jp/refund.html
 - Japanese Research RSS Feed: https://getbreakai.com/jp/feed.xml
 
-## 2. Featured Japanese Institutional Research Guides (/jp/)
+## 2. Featured Japanese Public Market Data & Shin-NISA Guides (/jp/)
 - https://getbreakai.com/jp/aapl-apple-intelligence-cycle-gex.html
 - https://getbreakai.com/jp/ai-datacenter-power-stocks-2026.html
 - https://getbreakai.com/jp/amd-mi350-gamma-squeeze-target.html
@@ -26,7 +29,6 @@
 - https://getbreakai.com/jp/lly-form4-insider-cluster-buy.html
 - https://getbreakai.com/jp/meta-ai-capex-earnings-nlp.html
 - https://getbreakai.com/jp/msft-azure-ai-copilot-sec-8k.html
-- https://getbreakai.com/jp/mstr-bitcoin-volatility-atr-sizing.html
 - https://getbreakai.com/jp/nvda-sec-gamma-atr-analysis.html
 - https://getbreakai.com/jp/options-gamma-squeeze-gex-guide.html
 - https://getbreakai.com/jp/pltr-insider-buying-analysis.html
@@ -34,7 +36,6 @@
 - https://getbreakai.com/jp/semiconductor-cycle-truthofmarket-guide.html
 - https://getbreakai.com/jp/shin-nisa-us-stock-atr-risk-management.html
 - https://getbreakai.com/jp/smci-accounting-risk-warning.html
-- https://getbreakai.com/jp/soxl-smh-semiconductor-timing.html
 - https://getbreakai.com/jp/tradingview-pine-script-v5-atr-guide.html
 - https://getbreakai.com/jp/tsla-gamma-wall-swing-trade.html
 - https://getbreakai.com/jp/unh-defensive-healthcare-insider-buy.html

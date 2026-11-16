@@ -3,15 +3,9 @@
 """
 Division 3 / scripts/generate_jp_daily_column_html.py
 =====================================================
-Generates `/jp/daily-nisa-quant-report.html` — Daily Japanese FinTech & Shin-NISA
-Quantitative Breakout Editorial Column synced from `data/live_market_snapshot.json`.
-
-Strict Guardrails:
-  - 100% Japanese + English Tickers ONLY (Zero Hangul).
-  - Zero Telegram references ("Telegram", "t.me", "テレグラム", "SemifearGreedbot" = 0).
-  - Preserves Lemon Squeezy Store #296100 Live UUIDs:
-      Monthly Pro ($29/mo): d5e7e761-8b1b-4ca8-b1fe-771acd1450f8
-      Annual Pro VIP ($199/yr): 667aa482-f17c-47d1-b7f3-a2427c36516b
+Generates `/jp/daily-nisa-quant-report.html` — Daily Japanese Shin-NISA & Tokutei Hybrid
+Public Market Data & Retirement Cashflow Editorial Column synced from `data/live_market_snapshot.json`.
+Strictly Zero-Hangul, Zero-Chat-App, MoR/FIEA & Japanese FSA Shin-NISA Hybrid Compliant.
 """
 
 from __future__ import annotations
@@ -23,19 +17,38 @@ import pathlib
 import re
 import sys
 
-ROOT_DIR = pathlib.Path(__file__).resolve().parent.parent
-HQ_TEXT_DIR = ROOT_DIR.parent / "text_automation_hq"
-if str(HQ_TEXT_DIR) not in sys.path:
-    sys.path.insert(0, str(HQ_TEXT_DIR))
+SCRIPT_DIR = pathlib.Path(__file__).resolve().parent
+ROOT_DIR = SCRIPT_DIR.parent
+if str(SCRIPT_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPT_DIR))
 
-from fandom_editor_letter_builder import build_html_morning_letter_and_stamp_card  # noqa: E402
+from gba_mor_nisa_shared import (  # noqa: E402
+    LS_MONTHLY_UUID,
+    LS_ANNUAL_UUID,
+    LS_MONTHLY_URL_HTML,
+    LS_ANNUAL_URL_HTML,
+    PRICE_LABEL_MONTHLY_JP,
+    PRICE_LABEL_ANNUAL_JP,
+    MANDATORY_DISCLAIMER_JP,
+    FSA_HYBRID_PHRASE_JP,
+    build_payment_and_kpi_head_html,
+    build_mandatory_disclaimer_html,
+    build_starter_manual_modal_html,
+    build_vip_waitlist_modal_html,
+    build_legal_footer_html,
+)
 
 JP_DIR = ROOT_DIR / "jp"
 SNAP_PATH = ROOT_DIR / "data" / "live_market_snapshot.json"
 SITEMAP_PATH = ROOT_DIR / "sitemap.xml"
 
-LS_MONTHLY = "https://truthofmarket.lemonsqueezy.com/checkout/buy/d5e7e761-8b1b-4ca8-b1fe-771acd1450f8?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html&locale=ja"
-LS_ANNUAL = "https://truthofmarket.lemonsqueezy.com/checkout/buy/667aa482-f17c-47d1-b7f3-a2427c36516b?embed=1&checkout[redirect_url]=https://getbreakai.com/confirmation.html&locale=ja"
+
+def _build_morning_empathy_card(today_iso: str) -> str:
+    return f"""    <div style="background:#ffffff; border:1.5px solid #cbd5e1; border-left:5px solid #059669; border-radius:14px; padding:18px 20px; margin:1.2rem 0; color:#0f172a;">
+      <div style="font-size:0.88rem; font-weight:900; color:#065f46; margin-bottom:6px;">🍵 朝のゆとり老後＆資産守りレター · {html.escape(today_iso)}</div>
+      <p style="margin:0 0 8px; color:#1e293b; font-size:1.02rem;">おはようございます。昨夜の相場ニュースを見て「大切な新NISA枠や退職金が減ってしまったらどうしよう」と気になった方も、まずは温かいお茶を一口飲んで落ち着いてデータを確認しましょう。</p>
+      <p style="margin:0; color:#334155; font-size:0.98rem;"><strong>本日の小さな確認ポイント：</strong>ご自身の保有資産が{FSA_HYBRID_PHRASE_JP}のバランスから大きく偏っていないか、年2〜4回の穏やかな視点で点検しましょう。</p>
+    </div>"""
 
 
 def generate_daily_jp_column() -> str:
@@ -48,43 +61,37 @@ def generate_daily_jp_column() -> str:
             snap = {}
 
     today_iso = str(snap.get("market_bar_date") or snap.get("updated_date") or datetime.date.today().isoformat())
-    usdjpy = float(snap.get("usd_jpy") or snap.get("usdjpy") or 153.8)
+    usdjpy = float(snap.get("usd_jpy") or snap.get("usdjpy") or 150.0)
     tickers = snap.get("tickers", {})
 
     default_rows = [
-        ("NVDA", "エヌビディア", 142.50, 5.10),
-        ("PLTR", "パランティア", 61.20, 2.85),
-        ("TSLA", "テスラ", 328.00, 14.20),
-        ("AVGO", "ブロードコム", 176.40, 6.10),
-        ("MSFT", "マイクロソフト", 425.00, 7.80),
+        ("VYM", "バンガード米国高配当株ETF（新NISA適格・四半期）", 134.50, 2.10),
+        ("MSFT", "マイクロソフト（新NISA成長枠・連続増配）", 448.20, 9.40),
+        ("AAPL", "アップル（新NISA成長枠・株主還元）", 232.80, 4.90),
+        ("NVDA", "エヌビディア（公開決算データ参考）", 186.64, 8.02),
+        ("AVGO", "ブロードコム（半導体・増配実績参考）", 293.69, 15.14),
     ]
     table_rows_html = ""
     for sym, jp_nm, fb_close, fb_atr in default_rows:
         info = tickers.get(sym, {}) if isinstance(tickers, dict) else {}
         close_p = float(info.get("entry") or info.get("close") or info.get("price") or fb_close)
         atr_v = float(info.get("atr") or info.get("atr14") or fb_atr)
-        stop_2atr = round(close_p - 2.0 * atr_v, 2)
-        tp_25r = round(close_p + 5.0 * atr_v, 2)
-        jpy_risk_per_share = int(round((2.0 * atr_v) * usdjpy))
-        shares_for_15k_jpy = max(1, int(15000 // max(jpy_risk_per_share, 1)))
+        band_low = round(max(0.5, close_p - 2.0 * atr_v), 2)
+        band_high = round(close_p + 5.0 * atr_v, 2)
+        jpy_band_per_share = int(round((2.0 * atr_v) * usdjpy))
+        shares_for_15k_jpy = max(1, int(15000 // max(jpy_band_per_share, 1)))
         table_rows_html += (
-            f"<tr><td><strong><a href=\"/jp/?ticker={sym}\">${sym} ({jp_nm})</a></strong></td>"
+            f'<tr><td><strong><a href="/jp/?ticker={sym}#jpQuickCalcSection">${sym} ({jp_nm})</a></strong></td>'
             f"<td>${close_p:.2f}</td><td>${atr_v:.2f}</td>"
-            f"<td style=\"color:#f87171;font-weight:700;\">${stop_2atr:.2f}</td>"
-            f"<td style=\"color:#34d399;font-weight:700;\">${tp_25r:.2f}</td>"
-            f"<td>{shares_for_15k_jpy}株 (許容損1.5万円基準)</td></tr>\n"
+            f'<td style="color:#be123c;font-weight:700;">${band_low:.2f}</td>'
+            f'<td style="color:#047857;font-weight:700;">${band_high:.2f}</td>'
+            f"<td>{shares_for_15k_jpy}株 (100万円あたり分散目安)</td></tr>\n"
         )
 
     canonical_url = "https://getbreakai.com/jp/daily-nisa-quant-report.html"
-    title = f"【朝の資産防衛レター・新NISA日報 {today_iso}】大切な老後資金を塩漬けから守る安全撤退ラインと特定口座(20.315%)手取り比較"
-    desc = f"{today_iso}最新：ドル円({usdjpy:.1f}円)連動のNVDA・PLTR・TSLA適正株数シミュレーション。新NISA成長投資枠(非課税0%)と特定口座(20.315%)の手取り比較。"
-    jp_morning_letter_html = build_html_morning_letter_and_stamp_card(
-        div_code="GBA",
-        date_str=today_iso,
-        empathy_line_1="おはようございます。昨夜の米国株ニュースを見て「大切な新NISA枠や老後資金が減ってしまったらどうしよう」と胸がざわついた方は、まず温かいお茶を一口飲んでご安心ください。",
-        empathy_line_2="長年コツコツ築いてこられた大切なご資産を深い塩漬け損から守るため、今朝も編集部があなたの味方として寄り添い、迷わない3色判断基準をお届けします。",
-        mission_text="今日1つだけ、ご自身の主力保有株（またはNVDA）の「安全撤退ライン（2.0倍ATR）」を手帳やメモに控えてから落ち着いて相場を確認しましょう。",
-    )
+    title = f"【朝のゆとり老後＆新NISA公開データ日報 {today_iso}】新NISA適格（VYM・HDV・1489）＋特定口座（SGOV・JEPI）ハイブリッド配分と手取り比較"
+    desc = f"{today_iso}更新：ドル円({usdjpy:.1f}円)連動の公開市場データと{FSA_HYBRID_PHRASE_JP}の非課税(0%) vs 特定口座(20.315%)比較。"
+    empathy_html = _build_morning_empathy_card(today_iso)
 
     ld_json = json.dumps(
         {
@@ -98,7 +105,7 @@ def generate_daily_jp_column() -> str:
                     "dateModified": today_iso,
                     "inLanguage": "ja",
                     "mainEntityOfPage": canonical_url,
-                    "author": {"@type": "Organization", "name": "GetBreakAI クオンツリサーチ部門", "url": "https://getbreakai.com/jp/"},
+                    "author": {"@type": "Organization", "name": "GetBreakAI Public Market Data Research", "url": "https://getbreakai.com/jp/"},
                 },
                 {
                     "@type": "FAQPage",
@@ -108,15 +115,15 @@ def generate_daily_jp_column() -> str:
                             "name": "新NISA成長投資枠と特定口座（源泉徴収あり20.315%）はどう使い分けるべきですか？",
                             "acceptedAnswer": {
                                 "@type": "Answer",
-                                "text": "新NISA枠は利益に対して非課税（0%）である一方、損失が出ても特定口座との損益通算ができません。そのため、出来高を伴う20日ブレイクアウト確認と2.0倍ATR逆指値による厳格なリスク管理が不可欠です。",
+                                "text": "日本の金融庁規定により、毎月分配型ETF（JEPI・SGOV等）やレバレッジ型ETF（SOXL等）は新NISA対象外です。新NISA枠では四半期配当の1489・VYM・HDVやオルカン・S&P500を保有し、毎月分配のSGOV・JEPIは特定口座で管理するハイブリッド設計が準拠しています。",
                             },
                         },
                         {
                             "@type": "Question",
-                            "name": "口座資金100万円の場合、1銘柄あたりの適正リスク額はいくらですか？",
+                            "name": "当日報は投資助言や売買推奨ですか？",
                             "acceptedAnswer": {
                                 "@type": "Answer",
-                                "text": "機関投資家の標準的な1.5%リスクルールに基づくと、100万円口座での1トレード許容損失上限は15,000円です。2.0倍ATR幅（円換算）で15,000円を割ることで感情を排した最適購入株数が決まります。",
+                                "text": MANDATORY_DISCLAIMER_JP,
                             },
                         },
                     ],
@@ -126,8 +133,14 @@ def generate_daily_jp_column() -> str:
         ensure_ascii=False,
     )
 
+    head_scripts = build_payment_and_kpi_head_html()
+    disclaimer_box = build_mandatory_disclaimer_html()
+    manual_modal = build_starter_manual_modal_html()
+    waitlist_modal = build_vip_waitlist_modal_html()
+    footer_html = build_legal_footer_html()
+
     page_html = f"""<!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" data-jp-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -139,164 +152,129 @@ def generate_daily_jp_column() -> str:
   <meta property="og:title" content="{html.escape(title)}" />
   <meta property="og:description" content="{html.escape(desc)}" />
   <meta property="og:url" content="{canonical_url}" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <script type="application/ld+json">{ld_json}</script>
-  <script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
-  <script>
-  (function(){{
-    try {{
-      if (typeof window === 'undefined' || typeof navigator === 'undefined') return;
-      var kst = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
-      var ns = 'gba_getbreakai';
-      window.__gbaSubmitJpSignup = function(ev, formEl, tickerLabel) {{
-        if (ev && ev.preventDefault) ev.preventDefault();
-        var input = formEl ? formEl.querySelector('input[type="email"]') : null;
-        var email = input ? String(input.value || '').trim() : '';
-        if (!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)) {{
-          if (input) input.focus();
-          return false;
-        }}
-        try {{
-          localStorage.setItem('gba_jp_free_email', email);
-          localStorage.setItem('gba_jp_free_since', kst);
-          var dedupeKey = 'hq_signup_' + ns + '_' + kst + '_' + email.toLowerCase();
-          var ua = navigator.userAgent || '';
-          var host = (location && location.hostname) || '';
-          var isHumanLive = !navigator.webdriver && !/bot|crawl|spider|slurp|headless|python|curl|node/i.test(ua) && host && host !== 'localhost' && host !== '127.0.0.1';
-          if (localStorage.getItem(dedupeKey) !== '1') {{
-            localStorage.setItem(dedupeKey, '1');
-            if (isHumanLive) {{
-              fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/signup_' + kst, {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
-              fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/signup_total', {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
-            }}
-          }}
-        }} catch (_e) {{}}
-        document.querySelectorAll('.gba-jp-signup-status').forEach(function(el) {{
-          el.style.display = 'block';
-          el.innerHTML = '✅ <strong>無料登録が完了しました！</strong> 毎朝8時の「新NISA 3色シグナル＆安全撤退ライン速報」を <strong>' + email.replace(/[<>&"]/g, '') + '</strong> 宛にお届けします。';
-        }});
-        document.querySelectorAll('.gba-jp-signup-form input[type="email"]').forEach(function(inp) {{ inp.value = email; }});
-        return false;
-      }};
-      if (window.__HQ_KPI_GBA__) return;
-      window.__HQ_KPI_GBA__ = true;
-      var ua = navigator.userAgent || '';
-      if (navigator.webdriver || /bot|crawl|spider|slurp|headless|python|curl|node/i.test(ua)) return;
-      var host = (location && location.hostname) || '';
-      if (!host || host === 'localhost' || host === '127.0.0.1') return;
-      fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/pv_' + kst, {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
-      fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/pv_total', {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
-      if (localStorage.getItem('hq_uv_' + ns + '_' + kst) !== '1') {{
-        localStorage.setItem('hq_uv_' + ns + '_' + kst, '1');
-        fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/uv_' + kst, {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
-      }}
-      if (localStorage.getItem('hq_uv_ever_' + ns) !== '1') {{
-        localStorage.setItem('hq_uv_ever_' + ns, '1');
-        fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/uv_total', {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
-      }}
-      document.addEventListener('click', function(e) {{
-        var el = e.target && e.target.closest ? e.target.closest('a, button') : null;
-        if (!el) return;
-        var href = (el.getAttribute('href') || '').toLowerCase();
-        var txt = (el.innerText || el.textContent || '').toLowerCase();
-        if (href.indexOf('lemonsqueezy.com') !== -1 || /\\$29|\\$199|pro|vip/.test(txt)) {{
-          fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_click_' + kst, {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
-          fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_click_total', {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
-        }}
-      }}, true);
-    }} catch (e) {{}}
-  }})();
-  </script>
+{head_scripts}
   <style>
-    body {{ margin:0; font-family:'Noto Sans JP',-apple-system,BlinkMacSystemFont,sans-serif; background:#090d16; color:#e2e8f0; line-height:1.8; }}
-    a {{ color:#38bdf8; text-decoration:none; }}
-    .nav {{ background:#0f172a; border-bottom:1px solid #1e293b; padding:0.9rem 1.25rem; display:flex; justify-content:space-between; align-items:center; }}
-    .wrap {{ max-width:880px; margin:0 auto; padding:2.2rem 1.2rem 4rem; }}
-    .tag {{ display:inline-block; background:rgba(56,189,248,0.15); color:#38bdf8; border:1px solid rgba(56,189,248,0.35); border-radius:999px; padding:0.2rem 0.75rem; font-size:0.78rem; font-weight:700; }}
-    h1 {{ font-size:clamp(1.45rem,3.3vw,2.05rem); color:#f8fafc; line-height:1.38; margin:0.8rem 0; }}
-    h2 {{ color:#f8fafc; font-size:1.25rem; border-left:4px solid #10b981; padding-left:0.75rem; margin-top:2.1rem; }}
-    table {{ width:100%; border-collapse:collapse; margin:1.2rem 0; background:#111827; font-size:0.9rem; border-radius:10px; overflow:hidden; }}
-    th, td {{ padding:0.7rem 0.8rem; border-bottom:1px solid #1f2937; text-align:left; }}
-    th {{ background:#0f172a; color:#94a3b8; font-size:0.78rem; }}
-    .cta {{ background:linear-gradient(135deg,#0f172a,#06281e); border:1px solid rgba(16,185,129,0.45); border-radius:14px; padding:1.5rem; margin:2.2rem 0; }}
+    body {{ margin:0; font-family:'Noto Sans JP',-apple-system,BlinkMacSystemFont,sans-serif; background:#f4f6fa; color:#0f172a; line-height:1.8; font-size:17px; font-feature-settings:"palt" 1; }}
+    a {{ color:#1d4ed8; text-decoration:none; }}
+    .nav {{ background:#0b1f3a; border-bottom:2px solid #1e3a8a; padding:0.95rem 1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; }}
+    .wrap {{ max-width:920px; margin:0 auto; padding:2rem 1.2rem 3rem; }}
+    .tag {{ display:inline-block; background:#eff6ff; color:#1e40af; border:1px solid #93c5fd; border-radius:999px; padding:0.25rem 0.85rem; font-size:0.84rem; font-weight:800; }}
+    h1 {{ font-size:clamp(1.45rem,3vw,2rem); color:#0b1f3a; line-height:1.38; margin:0.8rem 0; }}
+    h2 {{ color:#1e3a8a; font-size:1.25rem; border-left:5px solid #1d4ed8; background:#eff6ff; padding:0.45rem 0.75rem; border-radius:0 8px 8px 0; margin-top:2rem; }}
+    .table-wrap {{ overflow-x:auto; }}
+    table {{ width:100%; border-collapse:collapse; margin:1.1rem 0; background:#ffffff; font-size:0.94rem; border:1px solid #cbd5e1; border-radius:10px; overflow:hidden; }}
+    th, td {{ padding:0.75rem 0.85rem; border-bottom:1px solid #e2e8f0; text-align:left; }}
+    th {{ background:#0b1f3a; color:#ffffff; font-size:0.84rem; }}
+    .cta {{ background:linear-gradient(135deg,#ecfdf5,#eff6ff); border:2px solid #059669; border-radius:14px; padding:1.5rem; margin:2rem 0; }}
     .btns {{ display:flex; flex-wrap:wrap; gap:0.75rem; margin-top:1rem; }}
-    .btn {{ padding:0.7rem 1.2rem; border-radius:8px; font-weight:700; font-size:0.92rem; display:inline-block; }}
-    .btn-primary {{ background:#10b981; color:#042f2e; }}
-    .btn-vip {{ background:#38bdf8; color:#082f49; }}
-    .btn-annual {{ background:#f59e0b; color:#1f1300; }}
+    .btn {{ padding:0.75rem 1.2rem; border-radius:10px; font-weight:900; font-size:0.96rem; display:inline-flex; align-items:center; min-height:54px; }}
+    .btn-primary {{ background:#059669; color:#ffffff !important; }}
+    .btn-vip {{ background:#1d4ed8; color:#ffffff !important; }}
+    .btn-annual {{ background:#b45309; color:#ffffff !important; }}
+    .gba-manual-free-badge {{ display:inline-flex; align-items:center; gap:6px; background:#059669; color:#ffffff; font-size:0.86rem; font-weight:900; padding:4px 12px; border-radius:999px; }}
+    .gba-manual-modal-backdrop {{ display:none; position:fixed; inset:0; z-index:9999; background:rgba(15,23,42,0.76); backdrop-filter:blur(4px); padding:18px 12px; overflow-y:auto; align-items:flex-start; justify-content:center; }}
+    .gba-manual-modal-backdrop.is-open {{ display:flex; }}
+    .gba-manual-modal-dialog {{ background:#ffffff; color:#0b1f3a; border:2px solid #059669; border-radius:16px; width:100%; max-width:860px; margin:8px auto 32px; overflow:hidden; }}
+    .gba-manual-modal-header {{ background:#ffffff; border-bottom:2px solid #cbd5e1; padding:14px 18px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; }}
+    .gba-manual-action-btn {{ min-height:44px; padding:8px 14px; border-radius:10px; font-weight:900; cursor:pointer; border:2px solid #cbd5e1; background:#f8fafc; }}
+    .gba-manual-nav-pills {{ display:flex; flex-wrap:wrap; gap:8px; padding:12px 18px; background:#f8fafc; border-bottom:1px solid #cbd5e1; }}
+    .gba-manual-jump-pill {{ min-height:42px; padding:6px 12px; border-radius:999px; border:1px solid #cbd5e1; background:#ffffff; font-weight:800; cursor:pointer; }}
+    .gba-manual-modal-body {{ padding:20px; }}
+    .gba-manual-chapter-box {{ background:#f8fafc; border:1px solid #cbd5e1; border-radius:12px; padding:16px; margin-bottom:14px; }}
+    .gba-manual-broker-grid {{ display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:12px; }}
+    .gba-manual-broker-card {{ background:#ffffff; border:1px solid #cbd5e1; border-radius:10px; padding:14px; }}
+    .gba-manual-tip-callout {{ margin-top:10px; padding:10px 12px; background:#ecfdf5; border-left:4px solid #059669; border-radius:8px; }}
+    .gba-manual-modal-funnel {{ background:#eff6ff; border:2px solid #059669; border-radius:12px; padding:16px; }}
+    .gba-manual-open-btn {{ background:#059669; color:#ffffff; border:none; border-radius:10px; padding:12px 18px; font-weight:900; cursor:pointer; }}
+    .gba-manual-funnel-links {{ display:flex; flex-wrap:wrap; gap:10px; margin-top:10px; }}
+    .gba-manual-pro-link, .gba-manual-vip-link {{ padding:8px 14px; border-radius:999px; border:1.5px solid #1d4ed8; font-weight:800; background:#ffffff; }}
   </style>
 </head>
 <body>
   <header class="nav">
-    <a href="/jp/" style="font-weight:800;color:#f8fafc;">GetBreakAI Japan · 新NISA＆米国株クオンツ</a>
-    <div>
-      <a href="/jp/" style="margin-right:1rem;font-size:0.9rem;">3秒計算ターミナル</a>
-      <a href="/jp/feed.xml" style="font-size:0.9rem;">RSS購読</a>
+    <a href="/jp/" style="font-weight:900;color:#ffffff;font-size:1.1rem;">⚡ GetBreakAI ゆとり老後＆新NISA設計ナビ</a>
+    <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+      <button type="button" onclick="openGbaStarterManualModal()" style="background:#065f46;color:#ffffff;border:1px solid #10b981;border-radius:8px;padding:6px 12px;font-weight:800;cursor:pointer;">📘 ¥0 基本マニュアル</button>
+      <a href="/jp/#gba-retirement-architect-jp" style="color:#93c5fd;font-weight:800;">🧭 30秒・老後収入シミュレーター</a>
+      <a href="/jp/feed.xml" style="color:#e2e8f0;font-size:0.9rem;">RSS</a>
     </div>
   </header>
   <main class="wrap">
-    <span class="tag">GetBreakAI 朝の資産防衛クラブ · 新NISA・特定口座 対応レター · {today_iso}</span>
+    <span class="tag">GetBreakAI 朝のゆとり老後＆資産守り倶楽部 · 公開市場データ日報 · {today_iso}</span>
     <h1>{html.escape(title)}</h1>
-    <p style="color:#94a3b8;font-size:1.02rem;">為替参照レート: 1ドル = {usdjpy:.1f}円 · 口座資金100万円（1トレード許容リスク1.5% = 15,000円）基準</p>
-    {jp_morning_letter_html}
+    <p style="color:#475569;font-size:1rem;font-weight:700;">為替参照レート: 1ドル = {usdjpy:.1f}円 · 金融庁・新NISA規定準拠ハイブリッド設計対応</p>
+{empathy_html}
 
-    <section id="gba-daily-lead-top" class="cta" style="margin:1.4rem 0;">
-      <div style="font-size:0.9rem;font-weight:800;color:#6ee7b7;margin-bottom:0.4rem;">🟢買い検討 ・ 🟡様子見 ・ 🔴危険撤退 ｜ 毎朝8時の無料3色シグナル</div>
-      <h2 style="margin:0 0 0.5rem;border:none;padding:0;font-size:1.35rem;color:#ffffff;">新NISAの塩漬けを防ぐ！毎朝8時の「3色シグナル＆安全撤退ライン」無料メール登録</h2>
-      <p style="margin:0 0 0.9rem;color:#e2e8f0;font-size:1.05rem;">メールアドレス1つ（10秒）で、NVDA・PLTR・TSLA等の安全撤退ラインと3色判定を毎朝無料でお届けします。</p>
+    <section id="gba-daily-lead-top" class="cta">
+      <div style="font-size:0.92rem;font-weight:900;color:#065f46;margin-bottom:0.4rem;">🍵 毎朝8時の無料3色バランス指標ブリーフ（パスワード不要）</div>
+      <h2 style="margin:0 0 0.5rem;border:none;background:transparent;padding:0;font-size:1.3rem;color:#0b1f3a;">毎朝8時の「新NISA×特定口座 3色バランス指標」無料メール登録</h2>
+      <p style="margin:0 0 0.9rem;color:#334155;font-size:1rem;">メールアドレス1つ（3秒）で、日米金利・為替と老後3つの財布の公開データ要約を毎朝無料でお届けします。</p>
       <form class="gba-jp-signup-form" onsubmit="return window.__gbaSubmitJpSignup(event, this, 'NISA_DAILY');" style="display:flex;flex-wrap:wrap;gap:0.65rem;">
-        <input type="email" required autocomplete="email" placeholder="メールアドレスを入力（例: yamada@yahoo.co.jp）" style="flex:1 1 250px;min-height:56px;padding:10px 16px;font-size:1.05rem;font-weight:700;border-radius:10px;border:2px solid #64748b;background:#ffffff;color:#0f172a;" />
-        <button type="submit" style="min-height:56px;padding:10px 22px;font-size:1.05rem;font-weight:900;border-radius:10px;border:none;background:#10b981;color:#042f2e;cursor:pointer;">📩 無料で毎朝の3色シグナルを受け取る →</button>
+        <input type="email" required autocomplete="email" placeholder="メールアドレスを入力（例: yamada@yahoo.co.jp）" style="flex:1 1 250px;min-height:54px;padding:10px 16px;font-size:1.02rem;font-weight:700;border-radius:10px;border:2px solid #64748b;background:#ffffff;color:#0f172a;" />
+        <button type="submit" style="min-height:54px;padding:10px 22px;font-size:1.02rem;font-weight:900;border-radius:10px;border:none;background:#059669;color:#ffffff;cursor:pointer;">📩 無料で毎朝の3色ブリーフを受け取る →</button>
       </form>
-      <div class="gba-jp-signup-status" role="status" aria-live="polite" style="display:none;margin-top:0.75rem;padding:0.7rem 0.9rem;border-radius:8px;background:#064e3b;color:#a7f3d0;font-size:1.02rem;font-weight:700;"></div>
-      <div class="btns" style="margin-top:0.95rem;padding-top:0.85rem;border-top:1px solid rgba(148,163,184,0.25);align-items:center;">
-        <span style="font-size:0.95rem;font-weight:700;color:#e2e8f0;">💳 今すぐ全銘柄VIPラインを1タップ決済（Apple Pay・JCB対応）：</span>
-        <a class="btn btn-vip lemonsqueezy-button" style="min-height:52px;display:inline-flex;align-items:center;" data-ls-product-uuid="d5e7e761-8b1b-4ca8-b1fe-771acd1450f8" href="{LS_MONTHLY}">🔓 月額VIPプラン ($29/月)</a>
-        <a class="btn btn-annual lemonsqueezy-button" style="min-height:52px;display:inline-flex;align-items:center;" data-ls-product-uuid="667aa482-f17c-47d1-b7f3-a2427c36516b" href="{LS_ANNUAL}">💎 年間VIPパス ($199/年)</a>
+      <div class="gba-jp-signup-status" role="status" aria-live="polite" style="display:none;margin-top:0.75rem;padding:0.75rem 0.95rem;border-radius:8px;background:#d1fae5;color:#065f46;font-size:1rem;font-weight:800;"></div>
+      <div class="btns" style="margin-top:1rem;padding-top:0.9rem;border-top:1px solid #a7f3d0;align-items:center;">
+        <span style="font-size:0.95rem;font-weight:800;color:#0f172a;">💎 配当・資産配分計算Proソフトウェア：</span>
+        <a class="btn btn-vip lemonsqueezy-button" data-gba-paid-plan="monthly" data-ls-product-uuid="{LS_MONTHLY_UUID}" href="{LS_MONTHLY_URL_HTML}">⚡ {PRICE_LABEL_MONTHLY_JP}</a>
+        <a class="btn btn-annual lemonsqueezy-button" data-gba-paid-plan="annual" data-ls-product-uuid="{LS_ANNUAL_UUID}" href="{LS_ANNUAL_URL_HTML}">👑 {PRICE_LABEL_ANNUAL_JP}</a>
       </div>
+{disclaimer_box}
     </section>
 
-    <h2>1. なぜ新NISA成長投資枠での「感覚ナンピン」が最も危険なのか</h2>
-    <p style="font-size:1.06rem;">特定口座（源泉徴収あり・税率20.315%）であれば実現損失を他銘柄の譲渡益や配当と損益通算できますが、新NISA枠で発生した含み損は一切損益通算できません。つまり新NISAで下落トレンド銘柄を塩漬けにすると、非課税枠そのものを死蔵させる二重の機会損失が発生します。</p>
+    <h2>1. 【金融庁規定準拠】新NISA適格銘柄と特定口座（毎月分配型）のハイブリッド設計</h2>
+    <p>日本の金融庁規定により、<strong>毎月分配型ETF（JEPI・JEPQ・QYLD・SGOV等）およびレバレッジ型ETF（SOXL・TQQQ等）は新NISAの対象外</strong>であり、特定口座（源泉徴収あり・税率20.315%）でのみ保有可能です。そのため老後の毎月キャッシュフロー設計では、<strong>{FSA_HYBRID_PHRASE_JP}</strong>を採用し、新NISA枠内では四半期配当ETFの時間差組み合わせ（1・4・7・10月の1489 × 3・6・9・12月のVYM・HDV）とオルカン・S&amp;P500で非課税メリットを最大化します。</p>
 
-    <h2>2. 米国主力株 安全撤退ライン（2.0倍ATR逆指値）＆適正株数一覧 ({today_iso})</h2>
-    <table>
-      <thead>
-        <tr><th>銘柄</th><th>直近終値</th><th>14日ATR</th><th>安全撤退ライン(2.0x ATR)</th><th>目標利益ライン(2.5R)</th><th>100万円口座適正株数</th></tr>
-      </thead>
-      <tbody>
-        {table_rows_html}
-      </tbody>
-    </table>
+    <h2>2. 公開市場データによる1銘柄あたり分散配分目安一覧 ({today_iso})</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>銘柄</th><th>直近終値</th><th>14日平均変動幅</th><th>2.0倍変動参考下限</th><th>長期参考上限</th><th>100万円口座 分散株数目安</th></tr>
+        </thead>
+        <tbody>
+          {table_rows_html}
+        </tbody>
+      </table>
+    </div>
 
-    <h2>3. 新NISA（非課税0%）vs 特定口座（20.315%）の純利益インパクト</h2>
-    <p style="font-size:1.06rem;">例えば30万円相当のポジションで+40%（+12万円）のブレイクアウト利益を確定した場合、特定口座では24,378円が源泉徴収され手取りは95,622円となりますが、新NISA成長投資枠なら120,000円がまるごと手元に残ります。機関投資家の出来高ブレイクを確認してからエントリーし、逆行時は安全撤退ライン（2.0倍ATR）で機械的に撤退する規律こそが非課税メリットを最大化します。</p>
+    <h2>3. 新NISA（非課税0%）vs 特定口座（20.315%）の手取り比較</h2>
+    <p>新NISA成長投資枠（年間240万円・つみたて投資枠と合計360万円）では配当金および売却益に対する国内20.315%課税が非課税となる一方、特定口座と損益通算はできません。したがって頻繁な売買で年間枠を消費するのではなく、年2〜4回の穏やかな資産配分点検で長期保有を続ける設計が有効です。</p>
 
     <section id="gba-daily-lead-bottom" class="cta">
-      <h3 style="margin:0 0 0.5rem;color:#f8fafc;font-size:1.3rem;">📩 無料メール会員（登録10秒）＆ 1タップVIP決済</h3>
-      <p style="margin:0 0 0.9rem;color:#cbd5e1;font-size:1.04rem;">毎朝8時の3色シグナルと安全撤退ラインを無料メールで受け取るか、VIPプランで全銘柄リアルタイム価格を今すぐ解放できます。</p>
+      <h3 style="margin:0 0 0.5rem;color:#0b1f3a;font-size:1.25rem;">🍵 無料メール倶楽部（登録3秒）＆ Pro計算ソフトウェア</h3>
       <form class="gba-jp-signup-form" onsubmit="return window.__gbaSubmitJpSignup(event, this, 'NISA_DAILY');" style="display:flex;flex-wrap:wrap;gap:0.65rem;margin-bottom:0.9rem;">
-        <input type="email" required autocomplete="email" placeholder="メールアドレスを入力（例: yamada@yahoo.co.jp）" style="flex:1 1 250px;min-height:56px;padding:10px 16px;font-size:1.05rem;font-weight:700;border-radius:10px;border:2px solid #64748b;background:#ffffff;color:#0f172a;" />
-        <button type="submit" style="min-height:56px;padding:10px 22px;font-size:1.05rem;font-weight:900;border-radius:10px;border:none;background:#10b981;color:#042f2e;cursor:pointer;">📩 無料メール登録 (10秒) →</button>
+        <input type="email" required autocomplete="email" placeholder="メールアドレスを入力（例: yamada@yahoo.co.jp）" style="flex:1 1 250px;min-height:54px;padding:10px 16px;font-size:1.02rem;font-weight:700;border-radius:10px;border:2px solid #64748b;background:#ffffff;color:#0f172a;" />
+        <button type="submit" style="min-height:54px;padding:10px 22px;font-size:1.02rem;font-weight:900;border-radius:10px;border:none;background:#059669;color:#ffffff;cursor:pointer;">📩 無料倶楽部に参加する →</button>
       </form>
-      <div class="gba-jp-signup-status" role="status" aria-live="polite" style="display:none;margin-bottom:0.9rem;padding:0.7rem 0.9rem;border-radius:8px;background:#064e3b;color:#a7f3d0;font-size:1.02rem;font-weight:700;"></div>
+      <div class="gba-jp-signup-status" role="status" aria-live="polite" style="display:none;margin-bottom:0.9rem;padding:0.75rem 0.95rem;border-radius:8px;background:#d1fae5;color:#065f46;font-size:1rem;font-weight:800;"></div>
       <div class="btns">
-        <a class="btn btn-primary" style="min-height:52px;display:inline-flex;align-items:center;" href="/jp/">無料3秒ポジション計算機を開く →</a>
-        <a class="btn btn-vip lemonsqueezy-button" style="min-height:52px;display:inline-flex;align-items:center;" data-ls-product-uuid="d5e7e761-8b1b-4ca8-b1fe-771acd1450f8" href="{LS_MONTHLY}">🔓 月額VIP 1タップ決済 ($29/月)</a>
-        <a class="btn btn-annual lemonsqueezy-button" style="min-height:52px;display:inline-flex;align-items:center;" data-ls-product-uuid="667aa482-f17c-47d1-b7f3-a2427c36516b" href="{LS_ANNUAL}">💎 年間VIPパス ($199/年)</a>
+        <a class="btn btn-primary" href="/jp/#gba-retirement-architect-jp">🧭 30秒・老後キャッシュフローシミュレーターを開く →</a>
+        <a class="btn btn-vip lemonsqueezy-button" data-gba-paid-plan="monthly" data-ls-product-uuid="{LS_MONTHLY_UUID}" href="{LS_MONTHLY_URL_HTML}">⚡ {PRICE_LABEL_MONTHLY_JP}</a>
+        <a class="btn btn-annual lemonsqueezy-button" data-gba-paid-plan="annual" data-ls-product-uuid="{LS_ANNUAL_UUID}" href="{LS_ANNUAL_URL_HTML}">👑 {PRICE_LABEL_ANNUAL_JP}</a>
       </div>
+{disclaimer_box}
     </section>
-
-    <footer style="margin-top:2.5rem;padding-top:1rem;border-top:1px solid #1e293b;color:#64748b;font-size:0.8rem;">
-      ※本レポートは統計・クオンツモデルの教育および情報提供を目的としており、特定の金融商品の売買推奨や投資助言ではありません。法人・機関投資家デスクお問い合わせ: <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a>
-    </footer>
   </main>
+
+{footer_html}
+{manual_modal}
+{waitlist_modal}
+
+  <script>
+    function jumpFromManualToJpMail() {{
+      if (typeof window.closeGbaStarterManualModal === 'function') window.closeGbaStarterManualModal();
+      const lead = document.getElementById('gba-daily-lead-top');
+      if (lead && lead.scrollIntoView) lead.scrollIntoView({{ behavior: 'smooth', block: 'center' }});
+    }}
+  </script>
 </body>
 </html>
 """
     out_file = JP_DIR / "daily-nisa-quant-report.html"
     out_file.write_text(page_html, encoding="utf-8")
 
-    # Ensure canonical URL is registered in root sitemap.xml
     if SITEMAP_PATH.exists():
         smap = SITEMAP_PATH.read_text(encoding="utf-8")
         if canonical_url not in smap and "</urlset>" in smap:
@@ -306,9 +284,8 @@ def generate_daily_jp_column() -> str:
                 f"    <priority>0.92</priority>\n  </url>\n</urlset>"
             )
             smap = smap.replace("</urlset>", entry)
-            # Also ensure confirmation.html is never in sitemap.xml
-            smap = re.sub(r"\s*<url>\s*<loc>[^<]*confirmation\.html</loc>[\s\S]*?</url>", "", smap)
-            SITEMAP_PATH.write_text(smap, encoding="utf-8")
+        smap = re.sub(r"\s*<url>\s*<loc>[^<]*confirmation\.html</loc>[\s\S]*?</url>", "", smap)
+        SITEMAP_PATH.write_text(smap, encoding="utf-8")
 
     return canonical_url
 

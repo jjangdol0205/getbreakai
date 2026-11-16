@@ -26,7 +26,7 @@ ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 JP_DIR = os.path.join(ROOT_DIR, "jp")
 OUTBOX_BASE = os.path.join(ROOT_DIR, "marketing_outbox_jp")
 SNAPSHOT_PATH = os.path.join(ROOT_DIR, "data", "live_market_snapshot.json")
-HQ_TG_CONFIG = r"D:\드림컴퍼니\1사업부\data\telegram_config.json"
+HQ_TG_CONFIG = os.path.join(ROOT_DIR, "data", "telegram_config.json")
 DEFAULT_CEO_CHAT_ID = "755033799"
 
 
@@ -83,9 +83,9 @@ def build_rss_feeds(date_str, outbox_dir, snap):
     x_feed_xml = f"""<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>GetBreakAI 新NISA・老後資金を守る米国株＆日本株 3色シグナル速報 (X/Threads公式フィード)</title>
+    <title>GetBreakAI ゆとり老後＆新NISA×特定口座 公開市場データ速報 (公式フィード)</title>
     <link>https://getbreakai.com/jp/</link>
-    <description>大切な新NISA非課税枠と老後資金を「高値掴み・塩漬け損」から守る毎朝の3色売買シグナル（青・黄・赤）＆3秒適正株数シミュレーター公式フィード</description>
+    <description>50〜70代の新NISA非課税枠と老後資産寿命を守る公開市場データ可視化＆配当・資産配分シミュレーション公式フィード</description>
     <language>ja</language>
     <lastBuildDate>{now_rfc822}</lastBuildDate>
     <atom:link href="https://getbreakai.com/jp/x-feed.xml" rel="self" type="application/rss+xml"/>
@@ -97,29 +97,33 @@ def build_rss_feeds(date_str, outbox_dir, snap):
     with open(x_feed_path, "w", encoding="utf-8") as f:
         f.write(x_feed_xml)
 
-    # 2. Build /jp/feed.xml for SEO research articles & note.com / blog syndication (excluding GSC verification files)
+    # 2. Build /jp/feed.xml for SEO research articles (excluding confirmation, legal, and verification files)
+    excluded_jp_html = {
+        "index.html", "confirmation.html", "terms.html", "privacy.html", "refund.html", "contact.html",
+        "soxl-smh-semiconductor-timing.html", "mstr-bitcoin-volatility-atr-sizing.html",
+    }
     seo_files = sorted([
         fn for fn in os.listdir(JP_DIR)
-        if fn.endswith(".html") and fn not in ("index.html", "confirmation.html") and not fn.startswith("google")
+        if fn.endswith(".html") and fn not in excluded_jp_html and not fn.startswith("google")
     ])
     article_items_xml = []
     for fn in seo_files[:20]:
         url = f"https://getbreakai.com/jp/{fn}"
         slug_title = fn.replace(".html", "").replace("-", " ").upper()
         article_items_xml.append(f"""    <item>
-      <title>【新NISA・米国株防衛コラム】{escape(slug_title)} — 3色売買シグナル＆適正株数チェック ({date_str}更新)</title>
+      <title>【新NISA・老後資産配分データ】{escape(slug_title)} — 公開市場データ＆分散比率試算 ({date_str}更新)</title>
       <link>{escape(url)}</link>
       <guid isPermaLink="true">{escape(url)}</guid>
       <pubDate>{now_rfc822}</pubDate>
-      <description>{escape(f"新NISA(非課税0%)と特定口座(20.315%)の手取り比較・メール1つで届く毎朝の無料3色シグナル解説: {url}")}</description>
+      <description>{escape(f"新NISA適格（VYM・HDV・1489・オルカン・S&P500）＋特定口座（SGOV・JEPI）ハイブリッド設計と公開財務データ解説: {url}")}</description>
     </item>""")
 
     main_feed_xml = f"""<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>GetBreakAI 日本公式｜新NISA・老後資金を守る毎朝の3色売買シグナル日報 (RSS 2.0)</title>
+    <title>GetBreakAI 日本公式｜ゆとり老後＆新NISA×特定口座 公開市場データ日報 (RSS 2.0)</title>
     <link>https://getbreakai.com/jp/</link>
-    <description>40代〜70代の個人投資家向けに米国株・半導体株の安全撤退ラインと適正株数を分かりやすい日本語で毎日自動更新</description>
+    <description>50〜70代の個人投資家向けに日米公開市場データ・配当統計・資産配分シミュレーションを毎日更新</description>
     <language>ja</language>
     <lastBuildDate>{now_rfc822}</lastBuildDate>
     <atom:link href="https://getbreakai.com/jp/feed.xml" rel="self" type="application/rss+xml"/>

@@ -35,16 +35,16 @@ MODEL_CASE_DISCLAIMER_JP = "※ 資産規模・配分条件別の試算モデル
 
 PRO_RETIREE_TOOLS_JP = (
     (
-        "『新NISA 生涯非課税枠1,800万円（成長投資枠1,200万＋つみたて枠600万）退職金・年次別最適配分シート』",
-        "自分の資産額を入力するだけで、高値掴み・枠の無駄遣いを防ぐ年次別ステップ表を自動算出",
+        "『毎朝自動配信：SMH × XLV マーケット過熱・恐怖指標＆セクター比率トラッキング日報メール』",
+        "毎朝8時、日米市場の過熱度・恐怖度データ（0〜100）を集計し、過去検証モデル上で SMH（半導体）: XLV（医療）比率がどう推移しているかをわかりやすくメール配信",
     ),
     (
-        "『1489（1・4・7・10月）＋VYM/HDV（3・6・9・12月）＋国債でつくる 年12回・毎月配当カレンダー設計ツール』",
-        "年金のない偶数月・奇数月も毎月キャッシュフローが入る配当月パズル自動作成",
+        "『新NISA成長投資枠（SMH・XLV）× 特定口座／個人向け国債 運用額別の円・ドル配分計算シート』",
+        "ご自身の資産規模（300万〜5,000万円+・新NISA生涯非課税枠1,800万円対応）を入力するだけで、現物1倍ETFと安全クッションの具体的な金額目安を自動算出",
     ),
     (
-        "『楽天証券・SBI証券 スマホ／PC画面そのまま操作・大文字図解＆ステップガイド』",
-        "迷わず設定できる大きな文字の画面付き実践マニュアル＆年2〜4回の見直しチェック表",
+        "『随時更新・SMH × XLV セクターバランス実践 14ページ マスターPDFガイド（楽天・SBI証券 大文字操作図解同梱）』",
+        "過去26年（2000年ITバブル・2008年リーマン・2022年利上げ下落）の検証データ＆迷わず設定できる大きな文字の証券画面ステップマニュアル",
     ),
 )
 
@@ -83,6 +83,11 @@ def build_payment_and_kpi_head_html() -> str:
       enterprise: 'mailto:beable9489@gmail.com'
     };
     const CHECKOUT_URLS = window.CHECKOUT_URLS;
+    var COPY_MODE = (window.PAYMENT_CONFIG && window.PAYMENT_CONFIG.STORE_LIVE_READY) ? 'LIVE_SHARP' : 'UNDERWRITING_SAFE';
+    window.GBA_COPY_MODE = COPY_MODE;
+    window.getGbaCopyMode = function() {
+      return (window.PAYMENT_CONFIG && window.PAYMENT_CONFIG.STORE_LIVE_READY === true) ? 'LIVE_SHARP' : 'UNDERWRITING_SAFE';
+    };
 
     (function() {
       try {

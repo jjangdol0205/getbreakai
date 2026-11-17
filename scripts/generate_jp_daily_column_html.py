@@ -32,6 +32,7 @@ from gba_mor_nisa_shared import (  # noqa: E402
     FSA_HYBRID_PHRASE_JP,
     build_payment_and_kpi_head_html,
     build_mandatory_disclaimer_html,
+    build_pro_retiree_tools_html,
     build_starter_manual_modal_html,
     build_vip_waitlist_modal_html,
     build_legal_footer_html,
@@ -134,6 +135,7 @@ def generate_daily_jp_column() -> str:
 
     head_scripts = build_payment_and_kpi_head_html()
     disclaimer_box = build_mandatory_disclaimer_html()
+    pro_tools_compact = build_pro_retiree_tools_html(compact=True)
     manual_modal = build_starter_manual_modal_html()
     waitlist_modal = build_vip_waitlist_modal_html()
     footer_html = build_legal_footer_html()
@@ -155,7 +157,7 @@ def generate_daily_jp_column() -> str:
   <script type="application/ld+json">{ld_json}</script>
 {head_scripts}
   <style>
-    body {{ margin:0; font-family:'Noto Sans JP',-apple-system,BlinkMacSystemFont,sans-serif; background:#f4f6fa; color:#0f172a; line-height:1.8; font-size:17px; font-feature-settings:"palt" 1; }}
+    body {{ margin:0; font-family:'Noto Sans JP',-apple-system,BlinkMacSystemFont,sans-serif; background:#f4f6fa; color:#0f172a; line-height:1.8; font-size:18px; font-feature-settings:"palt" 1; }}
     a {{ color:#1d4ed8; text-decoration:none; }}
     .nav {{ background:#0b1f3a; border-bottom:2px solid #1e3a8a; padding:0.95rem 1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; }}
     .wrap {{ max-width:920px; margin:0 auto; padding:2rem 1.2rem 3rem; }}
@@ -249,6 +251,7 @@ def generate_daily_jp_column() -> str:
         <button type="submit" style="min-height:54px;padding:10px 22px;font-size:1.02rem;font-weight:900;border-radius:10px;border:none;background:#059669;color:#ffffff;cursor:pointer;">📩 無料倶楽部に参加する →</button>
       </form>
       <div class="gba-jp-signup-status" role="status" aria-live="polite" style="display:none;margin-bottom:0.9rem;padding:0.75rem 0.95rem;border-radius:8px;background:#d1fae5;color:#065f46;font-size:1rem;font-weight:800;"></div>
+{pro_tools_compact}
       <div class="btns">
         <a class="btn btn-primary" href="/jp/#gba-retirement-architect-jp">🧭 30秒・老後キャッシュフローシミュレーターを開く →</a>
         <a class="btn btn-vip polar-checkout-button" data-gba-paid-plan="monthly" data-polar-slot="monthly_29_jp" href="{POLAR_MONTHLY_CTA_HREF}">⚡ {PRICE_LABEL_MONTHLY_JP}</a>
@@ -285,7 +288,7 @@ def generate_daily_jp_column() -> str:
                 f"    <priority>0.92</priority>\n  </url>\n</urlset>"
             )
             smap = smap.replace("</urlset>", entry)
-        smap = re.sub(r"\s*<url>\s*<loc>[^<]*confirmation\.html</loc>[\s\S]*?</url>", "", smap)
+        smap = re.sub(r"\s*<url>\s*<loc>[^<]*(?:confirmation|soxl-smh-semiconductor-timing)\.html</loc>[\s\S]*?</url>", "", smap)
         SITEMAP_PATH.write_text(smap, encoding="utf-8")
 
     return canonical_url

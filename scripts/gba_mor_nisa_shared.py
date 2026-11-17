@@ -31,6 +31,23 @@ FSA_HYBRID_PHRASE_JP = (
 
 VIP_WAITLIST_MODAL_TITLE_JP = "VIP創設メンバー先行案内＆早期20%割引クーポン予約（1秒メール登録）"
 
+MODEL_CASE_DISCLAIMER_JP = "※ 資産規模・配分条件別の試算モデルケース（個人の感想や将来の運用成果を保証するものではありません）"
+
+PRO_RETIREE_TOOLS_JP = (
+    (
+        "『新NISA 生涯非課税枠1,800万円（成長投資枠1,200万＋つみたて枠600万）退職金・年次別最適配分シート』",
+        "自分の資産額を入力するだけで、高値掴み・枠の無駄遣いを防ぐ年次別ステップ表を自動算出",
+    ),
+    (
+        "『1489（1・4・7・10月）＋VYM/HDV（3・6・9・12月）＋国債でつくる 年12回・毎月配当カレンダー設計ツール』",
+        "年金のない偶数月・奇数月も毎月キャッシュフローが入る配当月パズル自動作成",
+    ),
+    (
+        "『楽天証券・SBI証券 スマホ／PC画面そのまま操作・大文字図解＆ステップガイド』",
+        "迷わず設定できる大きな文字の画面付き実践マニュアル＆年2〜4回の見直しチェック表",
+    ),
+)
+
 MAIN_HUB_EXCLUDED_SLUGS = {
     "soxl-smh-semiconductor-timing.html",
     "mstr-bitcoin-volatility-atr-sizing.html",
@@ -306,6 +323,25 @@ def build_mandatory_disclaimer_html() -> str:
       </div>"""
 
 
+def build_pro_retiree_tools_html(compact: bool = False) -> str:
+    """Returns high-contrast 3-tool efficacy showcase for Paid Pro ($29/mo & $199/yr) Shin-NISA Retiree Software."""
+    items_html = "\n".join(
+        f"""          <li style="background:var(--bg-sub, #f8fafc); border:1.5px solid var(--border-col, #cbd5e1); border-left:5px solid #1d4ed8; border-radius:11px; padding:{'10px 12px' if compact else '13px 15px'}; list-style:none;">
+            <div style="font-size:{'0.95rem' if compact else '1.02rem'}; font-weight:900; color:var(--text-main, #0b1f3a); line-height:1.48; margin-bottom:4px;">✅ {idx}. {title_str}</div>
+            <div style="font-size:{'0.88rem' if compact else '0.95rem'}; font-weight:700; color:var(--text-muted, #334155); line-height:1.6;">{desc_str}</div>
+          </li>"""
+        for idx, (title_str, desc_str) in enumerate(PRO_RETIREE_TOOLS_JP, start=1)
+    )
+    return f"""      <div class="gba-pro-retiree-tools-box" style="margin:14px 0 16px; padding:{'12px 14px' if compact else '16px 18px'}; border-radius:14px; background:var(--bg-card, #ffffff); border:2px solid #93c5fd;">
+        <div style="font-size:{'0.96rem' if compact else '1.05rem'}; font-weight:900; color:var(--accent-blue, #1d4ed8); margin-bottom:10px; line-height:1.45;">
+          🛠️ Proプラン（{PRICE_LABEL_MONTHLY_JP} ・ 年額 $199 / 約30,000円（税込））で使える「新NISA・老後3大設計ソフトウェアツール」
+        </div>
+        <ul style="margin:0; padding:0; display:flex; flex-direction:column; gap:10px;">
+{items_html}
+        </ul>
+      </div>"""
+
+
 def build_vip_waitlist_modal_html() -> str:
     """Returns scoped CSS, HTML, and JS for the Japanese VIP Founders Waitlist & 20% Coupon Modal (Zero Hangul)."""
     return f"""
@@ -472,6 +508,7 @@ def build_vip_waitlist_modal_html() -> str:
           👑 {PRICE_LABEL_ANNUAL_JP}<br><small style="font-weight:700; color:#b45309;">一番人気・43%OFF＋早期20%割引 ／ 随時更新・新NISA老後取り崩し実践PDFガイド＋3つの財布シミュレーター同梱</small>
         </button>
       </div>
+{build_pro_retiree_tools_html(compact=True)}
 
       <form class="gba-vip-wl-form" id="gbaVipWaitlistForm" onsubmit="return window.submitGbaVipWaitlist(event);">
         <label for="gbaVipWaitlistEmail" style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0);">メールアドレス</label>
@@ -910,7 +947,7 @@ def _render_legal_doc(slug: str, title_jp: str, badge_text: str, body_html: str,
       font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       background: var(--bg-page);
       color: var(--text-main);
-      font-size: 17px;
+      font-size: 18px;
       line-height: 1.78;
     }}
     header {{
@@ -1011,6 +1048,7 @@ def build_all_legal_pages(root_dir: str, jp_dir: str) -> None:
       <ul>
         <li>公的年金と新NISA・特定口座を組み合わせた老後キャッシュフローおよび非課税節税額の数学的シミュレーション機能</li>
         <li>日本の金融庁規定に準拠した{FSA_HYBRID_PHRASE_JP}の資産配分比率計算機能</li>
+        <li>Proプラン同梱ツール：①『新NISA 生涯非課税枠1,800万円（成長投資枠1,200万＋つみたて枠600万）退職金・年次別最適配分シート』、②『1489（1・4・7・10月）＋VYM/HDV（3・6・9・12月）＋国債でつくる 年12回・毎月配当カレンダー設計ツール』、③『楽天証券・SBI証券 スマホ／PC画面そのまま操作・大文字図解＆ステップガイド』</li>
         <li>米国SEC公開財務開示（Form 8-K / 10-Q / Form 4）および日米公開市場データの統計的可視化ダッシュボード（全利用者へ同一の計算式を表示する汎用教育ソフトウェア）</li>
       </ul>
       <h2>第2条（決済管理・ライセンス利用権）</h2>

@@ -32,9 +32,11 @@ from gba_mor_nisa_shared import (  # noqa: E402
     MANDATORY_DISCLAIMER_JP,
     SOFTWARE_POSITIONING_JP,
     FSA_HYBRID_PHRASE_JP,
+    MODEL_CASE_DISCLAIMER_JP,
     MAIN_HUB_EXCLUDED_SLUGS,
     build_payment_and_kpi_head_html,
     build_mandatory_disclaimer_html,
+    build_pro_retiree_tools_html,
     build_starter_manual_modal_html,
     build_vip_waitlist_modal_html,
     build_legal_footer_html,
@@ -80,14 +82,16 @@ SEO_PAGES_SPEC = [
     },
     {
         "slug": "soxl-smh-semiconductor-timing.html",
-        "ticker": "SOXL",
-        "terminal_ticker": "NVDA",
-        "jp_name": "半導体ETF（SMH・SOXL制度比較）",
-        "title": "半導体ETF（SMH・SOXL）の公開変動幅データ比較と金融庁・新NISA対象外（特定口座）ルール解説",
-        "focus": "金融庁規定により3倍レバレッジ型ETF（SOXL・TQQQ）および毎月分配型ETF（JEPI・SGOV）が新NISA対象外（特定口座のみ）となる法的区分と、新NISA適格コア資産（1489・VYM・HDV・オルカン・S&P500）との変動率比較",
-        "catalyst_type": "金融庁・新NISA対象外（特定口座区分）制度解説 ＆ 変動統計比較",
-        "entry": 34.50, "atr": 3.10, "iv": 98, "score": 72.0, "dp": "57.0%", "call_ratio": "1.4倍",
-        "is_non_nisa_edu": True
+        "ticker": "VYM",
+        "terminal_ticker": "VYM",
+        "jp_name": "3倍レバレッジETF（SOXL等・新NISA対象外）",
+        "title": "【新NISA対象外・老後資金注意喚起】3倍レバレッジETF（SOXL等）の減価リスクと「老後3つの財布」への切り替え解説",
+        "focus": "金融庁規定により3倍レバレッジ型ETF（SOXL・TQQQ等）が新NISA対象外となる理由、日々の複利計算による減価（ボラティリティ・ドラッグ）リスク、および老後3つの財布（国債・高配当1489/VYM/HDV・オルカン/S&P500）への安全な切り替え解説",
+        "catalyst_type": "⚠️ 新NISA対象外・老後資金注意喚起 ＆ 3倍レバレッジ減価リスク教育解説",
+        "entry": 134.50, "atr": 2.10, "iv": 18, "score": 18.0, "dp": "高変動減価注意", "call_ratio": "対象外区分",
+        "is_non_nisa_edu": True,
+        "is_leveraged_warning": True,
+        "noindex": True
     },
     {
         "slug": "smci-accounting-risk-warning.html",
@@ -372,6 +376,9 @@ def build_page_html(item, date_str, all_specs):
     call_ratio = _senior_clean_hub_text(item["call_ratio"])
     is_avoid = bool(item.get("is_avoid", False))
     is_non_nisa_edu = bool(item.get("is_non_nisa_edu", False))
+    is_leveraged_warning = bool(item.get("is_leveraged_warning", False))
+    is_noindex = bool(item.get("noindex", False))
+    robots_meta_tag = '  <meta name="robots" content="noindex, follow">\n' if is_noindex else ""
 
     stop_dist = round(atr * 2.0, 2)
     stop_loss = round(max(0.5, entry - stop_dist), 2)
@@ -390,7 +397,16 @@ def build_page_html(item, date_str, all_specs):
 
     canonical_url = f"https://getbreakai.com/jp/{slug}"
 
-    if is_avoid:
+    if is_leveraged_warning:
+        banner_bg = "rgba(244,63,94,0.10)"
+        banner_border = "rgba(244,63,94,0.55)"
+        banner_color = "#881337"
+        verdict_banner = (
+            "🚨 【新NISA対象外・老後資金での保有非推奨】3倍レバレッジ型ETF（SOXL・TQQQ等）は日本の金融庁規定により新NISA対象外であり、"
+            "日々の値動きの3倍を複利計算する仕組み上、横ばい・下落相場で元本が大きく削られる「減価（ボラティリティ・ドラッグ）」リスクがあります。"
+            f"50〜70代の大切な退職金・老後資金には一切推奨せず、{FSA_HYBRID_PHRASE_JP}（老後3つの財布）への切り替えをご案内しています。"
+        )
+    elif is_avoid:
         banner_bg = "rgba(244,63,94,0.10)"
         banner_border = "rgba(244,63,94,0.45)"
         banner_color = "#881337"
@@ -485,9 +501,72 @@ def build_page_html(item, date_str, all_specs):
 
     head_scripts = build_payment_and_kpi_head_html()
     disclaimer_box = build_mandatory_disclaimer_html()
+    pro_tools_compact = build_pro_retiree_tools_html(compact=True)
     manual_modal = build_starter_manual_modal_html()
     waitlist_modal = build_vip_waitlist_modal_html()
     footer_html = build_legal_footer_html()
+
+    if is_leveraged_warning:
+        body_chapters_html = f"""      <h2>1. なぜ3倍レバレッジ型ETF（SOXL・TQQQ等）は老後資金・退職金運用に不向きなのか（減価リスクの仕組み）</h2>
+      <p>
+        「SOXL（半導体ブル3倍ETF）」や「TQQQ」などのレバレッジ型ETFは、<strong>1日あたりの指数変動率の3倍</strong>に連動するよう設計された短期指標であり、長期保有を前提とした資産ではありません。たとえば指数が「1日目に10%下落し、翌日に11.1%上昇して元の水準（100）に戻った」場合でも、3倍レバレッジ型は1日目に30%下落（100→70）した後、翌日に33.3%上昇しても「93.3」までしか戻らず、<strong>相場が横ばいでも元本が削られていく『減価（ボラティリティ・ドラッグ）』</strong>が数学的に発生します。
+      </p>
+      <p>
+        さらに半導体サイクルの調整局面では基準価額がピークから<strong>-70%〜-85%以上急落</strong>する事例が過去に何度も観測されており、50〜70代の大切な退職金や老後生活資金を投じると回復までに長い歳月を要する恐れがあります。そのため当サイトでは、<strong>3倍レバレッジ型ETFを老後資金・新NISA世代の資産形成に一切推奨しておりません。</strong>
+      </p>
+
+      <h2>2. 金融庁がレバレッジ型・毎月分配型を「新NISA対象外」と定めた理由</h2>
+      <p>
+        日本の金融庁規定により、<strong>レバレッジ型ETF（SOXL・TQQQ等）および毎月分配型ETF（JEPI・JEPQ・QYLD・SGOV等）は新NISA（つみたて投資枠・成長投資枠とも）の対象外</strong>と明確に定められています。これは長期・積立・分散による安定的な資産形成を守るための制度設計です。
+      </p>
+      <p>
+        万が一、特定口座でレバレッジ型ETFを保有して大きな含み損を抱えている場合も、「いつか戻るまでナンピン（買い増し）する」のではなく、ご自身の生活防衛資金とリスク許容度を冷静に点検し、配当と元本クッションを重視した穏やかな資産配分へ段階的に切り替えることが大切です。
+      </p>
+
+      <h2>3. 「老後3つの財布」への切り替えガイド：{FSA_HYBRID_PHRASE_JP}</h2>
+      <p>
+        公的年金にプラス月5〜15万円のゆとり収入をつくりながら暴落から資産寿命を守るには、値動きの激しい3倍レバレッジ商品ではなく、<strong>{FSA_HYBRID_PHRASE_JP}</strong>による「老後3つの財布」が王道となります。
+      </p>
+      <p>
+        具体的には、<strong>①守りの財布（推奨40%：個人向け国債 変動10年・待機預金・特定口座SGOV）</strong>で生活費2〜3年分の安全クッションを確保し、<strong>②高配当の財布（推奨40%：新NISA適格の1489［1・4・7・10月］＋VYM・HDV［3・6・9・12月］時間差配当）</strong>で非課税キャッシュフローを受け取り、<strong>③成長の財布（推奨20%：新NISAつみたて・オルカン／S&amp;P500などの無レバレッジ指数）</strong>でインフレに備える設計です。上のシミュレーターでは、比較参考として新NISA適格の米国高配当株ETF（$VYM）基準での穏やかな分散株数をご確認いただけます。
+      </p>
+
+      <h2>4. 年2〜4回のゆったり配分点検で「夜もぐっすり眠れる老後設計」へ</h2>
+      <p>
+        老後の資産運用で一番大切なのは、毎日の株価ボードに張り付いて一喜一憂することではなく、健康や趣味・ご家族との時間を楽しみながら<strong>年2〜4回だけ3色コンパス（🟢・🟡・🔴）に合わせて3つの財布の比率を点検すること</strong>です。まずは下記の無料『¥0 楽天・SBI証券 新NISA設定マニュアル』および『30秒・老後収入シミュレーター』で、安心できる非課税キャッシュフロー設計をお試しください。
+      </p>"""
+    else:
+        body_chapters_html = f"""      <h2>1. {jp_name} の米SEC公式決算開示（Form 8-K/10-Q）および公開業績データの整理</h2>
+      <p>
+        50〜70代の個人投資家が新NISAや退職金運用で最も大切にしたいのは、SNSの噂や一時的なブームに惑わされず、<strong>企業が規制当局へ提出した一次公開情報（米SEC Form 8-K・Form 10-Q・年次報告書Form 10-K）</strong>を落ち着いた視点で確認することです。{jp_name} に関する現在の主要確認テーマは「<strong>{focus}</strong>」であり、公開データ可視化スコアは <strong>{score}/100（区分：{cat_type}）</strong> となっています。
+      </p>
+      <p>
+        英語で公開される決算発表や設備投資計画・配当方針の開示も、売上成長率・営業利益率・フリーキャッシュフローの3点に絞って整理すれば決して難しくありません。当ページではすべての利用者に同一の客観的統計データを表示し、ご自身のペースで資産配分を点検するための基礎資料を提供しています。
+      </p>
+
+      <h2>2. SEC Form-4（役員自社株取得記録）および大口機関投資家の公開需給統計（{dp}）</h2>
+      <p>
+        日々の株価変動の背景にある中長期の資金動向を知るうえで参考になるのが、<strong>SEC Form-4（経営陣による市場内での自社株取得開示）</strong>と、米国FINRA等で集計される<strong>取引所外の大口機関投資家取引比率（現在 {dp}、オプション需給倍率 {call_ratio}）</strong>です。
+      </p>
+      <p>
+        年金基金や長期運用の機関投資家は、一度に大量の注文を出して市場価格を乱高下させないよう、複数日に分けて穏やかにポジションを構築します。同様に個人の老後資産づくりにおいても、一度に全額を1銘柄へ投じるのではなく、時間と資産クラスを分けて穏やかに保有比率を整えることが長期の安心につながります。
+      </p>
+
+      <h2>3. 【重要・金融庁規定準拠】新NISA適格銘柄と特定口座（毎月分配型）のハイブリッド設計</h2>
+      <p>
+        日本の金融庁ルールにより、米国ETFや国内ETFを老後の毎月キャッシュフローづくりに活用する際は<strong>「新NISA口座で保有できる銘柄」と「特定口座でのみ保有できる銘柄」の法的な違い</strong>を正確に把握しておく必要があります。具体的には、<strong>毎月分配型ETF（JEPI・JEPQ・QYLD・SGOV等）およびレバレッジ型ETF（SOXL・TQQQ等）は金融庁規定により新NISA（つみたて投資枠・成長投資枠とも）の対象外</strong>です。
+      </p>
+      <p>
+        そのため、年金にプラスする安定したキャッシュフローを設計する際は、<strong>{FSA_HYBRID_PHRASE_JP}</strong>が王道となります。新NISA枠内では四半期配当の<strong>1489（1・4・7・10月決算）</strong>と<strong>VYM・HDV（3・6・9・12月分配）</strong>、および長期成長の<strong>オルカン・S&amp;P500</strong>を組み合わせて20.315%非課税メリットを活かし、毎月分配の<strong>SGOV（米国短期国債ETF）やJEPI</strong>を組み入れる場合は必ず<strong>特定口座（源泉徴収あり）</strong>で区分管理してください。
+      </p>
+
+      <h2>4. 年2〜4回の穏やかな資産配分点検と1銘柄あたりの買いすぎ防止計算</h2>
+      <p>
+        新NISA口座では頻繁に売却を繰り返すと年間360万円の非課税投資枠を消化してしまうほか、万が一含み損が生じても特定口座と損益通算ができない仕組みになっています。したがって、短期的な値動きを追いかけるのではなく、<strong>「①守りの財布（個人向け国債・待機預金）」「②収入の財布（高配当ETF）」「③成長の財布（オルカン・S&amp;P500・優良大型株）」の比率を年2〜4回だけゆったり見直す運用</strong>がシニア世代の資産寿命を大きく延ばします。
+      </p>
+      <p>
+        個別銘柄である {jp_name}（基準値 ${entry:.2f}、14日平均変動幅 ${atr:.2f}）を一部組み入れる場合も、2.0倍変動幅（${stop_dist:.2f}）の振れが口座全体の1.5%以内に収まる株数（$50,000＝約750万円口座で {shares}株・約{notional_jpy_man}万円）にとどめることで、夜もぐっすり眠れる健全な分散バランスを維持できます。
+      </p>"""
 
     return f"""<!DOCTYPE html>
 <html lang="ja" data-jp-theme="light">
@@ -495,7 +574,7 @@ def build_page_html(item, date_str, all_specs):
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{title} | GetBreakAI ゆとり老後＆新NISA設計ナビ</title>
-  <meta name="description" content="{jp_name}の{focus}を公開データからわかりやすく整理。{FSA_HYBRID_PHRASE_JP}とドル・円同時対応の資産配分シミュレーターを掲載。">
+{robots_meta_tag}  <meta name="description" content="{jp_name}の{focus}を公開データからわかりやすく整理。{FSA_HYBRID_PHRASE_JP}とドル・円同時対応の資産配分シミュレーターを掲載。">
   <link rel="canonical" href="{canonical_url}">
   <link rel="alternate" hreflang="ja" href="{canonical_url}">
   <meta property="og:type" content="article">
@@ -538,8 +617,8 @@ def build_page_html(item, date_str, all_specs):
       background: #f4f6fa !important;
       color: #0f172a !important;
       font-family: var(--font-sans);
-      line-height: 1.78;
-      font-size: 17px;
+      line-height: 1.8;
+      font-size: 18px;
       font-feature-settings: "palt" 1;
       letter-spacing: 0.01em;
     }}
@@ -764,37 +843,7 @@ def build_page_html(item, date_str, all_specs):
         </div>
       </div>
 
-      <h2>1. {jp_name} の米SEC公式決算開示（Form 8-K/10-Q）および公開業績データの整理</h2>
-      <p>
-        50〜70代の個人投資家が新NISAや退職金運用で最も大切にしたいのは、SNSの噂や一時的なブームに惑わされず、<strong>企業が規制当局へ提出した一次公開情報（米SEC Form 8-K・Form 10-Q・年次報告書Form 10-K）</strong>を落ち着いた視点で確認することです。{jp_name} に関する現在の主要確認テーマは「<strong>{focus}</strong>」であり、公開データ可視化スコアは <strong>{score}/100（区分：{cat_type}）</strong> となっています。
-      </p>
-      <p>
-        英語で公開される決算発表や設備投資計画・配当方針の開示も、売上成長率・営業利益率・フリーキャッシュフローの3点に絞って整理すれば決して難しくありません。当ページではすべての利用者に同一の客観的統計データを表示し、ご自身のペースで資産配分を点検するための基礎資料を提供しています。
-      </p>
-
-      <h2>2. SEC Form-4（役員自社株取得記録）および大口機関投資家の公開需給統計（{dp}）</h2>
-      <p>
-        日々の株価変動の背景にある中長期の資金動向を知るうえで参考になるのが、<strong>SEC Form-4（経営陣による市場内での自社株取得開示）</strong>と、米国FINRA等で集計される<strong>取引所外の大口機関投資家取引比率（現在 {dp}、オプション需給倍率 {call_ratio}）</strong>です。
-      </p>
-      <p>
-        年金基金や長期運用の機関投資家は、一度に大量の注文を出して市場価格を乱高下させないよう、複数日に分けて穏やかにポジションを構築します。同様に個人の老後資産づくりにおいても、一度に全額を1銘柄へ投じるのではなく、時間と資産クラスを分けて穏やかに保有比率を整えることが長期の安心につながります。
-      </p>
-
-      <h2>3. 【重要・金融庁規定準拠】新NISA適格銘柄と特定口座（毎月分配型）のハイブリッド設計</h2>
-      <p>
-        日本の金融庁ルールにより、米国ETFや国内ETFを老後の毎月キャッシュフローづくりに活用する際は<strong>「新NISA口座で保有できる銘柄」と「特定口座でのみ保有できる銘柄」の法的な違い</strong>を正確に把握しておく必要があります。具体的には、<strong>毎月分配型ETF（JEPI・JEPQ・QYLD・SGOV等）およびレバレッジ型ETF（SOXL・TQQQ等）は金融庁規定により新NISA（つみたて投資枠・成長投資枠とも）の対象外</strong>です。
-      </p>
-      <p>
-        そのため、年金にプラスする安定したキャッシュフローを設計する際は、<strong>{FSA_HYBRID_PHRASE_JP}</strong>が王道となります。新NISA枠内では四半期配当の<strong>1489（1・4・7・10月決算）</strong>と<strong>VYM・HDV（3・6・9・12月分配）</strong>、および長期成長の<strong>オルカン・S&amp;P500</strong>を組み合わせて20.315%非課税メリットを活かし、毎月分配の<strong>SGOV（米国短期国債ETF）やJEPI</strong>を組み入れる場合は必ず<strong>特定口座（源泉徴収あり）</strong>で区分管理してください。
-      </p>
-
-      <h2>4. 年2〜4回の穏やかな資産配分点検と1銘柄あたりの買いすぎ防止計算</h2>
-      <p>
-        新NISA口座では頻繁に売却を繰り返すと年間360万円の非課税投資枠を消化してしまうほか、万が一含み損が生じても特定口座と損益通算ができない仕組みになっています。したがって、短期的な値動きを追いかけるのではなく、<strong>「①守りの財布（個人向け国債・待機預金）」「②収入の財布（高配当ETF）」「③成長の財布（オルカン・S&amp;P500・優良大型株）」の比率を年2〜4回だけゆったり見直す運用</strong>がシニア世代の資産寿命を大きく延ばします。
-      </p>
-      <p>
-        個別銘柄である {jp_name}（基準値 ${entry:.2f}、14日平均変動幅 ${atr:.2f}）を一部組み入れる場合も、2.0倍変動幅（${stop_dist:.2f}）の振れが口座全体の1.5%以内に収まる株数（$50,000＝約750万円口座で {shares}株・約{notional_jpy_man}万円）にとどめることで、夜もぐっすり眠れる健全な分散バランスを維持できます。
-      </p>
+{body_chapters_html}
 
       <!-- 下部：無料倶楽部登録 ＆ Proソフトウェア案内 -->
       <section id="gba-jp-lead-bottom" style="margin-top:32px; padding:24px; background:linear-gradient(135deg,#ecfdf5 0%,#eff6ff 100%); border:2.5px solid #059669; border-radius:16px;">
@@ -810,7 +859,7 @@ def build_page_html(item, date_str, all_specs):
         <div class="gba-jp-signup-status" role="status" aria-live="polite" style="display:none; margin-bottom:14px; padding:12px 14px; border-radius:10px; background:#d1fae5; color:#065f46; font-size:1rem; font-weight:800;"></div>
 
         <div style="padding-top:14px; border-top:1px solid #93c5fd;">
-          <div style="font-size:1rem; font-weight:900; color:#0b1f3a; margin-bottom:10px; text-align:center;">💎 全銘柄の公開データ一覧・配当＆資産配分計算Proソフトウェア：</div>
+{pro_tools_compact}
           <div style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-bottom:10px;">
             <a href="/jp/#gba-retirement-architect-jp" class="btn-cta" style="min-height:56px; display:inline-flex; align-items:center; padding:10px 18px;">🧭 無料30秒・老後収入シミュレーターを開く →</a>
             <a href="{POLAR_MONTHLY_CTA_HREF}" data-gba-paid-plan="monthly" data-polar-slot="monthly_29_jp" class="polar-checkout-button btn-cta" style="min-height:56px; display:inline-flex; align-items:center; padding:10px 18px; background:linear-gradient(135deg,#059669,#047857);">⚡ {PRICE_LABEL_MONTHLY_JP}</a>
@@ -912,6 +961,7 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
 
     head_scripts = build_payment_and_kpi_head_html()
     disclaimer_box = build_mandatory_disclaimer_html()
+    pro_tools_box = build_pro_retiree_tools_html(compact=False)
     manual_modal = build_starter_manual_modal_html()
     waitlist_modal = build_vip_waitlist_modal_html()
     footer_html = build_legal_footer_html()
@@ -1028,15 +1078,17 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
       --accent-amber: #fbbf24;
     }}
     * {{ box-sizing: border-box; }}
-    html {{ font-size: 17px; }}
-    html[data-jp-font="large"] {{ font-size: 19px; }}
-    html[data-jp-font="xlarge"] {{ font-size: 20.8px; }}
+    html {{ font-size: 18px; }}
+    html[data-jp-font="normal"] {{ font-size: 18px; }}
+    html[data-jp-font="large"] {{ font-size: 20px; }}
+    html[data-jp-font="xlarge"] {{ font-size: 22px; }}
     html, body {{ max-width: 100%; overflow-x: hidden; overflow-wrap: break-word; }}
     body {{
       background: var(--bg-page);
       color: var(--text-main);
       font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
-      line-height: 1.75;
+      font-size: 1rem;
+      line-height: 1.78;
       margin: 0;
       padding: 0 0 calc(64px + env(safe-area-inset-bottom, 0px));
       font-feature-settings: "palt" 1;
@@ -1100,24 +1152,85 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
     .hero-sublead {{
       font-size: 1.08rem;
       color: var(--text-muted);
-      font-weight: 700;
+      font-weight: 800;
       margin: 0 0 14px;
-      line-height: 1.72;
+      line-height: 1.65;
+      max-width: 820px;
     }}
 
     /* 3-Color Balance Quick Cards */
     .signal-light-section {{
       background: var(--bg-card);
-      border: 1.5px solid var(--border-col);
+      border: 2px solid var(--border-col);
       border-radius: 14px;
-      padding: 15px;
+      padding: 16px;
       margin-bottom: 18px;
+    }}
+    .gba-live-signal-banner {{
+      margin-top: 10px;
+      padding: 11px 14px;
+      border-radius: 11px;
+      background: #fffbeb;
+      border: 2px solid #f59e0b;
+      color: #78350f;
+      font-size: 0.98rem;
+      font-weight: 900;
+      line-height: 1.58;
+    }}
+    html[data-jp-theme="dark"] .gba-live-signal-banner {{
+      background: rgba(245, 158, 11, 0.16);
+      border-color: #fbbf24;
+      color: #fde68a;
     }}
     .signal-light-grid {{
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 10px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }}
+    .gba-signal-yield-note {{
       margin-top: 10px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-sub);
+      line-height: 1.55;
+    }}
+    .gba-model-cases-box {{
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-col);
+      border-radius: 13px;
+      padding: 15px;
+      margin-bottom: 15px;
+    }}
+    .gba-model-cases-grid {{
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin: 10px 0;
+    }}
+    .gba-model-case-card {{
+      background: var(--bg-sub);
+      border: 1.5px solid var(--border-col);
+      border-left: 5px solid #059669;
+      border-radius: 11px;
+      padding: 13px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }}
+    .gba-model-case-notice {{
+      padding: 9px 12px;
+      border-radius: 9px;
+      background: #fffbeb;
+      border: 1px solid #f59e0b;
+      color: #78350f;
+      font-size: 0.88rem;
+      font-weight: 800;
+      line-height: 1.55;
+    }}
+    html[data-jp-theme="dark"] .gba-model-case-notice {{
+      background: rgba(245, 158, 11, 0.16);
+      color: #fde68a;
     }}
     .signal-light-card {{
       background: var(--bg-sub);
@@ -1374,8 +1487,8 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
     /* Mobile Bottom Quick Bar */
     .jp-mobile-bottom-nav {{ display:none; }}
     @media (max-width: 920px) {{
-      .gba-retire-presets, .gba-retire-res-grid, .gba-jp-pwless-form, .gba-manual-chap-grid, .gba-manual-broker-grid {{ grid-template-columns: 1fr; }}
-      .gba-nisa-core-grid, .signal-light-grid {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
+      .gba-retire-presets, .gba-retire-res-grid, .gba-jp-pwless-form, .gba-manual-chap-grid, .gba-manual-broker-grid, .signal-light-grid, .gba-model-cases-grid {{ grid-template-columns: 1fr; }}
+      .gba-nisa-core-grid {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
     }}
     @media (max-width: 768px) {{
       .jp-mobile-bottom-nav {{
@@ -1416,7 +1529,7 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
     <nav class="top-nav" aria-label="ゆとり老後＆新NISAナビゲーション">
       <a href="/jp/" class="brand-link">⚡ GetBreakAI <span style="font-size:0.84rem; color:var(--accent-emerald); font-weight:800;">ゆとり老後＆新NISA設計ナビ</span></a>
       <div class="top-nav-actions">
-        <button type="button" id="btnToggleJpFont" onclick="cycleJpFontSize()" class="btn-top-font" aria-label="文字サイズ切替">🔍 文字: 標準</button>
+        <button type="button" id="btnToggleJpFont" onclick="cycleJpFontSize()" class="btn-top-font" aria-label="文字サイズ切替">🔍 文字: 標準 18px</button>
         <a href="#gba-retirement-architect-jp" class="btn-top-main">🧭 30秒老後試算</a>
         <a href="#pricing" class="btn-top-yt">💎 Pro料金</a>
         <a href="https://www.youtube.com/@GetBreakAI" target="_blank" rel="noopener" class="btn-top-yt">📺 YouTube</a>
@@ -1424,41 +1537,42 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
       </div>
     </nav>
 
-    <!-- Crisp Intuitive Senior B2C Headline -->
+    <!-- Crisp Intuitive Senior B2C Headline (<= 2 Easy Lines, Zero Ticker Jargon Wall) -->
     <h1 class="hero-title">
       年金＋新NISAで『毎月ゆとりある老後収入』を設計し、暴落から資産寿命を守る羅針盤
     </h1>
     <p class="hero-sublead">
-      難しい専門用語や忙しい頻繁な取引は不要です。金融庁ルールに完全準拠した<b>{FSA_HYBRID_PHRASE_JP}</b>と個人向け国債を組み合わせ、3色バランス指標（🟢・🟡・🔴）に合わせて<b>年2〜4回ゆったり配分を見直す</b>だけで、非課税枠360万円を守りながら心穏やかな老後キャッシュフローを設計できます。
+      公的年金にプラス月5〜15万円のゆとり収入をつくり、暴落から大切な退職金と新NISAを守る『3色コンパス』です。
     </p>
 
-    <!-- 🚦 3-Color Balance Quick Cards -->
-    <section class="signal-light-section" id="jpSignalTrafficLightHub" aria-label="本日の老後ハイブリッド資産・3色バランス早見カード">
+    <!-- 🚦 本日の3色バランス早見カード (Live Date + Signal Color + Allocation % + Reference Yields %) -->
+    <section class="signal-light-section" id="jpSignalTrafficLightHub" aria-label="本日の3色バランス早見カード">
       <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
-        <div style="font-weight:900; font-size:1.05rem;">🚦 本日の「新NISA適格コア × 特定口座ハイブリッド」3色バランス早見カード <span style="font-size:0.92rem; color:var(--accent-blue);">（公開市場データ連動）</span></div>
+        <div style="font-weight:900; font-size:1.05rem;">🚦 本日の3色バランス早見カード <span style="font-size:0.9rem; color:var(--accent-blue);">（公開市場データ連動）</span></div>
         <a href="#gba-jp-passwordless-signup" style="font-size:0.95rem; font-weight:900; color:var(--accent-emerald); text-decoration:underline;">📧 毎朝8時の無料3色ブリーフ登録 ↓</a>
       </div>
+      <div class="gba-live-signal-banner" id="gbaLiveSignalStatusBanner" role="status" aria-live="polite">
+        📅 2026年11月17日 終値基準 ｜ 本日の天気：【🟡 慎重・配当重視モード】 ｜ 推奨バランス：守り（国債・現金）40% ・ 高配当（毎月収入）40% ・ 成長（インデックス）20%
+      </div>
       <div class="signal-light-grid">
-        <button type="button" class="signal-light-card sig-buy" onclick="setQuickStock('1489'); document.getElementById('jpQuickCalcSection').scrollIntoView({{behavior:'smooth'}});">
-          <span class="sig-pill sig-pill-buy">🟢 新NISA適格（1・4・7・10月）</span>
-          <strong style="font-size:1.02rem; color:var(--text-main);">1489 日経高配当株50 ETF</strong>
-          <span style="font-size:0.92rem; color:var(--text-muted);">日本優良50社・新NISA成長投資枠で非課税配当</span>
+        <button type="button" class="signal-light-card sig-watch" onclick="document.getElementById('gbaSeniorCoreStripJp').scrollIntoView({{behavior:'smooth'}});">
+          <span class="sig-pill sig-pill-watch">🛡️ 守り枠（安全クッション）｜ 推奨 40%</span>
+          <strong style="font-size:1.02rem; color:var(--text-main);">個人向け国債 ＆ 米国短期国債ETF（特定口座）</strong>
+          <span style="font-size:0.92rem; color:var(--text-muted); line-height:1.58;">推奨 40%｜個人向け国債（変動10年）参考利回り 約0.6〜0.7%・米国短期国債ETF（特定口座）参考分配利回り 約4.6%</span>
         </button>
-        <button type="button" class="signal-light-card sig-buy" onclick="setQuickStock('VYM'); document.getElementById('jpQuickCalcSection').scrollIntoView({{behavior:'smooth'}});">
-          <span class="sig-pill sig-pill-buy">🟢 新NISA適格（3・6・9・12月）</span>
-          <strong style="font-size:1.02rem; color:var(--text-main);">VYM・HDV 米国高配当株ETF</strong>
-          <span style="font-size:0.92rem; color:var(--text-muted);">1489と時間差組み合わせで年間配当を平準化</span>
+        <button type="button" class="signal-light-card sig-buy" onclick="setQuickStock('1489'); document.getElementById('jpQuickCalcSection').scrollIntoView({{behavior:'smooth'}});">
+          <span class="sig-pill sig-pill-buy">🟢 高配当枠（毎月収入）｜ 推奨 40%</span>
+          <strong style="font-size:1.02rem; color:var(--text-main);">日経高配当株50（1489）＆ 米国高配当VYM/HDV</strong>
+          <span style="font-size:0.92rem; color:var(--text-muted); line-height:1.58;">推奨 40%｜日経高配当株50（1489）参考利回り 約3.8%・米国高配当VYM/HDV 約2.8〜3.4%</span>
         </button>
         <button type="button" class="signal-light-card sig-buy" onclick="document.getElementById('gba-retirement-architect-jp').scrollIntoView({{behavior:'smooth'}});">
-          <span class="sig-pill sig-pill-buy">🟢 新NISA適格（長期成長枠）</span>
+          <span class="sig-pill sig-pill-buy">🌱 成長枠（長期インデックス）｜ 推奨 20%</span>
           <strong style="font-size:1.02rem; color:var(--text-main);">オルカン ＆ 米国株式（S&amp;P500）</strong>
-          <span style="font-size:0.92rem; color:var(--text-muted);">物価上昇（インフレ）から老後資産の実質価値を保護</span>
+          <span style="font-size:0.92rem; color:var(--text-muted); line-height:1.58;">推奨 20%｜新NISAつみたて・オルカン／S&amp;P500 長期複利枠（物価上昇から実質価値を保護）</span>
         </button>
-        <button type="button" class="signal-light-card sig-watch" onclick="document.getElementById('gbaSeniorCoreStripJp').scrollIntoView({{behavior:'smooth'}});">
-          <span class="sig-pill sig-pill-watch">🛡️ 国債 ＋ 特定口座（SGOV・JEPI）</span>
-          <strong style="font-size:1.02rem; color:var(--text-main);">個人向け国債 ＆ 特定口座毎月分配</strong>
-          <span style="font-size:0.92rem; color:var(--text-muted);">※毎月分配型（SGOV・JEPI）は特定口座で区分管理</span>
-        </button>
+      </div>
+      <div class="gba-signal-yield-note">
+        ※公開市場の参考実績利回りであり将来の分配を保証するものではありません（毎月分配型のSGOV・JEPI等は金融庁規定により特定口座での区分管理となります）。
       </div>
     </section>
 
@@ -1537,19 +1651,19 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
           <div class="gba-retire-rkicker">計算結果 ② · 公開市場データ連動「老後3つの財布」最適配分ガイド</div>
           <div class="gba-retire-wtabs" role="group" aria-label="相場天気モード切替">
             <button type="button" class="gba-retire-wtab" data-gba-wmode="green" aria-pressed="false" onclick="setGbaRetireWeather('green', this)">🟢 安定環境</button>
-            <button type="button" class="gba-retire-wtab is-active" data-gba-wmode="yellow" aria-pressed="true" onclick="setGbaRetireWeather('yellow', this)">🟡 標準・配当重視</button>
+            <button type="button" class="gba-retire-wtab is-active" data-gba-wmode="yellow" aria-pressed="true" onclick="setGbaRetireWeather('yellow', this)">🟡 慎重・配当重視</button>
             <button type="button" class="gba-retire-wtab" data-gba-wmode="red" aria-pressed="false" onclick="setGbaRetireWeather('red', this)">🔴 国債・現金防衛</button>
           </div>
           <div class="gba-retire-wdesc" id="gbaRetireWeatherDesc">
-            🟡 本日は「標準・配当重視バランス」：新NISA年間360万円枠を大切に温存しながら、国債クッション30%と高配当40%で穏やかに受け取る配分です。
+            🟡 本日は「慎重・配当重視モード」：新NISA年間360万円枠を大切に温存しながら、国債クッション40%と高配当40%・成長20%で穏やかに受け取る配分です。
           </div>
           <div class="gba-wallet-list">
             <div class="gba-wallet-item w1">
               <div class="gba-wallet-head">
                 <span>① 守りの財布（個人向け国債 変動10年・待機預金 ／ 特定口座 SGOV）</span>
-                <span class="gba-wallet-stat" id="gbaWallet1Stat">30% · 約695万円</span>
+                <span class="gba-wallet-stat" id="gbaWallet1Stat">40% · 約927万円</span>
               </div>
-              <div class="gba-wallet-bar"><span id="gbaWallet1Bar" style="width:30%;"></span></div>
+              <div class="gba-wallet-bar"><span id="gbaWallet1Bar" style="width:40%;"></span></div>
               <div class="gba-wallet-note">生活費2〜3年分を安全確保（※毎月分配の米国短期国債ETF SGOVは特定口座で区分管理）。</div>
             </div>
             <div class="gba-wallet-item w2">
@@ -1563,12 +1677,34 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
             <div class="gba-wallet-item w3">
               <div class="gba-wallet-head">
                 <span>③ 成長の財布（新NISA適格：オルカン・S&amp;P500）</span>
-                <span class="gba-wallet-stat" id="gbaWallet3Stat">30% · 約695万円</span>
+                <span class="gba-wallet-stat" id="gbaWallet3Stat">20% · 約464万円</span>
               </div>
-              <div class="gba-wallet-bar"><span id="gbaWallet3Bar" style="width:30%;"></span></div>
+              <div class="gba-wallet-bar"><span id="gbaWallet3Bar" style="width:20%;"></span></div>
               <div class="gba-wallet-note">インフレに負けない長期成長枠。年2〜4回だけ穏やかに比率を点検します。</div>
             </div>
           </div>
+        </div>
+      </div>
+
+      <!-- 📊 62歳・71歳 シニア世代の試算モデルケース (景品表示法準拠明記) -->
+      <div class="gba-model-cases-box" id="gbaSeniorModelCasesJp">
+        <div style="font-weight:900; font-size:1.02rem; color:var(--text-main);">
+          📊 年代・資産規模別の『老後3つの財布』試算モデルケース（62歳・71歳）
+        </div>
+        <div class="gba-model-cases-grid">
+          <div class="gba-model-case-card">
+            <div style="font-size:0.9rem; font-weight:900; color:var(--accent-emerald);">📘 モデルケース①：62歳・定年退職直後のご夫婦（準備資産 1,500万円＋積立）</div>
+            <div style="font-size:0.96rem; font-weight:800; color:var(--text-main);">守り（国債・現金）40% ・ 高配当（1489/VYM/HDV）40% ・ 成長（オルカン）20%</div>
+            <div style="font-size:0.92rem; color:var(--text-muted); line-height:1.6;">5年後の受取開始時に想定資産 約2,318万円 ➔ 公的年金にプラス<strong>月 約8.7万円（年間 約104万円）</strong>のゆとり収入を目指す試算例です。</div>
+          </div>
+          <div class="gba-model-case-card" style="border-left-color:#1d4ed8;">
+            <div style="font-size:0.9rem; font-weight:900; color:var(--accent-blue);">📘 モデルケース②：71歳・年金受給中のシニア世帯（運用資産 3,000万円・即時受取）</div>
+            <div style="font-size:0.96rem; font-weight:800; color:var(--text-main);">守り（個人向け国債・特定口座SGOV）45% ・ 高配当 35% ・ 成長 20%</div>
+            <div style="font-size:0.92rem; color:var(--text-muted); line-height:1.6;">生活防衛資金を厚く保ちながら、公的年金にプラス<strong>月 約11.3万円（年間 約135万円）</strong>の配当＆計画取り崩しを行う試算例です。</div>
+          </div>
+        </div>
+        <div class="gba-model-case-notice">
+          {MODEL_CASE_DISCLAIMER_JP}
         </div>
       </div>
 
@@ -1625,10 +1761,10 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
 
     <!-- 🍵 Unified Single Email Club Card (#gbaMorningClubRoot > #gbaMorningClubJp > #gba-jp-passwordless-signup) -->
     <div id="gbaMorningClubRoot">
-      <section class="gba-morning-club" id="gbaMorningClubJp" aria-label="朝のゆとり老後＆資産守り倶楽部">
+      <section class="gba-morning-club" id="gbaMorningClubJp" aria-label="朝の資産守り倶楽部">
         <div class="gba-club-header">
           <div class="gba-club-title-group">
-            <span class="gba-club-badge">🍵 朝のゆとり老後＆資産守り倶楽部</span>
+            <span class="gba-club-badge">🍵 朝の資産守り倶楽部</span>
             <strong class="gba-club-title">年金＋新NISA・老後資金をご一緒に守る朝の習慣</strong>
           </div>
           <span class="gba-club-streak" id="gbaJpClubStreakBadge">🏅 倶楽部会員・連続訪問 1日目</span>
@@ -1640,36 +1776,36 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
         </div>
 
         <div class="gba-club-poll-header">
-          <span style="font-weight:900;">🗳️ 本日の個人投資家スタンス集計（1タップ・登録不要）</span>
-          <span style="font-size:0.88rem; font-weight:800; color:var(--text-sub);" id="gbaJpClubPollTotal">本日 482名の個人投資家が参加中</span>
+          <span style="font-weight:900;">📊 1クリック・本日の老後資産アンケート：「いま一番気になる老後のお金の悩みは？」</span>
+          <span style="font-size:0.88rem; font-weight:800; color:var(--text-sub);" id="gbaJpClubPollTotal">本日 482名のシニア・個人投資家が回答中</span>
         </div>
 
-        <div class="gba-club-poll-grid" role="group" aria-label="本日の個人投資家アンケート">
-          <button type="button" class="gba-club-poll-btn" data-gba-poll="buy_dip" aria-pressed="false" onclick="voteGbaMorningClubJp('buy_dip')">
+        <div class="gba-club-poll-grid" role="group" aria-label="本日の老後資産アンケート">
+          <button type="button" class="gba-club-poll-btn" data-gba-poll="crash_defense" aria-pressed="false" onclick="voteGbaMorningClubJp('crash_defense')">
             <span class="gba-poll-row-top">
-              <span>🟢 新NISA積立・配当継続</span>
-              <strong data-gba-pct="buy_dip">34%</strong>
+              <span>① 暴落時の退職金目減り</span>
+              <strong data-gba-pct="crash_defense">38%</strong>
             </span>
-            <span class="gba-poll-bar-bg"><span class="gba-poll-bar-fill fill-dip" data-gba-bar="buy_dip" style="width:34%;"></span></span>
+            <span class="gba-poll-bar-bg"><span class="gba-poll-bar-fill fill-watch" data-gba-bar="crash_defense" style="width:38%;"></span></span>
           </button>
-          <button type="button" class="gba-club-poll-btn" data-gba-poll="watch" aria-pressed="false" onclick="voteGbaMorningClubJp('watch')">
+          <button type="button" class="gba-club-poll-btn" data-gba-poll="nisa_1800_alloc" aria-pressed="false" onclick="voteGbaMorningClubJp('nisa_1800_alloc')">
             <span class="gba-poll-row-top">
-              <span>🟡 現状配分を穏やかに維持</span>
-              <strong data-gba-pct="watch">41%</strong>
+              <span>② 新NISA 1,800万円の配分</span>
+              <strong data-gba-pct="nisa_1800_alloc">35%</strong>
             </span>
-            <span class="gba-poll-bar-bg"><span class="gba-poll-bar-fill fill-watch" data-gba-bar="watch" style="width:41%;"></span></span>
+            <span class="gba-poll-bar-bg"><span class="gba-poll-bar-fill fill-dip" data-gba-bar="nisa_1800_alloc" style="width:35%;"></span></span>
           </button>
-          <button type="button" class="gba-club-poll-btn" data-gba-poll="cash" aria-pressed="false" onclick="voteGbaMorningClubJp('cash')">
+          <button type="button" class="gba-club-poll-btn" data-gba-poll="monthly_drawdown" aria-pressed="false" onclick="voteGbaMorningClubJp('monthly_drawdown')">
             <span class="gba-poll-row-top">
-              <span>🛡️ 国債・待機資金を重視</span>
-              <strong data-gba-pct="cash">25%</strong>
+              <span>③ 毎月の配当・取り崩し設計</span>
+              <strong data-gba-pct="monthly_drawdown">27%</strong>
             </span>
-            <span class="gba-poll-bar-bg"><span class="gba-poll-bar-fill fill-cash" data-gba-bar="cash" style="width:25%;"></span></span>
+            <span class="gba-poll-bar-bg"><span class="gba-poll-bar-fill fill-cash" data-gba-bar="monthly_drawdown" style="width:27%;"></span></span>
           </button>
         </div>
 
         <div class="gba-club-companion" id="gbaJpClubCompanionMsg" role="status" aria-live="polite">
-          今朝のスタンスを1タップでお選びいただくと、全国の倶楽部会員の皆さまの集計結果が表示されます。
+          上の①〜③を1タップでお選びいただくと、同世代の皆さまの回答比率とワンポイント解決策がその場で表示されます（登録不要）。
         </div>
 
         <!-- Unified Single Passwordless 3-Sec Club Signup Box (#gba-jp-passwordless-signup) -->
@@ -1879,6 +2015,8 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
         </div>
       </div>
 
+{pro_tools_box}
+
       <div class="cta-container">
         <div class="cta-dual-grid">
           <a href="{POLAR_MONTHLY_CTA_HREF}" data-gba-paid-plan="monthly" data-polar-slot="monthly_29_jp" class="btn-checkout-primary polar-checkout-button">
@@ -1999,14 +2137,38 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
         desc: '🟢 安定環境バランス：生活費2年分の国債クッションを確保しつつ、新NISA適格の四半期配当（1489・VYM・HDV）＋オルカン・S&P500でゆとり収入と長期成長を両立します。'
       }},
       yellow: {{
-        weights: [30, 40, 30],
-        desc: '🟡 標準・配当重視バランス：新NISA年間360万円枠を大切に温存しながら、国債クッション30%と高配当40%（新NISA 1489/VYM/HDV＋特定口座 JEPI）を受け取る配分です。'
+        weights: [40, 40, 20],
+        desc: '🟡 慎重・配当重視モード：新NISA年間360万円枠を大切に温存しながら、守り（国債・現金）40%・高配当（1489/VYM/HDV＋特定口座JEPI）40%・成長（オルカン/S&P500）20%で穏やかに受け取る配分です。'
       }},
       red: {{
-        weights: [45, 35, 20],
-        desc: '🔴 国債・現金防衛バランス：相場変動の大きい局面では、年2〜4回の定期点検で個人向け国債・待機預金（特定口座SGOV含む）を45%へ厚くし資産寿命を守ります。'
+        weights: [50, 35, 15],
+        desc: '🔴 国債・現金防衛バランス：相場変動の大きい局面では、年2〜4回の定期点検で個人向け国債・待機預金（特定口座SGOV含む）を50%へ厚くし資産寿命を守ります。'
       }}
     }};
+
+    function formatGbaJpDateLabel(isoStr) {{
+      const s = String(isoStr || '').trim();
+      const m = s.match(/^(\\d{{4}})-(\\d{{1,2}})-(\\d{{1,2}})$/);
+      if (m) {{
+        return Number(m[1]) + '年' + Number(m[2]) + '月' + Number(m[3]) + '日';
+      }}
+      try {{
+        const jst = new Date(Date.now() + 9 * 3600 * 1000);
+        const y = jst.getUTCFullYear();
+        const mo = jst.getUTCMonth() + 1;
+        const d = jst.getUTCDate();
+        return y + '年' + mo + '月' + d + '日';
+      }} catch (_) {{
+        return '2026年11月17日';
+      }}
+    }}
+
+    function syncGbaLiveSignalBanner(snapDateIso) {{
+      const el = document.getElementById('gbaLiveSignalStatusBanner');
+      if (!el) return;
+      const jpDate = formatGbaJpDateLabel(snapDateIso);
+      el.innerText = '📅 ' + jpDate + ' 終値基準 ｜ 本日の天気：【🟡 慎重・配当重視モード】 ｜ 推奨バランス：守り（国債・現金）40% ・ 高配当（毎月収入）40% ・ 成長（インデックス）20%';
+    }}
 
     function setGbaRetirePreset(grp, val, btnEl) {{
       if (!grp) return;
@@ -2110,9 +2272,9 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
       '「おはようございます。周囲のニュースに急かされず、ご自身のライフプランに合う配分を大切にしましょう。」'
     ];
     const GBA_CLUB_COMPANION_JP = {{
-      buy_dip: '🟢 落ち着いた長期視点ですね。新NISA適格の四半期配当ETFと積立枠を焦らずコツコツ育てることが将来のゆとりにつながります。',
-      watch: '🟡 とても賢明なご判断です。無理に売買せず現在の3つの財布バランスを静かに保つことで、年間360万円の非課税枠を大切に温存できます。',
-      cash: '🛡️ 堅実な資産管理ですね。個人向け国債や待機預金をしっかり確保しておけば、どのような市場環境でも安心してお過ごしいただけます。'
+      crash_defense: '🛡️ 「① 暴落時の退職金目減り」が一番気になりますよね。個人向け国債（変動10年）と待機資金に40%を置いておけば、株価急落時も生活費を取り崩さずに穏やかに乗り切れます。',
+      nisa_1800_alloc: '🌱 「② 新NISA 1,800万円の配分」は多くの方が悩まれるポイントです。一度に全額を埋めず、1489・VYM・HDV（高配当）とオルカンを年次別に分けてゆったり配分するのが安心です。',
+      monthly_drawdown: '💴 「③ 毎月の配当・取り崩し設計」ですね。1・4・7・10月の1489と3・6・9・12月のVYM/HDVに国債を組み合わせると、年金のない月も心強いキャッシュフローが作れます。'
     }};
 
     function getGbaJstDateKey() {{
@@ -2121,7 +2283,7 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
 
     function getGbaDateSeed(dateStr) {{
       let h = 2166136261;
-      const s = String(dateStr || '2026-11-16');
+      const s = String(dateStr || '2026-11-17');
       for (let i = 0; i < s.length; i++) {{
         h ^= s.charCodeAt(i);
         h = Math.imul(h, 16777619);
@@ -2155,17 +2317,17 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
       if (greetEl) greetEl.innerText = GBA_CLUB_GREETINGS_JP[seed % GBA_CLUB_GREETINGS_JP.length];
 
       const counts = {{
-        buy_dip: 154 + (seed % 46),
-        watch: 186 + ((seed >> 3) % 52),
-        cash: 118 + ((seed >> 6) % 44)
+        crash_defense: 178 + (seed % 48),
+        nisa_1800_alloc: 164 + ((seed >> 3) % 46),
+        monthly_drawdown: 126 + ((seed >> 6) % 42)
       }};
       let activeChoice = '';
       try {{
         if (clickedChoice && GBA_CLUB_COMPANION_JP[clickedChoice]) {{
           activeChoice = clickedChoice;
-          localStorage.setItem('gba_morning_club_poll_v1', JSON.stringify({{ date: todayKey, choice: activeChoice }}));
+          localStorage.setItem('gba_morning_club_poll_v2', JSON.stringify({{ date: todayKey, choice: activeChoice }}));
         }} else {{
-          const rawPoll = localStorage.getItem('gba_morning_club_poll_v1');
+          const rawPoll = localStorage.getItem('gba_morning_club_poll_v2');
           if (rawPoll) {{
             const pl = JSON.parse(rawPoll);
             if (pl && pl.date === todayKey && GBA_CLUB_COMPANION_JP[pl.choice]) activeChoice = pl.choice;
@@ -2174,11 +2336,11 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
       }} catch (_) {{}}
 
       if (activeChoice) counts[activeChoice] += 1;
-      const total = Math.max(1, counts.buy_dip + counts.watch + counts.cash);
-      const pDip = Math.round((counts.buy_dip / total) * 100);
-      const pWatch = Math.round((counts.watch / total) * 100);
-      const pCash = Math.max(1, 100 - pDip - pWatch);
-      const pctMap = {{ buy_dip: pDip, watch: pWatch, cash: pCash }};
+      const total = Math.max(1, counts.crash_defense + counts.nisa_1800_alloc + counts.monthly_drawdown);
+      const pCrash = Math.round((counts.crash_defense / total) * 100);
+      const pNisa = Math.round((counts.nisa_1800_alloc / total) * 100);
+      const pDraw = Math.max(1, 100 - pCrash - pNisa);
+      const pctMap = {{ crash_defense: pCrash, nisa_1800_alloc: pNisa, monthly_drawdown: pDraw }};
 
       const rootClub = document.getElementById('gbaMorningClubJp');
       if (rootClub) {{
@@ -2188,7 +2350,7 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
           btn.classList.toggle('is-active', isAct);
           btn.setAttribute('aria-pressed', isAct ? 'true' : 'false');
         }});
-        ['buy_dip', 'watch', 'cash'].forEach(function(k) {{
+        ['crash_defense', 'nisa_1800_alloc', 'monthly_drawdown'].forEach(function(k) {{
           const pctEl = rootClub.querySelector('[data-gba-pct="' + k + '"]');
           const barEl = rootClub.querySelector('[data-gba-bar="' + k + '"]');
           if (pctEl) pctEl.innerText = pctMap[k] + '%';
@@ -2196,7 +2358,7 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
         }});
       }}
       const totEl = document.getElementById('gbaJpClubPollTotal');
-      if (totEl) totEl.innerText = '本日 ' + total.toLocaleString() + '名の個人投資家が参加中';
+      if (totEl) totEl.innerText = '本日 ' + total.toLocaleString() + '名のシニア・個人投資家が回答中';
       const msgEl = document.getElementById('gbaJpClubCompanionMsg');
       if (msgEl && activeChoice && GBA_CLUB_COMPANION_JP[activeChoice]) {{
         msgEl.classList.add('is-voted');
@@ -2208,10 +2370,15 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
       if (!GBA_CLUB_COMPANION_JP[choice]) return;
       syncGbaMorningClubJp(choice);
       try {{
+        if (choice === 'monthly_drawdown') selectGbaJpClubSegment('semis_high_dividend');
+        else selectGbaJpClubSegment('nisa_wealth_defense');
+      }} catch (_) {{}}
+      try {{
         const todayKey = getGbaJstDateKey();
         const hitFlag = 'gba_poll_hit_' + choice + '_' + todayKey;
         if (localStorage.getItem(hitFlag) !== '1') {{
           localStorage.setItem(hitFlag, '1');
+          fetch('https://abacus.jasoncameron.dev/hit/gba_getbreakai/poll_' + choice, {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
           fetch('https://abacus.jasoncameron.dev/hit/gba_getbreakai/poll_' + choice + '_' + todayKey, {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
         }}
       }} catch (_) {{}}
@@ -2345,7 +2512,7 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
       document.documentElement.setAttribute('data-jp-font', m);
       try {{ localStorage.setItem('gb_jp_fontsize', m); }} catch (_) {{}}
       const btn = document.getElementById('btnToggleJpFont');
-      if (btn) btn.innerText = m === 'xlarge' ? '🔍 文字: 特大' : (m === 'large' ? '🔍 文字: 大' : '🔍 文字: 標準');
+      if (btn) btn.innerText = m === 'xlarge' ? '🔍 文字: 特大 22px' : (m === 'large' ? '🔍 文字: 大 20px' : '🔍 文字: 標準 18px');
     }}
 
     function cycleJpFontSize() {{
@@ -2589,6 +2756,7 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
         if (savedFont) applyJpFontSize(savedFont);
       }} catch (_) {{}}
 
+      syncGbaLiveSignalBanner();
       syncGbaMorningClubJp();
       syncGbaJpPasswordlessClub();
       recalcGbaRetireJp();
@@ -2627,6 +2795,9 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
           const snapRes = await fetch('/data/live_market_snapshot.json', {{ cache: 'no-store' }});
           if (snapRes.ok) {{
             const snap = await snapRes.json();
+            if (snap.updated_date || snap.market_bar_date) {{
+              syncGbaLiveSignalBanner(snap.updated_date || snap.market_bar_date);
+            }}
             const tMap = snap.tickers || {{}};
             Object.keys(PRESET_STOCK_MAP).forEach(function(k) {{
               const item = tMap[k] || tMap[k + '.T'];
@@ -2709,7 +2880,8 @@ def main():
         text_only = re.sub(r"<script[\s\S]*?</script>|<style[\s\S]*?</style>|<[^>]+>", "", html)
         text_len = len(text_only.strip())
         min_chars = min(min_chars, text_len)
-        urls.append(f"https://getbreakai.com/jp/{spec['slug']}")
+        if not spec.get("noindex"):
+            urls.append(f"https://getbreakai.com/jp/{spec['slug']}")
 
     if "--detail-only" not in sys.argv:
         jp_hub_html = build_hub_html(date_str, SEO_PAGES_SPEC, is_root=False)

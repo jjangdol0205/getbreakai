@@ -3,20 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>半導体ETF（SMH・SOXL）の公開変動幅データ比較と金融庁・新NISA対象外（特定口座）ルール解説 | GetBreakAI ゆとり老後＆新NISA設計ナビ</title>
-  <meta name="description" content="半導体ETF（SMH・SOXL制度比較）の金融庁規定により3倍レバレッジ型ETF（SOXL・TQQQ）および毎月分配型ETF（JEPI・SGOV）が新NISA対象外（特定口座のみ）となる法的区分と、新NISA適格コア資産（1489・VYM・HDV・オルカン・S&P500）との変動率比較を公開データからわかりやすく整理。『新NISA 適格（四半期配当 VYM・HDV・1489・オルカン・S&P500 時間差組み合わせ）＋ 特定口座（毎月分配 SGOV・JEPI）ハイブリッド設計』とドル・円同時対応の資産配分シミュレーターを掲載。">
+  <title>【新NISA対象外・老後資金注意喚起】3倍レバレッジETF（SOXL等）の減価リスクと「老後3つの財布」への切り替え解説 | GetBreakAI ゆとり老後＆新NISA設計ナビ</title>
+  <meta name="robots" content="noindex, follow">
+  <meta name="description" content="3倍レバレッジETF（SOXL等・新NISA対象外）の金融庁規定により3倍レバレッジ型ETF（SOXL・TQQQ等）が新NISA対象外となる理由、日々の複利計算による減価（ボラティリティ・ドラッグ）リスク、および老後3つの財布（国債・高配当1489/VYM/HDV・オルカン/S&P500）への安全な切り替え解説を公開データからわかりやすく整理。『新NISA 適格（四半期配当 VYM・HDV・1489・オルカン・S&P500 時間差組み合わせ）＋ 特定口座（毎月分配 SGOV・JEPI）ハイブリッド設計』とドル・円同時対応の資産配分シミュレーターを掲載。">
   <link rel="canonical" href="https://getbreakai.com/jp/soxl-smh-semiconductor-timing.html">
   <link rel="alternate" hreflang="ja" href="https://getbreakai.com/jp/soxl-smh-semiconductor-timing.html">
   <meta property="og:type" content="article">
   <meta property="og:locale" content="ja_JP">
   <meta property="og:site_name" content="GetBreakAI ゆとり老後＆新NISA設計ナビ">
   <meta property="og:url" content="https://getbreakai.com/jp/soxl-smh-semiconductor-timing.html">
-  <meta property="og:title" content="半導体ETF（SMH・SOXL）の公開変動幅データ比較と金融庁・新NISA対象外（特定口座）ルール解説">
-  <meta property="og:description" content="🏛️ 【金融庁・新NISA制度区分のご注意】レバレッジ型ETF（SOXL・TQQQ）および毎月分配型ETF（JEPI・JEPQ・QYLD・SGOV）は日本の金融庁規定により【新NISA対象外（特定口座のみ保有可）】です。50〜70代の老後資産形成には『新NISA 適格（四半期配当 VYM・HDV・1489・オルカン・S&P500 時間差組み合わせ）＋ 特定口座（毎月分配 SGOV・JEPI）ハイブリッド設計』をご活用ください。">
+  <meta property="og:title" content="【新NISA対象外・老後資金注意喚起】3倍レバレッジETF（SOXL等）の減価リスクと「老後3つの財布」への切り替え解説">
+  <meta property="og:description" content="🚨 【新NISA対象外・老後資金での保有非推奨】3倍レバレッジ型ETF（SOXL・TQQQ等）は日本の金融庁規定により新NISA対象外であり、日々の値動きの3倍を複利計算する仕組み上、横ばい・下落相場で元本が大きく削られる「減価（ボラティリティ・ドラッグ）」リスクがあります。50〜70代の大切な退職金・老後資金には一切推奨せず、『新NISA 適格（四半期配当 VYM・HDV・1489・オルカン・S&P500 時間差組み合わせ）＋ 特定口座（毎月分配 SGOV・JEPI）ハイブリッド設計』（老後3つの財布）への切り替えをご案内しています。">
   <meta property="og:image" content="https://getbreakai.com/og-preview.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="半導体ETF（SMH・SOXL）の公開変動幅データ比較と金融庁・新NISA対象外（特定口座）ルール解説">
-  <meta name="twitter:description" content="🏛️ 【金融庁・新NISA制度区分のご注意】レバレッジ型ETF（SOXL・TQQQ）および毎月分配型ETF（JEPI・JEPQ・QYLD・SGOV）は日本の金融庁規定により【新NISA対象外（特定口座のみ保有可）】です。50〜70代の老後資産形成には『新NISA 適格（四半期配当 VYM・HDV・1489・オルカン・S&P500 時間差組み合わせ）＋ 特定口座（毎月分配 SGOV・JEPI）ハイブリッド設計』をご活用ください。">
+  <meta name="twitter:title" content="【新NISA対象外・老後資金注意喚起】3倍レバレッジETF（SOXL等）の減価リスクと「老後3つの財布」への切り替え解説">
+  <meta name="twitter:description" content="🚨 【新NISA対象外・老後資金での保有非推奨】3倍レバレッジ型ETF（SOXL・TQQQ等）は日本の金融庁規定により新NISA対象外であり、日々の値動きの3倍を複利計算する仕組み上、横ばい・下落相場で元本が大きく削られる「減価（ボラティリティ・ドラッグ）」リスクがあります。50〜70代の大切な退職金・老後資金には一切推奨せず、『新NISA 適格（四半期配当 VYM・HDV・1489・オルカン・S&P500 時間差組み合わせ）＋ 特定口座（毎月分配 SGOV・JEPI）ハイブリッド設計』（老後3つの財布）への切り替えをご案内しています。">
   <meta name="twitter:image" content="https://getbreakai.com/og-preview.png">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,8 +29,8 @@
   "@graph": [
     {
       "@type": "Article",
-      "headline": "半導体ETF（SMH・SOXL）の公開変動幅データ比較と金融庁・新NISA対象外（特定口座）ルール解説",
-      "description": "🏛️ 【金融庁・新NISA制度区分のご注意】レバレッジ型ETF（SOXL・TQQQ）および毎月分配型ETF（JEPI・JEPQ・QYLD・SGOV）は日本の金融庁規定により【新NISA対象外（特定口座のみ保有可）】です。50〜70代の老後資産形成には『新NISA 適格（四半期配当 VYM・HDV・1489・オルカン・S&P500 時間差組み合わせ）＋ 特定口座（毎月分配 SGOV・JEPI）ハイブリッド設計』をご活用ください。",
+      "headline": "【新NISA対象外・老後資金注意喚起】3倍レバレッジETF（SOXL等）の減価リスクと「老後3つの財布」への切り替え解説",
+      "description": "🚨 【新NISA対象外・老後資金での保有非推奨】3倍レバレッジ型ETF（SOXL・TQQQ等）は日本の金融庁規定により新NISA対象外であり、日々の値動きの3倍を複利計算する仕組み上、横ばい・下落相場で元本が大きく削られる「減価（ボラティリティ・ドラッグ）」リスクがあります。50〜70代の大切な退職金・老後資金には一切推奨せず、『新NISA 適格（四半期配当 VYM・HDV・1489・オルカン・S&P500 時間差組み合わせ）＋ 特定口座（毎月分配 SGOV・JEPI）ハイブリッド設計』（老後3つの財布）への切り替えをご案内しています。",
       "datePublished": "2026-11-17",
       "dateModified": "2026-11-17",
       "inLanguage": "ja",
@@ -53,10 +54,10 @@
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "半導体ETF（SMH・SOXL制度比較）の1銘柄あたり分散配分目安と平均変動幅（ATR統計値）はどのように計算しますか？",
+          "name": "3倍レバレッジETF（SOXL等・新NISA対象外）の1銘柄あたり分散配分目安と平均変動幅（ATR統計値）はどのように計算しますか？",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "公開市場データ（2026-11-17時点・基準価格$34.50、14日平均変動幅ATR $3.10）に基づき、2.0倍変動幅（$6.20）が運用資金全体の1.5%以内に収まるよう逆算すると、$50,000（約750万円）口座での分散目安は120株（約62.1万円）となります。"
+            "text": "公開市場データ（2026-11-17時点・基準価格$134.50、14日平均変動幅ATR $2.10）に基づき、2.0倍変動幅（$4.20）が運用資金全体の1.5%以内に収まるよう逆算すると、$50,000（約750万円）口座での分散目安は178株（約359.1万円）となります。"
           }
         },
         {
@@ -355,8 +356,8 @@
       background: #f4f6fa !important;
       color: #0f172a !important;
       font-family: var(--font-sans);
-      line-height: 1.78;
-      font-size: 17px;
+      line-height: 1.8;
+      font-size: 18px;
       font-feature-settings: "palt" 1;
       letter-spacing: 0.01em;
     }
@@ -481,14 +482,14 @@
 
     <article class="article-box">
       <div style="font-family:var(--font-mono); font-size:0.84rem; color:var(--accent-amber); font-weight:800; margin-bottom:8px;">
-        📊 公開市場データ更新日: 2026-11-17 ｜ 対象データ: 半導体ETF（SMH・SOXL制度比較） ($SOXL)
+        📊 公開市場データ更新日: 2026-11-17 ｜ 対象データ: 3倍レバレッジETF（SOXL等・新NISA対象外） ($VYM)
       </div>
-      <h1>半導体ETF（SMH・SOXL）の公開変動幅データ比較と金融庁・新NISA対象外（特定口座）ルール解説</h1>
+      <h1>【新NISA対象外・老後資金注意喚起】3倍レバレッジETF（SOXL等）の減価リスクと「老後3つの財布」への切り替え解説</h1>
       <p style="font-size:1.05rem; font-weight:800; color:#1e3a8a !important; margin-bottom:14px;">
         🧭 大切な退職金と新NISA非課税枠を1銘柄への偏重から守るため、ご資金に対する穏やかな資産配分目安を3秒で試算できます。
       </p>
-      <div style="background:#fffbeb; border:1.5px solid #f59e0b; border-radius:10px; padding:14px 16px; margin-bottom:22px; color:#78350f; font-weight:700; font-size:1.02rem; line-height:1.68;">
-        🏛️ 【金融庁・新NISA制度区分のご注意】レバレッジ型ETF（SOXL・TQQQ）および毎月分配型ETF（JEPI・JEPQ・QYLD・SGOV）は日本の金融庁規定により【新NISA対象外（特定口座のみ保有可）】です。50〜70代の老後資産形成には『新NISA 適格（四半期配当 VYM・HDV・1489・オルカン・S&P500 時間差組み合わせ）＋ 特定口座（毎月分配 SGOV・JEPI）ハイブリッド設計』をご活用ください。
+      <div style="background:rgba(244,63,94,0.10); border:1.5px solid rgba(244,63,94,0.55); border-radius:10px; padding:14px 16px; margin-bottom:22px; color:#881337; font-weight:700; font-size:1.02rem; line-height:1.68;">
+        🚨 【新NISA対象外・老後資金での保有非推奨】3倍レバレッジ型ETF（SOXL・TQQQ等）は日本の金融庁規定により新NISA対象外であり、日々の値動きの3倍を複利計算する仕組み上、横ばい・下落相場で元本が大きく削られる「減価（ボラティリティ・ドラッグ）」リスクがあります。50〜70代の大切な退職金・老後資金には一切推奨せず、『新NISA 適格（四半期配当 VYM・HDV・1489・オルカン・S&P500 時間差組み合わせ）＋ 特定口座（毎月分配 SGOV・JEPI）ハイブリッド設計』（老後3つの財布）への切り替えをご案内しています。
       </div>
 
       <!-- 上部：無料倶楽部メール登録 ＆ Proソフトウェア案内 -->
@@ -502,9 +503,9 @@
         <p style="margin:0 0 14px; font-size:1.02rem; line-height:1.68; color:#1e293b !important;">
           メールアドレス1つ（3秒）で、毎朝の金利・ドル円為替・老後3つの財布の公開データ要約と『¥0 新NISA基本設定マニュアル』を無料でお届けします。
         </p>
-        <form class="gba-jp-signup-form" onsubmit="return window.__gbaSubmitJpSignup(event, this, 'SOXL');" style="display:flex; flex-wrap:wrap; gap:10px; align-items:stretch;">
-          <label for="gbaTopEmail_SOXL" style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0);">メールアドレス</label>
-          <input id="gbaTopEmail_SOXL" type="email" required autocomplete="email" placeholder="メールアドレスを入力（例: yamada@yahoo.co.jp）" style="flex:1 1 260px; min-height:56px; padding:12px 16px; font-size:1.04rem; font-weight:700; border-radius:12px; border:2px solid #64748b; background:#ffffff; color:#0f172a;">
+        <form class="gba-jp-signup-form" onsubmit="return window.__gbaSubmitJpSignup(event, this, 'VYM');" style="display:flex; flex-wrap:wrap; gap:10px; align-items:stretch;">
+          <label for="gbaTopEmail_VYM" style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0);">メールアドレス</label>
+          <input id="gbaTopEmail_VYM" type="email" required autocomplete="email" placeholder="メールアドレスを入力（例: yamada@yahoo.co.jp）" style="flex:1 1 260px; min-height:56px; padding:12px 16px; font-size:1.04rem; font-weight:700; border-radius:12px; border:2px solid #64748b; background:#ffffff; color:#0f172a;">
           <button type="submit" style="min-height:56px; padding:12px 22px; font-size:1.02rem; font-weight:900; border-radius:12px; border:none; background:#059669; color:#ffffff; cursor:pointer;">
             📩 無料で毎朝の3色バランス指標を受け取る →
           </button>
@@ -535,25 +536,25 @@
       <div class="kpi-grid">
         <div class="kpi-card">
           <div class="kpi-label">直近基準株価（公開終値）</div>
-          <div class="kpi-val">$34.50 <span style="font-size:0.8rem; color:#475569; font-weight:700;">(約¥5,175)</span></div>
+          <div class="kpi-val">$134.50 <span style="font-size:0.8rem; color:#475569; font-weight:700;">(約¥20,175)</span></div>
         </div>
         <div class="kpi-card">
           <div class="kpi-label">公開データ安定度スコア</div>
-          <div class="kpi-val" style="color:#1d4ed8 !important;">72.0 / 100</div>
+          <div class="kpi-val" style="color:#1d4ed8 !important;">18.0 / 100</div>
         </div>
         <div class="kpi-card">
           <div class="kpi-label">2.0倍ATR 変動幅参考値</div>
-          <div class="kpi-val" style="color:#be123c !important;">$28.30 <span style="font-size:0.78rem;">(幅 $6.20)</span></div>
+          <div class="kpi-val" style="color:#be123c !important;">$130.30 <span style="font-size:0.78rem;">(幅 $4.20)</span></div>
         </div>
         <div class="kpi-card">
           <div class="kpi-label">長期リスクリワード参考値</div>
-          <div class="kpi-val" style="color:#047857 !important;">$50.00</div>
+          <div class="kpi-val" style="color:#047857 !important;">$145.00</div>
         </div>
       </div>
 
       <!-- 自己判断用・資産配分＆変動幅シミュレーター -->
       <div class="widget-box" id="miniCalcBox">
-        <h3 style="margin-top:0;">🧮 半導体ETF（SMH・SOXL制度比較）：1銘柄集中を防ぐ資産配分＆許容変動幅シミュレーター（ドル $ / 日本円 ¥ 同時換算）</h3>
+        <h3 style="margin-top:0;">🧮 3倍レバレッジETF（SOXL等・新NISA対象外）：1銘柄集中を防ぐ資産配分＆許容変動幅シミュレーター（ドル $ / 日本円 ¥ 同時換算）</h3>
         <p style="font-size:0.95rem; color:#334155 !important; margin-bottom:14px;">
           ご自身の運用資産総額に合わせてスライダーを動かすと、1銘柄あたりの価格変動（14日ATR×2.0倍）を資産全体の1.5%以内に抑える「分散保有株数の目安」を自動計算します。
         </p>
@@ -567,61 +568,58 @@
         <div class="kpi-grid" style="margin:14px 0 0;">
           <div class="kpi-card">
             <div class="kpi-label">分散保有株数の目安</div>
-            <div id="miniOutShares" class="kpi-val" style="color:#b45309 !important;">120株 ($4,140 / 約62.1万円)</div>
+            <div id="miniOutShares" class="kpi-val" style="color:#b45309 !important;">178株 ($23,941 / 約359.1万円)</div>
           </div>
           <div class="kpi-card">
             <div class="kpi-label">2.0倍ATR変動時の想定振れ幅</div>
-            <div id="miniOutRisk" class="kpi-val" style="color:#be123c !important;">-$744 (約11.2万円)</div>
+            <div id="miniOutRisk" class="kpi-val" style="color:#be123c !important;">-$748 (約11.2万円)</div>
           </div>
           <div class="kpi-card">
             <div class="kpi-label">長期2.5倍目標時の試算差額</div>
-            <div id="miniOutGain" class="kpi-val" style="color:#047857 !important;">+$1,860 (約27.9万円)</div>
+            <div id="miniOutGain" class="kpi-val" style="color:#047857 !important;">+$1,869 (約28.0万円)</div>
           </div>
         </div>
         <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap;">
-          <a href="/jp/?ticker=NVDA#jpQuickCalcSection" class="btn-cta">🧭 新NISA・老後3つの財布シミュレーターで全体配分を確認 →</a>
+          <a href="/jp/?ticker=VYM#jpQuickCalcSection" class="btn-cta">🧭 新NISA・老後3つの財布シミュレーターで全体配分を確認 →</a>
         </div>
       </div>
 
-      <h2>1. 半導体ETF（SMH・SOXL制度比較） の米SEC公式決算開示（Form 8-K/10-Q）および公開業績データの整理</h2>
+      <h2>1. なぜ3倍レバレッジ型ETF（SOXL・TQQQ等）は老後資金・退職金運用に不向きなのか（減価リスクの仕組み）</h2>
       <p>
-        50〜70代の個人投資家が新NISAや退職金運用で最も大切にしたいのは、SNSの噂や一時的なブームに惑わされず、<strong>企業が規制当局へ提出した一次公開情報（米SEC Form 8-K・Form 10-Q・年次報告書Form 10-K）</strong>を落ち着いた視点で確認することです。半導体ETF（SMH・SOXL制度比較） に関する現在の主要確認テーマは「<strong>金融庁規定により3倍レバレッジ型ETF（SOXL・TQQQ）および毎月分配型ETF（JEPI・SGOV）が新NISA対象外（特定口座のみ）となる法的区分と、新NISA適格コア資産（1489・VYM・HDV・オルカン・S&P500）との変動率比較</strong>」であり、公開データ可視化スコアは <strong>72.0/100（区分：金融庁・新NISA対象外（特定口座区分）制度解説 ＆ 変動統計比較）</strong> となっています。
+        「SOXL（半導体ブル3倍ETF）」や「TQQQ」などのレバレッジ型ETFは、<strong>1日あたりの指数変動率の3倍</strong>に連動するよう設計された短期指標であり、長期保有を前提とした資産ではありません。たとえば指数が「1日目に10%下落し、翌日に11.1%上昇して元の水準（100）に戻った」場合でも、3倍レバレッジ型は1日目に30%下落（100→70）した後、翌日に33.3%上昇しても「93.3」までしか戻らず、<strong>相場が横ばいでも元本が削られていく『減価（ボラティリティ・ドラッグ）』</strong>が数学的に発生します。
       </p>
       <p>
-        英語で公開される決算発表や設備投資計画・配当方針の開示も、売上成長率・営業利益率・フリーキャッシュフローの3点に絞って整理すれば決して難しくありません。当ページではすべての利用者に同一の客観的統計データを表示し、ご自身のペースで資産配分を点検するための基礎資料を提供しています。
-      </p>
-
-      <h2>2. SEC Form-4（役員自社株取得記録）および大口機関投資家の公開需給統計（57.0%）</h2>
-      <p>
-        日々の株価変動の背景にある中長期の資金動向を知るうえで参考になるのが、<strong>SEC Form-4（経営陣による市場内での自社株取得開示）</strong>と、米国FINRA等で集計される<strong>取引所外の大口機関投資家取引比率（現在 57.0%、オプション需給倍率 1.4倍）</strong>です。
-      </p>
-      <p>
-        年金基金や長期運用の機関投資家は、一度に大量の注文を出して市場価格を乱高下させないよう、複数日に分けて穏やかにポジションを構築します。同様に個人の老後資産づくりにおいても、一度に全額を1銘柄へ投じるのではなく、時間と資産クラスを分けて穏やかに保有比率を整えることが長期の安心につながります。
+        さらに半導体サイクルの調整局面では基準価額がピークから<strong>-70%〜-85%以上急落</strong>する事例が過去に何度も観測されており、50〜70代の大切な退職金や老後生活資金を投じると回復までに長い歳月を要する恐れがあります。そのため当サイトでは、<strong>3倍レバレッジ型ETFを老後資金・新NISA世代の資産形成に一切推奨しておりません。</strong>
       </p>
 
-      <h2>3. 【重要・金融庁規定準拠】新NISA適格銘柄と特定口座（毎月分配型）のハイブリッド設計</h2>
+      <h2>2. 金融庁がレバレッジ型・毎月分配型を「新NISA対象外」と定めた理由</h2>
       <p>
-        日本の金融庁ルールにより、米国ETFや国内ETFを老後の毎月キャッシュフローづくりに活用する際は<strong>「新NISA口座で保有できる銘柄」と「特定口座でのみ保有できる銘柄」の法的な違い</strong>を正確に把握しておく必要があります。具体的には、<strong>毎月分配型ETF（JEPI・JEPQ・QYLD・SGOV等）およびレバレッジ型ETF（SOXL・TQQQ等）は金融庁規定により新NISA（つみたて投資枠・成長投資枠とも）の対象外</strong>です。
+        日本の金融庁規定により、<strong>レバレッジ型ETF（SOXL・TQQQ等）および毎月分配型ETF（JEPI・JEPQ・QYLD・SGOV等）は新NISA（つみたて投資枠・成長投資枠とも）の対象外</strong>と明確に定められています。これは長期・積立・分散による安定的な資産形成を守るための制度設計です。
       </p>
       <p>
-        そのため、年金にプラスする安定したキャッシュフローを設計する際は、<strong>『新NISA 適格（四半期配当 VYM・HDV・1489・オルカン・S&P500 時間差組み合わせ）＋ 特定口座（毎月分配 SGOV・JEPI）ハイブリッド設計』</strong>が王道となります。新NISA枠内では四半期配当の<strong>1489（1・4・7・10月決算）</strong>と<strong>VYM・HDV（3・6・9・12月分配）</strong>、および長期成長の<strong>オルカン・S&amp;P500</strong>を組み合わせて20.315%非課税メリットを活かし、毎月分配の<strong>SGOV（米国短期国債ETF）やJEPI</strong>を組み入れる場合は必ず<strong>特定口座（源泉徴収あり）</strong>で区分管理してください。
+        万が一、特定口座でレバレッジ型ETFを保有して大きな含み損を抱えている場合も、「いつか戻るまでナンピン（買い増し）する」のではなく、ご自身の生活防衛資金とリスク許容度を冷静に点検し、配当と元本クッションを重視した穏やかな資産配分へ段階的に切り替えることが大切です。
       </p>
 
-      <h2>4. 年2〜4回の穏やかな資産配分点検と1銘柄あたりの買いすぎ防止計算</h2>
+      <h2>3. 「老後3つの財布」への切り替えガイド：『新NISA 適格（四半期配当 VYM・HDV・1489・オルカン・S&P500 時間差組み合わせ）＋ 特定口座（毎月分配 SGOV・JEPI）ハイブリッド設計』</h2>
       <p>
-        新NISA口座では頻繁に売却を繰り返すと年間360万円の非課税投資枠を消化してしまうほか、万が一含み損が生じても特定口座と損益通算ができない仕組みになっています。したがって、短期的な値動きを追いかけるのではなく、<strong>「①守りの財布（個人向け国債・待機預金）」「②収入の財布（高配当ETF）」「③成長の財布（オルカン・S&amp;P500・優良大型株）」の比率を年2〜4回だけゆったり見直す運用</strong>がシニア世代の資産寿命を大きく延ばします。
+        公的年金にプラス月5〜15万円のゆとり収入をつくりながら暴落から資産寿命を守るには、値動きの激しい3倍レバレッジ商品ではなく、<strong>『新NISA 適格（四半期配当 VYM・HDV・1489・オルカン・S&P500 時間差組み合わせ）＋ 特定口座（毎月分配 SGOV・JEPI）ハイブリッド設計』</strong>による「老後3つの財布」が王道となります。
       </p>
       <p>
-        個別銘柄である 半導体ETF（SMH・SOXL制度比較）（基準値 $34.50、14日平均変動幅 $3.10）を一部組み入れる場合も、2.0倍変動幅（$6.20）の振れが口座全体の1.5%以内に収まる株数（$50,000＝約750万円口座で 120株・約62.1万円）にとどめることで、夜もぐっすり眠れる健全な分散バランスを維持できます。
+        具体的には、<strong>①守りの財布（推奨40%：個人向け国債 変動10年・待機預金・特定口座SGOV）</strong>で生活費2〜3年分の安全クッションを確保し、<strong>②高配当の財布（推奨40%：新NISA適格の1489［1・4・7・10月］＋VYM・HDV［3・6・9・12月］時間差配当）</strong>で非課税キャッシュフローを受け取り、<strong>③成長の財布（推奨20%：新NISAつみたて・オルカン／S&amp;P500などの無レバレッジ指数）</strong>でインフレに備える設計です。上のシミュレーターでは、比較参考として新NISA適格の米国高配当株ETF（$VYM）基準での穏やかな分散株数をご確認いただけます。
+      </p>
+
+      <h2>4. 年2〜4回のゆったり配分点検で「夜もぐっすり眠れる老後設計」へ</h2>
+      <p>
+        老後の資産運用で一番大切なのは、毎日の株価ボードに張り付いて一喜一憂することではなく、健康や趣味・ご家族との時間を楽しみながら<strong>年2〜4回だけ3色コンパス（🟢・🟡・🔴）に合わせて3つの財布の比率を点検すること</strong>です。まずは下記の無料『¥0 楽天・SBI証券 新NISA設定マニュアル』および『30秒・老後収入シミュレーター』で、安心できる非課税キャッシュフロー設計をお試しください。
       </p>
 
       <!-- 下部：無料倶楽部登録 ＆ Proソフトウェア案内 -->
       <section id="gba-jp-lead-bottom" style="margin-top:32px; padding:24px; background:linear-gradient(135deg,#ecfdf5 0%,#eff6ff 100%); border:2.5px solid #059669; border-radius:16px;">
         <h3 style="margin-top:0; font-size:1.28rem;">🍵 無料正会員登録（パスワード不要・3秒）：毎朝8時の「新NISA 3色バランス指標ブリーフ」</h3>
         <p style="margin-bottom:14px; font-size:1.02rem;">クレジットカード不要・いつでも1クリック配信停止可能。毎朝の日米マクロ市場と老後3つの財布バランス指標を無料でお届けします。</p>
-        <form class="gba-jp-signup-form" onsubmit="return window.__gbaSubmitJpSignup(event, this, 'SOXL');" style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:14px;">
-          <label for="gbaBotEmail_SOXL" style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0);">メールアドレス</label>
-          <input id="gbaBotEmail_SOXL" type="email" required autocomplete="email" placeholder="メールアドレスを入力（例: yamada@yahoo.co.jp）" style="flex:1 1 260px; min-height:56px; padding:12px 16px; font-size:1.04rem; font-weight:700; border-radius:12px; border:2px solid #64748b; background:#ffffff; color:#0f172a;">
+        <form class="gba-jp-signup-form" onsubmit="return window.__gbaSubmitJpSignup(event, this, 'VYM');" style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:14px;">
+          <label for="gbaBotEmail_VYM" style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0);">メールアドレス</label>
+          <input id="gbaBotEmail_VYM" type="email" required autocomplete="email" placeholder="メールアドレスを入力（例: yamada@yahoo.co.jp）" style="flex:1 1 260px; min-height:56px; padding:12px 16px; font-size:1.04rem; font-weight:700; border-radius:12px; border:2px solid #64748b; background:#ffffff; color:#0f172a;">
           <button type="submit" style="min-height:56px; padding:12px 22px; font-size:1.02rem; font-weight:900; border-radius:12px; border:none; background:#059669; color:#ffffff; cursor:pointer;">
             📩 無料メール倶楽部に参加する →
           </button>
@@ -629,7 +627,25 @@
         <div class="gba-jp-signup-status" role="status" aria-live="polite" style="display:none; margin-bottom:14px; padding:12px 14px; border-radius:10px; background:#d1fae5; color:#065f46; font-size:1rem; font-weight:800;"></div>
 
         <div style="padding-top:14px; border-top:1px solid #93c5fd;">
-          <div style="font-size:1rem; font-weight:900; color:#0b1f3a; margin-bottom:10px; text-align:center;">💎 全銘柄の公開データ一覧・配当＆資産配分計算Proソフトウェア：</div>
+      <div class="gba-pro-retiree-tools-box" style="margin:14px 0 16px; padding:12px 14px; border-radius:14px; background:var(--bg-card, #ffffff); border:2px solid #93c5fd;">
+        <div style="font-size:0.96rem; font-weight:900; color:var(--accent-blue, #1d4ed8); margin-bottom:10px; line-height:1.45;">
+          🛠️ Proプラン（月額 $29 / 約4,400円（税込） ・ 年額 $199 / 約30,000円（税込））で使える「新NISA・老後3大設計ソフトウェアツール」
+        </div>
+        <ul style="margin:0; padding:0; display:flex; flex-direction:column; gap:10px;">
+          <li style="background:var(--bg-sub, #f8fafc); border:1.5px solid var(--border-col, #cbd5e1); border-left:5px solid #1d4ed8; border-radius:11px; padding:10px 12px; list-style:none;">
+            <div style="font-size:0.95rem; font-weight:900; color:var(--text-main, #0b1f3a); line-height:1.48; margin-bottom:4px;">✅ 1. 『新NISA 生涯非課税枠1,800万円（成長投資枠1,200万＋つみたて枠600万）退職金・年次別最適配分シート』</div>
+            <div style="font-size:0.88rem; font-weight:700; color:var(--text-muted, #334155); line-height:1.6;">自分の資産額を入力するだけで、高値掴み・枠の無駄遣いを防ぐ年次別ステップ表を自動算出</div>
+          </li>
+          <li style="background:var(--bg-sub, #f8fafc); border:1.5px solid var(--border-col, #cbd5e1); border-left:5px solid #1d4ed8; border-radius:11px; padding:10px 12px; list-style:none;">
+            <div style="font-size:0.95rem; font-weight:900; color:var(--text-main, #0b1f3a); line-height:1.48; margin-bottom:4px;">✅ 2. 『1489（1・4・7・10月）＋VYM/HDV（3・6・9・12月）＋国債でつくる 年12回・毎月配当カレンダー設計ツール』</div>
+            <div style="font-size:0.88rem; font-weight:700; color:var(--text-muted, #334155); line-height:1.6;">年金のない偶数月・奇数月も毎月キャッシュフローが入る配当月パズル自動作成</div>
+          </li>
+          <li style="background:var(--bg-sub, #f8fafc); border:1.5px solid var(--border-col, #cbd5e1); border-left:5px solid #1d4ed8; border-radius:11px; padding:10px 12px; list-style:none;">
+            <div style="font-size:0.95rem; font-weight:900; color:var(--text-main, #0b1f3a); line-height:1.48; margin-bottom:4px;">✅ 3. 『楽天証券・SBI証券 スマホ／PC画面そのまま操作・大文字図解＆ステップガイド』</div>
+            <div style="font-size:0.88rem; font-weight:700; color:var(--text-muted, #334155); line-height:1.6;">迷わず設定できる大きな文字の画面付き実践マニュアル＆年2〜4回の見直しチェック表</div>
+          </li>
+        </ul>
+      </div>
           <div style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-bottom:10px;">
             <a href="/jp/#gba-retirement-architect-jp" class="btn-cta" style="min-height:56px; display:inline-flex; align-items:center; padding:10px 18px;">🧭 無料30秒・老後収入シミュレーターを開く →</a>
             <a href="#gbaVipWaitlistModal" data-gba-paid-plan="monthly" data-polar-slot="monthly_29_jp" class="polar-checkout-button btn-cta" style="min-height:56px; display:inline-flex; align-items:center; padding:10px 18px; background:linear-gradient(135deg,#059669,#047857);">⚡ 月額 $29 / 約4,400円（税込）</a>
@@ -1102,6 +1118,25 @@
           👑 年額 $199（約30,000円・税込）<br><small style="font-weight:700; color:#b45309;">一番人気・43%OFF＋早期20%割引 ／ 随時更新・新NISA老後取り崩し実践PDFガイド＋3つの財布シミュレーター同梱</small>
         </button>
       </div>
+      <div class="gba-pro-retiree-tools-box" style="margin:14px 0 16px; padding:12px 14px; border-radius:14px; background:var(--bg-card, #ffffff); border:2px solid #93c5fd;">
+        <div style="font-size:0.96rem; font-weight:900; color:var(--accent-blue, #1d4ed8); margin-bottom:10px; line-height:1.45;">
+          🛠️ Proプラン（月額 $29 / 約4,400円（税込） ・ 年額 $199 / 約30,000円（税込））で使える「新NISA・老後3大設計ソフトウェアツール」
+        </div>
+        <ul style="margin:0; padding:0; display:flex; flex-direction:column; gap:10px;">
+          <li style="background:var(--bg-sub, #f8fafc); border:1.5px solid var(--border-col, #cbd5e1); border-left:5px solid #1d4ed8; border-radius:11px; padding:10px 12px; list-style:none;">
+            <div style="font-size:0.95rem; font-weight:900; color:var(--text-main, #0b1f3a); line-height:1.48; margin-bottom:4px;">✅ 1. 『新NISA 生涯非課税枠1,800万円（成長投資枠1,200万＋つみたて枠600万）退職金・年次別最適配分シート』</div>
+            <div style="font-size:0.88rem; font-weight:700; color:var(--text-muted, #334155); line-height:1.6;">自分の資産額を入力するだけで、高値掴み・枠の無駄遣いを防ぐ年次別ステップ表を自動算出</div>
+          </li>
+          <li style="background:var(--bg-sub, #f8fafc); border:1.5px solid var(--border-col, #cbd5e1); border-left:5px solid #1d4ed8; border-radius:11px; padding:10px 12px; list-style:none;">
+            <div style="font-size:0.95rem; font-weight:900; color:var(--text-main, #0b1f3a); line-height:1.48; margin-bottom:4px;">✅ 2. 『1489（1・4・7・10月）＋VYM/HDV（3・6・9・12月）＋国債でつくる 年12回・毎月配当カレンダー設計ツール』</div>
+            <div style="font-size:0.88rem; font-weight:700; color:var(--text-muted, #334155); line-height:1.6;">年金のない偶数月・奇数月も毎月キャッシュフローが入る配当月パズル自動作成</div>
+          </li>
+          <li style="background:var(--bg-sub, #f8fafc); border:1.5px solid var(--border-col, #cbd5e1); border-left:5px solid #1d4ed8; border-radius:11px; padding:10px 12px; list-style:none;">
+            <div style="font-size:0.95rem; font-weight:900; color:var(--text-main, #0b1f3a); line-height:1.48; margin-bottom:4px;">✅ 3. 『楽天証券・SBI証券 スマホ／PC画面そのまま操作・大文字図解＆ステップガイド』</div>
+            <div style="font-size:0.88rem; font-weight:700; color:var(--text-muted, #334155); line-height:1.6;">迷わず設定できる大きな文字の画面付き実践マニュアル＆年2〜4回の見直しチェック表</div>
+          </li>
+        </ul>
+      </div>
 
       <form class="gba-vip-wl-form" id="gbaVipWaitlistForm" onsubmit="return window.submitGbaVipWaitlist(event);">
         <label for="gbaVipWaitlistEmail" style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0);">メールアドレス</label>
@@ -1221,9 +1256,9 @@
   </script>
 
   <script>
-    const ENTRY_PRICE = 34.50;
-    const STOP_DIST = 6.20;
-    const TARGET_PRICE = 50.00;
+    const ENTRY_PRICE = 134.50;
+    const STOP_DIST = 4.20;
+    const TARGET_PRICE = 145.00;
     const FX = 150.0;
 
     function recalcMiniWidget() {

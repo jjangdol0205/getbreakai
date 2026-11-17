@@ -111,10 +111,52 @@ test('STEP 3: 30 Japanese Static SEO Research Pages (/jp/*.html) + Canonical Sit
   assert.ok(sitemap.includes('<loc>https://getbreakai.com/</loc>'));
   assert.ok(sitemap.includes('<loc>https://getbreakai.com/jp/</loc>'));
   assert.ok(!sitemap.includes('index.html</loc>'), 'sitemap.xml must never contain /index.html redirect URLs');
+  assert.ok(!sitemap.includes('soxl-smh-semiconductor-timing.html'), 'sitemap.xml must exclude noindex SOXL warning page');
   assert.ok(sitemap.includes('<loc>https://getbreakai.com/jp/terms.html</loc>'));
   assert.ok(sitemap.includes('<loc>https://getbreakai.com/jp/privacy.html</loc>'));
   assert.ok(sitemap.includes('<loc>https://getbreakai.com/jp/refund.html</loc>'));
   assert.ok(fs.existsSync(WORKFLOW_PATH), 'getbreakai_jp_autopilot.yml must exist');
   assert.ok(fs.existsSync(path.join(JP_DIR, 'feed.xml')));
   assert.ok(fs.existsSync(path.join(JP_DIR, 'x-feed.xml')));
+});
+
+test('STEP 4: 7-Principles Japanese Senior UX & Efficacy Overhaul (18px+ Font, 2-Line Hero, Live Signal Yields, 3 Pro Tools, SOXL Noindex & Senior Poll)', () => {
+  for (const [label, fp] of [
+    ['index.html', INDEX_PATH],
+    ['jp/index.html', JP_INDEX_PATH],
+    ['dist/index.html', path.join(DIST_DIR, 'index.html')],
+    ['dist/jp/index.html', path.join(DIST_DIR, 'jp', 'index.html')]
+  ]) {
+    const html = fs.readFileSync(fp, 'utf8');
+    // 1. Concise <=2-line hero subtitle & 18px default font size (18px / 20px / 22px)
+    assert.ok(html.includes('公的年金にプラス月5〜15万円のゆとり収入をつくり、暴落から大切な退職金と新NISAを守る『3色コンパス』です。'), `${label} must display concise 2-line senior hero subtitle`);
+    assert.ok(html.includes('html { font-size: 18px; }'), `${label} must set default root font size to 18px`);
+    assert.ok(html.includes('html[data-jp-font="large"] { font-size: 20px; }'), `${label} must set large font step to 20px`);
+    assert.ok(html.includes('html[data-jp-font="xlarge"] { font-size: 22px; }'), `${label} must set xlarge font step to 22px`);
+
+    // 2. Live status bar + concrete reference yields in 本日の3色バランス早見カード
+    assert.ok(html.includes('本日の天気：【🟡 慎重・配当重視モード】 ｜ 推奨バランス：守り（国債・現金）40% ・ 高配当（毎月収入）40% ・ 成長（インデックス）20%'), `${label} must display live weather & allocation bar`);
+    assert.ok(html.includes('推奨 40%｜個人向け国債（変動10年）参考利回り 約0.6〜0.7%・米国短期国債ETF（特定口座）参考分配利回り 約4.6%'), `${label} must display 守り枠 reference yield`);
+    assert.ok(html.includes('推奨 40%｜日経高配当株50（1489）参考利回り 約3.8%・米国高配当VYM/HDV 約2.8〜3.4%'), `${label} must display 高配当枠 reference yield`);
+    assert.ok(html.includes('推奨 20%｜新NISAつみたて・オルカン／S&amp;P500 長期複利枠') || html.includes('推奨 20%｜新NISAつみたて・オルカン／S&P500 長期複利枠'), `${label} must display 成長枠 allocation`);
+    assert.ok(html.includes('※公開市場の参考実績利回りであり将来の分配を保証するものではありません'), `${label} must include reference yield non-guarantee notice`);
+
+    // 3. 3 High-Value Shin-NISA Retiree Software Tools for Pro
+    assert.ok(!/24時間遅延|朝8時リアルタイム/.test(html), `${label} must not use weak latency paywall framing`);
+    assert.ok(html.includes('『新NISA 生涯非課税枠1,800万円（成長投資枠1,200万＋つみたて枠600万）退職金・年次別最適配分シート』'), `${label} must include Pro Tool #1`);
+    assert.ok(html.includes('『1489（1・4・7・10月）＋VYM/HDV（3・6・9・12月）＋国債でつくる 年12回・毎月配当カレンダー設計ツール』'), `${label} must include Pro Tool #2`);
+    assert.ok(html.includes('『楽天証券・SBI証券 スマホ／PC画面そのまま操作・大文字図解＆ステップガイド』'), `${label} must include Pro Tool #3`);
+
+    // 4. 62歳・71歳 Model Cases 景品表示法 notice & 1-Click Senior Asset Poll
+    assert.ok(html.includes('62歳') && html.includes('71歳'), `${label} must include 62歳・71歳 retiree model cases`);
+    assert.ok(html.includes('※ 資産規模・配分条件別の試算モデルケース（個人の感想や将来の運用成果を保証するものではありません）'), `${label} must display 景品表示法 model-case notice`);
+    assert.ok(html.includes('📊 1クリック・本日の老後資産アンケート：「いま一番気になる老後のお金の悩みは？」'), `${label} must display 1-click senior asset poll`);
+    assert.ok(html.includes('① 暴落時の退職金目減り') && html.includes('② 新NISA 1,800万円の配分') && html.includes('③ 毎月の配当・取り崩し設計'), `${label} must include all 3 senior poll choices`);
+    assert.ok(html.includes('https://abacus.jasoncameron.dev/hit/gba_getbreakai/poll_'), `${label} must wire Abacus poll beacon`);
+  }
+
+  // Verify SOXL warning subpage isolation
+  const soxlHtml = fs.readFileSync(path.join(JP_DIR, 'soxl-smh-semiconductor-timing.html'), 'utf8');
+  assert.ok(soxlHtml.includes('<meta name="robots" content="noindex, follow">'), 'SOXL subpage must have noindex, follow');
+  assert.ok(soxlHtml.includes('【新NISA対象外・老後資金注意喚起】3倍レバレッジETF（SOXL等）の減価リスクと「老後3つの財布」への切り替え解説'), 'SOXL subpage must have warning/switching title');
 });

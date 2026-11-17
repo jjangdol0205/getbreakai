@@ -1,6 +1,6 @@
 # GetBreakAI — Japanese 50-70s Shin-NISA & Retirement Cashflow Calculator Software (https://getbreakai.com/jp/)
 
-> Updated: 2026-11-17 | Self-Directed Public Market Data Visualization & Dividend / Asset-Allocation Calculator Software (FSA Shin-NISA Eligible VYM/HDV/1489/All-Country/S&P500 + Tokutei Account SGOV/JEPI Hybrid Architecture).
+> Updated: 2026-11-18 | Self-Directed Public Market Data Visualization & Dividend / Asset-Allocation Calculator Software (FSA Shin-NISA Eligible VYM/HDV/1489/All-Country/S&P500 + Tokutei Account SGOV/JEPI Hybrid Architecture).
 
 ## 1. Core Japanese Calculators & Legal Pages
 - Main Retirement & Shin-NISA Hub: https://getbreakai.com/jp/

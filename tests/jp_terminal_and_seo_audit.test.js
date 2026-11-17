@@ -78,7 +78,7 @@ test('STEP 2: Polar.sh Native PAYMENT_CONFIG, STORE_LIVE_READY:false, VIP Waitli
 
 test('STEP 3: 30 Japanese Static SEO Research Pages (/jp/*.html) + Canonical Sitemap (0 Redirects)', () => {
   const excluded = new Set([
-    'index.html', 'confirmation.html', 'daily-nisa-quant-report.html',
+    'index.html', 'confirmation.html', 'daily-nisa-quant-report.html', 'nisa-quiet-barbell-essay.html',
     'terms.html', 'privacy.html', 'refund.html', 'contact.html'
   ]);
   const files = fs.readdirSync(JP_DIR).filter(f =>
@@ -147,7 +147,27 @@ test('STEP 4: 3-Stage SMH × XLV 4-Step Guided Balance Survey, Free 3-Sec Unlock
     assert.ok(html.includes('『随時更新・SMH × XLV セクターバランス実践 14ページ マスターPDFガイド（楽天・SBI証券 大文字操作図解同梱）』'), `${label} must include Pro Benefit #3`);
     assert.ok(html.includes('?locale=ja'), `${label} must enforce ?locale=ja on Polar checkout URLs`);
     assert.ok(!/https:\/\/buy\.polar\.sh\/polar_cl_[A-Za-z0-9_-]+\?[^\s"']*\?/.test(html), `${label} must have 0 double-? Polar URLs`);
+    assert.ok(html.includes('本日の朝刊エッセイを読む'), `${label} must include Substack Flagship Essay Preview Card`);
+    assert.ok(html.includes('/jp/nisa-quiet-barbell-essay.html'), `${label} must link to /jp/nisa-quiet-barbell-essay.html`);
   }
+
+  // Verify Substack 680px Flagship Essay & Sitemap entry
+  for (const essayPath of [
+    path.join(JP_DIR, 'nisa-quiet-barbell-essay.html'),
+    path.join(DIST_DIR, 'jp', 'nisa-quiet-barbell-essay.html')
+  ]) {
+    assert.ok(fs.existsSync(essayPath), `${essayPath} must exist`);
+    const ehtml = fs.readFileSync(essayPath, 'utf8');
+    assert.ok(ehtml.includes('max-width: 680px') && ehtml.includes('#fcfcfa'), 'Flagship essay must use 680px #fcfcfa Substack layout');
+    assert.ok(ehtml.includes('佐藤 健一') && ehtml.includes('騒がしい強気相場よりも、静かな「2つの柱」が最後まで残る理由'), 'Flagship essay must include human author persona & headline');
+    assert.ok(ehtml.includes('window.__gbaSubmitSubstackSubscribe') && ehtml.includes('次の朝刊エッセイをメールで受け取る'), 'Flagship essay must include end-of-essay 1-line Substack subscribe box');
+    assert.ok(!ehtml.includes('gba-jp-lead-top') && !ehtml.includes('shorts-bridge-bar'), 'Flagship essay must have ZERO mid/top flashy ad banners');
+    assert.ok(!/[가-힣ㄱ-ㅎㅏ-ㅣ]/.test(ehtml), 'Flagship essay must have 0 Hangul');
+    assert.ok(!/rebalance|rebalancing/i.test(ehtml), 'Flagship essay must have 0 rebalance word leaks');
+  }
+  const smap = fs.readFileSync(SITEMAP_PATH, 'utf8');
+  assert.ok(smap.includes('<loc>https://getbreakai.com/jp/nisa-quiet-barbell-essay.html</loc>'), 'sitemap.xml must include flagship essay URL');
+
 
   // Verify SOXL warning subpage isolation
   const soxlHtml = fs.readFileSync(path.join(JP_DIR, 'soxl-smh-semiconductor-timing.html'), 'utf8');

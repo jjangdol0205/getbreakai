@@ -145,7 +145,7 @@ def generate_daily_jp_column() -> str:
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{html.escape(title)} | GetBreakAI Japan</title>
+  <title>{html.escape(title)} | GetBreakAI 朝刊ノート</title>
   <meta name="description" content="{html.escape(desc)}" />
   <link rel="canonical" href="{canonical_url}" />
   <link rel="alternate" type="application/rss+xml" title="GetBreakAI Japan RSS" href="https://getbreakai.com/jp/feed.xml" />
@@ -154,26 +154,40 @@ def generate_daily_jp_column() -> str:
   <meta property="og:description" content="{html.escape(desc)}" />
   <meta property="og:url" content="{canonical_url}" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet" />
   <script type="application/ld+json">{ld_json}</script>
 {head_scripts}
   <style>
-    body {{ margin:0; font-family:'Noto Sans JP',-apple-system,BlinkMacSystemFont,sans-serif; background:#f4f6fa; color:#0f172a; line-height:1.8; font-size:18px; font-feature-settings:"palt" 1; }}
-    a {{ color:#1d4ed8; text-decoration:none; }}
-    .nav {{ background:#0b1f3a; border-bottom:2px solid #1e3a8a; padding:0.95rem 1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; }}
-    .wrap {{ max-width:920px; margin:0 auto; padding:2rem 1.2rem 3rem; }}
-    .tag {{ display:inline-block; background:#eff6ff; color:#1e40af; border:1px solid #93c5fd; border-radius:999px; padding:0.25rem 0.85rem; font-size:0.84rem; font-weight:800; }}
-    h1 {{ font-size:clamp(1.45rem,3vw,2rem); color:#0b1f3a; line-height:1.38; margin:0.8rem 0; }}
-    h2 {{ color:#1e3a8a; font-size:1.25rem; border-left:5px solid #1d4ed8; background:#eff6ff; padding:0.45rem 0.75rem; border-radius:0 8px 8px 0; margin-top:2rem; }}
+    body {{ margin:0; font-family:'Noto Sans JP',-apple-system,BlinkMacSystemFont,sans-serif; background:#fcfcfa; color:#1a1a1a; line-height:1.85; font-size:18.5px; font-feature-settings:"palt" 1; }}
+    a {{ color:#1d4ed8; text-decoration:underline; text-underline-offset:3px; }}
+    .sr-only {{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0); }}
+    .essay-topbar {{ border-bottom:1px solid #e6e4dd; background:rgba(252,252,250,0.95); position:sticky; top:0; z-index:40; }}
+    .essay-topbar-inner {{ max-width:680px; margin:0 auto; padding:14px 20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; }}
+    .essay-pub-brand {{ font-weight:800; color:#1a1a1a; font-size:0.96rem; text-decoration:none; }}
+    .essay-top-nav {{ display:flex; gap:12px; align-items:center; font-size:0.85rem; font-weight:700; }}
+    .essay-top-nav a, .essay-top-nav button {{ color:#6b6b66; text-decoration:none; background:none; border:none; font:inherit; cursor:pointer; }}
+    .reading-column {{ max-width:680px; margin:0 auto; padding:44px 20px 72px; }}
+    .essay-kicker {{ font-size:0.78rem; font-weight:800; letter-spacing:0.06em; color:#059669; margin-bottom:10px; }}
+    h1 {{ font-family:'Noto Serif JP',Georgia,serif; font-size:clamp(1.55rem,3.6vw,2.1rem); color:#1a1a1a; line-height:1.38; margin:0 0 14px; }}
+    .byline-bar {{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; padding:14px 0; border-top:1px solid #e6e4dd; border-bottom:1px solid #e6e4dd; margin-bottom:30px; }}
+    .byline-author {{ display:flex; align-items:center; gap:10px; }}
+    .byline-avatar {{ width:38px; height:38px; border-radius:50%; background:#e9ece6; color:#1f3a2e; font-weight:800; font-size:0.85rem; display:inline-flex; align-items:center; justify-content:center; }}
+    .share-copy-btn {{ background:#ffffff; border:1px solid #e6e4dd; border-radius:999px; padding:7px 14px; font-size:0.82rem; font-weight:700; color:#3d3d3a; cursor:pointer; }}
+    h2 {{ font-family:'Noto Serif JP',Georgia,serif; color:#1a1a1a; font-size:1.3rem; border-bottom:1px solid #e6e4dd; padding-bottom:6px; margin:2em 0 0.75em; }}
+    p {{ margin:0 0 1.45em; }}
     .table-wrap {{ overflow-x:auto; }}
-    table {{ width:100%; border-collapse:collapse; margin:1.1rem 0; background:#ffffff; font-size:0.94rem; border:1px solid #cbd5e1; border-radius:10px; overflow:hidden; }}
-    th, td {{ padding:0.75rem 0.85rem; border-bottom:1px solid #e2e8f0; text-align:left; }}
-    th {{ background:#0b1f3a; color:#ffffff; font-size:0.84rem; }}
-    .cta {{ background:linear-gradient(135deg,#ecfdf5,#eff6ff); border:2px solid #059669; border-radius:14px; padding:1.5rem; margin:2rem 0; }}
-    .btns {{ display:flex; flex-wrap:wrap; gap:0.75rem; margin-top:1rem; }}
-    .btn {{ padding:0.75rem 1.2rem; border-radius:10px; font-weight:900; font-size:0.96rem; display:inline-flex; align-items:center; min-height:54px; }}
-    .btn-primary {{ background:#059669; color:#ffffff !important; }}
-    .btn-vip {{ background:#1d4ed8; color:#ffffff !important; }}
-    .btn-annual {{ background:#b45309; color:#ffffff !important; }}
+    table {{ width:100%; border-collapse:collapse; margin:1.4rem 0; background:#ffffff; font-size:0.9rem; border:1px solid #e6e4dd; }}
+    th, td {{ padding:0.7rem 0.8rem; border-bottom:1px solid #e6e4dd; text-align:left; }}
+    th {{ background:#f5f4ef; color:#6b6b66; font-size:0.78rem; }}
+    .substack-subscribe-box {{ margin:44px 0 22px; padding:28px 24px; background:#ffffff; border:1px solid #e6e4dd; border-radius:12px; text-align:center; }}
+    .substack-sub-title {{ font-family:'Noto Serif JP',Georgia,serif; font-size:1.34rem; font-weight:700; margin-bottom:8px; }}
+    .substack-sub-desc {{ font-size:0.92rem; color:#6b6b66; max-width:500px; margin:0 auto 16px; line-height:1.68; }}
+    .substack-inline-form {{ display:flex; max-width:460px; margin:0 auto; gap:8px; flex-wrap:wrap; }}
+    .substack-inline-form input {{ flex:1 1 220px; min-height:48px; padding:10px 14px; border:1px solid #c9c6bc; border-radius:8px; font-size:0.96rem; }}
+    .substack-inline-form button {{ min-height:48px; padding:10px 20px; border:none; border-radius:8px; background:#059669; color:#ffffff; font-weight:800; font-size:0.94rem; cursor:pointer; }}
+    .editorial-postscript {{ padding:18px 20px; background:#f5f4ef; border:1px solid #e6e4dd; border-radius:10px; font-size:0.9rem; line-height:1.7; color:#3d3d3a; }}
     .gba-manual-free-badge {{ display:inline-flex; align-items:center; gap:6px; background:#059669; color:#ffffff; font-size:0.86rem; font-weight:900; padding:4px 12px; border-radius:999px; }}
     .gba-manual-modal-backdrop {{ display:none; position:fixed; inset:0; z-index:9999; background:rgba(15,23,42,0.76); backdrop-filter:blur(4px); padding:18px 12px; overflow-y:auto; align-items:flex-start; justify-content:center; }}
     .gba-manual-modal-backdrop.is-open {{ display:flex; }}
@@ -194,72 +208,69 @@ def generate_daily_jp_column() -> str:
   </style>
 </head>
 <body>
-  <header class="nav">
-    <a href="/jp/" style="font-weight:900;color:#ffffff;font-size:1.1rem;">⚡ GetBreakAI ゆとり老後＆新NISA設計ナビ</a>
-    <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
-      <button type="button" onclick="openGbaStarterManualModal()" style="background:#065f46;color:#ffffff;border:1px solid #10b981;border-radius:8px;padding:6px 12px;font-weight:800;cursor:pointer;">📘 ¥0 基本マニュアル</button>
-      <a href="/jp/#gba-retirement-architect-jp" style="color:#93c5fd;font-weight:800;">🧭 30秒・老後収入シミュレーター</a>
-      <a href="/jp/feed.xml" style="color:#e2e8f0;font-size:0.9rem;">RSS</a>
+  <header class="essay-topbar">
+    <div class="essay-topbar-inner">
+      <a href="/jp/" class="essay-pub-brand">GetBreakAI ・ 朝刊データノート</a>
+      <nav class="essay-top-nav">
+        <a href="/jp/nisa-quiet-barbell-essay.html">代表エッセイ</a>
+        <a href="/jp/#gba-retirement-architect-jp">4ステップ比率診断</a>
+        <button type="button" onclick="openGbaStarterManualModal()">¥0 基本マニュアル</button>
+        <a href="/jp/feed.xml">RSS</a>
+      </nav>
     </div>
   </header>
-  <main class="wrap">
-    <span class="tag">GetBreakAI 朝のゆとり老後＆資産守り倶楽部 · 公開市場データ日報 · {today_iso}</span>
+  <main class="reading-column">
+    <div class="essay-kicker">公開市場データ朝刊ノート ・ 為替参照 1ドル = {usdjpy:.1f}円</div>
     <h1>{html.escape(title)}</h1>
-    <p style="color:#475569;font-size:1rem;font-weight:700;">為替参照レート: 1ドル = {usdjpy:.1f}円 · 金融庁・新NISA規定準拠ハイブリッド設計対応</p>
-{empathy_html}
-
-    <section id="gba-daily-lead-top" class="cta">
-      <div style="font-size:0.92rem;font-weight:900;color:#065f46;margin-bottom:0.4rem;">🍵 毎朝8時の無料3色バランス指標ブリーフ（パスワード不要）</div>
-      <h2 style="margin:0 0 0.5rem;border:none;background:transparent;padding:0;font-size:1.3rem;color:#0b1f3a;">毎朝8時の「新NISA×特定口座 3色バランス指標」無料メール登録</h2>
-      <p style="margin:0 0 0.9rem;color:#334155;font-size:1rem;">メールアドレス1つ（3秒）で、日米金利・為替と老後3つの財布の公開データ要約を毎朝無料でお届けします。</p>
-      <form class="gba-jp-signup-form" onsubmit="return window.__gbaSubmitJpSignup(event, this, 'NISA_DAILY');" style="display:flex;flex-wrap:wrap;gap:0.65rem;">
-        <input type="email" required autocomplete="email" placeholder="メールアドレスを入力（例: yamada@yahoo.co.jp）" style="flex:1 1 250px;min-height:54px;padding:10px 16px;font-size:1.02rem;font-weight:700;border-radius:10px;border:2px solid #64748b;background:#ffffff;color:#0f172a;" />
-        <button type="submit" style="min-height:54px;padding:10px 22px;font-size:1.02rem;font-weight:900;border-radius:10px;border:none;background:#059669;color:#ffffff;cursor:pointer;">📩 無料で毎朝の3色ブリーフを受け取る →</button>
-      </form>
-      <div class="gba-jp-signup-status" role="status" aria-live="polite" style="display:none;margin-top:0.75rem;padding:0.75rem 0.95rem;border-radius:8px;background:#d1fae5;color:#065f46;font-size:1rem;font-weight:800;"></div>
-      <div class="btns" style="margin-top:1rem;padding-top:0.9rem;border-top:1px solid #a7f3d0;align-items:center;">
-        <span style="font-size:0.95rem;font-weight:800;color:#0f172a;">💎 配当・資産配分計算Proソフトウェア（随時更新・新NISA老後取り崩し実践PDFガイド＋3つの財布シミュレーター同梱）：</span>
-        <a class="btn btn-vip polar-checkout-button" data-gba-paid-plan="monthly" data-polar-slot="monthly_29_jp" href="{POLAR_MONTHLY_CTA_HREF}">⚡ {PRICE_LABEL_MONTHLY_JP}</a>
-        <a class="btn btn-annual polar-checkout-button" data-gba-paid-plan="annual" data-polar-slot="annual_199_jp" href="{POLAR_ANNUAL_CTA_HREF}">👑 {PRICE_LABEL_ANNUAL_JP}</a>
+    <div class="byline-bar">
+      <div class="byline-author">
+        <span class="byline-avatar" aria-hidden="true">佐藤</span>
+        <div>
+          <div style="font-size:0.92rem;font-weight:800;">佐藤 健一</div>
+          <div style="font-size:0.8rem;color:#6b6b66;">資産設計エッセイ・公開データ研究 ・ {today_iso}</div>
+        </div>
       </div>
-      <div style="margin-top:0.5rem;font-size:0.84rem;color:#334155;font-weight:700;">💳 公式決済・税務管理：{MOR_LABEL_EN_JP}（14日間返金保証）</div>
-{disclaimer_box}
-    </section>
-
-    <h2>1. 【金融庁規定準拠】新NISA適格銘柄と特定口座（毎月分配型）のハイブリッド設計</h2>
-    <p>日本の金融庁規定により、<strong>毎月分配型ETF（JEPI・JEPQ・QYLD・SGOV等）およびレバレッジ型ETF（SOXL・TQQQ等）は新NISAの対象外</strong>であり、特定口座（源泉徴収あり・税率20.315%）でのみ保有可能です。そのため老後の毎月キャッシュフロー設計では、<strong>{FSA_HYBRID_PHRASE_JP}</strong>を採用し、新NISA枠内では四半期配当ETFの時間差組み合わせ（1・4・7・10月の1489 × 3・6・9・12月のVYM・HDV）とオルカン・S&amp;P500で非課税メリットを最大化します。</p>
-
-    <h2>2. 公開市場データによる1銘柄あたり分散配分目安一覧 ({today_iso})</h2>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr><th>銘柄</th><th>直近終値</th><th>14日平均変動幅</th><th>2.0倍変動参考下限</th><th>長期参考上限</th><th>100万円口座 分散株数目安</th></tr>
-        </thead>
-        <tbody>
-          {table_rows_html}
-        </tbody>
-      </table>
+      <button type="button" class="share-copy-btn" onclick="window.__gbaCopyEssayLink(this)">リンクをコピー</button>
     </div>
 
-    <h2>3. 新NISA（非課税0%）vs 特定口座（20.315%）の手取り比較</h2>
-    <p>新NISA成長投資枠（年間240万円・つみたて投資枠と合計360万円）では配当金および売却益に対する国内20.315%課税が非課税となる一方、特定口座と損益通算はできません。したがって頻繁な売買で年間枠を消費するのではなく、年2〜4回の穏やかな資産配分点検で長期保有を続ける設計が有効です。</p>
+    <article>
+      <p>おはようございます。昨夜の米国市場や為替ニュースを見て「大切な新NISA枠や老後資金が大きく揺れていないだろうか」と気になった朝も、まずは落ち着いた目で公開終値と資産全体の比率だけを確かめていきましょう。</p>
 
-    <section id="gba-daily-lead-bottom" class="cta">
-      <h3 style="margin:0 0 0.5rem;color:#0b1f3a;font-size:1.25rem;">🍵 無料メール倶楽部（登録3秒）＆ Pro計算ソフトウェア</h3>
-      <form class="gba-jp-signup-form" onsubmit="return window.__gbaSubmitJpSignup(event, this, 'NISA_DAILY');" style="display:flex;flex-wrap:wrap;gap:0.65rem;margin-bottom:0.9rem;">
-        <input type="email" required autocomplete="email" placeholder="メールアドレスを入力（例: yamada@yahoo.co.jp）" style="flex:1 1 250px;min-height:54px;padding:10px 16px;font-size:1.02rem;font-weight:700;border-radius:10px;border:2px solid #64748b;background:#ffffff;color:#0f172a;" />
-        <button type="submit" style="min-height:54px;padding:10px 22px;font-size:1.02rem;font-weight:900;border-radius:10px;border:none;background:#059669;color:#ffffff;cursor:pointer;">📩 無料倶楽部に参加する →</button>
-      </form>
-      <div class="gba-jp-signup-status" role="status" aria-live="polite" style="display:none;margin-bottom:0.9rem;padding:0.75rem 0.95rem;border-radius:8px;background:#d1fae5;color:#065f46;font-size:1rem;font-weight:800;"></div>
-{pro_tools_compact}
-      <div class="btns">
-        <a class="btn btn-primary" href="/jp/#gba-retirement-architect-jp">🧭 30秒・老後キャッシュフローシミュレーターを開く →</a>
-        <a class="btn btn-vip polar-checkout-button" data-gba-paid-plan="monthly" data-polar-slot="monthly_29_jp" href="{POLAR_MONTHLY_CTA_HREF}">⚡ {PRICE_LABEL_MONTHLY_JP}</a>
-        <a class="btn btn-annual polar-checkout-button" data-gba-paid-plan="annual" data-polar-slot="annual_199_jp" href="{POLAR_ANNUAL_CTA_HREF}">👑 {PRICE_LABEL_ANNUAL_JP}</a>
+      <h2>新NISA適格銘柄と特定口座（毎月分配型）のハイブリッド区分</h2>
+      <p>日本の金融庁規定により、毎月分配型ETF（JEPI・JEPQ・QYLD・SGOV等）およびレバレッジ型ETF（SOXL・TQQQ等）は新NISAの対象外であり、特定口座（源泉徴収あり・税率20.315%）でのみ保有可能です。そのため老後の資産設計では、<strong>{FSA_HYBRID_PHRASE_JP}</strong>を採用し、新NISA成長投資枠では現物1倍のSMH・XLVや四半期配当ETF（1489・VYM・HDV）で非課税メリットを活かします。</p>
+
+      <h2>公開市場データによる1銘柄あたり分散配分目安一覧 ({today_iso})</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>銘柄</th><th>直近終値</th><th>14日平均変動幅</th><th>2.0倍変動参考下限</th><th>長期参考上限</th><th>100万円口座 分散株数目安</th></tr>
+          </thead>
+          <tbody>
+            {table_rows_html}
+          </tbody>
+        </table>
       </div>
-      <div style="margin-top:0.6rem;font-size:0.84rem;color:#334155;font-weight:700;">💳 {MOR_LABEL_EN_JP} ｜ 🏛️ 法人・メディア提携窓口: <a href="mailto:beable9489@gmail.com" style="font-weight:800;">beable9489@gmail.com</a></div>
-{disclaimer_box}
+
+      <h2>新NISA（非課税0%）と特定口座（20.315%）の穏やかな使い分け</h2>
+      <p>新NISA成長投資枠（年間240万円・つみたて投資枠と合計360万円）では配当金および売却益に対する国内20.315%課税が非課税となる一方、特定口座と損益通算はできません。したがって短期的な売買で年間枠を消費するのではなく、ゆとりある長期比率を維持する設計が有効です。</p>
+    </article>
+
+    <section class="substack-subscribe-box" id="gba-substack-subscribe" aria-label="朝刊エッセイ無料メール購読">
+      <div class="substack-sub-title">次の朝刊ノートをメールで受け取る</div>
+      <p class="substack-sub-desc">パスワード不要・いつでも1クリック配信停止OK。毎朝の公開市場データ要約と資産設計エッセイを無料でお届けします。</p>
+      <form class="substack-inline-form" onsubmit="return window.__gbaSubmitSubstackSubscribe(event, this, 'daily-nisa-quant-report.html');" novalidate>
+        <label for="dailySubEmailJp" class="sr-only">メールアドレス</label>
+        <input id="dailySubEmailJp" type="email" required autocomplete="email" placeholder="メールアドレスを入力..." />
+        <button type="submit">無料で購読する</button>
+      </form>
+      <div class="substack-sub-status" role="status" aria-live="polite" style="display:none;margin-top:12px;font-weight:700;"></div>
     </section>
+
+    <aside class="editorial-postscript">
+      <div style="font-size:0.76rem;font-weight:800;color:#6b6b66;margin-bottom:6px;">編集後記 ・ 自己判断用データツール</div>
+      <p style="margin:0 0 8px;">ご自身の資産規模に合わせた比率試算は <a href="/jp/#gba-retirement-architect-jp"><strong>4ステップ SMH × XLV セクター比率シミュレーター</strong></a> にて無料でお試しいただけます。毎朝の過熱・恐怖指標＆セクター比率トラッキング日報メール配信は Proプラン（<a class="polar-checkout-button" data-gba-paid-plan="monthly" data-polar-slot="monthly_29_jp" href="{POLAR_MONTHLY_CTA_HREF}">{PRICE_LABEL_MONTHLY_JP}</a> ・ <a class="polar-checkout-button" data-gba-paid-plan="annual" data-polar-slot="annual_199_jp" href="{POLAR_ANNUAL_CTA_HREF}">{PRICE_LABEL_ANNUAL_JP}</a> ／ {MOR_LABEL_EN_JP}）にてご提供しています。</p>
+{disclaimer_box}
+    </aside>
   </main>
 
 {footer_html}
@@ -269,7 +280,7 @@ def generate_daily_jp_column() -> str:
   <script>
     function jumpFromManualToJpMail() {{
       if (typeof window.closeGbaStarterManualModal === 'function') window.closeGbaStarterManualModal();
-      const lead = document.getElementById('gba-daily-lead-top');
+      const lead = document.getElementById('gba-substack-subscribe');
       if (lead && lead.scrollIntoView) lead.scrollIntoView({{ behavior: 'smooth', block: 'center' }});
     }}
   </script>

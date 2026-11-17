@@ -170,6 +170,86 @@ def build_payment_and_kpi_head_html() -> str:
           } catch (_e) {}
         };
 
+        window.__gbaCopyEssayLink = function(btnEl) {
+          var url = (window.location && window.location.href) ? window.location.href : 'https://getbreakai.com/jp/';
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(url).then(function() {
+              if (btnEl) {
+                var orig = btnEl.getAttribute('data-orig') || btnEl.textContent;
+                btnEl.setAttribute('data-orig', orig);
+                btnEl.textContent = 'リンクをコピーしました';
+                setTimeout(function() { btnEl.textContent = orig; }, 2200);
+              }
+            }).catch(function(){});
+          }
+        };
+
+        window.__gbaSubmitSubstackSubscribe = function(ev, formEl, essaySlug) {
+          if (ev && ev.preventDefault) ev.preventDefault();
+          var input = formEl ? formEl.querySelector('input[type="email"]') : null;
+          var statusEl = formEl && formEl.parentNode ? formEl.parentNode.querySelector('.substack-sub-status') : null;
+          var btnEl = formEl ? formEl.querySelector('button[type="submit"]') : null;
+          var email = input ? String(input.value || '').trim().toLowerCase() : '';
+          if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+            if (statusEl) {
+              statusEl.style.display = 'block';
+              statusEl.style.color = '#991b1b';
+              statusEl.textContent = '有効なメールアドレスを入力してください。';
+            }
+            if (input && input.focus) input.focus();
+            return false;
+          }
+          if (btnEl) {
+            btnEl.disabled = true;
+            btnEl.textContent = '登録中...';
+          }
+          var noteCtx = 'site=getbreakai.com/jp/ | essay=' + String(essaySlug || (location && location.pathname) || 'jp_essay');
+          try {
+            localStorage.setItem('gba_jp_free_email', email);
+            localStorage.setItem('gb_free_member_email', email);
+            localStorage.setItem('gba_jp_free_since', kst);
+            localStorage.setItem('dc_member_GBA', JSON.stringify({
+              div: 'GBA',
+              email: email,
+              nickname: '',
+              segment: 'substack_essay_reader_jp',
+              notes: noteCtx,
+              joined_at: new Date().toISOString()
+            }));
+          } catch (_e) {}
+          window.trackGbaFreeSignup(email);
+
+          var finishSub = function() {
+            if (btnEl) {
+              btnEl.disabled = false;
+              btnEl.textContent = '購読登録済み';
+            }
+            if (statusEl) {
+              statusEl.style.display = 'block';
+              statusEl.style.color = '#065f46';
+              statusEl.innerHTML = 'ご登録ありがとうございます。次回の朝刊エッセイを <strong>' + email.replace(/[<>&"]/g, '') + '</strong> 宛に静かにお届けします（パスワード不要・いつでも1クリック解除OK）。';
+            }
+            document.querySelectorAll('.substack-inline-form input[type="email"], .gba-jp-signup-form input[type="email"]').forEach(function(inp) {
+              inp.value = email;
+            });
+          };
+
+          if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.registerMember === 'function') {
+            window.DreamCompanyCRM.registerMember({
+              div: 'GBA',
+              email: email,
+              nickname: '',
+              segment: 'substack_essay_reader_jp',
+              lang: 'ja-JP',
+              notes: noteCtx,
+              message: noteCtx
+            }).then(finishSub).catch(finishSub);
+          } else {
+            finishSub();
+          }
+          return false;
+        };
+
         window.__gbaSubmitJpSignup = function(ev, formEl, tickerLabel) {
           if (ev && ev.preventDefault) ev.preventDefault();
           var input = formEl ? formEl.querySelector('input[type="email"]') : null;

@@ -568,18 +568,20 @@ def build_page_html(item, date_str, all_specs):
         個別銘柄である {jp_name}（基準値 ${entry:.2f}、14日平均変動幅 ${atr:.2f}）を一部組み入れる場合も、2.0倍変動幅（${stop_dist:.2f}）の振れが口座全体の1.5%以内に収まる株数（$50,000＝約750万円口座で {shares}株・約{notional_jpy_man}万円）にとどめることで、夜もぐっすり眠れる健全な分散バランスを維持できます。
       </p>"""
 
+    substack_end_html = _build_substack_end_box_jp(slug, disclaimer_box)
+
     return f"""<!DOCTYPE html>
 <html lang="ja" data-jp-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{title} | GetBreakAI ゆとり老後＆新NISA設計ナビ</title>
+  <title>{title} | GetBreakAI 朝刊エッセイ＆公開データ研究</title>
 {robots_meta_tag}  <meta name="description" content="{jp_name}の{focus}を公開データからわかりやすく整理。{FSA_HYBRID_PHRASE_JP}とドル・円同時対応の資産配分シミュレーターを掲載。">
   <link rel="canonical" href="{canonical_url}">
   <link rel="alternate" hreflang="ja" href="{canonical_url}">
   <meta property="og:type" content="article">
   <meta property="og:locale" content="ja_JP">
-  <meta property="og:site_name" content="GetBreakAI ゆとり老後＆新NISA設計ナビ">
+  <meta property="og:site_name" content="GetBreakAI 朝刊エッセイ＆公開データ研究">
   <meta property="og:url" content="{canonical_url}">
   <meta property="og:title" content="{title}">
   <meta property="og:description" content="{verdict_banner}">
@@ -591,211 +593,48 @@ def build_page_html(item, date_str, all_specs):
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Noto+Sans+JP:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Noto+Sans+JP:wght@400;500;700;800&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
   <script type="application/ld+json">
 {ld_json_str}
   </script>
 {head_scripts}
-  <style>
-    :root {{
-      --bg-page: #f4f6fa;
-      --bg-card: #ffffff;
-      --bg-sub: #f8fafc;
-      --border-col: #cbd5e1;
-      --text-main: #0b1f3a;
-      --text-muted: #334155;
-      --text-sub: #475569;
-      --accent-blue: #1d4ed8;
-      --accent-amber: #b45309;
-      --accent-emerald: #047857;
-      --accent-rose: #be123c;
-      --font-sans: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
-      --font-mono: 'JetBrains Mono', 'Noto Sans JP', monospace;
-    }}
-    * {{ box-sizing: border-box; margin: 0; padding: 0; }}
-    body {{
-      background: #f4f6fa !important;
-      color: #0f172a !important;
-      font-family: var(--font-sans);
-      line-height: 1.8;
-      font-size: 18px;
-      font-feature-settings: "palt" 1;
-      letter-spacing: 0.01em;
-    }}
-    .container {{ max-width: 960px; margin: 0 auto; padding: 0 20px; }}
-    header {{
-      background: #0b1f3a !important;
-      border-bottom: 2px solid #1e3a8a !important;
-      padding: 15px 0;
-      position: sticky;
-      top: 0;
-      z-index: 50;
-    }}
-    .nav-bar {{ display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }}
-    .brand {{ color: #f8fafc !important; font-weight: 900; font-size: 1.15rem; text-decoration: none; }}
-    .nav-sublink {{ color: #e2e8f0 !important; text-decoration: none; font-size: 0.9rem; padding: 6px 8px; font-weight: 700; }}
-    .btn-cta {{
-      background: linear-gradient(135deg, #1d4ed8, #1e3a8a);
-      color: #ffffff !important;
-      text-decoration: none;
-      padding: 9px 16px;
-      border-radius: 9px;
-      font-weight: 800;
-      font-size: 0.9rem;
-      border: none;
-      cursor: pointer;
-    }}
-    .shorts-bridge-bar {{
-      background: #eff6ff;
-      border: 1.5px solid #93c5fd;
-      border-radius: 12px;
-      padding: 11px 14px;
-      margin-top: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      font-size: 0.92rem;
-      color: #0f172a;
-    }}
-    .article-box {{
-      background: #ffffff !important;
-      border: 1.5px solid #cbd5e1 !important;
-      box-shadow: 0 8px 24px rgba(15,23,42,0.06) !important;
-      border-radius: 16px;
-      padding: 30px 28px;
-      margin-top: 22px;
-    }}
-    h1 {{ font-size: clamp(1.48rem, 3vw, 2.05rem); line-height: 1.38; margin-bottom: 14px; font-weight: 900; color: #0b1f3a !important; }}
-    h2 {{ font-size: 1.28rem; color: #1e3a8a !important; margin: 30px 0 12px; border-left: 5px solid #1d4ed8 !important; background: #eff6ff; padding: 8px 12px !important; border-radius: 0 8px 8px 0; }}
-    h3 {{ font-size: 1.08rem; color: #0b1f3a !important; margin: 18px 0 8px; }}
-    p, li {{ color: #1e293b !important; margin-bottom: 14px; font-size: 1rem; line-height: 1.78; }}
-    .kpi-grid {{
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(195px, 1fr));
-      gap: 12px;
-      margin: 20px 0;
-    }}
-    .kpi-card {{
-      background: #f8fafc !important;
-      border: 1.5px solid #cbd5e1 !important;
-      border-radius: 10px;
-      padding: 14px;
-    }}
-    .kpi-label {{ font-size: 0.82rem; color: #475569 !important; font-weight: 700; }}
-    .kpi-val {{ font-size: 1.18rem; font-weight: 800; font-family: var(--font-mono); margin-top: 4px; color: #0b1f3a !important; }}
-    .widget-box {{
-      background: #f8fafc !important;
-      border: 2px solid #1d4ed8 !important;
-      border-radius: 14px;
-      padding: 22px;
-      margin: 24px 0;
-    }}
-    /* Shared ¥0 Manual Modal styles */
-    .gba-manual-free-badge {{ display:inline-flex; align-items:center; gap:6px; background:#059669; color:#ffffff; font-size:0.86rem; font-weight:900; padding:4px 12px; border-radius:999px; }}
-    .gba-manual-modal-backdrop {{ display:none; position:fixed; inset:0; z-index:9999; background:rgba(15,23,42,0.76); backdrop-filter:blur(4px); padding:18px 12px; overflow-y:auto; align-items:flex-start; justify-content:center; }}
-    .gba-manual-modal-backdrop.is-open {{ display:flex; }}
-    .gba-manual-modal-dialog {{ background:#ffffff; color:#0b1f3a; border:2px solid #059669; border-radius:16px; width:100%; max-width:860px; margin:8px auto 32px; box-shadow:0 22px 50px rgba(0,0,0,0.45); overflow:hidden; }}
-    .gba-manual-modal-header {{ position:sticky; top:0; z-index:5; background:#ffffff; border-bottom:2px solid #cbd5e1; padding:14px 18px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; }}
-    .gba-manual-modal-title {{ font-size:1.18rem; font-weight:900; color:#0b1f3a; margin:4px 0 0; }}
-    .gba-manual-modal-actions {{ display:flex; gap:8px; flex-wrap:wrap; }}
-    .gba-manual-action-btn {{ appearance:none; min-height:46px; padding:8px 14px; border-radius:10px; font-size:0.96rem; font-weight:900; cursor:pointer; border:2px solid #cbd5e1; background:#f8fafc; color:#0b1f3a; }}
-    .gba-manual-action-btn.btn-print {{ border-color:#059669; background:#ecfdf5; color:#065f46; }}
-    .gba-manual-nav-pills {{ display:flex; flex-wrap:wrap; gap:8px; padding:12px 18px; background:#f8fafc; border-bottom:1px solid #cbd5e1; }}
-    .gba-manual-jump-pill {{ appearance:none; min-height:44px; padding:7px 13px; border-radius:999px; border:1.5px solid #cbd5e1; background:#ffffff; color:#0b1f3a; font-size:0.94rem; font-weight:800; cursor:pointer; }}
-    .gba-manual-modal-body {{ padding:20px; font-size:1.05rem; line-height:1.8; }}
-    .gba-manual-chapter-box {{ background:#f8fafc; border:1.5px solid #cbd5e1; border-radius:14px; padding:18px; margin-bottom:16px; }}
-    .gba-manual-broker-grid {{ display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:12px; margin-top:10px; }}
-    .gba-manual-broker-card {{ background:#ffffff; border:1.5px solid #cbd5e1; border-radius:12px; padding:14px; }}
-    .gba-manual-tip-callout {{ margin-top:12px; padding:12px 14px; border-radius:10px; background:#ecfdf5; border-left:4px solid #059669; font-weight:700; }}
-    .gba-manual-modal-funnel {{ background:#eff6ff; border:2px solid #059669; border-radius:14px; padding:18px; margin-top:10px; }}
-    .gba-manual-open-btn {{ appearance:none; background:linear-gradient(135deg,#059669,#047857); color:#ffffff; border:none; border-radius:11px; padding:12px 18px; min-height:52px; font-size:1rem; font-weight:900; cursor:pointer; }}
-    .gba-manual-funnel-links {{ display:flex; flex-wrap:wrap; gap:10px; margin-top:10px; }}
-    .gba-manual-pro-link, .gba-manual-vip-link {{ display:inline-flex; align-items:center; min-height:46px; padding:8px 14px; border-radius:999px; font-size:0.95rem; font-weight:900; text-decoration:none; background:#ffffff; border:1.5px solid #1d4ed8; color:#1d4ed8; }}
-    @media (max-width: 640px) {{
-      .article-box {{ padding: 20px 15px; }}
-    }}
-    @media print {{
-      body.printing-gba-manual > *:not(#gbaStarterManualModal) {{ display: none !important; }}
-      body.printing-gba-manual #gbaStarterManualModal {{ display: block !important; position: static !important; background: #ffffff !important; padding: 0 !important; }}
-    }}
-  </style>
+  <style>{SUBSTACK_PAPER_CSS_JP}</style>
 </head>
 <body>
-  <header>
-    <div class="container nav-bar">
-      <a href="/jp/" class="brand">⚡ GetBreakAI ゆとり老後＆新NISA設計ナビ</a>
-      <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
-        <a href="https://www.youtube.com/@GetBreakAI" target="_blank" rel="noopener" class="nav-sublink">📺 公式YouTube</a>
-        <button type="button" onclick="openGbaStarterManualModal()" class="nav-sublink" style="background:#065f46; border:1px solid #10b981; border-radius:7px; cursor:pointer;">📘 ¥0 基本マニュアル</button>
-        <a href="/jp/#gba-retirement-architect-jp" class="btn-cta">🧭 30秒・老後収入シミュレーター →</a>
-      </div>
+  <header class="essay-topbar">
+    <div class="essay-topbar-inner">
+      <a href="/jp/" class="essay-pub-brand">GetBreakAI ・ 朝刊エッセイ＆公開データ研究</a>
+      <nav class="essay-top-nav" aria-label="記事ナビゲーション">
+        <a href="/jp/nisa-quiet-barbell-essay.html">代表エッセイ</a>
+        <a href="/jp/#gba-retirement-architect-jp">4ステップ比率診断</a>
+        <button type="button" onclick="openGbaStarterManualModal()">¥0 基本マニュアル</button>
+      </nav>
     </div>
   </header>
 
-  <main class="container">
-    <div class="shorts-bridge-bar">
-      <strong>🧭 50〜70代のゆとり老後＆新NISAキャッシュフロー設計：</strong>
-      <a href="#miniCalcBox" class="btn-cta" style="padding:6px 12px; font-size:0.84rem;">🧮 1銘柄分散比率シミュレーターへ</a>
-      <button type="button" onclick="openGbaStarterManualModal()" style="background:#ecfdf5; color:#065f46; border:1.5px solid #059669; border-radius:8px; padding:6px 12px; font-weight:800; font-size:0.84rem; cursor:pointer;">📘 ¥0 楽天・SBI証券 新NISA設定マニュアル</button>
+  <main class="reading-column">
+    <div class="essay-kicker">公開市場データ研究ノート ・ 対象データ: {jp_name} (${ticker})</div>
+    <h1>{title}</h1>
+    <p class="essay-subtitle">{verdict_banner}</p>
+
+    <div class="byline-bar">
+      <div class="byline-author">
+        <span class="byline-avatar" aria-hidden="true">佐藤</span>
+        <div>
+          <div class="byline-name">佐藤 健一</div>
+          <div class="byline-meta">資産設計エッセイ・公開データ研究 ・ {date_str}</div>
+        </div>
+      </div>
+      <button type="button" class="share-copy-btn" onclick="window.__gbaCopyEssayLink(this)">リンクをコピー</button>
     </div>
 
-    <article class="article-box">
-      <div style="font-family:var(--font-mono); font-size:0.84rem; color:var(--accent-amber); font-weight:800; margin-bottom:8px;">
-        📊 公開市場データ更新日: {date_str} ｜ 対象データ: {jp_name} (${ticker})
-      </div>
-      <h1>{title}</h1>
-      <p style="font-size:1.05rem; font-weight:800; color:#1e3a8a !important; margin-bottom:14px;">
-        🧭 大切な退職金と新NISA非課税枠を1銘柄への偏重から守るため、ご資金に対する穏やかな資産配分目安を3秒で試算できます。
-      </p>
-      <div style="background:{banner_bg}; border:1.5px solid {banner_border}; border-radius:10px; padding:14px 16px; margin-bottom:22px; color:{banner_color}; font-weight:700; font-size:1.02rem; line-height:1.68;">
-        {verdict_banner}
-      </div>
-
-      <!-- 上部：無料倶楽部メール登録 ＆ Proソフトウェア案内 -->
-      <section id="gba-jp-lead-top" style="margin:20px 0 26px; padding:22px; background:linear-gradient(135deg,#ecfdf5 0%,#eff6ff 100%); border:2.5px solid #059669; border-radius:16px;">
-        <div style="display:inline-block; background:#065f46; color:#ffffff; font-size:0.88rem; font-weight:800; padding:4px 13px; border-radius:999px; margin-bottom:10px;">
-          🍵 朝のゆとり老後＆日米マクロ倶楽部（無料・パスワード不要）
-        </div>
-        <h2 style="margin:0 0 8px !important; background:transparent !important; border:none !important; padding:0 !important; font-size:1.32rem; line-height:1.42; color:#0b1f3a !important;">
-          毎朝8時「日米マクロ・新NISA 3色バランス指標ブリーフ」無料メール登録
-        </h2>
-        <p style="margin:0 0 14px; font-size:1.02rem; line-height:1.68; color:#1e293b !important;">
-          メールアドレス1つ（3秒）で、毎朝の金利・ドル円為替・老後3つの財布の公開データ要約と『¥0 新NISA基本設定マニュアル』を無料でお届けします。
-        </p>
-        <form class="gba-jp-signup-form" onsubmit="return window.__gbaSubmitJpSignup(event, this, '{ticker}');" style="display:flex; flex-wrap:wrap; gap:10px; align-items:stretch;">
-          <label for="gbaTopEmail_{ticker}" style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0);">メールアドレス</label>
-          <input id="gbaTopEmail_{ticker}" type="email" required autocomplete="email" placeholder="メールアドレスを入力（例: yamada@yahoo.co.jp）" style="flex:1 1 260px; min-height:56px; padding:12px 16px; font-size:1.04rem; font-weight:700; border-radius:12px; border:2px solid #64748b; background:#ffffff; color:#0f172a;">
-          <button type="submit" style="min-height:56px; padding:12px 22px; font-size:1.02rem; font-weight:900; border-radius:12px; border:none; background:#059669; color:#ffffff; cursor:pointer;">
-            📩 無料で毎朝の3色バランス指標を受け取る →
-          </button>
-        </form>
-        <div class="gba-jp-signup-status" role="status" aria-live="polite" style="display:none; margin-top:12px; padding:12px 14px; border-radius:10px; background:#d1fae5; color:#065f46; font-size:1rem; font-weight:800;"></div>
-
-        <div style="margin-top:16px; padding-top:14px; border-top:1px solid #a7f3d0;">
-          <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:10px;">
-            <span style="font-size:0.96rem; font-weight:800; color:#0f172a;">💎 全銘柄データ一覧・配当＆資産配分計算Proソフトウェア（随時更新・新NISA老後取り崩し実践PDFガイド＋3つの財布シミュレーター同梱）：</span>
-            <div style="display:flex; flex-wrap:wrap; gap:10px;">
-              <a href="{POLAR_MONTHLY_CTA_HREF}" data-gba-paid-plan="monthly" data-polar-slot="monthly_29_jp" class="polar-checkout-button" style="display:inline-flex; align-items:center; justify-content:center; min-height:56px; padding:10px 18px; border-radius:10px; background:#1d4ed8; color:#ffffff !important; font-size:0.98rem; font-weight:900; text-decoration:none;">
-                ⚡ {PRICE_LABEL_MONTHLY_JP}
-              </a>
-              <a href="{POLAR_ANNUAL_CTA_HREF}" data-gba-paid-plan="annual" data-polar-slot="annual_199_jp" class="polar-checkout-button" style="display:inline-flex; align-items:center; justify-content:center; min-height:56px; padding:10px 18px; border-radius:10px; background:#b45309; color:#ffffff !important; font-size:0.98rem; font-weight:900; text-decoration:none;">
-                👑 {PRICE_LABEL_ANNUAL_JP}
-              </a>
-            </div>
-          </div>
-          <div style="margin-top:8px; font-size:0.84rem; color:#334155; font-weight:700;">
-            💳 公式決済・税務管理：{MOR_LABEL_EN_JP}（日本国内カード・Apple Pay・Google Pay対応 ／ 14日間返金保証）
-          </div>
-{disclaimer_box}
-        </div>
-      </section>
+    <article>
+{body_chapters_html}
 
       <div class="kpi-grid">
         <div class="kpi-card">
           <div class="kpi-label">直近基準株価（公開終値）</div>
-          <div class="kpi-val">${entry:.2f} <span style="font-size:0.8rem; color:#475569; font-weight:700;">(約¥{int(round(entry*150)):,})</span></div>
+          <div class="kpi-val">${entry:.2f} <span style="font-size:0.78rem; color:#6b6b66; font-weight:700;">(約¥{int(round(entry*150)):,})</span></div>
         </div>
         <div class="kpi-card">
           <div class="kpi-label">公開データ安定度スコア</div>
@@ -803,26 +642,26 @@ def build_page_html(item, date_str, all_specs):
         </div>
         <div class="kpi-card">
           <div class="kpi-label">2.0倍ATR 変動幅参考値</div>
-          <div class="kpi-val" style="color:#be123c !important;">${stop_loss:.2f} <span style="font-size:0.78rem;">(幅 ${stop_dist:.2f})</span></div>
+          <div class="kpi-val" style="color:#be123c !important;">${stop_loss:.2f}</div>
         </div>
         <div class="kpi-card">
           <div class="kpi-label">長期リスクリワード参考値</div>
-          <div class="kpi-val" style="color:#047857 !important;">${target_25r:.2f}</div>
+          <div class="kpi-val" style="color:#059669 !important;">${target_25r:.2f}</div>
         </div>
       </div>
 
       <!-- 自己判断用・資産配分＆変動幅シミュレーター -->
       <div class="widget-box" id="miniCalcBox">
-        <h3 style="margin-top:0;">🧮 {jp_name}：1銘柄集中を防ぐ資産配分＆許容変動幅シミュレーター（ドル $ / 日本円 ¥ 同時換算）</h3>
-        <p style="font-size:0.95rem; color:#334155 !important; margin-bottom:14px;">
-          ご自身の運用資産総額に合わせてスライダーを動かすと、1銘柄あたりの価格変動（14日ATR×2.0倍）を資産全体の1.5%以内に抑える「分散保有株数の目安」を自動計算します。
+        <h3 style="margin-top:0;">{jp_name}：1銘柄集中を防ぐ資産配分＆許容変動幅の試算（ドル $ / 日本円 ¥ 同時換算）</h3>
+        <p style="font-size:0.92rem; color:#6b6b66 !important; margin-bottom:14px;">
+          ご自身の運用資産総額に合わせてスライダーを動かすと、1銘柄あたりの価格変動（14日ATR×2.0倍）を資産全体の1.5%以内に抑える「分散保有株数の目安」を自動試算します。
         </p>
         <div style="margin-bottom:14px;">
-          <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.92rem; margin-bottom:6px; color:#334155;">
+          <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.9rem; margin-bottom:6px; color:#3d3d3a;">
             <span>想定ご運用資産 (1ドル=150円基準):</span>
             <strong id="miniAccLbl" style="color:#b45309;">$50,000 (約750.0万円)</strong>
           </div>
-          <input type="range" id="miniAccSlider" min="5000" max="250000" step="5000" value="50000" style="width:100%; accent-color:#1d4ed8;" oninput="recalcMiniWidget()">
+          <input type="range" id="miniAccSlider" min="5000" max="250000" step="5000" value="50000" style="width:100%; accent-color:#059669;" oninput="recalcMiniWidget()">
         </div>
         <div class="kpi-grid" style="margin:14px 0 0;">
           <div class="kpi-card">
@@ -835,48 +674,18 @@ def build_page_html(item, date_str, all_specs):
           </div>
           <div class="kpi-card">
             <div class="kpi-label">長期2.5倍目標時の試算差額</div>
-            <div id="miniOutGain" class="kpi-val" style="color:#047857 !important;">+${gain_usd:,} (約{gain_jpy_man}万円)</div>
+            <div id="miniOutGain" class="kpi-val" style="color:#059669 !important;">+${gain_usd:,} (約{gain_jpy_man}万円)</div>
           </div>
-        </div>
-        <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap;">
-          <a href="/jp/?ticker={term_ticker}#jpQuickCalcSection" class="btn-cta">🧭 新NISA・老後3つの財布シミュレーターで全体配分を確認 →</a>
         </div>
       </div>
 
-{body_chapters_html}
-
-      <!-- 下部：無料倶楽部登録 ＆ Proソフトウェア案内 -->
-      <section id="gba-jp-lead-bottom" style="margin-top:32px; padding:24px; background:linear-gradient(135deg,#ecfdf5 0%,#eff6ff 100%); border:2.5px solid #059669; border-radius:16px;">
-        <h3 style="margin-top:0; font-size:1.28rem;">🍵 無料正会員登録（パスワード不要・3秒）：毎朝8時の「新NISA 3色バランス指標ブリーフ」</h3>
-        <p style="margin-bottom:14px; font-size:1.02rem;">クレジットカード不要・いつでも1クリック配信停止可能。毎朝の日米マクロ市場と老後3つの財布バランス指標を無料でお届けします。</p>
-        <form class="gba-jp-signup-form" onsubmit="return window.__gbaSubmitJpSignup(event, this, '{ticker}');" style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:14px;">
-          <label for="gbaBotEmail_{ticker}" style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0);">メールアドレス</label>
-          <input id="gbaBotEmail_{ticker}" type="email" required autocomplete="email" placeholder="メールアドレスを入力（例: yamada@yahoo.co.jp）" style="flex:1 1 260px; min-height:56px; padding:12px 16px; font-size:1.04rem; font-weight:700; border-radius:12px; border:2px solid #64748b; background:#ffffff; color:#0f172a;">
-          <button type="submit" style="min-height:56px; padding:12px 22px; font-size:1.02rem; font-weight:900; border-radius:12px; border:none; background:#059669; color:#ffffff; cursor:pointer;">
-            📩 無料メール倶楽部に参加する →
-          </button>
-        </form>
-        <div class="gba-jp-signup-status" role="status" aria-live="polite" style="display:none; margin-bottom:14px; padding:12px 14px; border-radius:10px; background:#d1fae5; color:#065f46; font-size:1rem; font-weight:800;"></div>
-
-        <div style="padding-top:14px; border-top:1px solid #93c5fd;">
-{pro_tools_compact}
-          <div style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-bottom:10px;">
-            <a href="/jp/#gba-retirement-architect-jp" class="btn-cta" style="min-height:56px; display:inline-flex; align-items:center; padding:10px 18px;">🧭 無料30秒・老後収入シミュレーターを開く →</a>
-            <a href="{POLAR_MONTHLY_CTA_HREF}" data-gba-paid-plan="monthly" data-polar-slot="monthly_29_jp" class="polar-checkout-button btn-cta" style="min-height:56px; display:inline-flex; align-items:center; padding:10px 18px; background:linear-gradient(135deg,#059669,#047857);">⚡ {PRICE_LABEL_MONTHLY_JP}</a>
-            <a href="{POLAR_ANNUAL_CTA_HREF}" data-gba-paid-plan="annual" data-polar-slot="annual_199_jp" class="polar-checkout-button btn-cta" style="min-height:56px; display:inline-flex; align-items:center; padding:10px 18px; background:linear-gradient(135deg,#d97706,#b45309);">👑 {PRICE_LABEL_ANNUAL_JP}</a>
-          </div>
-          <div style="text-align:center; font-size:0.86rem; color:#475569;">
-            💳 {MOR_LABEL_EN_JP}（14日間返金保証） ｜ 🏛️ 法人・メディア提携窓口: <a href="mailto:beable9489@gmail.com" style="color:#1d4ed8; font-weight:800;">beable9489@gmail.com</a>
-          </div>
-{disclaimer_box}
-        </div>
-      </section>
-
-      <h2>📚 関連する新NISA・日米優良株 公開データ教育リサーチ記事</h2>
-      <ul style="list-style:none; line-height:2.0; font-size:0.96rem;">
+      <h2>関連する新NISA・日米優良株 公開データ研究ノート</h2>
+      <ul style="list-style:none; line-height:2.0; font-size:0.95rem;">
         {related_links_html}
       </ul>
     </article>
+
+{substack_end_html}
   </main>
 
 {footer_html}
@@ -914,10 +723,10 @@ def build_page_html(item, date_str, all_specs):
 
     function jumpFromManualToJpMail() {{
       if (typeof window.closeGbaStarterManualModal === 'function') window.closeGbaStarterManualModal();
-      const topLead = document.getElementById('gba-jp-lead-top');
-      if (topLead && topLead.scrollIntoView) topLead.scrollIntoView({{ behavior: 'smooth', block: 'center' }});
+      const subBox = document.getElementById('gba-substack-subscribe');
+      if (subBox && subBox.scrollIntoView) subBox.scrollIntoView({{ behavior: 'smooth', block: 'center' }});
       setTimeout(function() {{
-        const inp = topLead ? topLead.querySelector('input[type="email"]') : null;
+        const inp = subBox ? subBox.querySelector('input[type="email"]') : null;
         if (inp && inp.focus) inp.focus();
       }}, 350);
     }}
@@ -926,7 +735,7 @@ def build_page_html(item, date_str, all_specs):
       try {{
         const saved = localStorage.getItem('gb_free_member_email') || localStorage.getItem('gba_jp_free_email');
         if (saved) {{
-          document.querySelectorAll('.gba-jp-signup-form input[type="email"]').forEach(function(inp) {{ inp.value = saved; }});
+          document.querySelectorAll('.substack-inline-form input[type="email"]').forEach(function(inp) {{ inp.value = saved; }});
         }}
       }} catch (_e) {{}}
     }});
@@ -935,6 +744,477 @@ def build_page_html(item, date_str, all_specs):
 </html>
 """
 
+SUBSTACK_PAPER_CSS_JP = """
+    :root {
+      --paper-bg: #fcfcfa;
+      --card-bg: #ffffff;
+      --ink: #1a1a1a;
+      --ink-soft: #3d3d3a;
+      --ink-muted: #6b6b66;
+      --rule: #e6e4dd;
+      --accent-emerald: #059669;
+      --accent-blue: #1d4ed8;
+      --accent-amber: #b45309;
+      --accent-rose: #be123c;
+      --font-serif: 'Noto Serif JP', 'Hiragino Mincho ProN', 'Yu Mincho', Georgia, serif;
+      --font-sans: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Noto Sans JP', monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+    body {
+      background: var(--paper-bg) !important;
+      color: var(--ink) !important;
+      font-family: var(--font-sans);
+      font-size: 18.5px;
+      line-height: 1.85;
+      font-feature-settings: "palt" 1;
+      letter-spacing: 0.015em;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent-blue); text-decoration: underline; text-underline-offset: 3px; }
+    .essay-topbar {
+      border-bottom: 1px solid var(--rule);
+      background: rgba(252, 252, 250, 0.95);
+      backdrop-filter: blur(6px);
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+    .essay-topbar-inner {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .essay-pub-brand {
+      color: var(--ink) !important;
+      font-weight: 800;
+      font-size: 0.96rem;
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+    .essay-top-nav {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+    .essay-top-nav a, .essay-top-nav button {
+      color: var(--ink-muted) !important;
+      text-decoration: none;
+      background: transparent;
+      border: none;
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 4px 2px;
+    }
+    .essay-top-nav a:hover, .essay-top-nav button:hover { color: var(--ink) !important; }
+    .reading-column {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 44px 20px 72px;
+    }
+    .essay-kicker {
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      color: var(--accent-emerald);
+      margin-bottom: 10px;
+    }
+    h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.62rem, 3.8vw, 2.22rem);
+      line-height: 1.36;
+      margin-bottom: 14px;
+      font-weight: 700;
+      color: var(--ink) !important;
+      letter-spacing: -0.01em;
+    }
+    .essay-subtitle {
+      font-size: 1.06rem;
+      line-height: 1.7;
+      color: var(--ink-muted) !important;
+      margin-bottom: 22px;
+      font-weight: 400;
+    }
+    .byline-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 14px 0;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 32px;
+    }
+    .byline-author { display: flex; align-items: center; gap: 11px; }
+    .byline-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #e9ece6;
+      color: #1f3a2e;
+      font-weight: 800;
+      font-size: 0.86rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .byline-name { font-size: 0.92rem; font-weight: 800; color: var(--ink); line-height: 1.3; }
+    .byline-meta { font-size: 0.8rem; color: var(--ink-muted); }
+    .share-copy-btn {
+      appearance: none;
+      background: var(--card-bg);
+      border: 1px solid var(--rule);
+      border-radius: 999px;
+      padding: 7px 14px;
+      min-height: 38px;
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--ink-soft);
+      cursor: pointer;
+    }
+    .share-copy-btn:hover { border-color: #b8b5aa; color: var(--ink); }
+    article p, article li {
+      color: var(--ink) !important;
+      margin-bottom: 1.5em;
+      font-size: 18.5px;
+      line-height: 1.88;
+    }
+    article h2 {
+      font-family: var(--font-serif);
+      font-size: 1.34rem;
+      line-height: 1.42;
+      color: var(--ink) !important;
+      margin: 2.1em 0 0.75em;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--rule);
+      font-weight: 700;
+    }
+    article h3 {
+      font-size: 1.08rem;
+      color: var(--ink) !important;
+      margin: 1.4em 0 0.5em;
+      font-weight: 800;
+    }
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
+      margin: 22px 0;
+    }
+    .kpi-card {
+      background: var(--card-bg) !important;
+      border: 1px solid var(--rule) !important;
+      border-radius: 10px;
+      padding: 12px 14px;
+    }
+    .kpi-label { font-size: 0.78rem; color: var(--ink-muted) !important; font-weight: 700; }
+    .kpi-val { font-size: 1.08rem; font-weight: 800; font-family: var(--font-mono); margin-top: 4px; color: var(--ink) !important; }
+    .widget-box {
+      background: var(--card-bg) !important;
+      border: 1px solid var(--rule) !important;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 28px 0;
+    }
+    .substack-subscribe-box {
+      margin: 44px 0 22px;
+      padding: 28px 24px;
+      background: var(--card-bg);
+      border: 1px solid var(--rule);
+      border-radius: 12px;
+      text-align: center;
+    }
+    .substack-sub-title {
+      font-family: var(--font-serif);
+      font-size: 1.36rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+    .substack-sub-desc {
+      font-size: 0.92rem;
+      line-height: 1.68;
+      color: var(--ink-muted) !important;
+      max-width: 520px;
+      margin: 0 auto 16px;
+    }
+    .substack-inline-form {
+      display: flex;
+      max-width: 470px;
+      margin: 0 auto;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .substack-inline-form input[type="email"] {
+      flex: 1 1 220px;
+      min-height: 48px;
+      padding: 10px 14px;
+      border: 1px solid #c9c6bc;
+      border-radius: 8px;
+      font-size: 0.96rem;
+      background: #ffffff;
+      color: var(--ink);
+    }
+    .substack-inline-form button {
+      min-height: 48px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background: #059669;
+      color: #ffffff;
+      font-size: 0.94rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .substack-sub-status {
+      margin-top: 12px;
+      font-size: 0.92rem;
+      line-height: 1.6;
+      font-weight: 700;
+    }
+    .editorial-postscript {
+      padding: 18px 20px;
+      background: #f5f4ef;
+      border: 1px solid var(--rule);
+      border-radius: 10px;
+      font-size: 0.9rem;
+      line-height: 1.72;
+      color: var(--ink-soft);
+      margin-bottom: 32px;
+    }
+    .editorial-postscript p {
+      margin: 0 0 8px;
+      font-size: 0.9rem;
+      line-height: 1.72;
+      color: var(--ink-soft) !important;
+    }
+    .ps-label {
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      color: var(--ink-muted);
+      margin-bottom: 6px;
+    }
+    /* Shared ¥0 Manual Modal styles */
+    .gba-manual-free-badge { display:inline-flex; align-items:center; gap:6px; background:#059669; color:#ffffff; font-size:0.86rem; font-weight:900; padding:4px 12px; border-radius:999px; }
+    .gba-manual-modal-backdrop { display:none; position:fixed; inset:0; z-index:9999; background:rgba(15,23,42,0.76); backdrop-filter:blur(4px); padding:18px 12px; overflow-y:auto; align-items:flex-start; justify-content:center; }
+    .gba-manual-modal-backdrop.is-open { display:flex; }
+    .gba-manual-modal-dialog { background:#ffffff; color:#0b1f3a; border:2px solid #059669; border-radius:16px; width:100%; max-width:860px; margin:8px auto 32px; box-shadow:0 22px 50px rgba(0,0,0,0.45); overflow:hidden; }
+    .gba-manual-modal-header { position:sticky; top:0; z-index:5; background:#ffffff; border-bottom:2px solid #cbd5e1; padding:14px 18px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; }
+    .gba-manual-modal-title { font-size:1.18rem; font-weight:900; color:#0b1f3a; margin:4px 0 0; }
+    .gba-manual-modal-actions { display:flex; gap:8px; flex-wrap:wrap; }
+    .gba-manual-action-btn { appearance:none; min-height:46px; padding:8px 14px; border-radius:10px; font-size:0.96rem; font-weight:900; cursor:pointer; border:2px solid #cbd5e1; background:#f8fafc; color:#0b1f3a; }
+    .gba-manual-action-btn.btn-print { border-color:#059669; background:#ecfdf5; color:#065f46; }
+    .gba-manual-nav-pills { display:flex; flex-wrap:wrap; gap:8px; padding:12px 18px; background:#f8fafc; border-bottom:1px solid #cbd5e1; }
+    .gba-manual-jump-pill { appearance:none; min-height:44px; padding:7px 13px; border-radius:999px; border:1.5px solid #cbd5e1; background:#ffffff; color:#0b1f3a; font-size:0.94rem; font-weight:800; cursor:pointer; }
+    .gba-manual-modal-body { padding:20px; font-size:1.05rem; line-height:1.8; }
+    .gba-manual-chapter-box { background:#f8fafc; border:1.5px solid #cbd5e1; border-radius:14px; padding:18px; margin-bottom:16px; }
+    .gba-manual-broker-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:12px; margin-top:10px; }
+    .gba-manual-broker-card { background:#ffffff; border:1.5px solid #cbd5e1; border-radius:12px; padding:14px; }
+    .gba-manual-tip-callout { margin-top:12px; padding:12px 14px; border-radius:10px; background:#ecfdf5; border-left:4px solid #059669; font-weight:700; }
+    .gba-manual-modal-funnel { background:#eff6ff; border:2px solid #059669; border-radius:14px; padding:18px; margin-top:10px; }
+    .gba-manual-open-btn { appearance:none; background:linear-gradient(135deg,#059669,#047857); color:#ffffff; border:none; border-radius:11px; padding:12px 18px; min-height:52px; font-size:1rem; font-weight:900; cursor:pointer; }
+    .gba-manual-funnel-links { display:flex; flex-wrap:wrap; gap:10px; margin-top:10px; }
+    .gba-manual-pro-link, .gba-manual-vip-link { display:inline-flex; align-items:center; min-height:46px; padding:8px 14px; border-radius:999px; font-size:0.95rem; font-weight:900; text-decoration:none; background:#ffffff; border:1.5px solid #1d4ed8; color:#1d4ed8; }
+    @media (max-width: 560px) {
+      .reading-column { padding: 28px 18px 56px; }
+      .substack-inline-form button { width: 100%; }
+    }
+    @media print {
+      body.printing-gba-manual > *:not(#gbaStarterManualModal) { display: none !important; }
+      body.printing-gba-manual #gbaStarterManualModal { display: block !important; position: static !important; background: #ffffff !important; padding: 0 !important; }
+    }
+"""
+
+
+def _build_substack_end_box_jp(slug: str, disclaimer_box: str) -> str:
+    return f"""
+    <section class="substack-subscribe-box" id="gba-substack-subscribe" aria-label="朝刊エッセイ無料メール購読">
+      <div class="substack-sub-title">次の朝刊エッセイをメールで受け取る</div>
+      <p class="substack-sub-desc">
+        AI半導体の成長（SMH）と医療の守り（XLV）、そして新NISAと老後資産の穏やかな設計について、広告のない静かな朝刊ノートをお届けします（無料・パスワード不要・1クリック解除OK）。
+      </p>
+      <form class="substack-inline-form" onsubmit="return window.__gbaSubmitSubstackSubscribe(event, this, '{slug}');" novalidate>
+        <label for="substackEmailJp_{slug[:16]}" class="sr-only">メールアドレス</label>
+        <input id="substackEmailJp_{slug[:16]}" type="email" required autocomplete="email" placeholder="メールアドレスを入力..." />
+        <button type="submit">無料で購読する</button>
+      </form>
+      <div class="substack-sub-status" role="status" aria-live="polite" style="display:none;"></div>
+    </section>
+
+    <aside class="editorial-postscript" aria-label="編集後記・自己判断用シミュレーター">
+      <div class="ps-label">編集後記 ・ 自己判断用データツール</div>
+      <p>
+        ご自身の資産規模や許容変動幅に合わせた <strong>SMH × XLV</strong> の過去26年検証比率は、<a href="/jp/#gba-retirement-architect-jp"><strong>無料の4ステップ比率シミュレーター</strong></a>（<button type="button" onclick="openGbaStarterManualModal()" style="background:none;border:none;color:#1d4ed8;text-decoration:underline;font-weight:700;cursor:pointer;font-size:inherit;padding:0;">¥0 楽天・SBI証券 新NISA設定マニュアル</button> 同梱）でお確かめいただけます。毎朝8時の過熱・恐怖指標＆セクター比率トラッキング日報データ配信は Proプラン（<a href="{POLAR_MONTHLY_CTA_HREF}" data-gba-paid-plan="monthly" data-polar-slot="monthly_29_jp" class="polar-checkout-button">{PRICE_LABEL_MONTHLY_JP}</a> ・ <a href="{POLAR_ANNUAL_CTA_HREF}" data-gba-paid-plan="annual" data-polar-slot="annual_199_jp" class="polar-checkout-button">{PRICE_LABEL_ANNUAL_JP}</a> ／ 決済管理：{MOR_LABEL_EN_JP}）にてご提供しています。
+      </p>
+{disclaimer_box}
+    </aside>"""
+
+
+def build_flagship_essay_jp_html(date_str: str) -> str:
+    slug = "nisa-quiet-barbell-essay.html"
+    canonical_url = f"https://getbreakai.com/jp/{slug}"
+    title = "騒がしい強気相場よりも、静かな「2つの柱」が最後まで残る理由"
+    subtitle = "夜の食卓で証券アプリを開くとき、100%ハイテク集中が奪う「眠りの質」と、半導体（SMH）×医療（XLV）が26年間の嵐をどう乗り越えたか。"
+    desc = "佐藤健一による資産設計エッセイ。新NISA成長投資枠で保有できる半導体（SMH）とヘルスケア（XLV）、個人向け国債・特定口座クッションを組み合わせた穏やかな長期資産設計を26年の公開データから紐解きます。"
+
+    head_scripts = build_payment_and_kpi_head_html()
+    disclaimer_box = build_mandatory_disclaimer_html()
+    manual_modal = build_starter_manual_modal_html()
+    waitlist_modal = build_vip_waitlist_modal_html()
+    footer_html = build_legal_footer_html()
+    substack_end_html = _build_substack_end_box_jp(slug, disclaimer_box)
+
+    ld_json = json.dumps(
+        {
+            "@context": "https://schema.org",
+            "@graph": [
+                {
+                    "@type": "Article",
+                    "headline": title,
+                    "description": desc,
+                    "datePublished": date_str,
+                    "dateModified": date_str,
+                    "inLanguage": "ja",
+                    "mainEntityOfPage": canonical_url,
+                    "author": {
+                        "@type": "Person",
+                        "name": "佐藤 健一",
+                        "jobTitle": "資産設計エッセイ",
+                    },
+                    "publisher": {
+                        "@type": "Organization",
+                        "name": "GetBreakAI",
+                        "url": "https://getbreakai.com/jp/",
+                    },
+                },
+                {
+                    "@type": "FAQPage",
+                    "mainEntity": [
+                        {
+                            "@type": "Question",
+                            "name": "SMH（半導体ETF）とXLV（ヘルスケアETF）は新NISA成長投資枠の対象ですか？",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "はい。SMHおよびXLVはレバレッジのない現物1倍の米国セクターETFであり、新NISAの成長投資枠で保有可能です。一方、毎月分配型の米国短期国債ETF（SGOV等）は金融庁規定により特定口座（または個人向け国債）で区分管理します。",
+                            },
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "当エッセイは特定の売買タイミングを助言するものですか？",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": MANDATORY_DISCLAIMER_JP,
+                            },
+                        },
+                    ],
+                },
+            ],
+        },
+        ensure_ascii=False,
+    )
+
+    return f"""<!DOCTYPE html>
+<html lang="ja" data-jp-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{title} | GetBreakAI 朝刊エッセイ</title>
+  <meta name="description" content="{desc}">
+  <link rel="canonical" href="{canonical_url}">
+  <link rel="alternate" hreflang="ja" href="{canonical_url}">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:site_name" content="GetBreakAI 朝刊エッセイ">
+  <meta property="og:url" content="{canonical_url}">
+  <meta property="og:title" content="{title}">
+  <meta property="og:description" content="{subtitle}">
+  <meta property="og:image" content="https://getbreakai.com/og-preview.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+  <script type="application/ld+json">{ld_json}</script>
+{head_scripts}
+  <style>{SUBSTACK_PAPER_CSS_JP}</style>
+</head>
+<body>
+  <header class="essay-topbar">
+    <div class="essay-topbar-inner">
+      <a href="/jp/" class="essay-pub-brand">GetBreakAI ・ 朝刊エッセイ</a>
+      <nav class="essay-top-nav" aria-label="記事ナビゲーション">
+        <a href="/jp/#gba-retirement-architect-jp">4ステップ比率診断</a>
+        <button type="button" onclick="openGbaStarterManualModal()">¥0 基本マニュアル</button>
+        <a href="/jp/#pricing">毎朝データ配信</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="reading-column">
+    <div class="essay-kicker">資産設計エッセイ ・ 代表コラム</div>
+    <h1>{title}</h1>
+    <p class="essay-subtitle">{subtitle}</p>
+
+    <div class="byline-bar">
+      <div class="byline-author">
+        <span class="byline-avatar" aria-hidden="true">佐藤</span>
+        <div>
+          <div class="byline-name">佐藤 健一</div>
+          <div class="byline-meta">資産設計エッセイ ・ {date_str} ・ 読了目安 6分</div>
+        </div>
+      </div>
+      <button type="button" class="share-copy-btn" onclick="window.__gbaCopyEssayLink(this)">リンクをコピー</button>
+    </div>
+
+    <article>
+      <p>
+        火曜日の夜遅く、米国のナスダック市場が3%以上急落したというニュースを目にしたあと、キッチンの明かりを落としてスマートフォンの証券アプリを開くとき、私たちは「今後20年間の美しい複利グラフ」を眺めるために画面を開くわけではありません。ただ静かに、これまで20年、30年と働いて少しずつ積み上げてきた老後の蓄えが無事だろうか、ひとつの人気テーマに偏りすぎてはいなかっただろうかと、胸の奥の小さな不安を確かめるために画面を開きます。
+      </p>
+
+      <p>
+        強い技術革新の波が訪れるたび、投資家の周囲にはいつも似たような空気が流れます。半導体やAI関連の銘柄が連日のように高値を更新していると、値動きの穏やかな資産を持っていることが、まるで時代の変化に乗り遅れているかのように感じられてしまうのです。知人との何気ない会話や経済ニュースの見出しに触れるうち、最初は老後の安心のために始めたはずの新NISA口座が、いつの間にか資産の7割、8割まで単一のハイテク・サイクルと同じ方向に揺れ動く形へと傾いていきます。
+      </p>
+
+      <p>
+        ひとつの産業だけに資産を預ける危うさは、上昇相場の計算表には決して現れません。それが顔を出すのは、下落が始まってから1年半が過ぎた頃の「暮らしの予定表」のなかです。2000年から2002年にかけてのITバブル崩壊では、ハイテク中心の指数が底を打つまでに8割を超える下落を記録しました。そこまで極端ではない2022年の利上げ局面でさえ、米国半導体ETF（SMH）は高値から約35%後退しています。頭の中では「長期投資だから下がっても持ち続ければいい」とわかっていても、現実の人生では定年退職の時期も、自宅の修繕も、家族の節目も、半導体サイクルの回復を待ってはくれません。
+      </p>
+
+      <p>
+        だからこそ、長期の成長エンジンである米国半導体（SMH）の隣に、米国ヘルスケア（XLV）というまったく別の時計で動く柱を並べておくことに深い意味が生まれます。どちらもレバレッジのかからない現物1倍のETFであり、新NISAの成長投資枠で静かに保有できる資産です。半導体がデータセンターや産業インフラの設備投資サイクルに乗って大きく前進する一方で、医薬品や医療機器、ヘルスケアサービスに対する需要は、中央銀行の金利政策や景気の良し悪しに左右されにくいという性質を持っています。病院の診察室や日々の処方箋は、株式市場の流行とは無関係に今日も動いているからです。
+      </p>
+
+      <p>
+        2022年の相場をもう一度振り返ってみると、その違いは驚くほど穏やかに表れています。SMHが秋にかけて約35%下落するなか、XLVは年間を通じてほとんど崩れず、マイナス2%前後の水準にとどまりました。2つの柱を組み合わせていた世帯の資産が無傷だったわけではありません。けれども、口座の半分近くが嵐のなかでも静かに踏みとどまってくれたおかげで、多くの人が一番底で慌てて手放すことなく眠りにつき、結果として2023年以降の半導体回復の果実をそのまま受け取ることができたのです。
+      </p>
+
+      <p>
+        さらに50代・60代からの資産設計であれば、今後2〜3年以内に使う予定の生活防衛資金を、日本の個人向け国債（変動10年）や特定口座で区分管理する米国短期国債ETF（SGOVなど、金融庁規定に合わせたハイブリッド設計）として手元に置いておくことで、心の余裕はもう一段深まります。3倍レバレッジ商品や分刻みのチャートを追いかける必要はありません。ご自身が夜ぐっすり眠れる比率をあらかじめ決めておき、市場の過熱や恐怖が極端に振れたときだけ落ち着いた目で公開データを確かめる。騒がしい相場を最後まで歩き通すのは、いつもそうした静かな設計なのだと感じています。
+      </p>
+    </article>
+
+{substack_end_html}
+  </main>
+
+{footer_html}
+{manual_modal}
+{waitlist_modal}
+</body>
+</html>
+"""
 
 def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str:
     canonical_url = "https://getbreakai.com/" if is_root else "https://getbreakai.com/jp/"
@@ -1827,6 +2107,22 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
       </div>
     </section>
 
+    <!-- Substack-Style Flagship Essay Preview Card -->
+    <aside class="gba-substack-preview-card" aria-label="本日の朝刊エッセイを読む" style="margin:18px 0; padding:22px 24px; background:#fcfcfa; border:1.5px solid #e6e4dd; border-left:4px solid #059669; border-radius:14px; color:#1a1a1a;">
+      <div style="font-size:0.8rem; font-weight:800; letter-spacing:0.06em; color:#059669; margin-bottom:6px;">
+        朝刊エッセイ ・ 佐藤 健一 ・ 読了目安 6分
+      </div>
+      <h2 style="font-family:'Noto Serif JP',Georgia,serif; font-size:1.34rem; font-weight:700; margin:0 0 8px; color:#1a1a1a; line-height:1.38;">
+        <a href="/jp/nisa-quiet-barbell-essay.html" style="color:inherit; text-decoration:none;">騒がしい強気相場よりも、静かな「2つの柱」が最後まで残る理由</a>
+      </h2>
+      <p style="font-size:1rem; line-height:1.76; color:#3d3d3a; margin:0 0 12px;">
+        「火曜日の夜遅く、米国のナスダック市場が急落したというニュースを目にしたあと、キッチンの明かりを落として証券アプリを開くとき、私たちは20年間の複利グラフを眺めるために画面を開くわけではありません…」
+      </p>
+      <a href="/jp/nisa-quiet-barbell-essay.html" style="display:inline-flex; align-items:center; font-weight:800; font-size:0.98rem; color:#1d4ed8; text-decoration:underline;">
+        本日の朝刊エッセイを読む &rarr;
+      </a>
+    </aside>
+
     <!-- STAGE 3 OF 3: PAID PRO UPGRADE (#pricing — Polar.sh ?locale=ja) -->
     <section class="defense-card" id="pricing" aria-label="Stage 3: Proソフトウェア料金プラン">
       <div class="gba-stage-top">
@@ -2698,6 +2994,7 @@ def main():
     urls = [
         "https://getbreakai.com/",
         "https://getbreakai.com/jp/",
+        "https://getbreakai.com/jp/nisa-quiet-barbell-essay.html",
         "https://getbreakai.com/jp/daily-nisa-quant-report.html",
         "https://getbreakai.com/jp/terms.html",
         "https://getbreakai.com/jp/privacy.html",
@@ -2708,6 +3005,10 @@ def main():
         "https://getbreakai.com/refund.html",
         "https://getbreakai.com/contact.html",
     ]
+    flagship_html = build_flagship_essay_jp_html(date_str)
+    with open(os.path.join(JP_DIR, "nisa-quiet-barbell-essay.html"), "w", encoding="utf-8") as ef:
+        ef.write(flagship_html)
+
     min_chars = 999999
 
     for spec in SEO_PAGES_SPEC:

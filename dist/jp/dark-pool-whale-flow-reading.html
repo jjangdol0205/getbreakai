@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>米国の取引所外大口取引（ATS公開統計）とは？年金基金・機関投資家の大口執行データの基礎知識 | GetBreakAI ゆとり老後＆新NISA設計ナビ</title>
+  <title>米国の取引所外大口取引（ATS公開統計）とは？年金基金・機関投資家の大口執行データの基礎知識 | GetBreakAI 朝刊エッセイ＆公開データ研究</title>
   <meta name="description" content="機関投資家の取引所外ブロック取引（ATS）公開統計とはの米国FINRA等で公開される取引所外ブロック取引（ATS）比率の意味と、年金基金や長期機関投資家が市場インパクトを抑えて執行する仕組みの解説を公開データからわかりやすく整理。『新NISA 適格（四半期配当 VYM・HDV・1489・オルカン・S&P500 時間差組み合わせ）＋ 特定口座（毎月分配 SGOV・JEPI）ハイブリッド設計』とドル・円同時対応の資産配分シミュレーターを掲載。">
   <link rel="canonical" href="https://getbreakai.com/jp/dark-pool-whale-flow-reading.html">
   <link rel="alternate" hreflang="ja" href="https://getbreakai.com/jp/dark-pool-whale-flow-reading.html">
   <meta property="og:type" content="article">
   <meta property="og:locale" content="ja_JP">
-  <meta property="og:site_name" content="GetBreakAI ゆとり老後＆新NISA設計ナビ">
+  <meta property="og:site_name" content="GetBreakAI 朝刊エッセイ＆公開データ研究">
   <meta property="og:url" content="https://getbreakai.com/jp/dark-pool-whale-flow-reading.html">
   <meta property="og:title" content="米国の取引所外大口取引（ATS公開統計）とは？年金基金・機関投資家の大口執行データの基礎知識">
   <meta property="og:description" content="📊 【公開市場データ要約】機関投資家の取引所外ブロック取引（ATS）公開統計とは の公開財務・需給スコアは 88.4/100（FINRA公開ATS統計データ ＆ 機関投資家執行インフラ解説）です。想定運用資金 $50,000（約750万円）における1銘柄分散目安は 21株（約107.6万円）、2.0倍ATR変動幅の参考下限値は $306.72、長期目標参考値は $428.80 です。">
@@ -21,7 +21,7 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Noto+Sans+JP:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Noto+Sans+JP:wght@400;500;700;800&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -188,6 +188,86 @@
               fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/signup_' + kst, { mode: 'cors', keepalive: true }).catch(function(){});
             }
           } catch (_e) {}
+        };
+
+        window.__gbaCopyEssayLink = function(btnEl) {
+          var url = (window.location && window.location.href) ? window.location.href : 'https://getbreakai.com/jp/';
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(url).then(function() {
+              if (btnEl) {
+                var orig = btnEl.getAttribute('data-orig') || btnEl.textContent;
+                btnEl.setAttribute('data-orig', orig);
+                btnEl.textContent = 'リンクをコピーしました';
+                setTimeout(function() { btnEl.textContent = orig; }, 2200);
+              }
+            }).catch(function(){});
+          }
+        };
+
+        window.__gbaSubmitSubstackSubscribe = function(ev, formEl, essaySlug) {
+          if (ev && ev.preventDefault) ev.preventDefault();
+          var input = formEl ? formEl.querySelector('input[type="email"]') : null;
+          var statusEl = formEl && formEl.parentNode ? formEl.parentNode.querySelector('.substack-sub-status') : null;
+          var btnEl = formEl ? formEl.querySelector('button[type="submit"]') : null;
+          var email = input ? String(input.value || '').trim().toLowerCase() : '';
+          if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+            if (statusEl) {
+              statusEl.style.display = 'block';
+              statusEl.style.color = '#991b1b';
+              statusEl.textContent = '有効なメールアドレスを入力してください。';
+            }
+            if (input && input.focus) input.focus();
+            return false;
+          }
+          if (btnEl) {
+            btnEl.disabled = true;
+            btnEl.textContent = '登録中...';
+          }
+          var noteCtx = 'site=getbreakai.com/jp/ | essay=' + String(essaySlug || (location && location.pathname) || 'jp_essay');
+          try {
+            localStorage.setItem('gba_jp_free_email', email);
+            localStorage.setItem('gb_free_member_email', email);
+            localStorage.setItem('gba_jp_free_since', kst);
+            localStorage.setItem('dc_member_GBA', JSON.stringify({
+              div: 'GBA',
+              email: email,
+              nickname: '',
+              segment: 'substack_essay_reader_jp',
+              notes: noteCtx,
+              joined_at: new Date().toISOString()
+            }));
+          } catch (_e) {}
+          window.trackGbaFreeSignup(email);
+
+          var finishSub = function() {
+            if (btnEl) {
+              btnEl.disabled = false;
+              btnEl.textContent = '購読登録済み';
+            }
+            if (statusEl) {
+              statusEl.style.display = 'block';
+              statusEl.style.color = '#065f46';
+              statusEl.innerHTML = 'ご登録ありがとうございます。次回の朝刊エッセイを <strong>' + email.replace(/[<>&"]/g, '') + '</strong> 宛に静かにお届けします（パスワード不要・いつでも1クリック解除OK）。';
+            }
+            document.querySelectorAll('.substack-inline-form input[type="email"], .gba-jp-signup-form input[type="email"]').forEach(function(inp) {
+              inp.value = email;
+            });
+          };
+
+          if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.registerMember === 'function') {
+            window.DreamCompanyCRM.registerMember({
+              div: 'GBA',
+              email: email,
+              nickname: '',
+              segment: 'substack_essay_reader_jp',
+              lang: 'ja-JP',
+              notes: noteCtx,
+              message: noteCtx
+            }).then(finishSub).catch(finishSub);
+          } else {
+            finishSub();
+          }
+          return false;
         };
 
         window.__gbaSubmitJpSignup = function(ev, formEl, tickerLabel) {
@@ -361,99 +441,267 @@
   </script>
   <style>
     :root {
-      --bg-page: #f4f6fa;
-      --bg-card: #ffffff;
-      --bg-sub: #f8fafc;
-      --border-col: #cbd5e1;
-      --text-main: #0b1f3a;
-      --text-muted: #334155;
-      --text-sub: #475569;
+      --paper-bg: #fcfcfa;
+      --card-bg: #ffffff;
+      --ink: #1a1a1a;
+      --ink-soft: #3d3d3a;
+      --ink-muted: #6b6b66;
+      --rule: #e6e4dd;
+      --accent-emerald: #059669;
       --accent-blue: #1d4ed8;
       --accent-amber: #b45309;
-      --accent-emerald: #047857;
       --accent-rose: #be123c;
+      --font-serif: 'Noto Serif JP', 'Hiragino Mincho ProN', 'Yu Mincho', Georgia, serif;
       --font-sans: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
       --font-mono: 'JetBrains Mono', 'Noto Sans JP', monospace;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
     body {
-      background: #f4f6fa !important;
-      color: #0f172a !important;
+      background: var(--paper-bg) !important;
+      color: var(--ink) !important;
       font-family: var(--font-sans);
-      line-height: 1.8;
-      font-size: 18px;
+      font-size: 18.5px;
+      line-height: 1.85;
       font-feature-settings: "palt" 1;
-      letter-spacing: 0.01em;
+      letter-spacing: 0.015em;
+      -webkit-font-smoothing: antialiased;
     }
-    .container { max-width: 960px; margin: 0 auto; padding: 0 20px; }
-    header {
-      background: #0b1f3a !important;
-      border-bottom: 2px solid #1e3a8a !important;
-      padding: 15px 0;
+    a { color: var(--accent-blue); text-decoration: underline; text-underline-offset: 3px; }
+    .essay-topbar {
+      border-bottom: 1px solid var(--rule);
+      background: rgba(252, 252, 250, 0.95);
+      backdrop-filter: blur(6px);
       position: sticky;
       top: 0;
-      z-index: 50;
+      z-index: 40;
     }
-    .nav-bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
-    .brand { color: #f8fafc !important; font-weight: 900; font-size: 1.15rem; text-decoration: none; }
-    .nav-sublink { color: #e2e8f0 !important; text-decoration: none; font-size: 0.9rem; padding: 6px 8px; font-weight: 700; }
-    .btn-cta {
-      background: linear-gradient(135deg, #1d4ed8, #1e3a8a);
-      color: #ffffff !important;
-      text-decoration: none;
-      padding: 9px 16px;
-      border-radius: 9px;
-      font-weight: 800;
-      font-size: 0.9rem;
-      border: none;
-      cursor: pointer;
-    }
-    .shorts-bridge-bar {
-      background: #eff6ff;
-      border: 1.5px solid #93c5fd;
-      border-radius: 12px;
-      padding: 11px 14px;
-      margin-top: 18px;
+    .essay-topbar-inner {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 14px 20px;
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      justify-content: center;
       flex-wrap: wrap;
       gap: 10px;
-      font-size: 0.92rem;
-      color: #0f172a;
     }
-    .article-box {
-      background: #ffffff !important;
-      border: 1.5px solid #cbd5e1 !important;
-      box-shadow: 0 8px 24px rgba(15,23,42,0.06) !important;
-      border-radius: 16px;
-      padding: 30px 28px;
-      margin-top: 22px;
+    .essay-pub-brand {
+      color: var(--ink) !important;
+      font-weight: 800;
+      font-size: 0.96rem;
+      text-decoration: none;
+      letter-spacing: -0.01em;
     }
-    h1 { font-size: clamp(1.48rem, 3vw, 2.05rem); line-height: 1.38; margin-bottom: 14px; font-weight: 900; color: #0b1f3a !important; }
-    h2 { font-size: 1.28rem; color: #1e3a8a !important; margin: 30px 0 12px; border-left: 5px solid #1d4ed8 !important; background: #eff6ff; padding: 8px 12px !important; border-radius: 0 8px 8px 0; }
-    h3 { font-size: 1.08rem; color: #0b1f3a !important; margin: 18px 0 8px; }
-    p, li { color: #1e293b !important; margin-bottom: 14px; font-size: 1rem; line-height: 1.78; }
+    .essay-top-nav {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+    .essay-top-nav a, .essay-top-nav button {
+      color: var(--ink-muted) !important;
+      text-decoration: none;
+      background: transparent;
+      border: none;
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 4px 2px;
+    }
+    .essay-top-nav a:hover, .essay-top-nav button:hover { color: var(--ink) !important; }
+    .reading-column {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 44px 20px 72px;
+    }
+    .essay-kicker {
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      color: var(--accent-emerald);
+      margin-bottom: 10px;
+    }
+    h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.62rem, 3.8vw, 2.22rem);
+      line-height: 1.36;
+      margin-bottom: 14px;
+      font-weight: 700;
+      color: var(--ink) !important;
+      letter-spacing: -0.01em;
+    }
+    .essay-subtitle {
+      font-size: 1.06rem;
+      line-height: 1.7;
+      color: var(--ink-muted) !important;
+      margin-bottom: 22px;
+      font-weight: 400;
+    }
+    .byline-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 14px 0;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 32px;
+    }
+    .byline-author { display: flex; align-items: center; gap: 11px; }
+    .byline-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #e9ece6;
+      color: #1f3a2e;
+      font-weight: 800;
+      font-size: 0.86rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .byline-name { font-size: 0.92rem; font-weight: 800; color: var(--ink); line-height: 1.3; }
+    .byline-meta { font-size: 0.8rem; color: var(--ink-muted); }
+    .share-copy-btn {
+      appearance: none;
+      background: var(--card-bg);
+      border: 1px solid var(--rule);
+      border-radius: 999px;
+      padding: 7px 14px;
+      min-height: 38px;
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--ink-soft);
+      cursor: pointer;
+    }
+    .share-copy-btn:hover { border-color: #b8b5aa; color: var(--ink); }
+    article p, article li {
+      color: var(--ink) !important;
+      margin-bottom: 1.5em;
+      font-size: 18.5px;
+      line-height: 1.88;
+    }
+    article h2 {
+      font-family: var(--font-serif);
+      font-size: 1.34rem;
+      line-height: 1.42;
+      color: var(--ink) !important;
+      margin: 2.1em 0 0.75em;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--rule);
+      font-weight: 700;
+    }
+    article h3 {
+      font-size: 1.08rem;
+      color: var(--ink) !important;
+      margin: 1.4em 0 0.5em;
+      font-weight: 800;
+    }
     .kpi-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(195px, 1fr));
-      gap: 12px;
-      margin: 20px 0;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
+      margin: 22px 0;
     }
     .kpi-card {
-      background: #f8fafc !important;
-      border: 1.5px solid #cbd5e1 !important;
+      background: var(--card-bg) !important;
+      border: 1px solid var(--rule) !important;
       border-radius: 10px;
-      padding: 14px;
+      padding: 12px 14px;
     }
-    .kpi-label { font-size: 0.82rem; color: #475569 !important; font-weight: 700; }
-    .kpi-val { font-size: 1.18rem; font-weight: 800; font-family: var(--font-mono); margin-top: 4px; color: #0b1f3a !important; }
+    .kpi-label { font-size: 0.78rem; color: var(--ink-muted) !important; font-weight: 700; }
+    .kpi-val { font-size: 1.08rem; font-weight: 800; font-family: var(--font-mono); margin-top: 4px; color: var(--ink) !important; }
     .widget-box {
-      background: #f8fafc !important;
-      border: 2px solid #1d4ed8 !important;
-      border-radius: 14px;
-      padding: 22px;
-      margin: 24px 0;
+      background: var(--card-bg) !important;
+      border: 1px solid var(--rule) !important;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 28px 0;
+    }
+    .substack-subscribe-box {
+      margin: 44px 0 22px;
+      padding: 28px 24px;
+      background: var(--card-bg);
+      border: 1px solid var(--rule);
+      border-radius: 12px;
+      text-align: center;
+    }
+    .substack-sub-title {
+      font-family: var(--font-serif);
+      font-size: 1.36rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+    .substack-sub-desc {
+      font-size: 0.92rem;
+      line-height: 1.68;
+      color: var(--ink-muted) !important;
+      max-width: 520px;
+      margin: 0 auto 16px;
+    }
+    .substack-inline-form {
+      display: flex;
+      max-width: 470px;
+      margin: 0 auto;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .substack-inline-form input[type="email"] {
+      flex: 1 1 220px;
+      min-height: 48px;
+      padding: 10px 14px;
+      border: 1px solid #c9c6bc;
+      border-radius: 8px;
+      font-size: 0.96rem;
+      background: #ffffff;
+      color: var(--ink);
+    }
+    .substack-inline-form button {
+      min-height: 48px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background: #059669;
+      color: #ffffff;
+      font-size: 0.94rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .substack-sub-status {
+      margin-top: 12px;
+      font-size: 0.92rem;
+      line-height: 1.6;
+      font-weight: 700;
+    }
+    .editorial-postscript {
+      padding: 18px 20px;
+      background: #f5f4ef;
+      border: 1px solid var(--rule);
+      border-radius: 10px;
+      font-size: 0.9rem;
+      line-height: 1.72;
+      color: var(--ink-soft);
+      margin-bottom: 32px;
+    }
+    .editorial-postscript p {
+      margin: 0 0 8px;
+      font-size: 0.9rem;
+      line-height: 1.72;
+      color: var(--ink-soft) !important;
+    }
+    .ps-label {
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      color: var(--ink-muted);
+      margin-bottom: 6px;
     }
     /* Shared ¥0 Manual Modal styles */
     .gba-manual-free-badge { display:inline-flex; align-items:center; gap:6px; background:#059669; color:#ffffff; font-size:0.86rem; font-weight:900; padding:4px 12px; border-radius:999px; }
@@ -476,138 +724,45 @@
     .gba-manual-open-btn { appearance:none; background:linear-gradient(135deg,#059669,#047857); color:#ffffff; border:none; border-radius:11px; padding:12px 18px; min-height:52px; font-size:1rem; font-weight:900; cursor:pointer; }
     .gba-manual-funnel-links { display:flex; flex-wrap:wrap; gap:10px; margin-top:10px; }
     .gba-manual-pro-link, .gba-manual-vip-link { display:inline-flex; align-items:center; min-height:46px; padding:8px 14px; border-radius:999px; font-size:0.95rem; font-weight:900; text-decoration:none; background:#ffffff; border:1.5px solid #1d4ed8; color:#1d4ed8; }
-    @media (max-width: 640px) {
-      .article-box { padding: 20px 15px; }
+    @media (max-width: 560px) {
+      .reading-column { padding: 28px 18px 56px; }
+      .substack-inline-form button { width: 100%; }
     }
     @media print {
       body.printing-gba-manual > *:not(#gbaStarterManualModal) { display: none !important; }
       body.printing-gba-manual #gbaStarterManualModal { display: block !important; position: static !important; background: #ffffff !important; padding: 0 !important; }
     }
-  </style>
+</style>
 </head>
 <body>
-  <header>
-    <div class="container nav-bar">
-      <a href="/jp/" class="brand">⚡ GetBreakAI ゆとり老後＆新NISA設計ナビ</a>
-      <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
-        <a href="https://www.youtube.com/@GetBreakAI" target="_blank" rel="noopener" class="nav-sublink">📺 公式YouTube</a>
-        <button type="button" onclick="openGbaStarterManualModal()" class="nav-sublink" style="background:#065f46; border:1px solid #10b981; border-radius:7px; cursor:pointer;">📘 ¥0 基本マニュアル</button>
-        <a href="/jp/#gba-retirement-architect-jp" class="btn-cta">🧭 30秒・老後収入シミュレーター →</a>
-      </div>
+  <header class="essay-topbar">
+    <div class="essay-topbar-inner">
+      <a href="/jp/" class="essay-pub-brand">GetBreakAI ・ 朝刊エッセイ＆公開データ研究</a>
+      <nav class="essay-top-nav" aria-label="記事ナビゲーション">
+        <a href="/jp/nisa-quiet-barbell-essay.html">代表エッセイ</a>
+        <a href="/jp/#gba-retirement-architect-jp">4ステップ比率診断</a>
+        <button type="button" onclick="openGbaStarterManualModal()">¥0 基本マニュアル</button>
+      </nav>
     </div>
   </header>
 
-  <main class="container">
-    <div class="shorts-bridge-bar">
-      <strong>🧭 50〜70代のゆとり老後＆新NISAキャッシュフロー設計：</strong>
-      <a href="#miniCalcBox" class="btn-cta" style="padding:6px 12px; font-size:0.84rem;">🧮 1銘柄分散比率シミュレーターへ</a>
-      <button type="button" onclick="openGbaStarterManualModal()" style="background:#ecfdf5; color:#065f46; border:1.5px solid #059669; border-radius:8px; padding:6px 12px; font-weight:800; font-size:0.84rem; cursor:pointer;">📘 ¥0 楽天・SBI証券 新NISA設定マニュアル</button>
+  <main class="reading-column">
+    <div class="essay-kicker">公開市場データ研究ノート ・ 対象データ: 機関投資家の取引所外ブロック取引（ATS）公開統計とは ($AVGO)</div>
+    <h1>米国の取引所外大口取引（ATS公開統計）とは？年金基金・機関投資家の大口執行データの基礎知識</h1>
+    <p class="essay-subtitle">📊 【公開市場データ要約】機関投資家の取引所外ブロック取引（ATS）公開統計とは の公開財務・需給スコアは 88.4/100（FINRA公開ATS統計データ ＆ 機関投資家執行インフラ解説）です。想定運用資金 $50,000（約750万円）における1銘柄分散目安は 21株（約107.6万円）、2.0倍ATR変動幅の参考下限値は $306.72、長期目標参考値は $428.80 です。</p>
+
+    <div class="byline-bar">
+      <div class="byline-author">
+        <span class="byline-avatar" aria-hidden="true">佐藤</span>
+        <div>
+          <div class="byline-name">佐藤 健一</div>
+          <div class="byline-meta">資産設計エッセイ・公開データ研究 ・ 2026-11-18</div>
+        </div>
+      </div>
+      <button type="button" class="share-copy-btn" onclick="window.__gbaCopyEssayLink(this)">リンクをコピー</button>
     </div>
 
-    <article class="article-box">
-      <div style="font-family:var(--font-mono); font-size:0.84rem; color:var(--accent-amber); font-weight:800; margin-bottom:8px;">
-        📊 公開市場データ更新日: 2026-11-18 ｜ 対象データ: 機関投資家の取引所外ブロック取引（ATS）公開統計とは ($AVGO)
-      </div>
-      <h1>米国の取引所外大口取引（ATS公開統計）とは？年金基金・機関投資家の大口執行データの基礎知識</h1>
-      <p style="font-size:1.05rem; font-weight:800; color:#1e3a8a !important; margin-bottom:14px;">
-        🧭 大切な退職金と新NISA非課税枠を1銘柄への偏重から守るため、ご資金に対する穏やかな資産配分目安を3秒で試算できます。
-      </p>
-      <div style="background:#ecfdf5; border:1.5px solid rgba(16,185,129,0.45); border-radius:10px; padding:14px 16px; margin-bottom:22px; color:#064e3b; font-weight:700; font-size:1.02rem; line-height:1.68;">
-        📊 【公開市場データ要約】機関投資家の取引所外ブロック取引（ATS）公開統計とは の公開財務・需給スコアは 88.4/100（FINRA公開ATS統計データ ＆ 機関投資家執行インフラ解説）です。想定運用資金 $50,000（約750万円）における1銘柄分散目安は 21株（約107.6万円）、2.0倍ATR変動幅の参考下限値は $306.72、長期目標参考値は $428.80 です。
-      </div>
-
-      <!-- 上部：無料倶楽部メール登録 ＆ Proソフトウェア案内 -->
-      <section id="gba-jp-lead-top" style="margin:20px 0 26px; padding:22px; background:linear-gradient(135deg,#ecfdf5 0%,#eff6ff 100%); border:2.5px solid #059669; border-radius:16px;">
-        <div style="display:inline-block; background:#065f46; color:#ffffff; font-size:0.88rem; font-weight:800; padding:4px 13px; border-radius:999px; margin-bottom:10px;">
-          🍵 朝のゆとり老後＆日米マクロ倶楽部（無料・パスワード不要）
-        </div>
-        <h2 style="margin:0 0 8px !important; background:transparent !important; border:none !important; padding:0 !important; font-size:1.32rem; line-height:1.42; color:#0b1f3a !important;">
-          毎朝8時「日米マクロ・新NISA 3色バランス指標ブリーフ」無料メール登録
-        </h2>
-        <p style="margin:0 0 14px; font-size:1.02rem; line-height:1.68; color:#1e293b !important;">
-          メールアドレス1つ（3秒）で、毎朝の金利・ドル円為替・老後3つの財布の公開データ要約と『¥0 新NISA基本設定マニュアル』を無料でお届けします。
-        </p>
-        <form class="gba-jp-signup-form" onsubmit="return window.__gbaSubmitJpSignup(event, this, 'AVGO');" style="display:flex; flex-wrap:wrap; gap:10px; align-items:stretch;">
-          <label for="gbaTopEmail_AVGO" style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0);">メールアドレス</label>
-          <input id="gbaTopEmail_AVGO" type="email" required autocomplete="email" placeholder="メールアドレスを入力（例: yamada@yahoo.co.jp）" style="flex:1 1 260px; min-height:56px; padding:12px 16px; font-size:1.04rem; font-weight:700; border-radius:12px; border:2px solid #64748b; background:#ffffff; color:#0f172a;">
-          <button type="submit" style="min-height:56px; padding:12px 22px; font-size:1.02rem; font-weight:900; border-radius:12px; border:none; background:#059669; color:#ffffff; cursor:pointer;">
-            📩 無料で毎朝の3色バランス指標を受け取る →
-          </button>
-        </form>
-        <div class="gba-jp-signup-status" role="status" aria-live="polite" style="display:none; margin-top:12px; padding:12px 14px; border-radius:10px; background:#d1fae5; color:#065f46; font-size:1rem; font-weight:800;"></div>
-
-        <div style="margin-top:16px; padding-top:14px; border-top:1px solid #a7f3d0;">
-          <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:10px;">
-            <span style="font-size:0.96rem; font-weight:800; color:#0f172a;">💎 全銘柄データ一覧・配当＆資産配分計算Proソフトウェア（随時更新・新NISA老後取り崩し実践PDFガイド＋3つの財布シミュレーター同梱）：</span>
-            <div style="display:flex; flex-wrap:wrap; gap:10px;">
-              <a href="#gbaVipWaitlistModal" data-gba-paid-plan="monthly" data-polar-slot="monthly_29_jp" class="polar-checkout-button" style="display:inline-flex; align-items:center; justify-content:center; min-height:56px; padding:10px 18px; border-radius:10px; background:#1d4ed8; color:#ffffff !important; font-size:0.98rem; font-weight:900; text-decoration:none;">
-                ⚡ 月額 $29 / 約4,400円（税込）
-              </a>
-              <a href="#gbaVipWaitlistModal" data-gba-paid-plan="annual" data-polar-slot="annual_199_jp" class="polar-checkout-button" style="display:inline-flex; align-items:center; justify-content:center; min-height:56px; padding:10px 18px; border-radius:10px; background:#b45309; color:#ffffff !important; font-size:0.98rem; font-weight:900; text-decoration:none;">
-                👑 年額 $199（約30,000円・税込）
-              </a>
-            </div>
-          </div>
-          <div style="margin-top:8px; font-size:0.84rem; color:#334155; font-weight:700;">
-            💳 公式決済・税務管理：Polar.sh (Merchant of Record · Global Card / Apple Pay / Google Pay)（日本国内カード・Apple Pay・Google Pay対応 ／ 14日間返金保証）
-          </div>
-      <div class="gba-mandatory-fiea-disclaimer" role="note" style="margin-top:14px; padding:13px 16px; border-radius:10px; background:#fffbeb; border:1.5px solid #f59e0b; color:#78350f; font-size:0.94rem; font-weight:700; line-height:1.68; text-align:left;">
-        免責事項：当サイトは公開市場データの可視化および数学的シミュレーションツール（教育・情報提供目的）であり、金融商品取引法上の投資助言・代理業や個別銘柄の売買推奨を行うものではありません。
-      </div>
-        </div>
-      </section>
-
-      <div class="kpi-grid">
-        <div class="kpi-card">
-          <div class="kpi-label">直近基準株価（公開終値）</div>
-          <div class="kpi-val">$341.60 <span style="font-size:0.8rem; color:#475569; font-weight:700;">(約¥51,240)</span></div>
-        </div>
-        <div class="kpi-card">
-          <div class="kpi-label">公開データ安定度スコア</div>
-          <div class="kpi-val" style="color:#1d4ed8 !important;">88.4 / 100</div>
-        </div>
-        <div class="kpi-card">
-          <div class="kpi-label">2.0倍ATR 変動幅参考値</div>
-          <div class="kpi-val" style="color:#be123c !important;">$306.72 <span style="font-size:0.78rem;">(幅 $34.88)</span></div>
-        </div>
-        <div class="kpi-card">
-          <div class="kpi-label">長期リスクリワード参考値</div>
-          <div class="kpi-val" style="color:#047857 !important;">$428.80</div>
-        </div>
-      </div>
-
-      <!-- 自己判断用・資産配分＆変動幅シミュレーター -->
-      <div class="widget-box" id="miniCalcBox">
-        <h3 style="margin-top:0;">🧮 機関投資家の取引所外ブロック取引（ATS）公開統計とは：1銘柄集中を防ぐ資産配分＆許容変動幅シミュレーター（ドル $ / 日本円 ¥ 同時換算）</h3>
-        <p style="font-size:0.95rem; color:#334155 !important; margin-bottom:14px;">
-          ご自身の運用資産総額に合わせてスライダーを動かすと、1銘柄あたりの価格変動（14日ATR×2.0倍）を資産全体の1.5%以内に抑える「分散保有株数の目安」を自動計算します。
-        </p>
-        <div style="margin-bottom:14px;">
-          <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.92rem; margin-bottom:6px; color:#334155;">
-            <span>想定ご運用資産 (1ドル=150円基準):</span>
-            <strong id="miniAccLbl" style="color:#b45309;">$50,000 (約750.0万円)</strong>
-          </div>
-          <input type="range" id="miniAccSlider" min="5000" max="250000" step="5000" value="50000" style="width:100%; accent-color:#1d4ed8;" oninput="recalcMiniWidget()">
-        </div>
-        <div class="kpi-grid" style="margin:14px 0 0;">
-          <div class="kpi-card">
-            <div class="kpi-label">分散保有株数の目安</div>
-            <div id="miniOutShares" class="kpi-val" style="color:#b45309 !important;">21株 ($7,174 / 約107.6万円)</div>
-          </div>
-          <div class="kpi-card">
-            <div class="kpi-label">2.0倍ATR変動時の想定振れ幅</div>
-            <div id="miniOutRisk" class="kpi-val" style="color:#be123c !important;">-$732 (約11.0万円)</div>
-          </div>
-          <div class="kpi-card">
-            <div class="kpi-label">長期2.5倍目標時の試算差額</div>
-            <div id="miniOutGain" class="kpi-val" style="color:#047857 !important;">+$1,831 (約27.5万円)</div>
-          </div>
-        </div>
-        <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap;">
-          <a href="/jp/?ticker=AVGO#jpQuickCalcSection" class="btn-cta">🧭 新NISA・老後3つの財布シミュレーターで全体配分を確認 →</a>
-        </div>
-      </div>
-
+    <article>
       <h2>1. 機関投資家の取引所外ブロック取引（ATS）公開統計とは の米SEC公式決算開示（Form 8-K/10-Q）および公開業績データの整理</h2>
       <p>
         50〜70代の個人投資家が新NISAや退職金運用で最も大切にしたいのは、SNSの噂や一時的なブームに惑わされず、<strong>企業が規制当局へ提出した一次公開情報（米SEC Form 8-K・Form 10-Q・年次報告書Form 10-K）</strong>を落ち着いた視点で確認することです。機関投資家の取引所外ブロック取引（ATS）公開統計とは に関する現在の主要確認テーマは「<strong>米国FINRA等で公開される取引所外ブロック取引（ATS）比率の意味と、年金基金や長期機関投資家が市場インパクトを抑えて執行する仕組みの解説</strong>」であり、公開データ可視化スコアは <strong>88.4/100（区分：FINRA公開ATS統計データ ＆ 機関投資家執行インフラ解説）</strong> となっています。
@@ -640,55 +795,56 @@
         個別銘柄である 機関投資家の取引所外ブロック取引（ATS）公開統計とは（基準値 $341.60、14日平均変動幅 $17.44）を一部組み入れる場合も、2.0倍変動幅（$34.88）の振れが口座全体の1.5%以内に収まる株数（$50,000＝約750万円口座で 21株・約107.6万円）にとどめることで、夜もぐっすり眠れる健全な分散バランスを維持できます。
       </p>
 
-      <!-- 下部：無料倶楽部登録 ＆ Proソフトウェア案内 -->
-      <section id="gba-jp-lead-bottom" style="margin-top:32px; padding:24px; background:linear-gradient(135deg,#ecfdf5 0%,#eff6ff 100%); border:2.5px solid #059669; border-radius:16px;">
-        <h3 style="margin-top:0; font-size:1.28rem;">🍵 無料正会員登録（パスワード不要・3秒）：毎朝8時の「新NISA 3色バランス指標ブリーフ」</h3>
-        <p style="margin-bottom:14px; font-size:1.02rem;">クレジットカード不要・いつでも1クリック配信停止可能。毎朝の日米マクロ市場と老後3つの財布バランス指標を無料でお届けします。</p>
-        <form class="gba-jp-signup-form" onsubmit="return window.__gbaSubmitJpSignup(event, this, 'AVGO');" style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:14px;">
-          <label for="gbaBotEmail_AVGO" style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0);">メールアドレス</label>
-          <input id="gbaBotEmail_AVGO" type="email" required autocomplete="email" placeholder="メールアドレスを入力（例: yamada@yahoo.co.jp）" style="flex:1 1 260px; min-height:56px; padding:12px 16px; font-size:1.04rem; font-weight:700; border-radius:12px; border:2px solid #64748b; background:#ffffff; color:#0f172a;">
-          <button type="submit" style="min-height:56px; padding:12px 22px; font-size:1.02rem; font-weight:900; border-radius:12px; border:none; background:#059669; color:#ffffff; cursor:pointer;">
-            📩 無料メール倶楽部に参加する →
-          </button>
-        </form>
-        <div class="gba-jp-signup-status" role="status" aria-live="polite" style="display:none; margin-bottom:14px; padding:12px 14px; border-radius:10px; background:#d1fae5; color:#065f46; font-size:1rem; font-weight:800;"></div>
-
-        <div style="padding-top:14px; border-top:1px solid #93c5fd;">
-      <div class="gba-pro-retiree-tools-box" style="margin:14px 0 16px; padding:12px 14px; border-radius:14px; background:var(--bg-card, #ffffff); border:2px solid #93c5fd;">
-        <div style="font-size:0.96rem; font-weight:900; color:var(--accent-blue, #1d4ed8); margin-bottom:10px; line-height:1.45;">
-          🛠️ Proプラン（月額 $29 / 約4,400円（税込） ・ 年額 $199 / 約30,000円（税込））で使える「新NISA・老後3大設計ソフトウェアツール」
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-label">直近基準株価（公開終値）</div>
+          <div class="kpi-val">$341.60 <span style="font-size:0.78rem; color:#6b6b66; font-weight:700;">(約¥51,240)</span></div>
         </div>
-        <ul style="margin:0; padding:0; display:flex; flex-direction:column; gap:10px;">
-          <li style="background:var(--bg-sub, #f8fafc); border:1.5px solid var(--border-col, #cbd5e1); border-left:5px solid #1d4ed8; border-radius:11px; padding:10px 12px; list-style:none;">
-            <div style="font-size:0.95rem; font-weight:900; color:var(--text-main, #0b1f3a); line-height:1.48; margin-bottom:4px;">✅ 1. 『毎朝自動配信：SMH × XLV マーケット過熱・恐怖指標＆セクター比率トラッキング日報メール』</div>
-            <div style="font-size:0.88rem; font-weight:700; color:var(--text-muted, #334155); line-height:1.6;">毎朝8時、日米市場の過熱度・恐怖度データ（0〜100）を集計し、過去検証モデル上で SMH（半導体）: XLV（医療）比率がどう推移しているかをわかりやすくメール配信</div>
-          </li>
-          <li style="background:var(--bg-sub, #f8fafc); border:1.5px solid var(--border-col, #cbd5e1); border-left:5px solid #1d4ed8; border-radius:11px; padding:10px 12px; list-style:none;">
-            <div style="font-size:0.95rem; font-weight:900; color:var(--text-main, #0b1f3a); line-height:1.48; margin-bottom:4px;">✅ 2. 『新NISA成長投資枠（SMH・XLV）× 特定口座／個人向け国債 運用額別の円・ドル配分計算シート』</div>
-            <div style="font-size:0.88rem; font-weight:700; color:var(--text-muted, #334155); line-height:1.6;">ご自身の資産規模（300万〜5,000万円+・新NISA生涯非課税枠1,800万円対応）を入力するだけで、現物1倍ETFと安全クッションの具体的な金額目安を自動算出</div>
-          </li>
-          <li style="background:var(--bg-sub, #f8fafc); border:1.5px solid var(--border-col, #cbd5e1); border-left:5px solid #1d4ed8; border-radius:11px; padding:10px 12px; list-style:none;">
-            <div style="font-size:0.95rem; font-weight:900; color:var(--text-main, #0b1f3a); line-height:1.48; margin-bottom:4px;">✅ 3. 『随時更新・SMH × XLV セクターバランス実践 14ページ マスターPDFガイド（楽天・SBI証券 大文字操作図解同梱）』</div>
-            <div style="font-size:0.88rem; font-weight:700; color:var(--text-muted, #334155); line-height:1.6;">過去26年（2000年ITバブル・2008年リーマン・2022年利上げ下落）の検証データ＆迷わず設定できる大きな文字の証券画面ステップマニュアル</div>
-          </li>
-        </ul>
-      </div>
-          <div style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-bottom:10px;">
-            <a href="/jp/#gba-retirement-architect-jp" class="btn-cta" style="min-height:56px; display:inline-flex; align-items:center; padding:10px 18px;">🧭 無料30秒・老後収入シミュレーターを開く →</a>
-            <a href="#gbaVipWaitlistModal" data-gba-paid-plan="monthly" data-polar-slot="monthly_29_jp" class="polar-checkout-button btn-cta" style="min-height:56px; display:inline-flex; align-items:center; padding:10px 18px; background:linear-gradient(135deg,#059669,#047857);">⚡ 月額 $29 / 約4,400円（税込）</a>
-            <a href="#gbaVipWaitlistModal" data-gba-paid-plan="annual" data-polar-slot="annual_199_jp" class="polar-checkout-button btn-cta" style="min-height:56px; display:inline-flex; align-items:center; padding:10px 18px; background:linear-gradient(135deg,#d97706,#b45309);">👑 年額 $199（約30,000円・税込）</a>
-          </div>
-          <div style="text-align:center; font-size:0.86rem; color:#475569;">
-            💳 Polar.sh (Merchant of Record · Global Card / Apple Pay / Google Pay)（14日間返金保証） ｜ 🏛️ 法人・メディア提携窓口: <a href="mailto:beable9489@gmail.com" style="color:#1d4ed8; font-weight:800;">beable9489@gmail.com</a>
-          </div>
-      <div class="gba-mandatory-fiea-disclaimer" role="note" style="margin-top:14px; padding:13px 16px; border-radius:10px; background:#fffbeb; border:1.5px solid #f59e0b; color:#78350f; font-size:0.94rem; font-weight:700; line-height:1.68; text-align:left;">
-        免責事項：当サイトは公開市場データの可視化および数学的シミュレーションツール（教育・情報提供目的）であり、金融商品取引法上の投資助言・代理業や個別銘柄の売買推奨を行うものではありません。
-      </div>
+        <div class="kpi-card">
+          <div class="kpi-label">公開データ安定度スコア</div>
+          <div class="kpi-val" style="color:#1d4ed8 !important;">88.4 / 100</div>
         </div>
-      </section>
+        <div class="kpi-card">
+          <div class="kpi-label">2.0倍ATR 変動幅参考値</div>
+          <div class="kpi-val" style="color:#be123c !important;">$306.72</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">長期リスクリワード参考値</div>
+          <div class="kpi-val" style="color:#059669 !important;">$428.80</div>
+        </div>
+      </div>
 
-      <h2>📚 関連する新NISA・日米優良株 公開データ教育リサーチ記事</h2>
-      <ul style="list-style:none; line-height:2.0; font-size:0.96rem;">
+      <!-- 自己判断用・資産配分＆変動幅シミュレーター -->
+      <div class="widget-box" id="miniCalcBox">
+        <h3 style="margin-top:0;">機関投資家の取引所外ブロック取引（ATS）公開統計とは：1銘柄集中を防ぐ資産配分＆許容変動幅の試算（ドル $ / 日本円 ¥ 同時換算）</h3>
+        <p style="font-size:0.92rem; color:#6b6b66 !important; margin-bottom:14px;">
+          ご自身の運用資産総額に合わせてスライダーを動かすと、1銘柄あたりの価格変動（14日ATR×2.0倍）を資産全体の1.5%以内に抑える「分散保有株数の目安」を自動試算します。
+        </p>
+        <div style="margin-bottom:14px;">
+          <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.9rem; margin-bottom:6px; color:#3d3d3a;">
+            <span>想定ご運用資産 (1ドル=150円基準):</span>
+            <strong id="miniAccLbl" style="color:#b45309;">$50,000 (約750.0万円)</strong>
+          </div>
+          <input type="range" id="miniAccSlider" min="5000" max="250000" step="5000" value="50000" style="width:100%; accent-color:#059669;" oninput="recalcMiniWidget()">
+        </div>
+        <div class="kpi-grid" style="margin:14px 0 0;">
+          <div class="kpi-card">
+            <div class="kpi-label">分散保有株数の目安</div>
+            <div id="miniOutShares" class="kpi-val" style="color:#b45309 !important;">21株 ($7,174 / 約107.6万円)</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">2.0倍ATR変動時の想定振れ幅</div>
+            <div id="miniOutRisk" class="kpi-val" style="color:#be123c !important;">-$732 (約11.0万円)</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">長期2.5倍目標時の試算差額</div>
+            <div id="miniOutGain" class="kpi-val" style="color:#059669 !important;">+$1,831 (約27.5万円)</div>
+          </div>
+        </div>
+      </div>
+
+      <h2>関連する新NISA・日米優良株 公開データ研究ノート</h2>
+      <ul style="list-style:none; line-height:2.0; font-size:0.95rem;">
         <li><a href="/jp/nvda-sec-gamma-atr-analysis.html" style="color:#1d4ed8; text-decoration:none; font-weight:700;">📘 エヌビディア(NVDA) 米SEC公式決算開示（Form 8-K/10-Q）と資産配分・変動幅データ解析</a></li>
 <li><a href="/jp/pltr-insider-buying-analysis.html" style="color:#1d4ed8; text-decoration:none; font-weight:700;">📘 パランティア(PLTR) SEC Form-4公開データ・長期契約開示と適正配分比率の試算</a></li>
 <li><a href="/jp/smci-accounting-risk-warning.html" style="color:#1d4ed8; text-decoration:none; font-weight:700;">📘 スーパー・マイクロ(SMCI) 米SEC年次報告書（Form 10-K）公開リスク注記と機関需給データの読み方</a></li>
@@ -701,6 +857,30 @@
 <li><a href="/jp/vrt-ai-datacenter-cooling-catalyst.html" style="color:#1d4ed8; text-decoration:none; font-weight:700;">📘 バーティブ(VRT) データセンター電源・冷却設備の受注残（Backlog）公開データと変動幅試算</a></li>
       </ul>
     </article>
+
+
+    <section class="substack-subscribe-box" id="gba-substack-subscribe" aria-label="朝刊エッセイ無料メール購読">
+      <div class="substack-sub-title">次の朝刊エッセイをメールで受け取る</div>
+      <p class="substack-sub-desc">
+        AI半導体の成長（SMH）と医療の守り（XLV）、そして新NISAと老後資産の穏やかな設計について、広告のない静かな朝刊ノートをお届けします（無料・パスワード不要・1クリック解除OK）。
+      </p>
+      <form class="substack-inline-form" onsubmit="return window.__gbaSubmitSubstackSubscribe(event, this, 'dark-pool-whale-flow-reading.html');" novalidate>
+        <label for="substackEmailJp_dark-pool-whale-" class="sr-only">メールアドレス</label>
+        <input id="substackEmailJp_dark-pool-whale-" type="email" required autocomplete="email" placeholder="メールアドレスを入力..." />
+        <button type="submit">無料で購読する</button>
+      </form>
+      <div class="substack-sub-status" role="status" aria-live="polite" style="display:none;"></div>
+    </section>
+
+    <aside class="editorial-postscript" aria-label="編集後記・自己判断用シミュレーター">
+      <div class="ps-label">編集後記 ・ 自己判断用データツール</div>
+      <p>
+        ご自身の資産規模や許容変動幅に合わせた <strong>SMH × XLV</strong> の過去26年検証比率は、<a href="/jp/#gba-retirement-architect-jp"><strong>無料の4ステップ比率シミュレーター</strong></a>（<button type="button" onclick="openGbaStarterManualModal()" style="background:none;border:none;color:#1d4ed8;text-decoration:underline;font-weight:700;cursor:pointer;font-size:inherit;padding:0;">¥0 楽天・SBI証券 新NISA設定マニュアル</button> 同梱）でお確かめいただけます。毎朝8時の過熱・恐怖指標＆セクター比率トラッキング日報データ配信は Proプラン（<a href="#gbaVipWaitlistModal" data-gba-paid-plan="monthly" data-polar-slot="monthly_29_jp" class="polar-checkout-button">月額 $29 / 約4,400円（税込）</a> ・ <a href="#gbaVipWaitlistModal" data-gba-paid-plan="annual" data-polar-slot="annual_199_jp" class="polar-checkout-button">年額 $199（約30,000円・税込）</a> ／ 決済管理：Polar.sh (Merchant of Record · Global Card / Apple Pay / Google Pay)）にてご提供しています。
+      </p>
+      <div class="gba-mandatory-fiea-disclaimer" role="note" style="margin-top:14px; padding:13px 16px; border-radius:10px; background:#fffbeb; border:1.5px solid #f59e0b; color:#78350f; font-size:0.94rem; font-weight:700; line-height:1.68; text-align:left;">
+        免責事項：当サイトは公開市場データの可視化および数学的シミュレーションツール（教育・情報提供目的）であり、金融商品取引法上の投資助言・代理業や個別銘柄の売買推奨を行うものではありません。
+      </div>
+    </aside>
   </main>
 
 
@@ -1313,10 +1493,10 @@
 
     function jumpFromManualToJpMail() {
       if (typeof window.closeGbaStarterManualModal === 'function') window.closeGbaStarterManualModal();
-      const topLead = document.getElementById('gba-jp-lead-top');
-      if (topLead && topLead.scrollIntoView) topLead.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      const subBox = document.getElementById('gba-substack-subscribe');
+      if (subBox && subBox.scrollIntoView) subBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
       setTimeout(function() {
-        const inp = topLead ? topLead.querySelector('input[type="email"]') : null;
+        const inp = subBox ? subBox.querySelector('input[type="email"]') : null;
         if (inp && inp.focus) inp.focus();
       }, 350);
     }
@@ -1325,7 +1505,7 @@
       try {
         const saved = localStorage.getItem('gb_free_member_email') || localStorage.getItem('gba_jp_free_email');
         if (saved) {
-          document.querySelectorAll('.gba-jp-signup-form input[type="email"]').forEach(function(inp) { inp.value = saved; });
+          document.querySelectorAll('.substack-inline-form input[type="email"]').forEach(function(inp) { inp.value = saved; });
         }
       } catch (_e) {}
     });

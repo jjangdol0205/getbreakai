@@ -248,7 +248,7 @@
             if (statusEl) {
               statusEl.style.display = 'block';
               statusEl.style.color = '#065f46';
-              statusEl.innerHTML = 'ご登録ありがとうございます。次回の朝刊エッセイを <strong>' + email.replace(/[<>&"]/g, '') + '</strong> 宛に静かにお届けします（パスワード不要・いつでも1クリック解除OK）。';
+              statusEl.innerHTML = 'ご登録ありがとうございます。次回の朝刊エッセイを <strong>' + email.replace(/[<>&"]/g, '') + '</strong>宛に静かにお届けします（パスワード不要・いつでも1クリック解除OK）。';
             }
             document.querySelectorAll('.substack-inline-form input[type="email"], .gba-jp-signup-form input[type="email"]').forEach(function(inp) {
               inp.value = email;
@@ -297,7 +297,7 @@
           }
           document.querySelectorAll('.gba-jp-signup-status').forEach(function(el) {
             el.style.display = 'block';
-            el.innerHTML = '✅ <strong>無料倶楽部へのご登録が完了しました！</strong> 毎朝8時の「新NISA 3色バランス指標＆公開データ試算ブリーフ」を <strong>' + email.replace(/[<>&"]/g, '') + '</strong> 宛にお届けいたします。';
+            el.innerHTML = ' <strong>無料倶楽部へのご登録が完了しました！</strong>毎朝8時の「新NISA 3色バランス指標＆公開データ試算ブリーフ」を <strong>' + email.replace(/[<>&"]/g, '') + '</strong>宛にお届けいたします。';
           });
           document.querySelectorAll('.gba-jp-signup-form input[type="email"]').forEach(function(inp) { inp.value = email; });
           return false;
@@ -893,7 +893,7 @@
         <span aria-hidden="true">·</span>
         <a href="/jp/contact.html" style="color:var(--accent-blue, #1d4ed8); text-decoration:underline;">特定商取引法に基づく表記</a>
         <span aria-hidden="true">·</span>
-        <a href="https://www.youtube.com/@GetBreakAI" target="_blank" rel="noopener" style="color:var(--accent-blue, #1d4ed8); text-decoration:underline;">📺 公式YouTube (@GetBreakAI)</a>
+        <a href="https://www.youtube.com/@GetBreakAI" target="_blank" rel="noopener" style="color:var(--accent-blue, #1d4ed8); text-decoration:underline;">公式YouTube (@GetBreakAI)</a>
         <span aria-hidden="true">·</span>
         <span>カスタマーサポート: <a href="mailto:beable9489@gmail.com" style="color:var(--accent-blue, #1d4ed8); font-weight:900; text-decoration:underline;">beable9489@gmail.com</a></span>
         <span aria-hidden="true">·</span>
@@ -901,10 +901,10 @@
       </div>
       <div style="text-align:center; font-size:0.82rem; color:var(--text-sub, #475569); margin-bottom:10px;">
         英語版・共通法務リンク:
-        <a href="/terms.html" style="color:inherit; text-decoration:underline;">Terms (/terms.html)</a> ·
-        <a href="/privacy.html" style="color:inherit; text-decoration:underline;">Privacy (/privacy.html)</a> ·
-        <a href="/refund.html" style="color:inherit; text-decoration:underline;">14-Day Refund (/refund.html)</a> ·
-        <a href="/contact.html" style="color:inherit; text-decoration:underline;">Commercial Disclosure (/contact.html)</a> ·
+        <a href="/terms.html" style="color:inherit; text-decoration:underline;">Terms (/terms.html)</a>·
+        <a href="/privacy.html" style="color:inherit; text-decoration:underline;">Privacy (/privacy.html)</a>·
+        <a href="/refund.html" style="color:inherit; text-decoration:underline;">14-Day Refund (/refund.html)</a>·
+        <a href="/contact.html" style="color:inherit; text-decoration:underline;">Commercial Disclosure (/contact.html)</a>·
         <span>Sponsorship &amp; Media Partnership: <a href="mailto:beable9489@gmail.com" style="color:inherit; text-decoration:underline;">beable9489@gmail.com</a></span>
       </div>
       <div style="max-width:920px; margin:0 auto; padding:12px 15px; border-radius:10px; background:var(--bg-card, #ffffff); border:1px solid var(--border-col, #cbd5e1); font-size:0.84rem; color:var(--text-sub, #475569);">
@@ -916,32 +916,32 @@
     </div>
   </footer>
 
-  <!-- 📘 Interactive Modal: ¥0 無料公開商品 はじめての新NISA＆証券アプリ基本マニュアル (#gbaStarterManualModal) -->
+  <!--  Interactive Modal: ¥0 無料公開商品 はじめての新NISA＆証券アプリ基本マニュアル (#gbaStarterManualModal) -->
   <div class="gba-manual-modal-backdrop" id="gbaStarterManualModal" role="dialog" aria-modal="true" aria-labelledby="gbaStarterManualModalTitle" aria-hidden="true">
     <div class="gba-manual-modal-dialog">
       <div class="gba-manual-modal-header">
         <div>
-          <span class="gba-manual-free-badge" style="font-size:0.84rem;">📘 ¥0 無料公開マニュアル（保存版・登録不要）</span>
+          <span class="gba-manual-free-badge" style="font-size:0.84rem;">¥0 無料公開マニュアル（保存版・登録不要）</span>
           <h2 class="gba-manual-modal-title" id="gbaStarterManualModalTitle">はじめての新NISA＆証券アプリ基本マニュアル</h2>
         </div>
         <div class="gba-manual-modal-actions">
-          <button type="button" class="gba-manual-action-btn btn-print" id="btnPrintOrMailGbaManual" onclick="printGbaStarterManual()">🖨️ 印刷・PDF保存</button>
-          <button type="button" class="gba-manual-action-btn" id="btnCloseGbaStarterManual" onclick="closeGbaStarterManualModal()">✕ 閉じる</button>
+          <button type="button" class="gba-manual-action-btn btn-print" id="btnPrintOrMailGbaManual" onclick="printGbaStarterManual()">印刷・PDF保存</button>
+          <button type="button" class="gba-manual-action-btn" id="btnCloseGbaStarterManual" onclick="closeGbaStarterManualModal()">閉じる</button>
         </div>
       </div>
 
       <!-- In-App WebView Safe Email Delivery Strip ("このマニュアルをメールで受け取る（無料倶楽部登録）") -->
       <div id="gbaManualWebViewMailBox" style="padding:14px 18px; background:linear-gradient(135deg, #ecfdf5 0%, #eff6ff 100%); border-bottom:2px solid #059669;">
         <div id="gbaManualWebViewNotice" style="display:none; font-size:0.9rem; font-weight:900; color:#065f46; margin-bottom:6px;">
-          📱 アプリ内ブラウザ（Instagram・Facebook・LINE等）では印刷機能が制限されるため、全章をこのまま画面でお読みいただくか、下記よりメールで保存版をお受け取りいただけます。
+           アプリ内ブラウザ（Instagram・Facebook・LINE等）では印刷機能が制限されるため、全章をこのまま画面でお読みいただくか、下記よりメールで保存版をお受け取りいただけます。
         </div>
         <div style="font-size:1rem; font-weight:900; color:#0b1f3a; margin-bottom:8px;">
-          📩 このマニュアルをメールで受け取る（無料倶楽部登録）
+           このマニュアルをメールで受け取る（無料倶楽部登録）
         </div>
         <form id="gbaManualEmailDeliveryForm" onsubmit="return window.submitGbaManualEmailDelivery(event);" style="display:flex; flex-wrap:wrap; gap:8px;">
           <label for="gbaManualDeliveryEmail" style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0);">メールアドレス</label>
           <input type="email" id="gbaManualDeliveryEmail" required autocomplete="email" placeholder="メールアドレスを入力（例: taro@example.jp）" style="flex:1 1 230px; min-height:48px; padding:8px 13px; border-radius:10px; border:2px solid #64748b; background:#ffffff; color:#0f172a; font-size:0.98rem; font-weight:700;">
-          <button type="submit" id="btnSubmitGbaManualMail" style="min-height:48px; padding:8px 18px; border-radius:10px; border:none; background:#059669; color:#ffffff; font-size:0.95rem; font-weight:900; cursor:pointer;">📩 このマニュアルをメールで受け取る（無料倶楽部登録） →</button>
+          <button type="submit" id="btnSubmitGbaManualMail" style="min-height:48px; padding:8px 18px; border-radius:10px; border:none; background:#059669; color:#ffffff; font-size:0.95rem; font-weight:900; cursor:pointer;">このマニュアルをメールで受け取る（無料倶楽部登録） →</button>
         </form>
         <div id="gbaManualDeliveryStatus" role="status" aria-live="polite" style="display:none; margin-top:8px; padding:9px 12px; border-radius:8px; background:#d1fae5; color:#065f46; font-size:0.94rem; font-weight:800;"></div>
       </div>
@@ -960,7 +960,7 @@
           </p>
           <div class="gba-manual-broker-grid">
             <div class="gba-manual-broker-card">
-              <strong class="broker-name">📱 楽天証券（スマホアプリ「iSPEED」・Web）の操作手順</strong>
+              <strong class="broker-name">楽天証券（スマホアプリ「iSPEED」・Web）の操作手順</strong>
               <ol>
                 <li>銘柄名を検索し、右上の<strong>「注文」→「現物買い」</strong>をタップします。</li>
                 <li>口座区分で対象銘柄に応じた区分（<strong>「NISA成長投資枠」</strong>または<strong>「特定口座」</strong>）を選びます。</li>
@@ -968,7 +968,7 @@
               </ol>
             </div>
             <div class="gba-manual-broker-card">
-              <strong class="broker-name">📱 SBI証券（「SBI証券 株」／「米国株」アプリ）の操作手順</strong>
+              <strong class="broker-name">SBI証券（「SBI証券 株」／「米国株」アプリ）の操作手順</strong>
               <ol>
                 <li>銘柄画面から<strong>「取引」→「現物買」</strong>をタップします。</li>
                 <li>預り区分で<strong>「NISA預り（成長）」</strong>または<strong>「特定預り」</strong>にチェックを入れます。</li>
@@ -977,7 +977,7 @@
             </div>
           </div>
           <div class="gba-manual-tip-callout">
-            ✅ <strong>安心のポイント：</strong>指値まで価格が下がらなければ約定せず現金がそのまま残るため、意図しない高値購入を防げます。
+             <strong>安心のポイント：</strong>指値まで価格が下がらなければ約定せず現金がそのまま残るため、意図しない高値購入を防げます。
           </div>
         </article>
 
@@ -988,41 +988,41 @@
           </p>
           <div class="gba-manual-broker-grid">
             <div class="gba-manual-broker-card">
-              <strong class="broker-name">🌱 新NISA口座（非課税 0%）で保有できる適格コア資産</strong>
+              <strong class="broker-name">新NISA口座（非課税 0%）で保有できる適格コア資産</strong>
               <ol>
-                <li><strong>1489（日経高配当株50 ETF）：</strong> 1・4・7・10月決算の国内高配当50社分散。</li>
-                <li><strong>VYM・HDV（米国高配当株ETF）：</strong> 3・6・9・12月分配の米国優良増配株分散（1489と時間差組み合わせ）。</li>
-                <li><strong>オルカン・S&amp;P500投信：</strong> つみたて投資枠・成長投資枠双方で長期インフレ対策に対応。</li>
+                <li><strong>1489（日経高配当株50 ETF）：</strong>1・4・7・10月決算の国内高配当50社分散。</li>
+                <li><strong>VYM・HDV（米国高配当株ETF）：</strong>3・6・9・12月分配の米国優良増配株分散（1489と時間差組み合わせ）。</li>
+                <li><strong>オルカン・S&amp;P500投信：</strong>つみたて投資枠・成長投資枠双方で長期インフレ対策に対応。</li>
               </ol>
             </div>
             <div class="gba-manual-broker-card">
-              <strong class="broker-name">🏦 特定口座（源泉徴収あり 20.315%）で区分管理する資産</strong>
+              <strong class="broker-name">特定口座（源泉徴収あり 20.315%）で区分管理する資産</strong>
               <ol>
-                <li><strong>SGOV（米国短期国債ETF）・JEPI（米国カバードコール毎月分配ETF）：</strong> 毎月分配型のため金融庁規定により新NISA対象外です。必ず<strong>特定口座</strong>で管理します。</li>
-                <li><strong>損益通算の活用：</strong> 特定口座内の配当と譲渡損益は自動計算・損益通算されます。</li>
+                <li><strong>SGOV（米国短期国債ETF）・JEPI（米国カバードコール毎月分配ETF）：</strong>毎月分配型のため金融庁規定により新NISA対象外です。必ず<strong>特定口座</strong>で管理します。</li>
+                <li><strong>損益通算の活用：</strong>特定口座内の配当と譲渡損益は自動計算・損益通算されます。</li>
               </ol>
             </div>
           </div>
           <div class="gba-manual-tip-callout">
-            ✅ <strong>安心のポイント：</strong>四半期配当の新NISA適格ETF（1・4・7・10月＋3・6・9・12月）と個人向け国債（半年利払い）・特定口座の毎月分配資産を組み合わせることで、金融庁ルールに100%準拠しながら年間を通じた穏やかなキャッシュフローを設計できます。
+             <strong>安心のポイント：</strong>四半期配当の新NISA適格ETF（1・4・7・10月＋3・6・9・12月）と個人向け国債（半年利払い）・特定口座の毎月分配資産を組み合わせることで、金融庁ルールに100%準拠しながら年間を通じた穏やかなキャッシュフローを設計できます。
           </div>
         </article>
 
         <article class="gba-manual-chapter-box" id="gbaManualChap3">
           <h3>第3章 — 守りの財布を整える「個人向け国債（変動10年）・楽天マネーブリッジ・SBIハイブリッド預金」の活用法</h3>
           <p>
-            相場変動が大きい<strong>🔴 現金・国債防衛モード</strong>の時期は、無理に株式比率を増やす必要はありません。生活費2〜3年分の安全クッションを国債や証券連携預金に置いておくことで、株価下落時にも慌てず配当と年金をゆったり受け取ることができます。
+            相場変動が大きい<strong>現金・国債防衛モード</strong>の時期は、無理に株式比率を増やす必要はありません。生活費2〜3年分の安全クッションを国債や証券連携預金に置いておくことで、株価下落時にも慌てず配当と年金をゆったり受け取ることができます。
           </p>
           <div class="gba-manual-broker-grid">
             <div class="gba-manual-broker-card">
-              <strong class="broker-name">🏦 楽天証券：「マネーブリッジ」＆個人向け国債</strong>
+              <strong class="broker-name">楽天証券：「マネーブリッジ」＆個人向け国債</strong>
               <ol>
                 <li>楽天証券と楽天銀行を連携する<strong>「マネーブリッジ（無料）」</strong>を設定し、普通預金優遇金利と預金保険で待機資金を保護します。</li>
                 <li>生活防衛資金の一部を<strong>「個人向け国債（変動10年）」</strong>に配分すると、半年ごとに適用利率が見直され元本割れなく保有できます。</li>
               </ol>
             </div>
             <div class="gba-manual-broker-card">
-              <strong class="broker-name">🏦 SBI証券：「SBIハイブリッド預金」＆外貨建MMF</strong>
+              <strong class="broker-name">SBI証券：「SBIハイブリッド預金」＆外貨建MMF</strong>
               <ol>
                 <li>住信SBIネット銀行と連携し<strong>「SBIハイブリッド預金」</strong>を有効にすると、待機円資金に毎月利子がつきながら買付余力へ自動反映されます。</li>
                 <li>米ドル待機資金は特定口座の「外貨建MMF」や「SGOV（特定口座）」で区分管理できます。</li>
@@ -1032,18 +1032,18 @@
         </article>
 
         <div class="gba-manual-modal-funnel">
-          <h4>🌅 基本設定を確認したら、毎朝8時の「3色バランス指標ブリーフ」をご活用ください</h4>
+          <h4>基本設定を確認したら、毎朝8時の「3色バランス指標ブリーフ」をご活用ください</h4>
           <p>
             当サイトの数学的シミュレーターと毎朝の公開市場データ要約を活用し、ご自身のペースで年2〜4回の穏やかな資産配分点検にお役立てください。
           </p>
           <div class="gba-manual-cta-row" style="margin-bottom:10px;">
             <button type="button" class="gba-manual-open-btn" onclick="jumpFromManualToJpMail()">
-              📧 無料倶楽部に登録して毎朝8時の「3色バランス指標」を受け取る
+               無料倶楽部に登録して毎朝8時の「3色バランス指標」を受け取る
             </button>
           </div>
           <div class="gba-manual-funnel-links">
-            <a href="#gbaVipWaitlistModal" data-gba-paid-plan="monthly" data-polar-slot="monthly_29_jp" class="gba-manual-pro-link polar-checkout-button">⚡ 月額 $29 / 約4,400円（税込）</a>
-            <a href="#gbaVipWaitlistModal" data-gba-paid-plan="annual" data-polar-slot="annual_199_jp" class="gba-manual-vip-link polar-checkout-button">👑 年額 $199（約30,000円・税込）</a>
+            <a href="#gbaVipWaitlistModal" data-gba-paid-plan="monthly" data-polar-slot="monthly_29_jp" class="gba-manual-pro-link polar-checkout-button">月額 $29 / 約4,400円（税込）</a>
+            <a href="#gbaVipWaitlistModal" data-gba-paid-plan="annual" data-polar-slot="annual_199_jp" class="gba-manual-vip-link polar-checkout-button">年額 $199（約30,000円・税込）</a>
           </div>
         </div>
       </div>
@@ -1069,7 +1069,7 @@
           var notice = document.getElementById('gbaManualWebViewNotice');
           var pBtn = document.getElementById('btnPrintOrMailGbaManual');
           if (notice) notice.style.display = 'block';
-          if (pBtn) pBtn.innerText = '📩 このマニュアルをメールで受け取る';
+          if (pBtn) pBtn.innerText = ' このマニュアルをメールで受け取る';
         }
         try {
           var saved = localStorage.getItem('gb_free_member_email') || localStorage.getItem('gba_jp_free_email') || '';
@@ -1141,7 +1141,7 @@
         }
         if (st) {
           st.style.display = 'block';
-          st.innerHTML = '✅ <strong>ご登録ありがとうございます！</strong> 保存版マニュアルと毎朝8時の「新NISA 3色バランス指標ブリーフ」を <strong>' + email.replace(/[<>&"]/g, '') + '</strong> 宛にお届けいたします。';
+          st.innerHTML = ' <strong>ご登録ありがとうございます！</strong>保存版マニュアルと毎朝8時の「新NISA 3色バランス指標ブリーフ」を <strong>' + email.replace(/[<>&"]/g, '') + '</strong>宛にお届けいたします。';
         }
         return false;
       };
@@ -1150,10 +1150,10 @@
         if (typeof window.isGbaInAppWebView === 'function' && window.isGbaInAppWebView()) {
           var pBtn = document.getElementById('btnPrintOrMailGbaManual');
           var notice = document.getElementById('gbaManualWebViewNotice');
-          if (pBtn) pBtn.innerText = '📩 このマニュアルをメールで受け取る';
+          if (pBtn) pBtn.innerText = ' このマニュアルをメールで受け取る';
           if (notice) notice.style.display = 'block';
           document.querySelectorAll('.gba-manual-sub-badge').forEach(function(b) {
-            b.innerText = '📩 メール保存・画面閲覧対応 ／ 楽天証券・SBI証券 対応';
+            b.innerText = ' メール保存・画面閲覧対応 ／ 楽天証券・SBI証券 対応';
           });
         }
       });
@@ -1307,8 +1307,8 @@
   <div class="gba-vip-waitlist-backdrop" id="gbaVipWaitlistModal" role="dialog" aria-modal="true" aria-labelledby="gbaVipWaitlistModalTitle" aria-hidden="true">
     <div class="gba-vip-waitlist-dialog">
       <div class="gba-vip-wl-top">
-        <span class="gba-vip-wl-badge">🎁 創設メンバー優先案内 ・ 早期20%割引特典</span>
-        <button type="button" class="gba-vip-wl-close" onclick="window.closeGbaVipWaitlistModal()">✕ 閉じる</button>
+        <span class="gba-vip-wl-badge">創設メンバー優先案内 ・ 早期20%割引特典</span>
+        <button type="button" class="gba-vip-wl-close" onclick="window.closeGbaVipWaitlistModal()">閉じる</button>
       </div>
       <h2 class="gba-vip-wl-title" id="gbaVipWaitlistModalTitle">VIP創設メンバー先行案内＆早期20%割引クーポン予約（1秒メール登録）</h2>
       <p class="gba-vip-wl-desc">
@@ -1317,27 +1317,27 @@
 
       <div class="gba-vip-wl-plans" role="group" aria-label="ご希望プラン選択">
         <button type="button" class="gba-vip-wl-pbtn is-active" data-gba-wl-plan="monthly" onclick="window.selectGbaVipWaitlistPlan('monthly')">
-          ⚡ 月額 $29 / 約4,400円（税込）<br><small style="font-weight:700; color:#475569;">クーポン適用時 さらに20%OFF ／ 随時更新・新NISA老後取り崩し実践PDFガイド＋3つの財布シミュレーター同梱</small>
+           月額 $29 / 約4,400円（税込）<br><small style="font-weight:700; color:#475569;">クーポン適用時 さらに20%OFF ／ 随時更新・新NISA老後取り崩し実践PDFガイド＋3つの財布シミュレーター同梱</small>
         </button>
         <button type="button" class="gba-vip-wl-pbtn" data-gba-wl-plan="annual" onclick="window.selectGbaVipWaitlistPlan('annual')">
-          👑 年額 $199（約30,000円・税込）<br><small style="font-weight:700; color:#b45309;">一番人気・43%OFF＋早期20%割引 ／ 随時更新・新NISA老後取り崩し実践PDFガイド＋3つの財布シミュレーター同梱</small>
+           年額 $199（約30,000円・税込）<br><small style="font-weight:700; color:#b45309;">一番人気・43%OFF＋早期20%割引 ／ 随時更新・新NISA老後取り崩し実践PDFガイド＋3つの財布シミュレーター同梱</small>
         </button>
       </div>
       <div class="gba-pro-retiree-tools-box" style="margin:14px 0 16px; padding:12px 14px; border-radius:14px; background:var(--bg-card, #ffffff); border:2px solid #93c5fd;">
         <div style="font-size:0.96rem; font-weight:900; color:var(--accent-blue, #1d4ed8); margin-bottom:10px; line-height:1.45;">
-          🛠️ Proプラン（月額 $29 / 約4,400円（税込） ・ 年額 $199 / 約30,000円（税込））で使える「新NISA・老後3大設計ソフトウェアツール」
+           Proプラン（月額 $29 / 約4,400円（税込） ・ 年額 $199 / 約30,000円（税込））で使える「新NISA・老後3大設計ソフトウェアツール」
         </div>
         <ul style="margin:0; padding:0; display:flex; flex-direction:column; gap:10px;">
           <li style="background:var(--bg-sub, #f8fafc); border:1.5px solid var(--border-col, #cbd5e1); border-left:5px solid #1d4ed8; border-radius:11px; padding:10px 12px; list-style:none;">
-            <div style="font-size:0.95rem; font-weight:900; color:var(--text-main, #0b1f3a); line-height:1.48; margin-bottom:4px;">✅ 1. 『毎朝自動配信：SMH × XLV マーケット過熱・恐怖指標＆セクター比率トラッキング日報メール』</div>
+            <div style="font-size:0.95rem; font-weight:900; color:var(--text-main, #0b1f3a); line-height:1.48; margin-bottom:4px;">1. 『毎朝自動配信：SMH × XLV マーケット過熱・恐怖指標＆セクター比率トラッキング日報メール』</div>
             <div style="font-size:0.88rem; font-weight:700; color:var(--text-muted, #334155); line-height:1.6;">毎朝8時、日米市場の過熱度・恐怖度データ（0〜100）を集計し、過去検証モデル上で SMH（半導体）: XLV（医療）比率がどう推移しているかをわかりやすくメール配信</div>
           </li>
           <li style="background:var(--bg-sub, #f8fafc); border:1.5px solid var(--border-col, #cbd5e1); border-left:5px solid #1d4ed8; border-radius:11px; padding:10px 12px; list-style:none;">
-            <div style="font-size:0.95rem; font-weight:900; color:var(--text-main, #0b1f3a); line-height:1.48; margin-bottom:4px;">✅ 2. 『新NISA成長投資枠（SMH・XLV）× 特定口座／個人向け国債 運用額別の円・ドル配分計算シート』</div>
+            <div style="font-size:0.95rem; font-weight:900; color:var(--text-main, #0b1f3a); line-height:1.48; margin-bottom:4px;">2. 『新NISA成長投資枠（SMH・XLV）× 特定口座／個人向け国債 運用額別の円・ドル配分計算シート』</div>
             <div style="font-size:0.88rem; font-weight:700; color:var(--text-muted, #334155); line-height:1.6;">ご自身の資産規模（300万〜5,000万円+・新NISA生涯非課税枠1,800万円対応）を入力するだけで、現物1倍ETFと安全クッションの具体的な金額目安を自動算出</div>
           </li>
           <li style="background:var(--bg-sub, #f8fafc); border:1.5px solid var(--border-col, #cbd5e1); border-left:5px solid #1d4ed8; border-radius:11px; padding:10px 12px; list-style:none;">
-            <div style="font-size:0.95rem; font-weight:900; color:var(--text-main, #0b1f3a); line-height:1.48; margin-bottom:4px;">✅ 3. 『随時更新・SMH × XLV セクターバランス実践 14ページ マスターPDFガイド（楽天・SBI証券 大文字操作図解同梱）』</div>
+            <div style="font-size:0.95rem; font-weight:900; color:var(--text-main, #0b1f3a); line-height:1.48; margin-bottom:4px;">3. 『随時更新・SMH × XLV セクターバランス実践 14ページ マスターPDFガイド（楽天・SBI証券 大文字操作図解同梱）』</div>
             <div style="font-size:0.88rem; font-weight:700; color:var(--text-muted, #334155); line-height:1.6;">過去26年（2000年ITバブル・2008年リーマン・2022年利上げ下落）の検証データ＆迷わず設定できる大きな文字の証券画面ステップマニュアル</div>
           </li>
         </ul>
@@ -1346,14 +1346,14 @@
       <form class="gba-vip-wl-form" id="gbaVipWaitlistForm" onsubmit="return window.submitGbaVipWaitlist(event);">
         <label for="gbaVipWaitlistEmail" style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0);">メールアドレス</label>
         <input type="email" id="gbaVipWaitlistEmail" class="gba-vip-wl-input" required autocomplete="email" placeholder="メールアドレスを入力（例: yamada@example.jp）">
-        <button type="submit" id="gbaVipWaitlistSubmitBtn" class="gba-vip-wl-submit">🎁 先行案内＆20%割引クーポンを予約する →</button>
+        <button type="submit" id="gbaVipWaitlistSubmitBtn" class="gba-vip-wl-submit">先行案内＆20%割引クーポンを予約する →</button>
       </form>
 
       <div class="gba-vip-wl-status" id="gbaVipWaitlistStatus" role="status" aria-live="polite"></div>
 
       <div style="margin-top:12px; font-size:0.84rem; color:#475569; line-height:1.58;">
-        💳 決済・税務管理：Polar.sh (Merchant of Record · Global Card / Apple Pay / Google Pay)（14日間返金保証・いつでも1クリック解約）<br>
-        🔒 パスワード登録不要・いつでも1クリック配信停止可能 ｜ お問い合わせ窓口: <a href="mailto:beable9489@gmail.com" style="color:#1d4ed8; font-weight:800;">beable9489@gmail.com</a>
+         決済・税務管理：Polar.sh (Merchant of Record · Global Card / Apple Pay / Google Pay)（14日間返金保証・いつでも1クリック解約）<br>
+         パスワード登録不要・いつでも1クリック配信停止可能 ｜ お問い合わせ窓口: <a href="mailto:beable9489@gmail.com" style="color:#1d4ed8; font-weight:800;">beable9489@gmail.com</a>
       </div>
     </div>
   </div>
@@ -1401,7 +1401,7 @@
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
           if (statusEl) {
             statusEl.style.display = 'block';
-            statusEl.innerText = '⚠️ 正しいメールアドレスを入力してください（例: yamada@example.jp）。';
+            statusEl.innerText = ' 正しいメールアドレスを入力してください（例: yamada@example.jp）。';
           }
           if (inp && inp.focus) inp.focus();
           return false;
@@ -1423,7 +1423,7 @@
           if (statusEl) {
             var planLabel = selectedPlan === 'annual' ? '年額 $199（約30,000円・税込）' : '月額 $29 / 約4,400円（税込）';
             statusEl.style.display = 'block';
-            statusEl.innerHTML = '✅ <strong>VIP創設メンバー先行案内＆早期20%割引クーポンのご予約が完了いたしました！</strong>（' + email.replace(/[<>&"]/g, '') + ' ／ 選択プラン: ' + planLabel + '）<br>Polar.sh 公式決済受付の開始と同時に優先ご案内メールをお送りいたします。また毎朝8時の無料「3色バランス指標ブリーフ」も本日よりお届けいたします。';
+            statusEl.innerHTML = ' <strong>VIP創設メンバー先行案内＆早期20%割引クーポンのご予約が完了いたしました！</strong>（' + email.replace(/[<>&"]/g, '') + ' ／ 選択プラン: ' + planLabel + '）<br>Polar.sh 公式決済受付の開始と同時に優先ご案内メールをお送りいたします。また毎朝8時の無料「3色バランス指標ブリーフ」も本日よりお届けいたします。';
           }
         };
 

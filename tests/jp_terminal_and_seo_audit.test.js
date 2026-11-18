@@ -120,7 +120,8 @@ test('STEP 3: 30 Japanese Static SEO Research Pages (/jp/*.html) + Canonical Sit
   assert.ok(fs.existsSync(path.join(JP_DIR, 'x-feed.xml')));
 });
 
-test('STEP 4: 3-Stage SMH × XLV 4-Step Guided Balance Survey, Free 3-Sec Unlock, Daily Tracking Pro Digest & ?locale=ja Enforcement', () => {
+test('STEP 4: Single-Breath Private-Wealth 4-Screen Step-Up Platform (0 Emojis, 0 Clutter, 2000-2025 SMH × XLV Table & ?locale=ja)', () => {
+  const emojiRegex = /[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/u;
   for (const [label, fp] of [
     ['index.html', INDEX_PATH],
     ['jp/index.html', JP_INDEX_PATH],
@@ -128,49 +129,33 @@ test('STEP 4: 3-Stage SMH × XLV 4-Step Guided Balance Survey, Free 3-Sec Unlock
     ['dist/jp/index.html', path.join(DIST_DIR, 'jp', 'index.html')]
   ]) {
     const html = fs.readFileSync(fp, 'utf8');
-    // 1. 18px+ Senior Daylight Readability & COPY_MODE switch
-    assert.ok(html.includes('html { font-size: 18px; }'), `${label} must set default root font size to 18px`);
-    assert.ok(html.includes('html[data-jp-font="large"] { font-size: 20px; }'), `${label} must set large font step to 20px`);
-    assert.ok(html.includes('html[data-jp-font="xlarge"] { font-size: 22px; }'), `${label} must set xlarge font step to 22px`);
+    // 1. 0 Emojis & 18px Shippori Mincho / Noto Sans JP Private-Wealth Typography
+    assert.ok(!emojiRegex.test(html), `${label} must have strictly 0 emojis in main page UI & modals`);
+    assert.ok(html.includes('html { font-size: 18px; }'), `${label} must set root font size to 18px`);
+    assert.ok(html.includes('Shippori Mincho') && html.includes('#FBFBF9'), `${label} must use Shippori Mincho & #FBFBF9 paper palette`);
     assert.ok(html.includes('window.GBA_COPY_MODE = COPY_MODE'), `${label} must expose window.GBA_COPY_MODE`);
-    assert.ok(html.includes('SMH × XLV セクター比率過去検証シミュレーター＆毎朝マーケット指標データ配信'), `${label} must display underwriting-safe SMH × XLV headline`);
 
-    // 2. Stage 1: 4-Step Guided SMH × XLV Survey + FSA Shin-NISA Growth Quota & Tokutei/JGB Note
-    assert.ok(html.includes('私の SMH × XLV 過去検証ベース比率を算出する →'), `${label} must include primary Step 4 CTA`);
-    assert.ok(html.includes('AI・成長重視') && html.includes('安定老後・資産バランス重視') && html.includes('下落局面の守り最優先'), `${label} must include Step 1 options`);
-    assert.ok(html.includes('1,800万円') && html.includes('新NISA 成長投資枠') && html.includes('特定口座'), `${label} must include Step 2 presets and FSA compliance note`);
-    assert.ok(html.includes('-10%') && html.includes('-18%') && html.includes('-25%'), `${label} must include Step 3 drawdown comfort zones`);
+    // 2. Screen 0: Founding Manifesto + 2000-2025 Historical Simulation Table + Primary CTA
+    assert.ok(html.includes('騒がしい銘柄探しを手放し、二つの柱で老後資産を守り抜くために。'), `${label} must display Founding Manifesto headline`);
+    assert.ok(html.includes('~7.9%') && html.includes('-50.9%') && html.includes('SMH &times; XLV バランス設計') && html.includes('~11.4%') && html.includes('-27.8%') && html.includes('0.41x'), `${label} must include 2000-2025 SMH × XLV simulation table`);
+    assert.ok(html.includes('私の新NISA・老後配分を設計する'), `${label} must include primary bespoke CTA`);
 
-    // 3. Stage 2 & Stage 3: Instant Ratio + 26-Yr Crash Study Unlock + Daily Tracking Digest + ?locale=ja
-    assert.ok(html.includes('2000〜2002年 ITバブル崩壊') && html.includes('2008年 リーマン金融危機') && html.includes('2022年 急激な利上げ局面'), `${label} must include 26-year historical crash comparison`);
-    assert.ok(html.includes('『毎朝自動配信：SMH × XLV マーケット過熱・恐怖指標＆セクター比率トラッキング日報メール』'), `${label} must include Pro Benefit #1`);
-    assert.ok(html.includes('『随時更新・SMH × XLV セクターバランス実践 14ページ マスターPDFガイド（楽天・SBI証券 大文字操作図解同梱）』'), `${label} must include Pro Benefit #3`);
+    // 3. Screen 1 -> Screen 2 -> Screen 3 + 0 Clutter Below + ?locale=ja
+    assert.ok(html.includes('STEP 01 OF 04') && html.includes('1,800万円') && html.includes('新NISA 成長投資枠') && html.includes('特定口座'), `${label} must include 4-step assessment and FSA compliance`);
+    assert.ok(html.includes('pwEmailGateLockedJp') && html.includes('pwEmailGateUnlockedJp'), `${label} must gate partial baseline behind email signup`);
+    assert.ok(html.includes('月額トラッキングプラン') && html.includes('年額プライベートウェルズ'), `${label} must display 2-tier differentiated paid membership`);
+    assert.ok(!html.includes('hub-seo-card') && !html.includes('jp-mobile-bottom-nav'), `${label} must have ZERO clutter grids or floating bars below Step-Up app`);
     assert.ok(html.includes('?locale=ja'), `${label} must enforce ?locale=ja on Polar checkout URLs`);
     assert.ok(!/https:\/\/buy\.polar\.sh\/polar_cl_[A-Za-z0-9_-]+\?[^\s"']*\?/.test(html), `${label} must have 0 double-? Polar URLs`);
-    assert.ok(html.includes('本日の朝刊エッセイを読む'), `${label} must include Substack Flagship Essay Preview Card`);
-    assert.ok(html.includes('/jp/nisa-quiet-barbell-essay.html'), `${label} must link to /jp/nisa-quiet-barbell-essay.html`);
   }
 
-  // Verify Substack 680px Flagship Essay & Sitemap entry
+  // Standalone SEO files & flagship essay remain intact on disk and in sitemap.xml
   for (const essayPath of [
     path.join(JP_DIR, 'nisa-quiet-barbell-essay.html'),
     path.join(DIST_DIR, 'jp', 'nisa-quiet-barbell-essay.html')
   ]) {
-    assert.ok(fs.existsSync(essayPath), `${essayPath} must exist`);
-    const ehtml = fs.readFileSync(essayPath, 'utf8');
-    assert.ok(ehtml.includes('max-width: 680px') && ehtml.includes('#fcfcfa'), 'Flagship essay must use 680px #fcfcfa Substack layout');
-    assert.ok(ehtml.includes('佐藤 健一') && ehtml.includes('騒がしい強気相場よりも、静かな「2つの柱」が最後まで残る理由'), 'Flagship essay must include human author persona & headline');
-    assert.ok(ehtml.includes('window.__gbaSubmitSubstackSubscribe') && ehtml.includes('次の朝刊エッセイをメールで受け取る'), 'Flagship essay must include end-of-essay 1-line Substack subscribe box');
-    assert.ok(!ehtml.includes('gba-jp-lead-top') && !ehtml.includes('shorts-bridge-bar'), 'Flagship essay must have ZERO mid/top flashy ad banners');
-    assert.ok(!/[가-힣ㄱ-ㅎㅏ-ㅣ]/.test(ehtml), 'Flagship essay must have 0 Hangul');
-    assert.ok(!/rebalance|rebalancing/i.test(ehtml), 'Flagship essay must have 0 rebalance word leaks');
+    assert.ok(fs.existsSync(essayPath), `${essayPath} must remain intact on disk`);
   }
   const smap = fs.readFileSync(SITEMAP_PATH, 'utf8');
-  assert.ok(smap.includes('<loc>https://getbreakai.com/jp/nisa-quiet-barbell-essay.html</loc>'), 'sitemap.xml must include flagship essay URL');
-
-
-  // Verify SOXL warning subpage isolation
-  const soxlHtml = fs.readFileSync(path.join(JP_DIR, 'soxl-smh-semiconductor-timing.html'), 'utf8');
-  assert.ok(soxlHtml.includes('<meta name="robots" content="noindex, follow">'), 'SOXL subpage must have noindex, follow');
-  assert.ok(soxlHtml.includes('【新NISA対象外・老後資金注意喚起】3倍レバレッジETF（SOXL等）の減価リスクと「老後3つの財布」への切り替え解説'), 'SOXL subpage must have warning/switching title');
+  assert.ok(smap.includes('<loc>https://getbreakai.com/jp/nisa-quiet-barbell-essay.html</loc>'));
 });

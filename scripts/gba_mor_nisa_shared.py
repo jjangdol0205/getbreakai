@@ -58,7 +58,7 @@ MAIN_HUB_EXCLUDED_SLUGS = {
 }
 
 
-def build_payment_and_kpi_head_html() -> str:
+def build_payment_and_kpi_head_html() ->str:
     """Returns global head scripts for Polar.sh PAYMENT_CONFIG, CRM client, single-fire paid_click, waitlist/checkout router, ?payment=success unlock, signup & read_complete."""
     return r"""  <script src="/hq_member_crm_client.js"></script>
   <script>
@@ -227,7 +227,7 @@ def build_payment_and_kpi_head_html() -> str:
             if (statusEl) {
               statusEl.style.display = 'block';
               statusEl.style.color = '#065f46';
-              statusEl.innerHTML = 'ご登録ありがとうございます。次回の朝刊エッセイを <strong>' + email.replace(/[<>&"]/g, '') + '</strong> 宛に静かにお届けします（パスワード不要・いつでも1クリック解除OK）。';
+              statusEl.innerHTML = 'ご登録ありがとうございます。次回の朝刊エッセイを <strong>' + email.replace(/[<>&"]/g, '') + '</strong>宛に静かにお届けします（パスワード不要・いつでも1クリック解除OK）。';
             }
             document.querySelectorAll('.substack-inline-form input[type="email"], .gba-jp-signup-form input[type="email"]').forEach(function(inp) {
               inp.value = email;
@@ -276,7 +276,7 @@ def build_payment_and_kpi_head_html() -> str:
           }
           document.querySelectorAll('.gba-jp-signup-status').forEach(function(el) {
             el.style.display = 'block';
-            el.innerHTML = '✅ <strong>無料倶楽部へのご登録が完了しました！</strong> 毎朝8時の「新NISA 3色バランス指標＆公開データ試算ブリーフ」を <strong>' + email.replace(/[<>&"]/g, '') + '</strong> 宛にお届けいたします。';
+            el.innerHTML = ' <strong>無料倶楽部へのご登録が完了しました！</strong>毎朝8時の「新NISA 3色バランス指標＆公開データ試算ブリーフ」を <strong>' + email.replace(/[<>&"]/g, '') + '</strong>宛にお届けいたします。';
           });
           document.querySelectorAll('.gba-jp-signup-form input[type="email"]').forEach(function(inp) { inp.value = email; });
           return false;
@@ -421,25 +421,25 @@ def build_payment_and_kpi_head_html() -> str:
   </script>"""
 
 
-def build_mandatory_disclaimer_html() -> str:
+def build_mandatory_disclaimer_html() ->str:
     """Returns the exact mandatory FIEA (Kinsho-ho) non-advisory software disclaimer directly below Pricing."""
     return f"""      <div class="gba-mandatory-fiea-disclaimer" role="note" style="margin-top:14px; padding:13px 16px; border-radius:10px; background:#fffbeb; border:1.5px solid #f59e0b; color:#78350f; font-size:0.94rem; font-weight:700; line-height:1.68; text-align:left;">
         {MANDATORY_DISCLAIMER_JP}
       </div>"""
 
 
-def build_pro_retiree_tools_html(compact: bool = False) -> str:
+def build_pro_retiree_tools_html(compact: bool = False) ->str:
     """Returns high-contrast 3-tool efficacy showcase for Paid Pro ($29/mo & $199/yr) Shin-NISA Retiree Software."""
     items_html = "\n".join(
         f"""          <li style="background:var(--bg-sub, #f8fafc); border:1.5px solid var(--border-col, #cbd5e1); border-left:5px solid #1d4ed8; border-radius:11px; padding:{'10px 12px' if compact else '13px 15px'}; list-style:none;">
-            <div style="font-size:{'0.95rem' if compact else '1.02rem'}; font-weight:900; color:var(--text-main, #0b1f3a); line-height:1.48; margin-bottom:4px;">✅ {idx}. {title_str}</div>
+            <div style="font-size:{'0.95rem' if compact else '1.02rem'}; font-weight:900; color:var(--text-main, #0b1f3a); line-height:1.48; margin-bottom:4px;">{idx}. {title_str}</div>
             <div style="font-size:{'0.88rem' if compact else '0.95rem'}; font-weight:700; color:var(--text-muted, #334155); line-height:1.6;">{desc_str}</div>
           </li>"""
         for idx, (title_str, desc_str) in enumerate(PRO_RETIREE_TOOLS_JP, start=1)
     )
     return f"""      <div class="gba-pro-retiree-tools-box" style="margin:14px 0 16px; padding:{'12px 14px' if compact else '16px 18px'}; border-radius:14px; background:var(--bg-card, #ffffff); border:2px solid #93c5fd;">
         <div style="font-size:{'0.96rem' if compact else '1.05rem'}; font-weight:900; color:var(--accent-blue, #1d4ed8); margin-bottom:10px; line-height:1.45;">
-          🛠️ Proプラン（{PRICE_LABEL_MONTHLY_JP} ・ 年額 $199 / 約30,000円（税込））で使える「新NISA・老後3大設計ソフトウェアツール」
+           Proプラン（{PRICE_LABEL_MONTHLY_JP} ・ 年額 $199 / 約30,000円（税込））で使える「新NISA・老後3大設計ソフトウェアツール」
         </div>
         <ul style="margin:0; padding:0; display:flex; flex-direction:column; gap:10px;">
 {items_html}
@@ -447,7 +447,7 @@ def build_pro_retiree_tools_html(compact: bool = False) -> str:
       </div>"""
 
 
-def build_vip_waitlist_modal_html() -> str:
+def build_vip_waitlist_modal_html() ->str:
     """Returns scoped CSS, HTML, and JS for the Japanese VIP Founders Waitlist & 20% Coupon Modal (Zero Hangul)."""
     return f"""
   <style>
@@ -597,8 +597,8 @@ def build_vip_waitlist_modal_html() -> str:
   <div class="gba-vip-waitlist-backdrop" id="gbaVipWaitlistModal" role="dialog" aria-modal="true" aria-labelledby="gbaVipWaitlistModalTitle" aria-hidden="true">
     <div class="gba-vip-waitlist-dialog">
       <div class="gba-vip-wl-top">
-        <span class="gba-vip-wl-badge">🎁 創設メンバー優先案内 ・ 早期20%割引特典</span>
-        <button type="button" class="gba-vip-wl-close" onclick="window.closeGbaVipWaitlistModal()">✕ 閉じる</button>
+        <span class="gba-vip-wl-badge">創設メンバー優先案内 ・ 早期20%割引特典</span>
+        <button type="button" class="gba-vip-wl-close" onclick="window.closeGbaVipWaitlistModal()">閉じる</button>
       </div>
       <h2 class="gba-vip-wl-title" id="gbaVipWaitlistModalTitle">{VIP_WAITLIST_MODAL_TITLE_JP}</h2>
       <p class="gba-vip-wl-desc">
@@ -607,10 +607,10 @@ def build_vip_waitlist_modal_html() -> str:
 
       <div class="gba-vip-wl-plans" role="group" aria-label="ご希望プラン選択">
         <button type="button" class="gba-vip-wl-pbtn is-active" data-gba-wl-plan="monthly" onclick="window.selectGbaVipWaitlistPlan('monthly')">
-          ⚡ {PRICE_LABEL_MONTHLY_JP}<br><small style="font-weight:700; color:#475569;">クーポン適用時 さらに20%OFF ／ 随時更新・新NISA老後取り崩し実践PDFガイド＋3つの財布シミュレーター同梱</small>
+           {PRICE_LABEL_MONTHLY_JP}<br><small style="font-weight:700; color:#475569;">クーポン適用時 さらに20%OFF ／ 随時更新・新NISA老後取り崩し実践PDFガイド＋3つの財布シミュレーター同梱</small>
         </button>
         <button type="button" class="gba-vip-wl-pbtn" data-gba-wl-plan="annual" onclick="window.selectGbaVipWaitlistPlan('annual')">
-          👑 {PRICE_LABEL_ANNUAL_JP}<br><small style="font-weight:700; color:#b45309;">一番人気・43%OFF＋早期20%割引 ／ 随時更新・新NISA老後取り崩し実践PDFガイド＋3つの財布シミュレーター同梱</small>
+           {PRICE_LABEL_ANNUAL_JP}<br><small style="font-weight:700; color:#b45309;">一番人気・43%OFF＋早期20%割引 ／ 随時更新・新NISA老後取り崩し実践PDFガイド＋3つの財布シミュレーター同梱</small>
         </button>
       </div>
 {build_pro_retiree_tools_html(compact=True)}
@@ -618,14 +618,14 @@ def build_vip_waitlist_modal_html() -> str:
       <form class="gba-vip-wl-form" id="gbaVipWaitlistForm" onsubmit="return window.submitGbaVipWaitlist(event);">
         <label for="gbaVipWaitlistEmail" style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0);">メールアドレス</label>
         <input type="email" id="gbaVipWaitlistEmail" class="gba-vip-wl-input" required autocomplete="email" placeholder="メールアドレスを入力（例: yamada@example.jp）">
-        <button type="submit" id="gbaVipWaitlistSubmitBtn" class="gba-vip-wl-submit">🎁 先行案内＆20%割引クーポンを予約する →</button>
+        <button type="submit" id="gbaVipWaitlistSubmitBtn" class="gba-vip-wl-submit">先行案内＆20%割引クーポンを予約する →</button>
       </form>
 
       <div class="gba-vip-wl-status" id="gbaVipWaitlistStatus" role="status" aria-live="polite"></div>
 
       <div style="margin-top:12px; font-size:0.84rem; color:#475569; line-height:1.58;">
-        💳 決済・税務管理：{MOR_LABEL_EN_JP}（14日間返金保証・いつでも1クリック解約）<br>
-        🔒 パスワード登録不要・いつでも1クリック配信停止可能 ｜ お問い合わせ窓口: <a href="mailto:beable9489@gmail.com" style="color:#1d4ed8; font-weight:800;">beable9489@gmail.com</a>
+         決済・税務管理：{MOR_LABEL_EN_JP}（14日間返金保証・いつでも1クリック解約）<br>
+         パスワード登録不要・いつでも1クリック配信停止可能 ｜ お問い合わせ窓口: <a href="mailto:beable9489@gmail.com" style="color:#1d4ed8; font-weight:800;">beable9489@gmail.com</a>
       </div>
     </div>
   </div>
@@ -673,7 +673,7 @@ def build_vip_waitlist_modal_html() -> str:
         if (!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]{{2,}}$/.test(email)) {{
           if (statusEl) {{
             statusEl.style.display = 'block';
-            statusEl.innerText = '⚠️ 正しいメールアドレスを入力してください（例: yamada@example.jp）。';
+            statusEl.innerText = ' 正しいメールアドレスを入力してください（例: yamada@example.jp）。';
           }}
           if (inp && inp.focus) inp.focus();
           return false;
@@ -695,7 +695,7 @@ def build_vip_waitlist_modal_html() -> str:
           if (statusEl) {{
             var planLabel = selectedPlan === 'annual' ? '{PRICE_LABEL_ANNUAL_JP}' : '{PRICE_LABEL_MONTHLY_JP}';
             statusEl.style.display = 'block';
-            statusEl.innerHTML = '✅ <strong>VIP創設メンバー先行案内＆早期20%割引クーポンのご予約が完了いたしました！</strong>（' + email.replace(/[<>&"]/g, '') + ' ／ 選択プラン: ' + planLabel + '）<br>Polar.sh 公式決済受付の開始と同時に優先ご案内メールをお送りいたします。また毎朝8時の無料「3色バランス指標ブリーフ」も本日よりお届けいたします。';
+            statusEl.innerHTML = ' <strong>VIP創設メンバー先行案内＆早期20%割引クーポンのご予約が完了いたしました！</strong>（' + email.replace(/[<>&"]/g, '') + ' ／ 選択プラン: ' + planLabel + '）<br>Polar.sh 公式決済受付の開始と同時に優先ご案内メールをお送りいたします。また毎朝8時の無料「3色バランス指標ブリーフ」も本日よりお届けいたします。';
           }}
         }};
 
@@ -733,35 +733,35 @@ def build_vip_waitlist_modal_html() -> str:
   </script>"""
 
 
-def build_starter_manual_modal_html() -> str:
+def build_starter_manual_modal_html() ->str:
     """Returns the In-App WebView guarded ¥0 Shin-NISA Starter Manual Modal + Email Delivery UI."""
     return f"""
-  <!-- 📘 Interactive Modal: ¥0 無料公開商品 はじめての新NISA＆証券アプリ基本マニュアル (#gbaStarterManualModal) -->
+  <!--  Interactive Modal: ¥0 無料公開商品 はじめての新NISA＆証券アプリ基本マニュアル (#gbaStarterManualModal) -->
   <div class="gba-manual-modal-backdrop" id="gbaStarterManualModal" role="dialog" aria-modal="true" aria-labelledby="gbaStarterManualModalTitle" aria-hidden="true">
     <div class="gba-manual-modal-dialog">
       <div class="gba-manual-modal-header">
         <div>
-          <span class="gba-manual-free-badge" style="font-size:0.84rem;">📘 ¥0 無料公開マニュアル（保存版・登録不要）</span>
+          <span class="gba-manual-free-badge" style="font-size:0.84rem;">¥0 無料公開マニュアル（保存版・登録不要）</span>
           <h2 class="gba-manual-modal-title" id="gbaStarterManualModalTitle">はじめての新NISA＆証券アプリ基本マニュアル</h2>
         </div>
         <div class="gba-manual-modal-actions">
-          <button type="button" class="gba-manual-action-btn btn-print" id="btnPrintOrMailGbaManual" onclick="printGbaStarterManual()">🖨️ 印刷・PDF保存</button>
-          <button type="button" class="gba-manual-action-btn" id="btnCloseGbaStarterManual" onclick="closeGbaStarterManualModal()">✕ 閉じる</button>
+          <button type="button" class="gba-manual-action-btn btn-print" id="btnPrintOrMailGbaManual" onclick="printGbaStarterManual()">印刷・PDF保存</button>
+          <button type="button" class="gba-manual-action-btn" id="btnCloseGbaStarterManual" onclick="closeGbaStarterManualModal()">閉じる</button>
         </div>
       </div>
 
       <!-- In-App WebView Safe Email Delivery Strip ("このマニュアルをメールで受け取る（無料倶楽部登録）") -->
       <div id="gbaManualWebViewMailBox" style="padding:14px 18px; background:linear-gradient(135deg, #ecfdf5 0%, #eff6ff 100%); border-bottom:2px solid #059669;">
         <div id="gbaManualWebViewNotice" style="display:none; font-size:0.9rem; font-weight:900; color:#065f46; margin-bottom:6px;">
-          📱 アプリ内ブラウザ（Instagram・Facebook・LINE等）では印刷機能が制限されるため、全章をこのまま画面でお読みいただくか、下記よりメールで保存版をお受け取りいただけます。
+           アプリ内ブラウザ（Instagram・Facebook・LINE等）では印刷機能が制限されるため、全章をこのまま画面でお読みいただくか、下記よりメールで保存版をお受け取りいただけます。
         </div>
         <div style="font-size:1rem; font-weight:900; color:#0b1f3a; margin-bottom:8px;">
-          📩 このマニュアルをメールで受け取る（無料倶楽部登録）
+           このマニュアルをメールで受け取る（無料倶楽部登録）
         </div>
         <form id="gbaManualEmailDeliveryForm" onsubmit="return window.submitGbaManualEmailDelivery(event);" style="display:flex; flex-wrap:wrap; gap:8px;">
           <label for="gbaManualDeliveryEmail" style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0);">メールアドレス</label>
           <input type="email" id="gbaManualDeliveryEmail" required autocomplete="email" placeholder="メールアドレスを入力（例: taro@example.jp）" style="flex:1 1 230px; min-height:48px; padding:8px 13px; border-radius:10px; border:2px solid #64748b; background:#ffffff; color:#0f172a; font-size:0.98rem; font-weight:700;">
-          <button type="submit" id="btnSubmitGbaManualMail" style="min-height:48px; padding:8px 18px; border-radius:10px; border:none; background:#059669; color:#ffffff; font-size:0.95rem; font-weight:900; cursor:pointer;">📩 このマニュアルをメールで受け取る（無料倶楽部登録） →</button>
+          <button type="submit" id="btnSubmitGbaManualMail" style="min-height:48px; padding:8px 18px; border-radius:10px; border:none; background:#059669; color:#ffffff; font-size:0.95rem; font-weight:900; cursor:pointer;">このマニュアルをメールで受け取る（無料倶楽部登録） →</button>
         </form>
         <div id="gbaManualDeliveryStatus" role="status" aria-live="polite" style="display:none; margin-top:8px; padding:9px 12px; border-radius:8px; background:#d1fae5; color:#065f46; font-size:0.94rem; font-weight:800;"></div>
       </div>
@@ -780,7 +780,7 @@ def build_starter_manual_modal_html() -> str:
           </p>
           <div class="gba-manual-broker-grid">
             <div class="gba-manual-broker-card">
-              <strong class="broker-name">📱 楽天証券（スマホアプリ「iSPEED」・Web）の操作手順</strong>
+              <strong class="broker-name">楽天証券（スマホアプリ「iSPEED」・Web）の操作手順</strong>
               <ol>
                 <li>銘柄名を検索し、右上の<strong>「注文」→「現物買い」</strong>をタップします。</li>
                 <li>口座区分で対象銘柄に応じた区分（<strong>「NISA成長投資枠」</strong>または<strong>「特定口座」</strong>）を選びます。</li>
@@ -788,7 +788,7 @@ def build_starter_manual_modal_html() -> str:
               </ol>
             </div>
             <div class="gba-manual-broker-card">
-              <strong class="broker-name">📱 SBI証券（「SBI証券 株」／「米国株」アプリ）の操作手順</strong>
+              <strong class="broker-name">SBI証券（「SBI証券 株」／「米国株」アプリ）の操作手順</strong>
               <ol>
                 <li>銘柄画面から<strong>「取引」→「現物買」</strong>をタップします。</li>
                 <li>預り区分で<strong>「NISA預り（成長）」</strong>または<strong>「特定預り」</strong>にチェックを入れます。</li>
@@ -797,7 +797,7 @@ def build_starter_manual_modal_html() -> str:
             </div>
           </div>
           <div class="gba-manual-tip-callout">
-            ✅ <strong>安心のポイント：</strong>指値まで価格が下がらなければ約定せず現金がそのまま残るため、意図しない高値購入を防げます。
+             <strong>安心のポイント：</strong>指値まで価格が下がらなければ約定せず現金がそのまま残るため、意図しない高値購入を防げます。
           </div>
         </article>
 
@@ -808,41 +808,41 @@ def build_starter_manual_modal_html() -> str:
           </p>
           <div class="gba-manual-broker-grid">
             <div class="gba-manual-broker-card">
-              <strong class="broker-name">🌱 新NISA口座（非課税 0%）で保有できる適格コア資産</strong>
+              <strong class="broker-name">新NISA口座（非課税 0%）で保有できる適格コア資産</strong>
               <ol>
-                <li><strong>1489（日経高配当株50 ETF）：</strong> 1・4・7・10月決算の国内高配当50社分散。</li>
-                <li><strong>VYM・HDV（米国高配当株ETF）：</strong> 3・6・9・12月分配の米国優良増配株分散（1489と時間差組み合わせ）。</li>
-                <li><strong>オルカン・S&amp;P500投信：</strong> つみたて投資枠・成長投資枠双方で長期インフレ対策に対応。</li>
+                <li><strong>1489（日経高配当株50 ETF）：</strong>1・4・7・10月決算の国内高配当50社分散。</li>
+                <li><strong>VYM・HDV（米国高配当株ETF）：</strong>3・6・9・12月分配の米国優良増配株分散（1489と時間差組み合わせ）。</li>
+                <li><strong>オルカン・S&amp;P500投信：</strong>つみたて投資枠・成長投資枠双方で長期インフレ対策に対応。</li>
               </ol>
             </div>
             <div class="gba-manual-broker-card">
-              <strong class="broker-name">🏦 特定口座（源泉徴収あり 20.315%）で区分管理する資産</strong>
+              <strong class="broker-name">特定口座（源泉徴収あり 20.315%）で区分管理する資産</strong>
               <ol>
-                <li><strong>SGOV（米国短期国債ETF）・JEPI（米国カバードコール毎月分配ETF）：</strong> 毎月分配型のため金融庁規定により新NISA対象外です。必ず<strong>特定口座</strong>で管理します。</li>
-                <li><strong>損益通算の活用：</strong> 特定口座内の配当と譲渡損益は自動計算・損益通算されます。</li>
+                <li><strong>SGOV（米国短期国債ETF）・JEPI（米国カバードコール毎月分配ETF）：</strong>毎月分配型のため金融庁規定により新NISA対象外です。必ず<strong>特定口座</strong>で管理します。</li>
+                <li><strong>損益通算の活用：</strong>特定口座内の配当と譲渡損益は自動計算・損益通算されます。</li>
               </ol>
             </div>
           </div>
           <div class="gba-manual-tip-callout">
-            ✅ <strong>安心のポイント：</strong>四半期配当の新NISA適格ETF（1・4・7・10月＋3・6・9・12月）と個人向け国債（半年利払い）・特定口座の毎月分配資産を組み合わせることで、金融庁ルールに100%準拠しながら年間を通じた穏やかなキャッシュフローを設計できます。
+             <strong>安心のポイント：</strong>四半期配当の新NISA適格ETF（1・4・7・10月＋3・6・9・12月）と個人向け国債（半年利払い）・特定口座の毎月分配資産を組み合わせることで、金融庁ルールに100%準拠しながら年間を通じた穏やかなキャッシュフローを設計できます。
           </div>
         </article>
 
         <article class="gba-manual-chapter-box" id="gbaManualChap3">
           <h3>第3章 — 守りの財布を整える「個人向け国債（変動10年）・楽天マネーブリッジ・SBIハイブリッド預金」の活用法</h3>
           <p>
-            相場変動が大きい<strong>🔴 現金・国債防衛モード</strong>の時期は、無理に株式比率を増やす必要はありません。生活費2〜3年分の安全クッションを国債や証券連携預金に置いておくことで、株価下落時にも慌てず配当と年金をゆったり受け取ることができます。
+            相場変動が大きい<strong>現金・国債防衛モード</strong>の時期は、無理に株式比率を増やす必要はありません。生活費2〜3年分の安全クッションを国債や証券連携預金に置いておくことで、株価下落時にも慌てず配当と年金をゆったり受け取ることができます。
           </p>
           <div class="gba-manual-broker-grid">
             <div class="gba-manual-broker-card">
-              <strong class="broker-name">🏦 楽天証券：「マネーブリッジ」＆個人向け国債</strong>
+              <strong class="broker-name">楽天証券：「マネーブリッジ」＆個人向け国債</strong>
               <ol>
                 <li>楽天証券と楽天銀行を連携する<strong>「マネーブリッジ（無料）」</strong>を設定し、普通預金優遇金利と預金保険で待機資金を保護します。</li>
                 <li>生活防衛資金の一部を<strong>「個人向け国債（変動10年）」</strong>に配分すると、半年ごとに適用利率が見直され元本割れなく保有できます。</li>
               </ol>
             </div>
             <div class="gba-manual-broker-card">
-              <strong class="broker-name">🏦 SBI証券：「SBIハイブリッド預金」＆外貨建MMF</strong>
+              <strong class="broker-name">SBI証券：「SBIハイブリッド預金」＆外貨建MMF</strong>
               <ol>
                 <li>住信SBIネット銀行と連携し<strong>「SBIハイブリッド預金」</strong>を有効にすると、待機円資金に毎月利子がつきながら買付余力へ自動反映されます。</li>
                 <li>米ドル待機資金は特定口座の「外貨建MMF」や「SGOV（特定口座）」で区分管理できます。</li>
@@ -852,18 +852,18 @@ def build_starter_manual_modal_html() -> str:
         </article>
 
         <div class="gba-manual-modal-funnel">
-          <h4>🌅 基本設定を確認したら、毎朝8時の「3色バランス指標ブリーフ」をご活用ください</h4>
+          <h4>基本設定を確認したら、毎朝8時の「3色バランス指標ブリーフ」をご活用ください</h4>
           <p>
             当サイトの数学的シミュレーターと毎朝の公開市場データ要約を活用し、ご自身のペースで年2〜4回の穏やかな資産配分点検にお役立てください。
           </p>
           <div class="gba-manual-cta-row" style="margin-bottom:10px;">
             <button type="button" class="gba-manual-open-btn" onclick="jumpFromManualToJpMail()">
-              📧 無料倶楽部に登録して毎朝8時の「3色バランス指標」を受け取る
+               無料倶楽部に登録して毎朝8時の「3色バランス指標」を受け取る
             </button>
           </div>
           <div class="gba-manual-funnel-links">
-            <a href="{POLAR_MONTHLY_CTA_HREF}" data-gba-paid-plan="monthly" data-polar-slot="monthly_29_jp" class="gba-manual-pro-link polar-checkout-button">⚡ {PRICE_LABEL_MONTHLY_JP}</a>
-            <a href="{POLAR_ANNUAL_CTA_HREF}" data-gba-paid-plan="annual" data-polar-slot="annual_199_jp" class="gba-manual-vip-link polar-checkout-button">👑 {PRICE_LABEL_ANNUAL_JP}</a>
+            <a href="{POLAR_MONTHLY_CTA_HREF}" data-gba-paid-plan="monthly" data-polar-slot="monthly_29_jp" class="gba-manual-pro-link polar-checkout-button">{PRICE_LABEL_MONTHLY_JP}</a>
+            <a href="{POLAR_ANNUAL_CTA_HREF}" data-gba-paid-plan="annual" data-polar-slot="annual_199_jp" class="gba-manual-vip-link polar-checkout-button">{PRICE_LABEL_ANNUAL_JP}</a>
           </div>
         </div>
       </div>
@@ -889,7 +889,7 @@ def build_starter_manual_modal_html() -> str:
           var notice = document.getElementById('gbaManualWebViewNotice');
           var pBtn = document.getElementById('btnPrintOrMailGbaManual');
           if (notice) notice.style.display = 'block';
-          if (pBtn) pBtn.innerText = '📩 このマニュアルをメールで受け取る';
+          if (pBtn) pBtn.innerText = ' このマニュアルをメールで受け取る';
         }}
         try {{
           var saved = localStorage.getItem('gb_free_member_email') || localStorage.getItem('gba_jp_free_email') || '';
@@ -961,7 +961,7 @@ def build_starter_manual_modal_html() -> str:
         }}
         if (st) {{
           st.style.display = 'block';
-          st.innerHTML = '✅ <strong>ご登録ありがとうございます！</strong> 保存版マニュアルと毎朝8時の「新NISA 3色バランス指標ブリーフ」を <strong>' + email.replace(/[<>&"]/g, '') + '</strong> 宛にお届けいたします。';
+          st.innerHTML = ' <strong>ご登録ありがとうございます！</strong>保存版マニュアルと毎朝8時の「新NISA 3色バランス指標ブリーフ」を <strong>' + email.replace(/[<>&"]/g, '') + '</strong>宛にお届けいたします。';
         }}
         return false;
       }};
@@ -970,10 +970,10 @@ def build_starter_manual_modal_html() -> str:
         if (typeof window.isGbaInAppWebView === 'function' && window.isGbaInAppWebView()) {{
           var pBtn = document.getElementById('btnPrintOrMailGbaManual');
           var notice = document.getElementById('gbaManualWebViewNotice');
-          if (pBtn) pBtn.innerText = '📩 このマニュアルをメールで受け取る';
+          if (pBtn) pBtn.innerText = ' このマニュアルをメールで受け取る';
           if (notice) notice.style.display = 'block';
           document.querySelectorAll('.gba-manual-sub-badge').forEach(function(b) {{
-            b.innerText = '📩 メール保存・画面閲覧対応 ／ 楽天証券・SBI証券 対応';
+            b.innerText = ' メール保存・画面閲覧対応 ／ 楽天証券・SBI証券 対応';
           }});
         }}
       }});
@@ -981,7 +981,7 @@ def build_starter_manual_modal_html() -> str:
   </script>"""
 
 
-def build_legal_footer_html() -> str:
+def build_legal_footer_html() ->str:
     """Returns prominent Polar.sh MoR & FIEA compliant footer legal bar linking both /jp/*.html and root /*.html legal pages."""
     return f"""
   <footer class="gba-fixed-legal-footer" style="margin-top:32px; padding:24px 16px 36px; border-top:2px solid #cbd5e1; background:rgba(15,23,42,0.03); font-size:0.9rem; line-height:1.72; color:var(--text-muted, #334155);">
@@ -995,7 +995,7 @@ def build_legal_footer_html() -> str:
         <span aria-hidden="true">·</span>
         <a href="/jp/contact.html" style="color:var(--accent-blue, #1d4ed8); text-decoration:underline;">特定商取引法に基づく表記</a>
         <span aria-hidden="true">·</span>
-        <a href="https://www.youtube.com/@GetBreakAI" target="_blank" rel="noopener" style="color:var(--accent-blue, #1d4ed8); text-decoration:underline;">📺 公式YouTube (@GetBreakAI)</a>
+        <a href="https://www.youtube.com/@GetBreakAI" target="_blank" rel="noopener" style="color:var(--accent-blue, #1d4ed8); text-decoration:underline;">公式YouTube (@GetBreakAI)</a>
         <span aria-hidden="true">·</span>
         <span>カスタマーサポート: <a href="mailto:beable9489@gmail.com" style="color:var(--accent-blue, #1d4ed8); font-weight:900; text-decoration:underline;">beable9489@gmail.com</a></span>
         <span aria-hidden="true">·</span>
@@ -1003,10 +1003,10 @@ def build_legal_footer_html() -> str:
       </div>
       <div style="text-align:center; font-size:0.82rem; color:var(--text-sub, #475569); margin-bottom:10px;">
         英語版・共通法務リンク:
-        <a href="/terms.html" style="color:inherit; text-decoration:underline;">Terms (/terms.html)</a> ·
-        <a href="/privacy.html" style="color:inherit; text-decoration:underline;">Privacy (/privacy.html)</a> ·
-        <a href="/refund.html" style="color:inherit; text-decoration:underline;">14-Day Refund (/refund.html)</a> ·
-        <a href="/contact.html" style="color:inherit; text-decoration:underline;">Commercial Disclosure (/contact.html)</a> ·
+        <a href="/terms.html" style="color:inherit; text-decoration:underline;">Terms (/terms.html)</a>·
+        <a href="/privacy.html" style="color:inherit; text-decoration:underline;">Privacy (/privacy.html)</a>·
+        <a href="/refund.html" style="color:inherit; text-decoration:underline;">14-Day Refund (/refund.html)</a>·
+        <a href="/contact.html" style="color:inherit; text-decoration:underline;">Commercial Disclosure (/contact.html)</a>·
         <span>Sponsorship &amp; Media Partnership: <a href="mailto:beable9489@gmail.com" style="color:inherit; text-decoration:underline;">beable9489@gmail.com</a></span>
       </div>
       <div style="max-width:920px; margin:0 auto; padding:12px 15px; border-radius:10px; background:var(--bg-card, #ffffff); border:1px solid var(--border-col, #cbd5e1); font-size:0.84rem; color:var(--text-sub, #475569);">
@@ -1019,7 +1019,7 @@ def build_legal_footer_html() -> str:
   </footer>"""
 
 
-def _render_legal_doc(slug: str, title_jp: str, badge_text: str, body_html: str, is_jp_dir: bool) -> str:
+def _render_legal_doc(slug: str, title_jp: str, badge_text: str, body_html: str, is_jp_dir: bool) ->str:
     canonical = f"https://getbreakai.com/jp/{slug}" if is_jp_dir else f"https://getbreakai.com/{slug}"
     home_href = "/jp/"
     head_scripts = build_payment_and_kpi_head_html()
@@ -1119,7 +1119,7 @@ def _render_legal_doc(slug: str, title_jp: str, badge_text: str, body_html: str,
 <body>
   <header>
     <div class="header-inner">
-      <a href="{home_href}" class="brand">⚡ GetBreakAI ゆとり老後＆新NISA設計ナビ</a>
+      <a href="{home_href}" class="brand">GetBreakAI ゆとり老後＆新NISA設計ナビ</a>
       <a href="{home_href}" class="back-link">← 新NISA老後設計ナビへ戻る</a>
     </div>
   </header>
@@ -1139,7 +1139,7 @@ def _render_legal_doc(slug: str, title_jp: str, badge_text: str, body_html: str,
 """
 
 
-def build_all_legal_pages(root_dir: str, jp_dir: str) -> None:
+def build_all_legal_pages(root_dir: str, jp_dir: str) ->None:
     """Generates and synchronizes terms.html, privacy.html, refund.html, and contact.html in both root and /jp/."""
     os.makedirs(jp_dir, exist_ok=True)
 
@@ -1166,7 +1166,7 @@ def build_all_legal_pages(root_dir: str, jp_dir: str) -> None:
       </p>
       <h2>English Summary — Self-Directed Educational Calculator Software Terms</h2>
       <p>
-        <strong>GetBreakAI</strong> is a self-directed public market data visualization and mathematical dividend/asset-allocation calculator software operated by <strong>Yoonju Lee · KIDS-FIT Global Studio</strong>, with global checkout, tax compliance, and invoicing handled by <strong>{MOR_LABEL_EN_JP}</strong>. GetBreakAI is NOT an investment advisor, broker-dealer, or financial instruments business operator under Japan&apos;s Financial Instruments and Exchange Act or U.S. law. Support: <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a>.
+        <strong>GetBreakAI</strong>is a self-directed public market data visualization and mathematical dividend/asset-allocation calculator software operated by <strong>Yoonju Lee · KIDS-FIT Global Studio</strong>, with global checkout, tax compliance, and invoicing handled by <strong>{MOR_LABEL_EN_JP}</strong>. GetBreakAI is NOT an investment advisor, broker-dealer, or financial instruments business operator under Japan&apos;s Financial Instruments and Exchange Act or U.S. law. Support: <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a>.
       </p>"""
 
     privacy_body = f"""      <p>
@@ -1174,39 +1174,39 @@ def build_all_legal_pages(root_dir: str, jp_dir: str) -> None:
       </p>
       <h2>1. 取得する情報と決済セキュリティ</h2>
       <ul>
-        <li><strong>クレジットカード・決済情報：</strong> 決済処理はすべて PCI-DSS Level 1 準拠の公式決済代行基盤 <strong>{MOR_LABEL_EN_JP}</strong>（Stripe決済インフラ提携）により暗号化処理され、当サイトのサーバーがカード番号を保持・閲覧することは一切ありません。</li>
-        <li><strong>メール倶楽部・先行案内登録情報：</strong> ご登録いただいたメールアドレスおよび任意のニックネームは、毎朝の公開市場ブリーフィング配信・先行割引クーポンのご案内・カスタマーサポートの目的でのみ利用し、メール下部の解除リンクからいつでも1クリックで配信停止できます。</li>
-        <li><strong>ブラウザ内計算データ（localStorage）：</strong> 老後キャッシュフローシミュレーターの試算条件や文字サイズ・テーマ設定はお使いのブラウザ内にのみ保存され、第三者へ販売・提供されることはありません。</li>
+        <li><strong>クレジットカード・決済情報：</strong>決済処理はすべて PCI-DSS Level 1 準拠の公式決済代行基盤 <strong>{MOR_LABEL_EN_JP}</strong>（Stripe決済インフラ提携）により暗号化処理され、当サイトのサーバーがカード番号を保持・閲覧することは一切ありません。</li>
+        <li><strong>メール倶楽部・先行案内登録情報：</strong>ご登録いただいたメールアドレスおよび任意のニックネームは、毎朝の公開市場ブリーフィング配信・先行割引クーポンのご案内・カスタマーサポートの目的でのみ利用し、メール下部の解除リンクからいつでも1クリックで配信停止できます。</li>
+        <li><strong>ブラウザ内計算データ（localStorage）：</strong>老後キャッシュフローシミュレーターの試算条件や文字サイズ・テーマ設定はお使いのブラウザ内にのみ保存され、第三者へ販売・提供されることはありません。</li>
       </ul>
       <h2>2. 第三者提供の禁止および開示・削除請求</h2>
       <p>
-        法令に基づく場合または公式決済代行事業者（{MOR_LABEL_EN_JP}）の決済・領収書発行処理に必要な範囲を除き、個人情報を第三者へ提供することはありません。登録情報の照会・訂正・削除のご請求は <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a> までご連絡ください。原則1営業日（24時間）以内に対応いたします。
+        法令に基づく場合または公式決済代行事業者（{MOR_LABEL_EN_JP}）の決済・領収書発行処理に必要な範囲を除き、個人情報を第三者へ提供することはありません。登録情報の照会・訂正・削除のご請求は <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a>までご連絡ください。原則1営業日（24時間）以内に対応いたします。
       </p>
       <h2>English Summary — Privacy Policy (APPI &amp; GDPR Compliant)</h2>
       <p>
-        Payment credentials are processed exclusively by <strong>{MOR_LABEL_EN_JP}</strong> and are never stored on GetBreakAI servers. Email addresses submitted for morning market summaries or VIP waitlist coupons include 1-click unsubscribe links and are never sold or rented. Contact <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a> for data deletion requests.
+        Payment credentials are processed exclusively by <strong>{MOR_LABEL_EN_JP}</strong>and are never stored on GetBreakAI servers. Email addresses submitted for morning market summaries or VIP waitlist coupons include 1-click unsubscribe links and are never sold or rented. Contact <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a>for data deletion requests.
       </p>"""
 
     refund_body = f"""      <p>
         <strong>GetBreakAI</strong>（公式決済基盤：<strong>{MOR_LABEL_EN_JP}</strong>）では、シニア・個人投資家の皆さまに安心してご利用いただけるよう、<strong>いつでも可能な1クリック解約</strong>と<strong>初回ご購入後14日間の全額返金保証（14日間返金保証）</strong>を設けています。
       </p>
       <div class="disclaimer-box">
-        ✅ <strong>14日間返金ポリシー（初回14日間返金保証）＆ いつでも1クリック自動更新停止（違約金0円）</strong><br>
-        ご購入から14日以内に <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a> までご連絡いただければ、理由を問わず迅速に100%全額返金いたします。
+         <strong>14日間返金ポリシー（初回14日間返金保証）＆ いつでも1クリック自動更新停止（違約金0円）</strong><br>
+        ご購入から14日以内に <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a>までご連絡いただければ、理由を問わず迅速に100%全額返金いたします。
       </div>
       <h2>1. サブスクリプションの1クリック解約手順</h2>
       <p>
-        月額プラン（{PRICE_LABEL_MONTHLY_JP}）および年間プラン（{PRICE_LABEL_ANNUAL_JP}）は、ご購入時の領収書メール内の「Manage Subscription / Customer Portal」リンク、または <a href="https://polar.sh" target="_blank" rel="noopener noreferrer">Polar.sh Customer Portal</a>、もしくは <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a> へのメール連絡により24時間いつでも解約できます。
+        月額プラン（{PRICE_LABEL_MONTHLY_JP}）および年間プラン（{PRICE_LABEL_ANNUAL_JP}）は、ご購入時の領収書メール内の「Manage Subscription / Customer Portal」リンク、または <a href="https://polar.sh" target="_blank" rel="noopener noreferrer">Polar.sh Customer Portal</a>、もしくは <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a>へのメール連絡により24時間いつでも解約できます。
       </p>
       <h2>2. 14日間返金保証の申請方法と返金時期</h2>
       <ul>
-        <li><strong>初回14日間返金保証：</strong> ご購入後14日以内に決済時のメールアドレスまたは注文番号（Order ID）を添えて <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a> 宛にご連絡ください。</li>
-        <li><strong>重複課金・技術的不具合：</strong> 万が一の重複決済やライセンス未着時は即時100%返金または再発行いたします。</li>
-        <li><strong>処理日数：</strong> ご連絡から原則1営業日（24時間）以内に <strong>{MOR_LABEL_EN_JP}</strong> 経由でお支払い元のカード・Apple Pay・Google Pay等へ返金手続きを実行いたします（明細反映はカード会社により通常3〜5営業日）。</li>
+        <li><strong>初回14日間返金保証：</strong>ご購入後14日以内に決済時のメールアドレスまたは注文番号（Order ID）を添えて <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a>宛にご連絡ください。</li>
+        <li><strong>重複課金・技術的不具合：</strong>万が一の重複決済やライセンス未着時は即時100%返金または再発行いたします。</li>
+        <li><strong>処理日数：</strong>ご連絡から原則1営業日（24時間）以内に <strong>{MOR_LABEL_EN_JP}</strong>経由でお支払い元のカード・Apple Pay・Google Pay等へ返金手続きを実行いたします（明細反映はカード会社により通常3〜5営業日）。</li>
       </ul>
       <h2>English Summary — 14-Day Money-Back Guarantee &amp; 1-Click Cancellation</h2>
       <p>
-        All billing and refunds are processed via <strong>{MOR_LABEL_EN_JP}</strong>. Cancel anytime in 1 click via the Polar.sh Customer Portal or receipt email with zero penalties. If you are not satisfied within 14 calendar days of your initial purchase, email <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a> with your checkout email or Order ID for a 100% full refund processed within 1 business day.
+        All billing and refunds are processed via <strong>{MOR_LABEL_EN_JP}</strong>. Cancel anytime in 1 click via the Polar.sh Customer Portal or receipt email with zero penalties. If you are not satisfied within 14 calendar days of your initial purchase, email <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a>with your checkout email or Order ID for a 100% full refund processed within 1 business day.
       </p>"""
 
     contact_body = f"""      <p>
@@ -1220,7 +1220,7 @@ def build_all_legal_pages(root_dir: str, jp_dir: str) -> None:
           </tr>
           <tr>
             <th>公式決済代行 (MoR)</th>
-            <td><strong>{MOR_LABEL_EN_JP}</strong> — Stripe提携・PCI-DSS Level 1準拠グローバル決済・税務管理基盤（JCB・Visa・Mastercard・Apple Pay・Google Pay対応）</td>
+            <td><strong>{MOR_LABEL_EN_JP}</strong>— Stripe提携・PCI-DSS Level 1準拠グローバル決済・税務管理基盤（JCB・Visa・Mastercard・Apple Pay・Google Pay対応）</td>
           </tr>
           <tr>
             <th>カスタマーサポート窓口</th>
@@ -1244,7 +1244,7 @@ def build_all_legal_pages(root_dir: str, jp_dir: str) -> None:
           </tr>
           <tr>
             <th>解約・14日間返金ポリシー</th>
-            <td>いつでも1クリックで次回更新停止可能。初回購入後14日間返金保証あり（詳細は <a href="/jp/refund.html">14日間返金ポリシー</a> をご参照ください）。</td>
+            <td>いつでも1クリックで次回更新停止可能。初回購入後14日間返金保証あり（詳細は <a href="/jp/refund.html">14日間返金ポリシー</a>をご参照ください）。</td>
           </tr>
         </tbody>
       </table>"""

@@ -257,11 +257,10 @@ test('Tier 1.2: Dual-Market Quant Coverage (TSE Prime vs US Tech Equities)', () 
     assert.ok(item.target_25r > item.entry);
   }
 
-  // Verify index.html contains unified 50-70s Shin-NISA & TSE/US stock presets
+  // Verify index.html features Single-Breath SMH × XLV Private-Wealth simulation & Shin-NISA compliance
   const indexHtml = fs.readFileSync(INDEX_HTML_PATH, 'utf8');
-  assert.ok(indexHtml.includes("setQuickStock('1489'"), 'Hub must have 1489 preset');
-  assert.ok(indexHtml.includes("setQuickStock('VYM'"), 'Hub must have VYM preset');
-  assert.ok(indexHtml.includes("setQuickStock('HDV'"), 'Hub must have HDV preset');
+  assert.ok(indexHtml.includes('SMH &times; XLV バランス設計'), 'Hub must feature SMH × XLV balance row');
+  assert.ok(indexHtml.includes('新NISA 成長投資枠'), 'Hub must note Shin-NISA Growth Quota eligibility');
 });
 
 test('Tier 1.3: Donchian & ATR Calculator Engine in JPY and USD', () => {
@@ -315,8 +314,7 @@ test('Tier 1.4: Dual-Theme Engine (Light Navy vs Dark Terminal)', () => {
   assert.ok(confirmHtml.includes('html[data-jp-theme="light"]'));
   assert.ok(confirmHtml.includes('html[data-jp-theme="dark"]'));
 
-  // Theme switch button and persistence
-  assert.ok(indexHtml.includes('id="btnToggleJpTheme"'));
+  // Theme switch helper and persistence
   assert.ok(indexHtml.includes('function toggleJpTheme()'));
   assert.ok(confirmHtml.includes("localStorage.setItem('gb_jp_theme'"));
 });
@@ -411,32 +409,29 @@ test('Tier 3.1: Theme Toggle & Responsive Navigation Component States', () => {
 
   // 1. Theme toggle function defined and operational
   assert.ok(indexHtml.includes('function toggleJpTheme()'));
-  assert.ok(indexHtml.includes('btnToggleJpTheme'));
   assert.ok(confirmHtml.includes('function updateThemeToggleUI(theme)'));
   assert.ok(confirmHtml.includes('function toggleJpTheme()'));
 
-  // 2. Responsive mobile bottom navigation bar exists with valid anchors
-  assert.ok(indexHtml.includes('.jp-mobile-bottom-nav'));
-  assert.ok(indexHtml.includes('href="#gba-retirement-architect-jp"'));
-  assert.ok(indexHtml.includes('href="#gba-jp-passwordless-signup"'));
-  assert.ok(indexHtml.includes('href="#gbaFreeStarterManualJp"'));
-  assert.ok(indexHtml.includes('href="#pricing"'));
+  // 2. Single-breath step-up landmarks present without clutter bars
+  assert.ok(indexHtml.includes('id="gba-retirement-architect-jp"'));
+  assert.ok(indexHtml.includes('id="gba-jp-passwordless-signup"'));
+  assert.ok(indexHtml.includes('id="gbaFreeStarterManualJp"'));
+  assert.ok(indexHtml.includes('id="pricing"'));
+  assert.ok(!indexHtml.includes('.jp-mobile-bottom-nav'));
 
   // 3. Responsive media queries configured
   assert.ok(indexHtml.includes('(max-width: 768px)'));
-  assert.ok(indexHtml.includes('(max-width: 920px)'));
 });
 
-test('Tier 3.2: Retirement Cashflow Simulator + Preset Sync + Hybrid Tax Toggle', () => {
+test('Tier 3.2: Single-Breath 4-Screen Step-Up Simulator + Partial Baseline Gate', () => {
   const indexHtml = fs.readFileSync(INDEX_HTML_PATH, 'utf8');
 
-  assert.ok(indexHtml.includes('setGbaRetirePreset('));
-  assert.ok(indexHtml.includes('recalcGbaRetireJp()'));
-  assert.ok(indexHtml.includes('setJpHubTaxMode('));
-  assert.ok(indexHtml.includes('setQuickCapital('));
+  assert.ok(indexHtml.includes('function startPwStepUpJp()'));
+  assert.ok(indexHtml.includes('function selectPwOptionJp('));
+  assert.ok(indexHtml.includes('function computePwBaselineJp()'));
+  assert.ok(indexHtml.includes('function submitPwFreeGateJp('));
   assert.ok(indexHtml.includes('id="gba-retirement-architect-jp"'));
-  assert.ok(indexHtml.includes('id="gbaSeniorCoreStripJp"'));
-  assert.ok(indexHtml.includes('id="jpQuickCalcSection"'));
+  assert.ok(indexHtml.includes('id="gbaMorningClubJp"'));
 });
 
 test('Tier 3.3: VIP Vault Paywall Gate, Waitlist Modal & Real-Time Unlock State Flow', () => {

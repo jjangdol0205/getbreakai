@@ -1398,11 +1398,42 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
     .pw-serif-h1 {{
       font-family: 'Shippori Mincho', 'Noto Serif JP', 'Yu Mincho', Georgia, serif;
       font-weight: 600;
-      font-size: clamp(1.85rem, 3.8vw, 2.55rem);
-      line-height: 1.34;
+      font-size: clamp(1.7rem, 3.8vw, 2.55rem);
+      line-height: 1.36;
       letter-spacing: -0.01em;
+      word-break: auto-phrase;
       color: var(--pw-ink);
-      margin: 0 0 26px;
+      margin: 0 0 22px;
+    }}
+    .pw-editorial-figure {{
+      margin: 0 0 30px;
+      padding: 0;
+    }}
+    .pw-editorial-plate {{
+      width: 100%;
+      background: #FBFBF9;
+      border-radius: 6px;
+      overflow: hidden;
+    }}
+    html[data-jp-theme="dark"] .pw-editorial-plate {{
+      padding: 6px;
+      border: 1px solid var(--pw-border-strong);
+    }}
+    .pw-editorial-plate img {{
+      display: block;
+      width: 100%;
+      max-height: 390px;
+      height: auto;
+      object-fit: contain;
+      margin: 0 auto;
+    }}
+    .pw-editorial-caption {{
+      margin: 8px 0 0;
+      font-family: 'Shippori Mincho', 'Noto Serif JP', Georgia, serif;
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: var(--pw-muted);
+      text-align: center;
     }}
     .pw-serif-h2 {{
       font-family: 'Shippori Mincho', 'Noto Serif JP', 'Yu Mincho', Georgia, serif;
@@ -1462,26 +1493,26 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
       width: 100%;
       border-collapse: collapse;
       font-variant-numeric: tabular-nums;
-      font-size: 0.92rem;
+      font-size: 0.88rem;
     }}
     .pw-sim-table th {{
       text-align: right;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 600;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.02em;
       color: var(--pw-muted);
-      padding: 10px 12px;
+      padding: 10px 8px;
       border-top: 1px solid var(--pw-border);
       border-bottom: 1px solid var(--pw-border-strong);
       white-space: nowrap;
     }}
     .pw-sim-table th:first-child {{
       text-align: left;
-      padding-left: 10px;
+      padding-left: 8px;
     }}
     .pw-sim-table td {{
       text-align: right;
-      padding: 13px 12px;
+      padding: 12px 8px;
       border-bottom: 1px solid var(--pw-border);
       color: var(--pw-body);
       white-space: nowrap;
@@ -1998,6 +2029,13 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
     <section id="pwScreen0Jp" data-pw-screen="0">
       <div class="pw-kicker">FOUNDING CHARTER &middot; 設立趣意書と資産設計哲学</div>
       <h1 class="pw-serif-h1">騒がしい銘柄探しを手放し、二つの柱で老後資産を守り抜くために。</h1>
+
+      <figure class="pw-editorial-figure">
+        <div class="pw-editorial-plate">
+          <img src="/assets/gba-private-wealth-engawa.jpg" alt="静かな朝の光が差し込む書斎と縁側の水彩画" width="1200" height="675" loading="eager" decoding="async">
+        </div>
+        <figcaption class="pw-editorial-caption">日々の相場ノイズから離れ、穏やかな朝の光とともに大切な老後資産と新NISAを長く守り抜く設計室。</figcaption>
+      </figure>
 
       <div class="pw-manifesto">
         <p>

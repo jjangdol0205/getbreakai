@@ -300,6 +300,21 @@
             if (pEmail && pEmail.indexOf('@') !== -1) {
               localStorage.setItem('gb_vip_customer_email', pEmail);
             }
+            try {
+              var savedAnsJp = JSON.parse(localStorage.getItem('gba_pw_stepup_answers_v1') || '{}') || {};
+              var crmEmail = pEmail || localStorage.getItem('gba_jp_free_email') || '';
+              if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.deliverPaidMagicPack === 'function') {
+                window.DreamCompanyCRM.deliverPaidMagicPack({
+                  div: 'GBA',
+                  email: crmEmail,
+                  plan_tier: retPlan === 'annual' ? '年間リサーチパス（¥29,800/年）' : '月額リサーチパス（¥4,400/月）',
+                  order_ref: pKey,
+                  base_url: 'https://getbreakai.com/jp/',
+                  hash_anchor: 'gbaPaidScreen4VaultJp',
+                  profile_state: savedAnsJp
+                });
+              }
+            } catch (_crmErr) {}
             if (typeof sessionStorage !== 'undefined' && sessionStorage.getItem('gba_whop_paid_hit') !== '1') {
               sessionStorage.setItem('gba_whop_paid_hit', '1');
               fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_success_' + kst, { mode: 'cors', keepalive: true }).catch(function(){});
@@ -1485,6 +1500,48 @@
         提供区分：「教育目的の市場データニュースレター ＋ 2000–2025年 過去統計ワークブック（投資助言・個別推奨は一切行わない独立系リサーチ出版）」
       </p>
     </section>
+
+    <!-- Screen 4: Paid Research Vault JP (円建て SMH x XLV + 個人向け国債/SGOV PDF・-35%ストレステスト・新NISA 1,800万円非課税ロードマップ・楽天/SBI 5分図解・月次あんしん成績表) -->
+    <section id="gbaPaidScreen4VaultJp" class="pw-tiers-section" data-pw-screen="4" style="display:none;margin-top:28px;">
+      <div class="pw-gate-card" style="border:1.5px solid #065F46;background:#FFFFFF;">
+        <div class="pw-kicker" style="color:#065F46;">PAID RESEARCH VAULT &middot; スマホ・PC共通 永久復元エディション</div>
+        <h2 class="pw-serif-h2" id="gbaScreen4HeadlineJp">円建て SMH &times; XLV ＋ 個人向け国債／SGOV 1対1カスタム統計ワークブック</h2>
+        <p style="margin:0 0 16px;color:#475569;font-size:0.95rem;">
+          ご自身の世帯想定規模（万円）を入力すると、円建て金額シミュレーション、-35%暴落耐性ストレステスト、新NISA 1,800万円（成長240万＋つみたて120万）非課税ロードマップ、楽天証券・SBI証券の大きな文字5分注文図解、毎月1日の『月次あんしん成績表』が即座に更新されます。
+        </p>
+
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:14px 16px;background:#F8FAFC;border:1px solid #CBD5E1;border-radius:8px;margin-bottom:18px;">
+          <label for="gbaCustomManYenInput" style="font-weight:700;font-size:0.98rem;color:#0F172A;">世帯想定規模（単位：万円）：</label>
+          <input type="number" id="gbaCustomManYenInput" min="100" max="100000" step="100" value="1800" oninput="onGbaManYenInput()" style="padding:10px 14px;border:1px solid #94A3B8;border-radius:6px;font-size:1.05rem;font-weight:700;width:160px;font-variant-numeric:tabular-nums;">
+          <button type="button" class="pw-btn-primary pw-btn-emerald" id="btnDownloadGbaCustomPdf" onclick="openGbaCustomPdfWindowJp()">
+            1対1カスタム4ページPDFを保存・印刷 &rarr;
+          </button>
+        </div>
+
+        <div id="gbaScreen4YenTable" class="pw-table-card" style="margin-bottom:18px;"></div>
+        <div id="gbaScreen4StressTest" class="pw-table-card" style="margin-bottom:18px;"></div>
+        <div id="gbaScreen4NisaRoadmap" class="pw-table-card" style="margin-bottom:18px;padding:18px;"></div>
+        <div id="gbaScreen4BrokerGuide" class="pw-table-card" style="margin-bottom:18px;padding:18px;"></div>
+        <div id="gbaScreen4MonthlyCard" class="pw-table-card" style="margin-bottom:18px;padding:18px;"></div>
+
+        <div style="padding:16px;background:#ECFDF5;border:1px solid #6EE7B7;border-radius:8px;margin-bottom:14px;">
+          <div class="pw-kicker" style="color:#065F46;margin-bottom:6px;">60秒 永久復元マジックリンク ＆ 14日間返金保証・1クリックお問い合わせ窓口</div>
+          <p style="margin:0 0 10px;font-size:0.92rem;color:#064E3B;">
+            機種変更後や別端末（スマホ・タブレット・PC）からも1クリックで本画面とPDFを復元できる専用リンクをメール宛にお送りします：
+          </p>
+          <form onsubmit="return submitGbaPaidMagicEmailJp(event)" class="pw-email-form" novalidate>
+            <input type="email" id="gbaPaidMagicEmailInput" class="pw-email-input" placeholder="ご登録メールアドレスを入力" autocomplete="email">
+            <button type="submit" class="pw-btn-primary pw-btn-emerald">永久復元リンクをメール送信 &rarr;</button>
+          </form>
+          <div id="gbaPaidMagicStatus" role="status" aria-live="polite" style="display:none;margin-top:8px;font-size:0.88rem;font-weight:600;color:#065F46;"></div>
+          <div style="margin-top:10px;font-size:0.86rem;color:#334155;">
+            14日間全額返金保証・1クリックサポート：<a id="gbaOneClickRefundLink" href="mailto:beable9489@gmail.com?subject=GetBreakAI%2014-Day%20Refund%20or%20Support" style="color:#065F46;font-weight:700;text-decoration:underline;">1クリック返金・お問い合わせ申請（beable9489@gmail.com）</a>
+          </div>
+        </div>
+
+        <div id="gbaSatisfactionMount"></div>
+      </div>
+    </section>
   </main>
 
   <footer class="pw-legal-footer">
@@ -2075,6 +2132,9 @@
       try { localStorage.setItem('gb_jp_theme', next); } catch (_) {}
     }
 
+    let gbaLiveTempScoreJp = 11;
+    let gbaLiveTempDateJp = '2026-11-18';
+
     function hydrateGbaLiveTempBadgeJp() {
       const txtEl = document.getElementById('gbaLiveTempTextJp');
       if (!txtEl || typeof fetch !== 'function') return;
@@ -2085,6 +2145,8 @@
         const numSc = Number(rawSc);
         if (!dt || isNaN(numSc)) return;
         const sc = Math.round(numSc);
+        gbaLiveTempScoreJp = sc;
+        gbaLiveTempDateJp = dt;
         let reg = '中立圏';
         if (sc <= 25) reg = '極度の恐怖圏';
         else if (sc <= 44) reg = '慎重・警戒圏';
@@ -2092,6 +2154,7 @@
         else if (sc <= 75) reg = '強気圏';
         else reg = '過熱注意圏';
         txtEl.textContent = '最新データ基準日：' + dt + ' ・ 市場温度指数：' + sc + ' / 100（' + reg + '）';
+        renderGbaScreen4VaultJp();
       };
       fetch('/data/semi_overview.json', { cache: 'no-cache' })
         .then(function(r) { return r.ok ? r.json() : Promise.reject(); })
@@ -2212,17 +2275,178 @@
       if (inp && em && !inp.value) inp.value = em;
     }
 
+    function fmtManYenJp(n) {
+      return Math.round(Number(n) || 0).toLocaleString('ja-JP') + '万円';
+    }
+
+    function renderGbaScreen4VaultJp() {
+      const b = computePwBaselineJp();
+      const inp = document.getElementById('gbaCustomManYenInput');
+      const totalMan = Math.max(100, Number(inp && inp.value ? inp.value : pwAnswersJp.scale) || 1800);
+      if (inp && Number(inp.value) !== totalMan) inp.value = String(totalMan);
+
+      const smhMan = Math.round(totalMan * b.smh / 100);
+      const xlvMan = Math.round(totalMan * b.xlv / 100);
+      const cushMan = Math.max(0, totalMan - smhMan - xlvMan);
+
+      const yenTbl = document.getElementById('gbaScreen4YenTable');
+      if (yenTbl) {
+        yenTbl.innerHTML =
+          '<div class="pw-table-header"><span class="pw-table-title">第1章 — 円建て世帯規模ワークシート（想定総額：' + fmtManYenJp(totalMan) + '）</span><span class="pw-table-meta">現物1倍ETF・国債過去統計</span></div>' +
+          '<div class="pw-table-scroll"><table class="pw-sim-table"><thead><tr><th>構成区分</th><th>過去統計比率</th><th>円建て目安金額</th><th>2000〜2025年統計における役割</th></tr></thead><tbody>' +
+          '<tr><td><strong>SMH</strong>（米国半導体現物ETF）</td><td>' + b.smh + '%</td><td style="font-variant-numeric:tabular-nums;font-weight:700;">' + fmtManYenJp(smhMan) + '</td><td>AI・半導体技術革新による長期成長エンジン</td></tr>' +
+          '<tr><td><strong>XLV</strong>（米国ヘルスケア現物ETF）</td><td>' + b.xlv + '%</td><td style="font-variant-numeric:tabular-nums;font-weight:700;">' + fmtManYenJp(xlvMan) + '</td><td>景気後退局面でも底堅い生活必須医療キャッシュフロー</td></tr>' +
+          '<tr class="is-featured"><td><strong>個人向け国債（変動10年）／SGOV</strong></td><td>' + b.cushion + '%</td><td style="font-variant-numeric:tabular-nums;font-weight:700;">' + fmtManYenJp(cushMan) + '</td><td>暴落時に株式を売却せず生活費を守る安全クッション</td></tr>' +
+          '</tbody></table></div>';
+      }
+
+      const tech49 = Math.round(totalMan * 0.49);
+      const sp35 = Math.round(totalMan * 0.35);
+      const studyPct = Math.round((0.46 * (b.smh / 100) + 0.16 * (b.xlv / 100)) * 1000) / 10;
+      const studyLoss = Math.round(totalMan * (studyPct / 100));
+      const stressEl = document.getElementById('gbaScreen4StressTest');
+      if (stressEl) {
+        stressEl.innerHTML =
+          '<div class="pw-table-header"><span class="pw-table-title">第2章 — -35%暴落局面ストレステスト（' + fmtManYenJp(totalMan) + ' 基準）</span><span class="pw-table-meta">下落耐性比較</span></div>' +
+          '<div class="pw-table-scroll"><table class="pw-sim-table"><thead><tr><th>比較ケース</th><th>想定下落幅</th><th>評価変動額</th><th>残存評価額＆安全資産クッション</th></tr></thead><tbody>' +
+          '<tr><td>半導体単独（SMH 100%）</td><td class="pw-dd-neg">-49.0%</td><td class="pw-dd-neg">-' + fmtManYenJp(tech49) + '</td><td>' + fmtManYenJp(totalMan - tech49) + '（国債バッファ 0円）</td></tr>' +
+          '<tr><td>S&amp;P 500単独</td><td class="pw-dd-neg">-35.0%</td><td class="pw-dd-neg">-' + fmtManYenJp(sp35) + '</td><td>' + fmtManYenJp(totalMan - sp35) + '（国債バッファ 0円）</td></tr>' +
+          '<tr class="is-featured"><td><strong>選択中の SMH &times; XLV ＋ 安全資産ケース</strong></td><td class="pw-eff-pos">-' + studyPct.toFixed(1) + '%</td><td class="pw-eff-pos">-' + fmtManYenJp(studyLoss) + '</td><td><strong>' + fmtManYenJp(totalMan - studyLoss) + '（安全資産 ' + fmtManYenJp(cushMan) + ' 無傷）</strong></td></tr>' +
+          '</tbody></table></div>' +
+          '<p class="pw-table-note">※教育目的の過去統計シミュレーションです。個人向け国債（変動10年）や短期米国債ETF（SGOV）を別枠で確保しておくことで、市場回復までの約18ヶ月間も落ち着いて保有を継続しやすくなります。</p>';
+      }
+
+      const nisaGrowthSlot = Math.min(1200, smhMan + xlvMan);
+      const nisaTsumitateSlot = Math.min(600, Math.max(0, totalMan - nisaGrowthSlot - cushMan));
+      const nisaEl = document.getElementById('gbaScreen4NisaRoadmap');
+      if (nisaEl) {
+        nisaEl.innerHTML =
+          '<div class="pw-kicker" style="margin-bottom:6px;">第3章 — 新NISA 1,800万円（成長投資枠240万＋つみたて投資枠120万）非課税ロードマップ</div>' +
+          '<h3 style="margin:0 0 10px;font-size:1.15rem;color:#0F172A;">制度区分ごとの効率的な口座使い分け（教育参考モデル）</h3>' +
+          '<div style="display:grid;gap:10px;font-size:0.94rem;color:#334155;">' +
+          '<div style="padding:12px;background:#F8FAFC;border-left:3px solid #0F172A;border-radius:6px;"><strong>1. 新NISA 成長投資枠（年間上限240万円・生涯上限1,200万円 ／ 目安：' + fmtManYenJp(nisaGrowthSlot) + '）：</strong> 現物1倍ETFである <strong>SMH</strong> および <strong>XLV</strong> の非課税長期保有枠として活用される代表的な区分です（3倍レバレッジETFは新NISA対象外）。</div>' +
+          '<div style="padding:12px;background:#F8FAFC;border-left:3px solid #065F46;border-radius:6px;"><strong>2. 新NISA つみたて投資枠（年間上限120万円・生涯上限600万円 ／ 目安：' + fmtManYenJp(nisaTsumitateSlot) + '）：</strong> 金融庁届出済みの低コスト広範インデックス投信を毎月定額で積み立て、生涯非課税枠合計1,800万円を5年〜長期で段階的に埋める設計です。</div>' +
+          '<div style="padding:12px;background:#F8FAFC;border-left:3px solid #64748B;border-radius:6px;"><strong>3. 課税口座（特定口座・源泉徴収あり）／日本国債枠（目安：' + fmtManYenJp(cushMan) + '）：</strong> 非課税メリットの大きい新NISA枠を現金性資産で消費せず、<strong>個人向け国債（変動10年・元本割れなし）</strong>や特定口座の短期米国債ETF（<strong>SGOV</strong>）で生活防衛資金を管理する考え方です。</div>' +
+          '</div>';
+      }
+
+      const brokerEl = document.getElementById('gbaScreen4BrokerGuide');
+      if (brokerEl) {
+        brokerEl.innerHTML =
+          '<div class="pw-kicker" style="margin-bottom:6px;">第4章 — 楽天証券・SBI証券 大きな文字（18px+）5分安全注文図解ガイド</div>' +
+          '<h3 style="margin:0 0 10px;font-size:1.15rem;color:#0F172A;">見間違い・高値掴みを防ぐ4ステップ確認手順</h3>' +
+          '<ol style="margin:0;padding-left:22px;font-size:1.02rem;line-height:1.85;color:#1E293B;">' +
+          '<li><strong>注文時間帯の確認：</strong> 米国市場オープン直後15分間（日本時間23:30〜23:45／冬時間0:30〜0:45）のスプレッド拡大を避け、落ち着いた時間帯または事前の指値予約を利用します。</li>' +
+          '<li><strong>ティッカーと現物1倍の確認：</strong> 楽天証券（iSPEED）またはSBI証券（米国株アプリ）で <strong>SMH</strong>・<strong>XLV</strong>・<strong>SGOV</strong> を検索し、レバレッジ型ではない現物ETFであることを確認します。</li>' +
+          '<li><strong>「成行」ではなく必ず「指値（Limit）」を選択：</strong> 口座区分（「NISA成長投資枠」または「特定預り」）を確認のうえ、現在値付近の指値注文で安全に発注します。</li>' +
+          '<li><strong>点検は年2回（1月・7月）のみ：</strong> 毎日の株価ニュースに振り回されず、半年ごとの比率確認だけで穏やかな老後時間を守ります。</li>' +
+          '</ol>';
+      }
+
+      const rebalDue = (gbaLiveTempScoreJp >= 78 || gbaLiveTempScoreJp <= 22);
+      const verdictTxt = rebalDue
+        ? '【今月の1秒判定：過去データ比率の定期点検タイミング】'
+        : '【今月の1秒判定：維持して安心してお休みください】';
+      const monthlyEl = document.getElementById('gbaScreen4MonthlyCard');
+      if (monthlyEl) {
+        monthlyEl.innerHTML =
+          '<div class="pw-kicker" style="margin-bottom:6px;">第5章 — 毎月1日『月次あんしん成績表』＆ 月1回『会員匿名Q&amp;A回報』</div>' +
+          '<div style="padding:12px 16px;border-radius:8px;background:' + (rebalDue ? '#FEF3C7' : '#ECFDF5') + ';color:' + (rebalDue ? '#92400E' : '#065F46') + ';font-weight:800;font-size:1.02rem;margin-bottom:10px;">' + verdictTxt + ' ・ 市場温度 ' + gbaLiveTempScoreJp + ' / 100（' + gbaLiveTempDateJp + ' 基準）</div>' +
+          '<p style="margin:0 0 8px;font-size:0.96rem;color:#334155;"><strong>先月の変動クッション要約：</strong> 半導体現物（SMH）にヘルスケア（XLV）と安全資産（' + fmtManYenJp(cushMan) + '）を組み合わせた2本柱ケースは、ハイテク単独保有と比べて穏やかな値動きを維持しました。</p>' +
+          '<p style="margin:0;font-size:0.94rem;color:#475569;"><strong>今月の匿名Q&amp;A抜粋：</strong>「Q. 為替（円高・円安）が気になるときはどう考えればよいですか？」→「A. 米国株ETF（ドル資産）と日本円建ての個人向け国債（変動10年）を併用することで、通貨面でも自然な分散クッションが働きます（※教育目的の一般解説）。」</p>';
+      }
+
+      const satEl = document.getElementById('gbaSatisfactionMount');
+      if (satEl && !satEl.__mounted && window.DreamCompanyCRM && typeof window.DreamCompanyCRM.mountSatisfactionBar === 'function') {
+        satEl.__mounted = true;
+        window.DreamCompanyCRM.mountSatisfactionBar(satEl, { div: 'GBA', context: 'screen4_paid_vault_jp', email: getSavedGbaEmailJp() });
+      }
+    }
+
+    function onGbaManYenInput() {
+      const inp = document.getElementById('gbaCustomManYenInput');
+      pwAnswersJp.scale = Math.max(100, Number(inp ? inp.value : 1800) || 1800);
+      renderGbaScreen4VaultJp();
+    }
+
+    function openGbaCustomPdfWindowJp() {
+      renderGbaScreen4VaultJp();
+      const s1 = (document.getElementById('gbaScreen4YenTable') || {}).innerHTML || '';
+      const s2 = (document.getElementById('gbaScreen4StressTest') || {}).innerHTML || '';
+      const s3 = (document.getElementById('gbaScreen4NisaRoadmap') || {}).innerHTML || '';
+      const s4 = (document.getElementById('gbaScreen4BrokerGuide') || {}).innerHTML || '';
+      const s5 = (document.getElementById('gbaScreen4MonthlyCard') || {}).innerHTML || '';
+      const w = window.open('', '_blank');
+      if (!w) { window.print(); return; }
+      w.document.write(
+        '<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8"><title>GetBreakAI 1対1カスタム統計ワークブックPDF</title>' +
+        '<style>body{font-family:"Hiragino Kaku Gothic ProN",Meiryo,sans-serif;max-width:780px;margin:24px auto;padding:0 20px;color:#0f172a;font-size:16px;line-height:1.72;}table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px;}th,td{border:1px solid #cbd5e1;padding:9px 10px;text-align:left;}th{background:#f1f5f9;}.page-break{page-break-before:always;margin-top:26px;padding-top:18px;border-top:2px solid #0f172a;}@media print{.no-print{display:none;}}</style></head><body>' +
+        '<div class="no-print" style="padding:12px;background:#ecfdf5;border:1px solid #059669;border-radius:8px;margin-bottom:18px;"><strong>PDF保存の準備が完了しました：</strong> 印刷画面で「PDFに保存」を選択してください。 <button onclick="window.print()" style="margin-left:12px;padding:8px 16px;background:#065f46;color:#fff;border:none;border-radius:6px;font-weight:700;cursor:pointer;">PDFとして保存・印刷</button></div>' +
+        '<h1>GetBreakAI — 新NISA・SMH &times; XLV ＋ 安全資産 1対1カスタム統計ワークブック</h1>' +
+        '<p style="font-size:13px;color:#475569;">独立系リサーチ出版（教育目的データ・投資助言非該当 ・ お問い合わせ: beable9489@gmail.com）</p>' +
+        '<div>' + s1 + '</div><div style="margin-top:18px;">' + s2 + '</div>' +
+        '<div class="page-break">' + s3 + '</div><div class="page-break">' + s4 + '</div><div class="page-break">' + s5 + '</div>' +
+        '</body></html>'
+      );
+      w.document.close();
+      setTimeout(function() { try { w.print(); } catch (_) {} }, 350);
+    }
+
+    function submitGbaPaidMagicEmailJp(ev) {
+      if (ev && ev.preventDefault) ev.preventDefault();
+      const inp = document.getElementById('gbaPaidMagicEmailInput');
+      const st = document.getElementById('gbaPaidMagicStatus');
+      const em = String(inp && inp.value ? inp.value : getSavedGbaEmailJp()).trim().toLowerCase();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em)) {
+        if (st) {
+          st.style.display = 'block';
+          st.style.color = '#991B1B';
+          st.textContent = '正しいメールアドレスをご入力ください。';
+        }
+        return false;
+      }
+      if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.deliverPaidMagicPack === 'function') {
+        window.DreamCompanyCRM.deliverPaidMagicPack({
+          div: 'GBA',
+          email: em,
+          plan_tier: (localStorage.getItem('gb_vip_plan') === 'annual') ? '年間リサーチパス（¥29,800/年）' : '月額リサーチパス（¥4,400/月）',
+          order_ref: localStorage.getItem('gb_vip_license_key') || 'GBA-MAGIC-LINK',
+          base_url: 'https://getbreakai.com/jp/',
+          hash_anchor: 'gbaPaidScreen4VaultJp',
+          profile_state: pwAnswersJp
+        }).then(function(res) {
+          if (st) {
+            st.style.display = 'block';
+            st.style.color = '#065F46';
+            st.textContent = em + ' 宛に永久復元マジックリンク（14日間返金保証案内付き）を送信しました。';
+          }
+          const rf = document.getElementById('gbaOneClickRefundLink');
+          if (rf && res && res.refund_support_url) rf.href = res.refund_support_url;
+        });
+      }
+      return false;
+    }
+
     function showPwScreenJp(screenNum) {
       pwCurrentScreenJp = screenNum;
+      let isVipUnlocked = (screenNum === 4);
+      try {
+        if (localStorage.getItem('gb_vip_unlocked') === 'true') isVipUnlocked = true;
+      } catch (_) {}
       const s0 = document.getElementById('pwScreen0Jp');
       const s1 = document.getElementById('pwScreen1Jp');
       const s2 = document.getElementById('gbaMorningClubJp');
       const s3 = document.getElementById('pricing');
+      const s4 = document.getElementById('gbaPaidScreen4VaultJp');
       if (s0) s0.style.display = (screenNum === 0) ? 'block' : 'none';
       if (s1) s1.style.display = (screenNum === 1) ? 'block' : 'none';
       if (s2) s2.style.display = (screenNum >= 2) ? 'block' : 'none';
       if (s3) s3.style.display = (screenNum >= 2) ? 'block' : 'none';
-      if (screenNum >= 2) syncPwStage2UiJp();
+      if (s4) s4.style.display = (screenNum === 4 || (screenNum >= 2 && isVipUnlocked)) ? 'block' : 'none';
+      if (screenNum >= 2) {
+        syncPwStage2UiJp();
+        if (s4 && s4.style.display === 'block') renderGbaScreen4VaultJp();
+      }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -2452,15 +2676,33 @@
       hydrateGbaLiveTempBadgeJp();
 
       try {
+        if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.decodeMagicRestoreParam === 'function') {
+          const mObj = window.DreamCompanyCRM.decodeMagicRestoreParam(window.location.search || '');
+          if (mObj && typeof mObj === 'object') {
+            if (mObj.objective) pwAnswersJp.objective = mObj.objective;
+            if (mObj.scale) pwAnswersJp.scale = Number(mObj.scale) || 1800;
+            if (mObj.comfort) pwAnswersJp.comfort = mObj.comfort;
+            if (mObj.techMix) pwAnswersJp.techMix = mObj.techMix;
+            localStorage.setItem('gb_vip_unlocked', 'true');
+            localStorage.setItem('gba_pw_stepup_answers_v1', JSON.stringify(pwAnswersJp));
+            if (mObj.email) localStorage.setItem('gba_jp_free_email', String(mObj.email).toLowerCase());
+          }
+        }
         const params = new URLSearchParams(window.location.search || '');
         const h = (window.location.hash || '').toLowerCase();
-        if (params.get('payment') === 'success' || params.get('checkout_status') === 'succeeded') {
+        if (params.get('payment') === 'success' || params.get('checkout_status') === 'succeeded' || params.get('paid_restore') === '1' || params.get('magic_restore') || h === '#gbapaidscreen4vaultjp') {
           const autoKey = String(params.get('receipt_id') || params.get('license_key') || params.get('checkout_id') || params.get('order_id') || 'WHOP-VERIFIED-CHECKOUT-SESSION-2026').trim();
           localStorage.setItem('gb_vip_unlocked', 'true');
           localStorage.setItem('gb_vip_license_key', autoKey);
           localStorage.setItem('gb_vip_key', autoKey);
-          showPwScreenJp(2);
-        } else if (h === '#pricing' || h === '#gbamorningclubjp' || h === '#vip-vault' || params.get('unlock') === '1') {
+          showPwScreenJp(4);
+          setTimeout(function() {
+            const v4 = document.getElementById('gbaPaidScreen4VaultJp');
+            if (v4 && v4.scrollIntoView) v4.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 150);
+        } else if (h === '#vip-vault' || params.get('unlock') === '1') {
+          showPwScreenJp(4);
+        } else if (h === '#pricing' || h === '#gbamorningclubjp') {
           showPwScreenJp(2);
         }
       } catch (_) {}

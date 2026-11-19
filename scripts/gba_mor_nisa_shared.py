@@ -306,6 +306,21 @@ def build_payment_and_kpi_head_html() -> str:
             if (pEmail && pEmail.indexOf('@') !== -1) {
               localStorage.setItem('gb_vip_customer_email', pEmail);
             }
+            try {
+              var savedAnsJp = JSON.parse(localStorage.getItem('gba_pw_stepup_answers_v1') || '{}') || {};
+              var crmEmail = pEmail || localStorage.getItem('gba_jp_free_email') || '';
+              if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.deliverPaidMagicPack === 'function') {
+                window.DreamCompanyCRM.deliverPaidMagicPack({
+                  div: 'GBA',
+                  email: crmEmail,
+                  plan_tier: retPlan === 'annual' ? '年間リサーチパス（¥29,800/年）' : '月額リサーチパス（¥4,400/月）',
+                  order_ref: pKey,
+                  base_url: 'https://getbreakai.com/jp/',
+                  hash_anchor: 'gbaPaidScreen4VaultJp',
+                  profile_state: savedAnsJp
+                });
+              }
+            } catch (_crmErr) {}
             if (typeof sessionStorage !== 'undefined' && sessionStorage.getItem('gba_whop_paid_hit') !== '1') {
               sessionStorage.setItem('gba_whop_paid_hit', '1');
               fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_success_' + kst, { mode: 'cors', keepalive: true }).catch(function(){});

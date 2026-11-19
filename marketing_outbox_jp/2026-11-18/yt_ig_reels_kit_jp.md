@@ -3,7 +3,7 @@
 本日の高維持率 V4 シネマ・クオンツ動画3選（タイトル・概要欄・固定コメント・IGリール本文）：
 
 ---
-## 🎬 動画 1: 損切りの算数・資産防衛 (PLTR) (`D:\드림컴퍼니\3사업부\flow_shorts_studio\viral_jp_v4\VP07_Shiozuke_Minus50_Needs_2X.mp4`)
+## 🎬 動画 1: 損切りの算数・資産防衛 (PLTR) (`VP07_Shiozuke_Minus50_Needs_2X.mp4`)
 ### ① YouTube ショート タイトル（コピー用）
 ```text
 【塩漬け株の算数】含み損-50%の株が元値に戻るには何％の上昇が必要か知っていますか？9割が絶句する真実 #株式投資 #損切り #新NISA #Shorts
@@ -42,7 +42,7 @@ https://getbreakai.com/jp/
 ```
 
 ---
-## 🎬 動画 2: 三菱UFJ vs 半導体株 (8035) (`D:\드림컴퍼니\3사업부\flow_shorts_studio\viral_jp_v4\VP08_Megabank_vs_Semi_BOJ.mp4`)
+## 🎬 動画 2: 三菱UFJ vs 半導体株 (8035) (`VP08_Megabank_vs_Semi_BOJ.mp4`)
 ### ① YouTube ショート タイトル（コピー用）
 ```text
 【日本株対決】日銀利上げ時代に勝つのは「三菱UFJなど銀行株」か「半導体株」か？プロが見る大口資金サイン #日本株 #三菱UFJ #半導体株 #新NISA #Shorts
@@ -78,7 +78,7 @@ https://getbreakai.com/jp/
 ```
 
 ---
-## 🎬 動画 3: 五大商社・機関投資家手口 (7203) (`D:\드림컴퍼니\3사업부\flow_shorts_studio\viral_jp_v4\VP09_Buffett_5Shosha_FOMO_Trap.mp4`)
+## 🎬 動画 3: 五大商社・機関投資家手口 (7203) (`VP09_Buffett_5Shosha_FOMO_Trap.mp4`)
 ### ① YouTube ショート タイトル（コピー用）
 ```text
 【バフェット銘柄の真実】三菱商事・三井物産…「好材料ニュース」の翌日に飛び乗る人が高値掴みさせられる理由 #日本株 #三菱商事 #バフェット #新NISA #Shorts

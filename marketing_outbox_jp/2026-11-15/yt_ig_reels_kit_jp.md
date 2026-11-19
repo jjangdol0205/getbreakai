@@ -3,7 +3,7 @@
 本日の高維持率 V4 シネマ・クオンツ動画3選（タイトル・概要欄・固定コメント・IGリール本文）：
 
 ---
-## 🎬 動画 1: 300万円・株数計算術 (MSFT) (`D:\드림컴퍼니\3사업부\flow_shorts_studio\viral_jp_v4\VP10_Salaryman_300Man_15PctRule.mp4`)
+## 🎬 動画 1: 300万円・株数計算術 (MSFT) (`VP10_Salaryman_300Man_15PctRule.mp4`)
 ### ① YouTube ショート タイトル（コピー用）
 ```text
 【会社員の資産防衛】苦労して貯めた300万円を1回の決算跨ぎで溶かす人 vs 10連敗しても生き残るプロの株数計算 #資産運用 #新NISA #株式投資 #Shorts
@@ -41,7 +41,7 @@ https://getbreakai.com/jp/
 ```
 
 ---
-## 🎬 動画 2: テスラ・パランティア (TSLA) (`D:\드림컴퍼니\3사업부\flow_shorts_studio\viral_jp_v4\VP11_TSLA_PLTR_Plus15_NightFOMO.mp4`)
+## 🎬 動画 2: テスラ・パランティア (TSLA) (`VP11_TSLA_PLTR_Plus15_NightFOMO.mp4`)
 ### ① YouTube ショート タイトル（コピー用）
 ```text
 【夜11時半の罠】テスラやパランティアが1日で+15%急騰した夜、絶対に飛び乗り買いしてはいけない理由 #米国株 #テスラ #パランティア #新NISA #Shorts
@@ -77,7 +77,7 @@ https://getbreakai.com/jp/?ticker=TSLA
 ```
 
 ---
-## 🎬 動画 3: 新NISA・利確出口戦略 (NVDA) (`D:\드림컴퍼니\3사업부\flow_shorts_studio\viral_jp_v4\VP12_Tokutei_40ManTax_vs_NISA_Exit.mp4`)
+## 🎬 動画 3: 新NISA・利確出口戦略 (NVDA) (`VP12_Tokutei_40ManTax_vs_NISA_Exit.mp4`)
 ### ① YouTube ショート タイトル（コピー用）
 ```text
 【手取り40万円の差】株で200万円勝っても特定口座だと約40万円が税金で消える！新NISAで利益を逃さない出口戦略 #新NISA #利確 #税金 #株式投資 #Shorts

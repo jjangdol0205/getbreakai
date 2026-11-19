@@ -1,21 +1,19 @@
-# GetBreakAI Japan Research — 新NISA・資産リサーチ研究室（教育目的） (https://getbreakai.com/jp/)
+# GetBreakAI — Japanese 50-70s Shin-NISA SMH × XLV + JGB Asset-Allocation Platform (https://getbreakai.com/jp/)
 
-> Updated: 2026-11-19 | 教育目的の市場データニュースレター ＋ 2000–2025年 過去統計ワークブック（投資助言・個別推奨は一切行わない独立系リサーチ出版）.
+> Updated: 2026-11-20 | Self-Directed Public Market Data Visualization & 2-Pillar Asset-Allocation Simulator (FSA Shin-NISA Growth Quota Eligible Spot 1x SMH × XLV + Japanese Retail Government Bonds Variable 10-Year / Tokutei Account SGOV Cushion).
 > Official Channels: https://www.youtube.com/@GetBreakAI | https://www.instagram.com/getbreakai/
 
-## 1. Core Japanese Research Pages & Legal Disclosures
-- Main Research Hub (Sector Historical Backtest Explorer): https://getbreakai.com/jp/
+## 1. Core Japanese Calculators & Legal Pages
+- Main Retirement & Shin-NISA Hub: https://getbreakai.com/jp/
 - Root Canonical Mirror: https://getbreakai.com/
 - Flagship Editorial Essay: https://getbreakai.com/jp/nisa-quiet-barbell-essay.html
-- Daily Public Market Data Note: https://getbreakai.com/jp/daily-nisa-quant-report.html
+- Daily Public Market Data Report: https://getbreakai.com/jp/daily-nisa-quant-report.html
 - Terms of Service: https://getbreakai.com/jp/terms.html
 - Privacy Policy: https://getbreakai.com/jp/privacy.html
 - 14-Day Refund Policy: https://getbreakai.com/jp/refund.html
-- Tokushoho (Specified Commercial Transactions Act): https://getbreakai.com/jp/tokushoho.html
-- Contact Desk: https://getbreakai.com/jp/contact.html
 - Japanese Research RSS Feed: https://getbreakai.com/jp/feed.xml
 
-## 2. Featured Japanese Public Market Data & Shin-NISA Studies (/jp/)
+## 2. Featured Japanese Public Market Data & Shin-NISA Guides (/jp/)
 - https://getbreakai.com/jp/aapl-apple-intelligence-cycle-gex.html
 - https://getbreakai.com/jp/ai-datacenter-power-stocks-2026.html
 - https://getbreakai.com/jp/amzn-aws-margin-expansion-pead.html
@@ -35,5 +33,6 @@
 - https://getbreakai.com/jp/semiconductor-cycle-truthofmarket-guide.html
 - https://getbreakai.com/jp/shin-nisa-us-stock-atr-risk-management.html
 - https://getbreakai.com/jp/smci-accounting-risk-warning.html
+- https://getbreakai.com/jp/tokushoho.html
 - https://getbreakai.com/jp/unh-defensive-healthcare-insider-buy.html
 - https://getbreakai.com/jp/vrt-ai-datacenter-cooling-catalyst.html

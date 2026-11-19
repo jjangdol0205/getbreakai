@@ -65,33 +65,27 @@ def generate_daily_jp_column() -> str:
     tickers = snap.get("tickers", {})
 
     default_rows = [
-        ("VYM", "バンガード米国高配当株ETF（新NISA適格・四半期）", 134.50, 2.10),
-        ("MSFT", "マイクロソフト（新NISA成長枠・連続増配）", 448.20, 9.40),
-        ("AAPL", "アップル（新NISA成長枠・株主還元）", 232.80, 4.90),
-        ("NVDA", "エヌビディア（公開決算データ参考）", 186.64, 8.02),
-        ("AVGO", "ブロードコム（半導体・増配実績参考）", 293.69, 15.14),
+        ("SMH", "米国半導体ETF（新NISA成長投資枠適格・成長柱）", 258.40, 5.80, "/jp/#gba-retirement-architect-jp", "新NISA成長枠（成長コア）"),
+        ("XLV", "米国ヘルスケアETF（新NISA成長投資枠適格・防衛柱）", 148.90, 2.40, "/jp/#gba-retirement-architect-jp", "新NISA成長枠（防衛コア）"),
+        ("SGOV", "米国0-3ヶ月短期国債ETF（特定口座・安全資産区分）", 100.42, 0.08, "/jp/#gba-retirement-architect-jp", "特定口座（または個人向け国債 変動10年）"),
+        ("MSFT", "マイクロソフト（個別研究参考・上限10%以内）", 448.20, 9.40, "/jp/msft-azure-ai-copilot-sec-8k.html", "個別補完（口座10%以内）"),
+        ("LLY", "イーライリリー（ヘルスケア研究参考・上限10%以内）", 1354.00, 52.81, "/jp/lly-form4-insider-cluster-buy.html", "個別補完（口座10%以内）"),
     ]
     table_rows_html = ""
-    for sym, jp_nm, fb_close, fb_atr in default_rows:
+    for sym, jp_nm, fb_close, fb_atr, link_href, acct_role in default_rows:
         info = tickers.get(sym, {}) if isinstance(tickers, dict) else {}
         close_p = float(info.get("entry") or info.get("close") or info.get("price") or fb_close)
         atr_v = float(info.get("atr") or info.get("atr14") or fb_atr)
-        band_low = round(max(0.5, close_p - 2.0 * atr_v), 2)
-        band_high = round(close_p + 5.0 * atr_v, 2)
-        jpy_band_per_share = int(round((2.0 * atr_v) * usdjpy))
-        shares_for_15k_jpy = max(1, int(15000 // max(jpy_band_per_share, 1)))
+        jpy_price = int(round(close_p * usdjpy))
         table_rows_html += (
-            f'<tr><td><strong><a href="/jp/?ticker={sym}#jpQuickCalcSection">${sym} ({jp_nm})</a></strong></td>'
-            f"<td>${close_p:.2f}</td><td>${atr_v:.2f}</td>"
-            f'<td style="color:#be123c;font-weight:700;">${band_low:.2f}</td>'
-            f'<td style="color:#047857;font-weight:700;">${band_high:.2f}</td>'
-            f"<td>{shares_for_15k_jpy}株 (100万円あたり分散目安)</td></tr>\n"
+            f'<tr><td><strong><a href="{link_href}">${sym} ({jp_nm})</a></strong></td>'
+            f"<td>${close_p:.2f} (約¥{jpy_price:,})</td><td>${atr_v:.2f}</td>"
+            f'<td style="color:#047857;font-weight:700;">{acct_role}</td></tr>\n'
         )
 
     canonical_url = "https://getbreakai.com/jp/daily-nisa-quant-report.html"
-    title = f"【朝のゆとり老後＆新NISA公開データ日報 {today_iso}】新NISA適格（VYM・HDV・1489）＋特定口座（SGOV・JEPI）ハイブリッド配分と手取り比較"
-    desc = f"{today_iso}更新：ドル円({usdjpy:.1f}円)連動の公開市場データと{FSA_HYBRID_PHRASE_JP}の非課税(0%) vs 特定口座(20.315%)比較。"
-    empathy_html = _build_morning_empathy_card(today_iso)
+    title = f"【朝の資産守り＆新NISA公開データ日報 {today_iso}】新NISA成長投資枠（SMH × XLV）＋個人向け国債（変動10年）2本柱配分ガイド"
+    desc = f"{today_iso}更新：ドル円({usdjpy:.1f}円)参照の公開市場データと{FSA_HYBRID_PHRASE_JP}に基づく非課税(0%)・安全資産の区分整理。"
 
     ld_json = json.dumps(
         {
@@ -106,16 +100,25 @@ def generate_daily_jp_column() -> str:
                     "inLanguage": "ja",
                     "mainEntityOfPage": canonical_url,
                     "author": {"@type": "Organization", "name": "GetBreakAI Public Market Data Research", "url": "https://getbreakai.com/jp/"},
+                    "publisher": {
+                        "@type": "Organization",
+                        "name": "GetBreakAI Japan",
+                        "url": "https://getbreakai.com/jp/",
+                        "sameAs": [
+                            "https://www.youtube.com/@GetBreakAI",
+                            "https://www.instagram.com/getbreakai/",
+                        ],
+                    },
                 },
                 {
                     "@type": "FAQPage",
                     "mainEntity": [
                         {
                             "@type": "Question",
-                            "name": "新NISA成長投資枠と特定口座（源泉徴収あり20.315%）はどう使い分けるべきですか？",
+                            "name": "新NISA成長投資枠と個人向け国債・特定口座（源泉徴収あり20.315%）はどう使い分けるべきですか？",
                             "acceptedAnswer": {
                                 "@type": "Answer",
-                                "text": "日本の金融庁規定により、毎月分配型ETF（JEPI・SGOV等）やレバレッジ型ETF（SOXL等）は新NISA対象外です。新NISA枠では四半期配当の1489・VYM・HDVやオルカン・S&P500を保有し、毎月分配のSGOV・JEPIは特定口座で管理するハイブリッド設計が準拠しています。",
+                                "text": "日本の金融庁規定により、毎月分配型ETF（SGOV・JEPI等）やレバレッジ型ETF（SOXL等）は新NISA対象外です。新NISA成長投資枠では現物1倍の米国半導体ETF（SMH）と米国ヘルスケアETF（XLV）の2本柱を保有し、生活防衛クッションは日本の個人向け国債（変動10年）または特定口座のSGOVで区分管理する設計が制度に準拠しています。",
                             },
                         },
                         {
@@ -236,14 +239,14 @@ def generate_daily_jp_column() -> str:
     <article>
       <p>おはようございます。昨夜の米国市場や為替ニュースを見て「大切な新NISA枠や老後資金が大きく揺れていないだろうか」と気になった朝も、まずは落ち着いた目で公開終値と資産全体の比率だけを確かめていきましょう。</p>
 
-      <h2>新NISA適格銘柄と特定口座（毎月分配型）のハイブリッド区分</h2>
-      <p>日本の金融庁規定により、毎月分配型ETF（JEPI・JEPQ・QYLD・SGOV等）およびレバレッジ型ETF（SOXL・TQQQ等）は新NISAの対象外であり、特定口座（源泉徴収あり・税率20.315%）でのみ保有可能です。そのため老後の資産設計では、<strong>{FSA_HYBRID_PHRASE_JP}</strong>を採用し、新NISA成長投資枠では現物1倍のSMH・XLVや四半期配当ETF（1489・VYM・HDV）で非課税メリットを活かします。</p>
+      <h2>新NISA成長投資枠（SMH × XLV）と安全資産（個人向け国債・SGOV）の金融庁準拠区分</h2>
+      <p>日本の金融庁規定により、毎月分配型ETF（SGOV・JEPI・JEPQ・QYLD等）およびレバレッジ型ETF（SOXL・TQQQ等）は新NISAの対象外であり、特定口座（源泉徴収あり・税率20.315%）でのみ保有可能です。そのため老後の資産設計では、<strong>{FSA_HYBRID_PHRASE_JP}</strong>を採用し、新NISA成長投資枠では現物1倍の米国半導体ETF（SMH）と米国ヘルスケアETF（XLV）の2本柱で非課税メリットを活かしながら、生活防衛クッションは日本の個人向け国債（変動10年）または特定口座のSGOVで安全に別枠管理します。</p>
 
-      <h2>公開市場データによる1銘柄あたり分散配分目安一覧 ({today_iso})</h2>
+      <h2>公開市場データによる主要ETF・参考銘柄 基準一覧 ({today_iso})</h2>
       <div class="table-wrap">
         <table>
           <thead>
-            <tr><th>銘柄</th><th>直近終値</th><th>14日平均変動幅</th><th>2.0倍変動参考下限</th><th>長期参考上限</th><th>100万円口座 分散株数目安</th></tr>
+            <tr><th>銘柄・資産区分</th><th>直近終値（円換算目安）</th><th>14日平均変動幅</th><th>口座区分・位置づけ</th></tr>
           </thead>
           <tbody>
             {table_rows_html}

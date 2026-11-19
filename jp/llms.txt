@@ -1,44 +1,37 @@
 # GetBreakAI Japan (https://getbreakai.com/jp/)
 
-> 日本の50代〜70代個人投資家・新NISA運用層のための公開市場データ可視化および配当・資産配分計算ソフトウェア（Self-Directed Educational Calculator Software）。金融庁規定準拠『新NISA 適格（四半期配当 VYM・HDV・1489・オルカン・S&P500 時間差組み合わせ）＋ 特定口座（毎月分配 SGOV・JEPI）ハイブリッド設計』対応。
+> 日本の50代〜70代個人投資家・新NISA運用層のための公開市場データ可視化および資産配分計算ソフトウェア（Self-Directed Educational Calculator Software）。金融庁規定準拠『新NISA成長投資枠 適格（米国半導体 SMH × 米国ヘルスケア XLV 現物1倍2本柱）＋ 安全資産クッション（個人向け国債 変動10年 ／ 特定口座 SGOV）』対応。
+> 公式チャンネル: https://www.youtube.com/@GetBreakAI | https://www.instagram.com/getbreakai/
 > 最終更新日: 2026-11-19 (JST)
 
 ## 1. コア計算ツール（投資助言・売買推奨を行わない自己判断用教育計算ソフトウェア）
-- **30秒・ゆとり老後＆新NISA毎月キャッシュフロー設計シミュレーター**: 公的年金＋新NISA非課税枠・特定口座ハイブリッド配分の試算。
-- **ドル($)・日本円(¥)同時対応 1銘柄分散配分シミュレーター**: 1銘柄への過度な集中を防ぐ保有株数目安の計算。
+- **4ステップ SMH × XLV ＋ 個人向け国債 比率設計シミュレーター**: 新NISA成長投資枠と安全資産クッションの初期ベース比率試算。
+- **代表エッセイ・朝刊データノート**: 2000〜2025年（26年間）の公開セクター検証に基づく長期資産設計コラム。
 - **法務・サポート窓口**: 利用規約 https://getbreakai.com/jp/terms.html / プライバシーポリシー https://getbreakai.com/jp/privacy.html / 14日間返金ポリシー https://getbreakai.com/jp/refund.html / サポート beable9489@gmail.com
 
 ## 2. 主要日本語リサーチ・公開データ解説ページ一覧
 - 日本語メインハブ: https://getbreakai.com/jp/
+- 代表エッセイ: https://getbreakai.com/jp/nisa-quiet-barbell-essay.html
 - 本日の新NISA・公開市場データ日報: https://getbreakai.com/jp/daily-nisa-quant-report.html
 - 日本語RSSフィード: https://getbreakai.com/jp/feed.xml
 - https://getbreakai.com/jp/aapl-apple-intelligence-cycle-gex.html
 - https://getbreakai.com/jp/ai-datacenter-power-stocks-2026.html
-- https://getbreakai.com/jp/amd-mi350-gamma-squeeze-target.html
 - https://getbreakai.com/jp/amzn-aws-margin-expansion-pead.html
-- https://getbreakai.com/jp/arm-royalty-expansion-gamma-wall.html
 - https://getbreakai.com/jp/asml-euv-orders-semiconductor-cycle.html
 - https://getbreakai.com/jp/avgo-custom-ai-asic-8k-analysis.html
 - https://getbreakai.com/jp/ceg-nuclear-ai-power-8k-contract.html
 - https://getbreakai.com/jp/crwd-cybersecurity-pead-drift.html
 - https://getbreakai.com/jp/daily-nisa-quant-report.html
-- https://getbreakai.com/jp/dark-pool-whale-flow-reading.html
-- https://getbreakai.com/jp/fomc-cpi-iv-crush-strategy.html
 - https://getbreakai.com/jp/form4-insider-cluster-guide.html
 - https://getbreakai.com/jp/googl-search-cloud-ai-valuation.html
 - https://getbreakai.com/jp/lly-form4-insider-cluster-buy.html
 - https://getbreakai.com/jp/meta-ai-capex-earnings-nlp.html
 - https://getbreakai.com/jp/msft-azure-ai-copilot-sec-8k.html
 - https://getbreakai.com/jp/nisa-quiet-barbell-essay.html
-- https://getbreakai.com/jp/nvda-sec-gamma-atr-analysis.html
-- https://getbreakai.com/jp/options-gamma-squeeze-gex-guide.html
 - https://getbreakai.com/jp/pltr-insider-buying-analysis.html
 - https://getbreakai.com/jp/sec-8k-japanese-ai-guide.html
 - https://getbreakai.com/jp/semiconductor-cycle-truthofmarket-guide.html
 - https://getbreakai.com/jp/shin-nisa-us-stock-atr-risk-management.html
 - https://getbreakai.com/jp/smci-accounting-risk-warning.html
-- https://getbreakai.com/jp/tradingview-pine-script-v5-atr-guide.html
-- https://getbreakai.com/jp/tsla-gamma-wall-swing-trade.html
 - https://getbreakai.com/jp/unh-defensive-healthcare-insider-buy.html
-- https://getbreakai.com/jp/us-stock-stop-loss-2percent-rule.html
 - https://getbreakai.com/jp/vrt-ai-datacenter-cooling-catalyst.html

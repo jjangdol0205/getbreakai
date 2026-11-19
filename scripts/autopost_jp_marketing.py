@@ -58,19 +58,26 @@ def build_rss_feeds(date_str, outbox_dir, snap):
         day_dt = datetime.datetime.now(datetime.timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0)
     now_rfc822 = day_dt.strftime("%a, %d %b %Y 00:00:00 GMT")
 
-    # 1. Build /jp/x-feed.xml from x_posts_10.json
-    x_posts_path = os.path.join(outbox_dir, "x_posts_10.json") if outbox_dir else None
-    x_posts = []
-    if x_posts_path and os.path.exists(x_posts_path):
-        with open(x_posts_path, "r", encoding="utf-8") as f:
-            x_posts = json.load(f)
-
+    # 1. Build /jp/x-feed.xml with calm SMH x XLV + JGB 2-Pillar educational items
+    curated_posts = [
+        (
+            "新NISA成長投資枠「米国半導体（SMH）× 米国ヘルスケア（XLV）」2本柱の考え方",
+            "半導体（SMH）の成長力とヘルスケア（XLV）の下落耐性を組み合わせ、生活防衛クッションは個人向け国債（変動10年）で守る26年検証データを公開しています。",
+            "https://getbreakai.com/jp/nisa-quiet-barbell-essay.html",
+        ),
+        (
+            "新NISA（年間360万円・生涯1,800万円）と個人向け国債（変動10年）の安全な使い分け",
+            "毎月分配型ETF（SGOV等）は金融庁規定により特定口座区分となります。日本居住の50〜70代に適した2本柱＋安全資産設計ガイドはこちら。",
+            "https://getbreakai.com/jp/shin-nisa-us-stock-atr-risk-management.html",
+        ),
+        (
+            f"朝の資産守り＆新NISA公開データ日報 ({date_str})",
+            "毎朝の市場温度（0〜100）と SMH × XLV セクター比率を静かに確認できる公開データノートを更新しました。",
+            "https://getbreakai.com/jp/daily-nisa-quant-report.html",
+        ),
+    ]
     x_items_xml = []
-    for idx, post in enumerate(x_posts):
-        ticker = post.get("ticker", "NVDA")
-        text = post.get("text", "")
-        url = f"https://getbreakai.com/?ticker={ticker}&utm_source=x_auto&utm_medium=rss"
-        title = text.split("\n")[0][:80]
+    for idx, (title, text, url) in enumerate(curated_posts):
         guid = f"https://getbreakai.com/jp/x-post-{date_str}-{idx+1}"
         x_items_xml.append(f"""    <item>
       <title>{escape(title)}</title>
@@ -83,9 +90,9 @@ def build_rss_feeds(date_str, outbox_dir, snap):
     x_feed_xml = f"""<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>GetBreakAI ゆとり老後＆新NISA×特定口座 公開市場データ速報 (公式フィード)</title>
+    <title>GetBreakAI 新NISA（SMH × XLV）＋個人向け国債 公開データ速報 (公式フィード)</title>
     <link>https://getbreakai.com/jp/</link>
-    <description>50〜70代の新NISA非課税枠と老後資産寿命を守る公開市場データ可視化＆配当・資産配分シミュレーション公式フィード</description>
+    <description>50〜70代の新NISA成長投資枠（SMH × XLV）と個人向け国債（変動10年）による老後資産配分・公開市場データ公式フィード</description>
     <language>ja</language>
     <lastBuildDate>{now_rfc822}</lastBuildDate>
     <atom:link href="https://getbreakai.com/jp/x-feed.xml" rel="self" type="application/rss+xml"/>
@@ -97,10 +104,15 @@ def build_rss_feeds(date_str, outbox_dir, snap):
     with open(x_feed_path, "w", encoding="utf-8") as f:
         f.write(x_feed_xml)
 
-    # 2. Build /jp/feed.xml for SEO research articles (excluding confirmation, legal, and verification files)
+    # 2. Build /jp/feed.xml for SEO research articles (excluding confirmation, legal, noindex/day-trading, and verification files)
     excluded_jp_html = {
         "index.html", "confirmation.html", "terms.html", "privacy.html", "refund.html", "contact.html",
         "soxl-smh-semiconductor-timing.html", "mstr-bitcoin-volatility-atr-sizing.html",
+        "nvda-sec-gamma-atr-analysis.html", "tsla-gamma-wall-swing-trade.html",
+        "amd-mi350-gamma-squeeze-target.html", "arm-royalty-expansion-gamma-wall.html",
+        "options-gamma-squeeze-gex-guide.html", "fomc-cpi-iv-crush-strategy.html",
+        "tradingview-pine-script-v5-atr-guide.html", "us-stock-stop-loss-2percent-rule.html",
+        "dark-pool-whale-flow-reading.html",
     }
     seo_files = sorted([
         fn for fn in os.listdir(JP_DIR)
@@ -111,11 +123,11 @@ def build_rss_feeds(date_str, outbox_dir, snap):
         url = f"https://getbreakai.com/jp/{fn}"
         slug_title = fn.replace(".html", "").replace("-", " ").upper()
         article_items_xml.append(f"""    <item>
-      <title>【新NISA・老後資産配分データ】{escape(slug_title)} — 公開市場データ＆分散比率試算 ({date_str}更新)</title>
+      <title>【新NISA・老後資産配分データ】{escape(slug_title)} — SMH × XLV ＋ 個人向け国債 公開データ研究 ({date_str}更新)</title>
       <link>{escape(url)}</link>
       <guid isPermaLink="true">{escape(url)}</guid>
       <pubDate>{now_rfc822}</pubDate>
-      <description>{escape(f"新NISA適格（VYM・HDV・1489・オルカン・S&P500）＋特定口座（SGOV・JEPI）ハイブリッド設計と公開財務データ解説: {url}")}</description>
+      <description>{escape(f"新NISA成長投資枠（米国半導体 SMH × 米国ヘルスケア XLV）＋個人向け国債（変動10年）／特定口座（SGOV）2本柱設計と公開財務データ解説: {url}")}</description>
     </item>""")
 
     main_feed_xml = f"""<?xml version="1.0" encoding="UTF-8"?>

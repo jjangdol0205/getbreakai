@@ -26,7 +26,7 @@ SOFTWARE_POSITIONING_JP = (
 )
 
 FSA_HYBRID_PHRASE_JP = (
-    "『新NISA 適格（四半期配当 VYM・HDV・1489・オルカン・S&P500 時間差組み合わせ）＋ 特定口座（毎月分配 SGOV・JEPI）ハイブリッド設計』"
+    "『新NISA成長投資枠（米国半導体 SMH × 米国ヘルスケア XLV 現物1倍 2本柱）＋ 安全資産クッション（個人向け国債 変動10年 ／ 特定口座 SGOV）』"
 )
 
 VIP_WAITLIST_MODAL_TITLE_JP = "VIP創設メンバー先行案内＆早期20%割引クーポン予約（1秒メール登録）"
@@ -53,7 +53,12 @@ MAIN_HUB_EXCLUDED_SLUGS = {
     "mstr-bitcoin-volatility-atr-sizing.html",
     "tsla-gamma-wall-swing-trade.html",
     "options-gamma-squeeze-gex-guide.html",
+    "amd-mi350-gamma-squeeze-target.html",
+    "arm-royalty-expansion-gamma-wall.html",
+    "nvda-sec-gamma-atr-analysis.html",
+    "dark-pool-whale-flow-reading.html",
     "fomc-cpi-iv-crush-strategy.html",
+    "tradingview-pine-script-v5-atr-guide.html",
     "us-stock-stop-loss-2percent-rule.html",
 }
 
@@ -497,14 +502,17 @@ def build_vip_waitlist_modal_html() ->str:
     }}
     .gba-vip-wl-close {{
       appearance: none;
+      flex-shrink: 0;
       background: #f1f5f9;
       color: #0b1f3a;
       border: 1.5px solid #cbd5e1;
       border-radius: 9px;
-      min-height: 40px;
-      padding: 4px 12px;
+      min-height: 44px;
+      min-width: 68px;
+      padding: 6px 14px;
       font-size: 0.9rem;
       font-weight: 800;
+      white-space: nowrap;
       cursor: pointer;
     }}
     .gba-vip-wl-title {{
@@ -607,10 +615,10 @@ def build_vip_waitlist_modal_html() ->str:
 
       <div class="gba-vip-wl-plans" role="group" aria-label="ご希望プラン選択">
         <button type="button" class="gba-vip-wl-pbtn is-active" data-gba-wl-plan="monthly" onclick="window.selectGbaVipWaitlistPlan('monthly')">
-           {PRICE_LABEL_MONTHLY_JP}<br><small style="font-weight:700; color:#475569;">クーポン適用時 さらに20%OFF ／ 随時更新・新NISA老後取り崩し実践PDFガイド＋3つの財布シミュレーター同梱</small>
+           {PRICE_LABEL_MONTHLY_JP}<br><small style="font-weight:700; color:#475569;">クーポン適用時 さらに20%OFF ／ 毎朝 SMH × XLV 市場温度日報＋配分計算シート同梱</small>
         </button>
         <button type="button" class="gba-vip-wl-pbtn" data-gba-wl-plan="annual" onclick="window.selectGbaVipWaitlistPlan('annual')">
-           {PRICE_LABEL_ANNUAL_JP}<br><small style="font-weight:700; color:#b45309;">一番人気・43%OFF＋早期20%割引 ／ 随時更新・新NISA老後取り崩し実践PDFガイド＋3つの財布シミュレーター同梱</small>
+           {PRICE_LABEL_ANNUAL_JP}<br><small style="font-weight:700; color:#b45309;">一番人気・43%OFF＋早期20%割引 ／ 随時更新・新NISA老後取り崩し実践マスターPDF同梱</small>
         </button>
       </div>
 {build_pro_retiree_tools_html(compact=True)}
@@ -802,29 +810,28 @@ def build_starter_manual_modal_html() ->str:
         </article>
 
         <article class="gba-manual-chapter-box" id="gbaManualChap2">
-          <h3>第2章 — 金融庁ルール準拠：新NISA適格銘柄と特定口座（毎月分配型）の正しいハイブリッド区分＆年2〜4回配分点検</h3>
+          <h3>第2章 — 金融庁ルール準拠：新NISA成長投資枠（SMH × XLV）と安全資産（個人向け国債・特定口座）の正しい区分</h3>
           <p>
-            日本の金融庁規定により、<strong>毎月分配型ETF（JEPI・JEPQ・QYLD・SGOV等）およびレバレッジ型ETF（SOXL・TQQQ等）は新NISAの対象外</strong>です。そのため老後の毎月キャッシュフロー設計では、{FSA_HYBRID_PHRASE_JP}で口座を正しく使い分け、頻繁な売買を避けて<strong>年2〜4回の穏やかな資産配分（リバランス）点検</strong>で年間360万円の非課税枠を大切に守ります。
+            日本の金融庁規定により、<strong>毎月分配型ETF（SGOV・JEPI等）およびレバレッジ型ETF（SOXL・TQQQ等）は新NISAの対象外</strong>です。そのため老後の穏やかな資産設計では、{FSA_HYBRID_PHRASE_JP}で口座を正しく使い分け、頻繁な売買を避けて<strong>年2回の穏やかな比率点検</strong>で年間360万円の非課税枠を大切に守ります。
           </p>
           <div class="gba-manual-broker-grid">
             <div class="gba-manual-broker-card">
-              <strong class="broker-name">新NISA口座（非課税 0%）で保有できる適格コア資産</strong>
+              <strong class="broker-name">新NISA成長投資枠（非課税 0%）で保有できる現物1倍 2本柱</strong>
               <ol>
-                <li><strong>1489（日経高配当株50 ETF）：</strong>1・4・7・10月決算の国内高配当50社分散。</li>
-                <li><strong>VYM・HDV（米国高配当株ETF）：</strong>3・6・9・12月分配の米国優良増配株分散（1489と時間差組み合わせ）。</li>
-                <li><strong>オルカン・S&amp;P500投信：</strong>つみたて投資枠・成長投資枠双方で長期インフレ対策に対応。</li>
+                <li><strong>SMH（米国半導体現物1倍ETF）：</strong>構造的な技術革新を担う長期成長柱（レバレッジなし現物1倍のため減価リスクなし）。</li>
+                <li><strong>XLV（米国ヘルスケア現物1倍ETF）：</strong>医薬品・医療機器など景気変動に左右されにくいディフェンシブ柱として下落時の振れ幅を緩和。</li>
               </ol>
             </div>
             <div class="gba-manual-broker-card">
-              <strong class="broker-name">特定口座（源泉徴収あり 20.315%）で区分管理する資産</strong>
+              <strong class="broker-name">安全資産クッション（個人向け国債 変動10年 ／ 特定口座 SGOV）</strong>
               <ol>
-                <li><strong>SGOV（米国短期国債ETF）・JEPI（米国カバードコール毎月分配ETF）：</strong>毎月分配型のため金融庁規定により新NISA対象外です。必ず<strong>特定口座</strong>で管理します。</li>
-                <li><strong>損益通算の活用：</strong>特定口座内の配当と譲渡損益は自動計算・損益通算されます。</li>
+                <li><strong>個人向け国債（変動10年）：</strong>半年ごとに適用利率が見直され、元本割れなく生活防衛資金（2〜3年分）を保全できる国内安全資産。</li>
+                <li><strong>SGOV（米国短期国債ETF）：</strong>米ドル待機資金を運用する場合は毎月分配型のため金融庁規定により必ず<strong>特定口座（源泉徴収あり）</strong>で区分管理します。</li>
               </ol>
             </div>
           </div>
           <div class="gba-manual-tip-callout">
-             <strong>安心のポイント：</strong>四半期配当の新NISA適格ETF（1・4・7・10月＋3・6・9・12月）と個人向け国債（半年利払い）・特定口座の毎月分配資産を組み合わせることで、金融庁ルールに100%準拠しながら年間を通じた穏やかなキャッシュフローを設計できます。
+             <strong>安心のポイント：</strong>新NISA成長投資枠の現物1倍2本柱（SMH × XLV）と、個人向け国債（変動10年）の安全クッションを組み合わせることで、金融庁ルールに100%準拠しながら下落局面でも慌てて手放さない穏やかな資産設計が可能になります。
           </div>
         </article>
 
@@ -995,7 +1002,9 @@ def build_legal_footer_html() ->str:
         <span aria-hidden="true">·</span>
         <a href="/jp/contact.html" style="color:var(--accent-blue, #1d4ed8); text-decoration:underline;">特定商取引法に基づく表記</a>
         <span aria-hidden="true">·</span>
-        <a href="https://www.youtube.com/@GetBreakAI" target="_blank" rel="noopener" style="color:var(--accent-blue, #1d4ed8); text-decoration:underline;">公式YouTube (@GetBreakAI)</a>
+        <a href="https://www.youtube.com/@GetBreakAI" target="_blank" rel="noopener" style="color:var(--accent-blue, #1d4ed8); text-decoration:underline;">公式YouTube @GetBreakAI</a>
+        <span aria-hidden="true">·</span>
+        <a href="https://www.instagram.com/getbreakai/" target="_blank" rel="noopener" style="color:var(--accent-blue, #1d4ed8); text-decoration:underline;">公式Instagram @getbreakai</a>
         <span aria-hidden="true">·</span>
         <span>カスタマーサポート: <a href="mailto:beable9489@gmail.com" style="color:var(--accent-blue, #1d4ed8); font-weight:900; text-decoration:underline;">beable9489@gmail.com</a></span>
         <span aria-hidden="true">·</span>
@@ -1034,6 +1043,7 @@ def _render_legal_doc(slug: str, title_jp: str, badge_text: str, body_html: str,
   <meta name="description" content="GetBreakAI ({canonical}) — {title_jp}・{SOFTWARE_POSITIONING_JP}・{MOR_LABEL_EN_JP}。サポート窓口: beable9489@gmail.com">
   <link rel="canonical" href="{canonical}">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <script type="application/ld+json">{{"@context":"https://schema.org","@type":"Organization","name":"GetBreakAI Japan","url":"https://getbreakai.com/jp/","email":"beable9489@gmail.com","sameAs":["https://www.youtube.com/@GetBreakAI","https://www.instagram.com/getbreakai/"]}}</script>
 {head_scripts}
   <style>
     :root {{
@@ -1151,9 +1161,9 @@ def build_all_legal_pages(root_dir: str, jp_dir: str) ->None:
       </div>
       <h2>第1条（提供ソフトウェアの内容・自己判断ツールとしての性質）</h2>
       <ul>
-        <li>公的年金と新NISA・特定口座を組み合わせた老後キャッシュフローおよび非課税節税額の数学的シミュレーション機能</li>
+        <li>新NISA成長投資枠（米国半導体 SMH × 米国ヘルスケア XLV）と個人向け国債（変動10年）・特定口座を組み合わせた老後資産配分および非課税枠の数学的シミュレーション機能</li>
         <li>日本の金融庁規定に準拠した{FSA_HYBRID_PHRASE_JP}の資産配分比率計算機能</li>
-        <li>Proプラン同梱ツール：①『新NISA 生涯非課税枠1,800万円（成長投資枠1,200万＋つみたて枠600万）退職金・年次別最適配分シート』、②『1489（1・4・7・10月）＋VYM/HDV（3・6・9・12月）＋国債でつくる 年12回・毎月配当カレンダー設計ツール』、③『楽天証券・SBI証券 スマホ／PC画面そのまま操作・大文字図解＆ステップガイド』</li>
+        <li>Proプラン同梱ツール：①『毎朝自動配信：SMH × XLV マーケット過熱・恐怖指標＆セクター比率トラッキング日報メール』、②『新NISA成長投資枠（SMH・XLV）× 個人向け国債・特定口座 運用額別の円・ドル配分計算シート』、③『随時更新・SMH × XLV セクターバランス実践マスターPDFガイド（楽天・SBI証券 大文字操作図解同梱）』</li>
         <li>米国SEC公開財務開示（Form 8-K / 10-Q / Form 4）および日米公開市場データの統計的可視化ダッシュボード（全利用者へ同一の計算式を表示する汎用教育ソフトウェア）</li>
       </ul>
       <h2>第2条（決済管理・ライセンス利用権）</h2>
@@ -1237,8 +1247,8 @@ def build_all_legal_pages(root_dir: str, jp_dir: str) ->None:
           <tr>
             <th>販売価格（税込目安）</th>
             <td>
-              ・月額Proプラン：{PRICE_LABEL_MONTHLY_JP}（随時更新・新NISA老後取り崩し実践PDFガイド＋3つの財布シミュレーター同梱）<br>
-              ・年間Pro VIPプラン：{PRICE_LABEL_ANNUAL_JP}（随時更新・新NISA老後取り崩し実践PDFガイド＋3つの財布シミュレーター同梱）<br>
+              ・月額Proプラン：{PRICE_LABEL_MONTHLY_JP}（毎朝 SMH × XLV 市場温度日報 ＋ 資産規模別配分シート同梱）<br>
+              ・年間Pro VIPプラン：{PRICE_LABEL_ANNUAL_JP}（上記全機能 ＋ 随時更新・新NISA老後取り崩し実践マスターブックPDF同梱）<br>
               ・法人・データ提携デスク：個別お見積り（<a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a>）
             </td>
           </tr>

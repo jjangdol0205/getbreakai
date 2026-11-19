@@ -53,23 +53,23 @@ BACKLINKS_LOG_PATH = DATA_DIR / "jp_external_backlinks.json"
 JP_DAILY_THEMES = [
     {
         "slug": "daily-nisa-quant-report.html",
-        "title_prefix": "新NISA適格（VYM・HDV・1489）＋特定口座（SGOV・JEPI）ハイブリッド老後キャッシュフロー設計",
-        "hook": "年金＋新NISAで毎月いくらのゆとり収入が作れるか、30秒で無料試算できます。\n\n金融庁ルールに準拠した新NISA適格コアと特定口座のハイブリッド設計で大切な老後資金を守りましょう。 #新NISA #老後資金",
+        "title_prefix": "新NISA成長投資枠（SMH × XLV）＋個人向け国債（変動10年）2本柱・老後資産配分設計",
+        "hook": "新NISA成長投資枠の現物1倍2本柱（SMH × XLV）と個人向け国債（変動10年）の初期比率を4ステップで無料試算できます。\n\n金融庁ルールに準拠した静かな2本柱設計で大切な老後資金を守りましょう。 #新NISA #老後資金",
     },
     {
         "slug": "shin-nisa-us-stock-atr-risk-management.html",
-        "title_prefix": "1銘柄集中を防ぐ分散比率計算：夜ぐっすり眠れる新NISA資産配分の決め方",
-        "hook": "老後資産運用で大切なのは1銘柄に偏らない穏やかな分散配分です。\n\n個人向け国債・高配当ETF・インデックス投信の3つの財布バランスを年2〜4回ゆったり点検しましょう。 #新NISA #資産運用",
+        "title_prefix": "単一テーマ集中を防ぐ2本柱設計：夜ぐっすり眠れる新NISA資産配分の決め方",
+        "hook": "老後資産運用で大切なのは単一セクターに偏らない穏やかな分散配分です。\n\n米国半導体（SMH）×米国医療（XLV）と個人向け国債（変動10年）のバランスを年2回ゆったり点検しましょう。 #新NISA #資産運用",
     },
     {
         "slug": "msft-azure-ai-copilot-sec-8k.html",
         "title_prefix": "米SEC公式決算開示（Form 8-K/10-Q）と連続増配データの落ち着いた読み方",
-        "hook": "ニュースの騒音に振り回されず、企業の一次公開データと増配実績を落ち着いて確認する習慣が長期の安心につながります。 #米国株 #新NISA",
+        "hook": "ニュースの騒音に振り回されず、企業の一次公開データとセクター全体のバランスを落ち着いて確認する習慣が長期の安心につながります。 #米国株 #新NISA",
     },
     {
         "slug": "unh-defensive-healthcare-insider-buy.html",
-        "title_prefix": "ハイテク株だけに偏っていませんか？守りのヘルスケア・高配当を添える大人の新NISA配分",
-        "hook": "成長株だけでなく、個人向け国債や高配当ETF・ディフェンシブ銘柄を組み合わせることで資産寿命は大きく安定します。 #新NISA #高配当株",
+        "title_prefix": "ハイテク株だけに偏っていませんか？守りのヘルスケア（XLV）を添える新NISA配分",
+        "hook": "成長セクター（SMH）だけでなく、ディフェンシブな医療セクター（XLV）や個人向け国債（変動10年）を組み合わせることで資産寿命は大きく安定します。 #新NISA #資産配分",
     },
 ]
 
@@ -92,6 +92,11 @@ def update_dual_llms_txt() -> str:
     excluded_names = {
         "index.html", "confirmation.html", "terms.html", "privacy.html", "refund.html", "contact.html",
         "soxl-smh-semiconductor-timing.html", "mstr-bitcoin-volatility-atr-sizing.html",
+        "nvda-sec-gamma-atr-analysis.html", "tsla-gamma-wall-swing-trade.html",
+        "amd-mi350-gamma-squeeze-target.html", "arm-royalty-expansion-gamma-wall.html",
+        "options-gamma-squeeze-gex-guide.html", "fomc-cpi-iv-crush-strategy.html",
+        "tradingview-pine-script-v5-atr-guide.html", "us-stock-stop-loss-2percent-rule.html",
+        "dark-pool-whale-flow-reading.html",
     }
     seo_pages = sorted(
         p.name
@@ -100,13 +105,15 @@ def update_dual_llms_txt() -> str:
     )
 
     en_lines = [
-        "# GetBreakAI — Japanese 50-70s Shin-NISA & Retirement Cashflow Calculator Software (https://getbreakai.com/jp/)",
+        "# GetBreakAI — Japanese 50-70s Shin-NISA SMH × XLV + JGB Asset-Allocation Platform (https://getbreakai.com/jp/)",
         "",
-        f"> Updated: {today_str} | Self-Directed Public Market Data Visualization & Dividend / Asset-Allocation Calculator Software (FSA Shin-NISA Eligible VYM/HDV/1489/All-Country/S&P500 + Tokutei Account SGOV/JEPI Hybrid Architecture).",
+        f"> Updated: {today_str} | Self-Directed Public Market Data Visualization & 2-Pillar Asset-Allocation Simulator (FSA Shin-NISA Growth Quota Eligible Spot 1x SMH × XLV + Japanese Retail Government Bonds Variable 10-Year / Tokutei Account SGOV Cushion).",
+        "> Official Channels: https://www.youtube.com/@GetBreakAI | https://www.instagram.com/getbreakai/",
         "",
         "## 1. Core Japanese Calculators & Legal Pages",
         "- Main Retirement & Shin-NISA Hub: https://getbreakai.com/jp/",
         "- Root Canonical Mirror: https://getbreakai.com/",
+        "- Flagship Editorial Essay: https://getbreakai.com/jp/nisa-quiet-barbell-essay.html",
         "- Daily Public Market Data Report: https://getbreakai.com/jp/daily-nisa-quant-report.html",
         "- Terms of Service: https://getbreakai.com/jp/terms.html",
         "- Privacy Policy: https://getbreakai.com/jp/privacy.html",
@@ -122,16 +129,18 @@ def update_dual_llms_txt() -> str:
     jp_lines = [
         "# GetBreakAI Japan (https://getbreakai.com/jp/)",
         "",
-        "> 日本の50代〜70代個人投資家・新NISA運用層のための公開市場データ可視化および配当・資産配分計算ソフトウェア（Self-Directed Educational Calculator Software）。金融庁規定準拠『新NISA 適格（四半期配当 VYM・HDV・1489・オルカン・S&P500 時間差組み合わせ）＋ 特定口座（毎月分配 SGOV・JEPI）ハイブリッド設計』対応。",
+        "> 日本の50代〜70代個人投資家・新NISA運用層のための公開市場データ可視化および資産配分計算ソフトウェア（Self-Directed Educational Calculator Software）。金融庁規定準拠『新NISA成長投資枠 適格（米国半導体 SMH × 米国ヘルスケア XLV 現物1倍2本柱）＋ 安全資産クッション（個人向け国債 変動10年 ／ 特定口座 SGOV）』対応。",
+        "> 公式チャンネル: https://www.youtube.com/@GetBreakAI | https://www.instagram.com/getbreakai/",
         f"> 最終更新日: {today_str} (JST)",
         "",
         "## 1. コア計算ツール（投資助言・売買推奨を行わない自己判断用教育計算ソフトウェア）",
-        "- **30秒・ゆとり老後＆新NISA毎月キャッシュフロー設計シミュレーター**: 公的年金＋新NISA非課税枠・特定口座ハイブリッド配分の試算。",
-        "- **ドル($)・日本円(¥)同時対応 1銘柄分散配分シミュレーター**: 1銘柄への過度な集中を防ぐ保有株数目安の計算。",
+        "- **4ステップ SMH × XLV ＋ 個人向け国債 比率設計シミュレーター**: 新NISA成長投資枠と安全資産クッションの初期ベース比率試算。",
+        "- **代表エッセイ・朝刊データノート**: 2000〜2025年（26年間）の公開セクター検証に基づく長期資産設計コラム。",
         "- **法務・サポート窓口**: 利用規約 https://getbreakai.com/jp/terms.html / プライバシーポリシー https://getbreakai.com/jp/privacy.html / 14日間返金ポリシー https://getbreakai.com/jp/refund.html / サポート beable9489@gmail.com",
         "",
         "## 2. 主要日本語リサーチ・公開データ解説ページ一覧",
         "- 日本語メインハブ: https://getbreakai.com/jp/",
+        "- 代表エッセイ: https://getbreakai.com/jp/nisa-quiet-barbell-essay.html",
         "- 本日の新NISA・公開市場データ日報: https://getbreakai.com/jp/daily-nisa-quant-report.html",
         "- 日本語RSSフィード: https://getbreakai.com/jp/feed.xml",
     ]
@@ -256,12 +265,12 @@ def main() -> int:
             "50代・60代からの資産運用で一番大切なのは、無理に大勝ちを狙うことではなく、長年働いて築いたご資産を深い塩漬け損から穏やかに守り抜くことです。",
         ],
         three_insights=[
-            "**新NISA（非課税0%）と特定口座（20.315%）のやさしい使い分け**: 特定口座は利益に20.315%課税される代わりに損切り額を損益通算できますが、新NISA枠は利益がまるごと非課税（0%）になる反面、損失の損益通算ができないため早めの安全撤退ルールが命綱になります。",
-            "**迷わない毎朝の3色シグナル（Donchian 20日高値＆2.0倍ATR基準）**: 🔵青シグナル（上昇トレンド維持）・🟡黄シグナル（様子見・待機）・🔴赤シグナル（2.0倍ATR安全撤退ライン）の3色だけで落ち着いて手取りを守れます。",
-            f"**実勢レート（1ドル＝約{usd_jpy:.1f}円）連動の適正株数ルール**: 例えば口座資金100万円なら1回の許容損失を1.5%（15,000円）以内に抑える株数だけを持つことで、夜ぐっすり眠れる運用が続けられます。",
+            "**新NISA（非課税0%）と個人向け国債・特定口座のやさしい使い分け**: 新NISA枠は利益がまるごと非課税（0%）になる反面、損失の損益通算ができないため、単一株集中を避け現物1倍セクターETF（SMH × XLV）で分散することが命綱になります。",
+            "**年2回の穏やかな市場温度（0〜100）点検**: 半導体の成長力（SMH）とヘルスケアの下落耐性（XLV）を組み合わせ、市場の過熱・悲観に合わせて年2回だけ比率を静かに点検します。",
+            f"**実勢レート（1ドル＝約{usd_jpy:.1f}円）と生活防衛クッション**: 今後2〜3年分の生活予備費は個人向け国債（変動10年）または特定口座のSGOVで別枠確保することで、夜ぐっすり眠れる運用が続けられます。",
         ],
         daily_mission=(
-            "今日1分だけ、気になっている米国株1銘柄（NVDA・MSFT・AVGOなど）の「安全撤退ライン（2.0倍ATR）」を手帳やスマホのメモに書き留めてから相場を眺めてみましょう。"
+            "今日1分だけ、ご自身の新NISA口座が単一のハイテクテーマだけに偏っていないか、SMH × XLV ＋ 個人向け国債の基準比率と照らし合わせてみましょう。"
         ),
         gentle_bridge_lines=[
             f"**今朝の資産防衛レター全文＆日課スタンプを押す**: {canonical_url}",
@@ -301,7 +310,7 @@ def main() -> int:
         canonical_domain=HOST,
         canonical_url=canonical_url,
         title=title,
-        summary=f"新NISA適格（1489・VYM・HDV・オルカン）×特定口座（SGOV・JEPI）ハイブリッド対応：大切な老後資金を守る毎朝の3色バランス指標日報（1ドル＝約{usd_jpy:.1f}円）",
+        summary=f"新NISA成長投資枠（米国半導体 SMH × 米国ヘルスケア XLV）＋個人向け国債（変動10年）／特定口座（SGOV）2本柱対応：大切な老後資金を守る朝の公開データ日報（1ドル＝約{usd_jpy:.1f}円）",
         main_social_hook=theme["hook"],
         reply_social_link=reply_post,
         longform_markdown=note_md,

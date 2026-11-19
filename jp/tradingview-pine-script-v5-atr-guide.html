@@ -3,20 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TradingView Pine Script v5で平均変動幅（ATR統計帯）と長期トレンド帯を表示する設定手順 | GetBreakAI 朝刊エッセイ＆公開データ研究</title>
-  <meta name="description" content="TradingView公開データ可視化スクリプト導入ガイドの自己判断のチャート学習ツールとしてTradingViewに14日平均変動幅バンドと長期移動平均線を表示する具体的な設定ステップを公開データからわかりやすく整理。『新NISA 適格（四半期配当 VYM・HDV・1489・オルカン・S&P500 時間差組み合わせ）＋ 特定口座（毎月分配 SGOV・JEPI）ハイブリッド設計』とドル・円同時対応の資産配分シミュレーターを掲載。">
+  <title>TradingViewで長期移動平均線と SMH × XLV セクター比較チャートを表示する設定手順 | GetBreakAI 朝刊エッセイ＆公開データ研究</title>
+  <meta name="robots" content="noindex, follow">
+  <meta name="description" content="TradingView移動平均線・セクター比較チャート導入ガイドの自己判断のチャート学習ツールとしてTradingViewに長期移動平均線および半導体（SMH）・ヘルスケア（XLV）の相対推移を表示する設定ステップを公開データからわかりやすく整理。『新NISA成長投資枠（米国半導体 SMH × 米国ヘルスケア XLV 現物1倍 2本柱）＋ 安全資産クッション（個人向け国債 変動10年 ／ 特定口座 SGOV）』に基づく長期資産配分ガイドを掲載。">
   <link rel="canonical" href="https://getbreakai.com/jp/tradingview-pine-script-v5-atr-guide.html">
   <link rel="alternate" hreflang="ja" href="https://getbreakai.com/jp/tradingview-pine-script-v5-atr-guide.html">
   <meta property="og:type" content="article">
   <meta property="og:locale" content="ja_JP">
   <meta property="og:site_name" content="GetBreakAI 朝刊エッセイ＆公開データ研究">
   <meta property="og:url" content="https://getbreakai.com/jp/tradingview-pine-script-v5-atr-guide.html">
-  <meta property="og:title" content="TradingView Pine Script v5で平均変動幅（ATR統計帯）と長期トレンド帯を表示する設定手順">
-  <meta property="og:description" content="📊 【公開市場データ要約】TradingView公開データ可視化スクリプト導入ガイド の公開財務・需給スコアは 90.5/100（TradingView チャート可視化設定 ＆ 自己学習ツールガイド）です。想定運用資金 $50,000（約750万円）における1銘柄分散目安は 25株（約188.6万円）、2.0倍ATR変動幅の参考下限値は $473.19、長期目標参考値は $576.93 です。">
+  <meta property="og:title" content="TradingViewで長期移動平均線と SMH × XLV セクター比較チャートを表示する設定手順">
+  <meta property="og:description" content="【公開市場データ・基礎解説】自己判断のチャート学習ツールとしてTradingViewに長期移動平均線および半導体（SMH）・ヘルスケア（XLV）の相対推移を表示する設定ステップ。50〜70代の老後資産設計における基本原則（『新NISA成長投資枠（米国半導体 SMH × 米国ヘルスケア XLV 現物1倍 2本柱）＋ 安全資産クッション（個人向け国債 変動10年 ／ 特定口座 SGOV）』）に沿ってわかりやすく整理しています。">
   <meta property="og:image" content="https://getbreakai.com/og-preview.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="TradingView Pine Script v5で平均変動幅（ATR統計帯）と長期トレンド帯を表示する設定手順">
-  <meta name="twitter:description" content="📊 【公開市場データ要約】TradingView公開データ可視化スクリプト導入ガイド の公開財務・需給スコアは 90.5/100（TradingView チャート可視化設定 ＆ 自己学習ツールガイド）です。想定運用資金 $50,000（約750万円）における1銘柄分散目安は 25株（約188.6万円）、2.0倍ATR変動幅の参考下限値は $473.19、長期目標参考値は $576.93 です。">
+  <meta name="twitter:title" content="TradingViewで長期移動平均線と SMH × XLV セクター比較チャートを表示する設定手順">
+  <meta name="twitter:description" content="【公開市場データ・基礎解説】自己判断のチャート学習ツールとしてTradingViewに長期移動平均線および半導体（SMH）・ヘルスケア（XLV）の相対推移を表示する設定ステップ。50〜70代の老後資産設計における基本原則（『新NISA成長投資枠（米国半導体 SMH × 米国ヘルスケア XLV 現物1倍 2本柱）＋ 安全資産クッション（個人向け国債 変動10年 ／ 特定口座 SGOV）』）に沿ってわかりやすく整理しています。">
   <meta name="twitter:image" content="https://getbreakai.com/og-preview.png">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,8 +29,8 @@
   "@graph": [
     {
       "@type": "Article",
-      "headline": "TradingView Pine Script v5で平均変動幅（ATR統計帯）と長期トレンド帯を表示する設定手順",
-      "description": "📊 【公開市場データ要約】TradingView公開データ可視化スクリプト導入ガイド の公開財務・需給スコアは 90.5/100（TradingView チャート可視化設定 ＆ 自己学習ツールガイド）です。想定運用資金 $50,000（約750万円）における1銘柄分散目安は 25株（約188.6万円）、2.0倍ATR変動幅の参考下限値は $473.19、長期目標参考値は $576.93 です。",
+      "headline": "TradingViewで長期移動平均線と SMH × XLV セクター比較チャートを表示する設定手順",
+      "description": "【公開市場データ・基礎解説】自己判断のチャート学習ツールとしてTradingViewに長期移動平均線および半導体（SMH）・ヘルスケア（XLV）の相対推移を表示する設定ステップ。50〜70代の老後資産設計における基本原則（『新NISA成長投資枠（米国半導体 SMH × 米国ヘルスケア XLV 現物1倍 2本柱）＋ 安全資産クッション（個人向け国債 変動10年 ／ 特定口座 SGOV）』）に沿ってわかりやすく整理しています。",
       "datePublished": "2026-11-19",
       "dateModified": "2026-11-19",
       "inLanguage": "ja",
@@ -41,6 +42,11 @@
       "publisher": {
         "@type": "Organization",
         "name": "GetBreakAI Educational Software",
+        "url": "https://getbreakai.com/jp/",
+        "sameAs": [
+          "https://www.youtube.com/@GetBreakAI",
+          "https://www.instagram.com/getbreakai/"
+        ],
         "logo": {
           "@type": "ImageObject",
           "url": "https://getbreakai.com/og-preview.png"
@@ -53,18 +59,18 @@
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "TradingView公開データ可視化スクリプト導入ガイドの1銘柄あたり分散配分目安と平均変動幅（ATR統計値）はどのように計算しますか？",
+          "name": "新NISA成長投資枠における「SMH × XLV」と「個人向け国債（変動10年）」の2本柱配分とはどのような設計ですか？",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "公開市場データ（2026-11-19時点・基準価格$502.83、14日平均変動幅ATR $14.82）に基づき、2.0倍変動幅（$29.64）が運用資金全体の1.5%以内に収まるよう逆算すると、$50,000（約750万円）口座での分散目安は25株（約188.6万円）となります。"
+            "text": "新NISA成長投資枠ではレバレッジのない現物1倍の米国半導体ETF（SMH）と米国ヘルスケアETF（XLV）を組み合わせて構造的な成長と下落耐性を両立させ、今後2〜3年以内に使う生活防衛資金は日本の個人向け国債（変動10年）または特定口座の米国短期国債ETF（SGOV）で区分管理する長期資産配分フレームワークです。"
           }
         },
         {
           "@type": "Question",
-          "name": "毎月分配型ETF（JEPI・SGOV等）やレバレッジ型ETF（SOXL等）は新NISAで買えますか？",
+          "name": "毎月分配型ETF（SGOV・JEPI等）やレバレッジ型ETF（SOXL等）は新NISAで買えますか？",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "いいえ。日本の金融庁ルールにより、毎月分配型ETF（JEPI・JEPQ・QYLD・SGOV等）およびレバレッジ型ETF（SOXL・TQQQ等）は新NISAの対象外であり、特定口座でのみ保有可能です。新NISA枠では四半期配当のVYM・HDV・1489およびオルカン・S&P500を組み合わせるハイブリッド設計が適しています。"
+            "text": "いいえ。日本の金融庁ルールにより、毎月分配型ETF（SGOV・JEPI・JEPQ・QYLD等）およびレバレッジ型ETF（SOXL・TQQQ等）は新NISAの対象外であり、特定口座でのみ保有可能です。新NISA成長投資枠では現物1倍の米国半導体ETF（SMH）と米国ヘルスケアETF（XLV）を保有し、安全資産クッションは日本の個人向け国債（変動10年）または特定口座のSGOVで区分管理する設計が適しています。"
           }
         },
         {
@@ -747,9 +753,9 @@
   </header>
 
   <main class="reading-column">
-    <div class="essay-kicker">公開市場データ研究ノート ・ 対象データ: TradingView公開データ可視化スクリプト導入ガイド ($MSFT)</div>
-    <h1>TradingView Pine Script v5で平均変動幅（ATR統計帯）と長期トレンド帯を表示する設定手順</h1>
-    <p class="essay-subtitle">📊 【公開市場データ要約】TradingView公開データ可視化スクリプト導入ガイド の公開財務・需給スコアは 90.5/100（TradingView チャート可視化設定 ＆ 自己学習ツールガイド）です。想定運用資金 $50,000（約750万円）における1銘柄分散目安は 25株（約188.6万円）、2.0倍ATR変動幅の参考下限値は $473.19、長期目標参考値は $576.93 です。</p>
+    <div class="essay-kicker">新NISA・老後資産配分 基礎ガイド ・ SMH × XLV ＋ 個人向け国債（変動10年）</div>
+    <h1>TradingViewで長期移動平均線と SMH × XLV セクター比較チャートを表示する設定手順</h1>
+    <p class="essay-subtitle">【公開市場データ・基礎解説】自己判断のチャート学習ツールとしてTradingViewに長期移動平均線および半導体（SMH）・ヘルスケア（XLV）の相対推移を表示する設定ステップ。50〜70代の老後資産設計における基本原則（『新NISA成長投資枠（米国半導体 SMH × 米国ヘルスケア XLV 現物1倍 2本柱）＋ 安全資産クッション（個人向け国債 変動10年 ／ 特定口座 SGOV）』）に沿ってわかりやすく整理しています。</p>
 
     <div class="byline-bar">
       <div class="byline-author">
@@ -763,98 +769,74 @@
     </div>
 
     <article>
-      <h2>1. TradingView公開データ可視化スクリプト導入ガイド の米SEC公式決算開示（Form 8-K/10-Q）および公開業績データの整理</h2>
+      <h2>1. 基礎解説：TradingView移動平均線・セクター比較チャート導入ガイド の公開データ構造と確認ポイント</h2>
       <p>
-        50〜70代の個人投資家が新NISAや退職金運用で最も大切にしたいのは、SNSの噂や一時的なブームに惑わされず、<strong>企業が規制当局へ提出した一次公開情報（米SEC Form 8-K・Form 10-Q・年次報告書Form 10-K）</strong>を落ち着いた視点で確認することです。TradingView公開データ可視化スクリプト導入ガイド に関する現在の主要確認テーマは「<strong>自己判断のチャート学習ツールとしてTradingViewに14日平均変動幅バンドと長期移動平均線を表示する具体的な設定ステップ</strong>」であり、公開データ可視化スコアは <strong>90.5/100（区分：TradingView チャート可視化設定 ＆ 自己学習ツールガイド）</strong> となっています。
+        50〜70代の個人投資家が新NISAや退職金運用で最も大切にしたいのは、SNSの噂や短期的な値動きの見出しに振り回されず、<strong>公的機関・規制当局・取引所が公表する一次統計データ（TradingView チャート可視化設定 ＆ 自己学習ツールガイド）</strong>を落ち着いた視点で読み解くことです。本ガイドの主要テーマは「<strong>自己判断のチャート学習ツールとしてTradingViewに長期移動平均線および半導体（SMH）・ヘルスケア（XLV）の相対推移を表示する設定ステップ</strong>」です。
       </p>
       <p>
-        英語で公開される決算発表や設備投資計画・配当方針の開示も、売上成長率・営業利益率・フリーキャッシュフローの3点に絞って整理すれば決して難しくありません。当ページではすべての利用者に同一の客観的統計データを表示し、ご自身のペースで資産配分を点検するための基礎資料を提供しています。
-      </p>
-
-      <h2>2. SEC Form-4（役員自社株取得記録）および大口機関投資家の公開需給統計（59.5%）</h2>
-      <p>
-        日々の株価変動の背景にある中長期の資金動向を知るうえで参考になるのが、<strong>SEC Form-4（経営陣による市場内での自社株取得開示）</strong>と、米国FINRA等で集計される<strong>取引所外の大口機関投資家取引比率（現在 59.5%、オプション需給倍率 2.2倍）</strong>です。
-      </p>
-      <p>
-        年金基金や長期運用の機関投資家は、一度に大量の注文を出して市場価格を乱高下させないよう、複数日に分けて穏やかにポジションを構築します。同様に個人の老後資産づくりにおいても、一度に全額を1銘柄へ投じるのではなく、時間と資産クラスを分けて穏やかに保有比率を整えることが長期の安心につながります。
+        専門用語が多く見える米国の公開市場データも、「長期の収益基盤が維持されているか」「市場全体の過熱・悲観が極端な水準にないか」「ご自身の資産配分が単一テーマに偏っていないか」の3点に絞って確認すれば、日々のニュースに慌てる必要はなくなります。
       </p>
 
-      <h2>3. 【重要・金融庁規定準拠】新NISA適格銘柄と特定口座（毎月分配型）のハイブリッド設計</h2>
+      <h2>2. 短期売買ではなく「長期セクター分散」に公開データを活かす視点</h2>
       <p>
-        日本の金融庁ルールにより、米国ETFや国内ETFを老後の毎月キャッシュフローづくりに活用する際は<strong>「新NISA口座で保有できる銘柄」と「特定口座でのみ保有できる銘柄」の法的な違い</strong>を正確に把握しておく必要があります。具体的には、<strong>毎月分配型ETF（JEPI・JEPQ・QYLD・SGOV等）およびレバレッジ型ETF（SOXL・TQQQ等）は金融庁規定により新NISA（つみたて投資枠・成長投資枠とも）の対象外</strong>です。
+        公開市場の統計データ（区分：チャート可視化 ・ 点検目安：自己学習）は、明日の株価を当てて頻繁に売買するためにあるのではありません。むしろ「市場が熱狂しているときに高値で買いすぎない」「一時的な悲観局面で大切な長期資産を狼狽売りしない」ための<strong>心の温度計</strong>として活用することに本来の価値があります。
       </p>
       <p>
-        そのため、年金にプラスする安定したキャッシュフローを設計する際は、<strong>『新NISA 適格（四半期配当 VYM・HDV・1489・オルカン・S&P500 時間差組み合わせ）＋ 特定口座（毎月分配 SGOV・JEPI）ハイブリッド設計』</strong>が王道となります。新NISA枠内では四半期配当の<strong>1489（1・4・7・10月決算）</strong>と<strong>VYM・HDV（3・6・9・12月分配）</strong>、および長期成長の<strong>オルカン・S&amp;P500</strong>を組み合わせて20.315%非課税メリットを活かし、毎月分配の<strong>SGOV（米国短期国債ETF）やJEPI</strong>を組み入れる場合は必ず<strong>特定口座（源泉徴収あり）</strong>で区分管理してください。
+        新NISA口座では短期売買を繰り返すと年間非課税枠を消費してしまうため、公開データは年2回の定期点検の参考指標として静かに役立てるのが賢明です。
       </p>
 
-      <h2>4. 年2〜4回の穏やかな資産配分点検と1銘柄あたりの買いすぎ防止計算</h2>
+      <h2>3. 【金融庁規定準拠】新NISA成長投資枠（SMH × XLV）と個人向け国債の2本柱設計</h2>
       <p>
-        新NISA口座では頻繁に売却を繰り返すと年間360万円の非課税投資枠を消化してしまうほか、万が一含み損が生じても特定口座と損益通算ができない仕組みになっています。したがって、短期的な値動きを追いかけるのではなく、<strong>「①守りの財布（個人向け国債・待機預金）」「②収入の財布（高配当ETF）」「③成長の財布（オルカン・S&amp;P500・優良大型株）」の比率を年2〜4回だけゆったり見直す運用</strong>がシニア世代の資産寿命を大きく延ばします。
+        日本の金融庁ルールにより、<strong>毎月分配型ETF（SGOV・JEPI等）およびレバレッジ型ETF（SOXL・TQQQ等）は新NISAの対象外</strong>であり、特定口座でのみ保有可能です。制度に正しく準拠しながらインフレ対応の成長と下値防衛を両立させるには、<strong>『新NISA成長投資枠（米国半導体 SMH × 米国ヘルスケア XLV 現物1倍 2本柱）＋ 安全資産クッション（個人向け国債 変動10年 ／ 特定口座 SGOV）』</strong>が明快な基準となります。
       </p>
       <p>
-        個別銘柄である TradingView公開データ可視化スクリプト導入ガイド（基準値 $502.83、14日平均変動幅 $14.82）を一部組み入れる場合も、2.0倍変動幅（$29.64）の振れが口座全体の1.5%以内に収まる株数（$50,000＝約750万円口座で 25株・約188.6万円）にとどめることで、夜もぐっすり眠れる健全な分散バランスを維持できます。
+        新NISA成長投資枠では現物1倍の<strong>米国半導体ETF（SMH）</strong>と<strong>米国ヘルスケアETF（XLV）</strong>という異なる景気サイクルで動く2本柱を保有し、生活防衛クッションは<strong>日本の個人向け国債（変動10年）または特定口座のSGOV</strong>で別枠管理することで、嵐の相場でも取り崩しに困らない土台が整います。
+      </p>
+
+      <h2>4. 4ステップ比率診断による自己判断ベース配分の確認</h2>
+      <p>
+        どれほど優れた制度や公開データがあっても、ご自身の睡眠を妨げるような高いリスク比率では長期運用を続けることはできません。下の検証サマリーおよび<strong>「4ステップ SMH × XLV 比率シミュレーター」</strong>を使って、ご自身の運用期間と許容変動幅に合った無理のないベース配分を確かめてみてください。
       </p>
 
       <div class="kpi-grid">
         <div class="kpi-card">
-          <div class="kpi-label">直近基準株価（公開終値）</div>
-          <div class="kpi-val">$502.83 <span style="font-size:0.78rem; color:#6b6b66; font-weight:700;">(約¥75,424)</span></div>
+          <div class="kpi-label">SMH × XLV 過去26年 年率複利（2000-2025）</div>
+          <div class="kpi-val" style="color:#059669 !important;">約 11.4%</div>
         </div>
         <div class="kpi-card">
-          <div class="kpi-label">公開データ安定度スコア</div>
-          <div class="kpi-val" style="color:#1d4ed8 !important;">90.5 / 100</div>
+          <div class="kpi-label">SMH × XLV 最大下落幅（S&amp;P500単独 -50.9%）</div>
+          <div class="kpi-val" style="color:#1d4ed8 !important;">-27.8%</div>
         </div>
         <div class="kpi-card">
-          <div class="kpi-label">2.0倍ATR 変動幅参考値</div>
-          <div class="kpi-val" style="color:#be123c !important;">$473.19</div>
+          <div class="kpi-label">新NISA成長投資枠 区分</div>
+          <div class="kpi-val">現物1倍 適格（SMH・XLV）</div>
         </div>
         <div class="kpi-card">
-          <div class="kpi-label">長期リスクリワード参考値</div>
-          <div class="kpi-val" style="color:#059669 !important;">$576.93</div>
+          <div class="kpi-label">生活防衛クッション（日本居住者）</div>
+          <div class="kpi-val" style="color:#b45309 !important;">個人向け国債（変動10年）／SGOV</div>
         </div>
       </div>
 
-      <!-- 自己判断用・資産配分＆変動幅シミュレーター -->
-      <div class="widget-box" id="miniCalcBox">
-        <h3 style="margin-top:0;">TradingView公開データ可視化スクリプト導入ガイド：1銘柄集中を防ぐ資産配分＆許容変動幅の試算（ドル $ / 日本円 ¥ 同時換算）</h3>
-        <p style="font-size:0.92rem; color:#6b6b66 !important; margin-bottom:14px;">
-          ご自身の運用資産総額に合わせてスライダーを動かすと、1銘柄あたりの価格変動（14日ATR×2.0倍）を資産全体の1.5%以内に抑える「分散保有株数の目安」を自動試算します。
+      <div class="widget-box">
+        <h3 style="margin-top:0;">ご自身の資産規模に合わせた「SMH × XLV ＋ 個人向け国債」初期比率を試算する</h3>
+        <p style="font-size:0.94rem; color:#3d3d3a !important; margin-bottom:14px;">
+          4つの質問（運用目的・資産規模・許容下落幅・成長比率）を選ぶだけで、新NISA成長投資枠（SMH・XLV）と安全資産クッション（個人向け国債 変動10年 ／ 特定口座 SGOV）の初期ベース配分を無料で確認できます。
         </p>
-        <div style="margin-bottom:14px;">
-          <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.9rem; margin-bottom:6px; color:#3d3d3a;">
-            <span>想定ご運用資産 (1ドル=150円基準):</span>
-            <strong id="miniAccLbl" style="color:#b45309;">$50,000 (約750.0万円)</strong>
-          </div>
-          <input type="range" id="miniAccSlider" min="5000" max="250000" step="5000" value="50000" style="width:100%; accent-color:#059669;" oninput="recalcMiniWidget()">
-        </div>
-        <div class="kpi-grid" style="margin:14px 0 0;">
-          <div class="kpi-card">
-            <div class="kpi-label">分散保有株数の目安</div>
-            <div id="miniOutShares" class="kpi-val" style="color:#b45309 !important;">25株 ($12,571 / 約188.6万円)</div>
-          </div>
-          <div class="kpi-card">
-            <div class="kpi-label">2.0倍ATR変動時の想定振れ幅</div>
-            <div id="miniOutRisk" class="kpi-val" style="color:#be123c !important;">-$741 (約11.1万円)</div>
-          </div>
-          <div class="kpi-card">
-            <div class="kpi-label">長期2.5倍目標時の試算差額</div>
-            <div id="miniOutGain" class="kpi-val" style="color:#059669 !important;">+$1,852 (約27.8万円)</div>
-          </div>
-        </div>
+        <a href="/jp/#gba-retirement-architect-jp" style="display:inline-flex; align-items:center; justify-content:center; min-height:48px; padding:12px 22px; background:#059669; color:#ffffff; text-decoration:none; border-radius:8px; font-weight:800; font-size:0.95rem;">
+          4ステップ SMH × XLV 比率シミュレーターを開く &rarr;
+        </a>
       </div>
 
-      <h2>関連する新NISA・日米優良株 公開データ研究ノート</h2>
+      <h2>関連する新NISA・米国セクター＆優良株 公開データ研究ノート</h2>
       <ul style="list-style:none; line-height:2.0; font-size:0.95rem;">
-        <li><a href="/jp/nvda-sec-gamma-atr-analysis.html" style="color:#1d4ed8; text-decoration:none; font-weight:700;">📘 エヌビディア(NVDA) 米SEC公式決算開示（Form 8-K/10-Q）と資産配分・変動幅データ解析</a></li>
-<li><a href="/jp/pltr-insider-buying-analysis.html" style="color:#1d4ed8; text-decoration:none; font-weight:700;">📘 パランティア(PLTR) SEC Form-4公開データ・長期契約開示と適正配分比率の試算</a></li>
-<li><a href="/jp/smci-accounting-risk-warning.html" style="color:#1d4ed8; text-decoration:none; font-weight:700;">📘 スーパー・マイクロ(SMCI) 米SEC年次報告書（Form 10-K）公開リスク注記と機関需給データの読み方</a></li>
-<li><a href="/jp/shin-nisa-us-stock-atr-risk-management.html" style="color:#1d4ed8; text-decoration:none; font-weight:700;">📘 新NISA適格（VYM・HDV・1489・オルカン・S&P500）＋特定口座（SGOV・JEPI）ハイブリッド資産配分ガイド</a></li>
-<li><a href="/jp/lly-form4-insider-cluster-buy.html" style="color:#1d4ed8; text-decoration:none; font-weight:700;">📘 イーライリリー(LLY) SEC Form-4経営陣の市場内自社株取得データと医薬品研究開発開示</a></li>
-<li><a href="/jp/avgo-custom-ai-asic-8k-analysis.html" style="color:#1d4ed8; text-decoration:none; font-weight:700;">📘 ブロードコム(AVGO) カスタムAI半導体・フリーキャッシュフロー開示と増配実績データ解析</a></li>
-<li><a href="/jp/amd-mi350-gamma-squeeze-target.html" style="color:#1d4ed8; text-decoration:none; font-weight:700;">📘 AMD データセンター部門の米SEC売上開示と半導体セクター分散配分シミュレーション</a></li>
-<li><a href="/jp/meta-ai-capex-earnings-nlp.html" style="color:#1d4ed8; text-decoration:none; font-weight:700;">📘 メタ(META) 広告収益・株主還元（自社株買い・配当）に関する米SEC公式決算データ解析</a></li>
-<li><a href="/jp/crwd-cybersecurity-pead-drift.html" style="color:#1d4ed8; text-decoration:none; font-weight:700;">📘 クラウドストライク(CRWD) 年間経常収益（ARR）公開データと情報セキュリティ需要分析</a></li>
-<li><a href="/jp/vrt-ai-datacenter-cooling-catalyst.html" style="color:#1d4ed8; text-decoration:none; font-weight:700;">📘 バーティブ(VRT) データセンター電源・冷却設備の受注残（Backlog）公開データと変動幅試算</a></li>
+        <li><a href="/jp/pltr-insider-buying-analysis.html" style="color:#1d4ed8; text-decoration:none; font-weight:700;">パランティア(PLTR) SEC Form-4公開データ・長期契約開示とセクター分散比率の整理</a></li>
+<li><a href="/jp/smci-accounting-risk-warning.html" style="color:#1d4ed8; text-decoration:none; font-weight:700;">スーパー・マイクロ(SMCI) 米SEC年次報告書（Form 10-K）公開リスク注記とセクターETF分散の重要性</a></li>
+<li><a href="/jp/shin-nisa-us-stock-atr-risk-management.html" style="color:#1d4ed8; text-decoration:none; font-weight:700;">新NISA成長投資枠「米国半導体（SMH）×米国医療（XLV）」＋個人向け国債（変動10年）2本柱・老後資産配分ガイド</a></li>
+<li><a href="/jp/lly-form4-insider-cluster-buy.html" style="color:#1d4ed8; text-decoration:none; font-weight:700;">イーライリリー(LLY) SEC Form-4経営陣の市場内自社株取得データと医薬品研究開発開示</a></li>
+<li><a href="/jp/avgo-custom-ai-asic-8k-analysis.html" style="color:#1d4ed8; text-decoration:none; font-weight:700;">ブロードコム(AVGO) カスタムAI半導体・フリーキャッシュフロー開示と増配実績データ解析</a></li>
+<li><a href="/jp/meta-ai-capex-earnings-nlp.html" style="color:#1d4ed8; text-decoration:none; font-weight:700;">メタ(META) 広告収益・株主還元（自社株買い・配当）に関する米SEC公式決算データ解析</a></li>
+<li><a href="/jp/crwd-cybersecurity-pead-drift.html" style="color:#1d4ed8; text-decoration:none; font-weight:700;">クラウドストライク(CRWD) 年間経常収益（ARR）公開データと情報セキュリティ需要分析</a></li>
+<li><a href="/jp/vrt-ai-datacenter-cooling-catalyst.html" style="color:#1d4ed8; text-decoration:none; font-weight:700;">バーティブ(VRT) データセンター電源・冷却設備の受注残（Backlog）公開データと変動幅試算</a></li>
       </ul>
     </article>
 
@@ -895,7 +877,9 @@
         <span aria-hidden="true">·</span>
         <a href="/jp/contact.html" style="color:var(--accent-blue, #1d4ed8); text-decoration:underline;">特定商取引法に基づく表記</a>
         <span aria-hidden="true">·</span>
-        <a href="https://www.youtube.com/@GetBreakAI" target="_blank" rel="noopener" style="color:var(--accent-blue, #1d4ed8); text-decoration:underline;">公式YouTube (@GetBreakAI)</a>
+        <a href="https://www.youtube.com/@GetBreakAI" target="_blank" rel="noopener" style="color:var(--accent-blue, #1d4ed8); text-decoration:underline;">公式YouTube @GetBreakAI</a>
+        <span aria-hidden="true">·</span>
+        <a href="https://www.instagram.com/getbreakai/" target="_blank" rel="noopener" style="color:var(--accent-blue, #1d4ed8); text-decoration:underline;">公式Instagram @getbreakai</a>
         <span aria-hidden="true">·</span>
         <span>カスタマーサポート: <a href="mailto:beable9489@gmail.com" style="color:var(--accent-blue, #1d4ed8); font-weight:900; text-decoration:underline;">beable9489@gmail.com</a></span>
         <span aria-hidden="true">·</span>
@@ -984,29 +968,28 @@
         </article>
 
         <article class="gba-manual-chapter-box" id="gbaManualChap2">
-          <h3>第2章 — 金融庁ルール準拠：新NISA適格銘柄と特定口座（毎月分配型）の正しいハイブリッド区分＆年2〜4回配分点検</h3>
+          <h3>第2章 — 金融庁ルール準拠：新NISA成長投資枠（SMH × XLV）と安全資産（個人向け国債・特定口座）の正しい区分</h3>
           <p>
-            日本の金融庁規定により、<strong>毎月分配型ETF（JEPI・JEPQ・QYLD・SGOV等）およびレバレッジ型ETF（SOXL・TQQQ等）は新NISAの対象外</strong>です。そのため老後の毎月キャッシュフロー設計では、『新NISA 適格（四半期配当 VYM・HDV・1489・オルカン・S&P500 時間差組み合わせ）＋ 特定口座（毎月分配 SGOV・JEPI）ハイブリッド設計』で口座を正しく使い分け、頻繁な売買を避けて<strong>年2〜4回の穏やかな資産配分（リバランス）点検</strong>で年間360万円の非課税枠を大切に守ります。
+            日本の金融庁規定により、<strong>毎月分配型ETF（SGOV・JEPI等）およびレバレッジ型ETF（SOXL・TQQQ等）は新NISAの対象外</strong>です。そのため老後の穏やかな資産設計では、『新NISA成長投資枠（米国半導体 SMH × 米国ヘルスケア XLV 現物1倍 2本柱）＋ 安全資産クッション（個人向け国債 変動10年 ／ 特定口座 SGOV）』で口座を正しく使い分け、頻繁な売買を避けて<strong>年2回の穏やかな比率点検</strong>で年間360万円の非課税枠を大切に守ります。
           </p>
           <div class="gba-manual-broker-grid">
             <div class="gba-manual-broker-card">
-              <strong class="broker-name">新NISA口座（非課税 0%）で保有できる適格コア資産</strong>
+              <strong class="broker-name">新NISA成長投資枠（非課税 0%）で保有できる現物1倍 2本柱</strong>
               <ol>
-                <li><strong>1489（日経高配当株50 ETF）：</strong>1・4・7・10月決算の国内高配当50社分散。</li>
-                <li><strong>VYM・HDV（米国高配当株ETF）：</strong>3・6・9・12月分配の米国優良増配株分散（1489と時間差組み合わせ）。</li>
-                <li><strong>オルカン・S&amp;P500投信：</strong>つみたて投資枠・成長投資枠双方で長期インフレ対策に対応。</li>
+                <li><strong>SMH（米国半導体現物1倍ETF）：</strong>構造的な技術革新を担う長期成長柱（レバレッジなし現物1倍のため減価リスクなし）。</li>
+                <li><strong>XLV（米国ヘルスケア現物1倍ETF）：</strong>医薬品・医療機器など景気変動に左右されにくいディフェンシブ柱として下落時の振れ幅を緩和。</li>
               </ol>
             </div>
             <div class="gba-manual-broker-card">
-              <strong class="broker-name">特定口座（源泉徴収あり 20.315%）で区分管理する資産</strong>
+              <strong class="broker-name">安全資産クッション（個人向け国債 変動10年 ／ 特定口座 SGOV）</strong>
               <ol>
-                <li><strong>SGOV（米国短期国債ETF）・JEPI（米国カバードコール毎月分配ETF）：</strong>毎月分配型のため金融庁規定により新NISA対象外です。必ず<strong>特定口座</strong>で管理します。</li>
-                <li><strong>損益通算の活用：</strong>特定口座内の配当と譲渡損益は自動計算・損益通算されます。</li>
+                <li><strong>個人向け国債（変動10年）：</strong>半年ごとに適用利率が見直され、元本割れなく生活防衛資金（2〜3年分）を保全できる国内安全資産。</li>
+                <li><strong>SGOV（米国短期国債ETF）：</strong>米ドル待機資金を運用する場合は毎月分配型のため金融庁規定により必ず<strong>特定口座（源泉徴収あり）</strong>で区分管理します。</li>
               </ol>
             </div>
           </div>
           <div class="gba-manual-tip-callout">
-             <strong>安心のポイント：</strong>四半期配当の新NISA適格ETF（1・4・7・10月＋3・6・9・12月）と個人向け国債（半年利払い）・特定口座の毎月分配資産を組み合わせることで、金融庁ルールに100%準拠しながら年間を通じた穏やかなキャッシュフローを設計できます。
+             <strong>安心のポイント：</strong>新NISA成長投資枠の現物1倍2本柱（SMH × XLV）と、個人向け国債（変動10年）の安全クッションを組み合わせることで、金融庁ルールに100%準拠しながら下落局面でも慌てて手放さない穏やかな資産設計が可能になります。
           </div>
         </article>
 
@@ -1209,14 +1192,17 @@
     }
     .gba-vip-wl-close {
       appearance: none;
+      flex-shrink: 0;
       background: #f1f5f9;
       color: #0b1f3a;
       border: 1.5px solid #cbd5e1;
       border-radius: 9px;
-      min-height: 40px;
-      padding: 4px 12px;
+      min-height: 44px;
+      min-width: 68px;
+      padding: 6px 14px;
       font-size: 0.9rem;
       font-weight: 800;
+      white-space: nowrap;
       cursor: pointer;
     }
     .gba-vip-wl-title {
@@ -1319,10 +1305,10 @@
 
       <div class="gba-vip-wl-plans" role="group" aria-label="ご希望プラン選択">
         <button type="button" class="gba-vip-wl-pbtn is-active" data-gba-wl-plan="monthly" onclick="window.selectGbaVipWaitlistPlan('monthly')">
-           月額 $29 / 約4,400円（税込）<br><small style="font-weight:700; color:#475569;">クーポン適用時 さらに20%OFF ／ 随時更新・新NISA老後取り崩し実践PDFガイド＋3つの財布シミュレーター同梱</small>
+           月額 $29 / 約4,400円（税込）<br><small style="font-weight:700; color:#475569;">クーポン適用時 さらに20%OFF ／ 毎朝 SMH × XLV 市場温度日報＋配分計算シート同梱</small>
         </button>
         <button type="button" class="gba-vip-wl-pbtn" data-gba-wl-plan="annual" onclick="window.selectGbaVipWaitlistPlan('annual')">
-           年額 $199（約30,000円・税込）<br><small style="font-weight:700; color:#b45309;">一番人気・43%OFF＋早期20%割引 ／ 随時更新・新NISA老後取り崩し実践PDFガイド＋3つの財布シミュレーター同梱</small>
+           年額 $199（約30,000円・税込）<br><small style="font-weight:700; color:#b45309;">一番人気・43%OFF＋早期20%割引 ／ 随時更新・新NISA老後取り崩し実践マスターPDF同梱</small>
         </button>
       </div>
       <div class="gba-pro-retiree-tools-box" style="margin:14px 0 16px; padding:12px 14px; border-radius:14px; background:var(--bg-card, #ffffff); border:2px solid #93c5fd;">
@@ -1463,34 +1449,6 @@
   </script>
 
   <script>
-    const ENTRY_PRICE = 502.83;
-    const STOP_DIST = 29.64;
-    const TARGET_PRICE = 576.93;
-    const FX = 150.0;
-
-    function recalcMiniWidget() {
-      const slider = document.getElementById('miniAccSlider');
-      const acc = parseFloat(slider ? slider.value : 50000) || 50000;
-      const accJpyMan = (acc * FX / 10000).toFixed(1);
-      const lbl = document.getElementById('miniAccLbl');
-      if (lbl) lbl.innerText = '$' + acc.toLocaleString() + ' (約' + accJpyMan + '万円)';
-      const maxRisk = acc * 0.015;
-      const shares = Math.max(1, Math.min(Math.floor(maxRisk / Math.max(STOP_DIST, 0.05)), Math.floor(acc / Math.max(ENTRY_PRICE, 0.5))));
-      const notional = Math.round(shares * ENTRY_PRICE);
-      const notionalMan = (notional * FX / 10000).toFixed(1);
-      const riskUsd = Math.round(shares * STOP_DIST);
-      const riskMan = (riskUsd * FX / 10000).toFixed(1);
-      const gainUsd = Math.round(shares * (TARGET_PRICE - ENTRY_PRICE));
-      const gainMan = (gainUsd * FX / 10000).toFixed(1);
-
-      const elS = document.getElementById('miniOutShares');
-      const elR = document.getElementById('miniOutRisk');
-      const elG = document.getElementById('miniOutGain');
-      if (elS) elS.innerText = shares + '株 ($' + notional.toLocaleString() + ' / 約' + notionalMan + '万円)';
-      if (elR) elR.innerText = '-$' + riskUsd.toLocaleString() + ' (約' + riskMan + '万円)';
-      if (elG) elG.innerText = '+$' + gainUsd.toLocaleString() + ' (約' + gainMan + '万円)';
-    }
-
     function jumpFromManualToJpMail() {
       if (typeof window.closeGbaStarterManualModal === 'function') window.closeGbaStarterManualModal();
       const subBox = document.getElementById('gba-substack-subscribe');

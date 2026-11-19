@@ -15,6 +15,7 @@ const ROOT_FILES = [
   'index.html',
   'confirmation.html',
   'contact.html',
+  'tokushoho.html',
   'terms.html',
   'privacy.html',
   'refund.html',

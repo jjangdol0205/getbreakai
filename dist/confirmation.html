@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>決済完了・VIPライセンス有効化 ｜ GetBreakAI 日本語公式</title>
-  <meta name="description" content="GetBreakAI Proライセンスのご購入ありがとうございます。Polar.sh (Merchant of Record · Global Card / Apple Pay / Google Pay) 決済完了メール記載のライセンスキーを入力してWeb VIP Vault（公開市場データ庫）を即時解放できます。">
+  <title>決済完了・リサーチパス有効化 ｜ GetBreakAI 新NISA・資産リサーチ研究室（教育目的）</title>
+  <meta name="description" content="GetBreakAI リサーチパスのご購読ありがとうございます。Whop.com（Global Card / JCB / Visa / Mastercard / Apple Pay / Google Pay）決済完了メール記載の領収書番号またはキーを入力して研究データ庫を即時解放できます。">
   <meta name="robots" content="noindex, follow">
   <link rel="canonical" href="https://getbreakai.com/confirmation.html">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="GetBreakAI">
-  <meta property="og:title" content="決済完了・VIPライセンス有効化 ｜ GetBreakAI 日本語公式">
-  <meta property="og:description" content="GetBreakAI Proライセンスのご購入ありがとうございます。Polar.sh 決済完了メール記載のライセンスキーでWeb VIP Vaultを即時有効化できます。">
+  <meta property="og:title" content="決済完了・リサーチパス有効化 ｜ GetBreakAI 新NISA・資産リサーチ研究室（教育目的）">
+  <meta property="og:description" content="GetBreakAI リサーチパスのご購読ありがとうございます。Whop.com 決済完了メール記載の領収書番号で研究データ庫を即時有効化できます。">
   <meta property="og:url" content="https://getbreakai.com/confirmation.html">
   <meta property="og:image" content="https://getbreakai.com/og-preview.png">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2306050c' stroke='%238b5cf6' stroke-width='4'/%3E%3Cpath d='M14 44 L26 30 L34 36 L48 16' fill='none' stroke='%23f59e0b' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='48' cy='16' r='5' fill='%2310b981'/%3E%3C/svg%3E">
@@ -32,20 +32,37 @@
   }
   </script>
   <script src="/hq_member_crm_client.js"></script>
+  <script async defer src="https://js.whop.com/static/checkout/loader.js"></script>
   <script>
     window.PAYMENT_CONFIG = {
-      PROVIDER: 'polar_sh',
+      PROVIDER: 'whop',
       DIVISION: 'GBA',
       STORE_SLOT: 'FINANCE_STORE_SLOT',
-      STORE_LIVE_READY: false,
-      POLAR_CHECKOUT_URLS: {
-        monthly_29_jp: 'https://buy.polar.sh/polar_cl_AlujTTQg7tQ9Vu2gKVCnWDf1VJBSobVQQc3zc0NROOv?locale=ja',
-        annual_199_jp: 'https://buy.polar.sh/polar_cl_nwbfHWyPzzpSXfhO2jDzfKAFdou4n7F7is2Lx1JaNe2?locale=ja',
-        monthly_29: 'https://buy.polar.sh/polar_cl_AlujTTQg7tQ9Vu2gKVCnWDf1VJBSobVQQc3zc0NROOv?locale=ja',
-        annual_199: 'https://buy.polar.sh/polar_cl_nwbfHWyPzzpSXfhO2jDzfKAFdou4n7F7is2Lx1JaNe2?locale=ja'
+      STORE_LIVE_READY: true,
+      COMPANY_ID: 'biz_pZ7yTvBkO7QcZY',
+      STORE_NAME: 'GetBreakAI Japan Research',
+      WHOP_PLANS: {
+        monthly: {
+          plan_id: 'plan_UtG9mA9L5pZIS',
+          checkout_config_id: 'ch_4vZj2bl5sEBwlKT',
+          purchase_url: 'https://whop.com/checkout/plan_UtG9mA9L5pZIS',
+          redirect_url: 'https://getbreakai.com/jp/?payment=success&provider=whop&plan=monthly',
+          price_jpy: 4400
+        },
+        annual: {
+          plan_id: 'plan_ahYIXbLDE0CsQ',
+          checkout_config_id: 'ch_92HRJLmQIuEHFKf',
+          purchase_url: 'https://whop.com/checkout/plan_ahYIXbLDE0CsQ',
+          redirect_url: 'https://getbreakai.com/jp/?payment=success&provider=whop&plan=annual',
+          price_jpy: 29800
+        }
       },
-      POLAR_GBA_MONTHLY_URL: 'https://buy.polar.sh/polar_cl_AlujTTQg7tQ9Vu2gKVCnWDf1VJBSobVQQc3zc0NROOv?locale=ja',
-      POLAR_GBA_ANNUAL_URL: 'https://buy.polar.sh/polar_cl_nwbfHWyPzzpSXfhO2jDzfKAFdou4n7F7is2Lx1JaNe2?locale=ja',
+      WHOP_CHECKOUT_URLS: {
+        monthly: 'https://whop.com/checkout/plan_UtG9mA9L5pZIS',
+        annual: 'https://whop.com/checkout/plan_ahYIXbLDE0CsQ'
+      },
+      WHOP_GBA_MONTHLY_URL: 'https://whop.com/checkout/plan_UtG9mA9L5pZIS',
+      WHOP_GBA_ANNUAL_URL: 'https://whop.com/checkout/plan_ahYIXbLDE0CsQ',
       SUPPORT_EMAIL: 'beable9489@gmail.com'
     };
   </script>
@@ -574,10 +591,10 @@
   <header>
     <a href="https://getbreakai.com/jp/" class="logo-group">
       <span class="logo-badge">GetBreakAI</span>
-      <strong class="logo-subtitle">ゆとり老後＆新NISA設計ナビ</strong>
+      <strong class="logo-subtitle">新NISA・資産リサーチ研究室（教育目的）</strong>
     </a>
     <div style="display:flex; align-items:center; gap:10px; flex-shrink:0;">
-      <span class="store-live-pill">Polar.sh MoR</span>
+      <span class="store-live-pill">Whop.com Checkout</span>
       <button type="button" id="btnToggleJpTheme" class="theme-toggle-btn" onclick="toggleJpTheme()">
         <span id="themeToggleIcon">🌙</span>
         <span id="themeToggleText">切替</span>
@@ -587,21 +604,21 @@
 
   <div class="container">
 
-    <!-- メイン成功・ライセンスキー即時有効化カード -->
+    <!-- メイン成功・リサーチパス即時有効化カード -->
     <div class="card card-success">
       <div class="badge-success">
-        <span>✓</span> Polar.sh (Merchant of Record · Global Card / Apple Pay / Google Pay) 公式決済 ＆ 認証デスク
+        <span>✓</span> Whop.com（Global Card / JCB / Visa / Mastercard / Apple Pay / Google Pay）公式決済 ＆ 認証デスク
       </div>
-      <h1 class="page-title">🎉 ご購入ありがとうございます！</h1>
+      <h1 class="page-title">🎉 ご購読ありがとうございます！</h1>
       <p class="page-desc">
-        公式決済基盤 <strong>Polar.sh (Merchant of Record · Global Card / Apple Pay / Google Pay)</strong> からご登録メールアドレス宛に送信された<strong>正式ライセンスキー</strong>を下の入力欄に貼り付けると、トップページおよび全ページの<strong>Web VIP Vault（公開市場データ庫）</strong>が即座に解放されます。
+        公式決済基盤 <strong>Whop.com（Global Card / JCB / Visa / Mastercard / Apple Pay / Google Pay）</strong> からご登録メールアドレス宛に送信された<strong>領収書IDまたはライセンスキー</strong>を下の入力欄に貼り付けると、全ページの<strong>教育目的の市場データニュースレター ＋ 2000–2025年 過去統計ワークブック</strong>購読ステータスが即座に同期されます。
       </p>
 
-      <!-- メール受信ライセンスキーの即時同期・有効化フォーム（最優先配置） -->
+      <!-- メール受信キーの即時同期・有効化フォーム -->
       <div class="activation-box" id="confirmManualKeyBox">
-        <div class="activation-title">🔑 決済完了メール記載のPolar.shライセンスキーを即時有効化</div>
+        <div class="activation-title">🔑 決済完了メール記載のWhop領収書番号・キーを即時有効化</div>
         <div class="activation-sub">
-          Polar.sh 決済完了メールに記載されているライセンスキーを貼り付けてボタンを押してください。ブラウザに自動保存され、全ページ共通でVIP特典がアンロックされます。
+          Whop.com 決済完了メールに記載されている領収書番号またはメンバーシップIDを貼り付けてボタンを押してください。ブラウザに自動保存され、全ページ共通でリサーチパスが同期されます。
         </div>
         <div class="activation-form-row">
           <input type="text" id="confirmManualKeyInput" class="activation-input" placeholder="例: 38b1460a-5104-4067-a91d-77b872934d51" autocomplete="off" spellcheck="false">
@@ -718,9 +735,11 @@
       <a href="/jp/terms.html">利用規約</a>
       <a href="/jp/privacy.html">プライバシーポリシー</a>
       <a href="/jp/refund.html">14日間返金ポリシー</a>
+      <a href="/jp/tokushoho.html">特定商取引法に基づく表記</a>
       <a href="/terms.html">Terms</a>
       <a href="/privacy.html">Privacy</a>
       <a href="/refund.html">Refund</a>
+      <a href="/tokushoho.html">Tokushoho</a>
       <a href="https://www.youtube.com/@GetBreakAI" target="_blank" rel="noopener">公式YouTube @GetBreakAI</a>
       <a href="https://www.instagram.com/getbreakai/" target="_blank" rel="noopener">公式Instagram @getbreakai</a>
       <a href="mailto:beable9489@gmail.com">サポート (beable9489@gmail.com)</a>
@@ -729,7 +748,7 @@
       免責事項：当サイトは公開市場データの可視化および数学的シミュレーションツール（教育・情報提供目的）であり、金融商品取引法上の投資助言・代理業や個別銘柄の売買推奨を行うものではありません。
     </div>
     <div style="font-size:0.76rem;">
-      &copy; 2026 GetBreakAI &amp; KIDS-FIT Global Studio · Polar.sh (Merchant of Record · Global Card / Apple Pay / Google Pay). All rights reserved.
+      &copy; 2026 GetBreakAI Japan Research · Whop.com（Global Card / JCB / Visa / Mastercard / Apple Pay / Google Pay）. All rights reserved.
     </div>
   </footer>
 
@@ -810,7 +829,7 @@
     async function autoActivateRedirectLicenseKey(rawKey) {
       const key = String(rawKey || '').trim();
       if (!isPlausibleRealLicenseKey(key)) return false;
-      return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(key) || /^(polar_|POLAR-|GBA-VIP-)/i.test(key) || key.length >= 16;
+      return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(key) || /^(whop_|mem_|pay_|WHOP-|GBA-VIP-)/i.test(key) || key.length >= 16;
     }
 
     async function activateManualConfirmationKey() {
@@ -821,14 +840,14 @@
       if (!isPlausibleRealLicenseKey(key)) {
         if (st) {
           st.style.color = 'var(--accent-rose)';
-          st.innerText = '⚠️ Polar.sh 決済完了メールに記載された有効なライセンスキーを入力してください。';
+          st.innerText = '⚠️ Whop.com 決済完了メールに記載された有効な領収書番号またはキーを入力してください。';
         }
         return;
       }
       if (btn) btn.innerText = '⏳ 認証中...';
       if (st) {
         st.style.color = 'var(--accent-sky)';
-        st.innerText = '⏳ Polar.sh ライセンス認証を確認中...';
+        st.innerText = '⏳ Whop.com 購読ステータスを確認中...';
       }
       const ok = await autoActivateRedirectLicenseKey(key);
       if (btn) btn.innerText = '⚡ ライセンスキーを即時有効化';
@@ -870,7 +889,7 @@
       const rawOrderId = (params.get('order_id') || params.get('orderId') || params.get('checkout_id') || '').trim();
       let rawParamKey = (params.get('license_key') || params.get('order_key') || params.get('orderKey') || '').trim();
       if (!rawParamKey && (params.get('payment') === 'success' || params.get('checkout_status') === 'succeeded')) {
-        rawParamKey = rawOrderId || 'POLAR-VERIFIED-CHECKOUT-SESSION-2026';
+        rawParamKey = rawOrderId || 'WHOP-VERIFIED-CHECKOUT-SESSION-2026';
       }
       const rawEmail = (params.get('customer_email') || params.get('email') || '').trim();
 

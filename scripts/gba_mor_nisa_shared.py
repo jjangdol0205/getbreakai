@@ -1,20 +1,31 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Division 3 (GBA — getbreakai.com) Shared Polar.sh MoR, FIEA (Kinsho-ho), FSA Shin-NISA Hybrid,
-PAYMENT_CONFIG, VIP Waitlist Modal, CRM & Read-Complete Runtime Generator.
-Strictly Zero-Hangul, Zero-LemonSqueezy, and Zero-Chat-App references.
+Division 3 (GBA — getbreakai.com) Shared Whop Checkout, FIEA (Kinsho-ho), FSA Shin-NISA Hybrid,
+PAYMENT_CONFIG, Whop Embedded Checkout Modal, CRM & Read-Complete Runtime Generator.
+Strictly Zero-Hangul, Zero-LemonSqueezy, Zero-Polar, and Zero-Chat-App references.
 """
 
 from __future__ import annotations
 import os
 
-MOR_LABEL_EN_JP = "Polar.sh (Merchant of Record · Global Card / Apple Pay / Google Pay)"
-POLAR_MONTHLY_CTA_HREF = "#gbaVipWaitlistModal"
-POLAR_ANNUAL_CTA_HREF = "#gbaVipWaitlistModal"
+MOR_LABEL_EN_JP = "Whop.com（Global Card / JCB / Visa / Mastercard / Apple Pay / Google Pay）"
 
-PRICE_LABEL_MONTHLY_JP = "月額 $29 / 約4,400円（税込）"
-PRICE_LABEL_ANNUAL_JP = "年額 $199（約30,000円・税込）"
+WHOP_COMPANY_ID = "biz_pZ7yTvBkO7QcZY"
+WHOP_STORE_NAME = "GetBreakAI Japan Research"
+
+WHOP_MONTHLY_PLAN_ID = "plan_UtG9mA9L5pZIS"
+WHOP_MONTHLY_CONFIG_ID = "ch_4vZj2bl5sEBwlKT"
+WHOP_MONTHLY_CTA_HREF = "https://whop.com/checkout/plan_UtG9mA9L5pZIS"
+WHOP_MONTHLY_RETURN_URL = "https://getbreakai.com/jp/?payment=success&provider=whop&plan=monthly"
+
+WHOP_ANNUAL_PLAN_ID = "plan_ahYIXbLDE0CsQ"
+WHOP_ANNUAL_CONFIG_ID = "ch_92HRJLmQIuEHFKf"
+WHOP_ANNUAL_CTA_HREF = "https://whop.com/checkout/plan_ahYIXbLDE0CsQ"
+WHOP_ANNUAL_RETURN_URL = "https://getbreakai.com/jp/?payment=success&provider=whop&plan=annual"
+
+PRICE_LABEL_MONTHLY_JP = "月額リサーチパス（¥4,400/月）"
+PRICE_LABEL_ANNUAL_JP = "年間リサーチパス（¥29,800/年）"
 
 MANDATORY_DISCLAIMER_JP = (
     "免責事項：当サイトは公開市場データの可視化および数学的シミュレーションツール（教育・情報提供目的）であり、"
@@ -22,29 +33,29 @@ MANDATORY_DISCLAIMER_JP = (
 )
 
 SOFTWARE_POSITIONING_JP = (
-    "公開市場データ可視化および配当・資産配分計算ソフトウェア（Self-Directed Educational Calculator Software）"
+    "教育目的の市場データニュースレター ＋ 2000–2025年 過去統計ワークブック（投資助言・個別推奨は一切行わない独立系リサーチ出版）"
 )
 
 FSA_HYBRID_PHRASE_JP = (
     "『新NISA成長投資枠（米国半導体 SMH × 米国ヘルスケア XLV 現物1倍 2本柱）＋ 安全資産クッション（個人向け国債 変動10年 ／ 特定口座 SGOV）』"
 )
 
-VIP_WAITLIST_MODAL_TITLE_JP = "VIP創設メンバー先行案内＆早期20%割引クーポン予約（1秒メール登録）"
+WHOP_MODAL_TITLE_JP = "新NISA・資産リサーチ研究室（教育目的）— リサーチパス購読手続き"
 
-MODEL_CASE_DISCLAIMER_JP = "※ 資産規模・配分条件別の試算モデルケース（個人の感想や将来の運用成果を保証するものではありません）"
+MODEL_CASE_DISCLAIMER_JP = "※ 過去2000〜2025年の公開市場統計に基づく歴史的ケーススタディ（将来の運用成果を保証するものではなく、投資助言や個別推奨は一切行いません）"
 
 PRO_RETIREE_TOOLS_JP = (
     (
-        "『毎朝自動配信：SMH × XLV マーケット過熱・恐怖指標＆セクター比率トラッキング日報メール』",
-        "毎朝8時、日米市場の過熱度・恐怖度データ（0〜100）を集計し、過去検証モデル上で SMH（半導体）: XLV（医療）比率がどう推移しているかをわかりやすくメール配信",
+        "『毎朝配信：教育目的の市場データニュースレター（SMH × XLV 市場温度指数 0〜100 ＆ 過去統計比率ノート）』",
+        "毎朝8時、日米市場の公開過熱・恐怖指数（0〜100）と、2000〜2025年の歴史的ケーススタディにおける SMH（半導体）× XLV（医療）統計比率の推移を教育目的で配信",
     ),
     (
-        "『新NISA成長投資枠（SMH・XLV）× 特定口座／個人向け国債 運用額別の円・ドル配分計算シート』",
-        "ご自身の資産規模（300万〜5,000万円+・新NISA生涯非課税枠1,800万円対応）を入力するだけで、現物1倍ETFと安全クッションの具体的な金額目安を自動算出",
+        "『新NISA成長投資枠（SMH・XLV）× 個人向け国債／特定口座SGOV 資産規模別の過去統計比較ワークブック』",
+        "ご自身の想定規模（300万〜5,000万円+・新NISA生涯非課税枠1,800万円対応）ごとに、現物1倍ETFと安全クッションの歴史的ドローダウン統計を整理",
     ),
     (
-        "『随時更新・SMH × XLV セクターバランス実践 14ページ マスターPDFガイド（楽天・SBI証券 大文字操作図解同梱）』",
-        "過去26年（2000年ITバブル・2008年リーマン・2022年利上げ下落）の検証データ＆迷わず設定できる大きな文字の証券画面ステップマニュアル",
+        "『2000–2025年 過去統計ワークブック完全版（ITバブル・リーマン危機・2022年利上げ局面の26年データ収録）』",
+        "過去26年間の主要下落局面における SMH × XLV ＋ 安全資産の回復期間比較データと、楽天・SBI証券での口座区分・大文字設定ガイドを収録",
     ),
 )
 
@@ -63,28 +74,47 @@ MAIN_HUB_EXCLUDED_SLUGS = {
 }
 
 
-def build_payment_and_kpi_head_html() ->str:
-    """Returns global head scripts for Polar.sh PAYMENT_CONFIG, CRM client, single-fire paid_click, waitlist/checkout router, ?payment=success unlock, signup & read_complete."""
+def build_payment_and_kpi_head_html() -> str:
+    """Returns global head scripts for Whop PAYMENT_CONFIG, @whop/checkout loader, CRM client, paid_click, checkout modal router, ?payment=success&provider=whop unlock, signup & read_complete."""
     return r"""  <script src="/hq_member_crm_client.js"></script>
+  <script async defer src="https://js.whop.com/static/checkout/loader.js"></script>
   <script>
     window.PAYMENT_CONFIG = {
-      PROVIDER: 'polar_sh',
+      PROVIDER: 'whop',
       DIVISION: 'GBA',
       STORE_SLOT: 'FINANCE_STORE_SLOT',
-      STORE_LIVE_READY: false,
-      POLAR_CHECKOUT_URLS: {
-        monthly_29_jp: 'https://buy.polar.sh/polar_cl_AlujTTQg7tQ9Vu2gKVCnWDf1VJBSobVQQc3zc0NROOv?locale=ja',
-        annual_199_jp: 'https://buy.polar.sh/polar_cl_nwbfHWyPzzpSXfhO2jDzfKAFdou4n7F7is2Lx1JaNe2?locale=ja',
-        monthly_29: 'https://buy.polar.sh/polar_cl_AlujTTQg7tQ9Vu2gKVCnWDf1VJBSobVQQc3zc0NROOv?locale=ja',
-        annual_199: 'https://buy.polar.sh/polar_cl_nwbfHWyPzzpSXfhO2jDzfKAFdou4n7F7is2Lx1JaNe2?locale=ja'
+      STORE_LIVE_READY: true,
+      COMPANY_ID: 'biz_pZ7yTvBkO7QcZY',
+      STORE_NAME: 'GetBreakAI Japan Research',
+      WHOP_PLANS: {
+        monthly: {
+          plan_id: 'plan_UtG9mA9L5pZIS',
+          checkout_config_id: 'ch_4vZj2bl5sEBwlKT',
+          purchase_url: 'https://whop.com/checkout/plan_UtG9mA9L5pZIS',
+          redirect_url: 'https://getbreakai.com/jp/?payment=success&provider=whop&plan=monthly',
+          price_jpy: 4400,
+          label: '月額リサーチパス（¥4,400/月）'
+        },
+        annual: {
+          plan_id: 'plan_ahYIXbLDE0CsQ',
+          checkout_config_id: 'ch_92HRJLmQIuEHFKf',
+          purchase_url: 'https://whop.com/checkout/plan_ahYIXbLDE0CsQ',
+          redirect_url: 'https://getbreakai.com/jp/?payment=success&provider=whop&plan=annual',
+          price_jpy: 29800,
+          label: '年間リサーチパス（¥29,800/年）'
+        }
       },
-      POLAR_GBA_MONTHLY_URL: 'https://buy.polar.sh/polar_cl_AlujTTQg7tQ9Vu2gKVCnWDf1VJBSobVQQc3zc0NROOv?locale=ja',
-      POLAR_GBA_ANNUAL_URL: 'https://buy.polar.sh/polar_cl_nwbfHWyPzzpSXfhO2jDzfKAFdou4n7F7is2Lx1JaNe2?locale=ja',
+      WHOP_CHECKOUT_URLS: {
+        monthly: 'https://whop.com/checkout/plan_UtG9mA9L5pZIS',
+        annual: 'https://whop.com/checkout/plan_ahYIXbLDE0CsQ'
+      },
+      WHOP_GBA_MONTHLY_URL: 'https://whop.com/checkout/plan_UtG9mA9L5pZIS',
+      WHOP_GBA_ANNUAL_URL: 'https://whop.com/checkout/plan_ahYIXbLDE0CsQ',
       SUPPORT_EMAIL: 'beable9489@gmail.com'
     };
     window.CHECKOUT_URLS = {
-      monthly: window.PAYMENT_CONFIG.POLAR_CHECKOUT_URLS.monthly_29_jp || window.PAYMENT_CONFIG.POLAR_CHECKOUT_URLS.monthly_29 || window.PAYMENT_CONFIG.POLAR_GBA_MONTHLY_URL || '',
-      annual: window.PAYMENT_CONFIG.POLAR_CHECKOUT_URLS.annual_199_jp || window.PAYMENT_CONFIG.POLAR_CHECKOUT_URLS.annual_199 || window.PAYMENT_CONFIG.POLAR_GBA_ANNUAL_URL || '',
+      monthly: 'https://whop.com/checkout/plan_UtG9mA9L5pZIS',
+      annual: 'https://whop.com/checkout/plan_ahYIXbLDE0CsQ',
       enterprise: 'mailto:beable9489@gmail.com'
     };
     const CHECKOUT_URLS = window.CHECKOUT_URLS;
@@ -117,55 +147,30 @@ def build_payment_and_kpi_head_html() ->str:
           return '';
         };
 
-        window.ensurePolarLocaleUrl = function(rawUrl, defaultLocale, emailOverride) {
-          var url = String(rawUrl || '').trim();
-          if (!url || !/^https:\/\/(buy\.)?polar\.sh\//i.test(url)) return '';
-          var loc = String(defaultLocale || 'ja').trim() || 'ja';
-          var memberEmail = String(emailOverride || '').trim().toLowerCase();
-          var validEmail = (memberEmail && /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(memberEmail)) ? memberEmail : '';
-          try {
-            var u = new URL(url);
-            u.searchParams.set('locale', loc);
-            if (validEmail && !u.searchParams.get('customer_email')) {
-              u.searchParams.set('customer_email', validEmail);
-            }
-            return u.toString();
-          } catch (_ue) {
-            var cleanBase = url.replace(/([?&])locale=[^&]*/gi, '$1').replace(/\?&/, '?').replace(/[?&]+$/, '');
-            var sep = cleanBase.indexOf('?') === -1 ? '?' : '&';
-            var out = cleanBase + sep + 'locale=' + encodeURIComponent(loc);
-            if (validEmail && out.indexOf('customer_email=') === -1) {
-              out += '&customer_email=' + encodeURIComponent(validEmail);
-            }
-            return out;
-          }
-        };
-
-        window.resolveGbaPolarCheckoutUrl = function(plan) {
+        window.resolveGbaWhopPlan = function(plan) {
           var cfg = window.PAYMENT_CONFIG || {};
-          var urls = cfg.POLAR_CHECKOUT_URLS || {};
-          var raw = (plan === 'annual')
-            ? String(urls.annual_199_jp || urls.annual_199 || cfg.POLAR_GBA_ANNUAL_URL || '').trim()
-            : String(urls.monthly_29_jp || urls.monthly_29 || cfg.POLAR_GBA_MONTHLY_URL || '').trim();
-          return window.ensurePolarLocaleUrl(raw, 'ja');
+          var plans = cfg.WHOP_PLANS || {};
+          return (String(plan || '').toLowerCase() === 'annual')
+            ? (plans.annual || {
+                plan_id: 'plan_ahYIXbLDE0CsQ',
+                checkout_config_id: 'ch_92HRJLmQIuEHFKf',
+                purchase_url: 'https://whop.com/checkout/plan_ahYIXbLDE0CsQ',
+                redirect_url: 'https://getbreakai.com/jp/?payment=success&provider=whop&plan=annual',
+                price_jpy: 29800,
+                label: '年間リサーチパス（¥29,800/年）'
+              })
+            : (plans.monthly || {
+                plan_id: 'plan_UtG9mA9L5pZIS',
+                checkout_config_id: 'ch_4vZj2bl5sEBwlKT',
+                purchase_url: 'https://whop.com/checkout/plan_UtG9mA9L5pZIS',
+                redirect_url: 'https://getbreakai.com/jp/?payment=success&provider=whop&plan=monthly',
+                price_jpy: 4400,
+                label: '月額リサーチパス（¥4,400/月）'
+              });
         };
 
         window.trackGbaFreeSignup = function(emailAddr) {
           try {
-            fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/signup', { mode: 'cors', keepalive: true }).catch(function(){});
-            fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/signup_total', { mode: 'cors', keepalive: true }).catch(function(){});
-            if (localStorage.getItem('hq_signup_' + ns + '_' + kst) !== '1') {
-              localStorage.setItem('hq_signup_' + ns + '_' + kst, '1');
-              fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/signup_' + kst, { mode: 'cors', keepalive: true }).catch(function(){});
-            }
-          } catch (_e) {}
-        };
-
-        window.trackGbaVipWaitlistBeacons = function() {
-          try {
-            fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/vip_waitlist_' + kst, { mode: 'cors', keepalive: true }).catch(function(){});
-            fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/vip_waitlist_total', { mode: 'cors', keepalive: true }).catch(function(){});
-            fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/vip_waitlist', { mode: 'cors', keepalive: true }).catch(function(){});
             fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/signup', { mode: 'cors', keepalive: true }).catch(function(){});
             fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/signup_total', { mode: 'cors', keepalive: true }).catch(function(){});
             if (localStorage.getItem('hq_signup_' + ns + '_' + kst) !== '1') {
@@ -232,7 +237,7 @@ def build_payment_and_kpi_head_html() ->str:
             if (statusEl) {
               statusEl.style.display = 'block';
               statusEl.style.color = '#065f46';
-              statusEl.innerHTML = 'ご登録ありがとうございます。次回の朝刊エッセイを <strong>' + email.replace(/[<>&"]/g, '') + '</strong>宛に静かにお届けします（パスワード不要・いつでも1クリック解除OK）。';
+              statusEl.innerHTML = 'ご登録ありがとうございます。次回の朝刊リサーチノートを <strong>' + email.replace(/[<>&"]/g, '') + '</strong> 宛に静かにお届けします（パスワード不要・いつでも1クリック解除OK）。';
             }
             document.querySelectorAll('.substack-inline-form input[type="email"], .gba-jp-signup-form input[type="email"]').forEach(function(inp) {
               inp.value = email;
@@ -281,43 +286,61 @@ def build_payment_and_kpi_head_html() ->str:
           }
           document.querySelectorAll('.gba-jp-signup-status').forEach(function(el) {
             el.style.display = 'block';
-            el.innerHTML = ' <strong>無料倶楽部へのご登録が完了しました！</strong>毎朝8時の「新NISA 3色バランス指標＆公開データ試算ブリーフ」を <strong>' + email.replace(/[<>&"]/g, '') + '</strong>宛にお届けいたします。';
+            el.innerHTML = '<strong>無料朝刊リサーチノートへのご登録が完了しました。</strong>毎朝8時の公開市場温度データ要約を <strong>' + email.replace(/[<>&"]/g, '') + '</strong> 宛にお届けいたします。';
           });
           document.querySelectorAll('.gba-jp-signup-form input[type="email"]').forEach(function(inp) { inp.value = email; });
           return false;
         };
 
-        // Support ?payment=success return from Polar.sh hosted checkout on any GBA page
+        // Support ?payment=success&provider=whop&plan=monthly|annual return from Whop checkout on any GBA page
         try {
           var qParams = new URLSearchParams((window.location && window.location.search) || '');
           if (qParams.get('payment') === 'success' || qParams.get('checkout_status') === 'succeeded') {
-            var pKey = String(qParams.get('license_key') || qParams.get('checkout_id') || qParams.get('order_id') || ('POLAR-VERIFIED-SESSION-' + kst)).trim();
+            var retPlan = String(qParams.get('plan') || 'monthly').toLowerCase() === 'annual' ? 'annual' : 'monthly';
+            var pKey = String(qParams.get('receipt_id') || qParams.get('license_key') || qParams.get('checkout_id') || qParams.get('order_id') || ('WHOP-VERIFIED-SESSION-' + retPlan.toUpperCase() + '-' + kst)).trim();
             var pEmail = String(qParams.get('customer_email') || qParams.get('email') || '').trim();
             localStorage.setItem('gb_vip_unlocked', 'true');
+            localStorage.setItem('gb_vip_plan', retPlan);
             localStorage.setItem('gb_vip_license_key', pKey);
             localStorage.setItem('gb_vip_key', pKey);
             if (pEmail && pEmail.indexOf('@') !== -1) {
               localStorage.setItem('gb_vip_customer_email', pEmail);
             }
-            if (typeof sessionStorage !== 'undefined' && sessionStorage.getItem('gba_polar_paid_hit') !== '1') {
-              sessionStorage.setItem('gba_polar_paid_hit', '1');
+            if (typeof sessionStorage !== 'undefined' && sessionStorage.getItem('gba_whop_paid_hit') !== '1') {
+              sessionStorage.setItem('gba_whop_paid_hit', '1');
               fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_success_' + kst, { mode: 'cors', keepalive: true }).catch(function(){});
               fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_success_total', { mode: 'cors', keepalive: true }).catch(function(){});
             }
+            window.addEventListener('DOMContentLoaded', function() {
+              if (document.getElementById('gbaWhopReturnBanner')) return;
+              var banner = document.createElement('div');
+              banner.id = 'gbaWhopReturnBanner';
+              banner.setAttribute('role', 'status');
+              banner.style.cssText = 'background:#ecfdf5;border-bottom:1.5px solid #059669;color:#065f46;padding:12px 18px;text-align:center;font-size:0.92rem;font-weight:700;line-height:1.6;';
+              var planTitle = retPlan === 'annual' ? '年間リサーチパス（¥29,800/年）' : '月額リサーチパス（¥4,400/月）';
+              banner.textContent = 'Whop公式決済が完了しました — ' + planTitle + ' の購読ステータスが有効化されました。ご登録メール宛の領収書もあわせてご確認ください。';
+              if (document.body && document.body.firstChild) {
+                document.body.insertBefore(banner, document.body.firstChild);
+              }
+            });
           }
         } catch (_pe) {}
 
-        if (!window.__GBA_PAID_CLICK_BOUND_V1__) {
-          window.__GBA_PAID_CLICK_BOUND_V1__ = true;
+        if (!window.__GBA_PAID_CLICK_BOUND_V2__) {
+          window.__GBA_PAID_CLICK_BOUND_V2__ = true;
           window.addEventListener('click', function(e) {
             var btn = e.target && e.target.closest
-              ? e.target.closest('[data-gba-paid-plan], .polar-checkout-button, a[href*="buy.polar.sh"], a[href*="polar.sh/checkout"]')
+              ? e.target.closest('[data-gba-paid-plan], .whop-checkout-button, a[href*="whop.com/checkout/plan_"]')
               : null;
             if (!btn) return;
+            if (btn.getAttribute('data-whop-direct-tab') === '1') {
+              fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_click_' + kst, { mode: 'cors', keepalive: true }).catch(function(){});
+              fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_click_total', { mode: 'cors', keepalive: true }).catch(function(){});
+              return;
+            }
             var href = String(btn.getAttribute('href') || '');
-            var planAttr = String(btn.getAttribute('data-gba-paid-plan') || '').toLowerCase();
-            var slotAttr = String(btn.getAttribute('data-polar-slot') || '').toLowerCase();
-            var selectedPlan = (planAttr === 'annual' || slotAttr.indexOf('annual') !== -1 || href.indexOf('annual') !== -1)
+            var planAttr = String(btn.getAttribute('data-gba-paid-plan') || btn.getAttribute('data-whop-plan') || '').toLowerCase();
+            var selectedPlan = (planAttr === 'annual' || href.indexOf('plan_ahYIXbLDE0CsQ') !== -1 || href.indexOf('annual') !== -1)
               ? 'annual'
               : 'monthly';
 
@@ -325,38 +348,14 @@ def build_payment_and_kpi_head_html() ->str:
             fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_click_total', { mode: 'cors', keepalive: true }).catch(function(){});
             fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_click', { mode: 'cors', keepalive: true }).catch(function(){});
 
-            var cfg = window.PAYMENT_CONFIG || {};
-            var resolvedUrl = window.resolveGbaPolarCheckoutUrl(selectedPlan);
-            if (!resolvedUrl && /^https:\/\/buy\.polar\.sh\/.+/i.test(href)) {
-              resolvedUrl = window.ensurePolarLocaleUrl(href, 'ja');
-            }
-            var isLiveReady = (cfg.STORE_LIVE_READY === true) && /^https:\/\/buy\.polar\.sh\/.+/i.test(resolvedUrl);
-
-            if (!isLiveReady) {
+            if (!e.ctrlKey && !e.shiftKey && !e.metaKey) {
               e.preventDefault();
               e.stopImmediatePropagation();
-              if (typeof window.openGbaVipWaitlistModal === 'function') {
-                window.openGbaVipWaitlistModal(selectedPlan);
-              }
-              return false;
-            }
-
-            var memberEmail = window.getGbaSavedMemberEmail();
-            var checkoutUrl = window.ensurePolarLocaleUrl(resolvedUrl, 'ja', memberEmail);
-
-            if (checkoutUrl && !e.ctrlKey && !e.shiftKey && !e.metaKey) {
-              e.preventDefault();
-              e.stopImmediatePropagation();
-              if (window.isGbaInAppWebView()) {
-                window.location.href = checkoutUrl;
-                return false;
-              }
-              if (window.PolarEmbedCheckout && typeof window.PolarEmbedCheckout.create === 'function') {
-                window.PolarEmbedCheckout.create(checkoutUrl, 'light').catch(function() {
-                  window.location.href = checkoutUrl;
-                });
+              if (typeof window.openGbaWhopCheckoutModal === 'function') {
+                window.openGbaWhopCheckoutModal(selectedPlan);
               } else {
-                window.location.href = checkoutUrl;
+                var pObj = window.resolveGbaWhopPlan(selectedPlan);
+                window.location.href = pObj.purchase_url;
               }
               return false;
             }
@@ -426,15 +425,15 @@ def build_payment_and_kpi_head_html() ->str:
   </script>"""
 
 
-def build_mandatory_disclaimer_html() ->str:
-    """Returns the exact mandatory FIEA (Kinsho-ho) non-advisory software disclaimer directly below Pricing."""
+def build_mandatory_disclaimer_html() -> str:
+    """Returns the exact mandatory FIEA (Kinsho-ho) non-advisory educational research disclaimer directly below Pricing."""
     return f"""      <div class="gba-mandatory-fiea-disclaimer" role="note" style="margin-top:14px; padding:13px 16px; border-radius:10px; background:#fffbeb; border:1.5px solid #f59e0b; color:#78350f; font-size:0.94rem; font-weight:700; line-height:1.68; text-align:left;">
         {MANDATORY_DISCLAIMER_JP}
       </div>"""
 
 
-def build_pro_retiree_tools_html(compact: bool = False) ->str:
-    """Returns high-contrast 3-tool efficacy showcase for Paid Pro ($29/mo & $199/yr) Shin-NISA Retiree Software."""
+def build_pro_retiree_tools_html(compact: bool = False) -> str:
+    """Returns high-contrast 3-item showcase for Monthly & Annual Research Pass."""
     items_html = "\n".join(
         f"""          <li style="background:var(--bg-sub, #f8fafc); border:1.5px solid var(--border-col, #cbd5e1); border-left:5px solid #1d4ed8; border-radius:11px; padding:{'10px 12px' if compact else '13px 15px'}; list-style:none;">
             <div style="font-size:{'0.95rem' if compact else '1.02rem'}; font-weight:900; color:var(--text-main, #0b1f3a); line-height:1.48; margin-bottom:4px;">{idx}. {title_str}</div>
@@ -444,7 +443,7 @@ def build_pro_retiree_tools_html(compact: bool = False) ->str:
     )
     return f"""      <div class="gba-pro-retiree-tools-box" style="margin:14px 0 16px; padding:{'12px 14px' if compact else '16px 18px'}; border-radius:14px; background:var(--bg-card, #ffffff); border:2px solid #93c5fd;">
         <div style="font-size:{'0.96rem' if compact else '1.05rem'}; font-weight:900; color:var(--accent-blue, #1d4ed8); margin-bottom:10px; line-height:1.45;">
-           Proプラン（{PRICE_LABEL_MONTHLY_JP} ・ 年額 $199 / 約30,000円（税込））で使える「新NISA・老後3大設計ソフトウェアツール」
+          {PRICE_LABEL_MONTHLY_JP} ・ {PRICE_LABEL_ANNUAL_JP} に収録される「教育目的リサーチ＆過去統計ワークブック」
         </div>
         <ul style="margin:0; padding:0; display:flex; flex-direction:column; gap:10px;">
 {items_html}
@@ -452,299 +451,302 @@ def build_pro_retiree_tools_html(compact: bool = False) ->str:
       </div>"""
 
 
-def build_vip_waitlist_modal_html() ->str:
-    """Returns scoped CSS, HTML, and JS for the Japanese VIP Founders Waitlist & 20% Coupon Modal (Zero Hangul)."""
+def build_whop_checkout_modal_html() -> str:
+    """Returns scoped CSS, HTML, and JS for the Japanese Whop Embedded Checkout Modal + 1-Tap Direct Checkout Fallback (0 Emojis, Zero Hangul)."""
     return f"""
   <style>
-    .gba-vip-waitlist-backdrop {{
+    .gba-whop-modal-backdrop {{
       display: none;
       position: fixed;
       inset: 0;
       z-index: 10050;
-      background: rgba(11, 31, 58, 0.78);
+      background: rgba(15, 23, 42, 0.76);
       backdrop-filter: blur(5px);
-      padding: 18px 12px;
+      padding: 16px 12px;
       overflow-y: auto;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
     }}
-    .gba-vip-waitlist-backdrop.is-open {{
+    .gba-whop-modal-backdrop.is-open {{
       display: flex;
     }}
-    .gba-vip-waitlist-dialog {{
+    .gba-whop-modal-dialog {{
       background: #ffffff;
       color: #0b1f3a;
-      border: 2.5px solid #1d4ed8;
-      border-radius: 18px;
+      border: 2px solid #1e3a8a;
+      border-radius: 14px;
       width: 100%;
-      max-width: 580px;
-      padding: 24px 22px;
-      box-shadow: 0 24px 56px rgba(11, 31, 58, 0.42);
-      font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
-      line-height: 1.7;
+      max-width: 640px;
+      margin: 14px auto 28px;
+      padding: 22px 20px;
+      box-shadow: 0 24px 56px rgba(15, 23, 42, 0.38);
+      font-family: 'Noto Sans JP', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.68;
     }}
-    .gba-vip-wl-top {{
+    .gba-whop-top {{
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
+      align-items: center;
       gap: 10px;
       margin-bottom: 10px;
     }}
-    .gba-vip-wl-badge {{
+    .gba-whop-badge {{
       display: inline-block;
       background: #eff6ff;
       color: #1e40af;
-      border: 1.5px solid #93c5fd;
-      font-size: 0.84rem;
-      font-weight: 900;
-      padding: 4px 12px;
-      border-radius: 999px;
+      border: 1px solid #93c5fd;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      padding: 4px 11px;
+      border-radius: 4px;
     }}
-    .gba-vip-wl-close {{
+    .gba-whop-close {{
       appearance: none;
       flex-shrink: 0;
-      background: #f1f5f9;
-      color: #0b1f3a;
+      background: #f8fafc;
+      color: #0f172a;
       border: 1.5px solid #cbd5e1;
-      border-radius: 9px;
+      border-radius: 6px;
       min-height: 44px;
-      min-width: 68px;
+      min-width: 72px;
       padding: 6px 14px;
       font-size: 0.9rem;
-      font-weight: 800;
-      white-space: nowrap;
+      font-weight: 700;
       cursor: pointer;
     }}
-    .gba-vip-wl-title {{
-      font-size: 1.24rem;
-      font-weight: 900;
-      color: #0b1f3a !important;
-      margin: 4px 0 8px !important;
+    .gba-whop-title {{
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #0f172a !important;
+      margin: 4px 0 6px !important;
       padding: 0 !important;
       border: none !important;
       background: transparent !important;
-      line-height: 1.42;
+      line-height: 1.4;
     }}
-    .gba-vip-wl-desc {{
-      font-size: 0.98rem;
+    .gba-whop-desc {{
+      font-size: 0.88rem;
       color: #334155 !important;
       margin: 0 0 14px;
-      line-height: 1.68;
+      line-height: 1.62;
     }}
-    .gba-vip-wl-plans {{
+    .gba-whop-plans {{
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 8px;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }}
-    .gba-vip-wl-pbtn {{
+    .gba-whop-pbtn {{
       appearance: none;
-      min-height: 54px;
-      padding: 8px 10px;
-      border-radius: 11px;
-      border: 2px solid #cbd5e1;
+      min-height: 56px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1.5px solid #cbd5e1;
       background: #f8fafc;
-      color: #0b1f3a;
-      font-size: 0.92rem;
+      color: #0f172a;
+      font-size: 0.9rem;
       font-weight: 800;
       cursor: pointer;
-      text-align: center;
-      line-height: 1.35;
+      text-align: left;
+      line-height: 1.38;
     }}
-    .gba-vip-wl-pbtn.is-active {{
-      border-color: #1d4ed8;
-      background: #eff6ff;
-      color: #1e3a8a;
-      box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.16);
+    .gba-whop-pbtn.is-active {{
+      border-color: #065f46;
+      border-width: 2px;
+      background: #f3f8f5;
+      color: #065f46;
     }}
-    .gba-vip-wl-form {{
+    .gba-whop-direct-bar {{
       display: flex;
       flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
       gap: 10px;
+      padding: 11px 14px;
+      margin-bottom: 12px;
+      border-radius: 8px;
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
     }}
-    .gba-vip-wl-input {{
-      flex: 1 1 240px;
-      min-height: 54px;
-      padding: 10px 14px;
-      border-radius: 11px;
-      border: 2px solid #64748b;
-      background: #ffffff;
-      color: #0f172a;
-      font-size: 1.02rem;
-      font-weight: 700;
-    }}
-    .gba-vip-wl-submit {{
-      flex: 1 1 200px;
-      min-height: 54px;
-      padding: 10px 18px;
-      border-radius: 11px;
-      border: none;
-      background: linear-gradient(135deg, #1d4ed8, #1e3a8a);
-      color: #ffffff;
-      font-size: 1rem;
-      font-weight: 900;
-      cursor: pointer;
-    }}
-    .gba-vip-wl-status {{
-      display: none;
-      margin-top: 12px;
-      padding: 12px 14px;
-      border-radius: 10px;
-      background: #ecfdf5;
-      border: 1.5px solid #059669;
-      color: #065f46;
-      font-size: 0.96rem;
+    .gba-whop-direct-link {{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 9px 16px;
+      border-radius: 6px;
+      background: #065f46;
+      color: #ffffff !important;
+      font-size: 0.9rem;
       font-weight: 800;
-      line-height: 1.65;
+      text-decoration: none !important;
+      width: 100%;
+      text-align: center;
+    }}
+    .gba-whop-direct-link:hover {{
+      background: #047857;
+    }}
+    .gba-whop-embed-wrap {{
+      min-height: 360px;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      background: #ffffff;
+      padding: 6px;
+      overflow: hidden;
     }}
     @media (max-width: 600px) {{
-      .gba-vip-wl-plans {{ grid-template-columns: 1fr; }}
+      .gba-whop-plans {{ grid-template-columns: 1fr; }}
     }}
   </style>
 
-  <div class="gba-vip-waitlist-backdrop" id="gbaVipWaitlistModal" role="dialog" aria-modal="true" aria-labelledby="gbaVipWaitlistModalTitle" aria-hidden="true">
-    <div class="gba-vip-waitlist-dialog">
-      <div class="gba-vip-wl-top">
-        <span class="gba-vip-wl-badge">創設メンバー優先案内 ・ 早期20%割引特典</span>
-        <button type="button" class="gba-vip-wl-close" onclick="window.closeGbaVipWaitlistModal()">閉じる</button>
+  <div class="gba-whop-modal-backdrop" id="gbaWhopCheckoutModal" role="dialog" aria-modal="true" aria-labelledby="gbaWhopModalTitle" aria-hidden="true">
+    <div class="gba-whop-modal-dialog">
+      <div class="gba-whop-top">
+        <span class="gba-whop-badge">WHOP SECURE CHECKOUT &middot; 公式リサーチ購読</span>
+        <button type="button" class="gba-whop-close" onclick="window.closeGbaWhopCheckoutModal()">閉じる</button>
       </div>
-      <h2 class="gba-vip-wl-title" id="gbaVipWaitlistModalTitle">{VIP_WAITLIST_MODAL_TITLE_JP}</h2>
-      <p class="gba-vip-wl-desc">
-        現在、公式グローバル決済基盤 <strong>{MOR_LABEL_EN_JP}</strong>（日本国内クレジットカード JCB・Visa・Mastercard・Apple Pay・Google Pay対応）の決済窓口最終確認を実施しております。メールアドレスをご登録いただくと、受付開始と同時に<strong>【創設メンバー限定・早期20%割引クーポン】</strong>を最優先でお届けいたします（本日の課金は一切発生いたしません）。
+      <h2 class="gba-whop-title" id="gbaWhopModalTitle">{WHOP_MODAL_TITLE_JP}</h2>
+      <p class="gba-whop-desc">
+        提供区分：<strong>「{SOFTWARE_POSITIONING_JP}」</strong>（JCB・Visa・Mastercard・Apple Pay・Google Pay対応 ／ 14日間返金保証・いつでも1クリック解約可能）
       </p>
 
-      <div class="gba-vip-wl-plans" role="group" aria-label="ご希望プラン選択">
-        <button type="button" class="gba-vip-wl-pbtn is-active" data-gba-wl-plan="monthly" onclick="window.selectGbaVipWaitlistPlan('monthly')">
-           {PRICE_LABEL_MONTHLY_JP}<br><small style="font-weight:700; color:#475569;">クーポン適用時 さらに20%OFF ／ 毎朝 SMH × XLV 市場温度日報＋配分計算シート同梱</small>
+      <div class="gba-whop-plans" role="group" aria-label="リサーチパス選択">
+        <button type="button" class="gba-whop-pbtn is-active" data-gba-whop-tab="monthly" onclick="window.selectGbaWhopPlan('monthly')">
+          {PRICE_LABEL_MONTHLY_JP}<br><small style="font-weight:600; color:#475569;">毎朝 SMH &times; XLV 市場温度ニュースレター ＋ 過去統計比較ノート</small>
         </button>
-        <button type="button" class="gba-vip-wl-pbtn" data-gba-wl-plan="annual" onclick="window.selectGbaVipWaitlistPlan('annual')">
-           {PRICE_LABEL_ANNUAL_JP}<br><small style="font-weight:700; color:#b45309;">一番人気・43%OFF＋早期20%割引 ／ 随時更新・新NISA老後取り崩し実践マスターPDF同梱</small>
+        <button type="button" class="gba-whop-pbtn" data-gba-whop-tab="annual" onclick="window.selectGbaWhopPlan('annual')">
+          {PRICE_LABEL_ANNUAL_JP}<br><small style="font-weight:600; color:#065f46;">月額比 約44%割引 ・ 2000–2025年 過去統計ワークブック完全版同梱</small>
         </button>
       </div>
-{build_pro_retiree_tools_html(compact=True)}
 
-      <form class="gba-vip-wl-form" id="gbaVipWaitlistForm" onsubmit="return window.submitGbaVipWaitlist(event);">
-        <label for="gbaVipWaitlistEmail" style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0);">メールアドレス</label>
-        <input type="email" id="gbaVipWaitlistEmail" class="gba-vip-wl-input" required autocomplete="email" placeholder="メールアドレスを入力（例: yamada@example.jp）">
-        <button type="submit" id="gbaVipWaitlistSubmitBtn" class="gba-vip-wl-submit">先行案内＆20%割引クーポンを予約する →</button>
-      </form>
+      <div class="gba-whop-direct-bar">
+        <span style="font-size:0.82rem; color:#475569;">アプリ内ブラウザや広告ブロッカー環境でも1タップで決済を完了できます：</span>
+        <a id="gbaWhopDirectTabBtn" data-whop-direct-tab="1" href="{WHOP_MONTHLY_CTA_HREF}" target="_blank" rel="noopener noreferrer" class="gba-whop-direct-link">
+          別タブで安全なWhop決済画面を開く（Open Secure Whop Checkout in New Tab） &rarr;
+        </a>
+      </div>
 
-      <div class="gba-vip-wl-status" id="gbaVipWaitlistStatus" role="status" aria-live="polite"></div>
+      <div class="gba-whop-embed-wrap" id="gbaWhopEmbedMount">
+        <div style="padding:28px 16px; text-align:center; font-size:0.9rem; color:#475569;">
+          安全な Whop 決済フォームを読み込んでいます... 表示されない場合は上の「別タブで安全なWhop決済画面を開く」を押してください。
+        </div>
+      </div>
 
-      <div style="margin-top:12px; font-size:0.84rem; color:#475569; line-height:1.58;">
-         決済・税務管理：{MOR_LABEL_EN_JP}（14日間返金保証・いつでも1クリック解約）<br>
-         パスワード登録不要・いつでも1クリック配信停止可能 ｜ お問い合わせ窓口: <a href="mailto:beable9489@gmail.com" style="color:#1d4ed8; font-weight:800;">beable9489@gmail.com</a>
+      <div style="margin-top:12px; font-size:0.8rem; color:#475569; line-height:1.58;">
+        決済・領収書発行：{MOR_LABEL_EN_JP} ｜ お問い合わせ・14日間返金窓口: <a href="mailto:beable9489@gmail.com" style="color:#1d4ed8; font-weight:700;">beable9489@gmail.com</a>
       </div>
     </div>
   </div>
 
   <script>
     (function() {{
-      var activeWaitlistPlan = 'monthly';
+      var activeWhopPlan = 'monthly';
 
-      window.selectGbaVipWaitlistPlan = function(plan) {{
-        activeWaitlistPlan = (plan === 'annual') ? 'annual' : 'monthly';
-        document.querySelectorAll('[data-gba-wl-plan]').forEach(function(btn) {{
-          var isAct = btn.getAttribute('data-gba-wl-plan') === activeWaitlistPlan;
+      function ensureWhopLoaderScript() {{
+        if (document.querySelector('script[src*="js.whop.com/static/checkout/loader.js"]')) return;
+        var s = document.createElement('script');
+        s.src = 'https://js.whop.com/static/checkout/loader.js';
+        s.async = true;
+        s.defer = true;
+        document.head.appendChild(s);
+      }}
+
+      function mountGbaWhopEmbed(planKey) {{
+        var mount = document.getElementById('gbaWhopEmbedMount');
+        var directBtn = document.getElementById('gbaWhopDirectTabBtn');
+        var planObj = (typeof window.resolveGbaWhopPlan === 'function')
+          ? window.resolveGbaWhopPlan(planKey)
+          : {{
+              plan_id: planKey === 'annual' ? '{WHOP_ANNUAL_PLAN_ID}' : '{WHOP_MONTHLY_PLAN_ID}',
+              purchase_url: planKey === 'annual' ? '{WHOP_ANNUAL_CTA_HREF}' : '{WHOP_MONTHLY_CTA_HREF}',
+              redirect_url: planKey === 'annual' ? '{WHOP_ANNUAL_RETURN_URL}' : '{WHOP_MONTHLY_RETURN_URL}'
+            }};
+        if (directBtn && planObj.purchase_url) {{
+          directBtn.setAttribute('href', planObj.purchase_url);
+        }}
+        if (!mount) return;
+        ensureWhopLoaderScript();
+        mount.innerHTML = '';
+        var embedDiv = document.createElement('div');
+        embedDiv.className = 'whop-checkout-embed';
+        embedDiv.setAttribute('data-whop-checkout-plan-id', planObj.plan_id);
+        embedDiv.setAttribute('data-whop-checkout-return-url', planObj.redirect_url);
+        embedDiv.setAttribute('data-whop-checkout-redirect-url', planObj.redirect_url);
+        embedDiv.setAttribute('data-whop-checkout-theme', 'light');
+        embedDiv.setAttribute('data-whop-checkout-locale', 'ja');
+        var savedEmail = (typeof window.getGbaSavedMemberEmail === 'function') ? window.getGbaSavedMemberEmail() : '';
+        if (savedEmail && savedEmail.indexOf('@') !== -1) {{
+          embedDiv.setAttribute('data-whop-checkout-prefill-email', savedEmail);
+        }}
+        mount.appendChild(embedDiv);
+      }}
+
+      window.selectGbaWhopPlan = function(plan) {{
+        activeWhopPlan = (String(plan || '').toLowerCase() === 'annual') ? 'annual' : 'monthly';
+        document.querySelectorAll('[data-gba-whop-tab]').forEach(function(btn) {{
+          var isAct = btn.getAttribute('data-gba-whop-tab') === activeWhopPlan;
           btn.classList.toggle('is-active', isAct);
           btn.setAttribute('aria-pressed', isAct ? 'true' : 'false');
         }});
+        var modal = document.getElementById('gbaWhopCheckoutModal');
+        if (modal && modal.classList.contains('is-open')) {{
+          mountGbaWhopEmbed(activeWhopPlan);
+        }}
       }};
 
-      window.openGbaVipWaitlistModal = function(plan) {{
-        window.selectGbaVipWaitlistPlan(plan || 'monthly');
-        var modal = document.getElementById('gbaVipWaitlistModal');
-        if (!modal) return;
+      window.openGbaWhopCheckoutModal = function(plan) {{
+        activeWhopPlan = (String(plan || '').toLowerCase() === 'annual') ? 'annual' : 'monthly';
+        var modal = document.getElementById('gbaWhopCheckoutModal');
+        if (!modal) {{
+          var fallbackPlan = window.resolveGbaWhopPlan ? window.resolveGbaWhopPlan(activeWhopPlan) : null;
+          if (fallbackPlan && fallbackPlan.purchase_url) window.location.href = fallbackPlan.purchase_url;
+          return;
+        }}
         modal.classList.add('is-open');
         modal.setAttribute('aria-hidden', 'false');
-        try {{
-          var saved = localStorage.getItem('gb_free_member_email') || localStorage.getItem('gba_jp_free_email') || '';
-          var inp = document.getElementById('gbaVipWaitlistEmail');
-          if (inp && saved && !inp.value) inp.value = saved;
-          setTimeout(function() {{ if (inp && inp.focus) inp.focus(); }}, 80);
-        }} catch (_e) {{}}
+        document.querySelectorAll('[data-gba-whop-tab]').forEach(function(btn) {{
+          var isAct = btn.getAttribute('data-gba-whop-tab') === activeWhopPlan;
+          btn.classList.toggle('is-active', isAct);
+          btn.setAttribute('aria-pressed', isAct ? 'true' : 'false');
+        }});
+        mountGbaWhopEmbed(activeWhopPlan);
       }};
 
-      window.closeGbaVipWaitlistModal = function() {{
-        var modal = document.getElementById('gbaVipWaitlistModal');
+      window.closeGbaWhopCheckoutModal = function() {{
+        var modal = document.getElementById('gbaWhopCheckoutModal');
         if (!modal) return;
         modal.classList.remove('is-open');
         modal.setAttribute('aria-hidden', 'true');
       }};
 
-      window.submitGbaVipWaitlist = function(ev) {{
-        if (ev && ev.preventDefault) ev.preventDefault();
-        var inp = document.getElementById('gbaVipWaitlistEmail');
-        var statusEl = document.getElementById('gbaVipWaitlistStatus');
-        var btn = document.getElementById('gbaVipWaitlistSubmitBtn');
-        var email = String(inp ? inp.value : '').trim().toLowerCase();
-        if (!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]{{2,}}$/.test(email)) {{
-          if (statusEl) {{
-            statusEl.style.display = 'block';
-            statusEl.innerText = ' 正しいメールアドレスを入力してください（例: yamada@example.jp）。';
-          }}
-          if (inp && inp.focus) inp.focus();
-          return false;
-        }}
-        var selectedPlan = activeWaitlistPlan || 'monthly';
-        if (btn) btn.disabled = true;
-
-        var kstDay = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
-        if (typeof window.trackGbaVipWaitlistBeacons === 'function') {{
-          window.trackGbaVipWaitlistBeacons();
-        }} else {{
-          fetch('https://abacus.jasoncameron.dev/hit/gba_getbreakai/vip_waitlist_' + kstDay, {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
-          fetch('https://abacus.jasoncameron.dev/hit/gba_getbreakai/vip_waitlist_total', {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
-          fetch('https://abacus.jasoncameron.dev/hit/gba_getbreakai/vip_waitlist', {{ mode: 'cors', keepalive: true }}).catch(function(){{}});
-        }}
-
-        var finishUi = function() {{
-          if (btn) btn.disabled = false;
-          if (statusEl) {{
-            var planLabel = selectedPlan === 'annual' ? '{PRICE_LABEL_ANNUAL_JP}' : '{PRICE_LABEL_MONTHLY_JP}';
-            statusEl.style.display = 'block';
-            statusEl.innerHTML = ' <strong>VIP創設メンバー先行案内＆早期20%割引クーポンのご予約が完了いたしました！</strong>（' + email.replace(/[<>&"]/g, '') + ' ／ 選択プラン: ' + planLabel + '）<br>Polar.sh 公式決済受付の開始と同時に優先ご案内メールをお送りいたします。また毎朝8時の無料「3色バランス指標ブリーフ」も本日よりお届けいたします。';
-          }}
-        }};
-
-        try {{
-          localStorage.setItem('gb_free_member_email', email);
-          localStorage.setItem('gba_jp_free_email', email);
-        }} catch (_e) {{}}
-
-        if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.registerMember === 'function') {{
-          window.DreamCompanyCRM.registerMember({{
-            div: 'GBA',
-            email: email,
-            segment: 'vip_waitlist',
-            lang: 'ja-JP',
-            notes: 'site=getbreakai.com | provider=polar_sh | plan=' + selectedPlan
-          }}).then(finishUi).catch(finishUi);
-        }} else {{
-          finishUi();
-        }}
-        return false;
-      }};
+      // Backward-compatible aliases
+      window.openGbaVipWaitlistModal = window.openGbaWhopCheckoutModal;
+      window.closeGbaVipWaitlistModal = window.closeGbaWhopCheckoutModal;
 
       document.addEventListener('click', function(ev) {{
-        var modal = document.getElementById('gbaVipWaitlistModal');
+        var modal = document.getElementById('gbaWhopCheckoutModal');
         if (modal && modal.classList.contains('is-open') && ev.target === modal) {{
-          window.closeGbaVipWaitlistModal();
+          window.closeGbaWhopCheckoutModal();
         }}
       }});
       document.addEventListener('keydown', function(ev) {{
         if (ev.key === 'Escape') {{
-          window.closeGbaVipWaitlistModal();
+          window.closeGbaWhopCheckoutModal();
         }}
       }});
     }})();
   </script>"""
 
 
-def build_starter_manual_modal_html() ->str:
-    """Returns the In-App WebView guarded ¥0 Shin-NISA Starter Manual Modal + Email Delivery UI."""
+# Backward-compatible export alias used by page builders
+build_vip_waitlist_modal_html = build_whop_checkout_modal_html
+
+
+def build_starter_manual_modal_html() -> str:
+    """Returns the In-App WebView guarded ¥0 Shin-NISA Starter Manual Modal + Email Delivery UI (0 Emojis)."""
     return f"""
-  <!--  Interactive Modal: ¥0 無料公開商品 はじめての新NISA＆証券アプリ基本マニュアル (#gbaStarterManualModal) -->
+  <!-- Interactive Modal: ¥0 無料公開 はじめての新NISA＆証券アプリ基本マニュアル (#gbaStarterManualModal) -->
   <div class="gba-manual-modal-backdrop" id="gbaStarterManualModal" role="dialog" aria-modal="true" aria-labelledby="gbaStarterManualModalTitle" aria-hidden="true">
     <div class="gba-manual-modal-dialog">
       <div class="gba-manual-modal-header">
@@ -761,22 +763,22 @@ def build_starter_manual_modal_html() ->str:
       <!-- In-App WebView Safe Email Delivery Strip ("このマニュアルをメールで受け取る（無料倶楽部登録）") -->
       <div id="gbaManualWebViewMailBox" style="padding:14px 18px; background:linear-gradient(135deg, #ecfdf5 0%, #eff6ff 100%); border-bottom:2px solid #059669;">
         <div id="gbaManualWebViewNotice" style="display:none; font-size:0.9rem; font-weight:900; color:#065f46; margin-bottom:6px;">
-           アプリ内ブラウザ（Instagram・Facebook・LINE等）では印刷機能が制限されるため、全章をこのまま画面でお読みいただくか、下記よりメールで保存版をお受け取りいただけます。
+          アプリ内ブラウザ（Instagram・Facebook・LINE等）では印刷機能が制限されるため、全章をこのまま画面でお読みいただくか、下記よりメールで保存版をお受け取りいただけます。
         </div>
         <div style="font-size:1rem; font-weight:900; color:#0b1f3a; margin-bottom:8px;">
-           このマニュアルをメールで受け取る（無料倶楽部登録）
+          このマニュアルをメールで受け取る（無料倶楽部登録）
         </div>
         <form id="gbaManualEmailDeliveryForm" onsubmit="return window.submitGbaManualEmailDelivery(event);" style="display:flex; flex-wrap:wrap; gap:8px;">
           <label for="gbaManualDeliveryEmail" style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0);">メールアドレス</label>
           <input type="email" id="gbaManualDeliveryEmail" required autocomplete="email" placeholder="メールアドレスを入力（例: taro@example.jp）" style="flex:1 1 230px; min-height:48px; padding:8px 13px; border-radius:10px; border:2px solid #64748b; background:#ffffff; color:#0f172a; font-size:0.98rem; font-weight:700;">
-          <button type="submit" id="btnSubmitGbaManualMail" style="min-height:48px; padding:8px 18px; border-radius:10px; border:none; background:#059669; color:#ffffff; font-size:0.95rem; font-weight:900; cursor:pointer;">このマニュアルをメールで受け取る（無料倶楽部登録） →</button>
+          <button type="submit" id="btnSubmitGbaManualMail" style="min-height:48px; padding:8px 18px; border-radius:10px; border:none; background:#059669; color:#ffffff; font-size:0.95rem; font-weight:900; cursor:pointer;">このマニュアルをメールで受け取る（無料倶楽部登録） &rarr;</button>
         </form>
         <div id="gbaManualDeliveryStatus" role="status" aria-live="polite" style="display:none; margin-top:8px; padding:9px 12px; border-radius:8px; background:#d1fae5; color:#065f46; font-size:0.94rem; font-weight:800;"></div>
       </div>
 
       <nav class="gba-manual-nav-pills" aria-label="マニュアル目次">
         <button type="button" class="gba-manual-jump-pill" onclick="scrollToGbaManualChapter('gbaManualChap1')">第1章：指値注文の買い方</button>
-        <button type="button" class="gba-manual-jump-pill" onclick="scrollToGbaManualChapter('gbaManualChap2')">第2章：新NISA適格×特定口座の使い分け</button>
+        <button type="button" class="gba-manual-jump-pill" onclick="scrollToGbaManualChapter('gbaManualChap2')">第2章：新NISA適格&times;特定口座の使い分け</button>
         <button type="button" class="gba-manual-jump-pill" onclick="scrollToGbaManualChapter('gbaManualChap3')">第3章：待機資金（国債・預金連携）</button>
       </nav>
 
@@ -790,7 +792,7 @@ def build_starter_manual_modal_html() ->str:
             <div class="gba-manual-broker-card">
               <strong class="broker-name">楽天証券（スマホアプリ「iSPEED」・Web）の操作手順</strong>
               <ol>
-                <li>銘柄名を検索し、右上の<strong>「注文」→「現物買い」</strong>をタップします。</li>
+                <li>銘柄名を検索し、右上の<strong>「注文」&rarr;「現物買い」</strong>をタップします。</li>
                 <li>口座区分で対象銘柄に応じた区分（<strong>「NISA成長投資枠」</strong>または<strong>「特定口座」</strong>）を選びます。</li>
                 <li>価格欄で<strong>「指値」</strong>を選択し、希望上限価格と株数を入力して確認画面へ進みます。</li>
               </ol>
@@ -798,21 +800,21 @@ def build_starter_manual_modal_html() ->str:
             <div class="gba-manual-broker-card">
               <strong class="broker-name">SBI証券（「SBI証券 株」／「米国株」アプリ）の操作手順</strong>
               <ol>
-                <li>銘柄画面から<strong>「取引」→「現物買」</strong>をタップします。</li>
+                <li>銘柄画面から<strong>「取引」&rarr;「現物買」</strong>をタップします。</li>
                 <li>預り区分で<strong>「NISA預り（成長）」</strong>または<strong>「特定預り」</strong>にチェックを入れます。</li>
                 <li>価格指定で<strong>「指値」</strong>を選び、上限金額と株数を確認してから発注します。</li>
               </ol>
             </div>
           </div>
           <div class="gba-manual-tip-callout">
-             <strong>安心のポイント：</strong>指値まで価格が下がらなければ約定せず現金がそのまま残るため、意図しない高値購入を防げます。
+            <strong>安心のポイント：</strong>指値まで価格が下がらなければ約定せず現金がそのまま残るため、意図しない高値購入を防げます。
           </div>
         </article>
 
         <article class="gba-manual-chapter-box" id="gbaManualChap2">
-          <h3>第2章 — 金融庁ルール準拠：新NISA成長投資枠（SMH × XLV）と安全資産（個人向け国債・特定口座）の正しい区分</h3>
+          <h3>第2章 — 金融庁ルール準拠：新NISA成長投資枠（SMH &times; XLV）と安全資産（個人向け国債・特定口座）の正しい区分</h3>
           <p>
-            日本の金融庁規定により、<strong>毎月分配型ETF（SGOV・JEPI等）およびレバレッジ型ETF（SOXL・TQQQ等）は新NISAの対象外</strong>です。そのため老後の穏やかな資産設計では、{FSA_HYBRID_PHRASE_JP}で口座を正しく使い分け、頻繁な売買を避けて<strong>年2回の穏やかな比率点検</strong>で年間360万円の非課税枠を大切に守ります。
+            日本の金融庁規定により、<strong>毎月分配型ETF（SGOV・JEPI等）およびレバレッジ型ETF（SOXL・TQQQ等）は新NISAの対象外</strong>です。そのため老後の穏やかな資産研究では、{FSA_HYBRID_PHRASE_JP}で口座を正しく使い分け、頻繁な売買を避けて<strong>年2回の穏やかな比率点検</strong>で年間360万円の非課税枠を大切に守ります。
           </p>
           <div class="gba-manual-broker-grid">
             <div class="gba-manual-broker-card">
@@ -831,21 +833,21 @@ def build_starter_manual_modal_html() ->str:
             </div>
           </div>
           <div class="gba-manual-tip-callout">
-             <strong>安心のポイント：</strong>新NISA成長投資枠の現物1倍2本柱（SMH × XLV）と、個人向け国債（変動10年）の安全クッションを組み合わせることで、金融庁ルールに100%準拠しながら下落局面でも慌てて手放さない穏やかな資産設計が可能になります。
+            <strong>安心のポイント：</strong>新NISA成長投資枠の現物1倍2本柱（SMH &times; XLV）と、個人向け国債（変動10年）の安全クッションを組み合わせることで、金融庁ルールに100%準拠しながら下落局面でも慌てて手放さない穏やかな統計比較が可能になります。
           </div>
         </article>
 
         <article class="gba-manual-chapter-box" id="gbaManualChap3">
           <h3>第3章 — 守りの財布を整える「個人向け国債（変動10年）・楽天マネーブリッジ・SBIハイブリッド預金」の活用法</h3>
           <p>
-            相場変動が大きい<strong>現金・国債防衛モード</strong>の時期は、無理に株式比率を増やす必要はありません。生活費2〜3年分の安全クッションを国債や証券連携預金に置いておくことで、株価下落時にも慌てず配当と年金をゆったり受け取ることができます。
+            相場変動が大きい時期は無理に株式比率を増やす必要はありません。生活費2〜3年分の安全クッションを国債や証券連携預金に置いておくことで、株価下落時にも慌てず配当と年金をゆったり受け取ることができます。
           </p>
           <div class="gba-manual-broker-grid">
             <div class="gba-manual-broker-card">
               <strong class="broker-name">楽天証券：「マネーブリッジ」＆個人向け国債</strong>
               <ol>
                 <li>楽天証券と楽天銀行を連携する<strong>「マネーブリッジ（無料）」</strong>を設定し、普通預金優遇金利と預金保険で待機資金を保護します。</li>
-                <li>生活防衛資金の一部を<strong>「個人向け国債（変動10年）」</strong>に配分すると、半年ごとに適用利率が見直され元本割れなく保有できます。</li>
+                <li>生活防衛資金の一部を<strong>「個人向け国債（変動10年）」</strong>に振り分けると、半年ごとに適用利率が見直され元本割れなく保有できます。</li>
               </ol>
             </div>
             <div class="gba-manual-broker-card">
@@ -859,18 +861,18 @@ def build_starter_manual_modal_html() ->str:
         </article>
 
         <div class="gba-manual-modal-funnel">
-          <h4>基本設定を確認したら、毎朝8時の「3色バランス指標ブリーフ」をご活用ください</h4>
+          <h4>基本設定を確認したら、毎朝8時の「朝刊リサーチノート」をご活用ください</h4>
           <p>
-            当サイトの数学的シミュレーターと毎朝の公開市場データ要約を活用し、ご自身のペースで年2〜4回の穏やかな資産配分点検にお役立てください。
+            当サイトのセクター過去統計エクスプローラーと毎朝の公開市場データ要約を活用し、ご自身のペースで年2〜4回の穏やかな統計点検にお役立てください。
           </p>
           <div class="gba-manual-cta-row" style="margin-bottom:10px;">
             <button type="button" class="gba-manual-open-btn" onclick="jumpFromManualToJpMail()">
-               無料倶楽部に登録して毎朝8時の「3色バランス指標」を受け取る
+              無料登録して朝刊リサーチノートを受け取る
             </button>
           </div>
           <div class="gba-manual-funnel-links">
-            <a href="{POLAR_MONTHLY_CTA_HREF}" data-gba-paid-plan="monthly" data-polar-slot="monthly_29_jp" class="gba-manual-pro-link polar-checkout-button">{PRICE_LABEL_MONTHLY_JP}</a>
-            <a href="{POLAR_ANNUAL_CTA_HREF}" data-gba-paid-plan="annual" data-polar-slot="annual_199_jp" class="gba-manual-vip-link polar-checkout-button">{PRICE_LABEL_ANNUAL_JP}</a>
+            <a href="{WHOP_MONTHLY_CTA_HREF}" data-gba-paid-plan="monthly" class="gba-manual-pro-link whop-checkout-button">{PRICE_LABEL_MONTHLY_JP}</a>
+            <a href="{WHOP_ANNUAL_CTA_HREF}" data-gba-paid-plan="annual" class="gba-manual-vip-link whop-checkout-button">{PRICE_LABEL_ANNUAL_JP}</a>
           </div>
         </div>
       </div>
@@ -896,7 +898,7 @@ def build_starter_manual_modal_html() ->str:
           var notice = document.getElementById('gbaManualWebViewNotice');
           var pBtn = document.getElementById('btnPrintOrMailGbaManual');
           if (notice) notice.style.display = 'block';
-          if (pBtn) pBtn.innerText = ' このマニュアルをメールで受け取る';
+          if (pBtn) pBtn.innerText = 'このマニュアルをメールで受け取る';
         }}
         try {{
           var saved = localStorage.getItem('gb_free_member_email') || localStorage.getItem('gba_jp_free_email') || '';
@@ -968,7 +970,7 @@ def build_starter_manual_modal_html() ->str:
         }}
         if (st) {{
           st.style.display = 'block';
-          st.innerHTML = ' <strong>ご登録ありがとうございます！</strong>保存版マニュアルと毎朝8時の「新NISA 3色バランス指標ブリーフ」を <strong>' + email.replace(/[<>&"]/g, '') + '</strong>宛にお届けいたします。';
+          st.innerHTML = '<strong>ご登録ありがとうございます。</strong>保存版マニュアルと毎朝8時の「朝刊リサーチノート」を <strong>' + email.replace(/[<>&"]/g, '') + '</strong> 宛にお届けいたします。';
         }}
         return false;
       }};
@@ -977,10 +979,10 @@ def build_starter_manual_modal_html() ->str:
         if (typeof window.isGbaInAppWebView === 'function' && window.isGbaInAppWebView()) {{
           var pBtn = document.getElementById('btnPrintOrMailGbaManual');
           var notice = document.getElementById('gbaManualWebViewNotice');
-          if (pBtn) pBtn.innerText = ' このマニュアルをメールで受け取る';
+          if (pBtn) pBtn.innerText = 'このマニュアルをメールで受け取る';
           if (notice) notice.style.display = 'block';
           document.querySelectorAll('.gba-manual-sub-badge').forEach(function(b) {{
-            b.innerText = ' メール保存・画面閲覧対応 ／ 楽天証券・SBI証券 対応';
+            b.innerText = 'メール保存・画面閲覧対応 ／ 楽天証券・SBI証券 対応';
           }});
         }}
       }});
@@ -988,62 +990,62 @@ def build_starter_manual_modal_html() ->str:
   </script>"""
 
 
-def build_legal_footer_html() ->str:
-    """Returns prominent Polar.sh MoR & FIEA compliant footer legal bar linking both /jp/*.html and root /*.html legal pages."""
+def build_legal_footer_html() -> str:
+    """Returns prominent Whop & FIEA compliant footer legal bar linking both /jp/*.html and root /*.html legal pages including tokushoho.html."""
     return f"""
   <footer class="gba-fixed-legal-footer" style="margin-top:32px; padding:24px 16px 36px; border-top:2px solid #cbd5e1; background:rgba(15,23,42,0.03); font-size:0.9rem; line-height:1.72; color:var(--text-muted, #334155);">
     <div style="max-width:1040px; margin:0 auto;">
       <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:10px 18px; margin-bottom:14px; font-weight:800;">
         <a href="/jp/terms.html" style="color:var(--accent-blue, #1d4ed8); text-decoration:underline;">利用規約</a>
-        <span aria-hidden="true">·</span>
+        <span aria-hidden="true">&middot;</span>
         <a href="/jp/privacy.html" style="color:var(--accent-blue, #1d4ed8); text-decoration:underline;">プライバシーポリシー</a>
-        <span aria-hidden="true">·</span>
+        <span aria-hidden="true">&middot;</span>
         <a href="/jp/refund.html" style="color:var(--accent-blue, #1d4ed8); text-decoration:underline;">14日間返金ポリシー</a>
-        <span aria-hidden="true">·</span>
-        <a href="/jp/contact.html" style="color:var(--accent-blue, #1d4ed8); text-decoration:underline;">特定商取引法に基づく表記</a>
-        <span aria-hidden="true">·</span>
+        <span aria-hidden="true">&middot;</span>
+        <a href="/jp/tokushoho.html" style="color:var(--accent-blue, #1d4ed8); text-decoration:underline;">特定商取引法に基づく表記</a>
+        <span aria-hidden="true">&middot;</span>
+        <a href="/jp/contact.html" style="color:var(--accent-blue, #1d4ed8); text-decoration:underline;">お問い合わせ</a>
+        <span aria-hidden="true">&middot;</span>
         <a href="https://www.youtube.com/@GetBreakAI" target="_blank" rel="noopener" style="color:var(--accent-blue, #1d4ed8); text-decoration:underline;">公式YouTube @GetBreakAI</a>
-        <span aria-hidden="true">·</span>
+        <span aria-hidden="true">&middot;</span>
         <a href="https://www.instagram.com/getbreakai/" target="_blank" rel="noopener" style="color:var(--accent-blue, #1d4ed8); text-decoration:underline;">公式Instagram @getbreakai</a>
-        <span aria-hidden="true">·</span>
+        <span aria-hidden="true">&middot;</span>
         <span>カスタマーサポート: <a href="mailto:beable9489@gmail.com" style="color:var(--accent-blue, #1d4ed8); font-weight:900; text-decoration:underline;">beable9489@gmail.com</a></span>
-        <span aria-hidden="true">·</span>
-        <span>法人・メディア提携窓口: <a href="mailto:beable9489@gmail.com?subject=GetBreakAI%20Media%20%26%20Corporate%20Partnership" style="color:var(--accent-blue, #1d4ed8); font-weight:900; text-decoration:underline;">beable9489@gmail.com</a></span>
       </div>
       <div style="text-align:center; font-size:0.82rem; color:var(--text-sub, #475569); margin-bottom:10px;">
         英語版・共通法務リンク:
-        <a href="/terms.html" style="color:inherit; text-decoration:underline;">Terms (/terms.html)</a>·
-        <a href="/privacy.html" style="color:inherit; text-decoration:underline;">Privacy (/privacy.html)</a>·
-        <a href="/refund.html" style="color:inherit; text-decoration:underline;">14-Day Refund (/refund.html)</a>·
-        <a href="/contact.html" style="color:inherit; text-decoration:underline;">Commercial Disclosure (/contact.html)</a>·
-        <span>Sponsorship &amp; Media Partnership: <a href="mailto:beable9489@gmail.com" style="color:inherit; text-decoration:underline;">beable9489@gmail.com</a></span>
+        <a href="/terms.html" style="color:inherit; text-decoration:underline;">Terms (/terms.html)</a> &middot;
+        <a href="/privacy.html" style="color:inherit; text-decoration:underline;">Privacy (/privacy.html)</a> &middot;
+        <a href="/refund.html" style="color:inherit; text-decoration:underline;">14-Day Refund (/refund.html)</a> &middot;
+        <a href="/tokushoho.html" style="color:inherit; text-decoration:underline;">Tokushoho (/tokushoho.html)</a> &middot;
+        <a href="/contact.html" style="color:inherit; text-decoration:underline;">Contact (/contact.html)</a>
       </div>
       <div style="max-width:920px; margin:0 auto; padding:12px 15px; border-radius:10px; background:var(--bg-card, #ffffff); border:1px solid var(--border-col, #cbd5e1); font-size:0.84rem; color:var(--text-sub, #475569);">
-        <strong>【{SOFTWARE_POSITIONING_JP}】</strong><br>
+        <strong>「{SOFTWARE_POSITIONING_JP}」</strong><br>
         {MANDATORY_DISCLAIMER_JP}<br>
-        公式決済・税務管理基盤：<strong>{MOR_LABEL_EN_JP}</strong>（日本国内発行クレジットカード・Apple Pay・Google Pay対応 ／ 14日間返金保証）<br>
-        Operated by Yoonju Lee · KIDS-FIT Global Studio &amp; GetBreakAI · Official Billing via {MOR_LABEL_EN_JP}. Support Desk: <a href="mailto:beable9489@gmail.com" style="color:var(--accent-blue, #1d4ed8); font-weight:800;">beable9489@gmail.com</a>
+        公式決済基盤：<strong>{MOR_LABEL_EN_JP}</strong>（日本国内発行クレジットカード・Apple Pay・Google Pay対応 ／ 14日間返金保証）<br>
+        Operated by Yoonju Lee &middot; GetBreakAI Japan Research ({WHOP_COMPANY_ID}). Support Desk: <a href="mailto:beable9489@gmail.com" style="color:var(--accent-blue, #1d4ed8); font-weight:800;">beable9489@gmail.com</a>
       </div>
     </div>
   </footer>"""
 
 
-def _render_legal_doc(slug: str, title_jp: str, badge_text: str, body_html: str, is_jp_dir: bool) ->str:
+def _render_legal_doc(slug: str, title_jp: str, badge_text: str, body_html: str, is_jp_dir: bool) -> str:
     canonical = f"https://getbreakai.com/jp/{slug}" if is_jp_dir else f"https://getbreakai.com/{slug}"
     home_href = "/jp/"
     head_scripts = build_payment_and_kpi_head_html()
-    waitlist_modal = build_vip_waitlist_modal_html()
+    checkout_modal = build_whop_checkout_modal_html()
     footer_html = build_legal_footer_html()
     return f"""<!DOCTYPE html>
 <html lang="ja" data-jp-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{title_jp} ｜ GetBreakAI</title>
-  <meta name="description" content="GetBreakAI ({canonical}) — {title_jp}・{SOFTWARE_POSITIONING_JP}・{MOR_LABEL_EN_JP}。サポート窓口: beable9489@gmail.com">
+  <title>{title_jp} ｜ GetBreakAI 新NISA・資産リサーチ研究室（教育目的）</title>
+  <meta name="description" content="GetBreakAI ({canonical}) — {title_jp}・「{SOFTWARE_POSITIONING_JP}」・{MOR_LABEL_EN_JP}。サポート窓口: beable9489@gmail.com">
   <link rel="canonical" href="{canonical}">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <script type="application/ld+json">{{"@context":"https://schema.org","@type":"Organization","name":"GetBreakAI Japan","url":"https://getbreakai.com/jp/","email":"beable9489@gmail.com","sameAs":["https://www.youtube.com/@GetBreakAI","https://www.instagram.com/getbreakai/"]}}</script>
+  <script type="application/ld+json">{{"@context":"https://schema.org","@type":"Organization","name":"GetBreakAI Japan Research","url":"https://getbreakai.com/jp/","email":"beable9489@gmail.com","sameAs":["https://www.youtube.com/@GetBreakAI","https://www.instagram.com/getbreakai/"]}}</script>
 {head_scripts}
   <style>
     :root {{
@@ -1080,7 +1082,7 @@ def _render_legal_doc(slug: str, title_jp: str, badge_text: str, body_html: str,
       flex-wrap: wrap;
       gap: 12px;
     }}
-    .brand {{ color: #ffffff; text-decoration: none; font-weight: 900; font-size: 1.12rem; }}
+    .brand {{ color: #ffffff; text-decoration: none; font-weight: 900; font-size: 1.08rem; }}
     .back-link {{ color: #93c5fd; text-decoration: none; font-size: 0.95rem; font-weight: 800; }}
     main {{ max-width: 920px; margin: 30px auto; padding: 0 16px; }}
     .card {{
@@ -1129,8 +1131,8 @@ def _render_legal_doc(slug: str, title_jp: str, badge_text: str, body_html: str,
 <body>
   <header>
     <div class="header-inner">
-      <a href="{home_href}" class="brand">GetBreakAI ゆとり老後＆新NISA設計ナビ</a>
-      <a href="{home_href}" class="back-link">← 新NISA老後設計ナビへ戻る</a>
+      <a href="{home_href}" class="brand">GetBreakAI 新NISA・資産リサーチ研究室（教育目的）</a>
+      <a href="{home_href}" class="back-link">&larr; トップページへ戻る</a>
     </div>
   </header>
 
@@ -1143,127 +1145,148 @@ def _render_legal_doc(slug: str, title_jp: str, badge_text: str, body_html: str,
   </main>
 
 {footer_html}
-{waitlist_modal}
+{checkout_modal}
 </body>
 </html>
 """
 
 
-def build_all_legal_pages(root_dir: str, jp_dir: str) ->None:
-    """Generates and synchronizes terms.html, privacy.html, refund.html, and contact.html in both root and /jp/."""
+def build_all_legal_pages(root_dir: str, jp_dir: str) -> None:
+    """Generates and synchronizes terms.html, privacy.html, refund.html, tokushoho.html, and contact.html in both root and /jp/."""
     os.makedirs(jp_dir, exist_ok=True)
 
     terms_body = f"""      <p>
-        本利用規約（以下「本規約」）は、<strong>Yoonju Lee · KIDS-FIT Global Studio</strong>（以下「当スタジオ」）が提供する<strong>{SOFTWARE_POSITIONING_JP}</strong>「<strong>GetBreakAI</strong>」（<a href="https://getbreakai.com/jp/">https://getbreakai.com/jp/</a>）のご利用条件を定めるものです。
+        本利用規約（以下「本規約」）は、<strong>GetBreakAI Japan Research</strong>（運営：Yoonju Lee &middot; KIDS-FIT Global Studio）が提供する<strong>「{SOFTWARE_POSITIONING_JP}」</strong>（<a href="https://getbreakai.com/jp/">https://getbreakai.com/jp/</a>）のご利用条件を定めるものです。
       </p>
       <div class="disclaimer-box">
         {MANDATORY_DISCLAIMER_JP}
       </div>
-      <h2>第1条（提供ソフトウェアの内容・自己判断ツールとしての性質）</h2>
+      <h2>第1条（提供コンテンツの内容・独立系教育リサーチ出版としての性質）</h2>
       <ul>
-        <li>新NISA成長投資枠（米国半導体 SMH × 米国ヘルスケア XLV）と個人向け国債（変動10年）・特定口座を組み合わせた老後資産配分および非課税枠の数学的シミュレーション機能</li>
-        <li>日本の金融庁規定に準拠した{FSA_HYBRID_PHRASE_JP}の資産配分比率計算機能</li>
-        <li>Proプラン同梱ツール：①『毎朝自動配信：SMH × XLV マーケット過熱・恐怖指標＆セクター比率トラッキング日報メール』、②『新NISA成長投資枠（SMH・XLV）× 個人向け国債・特定口座 運用額別の円・ドル配分計算シート』、③『随時更新・SMH × XLV セクターバランス実践マスターPDFガイド（楽天・SBI証券 大文字操作図解同梱）』</li>
-        <li>米国SEC公開財務開示（Form 8-K / 10-Q / Form 4）および日米公開市場データの統計的可視化ダッシュボード（全利用者へ同一の計算式を表示する汎用教育ソフトウェア）</li>
+        <li>提供商品定義：<strong>「{SOFTWARE_POSITIONING_JP}」</strong></li>
+        <li>日本の金融庁規定に準拠した{FSA_HYBRID_PHRASE_JP}に関する2000〜2025年セクター過去統計エクスプローラー（全閲覧者へ同一の過去統計データを表示する教育コンテンツ）</li>
+        <li>購読パス収録内容：① 毎朝配信の市場データニュースレター（日米公開過熱・恐怖指数 0〜100 および SMH &times; XLV 過去統計比率ノート）、② 2000–2025年 過去統計ワークブック（ITバブル・リーマン危機・2022年利上げ局面の歴史的ドローダウン・回復期間統計、および楽天・SBI証券 新NISA／特定口座大文字図解ガイド）</li>
+        <li>当サイトは金融商品取引法上の投資助言・代理業ではなく、個別の投資判断・銘柄選定・売買タイミングの助言は一切行いません。</li>
       </ul>
-      <h2>第2条（決済管理・ライセンス利用権）</h2>
+      <h2>第2条（決済管理・購読パス利用権）</h2>
       <p>
-        有料ソフトウェアプラン（{PRICE_LABEL_MONTHLY_JP} ／ {PRICE_LABEL_ANNUAL_JP}）の決済処理・消費税等を含む税務管理・領収書発行は、公式決済代行基盤 <strong>{MOR_LABEL_EN_JP}</strong>（Stripe提携・日本国内発行クレジットカード／Apple Pay／Google Pay対応の公式 Merchant of Record）によって安全に処理されます。発行されたライセンスはご購入者様ご本人の個人利用に限り有効であり、第三者への転売・再配布は禁止されます。
+        有料リサーチパス（{PRICE_LABEL_MONTHLY_JP} ／ {PRICE_LABEL_ANNUAL_JP}）の決済処理および領収書発行は、公式グローバル決済基盤 <strong>{MOR_LABEL_EN_JP}</strong>（日本国内発行クレジットカード JCB・Visa・Mastercard・Apple Pay・Google Pay対応）によって安全に処理されます。購読パスはご購入者様ご本人の個人学習・閲覧目的に限り有効であり、第三者への転売・無断再配布は禁止されます。
       </p>
       <h2>第3条（無保証および免責事項）</h2>
       <p>
-        当サイトに表示される公開市場データ・配当利回り試算・過去統計シミュレーションは教育および情報提供のみを目的としており、将来の運用成果や元本を保証するものではありません。最終的な資産配分および投資判断はお客様ご自身の責任において行ってください。
+        当サイトに掲載される公開市場データおよび2000〜2025年の過去統計比較は教育および情報提供のみを目的としており、将来の運用成果や元本を保証するものではありません。最終的な資産管理および投資判断はお客様ご自身の責任において行ってください。
       </p>
-      <h2>English Summary — Self-Directed Educational Calculator Software Terms</h2>
+      <h2>English Summary — Independent Educational Research Publisher Terms</h2>
       <p>
-        <strong>GetBreakAI</strong>is a self-directed public market data visualization and mathematical dividend/asset-allocation calculator software operated by <strong>Yoonju Lee · KIDS-FIT Global Studio</strong>, with global checkout, tax compliance, and invoicing handled by <strong>{MOR_LABEL_EN_JP}</strong>. GetBreakAI is NOT an investment advisor, broker-dealer, or financial instruments business operator under Japan&apos;s Financial Instruments and Exchange Act or U.S. law. Support: <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a>.
+        <strong>GetBreakAI Japan Research</strong> provides an <strong>Educational Market Data Newsletter + 2000–2025 Historical Statistical Workbook (Strictly Non-Advisory Educational Publisher)</strong>, with global checkout powered by <strong>{MOR_LABEL_EN_JP}</strong>. GetBreakAI is NOT an investment advisor, broker-dealer, or financial instruments business operator under Japan&apos;s Financial Instruments and Exchange Act (FIEA) or U.S. law. Support: <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a>.
       </p>"""
 
     privacy_body = f"""      <p>
-        <strong>GetBreakAI</strong>（運営：Yoonju Lee · KIDS-FIT Global Studio ／ 公式決済基盤：{MOR_LABEL_EN_JP}）は、お客様の個人情報およびプライバシー保護を最優先事項として管理いたします。
+        <strong>GetBreakAI Japan Research</strong>（公式決済基盤：{MOR_LABEL_EN_JP}）は、読者の皆さまの個人情報およびプライバシー保護を最優先事項として管理いたします。
       </p>
       <h2>1. 取得する情報と決済セキュリティ</h2>
       <ul>
-        <li><strong>クレジットカード・決済情報：</strong>決済処理はすべて PCI-DSS Level 1 準拠の公式決済代行基盤 <strong>{MOR_LABEL_EN_JP}</strong>（Stripe決済インフラ提携）により暗号化処理され、当サイトのサーバーがカード番号を保持・閲覧することは一切ありません。</li>
-        <li><strong>メール倶楽部・先行案内登録情報：</strong>ご登録いただいたメールアドレスおよび任意のニックネームは、毎朝の公開市場ブリーフィング配信・先行割引クーポンのご案内・カスタマーサポートの目的でのみ利用し、メール下部の解除リンクからいつでも1クリックで配信停止できます。</li>
-        <li><strong>ブラウザ内計算データ（localStorage）：</strong>老後キャッシュフローシミュレーターの試算条件や文字サイズ・テーマ設定はお使いのブラウザ内にのみ保存され、第三者へ販売・提供されることはありません。</li>
+        <li><strong>クレジットカード・決済情報：</strong>決済処理はすべて PCI-DSS Level 1 準拠の公式決済基盤 <strong>{MOR_LABEL_EN_JP}</strong>（Stripe決済インフラ提携）により暗号化処理され、当サイトのサーバーがカード番号を保持・閲覧することは一切ありません。</li>
+        <li><strong>朝刊リサーチノート登録情報：</strong>ご登録いただいたメールアドレスは、教育目的の市場データニュースレター配信およびカスタマーサポートの目的でのみ利用し、メール下部の解除リンクからいつでも1クリックで配信停止できます。</li>
+        <li><strong>ブラウザ内一時保存データ（localStorage）：</strong>セクター過去統計エクスプローラーの選択条件や表示テーマ設定はお使いのブラウザ内にのみ保存され、第三者へ販売・提供されることはありません。</li>
       </ul>
       <h2>2. 第三者提供の禁止および開示・削除請求</h2>
       <p>
-        法令に基づく場合または公式決済代行事業者（{MOR_LABEL_EN_JP}）の決済・領収書発行処理に必要な範囲を除き、個人情報を第三者へ提供することはありません。登録情報の照会・訂正・削除のご請求は <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a>までご連絡ください。原則1営業日（24時間）以内に対応いたします。
+        法令に基づく場合または決済基盤事業者（{MOR_LABEL_EN_JP}）の決済・領収書処理に必要な範囲を除き、個人情報を第三者へ提供することはありません。登録情報の照会・訂正・削除のご請求は <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a> までご連絡ください。原則1営業日（24時間）以内に対応いたします。
       </p>
       <h2>English Summary — Privacy Policy (APPI &amp; GDPR Compliant)</h2>
       <p>
-        Payment credentials are processed exclusively by <strong>{MOR_LABEL_EN_JP}</strong>and are never stored on GetBreakAI servers. Email addresses submitted for morning market summaries or VIP waitlist coupons include 1-click unsubscribe links and are never sold or rented. Contact <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a>for data deletion requests.
+        Payment credentials are processed exclusively via <strong>{MOR_LABEL_EN_JP}</strong> and are never stored on GetBreakAI servers. Email addresses submitted for morning educational research notes include 1-click unsubscribe links and are never sold or rented. Contact <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a> for data deletion requests.
       </p>"""
 
     refund_body = f"""      <p>
-        <strong>GetBreakAI</strong>（公式決済基盤：<strong>{MOR_LABEL_EN_JP}</strong>）では、シニア・個人投資家の皆さまに安心してご利用いただけるよう、<strong>いつでも可能な1クリック解約</strong>と<strong>初回ご購入後14日間の全額返金保証（14日間返金保証）</strong>を設けています。
+        <strong>GetBreakAI Japan Research</strong>（公式決済基盤：<strong>{MOR_LABEL_EN_JP}</strong>）では、読者の皆さまに安心してご利用いただけるよう、<strong>いつでも可能な1クリック解約</strong>と<strong>初回ご購入後14日間の全額返金保証（14日間返金保証）</strong>を設けています。
       </p>
       <div class="disclaimer-box">
-         <strong>14日間返金ポリシー（初回14日間返金保証）＆ いつでも1クリック自動更新停止（違約金0円）</strong><br>
-        ご購入から14日以内に <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a>までご連絡いただければ、理由を問わず迅速に100%全額返金いたします。
+        <strong>14日間返金ポリシー（初回14日間全額返金保証）＆ いつでも1クリック自動更新停止（違約金0円）</strong><br>
+        ご購入から14日以内に <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a> までご連絡いただければ、理由を問わず迅速に100%全額返金いたします。
       </div>
       <h2>1. サブスクリプションの1クリック解約手順</h2>
       <p>
-        月額プラン（{PRICE_LABEL_MONTHLY_JP}）および年間プラン（{PRICE_LABEL_ANNUAL_JP}）は、ご購入時の領収書メール内の「Manage Subscription / Customer Portal」リンク、または <a href="https://polar.sh" target="_blank" rel="noopener noreferrer">Polar.sh Customer Portal</a>、もしくは <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a>へのメール連絡により24時間いつでも解約できます。
+        <strong>{PRICE_LABEL_MONTHLY_JP}</strong> および <strong>{PRICE_LABEL_ANNUAL_JP}</strong> は、ご購入時の Whop 領収書メール内のメンバーシップ管理リンク（<a href="https://whop.com/orders/" target="_blank" rel="noopener noreferrer">Whop 注文・購読管理ページ</a>）、または <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a> へのメール連絡により24時間いつでも次回更新を停止できます。
       </p>
       <h2>2. 14日間返金保証の申請方法と返金時期</h2>
       <ul>
-        <li><strong>初回14日間返金保証：</strong>ご購入後14日以内に決済時のメールアドレスまたは注文番号（Order ID）を添えて <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a>宛にご連絡ください。</li>
-        <li><strong>重複課金・技術的不具合：</strong>万が一の重複決済やライセンス未着時は即時100%返金または再発行いたします。</li>
-        <li><strong>処理日数：</strong>ご連絡から原則1営業日（24時間）以内に <strong>{MOR_LABEL_EN_JP}</strong>経由でお支払い元のカード・Apple Pay・Google Pay等へ返金手続きを実行いたします（明細反映はカード会社により通常3〜5営業日）。</li>
+        <li><strong>初回14日間返金保証：</strong>ご購入後14日以内に決済時のメールアドレスまたは領収書番号を添えて <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a> 宛にご連絡ください。</li>
+        <li><strong>重複課金・技術的不具合：</strong>万が一の重複決済やアクセス不具合時は即時100%返金または再発行いたします。</li>
+        <li><strong>処理日数：</strong>ご連絡から原則1営業日（24時間）以内に <strong>{MOR_LABEL_EN_JP}</strong> 経由でお支払い元のカード・Apple Pay・Google Pay等へ返金手続きを実行いたします（明細反映はカード会社により通常3〜5営業日）。</li>
       </ul>
       <h2>English Summary — 14-Day Money-Back Guarantee &amp; 1-Click Cancellation</h2>
       <p>
-        All billing and refunds are processed via <strong>{MOR_LABEL_EN_JP}</strong>. Cancel anytime in 1 click via the Polar.sh Customer Portal or receipt email with zero penalties. If you are not satisfied within 14 calendar days of your initial purchase, email <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a>with your checkout email or Order ID for a 100% full refund processed within 1 business day.
+        All billing and refunds are processed via <strong>{MOR_LABEL_EN_JP}</strong>. Cancel anytime in 1 click via your Whop receipt link or email with zero penalties. Within 14 calendar days of your initial purchase, email <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a> for a 100% full refund processed within 1 business day.
       </p>"""
 
-    contact_body = f"""      <p>
-        <strong>特定商取引法に基づく表記およびカスタマーサポート窓口（Commercial Disclosure &amp; Support Desk）</strong>
+    tokushoho_table_body = f"""      <p>
+        <strong>特定商取引法に基づく表記（Commercial Disclosure under Japan&apos;s Specified Commercial Transactions Act）</strong>
       </p>
+      <div class="disclaimer-box">
+        提供コンテンツ区分：「{SOFTWARE_POSITIONING_JP}」<br>
+        {MANDATORY_DISCLAIMER_JP}
+      </div>
       <table>
         <tbody>
           <tr>
-            <th>販売事業者・運営スタジオ</th>
-            <td>Yoonju Lee · KIDS-FIT Global Studio / Dream Company Quantitative Research (GetBreakAI Desk)</td>
+            <th>販売事業者・出版デスク</th>
+            <td>GetBreakAI Japan Research（運営責任者：Yoonju Lee &middot; KIDS-FIT Global Studio）</td>
           </tr>
           <tr>
-            <th>公式決済代行 (MoR)</th>
-            <td><strong>{MOR_LABEL_EN_JP}</strong>— Stripe提携・PCI-DSS Level 1準拠グローバル決済・税務管理基盤（JCB・Visa・Mastercard・Apple Pay・Google Pay対応）</td>
+            <th>所在地</th>
+            <td>請求があった場合、遅滞なく電子メールにて開示いたします（オンライン独立系リサーチ出版デスク）。</td>
           </tr>
           <tr>
-            <th>カスタマーサポート窓口</th>
-            <td><a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a>（24時間メール受付・原則1営業日以内に日本語または英語でご返信）</td>
+            <th>お問い合わせ窓口・連絡先</th>
+            <td>電子メール：<a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a>（24時間受付・原則1営業日以内に日本語または英語でご返信いたします。電話番号はご請求時に遅滞なく電子メールにて開示いたします）</td>
           </tr>
           <tr>
-            <th>法人・メディア提携窓口</th>
-            <td>法人・メディア提携窓口: <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a></td>
+            <th>公式決済基盤</th>
+            <td><strong>{MOR_LABEL_EN_JP}</strong>（Merchant ID: <code>{WHOP_COMPANY_ID}</code> ／ JCB・Visa・Mastercard・Apple Pay・Google Pay対応）</td>
           </tr>
           <tr>
-            <th>提供ソフトウェア区分</th>
-            <td>{SOFTWARE_POSITIONING_JP}</td>
+            <th>提供商品・サービスの内容</th>
+            <td>「{SOFTWARE_POSITIONING_JP}」</td>
           </tr>
           <tr>
-            <th>販売価格（税込目安）</th>
+            <th>販売価格（税込）</th>
             <td>
-              ・月額Proプラン：{PRICE_LABEL_MONTHLY_JP}（毎朝 SMH × XLV 市場温度日報 ＋ 資産規模別配分シート同梱）<br>
-              ・年間Pro VIPプラン：{PRICE_LABEL_ANNUAL_JP}（上記全機能 ＋ 随時更新・新NISA老後取り崩し実践マスターブックPDF同梱）<br>
-              ・法人・データ提携デスク：個別お見積り（<a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a>）
+              ・{PRICE_LABEL_MONTHLY_JP}（決済URL：<a href="{WHOP_MONTHLY_CTA_HREF}" target="_blank" rel="noopener noreferrer">{WHOP_MONTHLY_CTA_HREF}</a>）<br>
+              ・{PRICE_LABEL_ANNUAL_JP}（決済URL：<a href="{WHOP_ANNUAL_CTA_HREF}" target="_blank" rel="noopener noreferrer">{WHOP_ANNUAL_CTA_HREF}</a>）<br>
+              ※商品価格以外にお客様にご負担いただく追加手数料はありません（インターネット接続料金・通信料はお客様のご負担となります）。
             </td>
           </tr>
           <tr>
-            <th>解約・14日間返金ポリシー</th>
-            <td>いつでも1クリックで次回更新停止可能。初回購入後14日間返金保証あり（詳細は <a href="/jp/refund.html">14日間返金ポリシー</a>をご参照ください）。</td>
+            <th>代金の支払時期・支払方法</th>
+            <td>クレジットカード決済（JCB・Visa・Mastercard・American Express）、Apple Pay、Google Pay。初回お申し込み時に即時決済され、以後選択プランに応じて1ヶ月ごとまたは1年ごとに自動更新されます。</td>
+          </tr>
+          <tr>
+            <th>商品の引渡時期</th>
+            <td>決済完了後、ただちにオンライン画面およびご登録メールアドレス宛にリサーチパス・過去統計ワークブックへのアクセスが有効化されます。</td>
+          </tr>
+          <tr>
+            <th>解約・返品・14日間返金特約</th>
+            <td>いつでも1クリックで次回更新を停止可能（違約金0円）。また初回ご購入から14日以内に <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a> までご連絡いただいた場合、理由を問わず100%全額返金いたします（詳細は <a href="/jp/refund.html">14日間返金ポリシー</a> をご参照ください）。</td>
           </tr>
         </tbody>
       </table>"""
 
+    contact_body = f"""      <p>
+        <strong>カスタマーサポート・法人メディア窓口および特定商取引法に基づく表記</strong>
+      </p>
+      <p>
+        ご購読に関するご質問、メールアドレス変更、14日間返金保証のご申請、ならびにメディア取材・法人データ提携のお問い合わせは、<a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a> までお気軽にご連絡ください（原則24時間以内にご返信いたします）。特定商取引法に基づく法定記載事項の専用ページは <a href="/jp/tokushoho.html">特定商取引法に基づく表記 (/jp/tokushoho.html)</a> でもご確認いただけます。
+      </p>
+{tokushoho_table_body}"""
+
     specs = [
-        ("terms.html", "利用規約 (Terms of Service)", "TERMS OF SERVICE · POLAR.SH MERCHANT OF RECORD", terms_body),
+        ("terms.html", "利用規約 (Terms of Service)", "TERMS OF SERVICE · INDEPENDENT EDUCATIONAL RESEARCH", terms_body),
         ("privacy.html", "プライバシーポリシー (Privacy Policy)", "PRIVACY POLICY · APPI & GDPR COMPLIANT", privacy_body),
         ("refund.html", "14日間返金ポリシー・解約規約 (14-Day Refund Policy)", "14-DAY REFUND POLICY · 1-CLICK CANCELLATION", refund_body),
-        ("contact.html", "特定商取引法に基づく表記・お問い合わせ (Contact)", "COMMERCIAL DISCLOSURE & SUPPORT DESK", contact_body),
+        ("tokushoho.html", "特定商取引法に基づく表記 (Specified Commercial Transactions Act)", "SPECIFIED COMMERCIAL TRANSACTIONS ACT DISCLOSURE", tokushoho_table_body),
+        ("contact.html", "お問い合わせ・特定商取引法表記 (Contact & Disclosure)", "SUPPORT DESK & COMMERCIAL DISCLOSURE", contact_body),
     ]
 
     for slug, title_jp, badge_text, body_html in specs:

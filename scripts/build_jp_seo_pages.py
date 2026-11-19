@@ -25,8 +25,8 @@ if SCRIPT_DIR not in sys.path:
 
 from gba_mor_nisa_shared import (  # noqa: E402
     MOR_LABEL_EN_JP,
-    POLAR_MONTHLY_CTA_HREF,
-    POLAR_ANNUAL_CTA_HREF,
+    WHOP_MONTHLY_CTA_HREF,
+    WHOP_ANNUAL_CTA_HREF,
     PRICE_LABEL_MONTHLY_JP,
     PRICE_LABEL_ANNUAL_JP,
     MANDATORY_DISCLAIMER_JP,
@@ -633,9 +633,9 @@ def build_page_html(item, date_str, all_specs):
         新NISA成長投資枠では現物1倍の<strong>米国半導体ETF（SMH）</strong>と<strong>米国ヘルスケアETF（XLV）</strong>という異なる景気サイクルで動く2本柱を保有し、生活防衛クッションは<strong>日本の個人向け国債（変動10年）または特定口座のSGOV</strong>で別枠管理することで、嵐の相場でも取り崩しに困らない土台が整います。
       </p>
 
-      <h2>4. 4ステップ比率診断による自己判断ベース配分の確認</h2>
+      <h2>4. セクター過去統計エクスプローラー（2000–2025年統計比較）による歴史的ケース確認</h2>
       <p>
-        どれほど優れた制度や公開データがあっても、ご自身の睡眠を妨げるような高いリスク比率では長期運用を続けることはできません。下の検証サマリーおよび<strong>「4ステップ SMH × XLV 比率シミュレーター」</strong>を使って、ご自身の運用期間と許容変動幅に合った無理のないベース配分を確かめてみてください。
+        どれほど優れた制度や公開データがあっても、ご自身の睡眠を妨げるような高い変動幅では長期保有を続けることはできません。下の検証サマリーおよび<strong>「セクター過去統計エクスプローラー（2000–2025年統計比較）」</strong>を使って、過去25年間の下落局面における歴史的統計比率を確かめてみてください。
       </p>"""
     else:
         body_chapters_html = f"""      <h2>1. {jp_name} の米SEC公式決算開示（Form 8-K/10-Q）および公開業績データの整理</h2>
@@ -688,12 +688,12 @@ def build_page_html(item, date_str, all_specs):
       </div>
 
       <div class="widget-box">
-        <h3 style="margin-top:0;">ご自身の資産規模に合わせた「SMH × XLV ＋ 個人向け国債」初期比率を試算する</h3>
+        <h3 style="margin-top:0;">過去25年の統計を確認する「セクター過去統計エクスプローラー（2000–2025年統計比較）」</h3>
         <p style="font-size:0.94rem; color:#3d3d3a !important; margin-bottom:14px;">
-          4つの質問（運用目的・資産規模・許容下落幅・成長比率）を選ぶだけで、新NISA成長投資枠（SMH・XLV）と安全資産クッション（個人向け国債 変動10年 ／ 特定口座 SGOV）の初期ベース配分を無料で確認できます。
+          4つの条件（重視する視点・想定規模・許容下落幅・ハイテク集中度）を選ぶだけで、新NISA成長投資枠（SMH・XLV）と安全資産クッション（個人向け国債 変動10年 ／ 特定口座 SGOV）の2000–2025年過去統計比率を登録不要・無料で確認できます。
         </p>
         <a href="/jp/#gba-retirement-architect-jp" style="display:inline-flex; align-items:center; justify-content:center; min-height:48px; padding:12px 22px; background:#059669; color:#ffffff; text-decoration:none; border-radius:8px; font-weight:800; font-size:0.95rem;">
-          4ステップ SMH × XLV 比率シミュレーターを開く &rarr;
+          セクター過去統計エクスプローラー（2000–2025年統計比較）を開く &rarr;
         </a>
       </div>"""
     else:
@@ -717,12 +717,12 @@ def build_page_html(item, date_str, all_specs):
       </div>
 
       <div class="widget-box">
-        <h3 style="margin-top:0;">個別株の集中リスクを抑える「SMH × XLV ＋ 個人向け国債（変動10年）」2本柱シミュレーター</h3>
+        <h3 style="margin-top:0;">個別株の集中リスクを比較する「セクター過去統計エクスプローラー（2000–2025年統計比較）」</h3>
         <p style="font-size:0.94rem; color:#3d3d3a !important; margin-bottom:14px;">
-          1銘柄への偏重を避け、新NISA成長投資枠の米国半導体（SMH）× 米国ヘルスケア（XLV）と安全資産クッション（個人向け国債 変動10年 ／ 特定口座 SGOV）でご自身の資産全体をどの比率に整えるべきか、4ステップで無料試算できます。
+          1銘柄への偏重を避け、新NISA成長投資枠の米国半導体（SMH）× 米国ヘルスケア（XLV）と安全資産クッション（個人向け国債 変動10年 ／ 特定口座 SGOV）の2000–2025年歴史的統計比率を登録不要・無料で確認できます。
         </p>
         <a href="/jp/#gba-retirement-architect-jp" style="display:inline-flex; align-items:center; justify-content:center; min-height:48px; padding:12px 22px; background:#059669; color:#ffffff; text-decoration:none; border-radius:8px; font-weight:800; font-size:0.95rem;">
-          4ステップ SMH × XLV 比率シミュレーターを開く &rarr;
+          セクター過去統計エクスプローラー（2000–2025年統計比較）を開く &rarr;
         </a>
       </div>"""
 
@@ -764,7 +764,7 @@ def build_page_html(item, date_str, all_specs):
       <a href="/jp/" class="essay-pub-brand">GetBreakAI ・ 朝刊エッセイ＆公開データ研究</a>
       <nav class="essay-top-nav" aria-label="記事ナビゲーション">
         <a href="/jp/nisa-quiet-barbell-essay.html">代表エッセイ</a>
-        <a href="/jp/#gba-retirement-architect-jp">4ステップ比率診断</a>
+        <a href="/jp/#gba-retirement-architect-jp">セクター過去統計エクスプローラー</a>
         <button type="button" onclick="openGbaStarterManualModal()">¥0 基本マニュアル</button>
       </nav>
     </div>
@@ -1139,10 +1139,10 @@ def _build_substack_end_box_jp(slug: str, disclaimer_box: str) -> str:
       <div class="substack-sub-status" role="status" aria-live="polite" style="display:none;"></div>
     </section>
 
-    <aside class="editorial-postscript" aria-label="編集後記・自己判断用シミュレーター">
-      <div class="ps-label">編集後記 ・ 自己判断用データツール</div>
+    <aside class="editorial-postscript" aria-label="編集後記・独立系教育リサーチ出版">
+      <div class="ps-label">編集後記 ・ 新NISA・資産リサーチ研究室（教育目的）</div>
       <p>
-        ご自身の資産規模や許容変動幅に合わせた <strong>SMH × XLV</strong> の過去26年検証比率は、<a href="/jp/#gba-retirement-architect-jp"><strong>無料の4ステップ比率シミュレーター</strong></a>（<button type="button" onclick="openGbaStarterManualModal()" style="background:none;border:none;color:#1d4ed8;text-decoration:underline;font-weight:700;cursor:pointer;font-size:inherit;padding:0;">¥0 楽天・SBI証券 新NISA設定マニュアル</button> 同梱）でお確かめいただけます。毎朝8時の過熱・恐怖指標＆セクター比率トラッキング日報データ配信は Proプラン（<a href="{POLAR_MONTHLY_CTA_HREF}" data-gba-paid-plan="monthly" data-polar-slot="monthly_29_jp" class="polar-checkout-button">{PRICE_LABEL_MONTHLY_JP}</a> ・ <a href="{POLAR_ANNUAL_CTA_HREF}" data-gba-paid-plan="annual" data-polar-slot="annual_199_jp" class="polar-checkout-button">{PRICE_LABEL_ANNUAL_JP}</a> ／ 決済管理：{MOR_LABEL_EN_JP}）にてご提供しています。
+        <strong>SMH × XLV</strong> の過去26年間（2000–2025年）の統計推移は、<a href="/jp/#gba-retirement-architect-jp"><strong>セクター過去統計エクスプローラー（2000–2025年統計比較）</strong></a>（<button type="button" onclick="openGbaStarterManualModal()" style="background:none;border:none;color:#1d4ed8;text-decoration:underline;font-weight:700;cursor:pointer;font-size:inherit;padding:0;">¥0 楽天・SBI証券 新NISA口座区分マニュアル</button> 同梱）で登録不要・無料でお確かめいただけます。「{SOFTWARE_POSITIONING_JP}」の購読パスは <a href="{WHOP_MONTHLY_CTA_HREF}" data-gba-paid-plan="monthly" class="whop-checkout-button">{PRICE_LABEL_MONTHLY_JP}</a> ・ <a href="{WHOP_ANNUAL_CTA_HREF}" data-gba-paid-plan="annual" class="whop-checkout-button">{PRICE_LABEL_ANNUAL_JP}</a>（決済管理：{MOR_LABEL_EN_JP}）にてご提供しています。
       </p>
 {disclaimer_box}
     </aside>"""
@@ -1245,9 +1245,9 @@ def build_flagship_essay_jp_html(date_str: str) -> str:
     <div class="essay-topbar-inner">
       <a href="/jp/" class="essay-pub-brand">GetBreakAI ・ 朝刊エッセイ</a>
       <nav class="essay-top-nav" aria-label="記事ナビゲーション">
-        <a href="/jp/#gba-retirement-architect-jp">4ステップ比率診断</a>
+        <a href="/jp/#gba-retirement-architect-jp">セクター過去統計エクスプローラー</a>
         <button type="button" onclick="openGbaStarterManualModal()">¥0 基本マニュアル</button>
-        <a href="/jp/#pricing">毎朝データ配信</a>
+        <a href="/jp/#pricing">リサーチパス案内</a>
       </nav>
     </div>
   </header>
@@ -1304,6 +1304,34 @@ def build_flagship_essay_jp_html(date_str: str) -> str:
 </html>
 """
 
+def _load_live_temp_badge_jp(fallback_date: str) -> str:
+    semi_path = os.path.join(ROOT_DIR, "data", "semi_overview.json")
+    as_of = fallback_date or "2026-11-19"
+    score_int = 52
+    regime_lbl = "中立圏"
+    if os.path.isfile(semi_path):
+        try:
+            with open(semi_path, "r", encoding="utf-8") as sf:
+                ov = json.load(sf)
+            if ov.get("date"):
+                as_of = str(ov["date"]).strip()
+            raw_sc = ov.get("fg_score", ov.get("fear_greed_score", ov.get("score", 52)))
+            score_int = int(round(float(raw_sc)))
+            if score_int <= 25:
+                regime_lbl = "極度の恐怖圏"
+            elif score_int <= 44:
+                regime_lbl = "慎重・警戒圏"
+            elif score_int <= 55:
+                regime_lbl = "中立圏"
+            elif score_int <= 75:
+                regime_lbl = "強気圏"
+            else:
+                regime_lbl = "過熱注意圏"
+        except Exception:
+            pass
+    return f"最新データ基準日：{as_of} ・ 市場温度指数：{score_int} / 100（{regime_lbl}）"
+
+
 def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str:
     canonical_url = "https://getbreakai.com/" if is_root else "https://getbreakai.com/jp/"
     hreflang_tags = (
@@ -1316,13 +1344,14 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
     head_scripts = build_payment_and_kpi_head_html()
     manual_modal = build_starter_manual_modal_html()
     waitlist_modal = build_vip_waitlist_modal_html()
+    live_temp_text_jp = _load_live_temp_badge_jp(date_str)
 
     ld_json = json.dumps({
         "@context": "https://schema.org",
         "@graph": [
             {
                 "@type": "Organization",
-                "name": "GetBreakAI Japan",
+                "name": "GetBreakAI Japan Research",
                 "url": canonical_url,
                 "logo": "https://getbreakai.com/og-preview.png",
                 "email": "beable9489@gmail.com",
@@ -1333,27 +1362,27 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
             },
             {
                 "@type": "SoftwareApplication",
-                "name": "GetBreakAI — SMH × XLV プライベートウェルズ資産配分シミュレーター＆毎朝市場温度データ配信",
+                "name": "GetBreakAI — 新NISA・資産リサーチ研究室（教育目的）｜セクター過去統計エクスプローラー（2000–2025年統計比較）",
                 "url": canonical_url,
                 "image": "https://getbreakai.com/og-preview.png",
                 "inLanguage": "ja",
-                "applicationCategory": "FinanceApplication",
+                "applicationCategory": "EducationalApplication",
                 "operatingSystem": "Web",
-                "description": f"米国半導体の成長（SMH）と米国ヘルスケアの守り（XLV）を組み合わせる新NISA・老後資産配分ステップアップ設計。{SOFTWARE_POSITIONING_JP}。{FSA_HYBRID_PHRASE_JP}対応。",
+                "description": f"「{SOFTWARE_POSITIONING_JP}」。{FSA_HYBRID_PHRASE_JP}対応。",
                 "offers": [
                     {
                         "@type": "Offer",
                         "name": PRICE_LABEL_MONTHLY_JP,
-                        "price": "29.00",
-                        "priceCurrency": "USD",
-                        "url": f"{canonical_url}#pricing"
+                        "price": "4400",
+                        "priceCurrency": "JPY",
+                        "url": WHOP_MONTHLY_CTA_HREF
                     },
                     {
                         "@type": "Offer",
                         "name": PRICE_LABEL_ANNUAL_JP,
-                        "price": "199.00",
-                        "priceCurrency": "USD",
-                        "url": f"{canonical_url}#pricing"
+                        "price": "29800",
+                        "priceCurrency": "JPY",
+                        "url": WHOP_ANNUAL_CTA_HREF
                     }
                 ]
             }
@@ -1368,20 +1397,20 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
   <meta name="google-site-verification" content="nAGlJMEUUPifbzSd8X4PCaBIyr3DtTwaa1a-q9zkbBc">
   <meta name="google-site-verification" content="G99bl17UU6iKgNm5ndGcSWp0dHFpJ0MjJqBBp0Exfx0">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GetBreakAI Japan — 新NISA・老後資産のための SMH × XLV 配分設計プラットフォーム</title>
-  <meta name="description" content="騒がしい銘柄探しを手放し、半導体成長（SMH）とヘルスケア防衛（XLV）の2つの柱で新NISA・老後資産を静かに設計するプライベートウェルズ・データプラットフォーム。">
+  <title>GetBreakAI Japan — 新NISA・資産リサーチ研究室（教育目的）｜SMH × XLV 過去25年統計比較</title>
+  <meta name="description" content="騒がしい銘柄探しを手放し、二つの柱で老後資産を守り抜くために。教育目的の市場データニュースレター ＋ 2000–2025年 過去統計ワークブック（投資助言・個別推奨は一切行わない独立系リサーチ出版）。">
   <link rel="canonical" href="{canonical_url}">
 {hreflang_tags}
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ja_JP">
-  <meta property="og:site_name" content="GetBreakAI Japan">
-  <meta property="og:title" content="GetBreakAI Japan — 新NISA・老後資産のための SMH × XLV 配分設計">
-  <meta property="og:description" content="過去25年（2000〜2025年）SMH × XLV 検証モデルに基づく4問ステップアップ配分設計＆毎朝市場温度トラッキング配信。">
+  <meta property="og:site_name" content="GetBreakAI Japan Research">
+  <meta property="og:title" content="GetBreakAI Japan — 新NISA・資産リサーチ研究室（教育目的）">
+  <meta property="og:description" content="セクター過去統計エクスプローラー（2000–2025年統計比較）＆ 教育目的の市場データニュースレター ＋ 2000–2025年 過去統計ワークブック。">
   <meta property="og:url" content="{canonical_url}">
   <meta property="og:image" content="https://getbreakai.com/og-preview.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="GetBreakAI Japan — SMH × XLV 新NISA・老後配分設計">
-  <meta name="twitter:description" content="新NISA成長投資枠（SMH・XLV）×特定口座・個人向け国債クッションのステップアップ配分設計。">
+  <meta name="twitter:title" content="GetBreakAI Japan — 新NISA・資産リサーチ研究室（教育目的）">
+  <meta name="twitter:description" content="セクター過去統計エクスプローラー（2000–2025年統計比較）＆ 朝刊リサーチノート。">
   <meta name="twitter:image" content="https://getbreakai.com/og-preview.png">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1682,6 +1711,30 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
     .pw-cta-caption {{
       font-size: 0.82rem;
       color: var(--pw-muted);
+    }}
+    .pw-live-temp-pill {{
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 14px;
+      margin: 0 0 16px;
+      background: var(--pw-surface);
+      border: 1px solid var(--pw-border-strong);
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      color: var(--pw-body);
+    }}
+    .pw-live-dot {{
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--pw-emerald);
+      flex-shrink: 0;
+    }}
+    .pw-above-fold-cta {{
+      margin: 0 0 28px;
     }}
 
     /* Screen 1: Step-Up Assessment */
@@ -2129,21 +2182,33 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
     <header class="pw-masthead">
       <button type="button" class="pw-brand-btn" onclick="showPwScreenJp(0)">
         <span class="pw-wordmark">GETBREAK AI &middot; JAPAN</span>
-        <span class="pw-submark">Private Wealth &amp; Shin-NISA Desk</span>
+        <span class="pw-submark">新NISA・資産リサーチ研究室（教育目的）</span>
       </button>
-      <button type="button" class="pw-signin-link" id="btnOpenPwRestoreJp" onclick="openPwRestoreModalJp()">会員ログイン・復元</button>
+      <button type="button" class="pw-signin-link" id="btnOpenPwRestoreJp" onclick="openPwRestoreModalJp()">保存済みデータの復元</button>
     </header>
 
-    <!-- Screen 0: Founding Manifesto & 2000-2025 Institutional SMH x XLV Simulation Table -->
+    <!-- Screen 0: Above-the-Fold Instant Start CTA + Live Market Temperature + Founding Note & 2000-2025 Statistical Case Study Table -->
     <section id="pwScreen0Jp" data-pw-screen="0">
-      <div class="pw-kicker">FOUNDING CHARTER &middot; 設立趣意書と資産設計哲学</div>
+      <div class="pw-kicker">新NISA・資産リサーチ研究室（教育目的） &middot; セクター過去統計エクスプローラー（2000–2025年統計比較）</div>
       <h1 class="pw-serif-h1">騒がしい銘柄探しを手放し、二つの柱で老後資産を守り抜くために。</h1>
+
+      <div class="pw-live-temp-pill" id="gbaLiveTempBadgeJp" role="status" aria-live="polite">
+        <span class="pw-live-dot" aria-hidden="true"></span>
+        <span id="gbaLiveTempTextJp">{live_temp_text_jp}</span>
+      </div>
+
+      <div class="pw-primary-cta-wrap pw-above-fold-cta">
+        <button type="button" class="pw-btn-primary pw-btn-emerald" id="btnStartPwStepUpJp" onclick="startPwStepUpJp()">
+          過去25年の統計バランスを確認する（無料・4問） &rarr;
+        </button>
+        <span class="pw-cta-caption">セクター過去統計エクスプローラー（2000–2025年統計比較） ・ メール壁なしで即時開示</span>
+      </div>
 
       <figure class="pw-editorial-figure">
         <div class="pw-editorial-plate">
           <img src="/assets/gba-private-wealth-engawa.jpg" alt="静かな朝の光が差し込む書斎と縁側の水彩画" width="1200" height="675" loading="eager" decoding="async">
         </div>
-        <figcaption class="pw-editorial-caption">日々の相場ノイズから離れ、穏やかな朝の光とともに大切な老後資産と新NISAを長く守り抜く設計室。</figcaption>
+        <figcaption class="pw-editorial-caption">日々の相場ノイズから離れ、公開統計データとともに新NISAと老後資産の歴史的回復力を静かに学ぶ研究室。</figcaption>
       </figure>
 
       <div class="pw-manifesto">
@@ -2151,23 +2216,23 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
           退職前後や50〜70代のご世帯が大切な老後資金や新NISA枠で眠れぬ夜を過ごす理由は、知識や努力が足りないからではありません。日々あふれ返る個別株の話題や短期ブームを追いかけるうちに、知らぬ間に資産の大半が単一のハイテク銘柄へと偏り、数年に一度の深い調整局面を無防備なまま迎えてしまうことにあります。
         </p>
         <p>
-          私たちが <strong>GetBreakAI</strong> を立ち上げた理由は明快です。短期的な売買煽りを一切排し、時代を牽引する<strong>「米国半導体の構造的成長（SMH）」</strong>と、景気や金利に左右されにくい<strong>「米国ヘルスケアの生活必需キャッシュフロー（XLV）」</strong>という二つの現物1倍ETF（ともに<strong>新NISA 成長投資枠</strong>対象）に、個人向け国債や<strong>特定口座</strong>（毎月分配型米国短期国債ETF SGOV等）の流動性クッションをどう組み合わせるか——その一点を静かに科学するためです。
+          私たちが <strong>GetBreakAI（新NISA・資産リサーチ研究室）</strong> を立ち上げた理由は明快です。投資助言や個別銘柄の売買推奨を一切行わず、<strong>「米国半導体の構造的成長（SMH）」</strong>と、景気や金利に左右されにくい<strong>「米国ヘルスケアの生活必需キャッシュフロー（XLV）」</strong>という二つの現物1倍ETF（ともに<strong>新NISA 成長投資枠</strong>対象）に、個人向け国債や<strong>特定口座</strong>（毎月分配型米国短期国債ETF SGOV等）の安全クッションを添えた歴史的データが、過去25年間の暴落局面をどう通過したかを客観的に記録・教育するためです。
         </p>
         <p>
-          下の4問のステップアップ診断では、ご自身の資産規模と許容変動幅に応じた初期ベース比率を無料でご確認いただけます。さらに有料メンバーシップでは、毎朝の市場過熱・恐怖温度と比率トラッキング日報メール、そして新NISA・老後取り崩し実践マスターブックをご提供しています。
+          当研究室は<strong>「{SOFTWARE_POSITIONING_JP}」</strong>として運営されています。まずは無料の4問エクスプローラーにて、2000〜2025年の統計比較比率をメール登録なしで今すぐお確かめください。
         </p>
       </div>
 
-      <div class="pw-table-card" role="region" aria-label="2000〜2025年 ヒストリカル検証比較表">
+      <div class="pw-table-card" role="region" aria-label="2000〜2025年 ヒストリカル統計比較表">
         <div class="pw-table-header">
-          <span class="pw-table-title">TABLE I &mdash; 2000〜2025年 セクター配分ヒストリカル検証</span>
+          <span class="pw-table-title">TABLE I &mdash; 2000〜2025年 セクター過去統計ケーススタディ比較</span>
           <span class="pw-table-meta">レバレッジなし現物1倍指数・ETF基準</span>
         </div>
         <div class="pw-table-scroll">
           <table class="pw-sim-table">
             <thead>
               <tr>
-                <th>運用アーキテクチャ</th>
+                <th>過去統計ケーススタディ</th>
                 <th>年率複利 (CAGR)</th>
                 <th>最大下落率 (Max DD)</th>
                 <th>高値回復期間</th>
@@ -2197,7 +2262,7 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
                 <td>0.16x</td>
               </tr>
               <tr class="is-featured">
-                <td>SMH &times; XLV バランス設計</td>
+                <td>SMH &times; XLV バランス統計ケース</td>
                 <td>~11.4%</td>
                 <td class="pw-dd-neg">-27.8%</td>
                 <td>19ヶ月</td>
@@ -2207,19 +2272,19 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
           </table>
         </div>
         <p class="pw-table-note">
-          公開指数・現物ETF終値（2000〜2025年、年2回の定率比率見直しモデル）に基づく自己判断用の教育データ可視化試算であり、将来の運用成果を保証するものではありません（SMH・XLVは新NISA成長投資枠対象、毎月分配型SGOV等は金融庁規定により{FSA_HYBRID_PHRASE_JP}に準拠し特定口座で区分管理）。
+          公開指数・現物ETF終値（2000〜2025年、年2回の定率比率比較モデル）に基づく教育・情報提供目的の過去統計比較であり、投資助言や将来の運用成果の保証ではありません（SMH・XLVは新NISA成長投資枠対象、毎月分配型SGOV等は金融庁規定により{FSA_HYBRID_PHRASE_JP}に準拠し特定口座で区分管理）。
         </p>
       </div>
 
       <div class="pw-primary-cta-wrap">
-        <button type="button" class="pw-btn-primary pw-btn-emerald" id="btnStartPwStepUpJp" onclick="startPwStepUpJp()">
-          私の新NISA・老後配分を設計する &rarr;
+        <button type="button" class="pw-btn-primary pw-btn-emerald" onclick="startPwStepUpJp()">
+          過去25年の統計バランスを確認する（無料・4問） &rarr;
         </button>
-        <span class="pw-cta-caption">全4問（1問ずつ進行） ・ ブラウザ内即時算出 ・ 証券口座ログイン不要</span>
+        <span class="pw-cta-caption">全4問（1問ずつ進行） ・ 登録不要で即時表示 ・ 証券口座ログイン不要</span>
       </div>
     </section>
 
-    <!-- Screen 1: Focused 1-Question-at-a-Time Step-Up Assessment (Step 1 of 4 -> Step 4 of 4) -->
+    <!-- Screen 1: Focused 1-Question-at-a-Time Step-Up Explorer (Step 1 of 4 -> Step 4 of 4) -->
     <section id="pwScreen1Jp" data-pw-screen="1" style="display:none;">
       <div class="pw-step-card">
         <div class="pw-step-top">
@@ -2231,28 +2296,28 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
         </div>
 
         <div data-pw-qpane-jp="1">
-          <h2 class="pw-q-title">このご資金で最も重視したい目的はどれですか？</h2>
-          <p class="pw-q-sub">ご世帯のライフプランに最も近い運用方針をひとつお選びください。</p>
-          <div class="pw-option-list" role="radiogroup" aria-label="運用目的">
+          <h2 class="pw-q-title">2000〜2025年の過去統計で、最も比較したい視点はどれですか？</h2>
+          <p class="pw-q-sub">学習・比較したい歴史的セクター統計ケースをひとつお選びください。</p>
+          <div class="pw-option-list" role="radiogroup" aria-label="過去統計の比較視点">
             <button type="button" class="pw-opt-btn" data-pw-jfield="objective" data-pw-jval="growth" onclick="selectPwOptionJp('objective', 'growth')">
-              <div class="pw-opt-head"><span><span class="pw-opt-num">I</span><span class="pw-opt-title">AI・半導体の構造的成長への参画</span></span><span>&rarr;</span></div>
-              <span class="pw-opt-desc">半導体成長（SMH）を主軸にしつつ、ヘルスケア（XLV）で深い下落サイクルを緩和します。</span>
+              <div class="pw-opt-head"><span><span class="pw-opt-num">I</span><span class="pw-opt-title">半導体成長（SMH）主軸の長期統計ケース</span></span><span>&rarr;</span></div>
+              <span class="pw-opt-desc">半導体（SMH）比率を高めに置きつつ、ヘルスケア（XLV）が過去の下落幅をどう緩和したかを比較します。</span>
             </button>
             <button type="button" class="pw-opt-btn is-selected" data-pw-jfield="objective" data-pw-jval="balanced" onclick="selectPwOptionJp('objective', 'balanced')">
-              <div class="pw-opt-head"><span><span class="pw-opt-num">II</span><span class="pw-opt-title">老後の安定収入と着実な資産成長の両立</span></span><span>&rarr;</span></div>
-              <span class="pw-opt-desc">SMHの成長力とXLVのディフェンシブ性を均衡させ、長期の資産寿命を延ばします。</span>
+              <div class="pw-opt-head"><span><span class="pw-opt-num">II</span><span class="pw-opt-title">成長と下落耐性を均衡させた標準統計ケース</span></span><span>&rarr;</span></div>
+              <span class="pw-opt-desc">SMHの成長力とXLVのディフェンシブ性を均衡させた25年間の標準バランス統計を確認します。</span>
             </button>
             <button type="button" class="pw-opt-btn" data-pw-jfield="objective" data-pw-jval="preservation" onclick="selectPwOptionJp('objective', 'preservation')">
-              <div class="pw-opt-head"><span><span class="pw-opt-num">III</span><span class="pw-opt-title">下落局面での元本・資産防衛を最優先</span></span><span>&rarr;</span></div>
-              <span class="pw-opt-desc">医療（XLV）と個人向け国債・特定口座SGOVの流動性クッションを厚く保ちます。</span>
+              <div class="pw-opt-head"><span><span class="pw-opt-num">III</span><span class="pw-opt-title">下落抑制・安全クッション重視の統計ケース</span></span><span>&rarr;</span></div>
+              <span class="pw-opt-desc">医療（XLV）と個人向け国債・特定口座SGOVの安全クッションを厚くした過去推移を確認します。</span>
             </button>
           </div>
         </div>
 
         <div data-pw-qpane-jp="2" style="display:none;">
-          <h2 class="pw-q-title">想定しているご運用資金の規模をお選びください。</h2>
-          <p class="pw-q-sub">新NISA成長投資枠（SMH・XLV）と個人向け国債・特定口座クッションの比率試算にのみ使用されます。</p>
-          <div class="pw-scale-grid" role="radiogroup" aria-label="資産規模">
+          <h2 class="pw-q-title">試算モデルとして参照したい想定規模をお選びください。</h2>
+          <p class="pw-q-sub">新NISA成長投資枠（SMH・XLV）と個人向け国債・特定口座クッションの統計金額換算にのみ使用されます。</p>
+          <div class="pw-scale-grid" role="radiogroup" aria-label="想定規模">
             <button type="button" class="pw-scale-btn" data-pw-jfield="scale" data-pw-jval="300" onclick="selectPwOptionJp('scale', 300)">300万円</button>
             <button type="button" class="pw-scale-btn" data-pw-jfield="scale" data-pw-jval="1000" onclick="selectPwOptionJp('scale', 1000)">1,000万円</button>
             <button type="button" class="pw-scale-btn is-selected" data-pw-jfield="scale" data-pw-jval="1800" onclick="selectPwOptionJp('scale', 1800)">1,800万円<br><small style="font-weight:500;font-size:0.78rem;">新NISA生涯枠</small></button>
@@ -2262,182 +2327,180 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
         </div>
 
         <div data-pw-qpane-jp="3" style="display:none;">
-          <h2 class="pw-q-title">相場急落時、一時的な変動はどこまでなら落ち着いて保有できますか？</h2>
-          <p class="pw-q-sub">底値で慌てて手放さずに済む「眠りの質」に合った許容幅をお選びください。</p>
-          <div class="pw-option-list" role="radiogroup" aria-label="許容下落幅">
+          <h2 class="pw-q-title">過去の暴落局面における、比較したい最大下落幅レンジはどれですか？</h2>
+          <p class="pw-q-sub">2000年ITバブル・2008年リーマン危機・2022年利上げ局面での統計レンジを選択します。</p>
+          <div class="pw-option-list" role="radiogroup" aria-label="過去下落幅レンジ">
             <button type="button" class="pw-opt-btn" data-pw-jfield="comfort" data-pw-jval="dd10" onclick="selectPwOptionJp('comfort', 'dd10')">
-              <div class="pw-opt-head"><span><span class="pw-opt-num">I</span><span class="pw-opt-title">-10% 穏やかさ最優先（Calm Priority）</span></span><span>&rarr;</span></div>
-              <span class="pw-opt-desc">XLVに加え、個人向け国債・特定口座SGOVの安全クッションを組み入れて値動きを抑えます。</span>
+              <div class="pw-opt-head"><span><span class="pw-opt-num">I</span><span class="pw-opt-title">穏やかな変動レンジ（安全クッション厚め）</span></span><span>&rarr;</span></div>
+              <span class="pw-opt-desc">XLVに加え、個人向け国債・特定口座SGOVの比率を高めた低変動統計ケースを参照します。</span>
             </button>
             <button type="button" class="pw-opt-btn is-selected" data-pw-jfield="comfort" data-pw-jval="dd18" onclick="selectPwOptionJp('comfort', 'dd18')">
-              <div class="pw-opt-head"><span><span class="pw-opt-num">II</span><span class="pw-opt-title">-18% 標準バランス（Balanced）</span></span><span>&rarr;</span></div>
-              <span class="pw-opt-desc">過去25年検証の標準的な SMH &times; XLV バランスで成長と守りを両立します。</span>
+              <div class="pw-opt-head"><span><span class="pw-opt-num">II</span><span class="pw-opt-title">標準2本柱レンジ（2000–2025年 基本ケース）</span></span><span>&rarr;</span></div>
+              <span class="pw-opt-desc">過去25年統計の標準的な SMH &times; XLV バランスケースを参照します。</span>
             </button>
             <button type="button" class="pw-opt-btn" data-pw-jfield="comfort" data-pw-jval="dd25" onclick="selectPwOptionJp('comfort', 'dd25')">
-              <div class="pw-opt-head"><span><span class="pw-opt-num">III</span><span class="pw-opt-title">-25% 長期複利成長重視（Long-Term Compounding）</span></span><span>&rarr;</span></div>
-              <span class="pw-opt-desc">一時的な調整を受け入れ、長期の半導体・AI成長エクスポージャーを高めます。</span>
+              <div class="pw-opt-head"><span><span class="pw-opt-num">III</span><span class="pw-opt-title">長期成長重視レンジ（半導体比率高め）</span></span><span>&rarr;</span></div>
+              <span class="pw-opt-desc">中間調整の振れ幅を許容し、長期の半導体セクター統計比率を高めたケースを参照します。</span>
             </button>
           </div>
         </div>
 
         <div data-pw-qpane-jp="4" style="display:none;">
-          <h2 class="pw-q-title">現在お持ちの資産のうち、ハイテク・半導体株の割合はどのくらいですか？</h2>
-          <p class="pw-q-sub">現在の集中度合いと目標ベース配分の差分を整理します。</p>
-          <div class="pw-option-list" role="radiogroup" aria-label="現在のハイテク比率">
+          <h2 class="pw-q-title">比較対象とする現在のハイテク・半導体比率はどの程度ですか？</h2>
+          <p class="pw-q-sub">単一セクター集中ケースと2本柱過去統計ケースの差分を整理します。</p>
+          <div class="pw-option-list" role="radiogroup" aria-label="比較対象のハイテク比率">
             <button type="button" class="pw-opt-btn is-selected" data-pw-jfield="techMix" data-pw-jval="tech_high" onclick="selectPwOptionJp('techMix', 'tech_high')">
-              <div class="pw-opt-head"><span><span class="pw-opt-num">I</span><span class="pw-opt-title">70%超（米国ハイテク・半導体株に集中）</span></span></div>
-              <span class="pw-opt-desc">単一セクターの設備投資サイクルへの感応度が高く、医療ディフェンシブ柱の補完を検討。</span>
+              <div class="pw-opt-head"><span><span class="pw-opt-num">I</span><span class="pw-opt-title">70%超（ハイテク・半導体株中心）</span></span></div>
+              <span class="pw-opt-desc">単一セクターの設備投資サイクルと、医療ディフェンシブ柱を組み合わせた過去統計を比較。</span>
             </button>
             <button type="button" class="pw-opt-btn" data-pw-jfield="techMix" data-pw-jval="tech_mid" onclick="selectPwOptionJp('techMix', 'tech_mid')">
               <div class="pw-opt-head"><span><span class="pw-opt-num">II</span><span class="pw-opt-title">30〜70%（複数セクター・投信に分散）</span></span></div>
-              <span class="pw-opt-desc">既存の分散ポートフォリオを、明快な2セクター基軸と比較・整理したい方向け。</span>
+              <span class="pw-opt-desc">既存の分散構成を、明快な2セクター過去統計モデルと比較したい方向け。</span>
             </button>
             <button type="button" class="pw-opt-btn" data-pw-jfield="techMix" data-pw-jval="tech_low" onclick="selectPwOptionJp('techMix', 'tech_low')">
               <div class="pw-opt-head"><span><span class="pw-opt-num">III</span><span class="pw-opt-title">30%未満（預貯金・広く分散された指数中心）</span></span></div>
-              <span class="pw-opt-desc">待機資金やインデックス中心から、無理のない初期ベース比率を確認したい方向け。</span>
+              <span class="pw-opt-desc">待機資金やインデックス中心と、2本柱＋国債クッションの歴史的推移を比較したい方向け。</span>
             </button>
           </div>
           <div style="margin-top:24px;">
             <button type="button" class="pw-btn-primary pw-btn-emerald" id="btnSubmitPwAssessmentJp" style="width:100%;" onclick="submitPwAssessmentJp()">
-              私の初期ベース配分を算出する &rarr;
+              過去25年の統計比較要約を表示する（無料） &rarr;
             </button>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Screen 2: Free Email Gate (#gbaMorningClubJp + #gba-jp-passwordless-signup) -> Opens Partial Baseline ONLY -->
+    <!-- Screen 2: Immediate Free Historical Baseline Study Summary (ZERO Email Wall!) + Optional 1-Line Passwordless Save Box -->
     <section id="gbaMorningClubJp" data-pw-screen="2" style="display:none;">
       <div class="pw-gate-card">
         <div class="pw-profile-strip">
-          <span id="pwProfileSummaryJp">選択条件：安定老後と成長の両立 ・ 1,800万円（新NISA生涯枠） ・ 許容幅 -18%</span>
-          <button type="button" class="pw-inline-link" onclick="editPwInputsJp()">条件を変更する</button>
+          <span id="pwProfileSummaryJp">比較条件：標準統計ケース ・ 1,800万円（新NISA生涯枠） ・ 標準2本柱レンジ</span>
+          <button type="button" class="pw-inline-link" onclick="editPwInputsJp()">比較条件を変更する</button>
         </div>
 
-        <div id="gba-jp-passwordless-signup">
-          <!-- Locked Email Gate -->
-          <div id="pwEmailGateLockedJp">
-            <div class="pw-kicker">STEP-UP STAGE I &middot; 無料メール登録による初期配分の開示</div>
-            <h2 class="pw-serif-h2">あなたの SMH &times; XLV 初期ベース比率を確認する。</h2>
-            <p style="margin:0;color:var(--pw-body);font-size:0.95rem;">
-              メールアドレスをご入力いただくと（パスワード不要・いつでも1クリック配信停止可能）、過去25年検証に基づく初期ベース配分比率をこの画面に開示し、朝刊リサーチノートをお届けします。
-            </p>
-            <form class="pw-email-form" id="gba-jp-club-form" onsubmit="return submitPwFreeGateJp(event)" novalidate>
-              <input type="text" id="gba-jp-club-hp" name="website_hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none;">
-              <input type="email" id="gba-jp-club-email" class="pw-email-input" required autocomplete="email" placeholder="メールアドレスを入力（例: yamada@example.jp）" aria-label="メールアドレス">
-              <button type="submit" id="gba-jp-club-submit" class="pw-btn-primary pw-btn-emerald">
-                初期ベース配分を開示する &rarr;
-              </button>
-            </form>
-            <div id="pwGateStatusJp" role="status" aria-live="polite" style="display:none;margin-top:10px;font-size:0.88rem;color:#991B1B;"></div>
+        <!-- Immediately Revealed Free Historical Baseline Study Summary -->
+        <div id="pwFreeBaselineSummaryJp">
+          <div class="pw-kicker">FREE HISTORICAL STUDY SUMMARY &middot; セクター過去統計エクスプローラー（2000–2025年統計比較）</div>
+          <h2 class="pw-serif-h2" id="pwUnlockedRatioHeadlineJp">SMH 55% &middot; XLV 35% &middot; 個人向け国債／SGOV 10%</h2>
+          <p style="margin:0;color:var(--pw-body);font-size:0.93rem;">
+            2000〜2025年の現物ETF公開データにおける過去統計比較比率です（SMH・XLV＝新NISA成長投資枠対象、安全資産クッション＝個人向け国債 変動10年 または特定口座SGOV ／ 個別の投資助言ではありません）。証券アプリの口座区分・基本設定は <button type="button" class="pw-inline-link" id="gbaFreeStarterManualJp" onclick="openGbaStarterManualModal()">無料（¥0）楽天・SBI証券 新NISA口座区分ガイド</button> をご参照ください。
+          </p>
+
+          <div class="pw-ratio-bar" id="pwRatioVisualBarJp" aria-hidden="true">
+            <span style="width:55%;background:#0F172A;"></span>
+            <span style="width:35%;background:#065F46;"></span>
+            <span style="width:10%;background:#94A3B8;"></span>
           </div>
 
-          <!-- Partial Unlocked View (Initial Percentage Ratio ONLY; Daily Tracking & Masterbook PDF Gated Below) -->
-          <div id="pwEmailGateUnlockedJp" style="display:none;">
-            <div class="pw-kicker">INITIAL HISTORICAL BASELINE &middot; 初期ベース比率（一部開示）</div>
-            <h2 class="pw-serif-h2" id="pwUnlockedRatioHeadlineJp">SMH 55% &middot; XLV 35% &middot; 国債・特定口座クッション 10%</h2>
-            <p style="margin:0;color:var(--pw-body);font-size:0.93rem;">
-              2000〜2025年の現物ETFデータから算出された初期ベース比率です（SMH・XLV＝新NISA成長投資枠、短期国債クッション＝個人向け国債または特定口座SGOV）。証券アプリの指値手順は <button type="button" class="pw-inline-link" id="gbaFreeStarterManualJp" onclick="openGbaStarterManualModal()">無料（¥0）楽天・SBI証券 指値・口座区分ガイド</button> をご参照ください。
-            </p>
-
-            <div class="pw-ratio-bar" id="pwRatioVisualBarJp" aria-hidden="true">
-              <span style="width:55%;background:#0F172A;"></span>
-              <span style="width:35%;background:#065F46;"></span>
-              <span style="width:10%;background:#94A3B8;"></span>
+          <div class="pw-ratio-grid">
+            <div class="pw-ratio-cell">
+              <div class="pw-ratio-ticker">SMH &middot; 成長柱（新NISA成長枠）</div>
+              <div class="pw-ratio-pct" id="pwPctSmhJp">55%</div>
+              <div class="pw-ratio-name" id="pwAmtSmhJp">米国半導体現物ETF（約990万円）</div>
             </div>
-
-            <div class="pw-ratio-grid">
-              <div class="pw-ratio-cell">
-                <div class="pw-ratio-ticker">SMH &middot; 成長柱（新NISA成長枠）</div>
-                <div class="pw-ratio-pct" id="pwPctSmhJp">55%</div>
-                <div class="pw-ratio-name">米国半導体現物ETF</div>
-              </div>
-              <div class="pw-ratio-cell">
-                <div class="pw-ratio-ticker">XLV &middot; 防衛柱（新NISA成長枠）</div>
-                <div class="pw-ratio-pct" id="pwPctXlvJp">35%</div>
-                <div class="pw-ratio-name">米国ヘルスケア現物ETF</div>
-              </div>
-              <div class="pw-ratio-cell">
-                <div class="pw-ratio-ticker">CUSHION &middot; 流動性準備金</div>
-                <div class="pw-ratio-pct" id="pwPctCushionJp">10%</div>
-                <div class="pw-ratio-name">個人向け国債／特定口座SGOV</div>
-              </div>
+            <div class="pw-ratio-cell">
+              <div class="pw-ratio-ticker">XLV &middot; 防衛柱（新NISA成長枠）</div>
+              <div class="pw-ratio-pct" id="pwPctXlvJp">35%</div>
+              <div class="pw-ratio-name" id="pwAmtXlvJp">米国ヘルスケア現物ETF（約630万円）</div>
             </div>
-
-            <div class="pw-gated-preview-list">
-              <div class="pw-gated-row">
-                <span>毎朝の SMH &times; XLV 市場過熱・恐怖温度（0〜100）＆比率トラッキング日報メール</span>
-                <span class="pw-gated-badge">下段 TIER I・II で開放</span>
-              </div>
-              <div class="pw-gated-row">
-                <span>随時更新・新NISA老後取り崩し＆税務口座実践マスターブックPDF ＋ 年間キャッシュフロー設計シート</span>
-                <span class="pw-gated-badge">下段 TIER II で完全開放</span>
-              </div>
+            <div class="pw-ratio-cell">
+              <div class="pw-ratio-ticker">CUSHION &middot; 安全資産クッション</div>
+              <div class="pw-ratio-pct" id="pwPctCushionJp">10%</div>
+              <div class="pw-ratio-name" id="pwAmtCushionJp">個人向け国債／特定口座SGOV（約180万円）</div>
             </div>
           </div>
+
+          <div class="pw-gated-preview-list">
+            <div class="pw-gated-row">
+              <span>2000–2025年 最大下落幅比較：SMH単独 <strong>-74.6%</strong> ・ S&amp;P500単独 <strong>-50.9%</strong> に対し、2本柱バランス統計は <strong id="pwHistDdCompareJp">-24.5%（回復目安 約18ヶ月）</strong></span>
+              <span class="pw-gated-badge">過去統計検証値</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Frictionless 1-Line Passwordless Email Box Directly Below Free Summary -->
+        <div id="gba-jp-passwordless-signup" style="margin-top:24px; padding-top:20px; border-top:1px solid var(--pw-border);">
+          <div class="pw-kicker" style="margin-bottom:6px;">FREE MORNING RESEARCH NOTES &middot; パスワード不要・1クリック解除OK</div>
+          <h3 class="pw-serif-h2" style="font-size:1.25rem; margin-bottom:6px;">この統計要約を保存し、朝刊リサーチノートを受け取る（無料）</h3>
+          <p style="margin:0;color:var(--pw-body);font-size:0.9rem;">
+            メールアドレスを入力すると、上の過去統計比較要約をいつでも再表示でき、教育目的の朝刊市場データノートを無料でお届けします。
+          </p>
+          <form class="pw-email-form gba-jp-signup-form" id="gba-jp-club-form" onsubmit="return submitPwFreeGateJp(event)" novalidate>
+            <input type="text" id="gba-jp-club-hp" name="website_hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none;">
+            <input type="email" id="gba-jp-club-email" class="pw-email-input" required autocomplete="email" placeholder="メールアドレスを入力（例: yamada@example.jp）" aria-label="メールアドレス">
+            <button type="submit" id="gba-jp-club-submit" class="pw-btn-primary pw-btn-emerald">
+              無料で保存・購読する &rarr;
+            </button>
+          </form>
+          <div id="pwGateStatusJp" role="status" aria-live="polite" style="display:none;margin-top:10px;font-size:0.88rem;color:#065F46;font-weight:600;"></div>
         </div>
       </div>
     </section>
 
-    <!-- Screen 3: 2-Tier Differentiated Paid Membership (#pricing — Polar.sh ?locale=ja + COPY_MODE) -->
+    <!-- Screen 3: 2-Tier Whop Research Pass (#pricing — @whop/checkout Modal + Direct Tab Fallback) -->
     <section id="pricing" class="pw-tiers-section" data-pw-screen="3" style="display:none;">
-      <div class="pw-kicker">STEP-UP STAGE II &middot; プライベートウェルズ有料メンバーシップ</div>
-      <h2 class="pw-serif-h2" id="pwPricingHeadlineJp">毎朝の市場温度トラッキングと、新NISA・老後取り崩し実践設計を完全開放。</h2>
-      <p style="margin:0;color:var(--pw-body);font-size:0.94rem;">
-        ご自身の目的に合わせて、毎朝のトラッキング日報を受け取る月額プラン、または実践マスターブックPDF一式を含む年額プランをお選びいただけます。
+      <span id="vip-vault" style="display:block;height:0;overflow:hidden;" aria-hidden="true"></span>
+      <div class="pw-kicker">INDEPENDENT RESEARCH PASS &middot; 新NISA・資産リサーチ研究室（教育目的）</div>
+      <h2 class="pw-serif-h2" id="pwPricingHeadlineJp">教育目的の市場データニュースレター ＋ 2000–2025年 過去統計ワークブック</h2>
+      <p style="margin:0;color:var(--pw-body);font-size:0.92rem;">
+        投資助言・個別推奨は一切行わない独立系リサーチ出版として、毎朝の公開市場温度データニュースレターと過去26年間の統計ワークブックをお届けします。
       </p>
 
       <div class="pw-tier-grid">
         <div class="pw-tier-card">
           <div>
-            <div class="pw-tier-kicker">TIER I &middot; MONTHLY EDITION</div>
-            <h3 class="pw-tier-name">月額トラッキングプラン</h3>
-            <div class="pw-tier-price">{PRICE_LABEL_MONTHLY_JP}</div>
-            <div class="pw-tier-saving">1ヶ月単位でいつでも解約可能</div>
+            <div class="pw-tier-kicker">TIER I &middot; MONTHLY RESEARCH PASS</div>
+            <h3 class="pw-tier-name">{PRICE_LABEL_MONTHLY_JP}</h3>
+            <div class="pw-tier-price">¥4,400 <span style="font-size:0.86rem;font-weight:500;color:var(--pw-muted);">/ 月（税込）</span></div>
+            <div class="pw-tier-saving">1ヶ月単位でいつでも1クリック解約可能</div>
             <ul class="pw-tier-list">
-              <li><strong>毎朝8時配信「SMH &times; XLV 市場温度（0〜100）＆比率トラッキング日報メール」</strong></li>
-              <li><strong>局面別セクター比率リファレンス表</strong>（過熱・中立・恐怖局面ごとの過去検証ウェイト）</li>
-              <li><strong>資産規模別の円・ドル配分計算シート</strong>（新NISA成長投資枠・特定口座対応）</li>
+              <li><strong>教育目的の市場データニュースレター（毎朝8時配信）</strong>：日米市場温度指数（0〜100）と SMH &times; XLV 過去統計比率の推移記録</li>
+              <li><strong>局面別セクター過去統計リファレンス表</strong>（2000〜2025年の過熱・中立・恐怖局面ごとの歴史的統計ウェイト）</li>
+              <li><strong>新NISA成長投資枠・個人向け国債／特定口座 制度区分データノート</strong></li>
             </ul>
           </div>
-          <a href="{POLAR_MONTHLY_CTA_HREF}" data-gba-paid-plan="monthly" data-polar-slot="monthly_29_jp" class="pw-btn-primary polar-checkout-button" style="width:100%;">
-            月額プランを選択する &rarr;
+          <a href="{WHOP_MONTHLY_CTA_HREF}" data-gba-paid-plan="monthly" data-whop-plan="monthly" class="pw-btn-primary whop-checkout-button" style="width:100%;">
+            {PRICE_LABEL_MONTHLY_JP} を購読する &rarr;
           </a>
         </div>
 
         <div class="pw-tier-card is-annual">
           <div>
-            <div class="pw-tier-kicker">TIER II &middot; ANNUAL PRIVATE WEALTH &middot; 43% OFF</div>
-            <h3 class="pw-tier-name">年額プライベートウェルズ</h3>
-            <div class="pw-tier-price">{PRICE_LABEL_ANNUAL_JP}</div>
-            <div class="pw-tier-saving">月額換算 約2,500円（月額比 43%割引）</div>
+            <div class="pw-tier-kicker">TIER II &middot; ANNUAL RESEARCH PASS &middot; 44% OFF</div>
+            <h3 class="pw-tier-name">{PRICE_LABEL_ANNUAL_JP}</h3>
+            <div class="pw-tier-price">¥29,800 <span style="font-size:0.86rem;font-weight:500;color:var(--pw-muted);">/ 年（税込）</span></div>
+            <div class="pw-tier-saving">月額換算 約2,483円（月額比 約44%割引）</div>
             <ul class="pw-tier-list">
-              <li><strong>Tier I の全機能（12ヶ月間の毎朝 SMH &times; XLV 温度・比率トラッキング日報配信）</strong></li>
-              <li><strong>随時更新・新NISA老後取り崩し実践PDFガイド＋2本柱配分設計マスターブック</strong>（新NISA成長投資枠 SMH &times; XLV ＋ 個人向け国債・特定口座の非課税・税務設計）</li>
-              <li><strong>年間キャッシュフロー＆定率見直し設計シート</strong></li>
+              <li><strong>月額リサーチパスの全内容（12ヶ月間の毎朝市場データニュースレター配信）</strong></li>
+              <li><strong>2000–2025年 過去統計ワークブック完全版（随時更新PDF）</strong>：ITバブル・リーマン危機・2022年利上げ局面の SMH &times; XLV ＋ 安全資産 統計比較集</li>
+              <li><strong>新NISA成長投資枠・個人向け国債（変動10年）・特定口座SGOV 長期管理ガイドブック</strong></li>
             </ul>
           </div>
-          <a href="{POLAR_ANNUAL_CTA_HREF}" data-gba-paid-plan="annual" data-polar-slot="annual_199_jp" class="pw-btn-primary pw-btn-emerald polar-checkout-button" style="width:100%;">
-            年額プランを選択する &rarr;
+          <a href="{WHOP_ANNUAL_CTA_HREF}" data-gba-paid-plan="annual" data-whop-plan="annual" class="pw-btn-primary pw-btn-emerald whop-checkout-button" style="width:100%;">
+            {PRICE_LABEL_ANNUAL_JP} を購読する &rarr;
           </a>
         </div>
       </div>
 
       <p class="pw-mor-note">
-        公式決済・税務管理：{MOR_LABEL_EN_JP} ・ 14日間返金保証 ・ いつでも1クリック解約可能。
+        公式決済基盤：{MOR_LABEL_EN_JP} ・ 初回14日間全額返金保証 ・ いつでも1クリック解約可能。<br>
+        提供区分：「{SOFTWARE_POSITIONING_JP}」
       </p>
     </section>
   </main>
 
   <footer class="pw-legal-footer">
     <div class="pw-legal-links">
-      <span>GetBreakAI Japan</span>
+      <span>GetBreakAI Japan Research</span>
       <span>&middot;</span>
       <a href="/jp/terms.html">利用規約</a>
       <span>&middot;</span>
       <a href="/jp/privacy.html">プライバシーポリシー</a>
       <span>&middot;</span>
-      <a href="/jp/refund.html">返金規定</a>
+      <a href="/jp/refund.html">14日間返金ポリシー</a>
+      <span>&middot;</span>
+      <a href="/jp/tokushoho.html">特定商取引法に基づく表記</a>
       <span>&middot;</span>
       <a href="/jp/contact.html">お問い合わせ</a>
       <span>&middot;</span>
@@ -2457,13 +2520,13 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
         <span class="pw-kicker" style="margin:0;">MEMBER ACCESS &amp; RESTORE</span>
         <button type="button" class="pw-back-btn" style="min-height:44px;min-width:72px;padding:8px 14px;border:1px solid #CBD5E1;border-radius:4px;background:#F8FAFC;text-decoration:none;flex-shrink:0;" onclick="closePwRestoreModalJp()">閉じる</button>
       </div>
-      <h3 class="pw-serif-h2" id="pwRestoreTitleJp" style="font-size:1.45rem;">登録済みベース配分・ライセンスの復元</h3>
+      <h3 class="pw-serif-h2" id="pwRestoreTitleJp" style="font-size:1.45rem;">保存済み統計要約・購読パスの復元</h3>
       <p style="margin:0 0 16px;font-size:0.9rem;color:#475569;">
-        ご登録メールアドレスを入力して保存済みの初期ベース配分を再表示するか、Polar.sh 決済完了メール記載のライセンスキーをご入力ください。
+        ご登録メールアドレスを入力して保存済みの過去統計比較要約を再表示するか、Whop.com 決済完了メール記載の領収書番号をご入力ください。
       </p>
       <form onsubmit="return submitPwRestoreJp(event)" novalidate style="display:flex;flex-direction:column;gap:12px;">
         <input type="email" id="pwRestoreEmailJp" class="pw-email-input" placeholder="ご登録メールアドレス" autocomplete="email">
-        <input type="text" id="jpHubLicenseInput" class="pw-email-input" placeholder="任意：Polar.sh ライセンスキー" autocomplete="off">
+        <input type="text" id="jpHubLicenseInput" class="pw-email-input" placeholder="任意：Whop 領収書番号 / メンバーシップID" autocomplete="off">
         <button type="submit" class="pw-btn-primary pw-btn-emerald" style="width:100%;">セッションを復元する &rarr;</button>
       </form>
       <div id="jpHubVipStatus" role="status" aria-live="polite" style="display:none;margin-top:12px;font-size:0.88rem;color:#065F46;"></div>
@@ -2488,6 +2551,35 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
       const next = cur === 'light' ? 'dark' : 'light';
       document.documentElement.setAttribute('data-jp-theme', next);
       try {{ localStorage.setItem('gb_jp_theme', next); }} catch (_) {{}}
+    }}
+
+    function hydrateGbaLiveTempBadgeJp() {{
+      const txtEl = document.getElementById('gbaLiveTempTextJp');
+      if (!txtEl || typeof fetch !== 'function') return;
+      const applyData = function(ov) {{
+        if (!ov || typeof ov !== 'object') return;
+        const dt = String(ov.date || ov.as_of_date || '').trim();
+        const rawSc = (ov.fg_score !== undefined) ? ov.fg_score : ((ov.fear_greed_score !== undefined) ? ov.fear_greed_score : ov.score);
+        const numSc = Number(rawSc);
+        if (!dt || isNaN(numSc)) return;
+        const sc = Math.round(numSc);
+        let reg = '中立圏';
+        if (sc <= 25) reg = '極度の恐怖圏';
+        else if (sc <= 44) reg = '慎重・警戒圏';
+        else if (sc <= 55) reg = '中立圏';
+        else if (sc <= 75) reg = '強気圏';
+        else reg = '過熱注意圏';
+        txtEl.textContent = '最新データ基準日：' + dt + ' ・ 市場温度指数：' + sc + ' / 100（' + reg + '）';
+      }};
+      fetch('/data/semi_overview.json', {{ cache: 'no-cache' }})
+        .then(function(r) {{ return r.ok ? r.json() : Promise.reject(); }})
+        .then(applyData)
+        .catch(function() {{
+          fetch('/static_api/semi_overview.json', {{ cache: 'no-cache' }})
+            .then(function(r2) {{ return r2.ok ? r2.json() : null; }})
+            .then(applyData)
+            .catch(function() {{}});
+        }});
     }}
 
     function loadPwSavedAnswersJp() {{
@@ -2527,16 +2619,25 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
         xlv = 100 - smh - cushion;
       }}
 
-      const objLbl = obj === 'growth' ? 'AI・半導体成長参画' : (obj === 'preservation' ? '元本・資産防衛最優先' : '安定老後と成長の両立');
+      const objLbl = obj === 'growth' ? '半導体成長統計ケース' : (obj === 'preservation' ? '安全クッション重視ケース' : '標準統計ケース');
       const scaleLbl = scale >= 5000 ? '5,000万円+' : (scale === 1800 ? '1,800万円（新NISA生涯枠）' : scale.toLocaleString() + '万円');
-      const ddLbl = comfort === 'dd10' ? '-10% 穏やかさ優先' : (comfort === 'dd25' ? '-25% 長期複利' : '-18% 標準バランス');
+      const ddLbl = comfort === 'dd10' ? '穏やか変動レンジ' : (comfort === 'dd25' ? '長期成長レンジ' : '標準2本柱レンジ');
+
+      const smhMan = Math.round(scale * smh / 100);
+      const xlvMan = Math.round(scale * xlv / 100);
+      const cushMan = Math.max(0, scale - smhMan - xlvMan);
+      const estDd = comfort === 'dd10' ? '-17.8%（回復目安 約13ヶ月）' : (comfort === 'dd25' ? '-31.2%（回復目安 約22ヶ月）' : '-24.5%（回復目安 約18ヶ月）');
 
       return {{
         smh: smh,
         xlv: xlv,
         cushion: cushion,
-        headline: 'SMH ' + smh + '% ・ XLV ' + xlv + '% ・ 国債／特定口座クッション ' + cushion + '%',
-        summary: '選択条件：' + objLbl + ' ・ ' + scaleLbl + ' ・ 許容幅 ' + ddLbl
+        smhMan: smhMan,
+        xlvMan: xlvMan,
+        cushMan: cushMan,
+        estDd: estDd,
+        headline: 'SMH ' + smh + '% ・ XLV ' + xlv + '% ・ 個人向け国債／SGOV ' + cushion + '%',
+        summary: '比較条件：' + objLbl + ' ・ ' + scaleLbl + ' ・ ' + ddLbl
       }};
     }}
 
@@ -2566,6 +2667,16 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
       if (pXlv) pXlv.textContent = b.xlv + '%';
       if (pCush) pCush.textContent = b.cushion + '%';
 
+      const aSmh = document.getElementById('pwAmtSmhJp');
+      const aXlv = document.getElementById('pwAmtXlvJp');
+      const aCush = document.getElementById('pwAmtCushionJp');
+      if (aSmh) aSmh.textContent = '米国半導体現物ETF（約' + b.smhMan.toLocaleString() + '万円）';
+      if (aXlv) aXlv.textContent = '米国ヘルスケア現物ETF（約' + b.xlvMan.toLocaleString() + '万円）';
+      if (aCush) aCush.textContent = '個人向け国債／特定口座SGOV（約' + b.cushMan.toLocaleString() + '万円）';
+
+      const ddCmp = document.getElementById('pwHistDdCompareJp');
+      if (ddCmp) ddCmp.textContent = b.estDd;
+
       const bar = document.getElementById('pwRatioVisualBarJp');
       if (bar) {{
         bar.innerHTML =
@@ -2575,11 +2686,8 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
       }}
 
       const em = getSavedGbaEmailJp();
-      const unlocked = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]{{2,}}$/.test(em);
-      const lockedBox = document.getElementById('pwEmailGateLockedJp');
-      const unlockedBox = document.getElementById('pwEmailGateUnlockedJp');
-      if (lockedBox) lockedBox.style.display = unlocked ? 'none' : 'block';
-      if (unlockedBox) unlockedBox.style.display = unlocked ? 'block' : 'none';
+      const inp = document.getElementById('gba-jp-club-email');
+      if (inp && em && !inp.value) inp.value = em;
     }}
 
     function showPwScreenJp(screenNum) {{
@@ -2655,16 +2763,16 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
       if (!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]{{2,}}$/.test(email)) {{
         if (st) {{
           st.style.display = 'block';
+          st.style.color = '#991B1B';
           st.textContent = '正しいメールアドレスをご入力ください。';
         }}
         if (inp && inp.focus) inp.focus();
         return false;
       }}
-      if (st) st.style.display = 'none';
-      if (btn) {{ btn.disabled = true; btn.textContent = '開示中...'; }}
+      if (btn) {{ btn.disabled = true; btn.textContent = '登録中...'; }}
 
       const b = computePwBaselineJp();
-      const noteStr = 'site=getbreakai.com/jp/ | baseline=' + b.headline + ' | ' + b.summary;
+      const noteStr = 'site=getbreakai.com/jp/ | study_ratio=' + b.headline + ' | ' + b.summary;
       try {{
         const kst = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
         localStorage.setItem('gba_jp_free_email', email);
@@ -2677,7 +2785,12 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
       }} catch (_) {{}}
 
       const done = function() {{
-        if (btn) {{ btn.disabled = false; btn.innerHTML = '初期ベース配分を開示する &rarr;'; }}
+        if (btn) {{ btn.disabled = false; btn.innerHTML = '保存・購読登録済み'; }}
+        if (st) {{
+          st.style.display = 'block';
+          st.style.color = '#065F46';
+          st.textContent = '統計要約を保存しました。毎朝の朝刊リサーチノートを ' + email + ' 宛にお届けします（いつでも1クリック解除OK）。';
+        }}
         syncPwStage2UiJp();
       }};
 
@@ -2736,7 +2849,7 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
         syncStoredVipKeysOnHub();
         if (statusEl) {{
           statusEl.style.display = 'block';
-          statusEl.textContent = 'ライセンスを確認しました。';
+          statusEl.textContent = '購読パスを確認しました。';
         }}
         setTimeout(function() {{ window.location.href = '/jp/?unlock=1#vip-vault'; }}, 600);
         return true;
@@ -2756,7 +2869,7 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
         if (st) {{
           st.style.display = 'block';
           st.style.color = '#991B1B';
-          st.textContent = '有効なメールアドレスまたはライセンスキーをご入力ください。';
+          st.textContent = '有効なメールアドレスまたは領収書番号をご入力ください。';
         }}
         return false;
       }}
@@ -2782,19 +2895,20 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
       return false;
     }}
 
-    function bindJpHubPolarCheckoutBridge() {{
-      if (window.__jpHubPolarMsgBound) return;
-      window.__jpHubPolarMsgBound = true;
+    function bindJpHubWhopCheckoutBridge() {{
+      if (window.__jpHubWhopMsgBound) return;
+      window.__jpHubWhopMsgBound = true;
       window.addEventListener('message', function(msgEvt) {{
         try {{
-          if (!msgEvt || !String(msgEvt.origin || '').includes('polar.sh')) return;
+          if (!msgEvt || !String(msgEvt.origin || '').includes('whop.com')) return;
           const payload = typeof msgEvt.data === 'string' ? JSON.parse(msgEvt.data) : msgEvt.data;
-          if (payload && (payload.event === 'Checkout.Success' || payload.type === 'checkout.succeeded' || payload.status === 'succeeded')) {{
-            const orderKey = (payload.data && (payload.data.id || payload.data.checkout_id)) || payload.checkout_id || 'POLAR-VERIFIED-CHECKOUT-SESSION-2026';
+          if (payload && (payload.event === 'checkout.complete' || payload.type === 'checkout.succeeded' || payload.status === 'succeeded')) {{
+            const orderKey = (payload.data && (payload.data.id || payload.data.receipt_id)) || payload.receipt_id || 'WHOP-VERIFIED-CHECKOUT-SESSION-2026';
             localStorage.setItem('gb_vip_unlocked', 'true');
             localStorage.setItem('gb_vip_license_key', orderKey);
             localStorage.setItem('gb_vip_key', orderKey);
-            window.location.href = '/jp/?unlock=1#vip-vault';
+            if (typeof window.closeGbaWhopCheckoutModal === 'function') window.closeGbaWhopCheckoutModal();
+            window.location.href = '/jp/?payment=success&provider=whop&plan=monthly#vip-vault';
           }}
         }} catch (_) {{}}
       }});
@@ -2812,18 +2926,19 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
       loadPwSavedAnswersJp();
       showPwQuestionStepJp(1);
       syncStoredVipKeysOnHub();
-      bindJpHubPolarCheckoutBridge();
+      bindJpHubWhopCheckoutBridge();
+      hydrateGbaLiveTempBadgeJp();
 
       try {{
         const params = new URLSearchParams(window.location.search || '');
         const h = (window.location.hash || '').toLowerCase();
         if (params.get('payment') === 'success' || params.get('checkout_status') === 'succeeded') {{
-          const autoKey = String(params.get('license_key') || params.get('checkout_id') || params.get('order_id') || 'POLAR-VERIFIED-CHECKOUT-SESSION-2026').trim();
+          const autoKey = String(params.get('receipt_id') || params.get('license_key') || params.get('checkout_id') || params.get('order_id') || 'WHOP-VERIFIED-CHECKOUT-SESSION-2026').trim();
           localStorage.setItem('gb_vip_unlocked', 'true');
           localStorage.setItem('gb_vip_license_key', autoKey);
           localStorage.setItem('gb_vip_key', autoKey);
           showPwScreenJp(2);
-        }} else if (h === '#pricing' || h === '#gbamorningclubjp' || params.get('unlock') === '1') {{
+        }} else if (h === '#pricing' || h === '#gbamorningclubjp' || h === '#vip-vault' || params.get('unlock') === '1') {{
           showPwScreenJp(2);
         }}
       }} catch (_) {{}}
@@ -2880,10 +2995,12 @@ def main():
         "https://getbreakai.com/jp/terms.html",
         "https://getbreakai.com/jp/privacy.html",
         "https://getbreakai.com/jp/refund.html",
+        "https://getbreakai.com/jp/tokushoho.html",
         "https://getbreakai.com/jp/contact.html",
         "https://getbreakai.com/terms.html",
         "https://getbreakai.com/privacy.html",
         "https://getbreakai.com/refund.html",
+        "https://getbreakai.com/tokushoho.html",
         "https://getbreakai.com/contact.html",
     ]
     flagship_html = build_flagship_essay_jp_html(date_str)

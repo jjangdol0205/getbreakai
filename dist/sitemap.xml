@@ -43,6 +43,12 @@
     <priority>0.85</priority>
   </url>
   <url>
+    <loc>https://getbreakai.com/jp/tokushoho.html</loc>
+    <lastmod>2026-11-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://getbreakai.com/jp/contact.html</loc>
     <lastmod>2026-11-19</lastmod>
     <changefreq>daily</changefreq>
@@ -62,6 +68,12 @@
   </url>
   <url>
     <loc>https://getbreakai.com/refund.html</loc>
+    <lastmod>2026-11-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://getbreakai.com/tokushoho.html</loc>
     <lastmod>2026-11-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>

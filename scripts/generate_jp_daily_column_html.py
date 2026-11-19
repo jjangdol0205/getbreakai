@@ -24,11 +24,12 @@ if str(SCRIPT_DIR) not in sys.path:
 
 from gba_mor_nisa_shared import (  # noqa: E402
     MOR_LABEL_EN_JP,
-    POLAR_MONTHLY_CTA_HREF,
-    POLAR_ANNUAL_CTA_HREF,
+    WHOP_MONTHLY_CTA_HREF,
+    WHOP_ANNUAL_CTA_HREF,
     PRICE_LABEL_MONTHLY_JP,
     PRICE_LABEL_ANNUAL_JP,
     MANDATORY_DISCLAIMER_JP,
+    SOFTWARE_POSITIONING_JP,
     FSA_HYBRID_PHRASE_JP,
     build_payment_and_kpi_head_html,
     build_mandatory_disclaimer_html,
@@ -216,7 +217,7 @@ def generate_daily_jp_column() -> str:
       <a href="/jp/" class="essay-pub-brand">GetBreakAI ・ 朝刊データノート</a>
       <nav class="essay-top-nav">
         <a href="/jp/nisa-quiet-barbell-essay.html">代表エッセイ</a>
-        <a href="/jp/#gba-retirement-architect-jp">4ステップ比率診断</a>
+        <a href="/jp/#gba-retirement-architect-jp">セクター過去統計エクスプローラー</a>
         <button type="button" onclick="openGbaStarterManualModal()">¥0 基本マニュアル</button>
         <a href="/jp/feed.xml">RSS</a>
       </nav>
@@ -270,8 +271,8 @@ def generate_daily_jp_column() -> str:
     </section>
 
     <aside class="editorial-postscript">
-      <div style="font-size:0.76rem;font-weight:800;color:#6b6b66;margin-bottom:6px;">編集後記 ・ 自己判断用データツール</div>
-      <p style="margin:0 0 8px;">ご自身の資産規模に合わせた比率試算は <a href="/jp/#gba-retirement-architect-jp"><strong>4ステップ SMH × XLV セクター比率シミュレーター</strong></a> にて無料でお試しいただけます。毎朝の過熱・恐怖指標＆セクター比率トラッキング日報メール配信は Proプラン（<a class="polar-checkout-button" data-gba-paid-plan="monthly" data-polar-slot="monthly_29_jp" href="{POLAR_MONTHLY_CTA_HREF}">{PRICE_LABEL_MONTHLY_JP}</a> ・ <a class="polar-checkout-button" data-gba-paid-plan="annual" data-polar-slot="annual_199_jp" href="{POLAR_ANNUAL_CTA_HREF}">{PRICE_LABEL_ANNUAL_JP}</a> ／ {MOR_LABEL_EN_JP}）にてご提供しています。</p>
+      <div style="font-size:0.76rem;font-weight:800;color:#6b6b66;margin-bottom:6px;">編集後記 ・ 独立系教育リサーチ出版</div>
+      <p style="margin:0 0 8px;">過去25年の統計比較は <a href="/jp/#gba-retirement-architect-jp"><strong>セクター過去統計エクスプローラー（2000–2025年統計比較）</strong></a> にて登録不要・無料でご確認いただけます。「{SOFTWARE_POSITIONING_JP}」の定期購読は <a class="whop-checkout-button" data-gba-paid-plan="monthly" href="{WHOP_MONTHLY_CTA_HREF}">{PRICE_LABEL_MONTHLY_JP}</a> ・ <a class="whop-checkout-button" data-gba-paid-plan="annual" href="{WHOP_ANNUAL_CTA_HREF}">{PRICE_LABEL_ANNUAL_JP}</a>（決済基盤：{MOR_LABEL_EN_JP}）にてご提供しています。</p>
 {disclaimer_box}
     </aside>
   </main>

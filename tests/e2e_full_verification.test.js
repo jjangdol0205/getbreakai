@@ -200,15 +200,15 @@ test('Tier 1.1: Lemon Squeezy 3-Tier SaaS on Live Store #296100', () => {
   assert.ok(plans.institutional_enterprise, 'Must configure institutional_enterprise (mailto inquiry)');
   assert.equal(plans.institutional_enterprise.checkoutUrl, 'mailto:beable9489@gmail.com');
 
-  // 2. Verify index.html contains Polar.sh PAYMENT_CONFIG, VIP waitlist, and zero legacy Lemon Squeezy references
+  // 2. Verify index.html contains Whop PAYMENT_CONFIG, Whop Checkout Modal, and zero legacy Lemon Squeezy / Polar references
   const indexHtml = fs.readFileSync(INDEX_HTML_PATH, 'utf8');
   assert.ok(indexHtml.includes('window.PAYMENT_CONFIG'));
-  assert.ok(indexHtml.includes("PROVIDER: 'polar_sh'"));
-  assert.ok(indexHtml.includes('STORE_LIVE_READY: false'));
-  assert.ok(indexHtml.includes('POLAR_CHECKOUT_URLS'));
-  assert.ok(indexHtml.includes('Polar.sh (Merchant of Record · Global Card / Apple Pay / Google Pay)'));
+  assert.ok(indexHtml.includes("PROVIDER: 'whop'"));
+  assert.ok(indexHtml.includes('STORE_LIVE_READY: true'));
+  assert.ok(indexHtml.includes('WHOP_PLANS'));
+  assert.ok(indexHtml.includes('Whop.com'));
   assert.ok(indexHtml.includes('mailto:beable9489@gmail.com'));
-  assert.ok(!/lemonsqueezy|296100|d5e7e761|667aa482/i.test(indexHtml));
+  assert.ok(!/lemonsqueezy|296100|d5e7e761|667aa482|polar\.sh/i.test(indexHtml));
 
   // 3. Dynamic checkout URL generator
   const customCheckout = createCheckoutUrl('pro_annual', {
@@ -257,9 +257,9 @@ test('Tier 1.2: Dual-Market Quant Coverage (TSE Prime vs US Tech Equities)', () 
     assert.ok(item.target_25r > item.entry);
   }
 
-  // Verify index.html features Single-Breath SMH × XLV Private-Wealth simulation & Shin-NISA compliance
+  // Verify index.html features Single-Breath SMH × XLV statistical study & Shin-NISA compliance
   const indexHtml = fs.readFileSync(INDEX_HTML_PATH, 'utf8');
-  assert.ok(indexHtml.includes('SMH &times; XLV バランス設計'), 'Hub must feature SMH × XLV balance row');
+  assert.ok(indexHtml.includes('SMH &times; XLV バランス統計ケース'), 'Hub must feature SMH × XLV balance row');
   assert.ok(indexHtml.includes('新NISA 成長投資枠'), 'Hub must note Shin-NISA Growth Quota eligibility');
 });
 
@@ -434,14 +434,14 @@ test('Tier 3.2: Single-Breath 4-Screen Step-Up Simulator + Partial Baseline Gate
   assert.ok(indexHtml.includes('id="gbaMorningClubJp"'));
 });
 
-test('Tier 3.3: VIP Vault Paywall Gate, Waitlist Modal & Real-Time Unlock State Flow', () => {
+test('Tier 3.3: Whop Checkout Modal & Real-Time Unlock State Flow', () => {
   const indexHtml = fs.readFileSync(INDEX_HTML_PATH, 'utf8');
 
   assert.ok(indexHtml.includes('function syncStoredVipKeysOnHub()'));
   assert.ok(indexHtml.includes('async function unlockJpHubVipVault()'));
+  assert.ok(indexHtml.includes('window.openGbaWhopCheckoutModal'));
   assert.ok(indexHtml.includes('window.openGbaVipWaitlistModal'));
-  assert.ok(indexHtml.includes('window.submitGbaVipWaitlist'));
-  assert.ok(indexHtml.includes('Checkout.Success'));
+  assert.ok(indexHtml.includes('checkout.complete'));
   assert.ok(indexHtml.includes("localStorage.setItem('gb_vip_unlocked', 'true')"));
 });
 
@@ -495,8 +495,8 @@ test('Tier 4.1: End-to-End User Conversion & VIP Onboarding Journey', () => {
   // Step 5: User is directed to Web VIP Vault + @GetBreakAI YouTube (ZERO Telegram, ZERO Lemon Squeezy)
   const confirmHtml = fs.readFileSync(CONFIRMATION_HTML_PATH, 'utf8');
   assert.ok(!/telegram|t\.me|semifeargreedbot/i.test(confirmHtml), 'Must have ZERO Telegram references in confirmation.html');
-  assert.ok(!/lemonsqueezy|296100|d5e7e761|667aa482/i.test(confirmHtml), 'Must have ZERO Lemon Squeezy references in confirmation.html');
-  assert.ok(confirmHtml.includes('Polar.sh (Merchant of Record · Global Card / Apple Pay / Google Pay)'));
+  assert.ok(!/lemonsqueezy|296100|d5e7e761|667aa482|polar\.sh/i.test(confirmHtml), 'Must have ZERO Lemon Squeezy or Polar references in confirmation.html');
+  assert.ok(confirmHtml.includes('Whop.com'));
   assert.ok(confirmHtml.includes('https://www.youtube.com/@GetBreakAI'), 'Must link to @GetBreakAI YouTube');
   assert.ok(confirmHtml.includes('https://getbreakai.com/#vip-vault'));
   assert.ok(confirmHtml.includes('beable9489@gmail.com'));

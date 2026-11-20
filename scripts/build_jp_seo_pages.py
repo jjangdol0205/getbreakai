@@ -1354,7 +1354,7 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
                 "name": "GetBreakAI Japan Research",
                 "url": canonical_url,
                 "logo": "https://getbreakai.com/og-preview.png",
-                "email": "beable9489@gmail.com",
+                "email": "support@getbreakai.com",
                 "sameAs": [
                     "https://www.youtube.com/@GetBreakAI",
                     "https://www.instagram.com/getbreakai/"
@@ -2483,10 +2483,22 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
         </div>
       </div>
 
-      <p class="pw-mor-note">
-        公式決済基盤：{MOR_LABEL_EN_JP} ・ 初回14日間全額返金保証 ・ いつでも1クリック解約可能。<br>
+      <div style="margin-top:18px;padding:16px 18px;background:#F8FAFC;border:1px solid #CBD5E1;border-radius:10px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;">
+        <div style="font-size:0.9rem;color:#334155;max-width:600px;line-height:1.65;">
+          <strong style="color:#0F172A;">ご購入前の事前確認：</strong> 2000&ndash;2025年危機別比較表と楽天iSPEED・SBI証券の買い付け手順ダイジェストを収めた無料2ページ・サンプルPDFを先にご確認いただけます。
+        </div>
+        <a href="/jp/downloads/gba_jp_sample_2p.pdf" target="_blank" rel="noopener" class="pw-btn-primary" style="background:#FFFFFF;color:#0F2C22;border:1.5px solid #0F2C22;padding:10px 18px;font-size:0.92rem;text-decoration:none;">
+          無料2pサンプルPDFを見る &rarr;
+        </a>
+      </div>
+      <p class="pw-mor-note" style="line-height:1.72;">
+        <strong>デジタルコンテンツ標準返金・解約ポリシー：</strong> ①未閲覧・未ダウンロード時は決済後7日以内100%全額返金 ②デジタルPDF・コンテンツ閲覧／ダウンロード開始後の自己都合返金不可（上記無料2pサンプルを必ず事前にご確認ください） ③ファイル不具合・システム障害・重複決済時は100%返金 ④定期購読は違約金なし・いつでも1クリックで次回決済停止可能。<br>
+        公式決済基盤：{MOR_LABEL_EN_JP}（日本円 JPY 建て請求：月額 ¥4,400 / 年額 ¥29,800） ・ お問い合わせ：<a href="mailto:support@getbreakai.com" style="color:inherit;text-decoration:underline;">support@getbreakai.com</a> ・ <a href="/jp/archive.html" style="color:inherit;text-decoration:underline;">月次あんしんレポート・アーカイブ</a><br>
         提供区分：「{SOFTWARE_POSITIONING_JP}」
       </p>
+      <div style="margin-top:18px;padding:16px 18px;background:#FFFFFF;border:1px solid #E2E8F0;border-radius:10px;font-size:0.88rem;color:#475569;">
+        <strong style="color:#0F172A;">初期読者レビュー募集：</strong> 無料サンプルPDFや新NISA 1,800万円ワークブックをご覧になったご感想をぜひお寄せください。<a href="mailto:support@getbreakai.com?subject=GetBreakAI%20Reader%20Review" style="color:#065F46;font-weight:700;text-decoration:underline;margin-left:6px;">2行レビューを送る &rarr;</a>
+      </div>
     </section>
 
     <!-- Screen 4: Paid Research Vault JP (円建て SMH x XLV + 個人向け国債/SGOV PDF・-35%ストレステスト・新NISA 1,800万円非課税ロードマップ・楽天/SBI 5分図解・月次あんしん成績表) -->
@@ -2501,9 +2513,13 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
         <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:14px 16px;background:#F8FAFC;border:1px solid #CBD5E1;border-radius:8px;margin-bottom:18px;">
           <label for="gbaCustomManYenInput" style="font-weight:700;font-size:0.98rem;color:#0F172A;">世帯想定規模（単位：万円）：</label>
           <input type="number" id="gbaCustomManYenInput" min="100" max="100000" step="100" value="1800" oninput="onGbaManYenInput()" style="padding:10px 14px;border:1px solid #94A3B8;border-radius:6px;font-size:1.05rem;font-weight:700;width:160px;font-variant-numeric:tabular-nums;">
-          <button type="button" class="pw-btn-primary pw-btn-emerald" id="btnDownloadGbaCustomPdf" onclick="openGbaCustomPdfWindowJp()">
-            1対1カスタム4ページPDFを保存・印刷 &rarr;
+          <a href="/jp/downloads/gba_jp_nisa_workbook_full.pdf" download class="pw-btn-primary pw-btn-emerald" id="btnDownloadGbaMaster12pPdf" style="text-decoration:none;">
+            12p 新NISA完全版ワークブックPDFをダウンロード &rarr;
+          </a>
+          <button type="button" class="pw-btn-primary" id="btnDownloadGbaCustomPdf" onclick="openGbaCustomPdfWindowJp()" style="background:#FFFFFF;color:#0F2C22;border:1.5px solid #0F2C22;">
+            カスタム金額シートを印刷 &rarr;
           </button>
+          <a href="/jp/archive.html" style="font-weight:700;color:#065F46;text-decoration:underline;font-size:0.9rem;">月次あんしんレポート・Q&amp;Aアーカイブ &rarr;</a>
         </div>
 
         <div id="gbaScreen4YenTable" class="pw-table-card" style="margin-bottom:18px;"></div>
@@ -2513,7 +2529,7 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
         <div id="gbaScreen4MonthlyCard" class="pw-table-card" style="margin-bottom:18px;padding:18px;"></div>
 
         <div style="padding:16px;background:#ECFDF5;border:1px solid #6EE7B7;border-radius:8px;margin-bottom:14px;">
-          <div class="pw-kicker" style="color:#065F46;margin-bottom:6px;">60秒 永久復元マジックリンク ＆ 14日間返金保証・1クリックお問い合わせ窓口</div>
+          <div class="pw-kicker" style="color:#065F46;margin-bottom:6px;">永久復元マジックリンク ＆ デジタルサポート・標準返金窓口</div>
           <p style="margin:0 0 10px;font-size:0.92rem;color:#064E3B;">
             機種変更後や別端末（スマホ・タブレット・PC）からも1クリックで本画面とPDFを復元できる専用リンクをメール宛にお送りします：
           </p>
@@ -2523,7 +2539,7 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
           </form>
           <div id="gbaPaidMagicStatus" role="status" aria-live="polite" style="display:none;margin-top:8px;font-size:0.88rem;font-weight:600;color:#065F46;"></div>
           <div style="margin-top:10px;font-size:0.86rem;color:#334155;">
-            14日間全額返金保証・1クリックサポート：<a id="gbaOneClickRefundLink" href="mailto:beable9489@gmail.com?subject=GetBreakAI%2014-Day%20Refund%20or%20Support" style="color:#065F46;font-weight:700;text-decoration:underline;">1クリック返金・お問い合わせ申請（beable9489@gmail.com）</a>
+            標準デジタル返金・1クリックサポート：<a id="gbaOneClickRefundLink" href="mailto:support@getbreakai.com?subject=GetBreakAI%20Support%20or%20Refund" style="color:#065F46;font-weight:700;text-decoration:underline;">1クリック返金・お問い合わせ申請（support@getbreakai.com）</a>
           </div>
         </div>
 
@@ -2540,7 +2556,7 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
       <span>&middot;</span>
       <a href="/jp/privacy.html">プライバシーポリシー</a>
       <span>&middot;</span>
-      <a href="/jp/refund.html">14日間返金ポリシー</a>
+      <a href="/jp/refund.html">返金・解約ポリシー</a>
       <span>&middot;</span>
       <a href="/jp/tokushoho.html">特定商取引法に基づく表記</a>
       <span>&middot;</span>
@@ -2550,7 +2566,7 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
       <span>&middot;</span>
       <a href="https://www.instagram.com/getbreakai/" target="_blank" rel="noopener">公式Instagram @getbreakai</a>
       <span>&middot;</span>
-      <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a>
+      <a href="mailto:support@getbreakai.com">support@getbreakai.com</a>
     </div>
     <p class="pw-legal-disclaimer">{MANDATORY_DISCLAIMER_JP}</p>
   </footer>
@@ -2779,17 +2795,21 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
           '<p class="pw-table-note">※教育目的の過去統計シミュレーションです。個人向け国債（変動10年）や短期米国債ETF（SGOV）を別枠で確保しておくことで、市場回復までの約18ヶ月間も落ち着いて保有を継続しやすくなります。</p>';
       }}
 
-      const nisaGrowthSlot = Math.min(1200, smhMan + xlvMan);
-      const nisaTsumitateSlot = Math.min(600, Math.max(0, totalMan - nisaGrowthSlot - cushMan));
+      const equityTotalMan = smhMan + xlvMan;
+      const nisaGrowthSlot = Math.min(1200, equityTotalMan);
+      const equityOverflowAfterGrowth = Math.max(0, equityTotalMan - nisaGrowthSlot);
+      const nisaTsumitateSlot = Math.min(600, equityOverflowAfterGrowth);
+      const overflowTaxableEquityMan = Math.max(0, equityOverflowAfterGrowth - nisaTsumitateSlot);
+      const totalOverflowAndSafetyMan = cushMan + overflowTaxableEquityMan;
       const nisaEl = document.getElementById('gbaScreen4NisaRoadmap');
       if (nisaEl) {{
         nisaEl.innerHTML =
-          '<div class="pw-kicker" style="margin-bottom:6px;">第3章 — 新NISA 1,800万円（成長投資枠240万＋つみたて投資枠120万）非課税ロードマップ</div>' +
-          '<h3 style="margin:0 0 10px;font-size:1.15rem;color:#0F172A;">制度区分ごとの効率的な口座使い分け（教育参考モデル）</h3>' +
+          '<div class="pw-kicker" style="margin-bottom:6px;">第3章 — 新NISA 1,800万円法定上限完全準拠（合計一致検証：' + fmtManYenJp(nisaGrowthSlot + nisaTsumitateSlot + totalOverflowAndSafetyMan) + ' / ' + fmtManYenJp(totalMan) + '）</div>' +
+          '<h3 style="margin:0 0 10px;font-size:1.15rem;color:#0F172A;">成長投資枠1,200万円＋つみたて枠600万円＋超過分の安全配置（1円も消失しない完全配分）</h3>' +
           '<div style="display:grid;gap:10px;font-size:0.94rem;color:#334155;">' +
-          '<div style="padding:12px;background:#F8FAFC;border-left:3px solid #0F172A;border-radius:6px;"><strong>1. 新NISA 成長投資枠（年間上限240万円・生涯上限1,200万円 ／ 目安：' + fmtManYenJp(nisaGrowthSlot) + '）：</strong> 現物1倍ETFである <strong>SMH</strong> および <strong>XLV</strong> の非課税長期保有枠として活用される代表的な区分です（3倍レバレッジETFは新NISA対象外）。</div>' +
-          '<div style="padding:12px;background:#F8FAFC;border-left:3px solid #065F46;border-radius:6px;"><strong>2. 新NISA つみたて投資枠（年間上限120万円・生涯上限600万円 ／ 目安：' + fmtManYenJp(nisaTsumitateSlot) + '）：</strong> 金融庁届出済みの低コスト広範インデックス投信を毎月定額で積み立て、生涯非課税枠合計1,800万円を5年〜長期で段階的に埋める設計です。</div>' +
-          '<div style="padding:12px;background:#F8FAFC;border-left:3px solid #64748B;border-radius:6px;"><strong>3. 課税口座（特定口座・源泉徴収あり）／日本国債枠（目安：' + fmtManYenJp(cushMan) + '）：</strong> 非課税メリットの大きい新NISA枠を現金性資産で消費せず、<strong>個人向け国債（変動10年・元本割れなし）</strong>や特定口座の短期米国債ETF（<strong>SGOV</strong>）で生活防衛資金を管理する考え方です。</div>' +
+          '<div style="padding:12px;background:#F8FAFC;border-left:3px solid #0F172A;border-radius:6px;"><strong>1. 新NISA 成長投資枠（年間上限240万円・生涯上限1,200万円 ／ 配置額：' + fmtManYenJp(nisaGrowthSlot) + '）：</strong> 現物1倍ETFである <strong>SMH × XLV</strong> を法定上限1,200万円まで優先配置します（3倍レバレッジETF・短期債SGOVは新NISA枠を使いません）。</div>' +
+          '<div style="padding:12px;background:#F8FAFC;border-left:3px solid #065F46;border-radius:6px;"><strong>2. 新NISA つみたて投資枠（年間上限120万円・生涯上限600万円 ／ 配置額：' + fmtManYenJp(nisaTsumitateSlot) + '）：</strong> 成長枠1,200万円を超える長期株式分は、金融庁届出済みの低コスト広範インデックス投信で最大600万円の生涯非課税枠を5年計画で活用します。</div>' +
+          '<div style="padding:12px;background:#F8FAFC;border-left:3px solid #64748B;border-radius:6px;"><strong>3. 生涯非課税枠超過分 ＆ 安全クッション（合計配置額：' + fmtManYenJp(totalOverflowAndSafetyMan) + ' ＝ 安全資産 ' + fmtManYenJp(cushMan) + ' ＋ 非課税枠超過分 ' + fmtManYenJp(overflowTaxableEquityMan) + '）：</strong> 新NISA対象外の安全バッファおよび1,800万円超過分は、<strong>個人向け国債（変動10年・元本割れなし）</strong>または<strong>特定口座（源泉徴収あり）内の SGOV・現物ETF</strong> に明確に分離配置します（米国ETF配当には米国10%源泉徴収＋日本課税の外国税額控除対象ルールを適用）。</div>' +
           '</div>';
       }}
 
@@ -2846,7 +2866,7 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
         '<style>body{{font-family:"Hiragino Kaku Gothic ProN",Meiryo,sans-serif;max-width:780px;margin:24px auto;padding:0 20px;color:#0f172a;font-size:16px;line-height:1.72;}}table{{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px;}}th,td{{border:1px solid #cbd5e1;padding:9px 10px;text-align:left;}}th{{background:#f1f5f9;}}.page-break{{page-break-before:always;margin-top:26px;padding-top:18px;border-top:2px solid #0f172a;}}@media print{{.no-print{{display:none;}}}}</style></head><body>' +
         '<div class="no-print" style="padding:12px;background:#ecfdf5;border:1px solid #059669;border-radius:8px;margin-bottom:18px;"><strong>PDF保存の準備が完了しました：</strong> 印刷画面で「PDFに保存」を選択してください。 <button onclick="window.print()" style="margin-left:12px;padding:8px 16px;background:#065f46;color:#fff;border:none;border-radius:6px;font-weight:700;cursor:pointer;">PDFとして保存・印刷</button></div>' +
         '<h1>GetBreakAI — 新NISA・SMH &times; XLV ＋ 安全資産 1対1カスタム統計ワークブック</h1>' +
-        '<p style="font-size:13px;color:#475569;">独立系リサーチ出版（教育目的データ・投資助言非該当 ・ お問い合わせ: beable9489@gmail.com）</p>' +
+        '<p style="font-size:13px;color:#475569;">独立系リサーチ出版（教育目的データ・投資助言非該当 ・ お問い合わせ: support@getbreakai.com）</p>' +
         '<div>' + s1 + '</div><div style="margin-top:18px;">' + s2 + '</div>' +
         '<div class="page-break">' + s3 + '</div><div class="page-break">' + s4 + '</div><div class="page-break">' + s5 + '</div>' +
         '</body></html>'
@@ -2881,7 +2901,7 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
           if (st) {{
             st.style.display = 'block';
             st.style.color = '#065F46';
-            st.textContent = em + ' 宛に永久復元マジックリンク（14日間返金保証案内付き）を送信しました。';
+            st.textContent = em + ' 宛に永久復元マジックリンク（未閲覧7日返金・1クリック解約案内付き）を送信しました。';
           }}
           const rf = document.getElementById('gbaOneClickRefundLink');
           if (rf && res && res.refund_support_url) rf.href = res.refund_support_url;
@@ -2953,6 +2973,9 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
     }}
 
     function submitPwAssessmentJp() {{
+      if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.trackFunnelEvent === 'function') {{
+        window.DreamCompanyCRM.trackFunnelEvent('GBA', 'quiz_complete');
+      }}
       showPwScreenJp(2);
     }}
 
@@ -2993,12 +3016,17 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
         if (typeof window.trackGbaFreeSignup === 'function') window.trackGbaFreeSignup(email);
       }} catch (_) {{}}
 
-      const done = function() {{
-        if (btn) {{ btn.disabled = false; btn.innerHTML = '保存・購読登録済み'; }}
+      const done = function(res) {{
+        if (btn) {{ btn.disabled = false; btn.innerHTML = (res && res.ok) ? '保存・購読登録済み' : '再試行する'; }}
         if (st) {{
           st.style.display = 'block';
-          st.style.color = '#065F46';
-          st.textContent = '統計要約を保存しました。毎朝の朝刊リサーチノートを ' + email + ' 宛にお届けします（いつでも1クリック解除OK）。';
+          if (res && res.ok) {{
+            st.style.color = '#065F46';
+            st.textContent = 'サーバー登録完了：毎朝の朝刊リサーチノートを ' + email + ' 宛にお届けします（いつでも1クリック解除OK）。';
+          }} else {{
+            st.style.color = '#991B1B';
+            st.textContent = '一時的な通信エラーが発生しました。少し時間をおいて再度お試しください。';
+          }}
         }}
         syncPwStage2UiJp();
       }};
@@ -3006,9 +3034,9 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
       if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.registerMember === 'function') {{
         window.DreamCompanyCRM.registerMember({{
           div: 'GBA', email: email, nickname: '', segment: 'nisa_wealth_defense', lang: 'ja-JP', notes: noteStr, message: noteStr
-        }}).then(done).catch(done);
+        }}).then(done).catch(function() {{ done({{ ok: false }}); }});
       }} else {{
-        done();
+        done({{ ok: false }});
       }}
       return false;
     }}
@@ -3074,12 +3102,51 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
       const em = String(emInp ? emInp.value : '').trim().toLowerCase();
       const lic = String(licInp ? licInp.value : '').trim();
 
-      if (!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]{{2,}}$/.test(em) && lic.length < 12) {{
+      if (!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]{{2,}}$/.test(em)) {{
         if (st) {{
           st.style.display = 'block';
           st.style.color = '#991B1B';
-          st.textContent = '有効なメールアドレスまたは領収書番号をご入力ください。';
+          st.textContent = 'Whop決済時にご使用されたメールアドレスをご入力ください。';
         }}
+        return false;
+      }}
+      if (st) {{
+        st.style.display = 'block';
+        st.style.color = '#334155';
+        st.textContent = 'サーバーでWhop会員権限を照合しています...';
+      }}
+      const vp = (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.verifyEntitlement === 'function')
+        ? window.DreamCompanyCRM.verifyEntitlement({{ div: 'GBA', email: em, access_code: lic }})
+        : Promise.resolve({{ authorized: false }});
+      vp.then(function(vres) {{
+        try {{
+          localStorage.setItem('gba_jp_free_email', em);
+          localStorage.setItem('gb_free_member_email', em);
+        }} catch (_) {{}}
+        if (vres && vres.authorized) {{
+          try {{
+            localStorage.setItem('gb_vip_unlocked', 'true');
+            localStorage.setItem('gb_vip_license_key', vres.access_code || lic || 'WHOP-VERIFIED');
+            localStorage.setItem('gb_vip_key', vres.access_code || lic || 'WHOP-VERIFIED');
+          }} catch (_) {{}}
+          if (st) {{
+            st.style.display = 'block';
+            st.style.color = '#065F46';
+            st.textContent = '有料会員パスが確認されました。12p完全版ワークブック画面を開きます。';
+          }}
+          setTimeout(function() {{ closePwRestoreModalJp(); showPwScreenJp(4); }}, 450);
+        }} else {{
+          try {{ localStorage.removeItem('gb_vip_unlocked'); }} catch (_) {{}}
+          if (st) {{
+            st.style.display = 'block';
+            st.style.color = '#991B1B';
+            st.textContent = '有効なWhop決済履歴が確認できませんでした。無料診断要約を表示します（決済直後の場合は30秒後に再試行するか support@getbreakai.com へご連絡ください）。';
+          }}
+          setTimeout(function() {{ closePwRestoreModalJp(); showPwScreenJp(2); }}, 950);
+        }}
+      }});
+      return false;
+    }}
         return false;
       }}
       if (/^[^\\s@]+@[^\\s@]+\\.[^\\s@]{{2,}}$/.test(em)) {{

@@ -110,12 +110,12 @@ def build_payment_and_kpi_head_html() -> str:
       },
       WHOP_GBA_MONTHLY_URL: 'https://whop.com/checkout/plan_UtG9mA9L5pZIS',
       WHOP_GBA_ANNUAL_URL: 'https://whop.com/checkout/plan_ahYIXbLDE0CsQ',
-      SUPPORT_EMAIL: 'beable9489@gmail.com'
+      SUPPORT_EMAIL: 'support@getbreakai.com'
     };
     window.CHECKOUT_URLS = {
       monthly: 'https://whop.com/checkout/plan_UtG9mA9L5pZIS',
       annual: 'https://whop.com/checkout/plan_ahYIXbLDE0CsQ',
-      enterprise: 'mailto:beable9489@gmail.com'
+      enterprise: 'mailto:support@getbreakai.com'
     };
     const CHECKOUT_URLS = window.CHECKOUT_URLS;
     var COPY_MODE = (window.PAYMENT_CONFIG && window.PAYMENT_CONFIG.STORE_LIVE_READY) ? 'LIVE_SHARP' : 'UNDERWRITING_SAFE';
@@ -623,7 +623,7 @@ def build_whop_checkout_modal_html() -> str:
       </div>
       <h2 class="gba-whop-title" id="gbaWhopModalTitle">{WHOP_MODAL_TITLE_JP}</h2>
       <p class="gba-whop-desc">
-        提供区分：<strong>「{SOFTWARE_POSITIONING_JP}」</strong>（JCB・Visa・Mastercard・Apple Pay・Google Pay対応 ／ 14日間返金保証・いつでも1クリック解約可能）
+        提供区分：<strong>「{SOFTWARE_POSITIONING_JP}」</strong>（JCB・Visa・Mastercard・Apple Pay・Google Pay対応 ／ 未閲覧7日全額返金・1クリック解約・いつでも1クリック解約可能）
       </p>
 
       <div class="gba-whop-plans" role="group" aria-label="リサーチパス選択">
@@ -649,7 +649,7 @@ def build_whop_checkout_modal_html() -> str:
       </div>
 
       <div style="margin-top:12px; font-size:0.8rem; color:#475569; line-height:1.58;">
-        決済・領収書発行：{MOR_LABEL_EN_JP} ｜ お問い合わせ・14日間返金窓口: <a href="mailto:beable9489@gmail.com" style="color:#1d4ed8; font-weight:700;">beable9489@gmail.com</a>
+        決済・領収書発行：{MOR_LABEL_EN_JP} ｜ お問い合わせ・未閲覧7日全額返金・1クリック解約窓口: <a href="mailto:support@getbreakai.com" style="color:#1d4ed8; font-weight:700;">support@getbreakai.com</a>
       </div>
     </div>
   </div>
@@ -1015,7 +1015,7 @@ def build_legal_footer_html() -> str:
         <span aria-hidden="true">&middot;</span>
         <a href="/jp/privacy.html" style="color:var(--accent-blue, #1d4ed8); text-decoration:underline;">プライバシーポリシー</a>
         <span aria-hidden="true">&middot;</span>
-        <a href="/jp/refund.html" style="color:var(--accent-blue, #1d4ed8); text-decoration:underline;">14日間返金ポリシー</a>
+        <a href="/jp/refund.html" style="color:var(--accent-blue, #1d4ed8); text-decoration:underline;">返金・解約ポリシー</a>
         <span aria-hidden="true">&middot;</span>
         <a href="/jp/tokushoho.html" style="color:var(--accent-blue, #1d4ed8); text-decoration:underline;">特定商取引法に基づく表記</a>
         <span aria-hidden="true">&middot;</span>
@@ -1025,21 +1025,21 @@ def build_legal_footer_html() -> str:
         <span aria-hidden="true">&middot;</span>
         <a href="https://www.instagram.com/getbreakai/" target="_blank" rel="noopener" style="color:var(--accent-blue, #1d4ed8); text-decoration:underline;">公式Instagram @getbreakai</a>
         <span aria-hidden="true">&middot;</span>
-        <span>カスタマーサポート: <a href="mailto:beable9489@gmail.com" style="color:var(--accent-blue, #1d4ed8); font-weight:900; text-decoration:underline;">beable9489@gmail.com</a></span>
+        <span>カスタマーサポート: <a href="mailto:support@getbreakai.com" style="color:var(--accent-blue, #1d4ed8); font-weight:900; text-decoration:underline;">support@getbreakai.com</a></span>
       </div>
       <div style="text-align:center; font-size:0.82rem; color:var(--text-sub, #475569); margin-bottom:10px;">
         英語版・共通法務リンク:
         <a href="/terms.html" style="color:inherit; text-decoration:underline;">Terms (/terms.html)</a> &middot;
         <a href="/privacy.html" style="color:inherit; text-decoration:underline;">Privacy (/privacy.html)</a> &middot;
-        <a href="/refund.html" style="color:inherit; text-decoration:underline;">14-Day Refund (/refund.html)</a> &middot;
+        <a href="/refund.html" style="color:inherit; text-decoration:underline;">Refund Policy (/refund.html)</a> &middot;
         <a href="/tokushoho.html" style="color:inherit; text-decoration:underline;">Tokushoho (/tokushoho.html)</a> &middot;
         <a href="/contact.html" style="color:inherit; text-decoration:underline;">Contact (/contact.html)</a>
       </div>
       <div style="max-width:920px; margin:0 auto; padding:12px 15px; border-radius:10px; background:var(--bg-card, #ffffff); border:1px solid var(--border-col, #cbd5e1); font-size:0.84rem; color:var(--text-sub, #475569);">
         <strong>「{SOFTWARE_POSITIONING_JP}」</strong><br>
         {MANDATORY_DISCLAIMER_JP}<br>
-        公式決済基盤：<strong>{MOR_LABEL_EN_JP}</strong>（日本国内発行クレジットカード・Apple Pay・Google Pay対応 ／ 14日間返金保証）<br>
-        Operated by Yoonju Lee &middot; GetBreakAI Japan Research ({WHOP_COMPANY_ID}). Support Desk: <a href="mailto:beable9489@gmail.com" style="color:var(--accent-blue, #1d4ed8); font-weight:800;">beable9489@gmail.com</a>
+        公式決済基盤：<strong>{MOR_LABEL_EN_JP}</strong>（日本国内発行クレジットカード・Apple Pay・Google Pay対応 ／ 未閲覧7日全額返金・1クリック解約）<br>
+        Operated by Yoonju Lee &middot; GetBreakAI Japan Research ({WHOP_COMPANY_ID}). Support Desk: <a href="mailto:support@getbreakai.com" style="color:var(--accent-blue, #1d4ed8); font-weight:800;">support@getbreakai.com</a>
       </div>
     </div>
   </footer>"""
@@ -1057,10 +1057,10 @@ def _render_legal_doc(slug: str, title_jp: str, badge_text: str, body_html: str,
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{title_jp} ｜ GetBreakAI 新NISA・資産リサーチ研究室（教育目的）</title>
-  <meta name="description" content="GetBreakAI ({canonical}) — {title_jp}・「{SOFTWARE_POSITIONING_JP}」・{MOR_LABEL_EN_JP}。サポート窓口: beable9489@gmail.com">
+  <meta name="description" content="GetBreakAI ({canonical}) — {title_jp}・「{SOFTWARE_POSITIONING_JP}」・{MOR_LABEL_EN_JP}。サポート窓口: support@getbreakai.com">
   <link rel="canonical" href="{canonical}">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <script type="application/ld+json">{{"@context":"https://schema.org","@type":"Organization","name":"GetBreakAI Japan Research","url":"https://getbreakai.com/jp/","email":"beable9489@gmail.com","sameAs":["https://www.youtube.com/@GetBreakAI","https://www.instagram.com/getbreakai/"]}}</script>
+  <script type="application/ld+json">{{"@context":"https://schema.org","@type":"Organization","name":"GetBreakAI Japan Research","url":"https://getbreakai.com/jp/","email":"support@getbreakai.com","sameAs":["https://www.youtube.com/@GetBreakAI","https://www.instagram.com/getbreakai/"]}}</script>
 {head_scripts}
   <style>
     :root {{
@@ -1171,7 +1171,7 @@ def build_all_legal_pages(root_dir: str, jp_dir: str) -> None:
     os.makedirs(jp_dir, exist_ok=True)
 
     terms_body = f"""      <p>
-        本利用規約（以下「本規約」）は、<strong>GetBreakAI Japan Research</strong>（運営：Yoonju Lee &middot; KIDS-FIT Global Studio）が提供する<strong>「{SOFTWARE_POSITIONING_JP}」</strong>（<a href="https://getbreakai.com/jp/">https://getbreakai.com/jp/</a>）のご利用条件を定めるものです。
+        本利用規約（以下「本規約」）は、<strong>GetBreakAI Japan Research</strong>（運営：GetBreakAI Japan Research Desk）が提供する<strong>「{SOFTWARE_POSITIONING_JP}」</strong>（<a href="https://getbreakai.com/jp/">https://getbreakai.com/jp/</a>）のご利用条件を定めるものです。
       </p>
       <div class="disclaimer-box">
         {MANDATORY_DISCLAIMER_JP}
@@ -1193,7 +1193,7 @@ def build_all_legal_pages(root_dir: str, jp_dir: str) -> None:
       </p>
       <h2>English Summary — Independent Educational Research Publisher Terms</h2>
       <p>
-        <strong>GetBreakAI Japan Research</strong> provides an <strong>Educational Market Data Newsletter + 2000–2025 Historical Statistical Workbook (Strictly Non-Advisory Educational Publisher)</strong>, with global checkout powered by <strong>{MOR_LABEL_EN_JP}</strong>. GetBreakAI is NOT an investment advisor, broker-dealer, or financial instruments business operator under Japan&apos;s Financial Instruments and Exchange Act (FIEA) or U.S. law. Support: <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a>.
+        <strong>GetBreakAI Japan Research</strong> provides an <strong>Educational Market Data Newsletter + 2000–2025 Historical Statistical Workbook (Strictly Non-Advisory Educational Publisher)</strong>, with global checkout powered by <strong>{MOR_LABEL_EN_JP}</strong>. GetBreakAI is NOT an investment advisor, broker-dealer, or financial instruments business operator under Japan&apos;s Financial Instruments and Exchange Act (FIEA) or U.S. law. Support: <a href="mailto:support@getbreakai.com">support@getbreakai.com</a>.
       </p>"""
 
     privacy_body = f"""      <p>
@@ -1207,33 +1207,33 @@ def build_all_legal_pages(root_dir: str, jp_dir: str) -> None:
       </ul>
       <h2>2. 第三者提供の禁止および開示・削除請求</h2>
       <p>
-        法令に基づく場合または決済基盤事業者（{MOR_LABEL_EN_JP}）の決済・領収書処理に必要な範囲を除き、個人情報を第三者へ提供することはありません。登録情報の照会・訂正・削除のご請求は <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a> までご連絡ください。原則1営業日（24時間）以内に対応いたします。
+        法令に基づく場合または決済基盤事業者（{MOR_LABEL_EN_JP}）の決済・領収書処理に必要な範囲を除き、個人情報を第三者へ提供することはありません。登録情報の照会・訂正・削除のご請求は <a href="mailto:support@getbreakai.com">support@getbreakai.com</a> までご連絡ください。原則1営業日（24時間）以内に対応いたします。
       </p>
       <h2>English Summary — Privacy Policy (APPI &amp; GDPR Compliant)</h2>
       <p>
-        Payment credentials are processed exclusively via <strong>{MOR_LABEL_EN_JP}</strong> and are never stored on GetBreakAI servers. Email addresses submitted for morning educational research notes include 1-click unsubscribe links and are never sold or rented. Contact <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a> for data deletion requests.
+        Payment credentials are processed exclusively via <strong>{MOR_LABEL_EN_JP}</strong> and are never stored on GetBreakAI servers. Email addresses submitted for morning educational research notes include 1-click unsubscribe links and are never sold or rented. Contact <a href="mailto:support@getbreakai.com">support@getbreakai.com</a> for data deletion requests.
       </p>"""
 
     refund_body = f"""      <p>
-        <strong>GetBreakAI Japan Research</strong>（公式決済基盤：<strong>{MOR_LABEL_EN_JP}</strong>）では、読者の皆さまに安心してご利用いただけるよう、<strong>いつでも可能な1クリック解約</strong>と<strong>初回ご購入後14日間の全額返金保証（14日間返金保証）</strong>を設けています。
+        <strong>GetBreakAI Japan Research</strong>（公式決済基盤：<strong>{MOR_LABEL_EN_JP}</strong>）では、読者の皆さまに安心してご利用いただけるよう、<strong>いつでも可能な1クリック解約</strong>と<strong>初回ご購入後14日間の全額返金保証（未閲覧7日全額返金・1クリック解約）</strong>を設けています。
       </p>
       <div class="disclaimer-box">
-        <strong>14日間返金ポリシー（初回14日間全額返金保証）＆ いつでも1クリック自動更新停止（違約金0円）</strong><br>
-        ご購入から14日以内に <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a> までご連絡いただければ、理由を問わず迅速に100%全額返金いたします。
+        <strong>返金・解約ポリシー（未閲覧7日間全額返金・いつでも1クリック解約）＆ いつでも1クリック自動更新停止（違約金0円）</strong><br>
+        ご購入から14日以内に <a href="mailto:support@getbreakai.com">support@getbreakai.com</a> までご連絡いただければ、理由を問わず迅速に100%全額返金いたします。
       </div>
       <h2>1. サブスクリプションの1クリック解約手順</h2>
       <p>
-        <strong>{PRICE_LABEL_MONTHLY_JP}</strong> および <strong>{PRICE_LABEL_ANNUAL_JP}</strong> は、ご購入時の Whop 領収書メール内のメンバーシップ管理リンク（<a href="https://whop.com/orders/" target="_blank" rel="noopener noreferrer">Whop 注文・購読管理ページ</a>）、または <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a> へのメール連絡により24時間いつでも次回更新を停止できます。
+        <strong>{PRICE_LABEL_MONTHLY_JP}</strong> および <strong>{PRICE_LABEL_ANNUAL_JP}</strong> は、ご購入時の Whop 領収書メール内のメンバーシップ管理リンク（<a href="https://whop.com/orders/" target="_blank" rel="noopener noreferrer">Whop 注文・購読管理ページ</a>）、または <a href="mailto:support@getbreakai.com">support@getbreakai.com</a> へのメール連絡により24時間いつでも次回更新を停止できます。
       </p>
-      <h2>2. 14日間返金保証の申請方法と返金時期</h2>
+      <h2>2. 未閲覧7日全額返金・1クリック解約の申請方法と返金時期</h2>
       <ul>
-        <li><strong>初回14日間返金保証：</strong>ご購入後14日以内に決済時のメールアドレスまたは領収書番号を添えて <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a> 宛にご連絡ください。</li>
+        <li><strong>初回未閲覧7日全額返金・1クリック解約：</strong>ご購入後14日以内に決済時のメールアドレスまたは領収書番号を添えて <a href="mailto:support@getbreakai.com">support@getbreakai.com</a> 宛にご連絡ください。</li>
         <li><strong>重複課金・技術的不具合：</strong>万が一の重複決済やアクセス不具合時は即時100%返金または再発行いたします。</li>
         <li><strong>処理日数：</strong>ご連絡から原則1営業日（24時間）以内に <strong>{MOR_LABEL_EN_JP}</strong> 経由でお支払い元のカード・Apple Pay・Google Pay等へ返金手続きを実行いたします（明細反映はカード会社により通常3〜5営業日）。</li>
       </ul>
       <h2>English Summary — 14-Day Money-Back Guarantee &amp; 1-Click Cancellation</h2>
       <p>
-        All billing and refunds are processed via <strong>{MOR_LABEL_EN_JP}</strong>. Cancel anytime in 1 click via your Whop receipt link or email with zero penalties. Within 14 calendar days of your initial purchase, email <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a> for a 100% full refund processed within 1 business day.
+        All billing and refunds are processed via <strong>{MOR_LABEL_EN_JP}</strong>. Cancel anytime in 1 click via your Whop receipt link or email with zero penalties. Within 14 calendar days of your initial purchase, email <a href="mailto:support@getbreakai.com">support@getbreakai.com</a> for a 100% full refund processed within 1 business day.
       </p>"""
 
     tokushoho_table_body = f"""      <p>
@@ -1247,7 +1247,7 @@ def build_all_legal_pages(root_dir: str, jp_dir: str) -> None:
         <tbody>
           <tr>
             <th>販売事業者・出版デスク</th>
-            <td>GetBreakAI Japan Research（運営責任者：Yoonju Lee &middot; KIDS-FIT Global Studio）</td>
+            <td>GetBreakAI Japan Research（運営責任者：GetBreakAI Japan Research Desk）</td>
           </tr>
           <tr>
             <th>所在地</th>
@@ -1255,7 +1255,7 @@ def build_all_legal_pages(root_dir: str, jp_dir: str) -> None:
           </tr>
           <tr>
             <th>お問い合わせ窓口・連絡先</th>
-            <td>電子メール：<a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a>（24時間受付・原則1営業日以内に日本語または英語でご返信いたします。電話番号はご請求時に遅滞なく電子メールにて開示いたします）</td>
+            <td>電子メール：<a href="mailto:support@getbreakai.com">support@getbreakai.com</a>（24時間受付・原則1営業日以内に日本語または英語でご返信いたします。電話番号はご請求時に遅滞なく電子メールにて開示いたします）</td>
           </tr>
           <tr>
             <th>公式決済基盤</th>
@@ -1282,8 +1282,8 @@ def build_all_legal_pages(root_dir: str, jp_dir: str) -> None:
             <td>決済完了後、ただちにオンライン画面およびご登録メールアドレス宛にリサーチパス・過去統計ワークブックへのアクセスが有効化されます。</td>
           </tr>
           <tr>
-            <th>解約・返品・14日間返金特約</th>
-            <td>いつでも1クリックで次回更新を停止可能（違約金0円）。また初回ご購入から14日以内に <a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a> までご連絡いただいた場合、理由を問わず100%全額返金いたします（詳細は <a href="/jp/refund.html">14日間返金ポリシー</a> をご参照ください）。</td>
+            <th>解約・返品・デジタルコンテンツ標準返金規約</th>
+            <td>①未閲覧・未ダウンロード時は決済後7日以内100%全額返金 ②デジタルPDF・コンテンツのダウンロード／閲覧開始後の自己都合返金不可（決済ボタン横に無料2pサンプルPDFを常設） ③ファイル不具合・重複決済時は100%返金 ④定期購読はいつでも1クリックで次回更新停止可能（違約金0円）。詳細は <a href="/jp/refund.html">返金・解約ポリシー</a> をご参照ください。</td>
           </tr>
         </tbody>
       </table>"""
@@ -1292,14 +1292,14 @@ def build_all_legal_pages(root_dir: str, jp_dir: str) -> None:
         <strong>カスタマーサポート・法人メディア窓口および特定商取引法に基づく表記</strong>
       </p>
       <p>
-        ご購読に関するご質問、メールアドレス変更、14日間返金保証のご申請、ならびにメディア取材・法人データ提携のお問い合わせは、<a href="mailto:beable9489@gmail.com">beable9489@gmail.com</a> までお気軽にご連絡ください（原則24時間以内にご返信いたします）。特定商取引法に基づく法定記載事項の専用ページは <a href="/jp/tokushoho.html">特定商取引法に基づく表記 (/jp/tokushoho.html)</a> でもご確認いただけます。
+        ご購読に関するご質問、メールアドレス変更、未閲覧7日全額返金・1クリック解約のご申請、ならびにメディア取材・法人データ提携のお問い合わせは、<a href="mailto:support@getbreakai.com">support@getbreakai.com</a> までお気軽にご連絡ください（原則24時間以内にご返信いたします）。特定商取引法に基づく法定記載事項の専用ページは <a href="/jp/tokushoho.html">特定商取引法に基づく表記 (/jp/tokushoho.html)</a> でもご確認いただけます。
       </p>
 {tokushoho_table_body}"""
 
     specs = [
         ("terms.html", "利用規約 (Terms of Service)", "TERMS OF SERVICE · INDEPENDENT EDUCATIONAL RESEARCH", terms_body),
         ("privacy.html", "プライバシーポリシー (Privacy Policy)", "PRIVACY POLICY · APPI & GDPR COMPLIANT", privacy_body),
-        ("refund.html", "14日間返金ポリシー・解約規約 (14-Day Refund Policy)", "14-DAY REFUND POLICY · 1-CLICK CANCELLATION", refund_body),
+        ("refund.html", "デジタルコンテンツ標準返金・解約ポリシー (Standard Digital Refund Policy)", "STANDARD DIGITAL REFUND & 1-CLICK CANCELLATION", refund_body),
         ("tokushoho.html", "特定商取引法に基づく表記 (Specified Commercial Transactions Act)", "SPECIFIED COMMERCIAL TRANSACTIONS ACT DISCLOSURE", tokushoho_table_body),
         ("contact.html", "お問い合わせ・特定商取引法表記 (Contact & Disclosure)", "SUPPORT DESK & COMMERCIAL DISCLOSURE", contact_body),
     ]

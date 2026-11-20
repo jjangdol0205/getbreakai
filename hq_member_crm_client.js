@@ -1,38 +1,61 @@
 /**
- * Dream Company HQ - Universal Passwordless Club, Cross-Device Magic Restore & Retention Client (v4 Phase 3)
- * Shared across Divisions 1-5 static GitHub Pages frontends (100% ASCII source for Zero-Hangul scanner safety).
+ * Dream Company HQ - Universal Cloud CRM, Server-Verified Entitlement, Magic Restore & 4-Stage Funnel Client (v5 Cloudflare D1 + Brevo)
+ * Shared across Divisions 1-5 static Cloudflare Pages frontends (100% ASCII source for Zero-Hangul scanner safety).
  *
  * Capabilities:
- *  1. Passwordless 3-second club registration (`dc_member_<DIV>`) + offline retry queue (`dc_crm_sync_queue_v1`)
- *  2. Cross-Device Permanent Magic Restore (`?magic_restore=<base64url>`) - zero localStorage dependency across phones/PCs
- *  3. 60-Second Paid Delivery Trigger (`deliverPaidMagicPack`) with dual GAS v4 + v1 (`register_member` notes) compatibility
- *  4. 1-Second Satisfaction Vote (`submitSatisfactionVote` & `mountSatisfactionBar`) + 14-Day Refund / 1-Click Support link
- *  5. Cumulative 6-Month Height Velocity Tracker (`KFG` & `KFK`) with pre-filled 30s check-in & Day-165 Graduation Album state
+ *  1. 100% CORS-safe Cloudflare Worker + D1 + Brevo CRM registration (`https://api.truthofmarket.com/api/crm/register`)
+ *  2. Server-side paid entitlement verification (`verifyEntitlement` -> `/api/verify-entitlement`, blocks unauthenticated bypass!)
+ *  3. Automatic 4-Stage Funnel Event & UTM tracking (`landing_view -> quiz_complete -> checkout_click -> paid_success`)
+ *  4. Cross-Device Permanent Magic Restore (`?magic_restore=...`) + Standard Digital Refund & 1-Click Support links
+ *  5. 4th Div Free Fan Next-Song Vote persisted in Cloudflare D1 (`submitHeroVote` / `fetchHeroVotes`)
+ *  6. Cumulative 6-Month Height Velocity Tracker (`KFG` & `KFK`) with full Korean & English 4-habit local commentary
  */
 (function (global) {
   'use strict';
 
-  var ENDPOINT_CACHE = null;
-  var QUEUE_KEY = 'dc_crm_sync_queue_v1';
-  var SUPPORT_EMAIL = 'beable9489@gmail.com';
+  var CLOUD_API_BASE = global.DC_CLOUD_API_BASE || 'https://api.truthofmarket.com';
+  var QUEUE_KEY = 'dc_crm_sync_queue_v2';
 
-  function resolveEndpointUrl() {
-    if (ENDPOINT_CACHE) return Promise.resolve(ENDPOINT_CACHE);
-    if (global.HQ_MAILING_ENDPOINT && String(global.HQ_MAILING_ENDPOINT).indexOf('https://script.google.com/macros/s/') === 0) {
-      ENDPOINT_CACHE = String(global.HQ_MAILING_ENDPOINT).trim();
-      return Promise.resolve(ENDPOINT_CACHE);
+  var SUPPORT_EMAIL_BY_DIV = {
+    TOM: 'hello@truthofmarket.com',
+    KFG: 'care@kisfitglobal.com',
+    GBA: 'support@getbreakai.com',
+    HERO: 'radio@paradise-hero.com',
+    KFK: 'help@kidsfit.co.kr'
+  };
+
+  function getSupportEmail(div) {
+    var d = String(div || 'TOM').toUpperCase();
+    return SUPPORT_EMAIL_BY_DIV[d] || 'hello@truthofmarket.com';
+  }
+
+  function detectDivFromHost() {
+    try {
+      var h = String((global.location && global.location.hostname) || '').toLowerCase();
+      if (h.indexOf('kisfitglobal') >= 0) return 'KFG';
+      if (h.indexOf('getbreakai') >= 0) return 'GBA';
+      if (h.indexOf('paradise-hero') >= 0) return 'HERO';
+      if (h.indexOf('kidsfit.co.kr') >= 0) return 'KFK';
+      return 'TOM';
+    } catch (_) {
+      return 'TOM';
     }
-    var jsonPath = global.HQ_MAILING_CONFIG_PATH || '/hq-mailing-endpoint.json';
-    return fetch(jsonPath + '?v=' + Math.floor(Date.now() / 300000), { cache: 'no-store' })
-      .then(function (res) { return res.ok ? res.json() : null; })
-      .then(function (cfg) {
-        if (cfg && cfg.webapp_exec_url && String(cfg.webapp_exec_url).indexOf('https://script.google.com/macros/s/') === 0) {
-          ENDPOINT_CACHE = String(cfg.webapp_exec_url).trim();
-          return ENDPOINT_CACHE;
-        }
-        return '';
-      })
-      .catch(function () { return ''; });
+  }
+
+  function postCloudJson(path, payload) {
+    return fetch(CLOUD_API_BASE + path, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload || {})
+    }).then(function (res) {
+      return res.json().catch(function () { return { ok: res.ok, status: res.status }; });
+    });
+  }
+
+  function getCloudJson(path) {
+    return fetch(CLOUD_API_BASE + path, { method: 'GET' }).then(function (res) {
+      return res.json().catch(function () { return { ok: res.ok, status: res.status }; });
+    });
   }
 
   function readQueue() {
@@ -47,7 +70,7 @@
 
   function writeQueue(items) {
     try {
-      localStorage.setItem(QUEUE_KEY, JSON.stringify(items.slice(-30)));
+      localStorage.setItem(QUEUE_KEY, JSON.stringify((items || []).slice(-30)));
     } catch (_) {}
   }
 
@@ -63,6 +86,49 @@
       return raw ? JSON.parse(raw) : null;
     } catch (_) {
       return null;
+    }
+  }
+
+  /* ==========================================================================
+   * UTM Capture & 4-Stage Funnel Analytics (`landing_view -> quiz_complete -> checkout_click -> paid_success`)
+   * ========================================================================== */
+  function captureUtmParams() {
+    try {
+      var sp = new URLSearchParams((global.location && global.location.search) || '');
+      var utm = {
+        utm_source: sp.get('utm_source') || '',
+        utm_medium: sp.get('utm_medium') || '',
+        utm_campaign: sp.get('utm_campaign') || ''
+      };
+      if (utm.utm_source || utm.utm_medium || utm.utm_campaign) {
+        sessionStorage.setItem('dc_utm_params', JSON.stringify(utm));
+        return utm;
+      }
+      var saved = sessionStorage.getItem('dc_utm_params');
+      return saved ? JSON.parse(saved) : utm;
+    } catch (_) {
+      return { utm_source: '', utm_medium: '', utm_campaign: '' };
+    }
+  }
+
+  function trackFunnelEvent(div, eventName, extra) {
+    try {
+      var d = String(div || detectDivFromHost()).toUpperCase();
+      var utm = captureUtmParams();
+      var payload = {
+        div_code: d,
+        event_name: String(eventName || 'landing_view'),
+        utm_source: utm.utm_source || (extra && extra.utm_source) || '',
+        utm_medium: utm.utm_medium || (extra && extra.utm_medium) || '',
+        utm_campaign: utm.utm_campaign || (extra && extra.utm_campaign) || '',
+        page_path: (global.location && global.location.pathname) ? global.location.pathname : '/'
+      };
+      if (typeof global.gtag === 'function') {
+        try { global.gtag('event', payload.event_name, { division: d, utm_source: payload.utm_source, utm_campaign: payload.utm_campaign }); } catch (_) {}
+      }
+      return postCloudJson('/api/analytics/event', payload).catch(function () { return { ok: false }; });
+    } catch (_) {
+      return Promise.resolve({ ok: false });
     }
   }
 
@@ -104,7 +170,7 @@
         compact[k] = stateObj[k];
       }
     }
-    compact.v = 4;
+    compact.v = 5;
     if (!compact.ts) compact.ts = Math.floor(Date.now() / 1000);
     var token = toBase64Url(JSON.stringify(compact));
     var sep = cleanBase.indexOf('?') >= 0 ? '&' : '?';
@@ -115,9 +181,18 @@
   function decodeMagicRestoreParam(searchStr) {
     try {
       var qs = String(searchStr !== undefined ? searchStr : (global.location ? global.location.search : ''));
-      var m = qs.match(/[?&]magic_restore=([^&#]+)/);
-      if (!m || !m[1]) return null;
-      var jsonTxt = fromBase64Url(decodeURIComponent(m[1]));
+      var sp = new URLSearchParams(qs);
+      var rawVal = sp.get('magic_restore');
+      if (!rawVal) return null;
+      if (rawVal === '1' && sp.get('email') && sp.get('code')) {
+        return {
+          email: sp.get('email').trim().toLowerCase(),
+          access_code: sp.get('code').trim().toUpperCase(),
+          tier: sp.get('tier') || 'tier1',
+          magic_restore: true
+        };
+      }
+      var jsonTxt = fromBase64Url(decodeURIComponent(rawVal));
       if (!jsonTxt) return null;
       var obj = JSON.parse(jsonTxt);
       return (obj && typeof obj === 'object') ? obj : null;
@@ -137,11 +212,6 @@
   function getPaidVault(div) {
     var d = String(div || '').toUpperCase();
     try {
-      var restored = decodeMagicRestoreParam();
-      if (restored && (!restored.div || String(restored.div).toUpperCase() === d)) {
-        savePaidVault(d, restored);
-        return restored;
-      }
       var raw = localStorage.getItem('dc_paid_vault_' + d);
       return raw ? JSON.parse(raw) : null;
     } catch (_) {
@@ -150,68 +220,34 @@
   }
 
   /* ==========================================================================
-   * Apps Script Transport with Automatic GAS v1 Fallback (`register_member`)
+   * 1. CORS-Safe CRM Registration (Cloudflare D1 + Brevo Day 0/2/5 Drip)
    * ========================================================================== */
-  function postToAppsScript(execUrl, payload) {
-    return fetch(execUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify(payload),
-      redirect: 'follow'
-    }).then(function (res) {
-      return res.text().then(function (txt) {
-        try { return JSON.parse(txt); } catch (_) { return { ok: res.ok }; }
-      });
-    });
-  }
-
-  function postWithLegacyFallback(payload, fallbackMemberPayload) {
-    return resolveEndpointUrl().then(function (execUrl) {
-      if (!execUrl) {
-        var q = readQueue();
-        q.push(fallbackMemberPayload || payload);
-        writeQueue(q);
-        return { ok: true, queued_for_sync: true };
-      }
-      return postToAppsScript(execUrl, payload).then(function (res) {
-        if (res && res.ok === false && /UNAUTHORIZED|UNKNOWN_ACTION/i.test(String(res.error || '')) && fallbackMemberPayload) {
-          return postToAppsScript(execUrl, fallbackMemberPayload);
-        }
-        return res;
-      }).catch(function () {
-        var q2 = readQueue();
-        q2.push(fallbackMemberPayload || payload);
-        writeQueue(q2);
-        return { ok: true, queued_for_sync: true };
-      });
-    });
-  }
-
   function registerMember(opts) {
-    var div = String((opts && opts.div) || '').trim().toUpperCase();
+    var div = String((opts && (opts.div || opts.div_code)) || detectDivFromHost()).trim().toUpperCase();
     var email = String((opts && opts.email) || '').trim().toLowerCase();
     var nickname = String((opts && opts.nickname) || '').trim();
     var segment = String((opts && opts.segment) || 'general').trim();
     var message = String((opts && (opts.message || opts.notes)) || '').trim();
     var lang = String((opts && opts.lang) || '').trim();
-    var websiteHp = String((opts && opts.website_hp) || '').trim();
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
       return Promise.resolve({ ok: false, error: 'INVALID_EMAIL' });
     }
 
+    var nowIso = new Date().toISOString();
     var payload = {
-      action: 'register_member',
+      div_code: div,
       div: div,
       email: email,
       nickname: nickname,
       segment: segment,
-      message: message,
-      notes: message,
-      lang: lang,
-      website_hp: websiteHp,
-      source_url: (global.location && global.location.href) ? global.location.href : '',
-      client_ts: new Date().toISOString()
+      metadata: {
+        message: message,
+        lang: lang,
+        utm: captureUtmParams(),
+        source_url: (global.location && global.location.href) ? global.location.href : '',
+        client_ts: nowIso
+      }
     };
 
     saveLocalMember(div, {
@@ -219,30 +255,74 @@
       email: email,
       nickname: nickname,
       segment: segment,
-      joined_at: payload.client_ts
+      joined_at: nowIso
     });
 
-    return postWithLegacyFallback(payload, null).then(function (res) {
-      if (res && typeof res === 'object') {
-        res.div = res.div || div;
+    return postCloudJson('/api/crm/register', payload).then(function (res) {
+      if (res && res.ok) {
+        res.div = div;
         res.email = email;
         res.segment = segment;
+        return res;
       }
-      return res;
+      var q = readQueue();
+      q.push(payload);
+      writeQueue(q);
+      return { ok: false, queued_for_sync: true, error: (res && res.error) || 'SERVER_UNAVAILABLE' };
+    }).catch(function () {
+      var q2 = readQueue();
+      q2.push(payload);
+      writeQueue(q2);
+      return { ok: false, queued_for_sync: true, error: 'NETWORK_ERROR' };
     });
   }
 
   /* ==========================================================================
-   * 60-Second Cross-Device Paid Magic Pack Delivery (Divisions 1-5)
+   * 2. Server-Side Entitlement Verification (Blocks unauthenticated bypass!)
+   * ========================================================================== */
+  function verifyEntitlement(opts) {
+    var div = String((opts && (opts.div || opts.div_code)) || detectDivFromHost()).trim().toUpperCase();
+    var email = String((opts && opts.email) || '').trim().toLowerCase();
+    var code = String((opts && (opts.access_code || opts.code || opts.order_ref)) || '').trim().toUpperCase();
+    var tier = String((opts && opts.tier) || '').trim().toLowerCase();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+      return Promise.resolve({ ok: false, authorized: false, error: 'INVALID_EMAIL' });
+    }
+    return postCloudJson('/api/verify-entitlement', {
+      div_code: div,
+      email: email,
+      access_code: code,
+      tier: tier,
+      magic_restore: Boolean(opts && opts.magic_restore)
+    }).then(function (res) {
+      if (res && res.authorized) {
+        trackFunnelEvent(div, 'paid_success');
+        savePaidVault(div, {
+          div: div,
+          email: email,
+          tier: res.tier || 'tier1',
+          tier2_unlocked: Boolean(res.tier2_unlocked),
+          access_code: res.access_code || code,
+          verified_at: new Date().toISOString()
+        });
+      }
+      return res || { ok: false, authorized: false, reason: 'verification_failed' };
+    }).catch(function () {
+      return { ok: false, authorized: false, reason: 'network_error' };
+    });
+  }
+
+  /* ==========================================================================
+   * 3. Standard Digital Refund & Support Link (Replaces legacy 14-Day copy!)
    * ========================================================================== */
   function buildRefundSupportMailto(div, email, orderRef) {
-    var d = String(div || 'HQ').toUpperCase();
-    var subj = '[' + d + ' 14-Day Refund / Priority Support] ' + (orderRef || email || 'Member Request');
-    return 'mailto:' + SUPPORT_EMAIL + '?subject=' + encodeURIComponent(subj);
+    var d = String(div || detectDivFromHost()).toUpperCase();
+    var subj = '[' + d + ' Digital Refund / Support Request] ' + (orderRef || email || 'Member Request');
+    return 'mailto:' + getSupportEmail(d) + '?subject=' + encodeURIComponent(subj);
   }
 
   function deliverPaidMagicPack(opts) {
-    var div = String((opts && opts.div) || 'TOM').trim().toUpperCase();
+    var div = String((opts && opts.div) || detectDivFromHost()).trim().toUpperCase();
     var email = String((opts && opts.email) || '').trim().toLowerCase();
     var planTier = String((opts && opts.plan_tier) || 'Paid Pass').trim();
     var orderRef = String((opts && opts.order_ref) || ('WEB-' + div + '-' + Date.now().toString(36).toUpperCase())).trim();
@@ -270,105 +350,62 @@
     savePaidVault(div, vaultRecord);
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
-      return Promise.resolve({
-        ok: true,
-        local_only: true,
-        magic_restore_url: magicUrl,
-        refund_support_url: refundUrl,
-        vault: vaultRecord
-      });
+      return Promise.resolve({ ok: true, local_only: true, magic_restore_url: magicUrl, refund_support_url: refundUrl, vault: vaultRecord });
     }
 
     var segMap = {
       TOM: 'TOM_Paid_VIP',
       KFG: 'KFG_Paid_VIP',
       GBA: 'GBA_Paid_VIP',
-      HERO: 'hero_honor_9900',
+      HERO: 'hero_free_family',
       KFK: 'KFK_Paid_VIP'
     };
-    var seg = String((opts && opts.segment) || segMap[div] || (div + '_Paid_VIP'));
-    var primaryPayload = {
-      action: 'deliver_paid_magic_pack',
+    return registerMember({
       div: div,
       email: email,
       nickname: String((opts && opts.nickname) || '').trim(),
-      segment: seg,
-      plan_tier: planTier,
-      order_ref: orderRef,
-      magic_restore_url: magicUrl,
-      refund_support_url: refundUrl,
-      profile_state: statePayload,
-      client_ts: vaultRecord.activated_at
-    };
-    var compactNote = 'PAID_MAGIC_PACK_V4|' + JSON.stringify({
-      tier: planTier,
-      ref: orderRef,
-      magic: magicUrl.slice(0, 950),
-      ts: vaultRecord.activated_at
-    });
-    var fallbackPayload = {
-      action: 'register_member',
-      div: div,
-      email: email,
-      nickname: primaryPayload.nickname,
-      segment: seg,
-      notes: compactNote,
-      message: compactNote,
-      source_url: magicUrl.slice(0, 245)
-    };
-
-    return postWithLegacyFallback(primaryPayload, fallbackPayload).then(function (res) {
-      return {
-        ok: true,
-        crm_sync: res,
-        magic_restore_url: magicUrl,
-        refund_support_url: refundUrl,
-        vault: vaultRecord
-      };
+      segment: String((opts && opts.segment) || segMap[div] || (div + '_Paid_VIP')),
+      notes: 'PAID_MAGIC_PACK_V5|' + planTier + '|' + orderRef
+    }).then(function (res) {
+      return { ok: true, crm_sync: res, magic_restore_url: magicUrl, refund_support_url: refundUrl, vault: vaultRecord };
     });
   }
 
   /* ==========================================================================
-   * 1-Second Satisfaction Vote (`[+ / = / -]` & Weekly Feedback Sync)
+   * 4. Division 4 Free Fan Next-Song Vote (Persisted in Cloudflare D1)
+   * ========================================================================== */
+  function fetchHeroVotes() {
+    return getCloudJson('/api/hero/vote');
+  }
+
+  function submitHeroVote(songKey, voterId) {
+    var vid = voterId;
+    if (!vid) {
+      try {
+        vid = localStorage.getItem('dc_hero_voter_id');
+        if (!vid) {
+          vid = 'v_' + Math.random().toString(36).slice(2) + '_' + Date.now().toString(36);
+          localStorage.setItem('dc_hero_voter_id', vid);
+        }
+      } catch (_) {
+        vid = 'v_anon_' + Date.now();
+      }
+    }
+    return postCloudJson('/api/hero/vote', { song_key: String(songKey || ''), voter_id: vid });
+  }
+
+  /* ==========================================================================
+   * 5. 1-Second Satisfaction Vote (`[+ / = / -]`)
    * ========================================================================== */
   function submitSatisfactionVote(opts) {
-    var div = String((opts && opts.div) || 'TOM').trim().toUpperCase();
-    var vote = String((opts && opts.vote) || 'up').trim().toLowerCase(); // up | neutral | down
+    var div = String((opts && opts.div) || detectDivFromHost()).trim().toUpperCase();
+    var vote = String((opts && opts.vote) || 'up').trim().toLowerCase();
     var contextKey = String((opts && opts.context) || 'paid_report').trim();
-    var localMem = getLocalMember(div);
-    var paidVault = getPaidVault(div);
-    var email = String((opts && opts.email) || (paidVault && paidVault.email) || (localMem && localMem.email) || '').trim().toLowerCase();
-
-    var voteRec = {
-      div: div,
-      vote: vote,
-      context: contextKey,
-      voted_at: new Date().toISOString()
-    };
+    var voteRec = { div: div, vote: vote, context: contextKey, voted_at: new Date().toISOString() };
     try {
       localStorage.setItem('dc_sat_vote_' + div + '_' + contextKey, JSON.stringify(voteRec));
     } catch (_) {}
-
-    var v4Payload = {
-      action: 'submit_satisfaction_vote',
-      div: div,
-      email: email || ('anon-' + div.toLowerCase() + '@dreamcompany.local'),
-      vote: vote,
-      context: contextKey,
-      source_url: (global.location && global.location.href) ? global.location.href : '',
-      client_ts: voteRec.voted_at
-    };
-    var noteStr = 'SAT_VOTE_V4|' + vote.toUpperCase() + '|' + contextKey + '|' + voteRec.voted_at;
-    var fallback = email ? {
-      action: 'register_member',
-      div: div,
-      email: email,
-      segment: (paidVault && paidVault.plan_tier) ? (div + '_Paid_VIP') : 'general',
-      notes: noteStr,
-      message: noteStr
-    } : null;
-
-    return postWithLegacyFallback(v4Payload, fallback).then(function () {
+    return trackFunnelEvent(div, 'sat_vote_' + vote).then(function () {
       return { ok: true, div: div, vote: vote };
     });
   }
@@ -414,11 +451,10 @@
   function mountSatisfactionBar(target, opts) {
     var el = (typeof target === 'string') ? (global.document && global.document.querySelector(target)) : target;
     if (!el) return;
-    var div = String((opts && opts.div) || 'TOM').toUpperCase();
+    var div = String((opts && opts.div) || detectDivFromHost()).toUpperCase();
     var contextKey = String((opts && opts.context) || 'paid_report');
-    var allowEmoji = (div === 'HERO');
-    var labels = getLocalizedVoteStrings(div, allowEmoji);
     var isHero = (div === 'HERO');
+    var labels = getLocalizedVoteStrings(div, isHero);
     var fontPx = isHero ? '20px' : '14px';
     var padBtn = isHero ? '14px 20px' : '8px 14px';
 
@@ -439,19 +475,18 @@
           var v = btn.getAttribute('data-dc-vote') || 'up';
           submitSatisfactionVote({ div: div, vote: v, context: contextKey, email: opts && opts.email });
           var wrap = el.querySelector('.dc-sat-vote-bar');
-          if (wrap) {
-            wrap.innerHTML = '<span style="font-weight:600;">' + labels.thanks + '</span>';
-          }
+          if (wrap) wrap.innerHTML = '<span style="font-weight:600;">' + labels.thanks + '</span>';
         });
       })(btns[i]);
     }
   }
 
   /* ==========================================================================
-   * Pediatric 6-Month Cumulative Height Velocity History (KFG & KFK)
+   * 6. Pediatric 6-Month Cumulative Height Velocity History (KFG & KFK, Multi-Sibling Aware!)
    * ========================================================================== */
-  function readCheckinHistory(div) {
-    var key = 'dc_checkin_history_' + String(div || 'KFG').toUpperCase();
+  function readCheckinHistory(div, siblingId) {
+    var suffix = siblingId ? ('_' + String(siblingId)) : '';
+    var key = 'dc_checkin_history_' + String(div || 'KFG').toUpperCase() + suffix;
     try {
       var raw = localStorage.getItem(key);
       var arr = raw ? JSON.parse(raw) : [];
@@ -461,10 +496,11 @@
     }
   }
 
-  function appendCheckinHistory(div, entry) {
+  function appendCheckinHistory(div, entry, siblingId) {
     var d = String(div || 'KFG').toUpperCase();
-    var key = 'dc_checkin_history_' + d;
-    var arr = readCheckinHistory(d);
+    var suffix = siblingId ? ('_' + String(siblingId)) : '';
+    var key = 'dc_checkin_history_' + d + suffix;
+    var arr = readCheckinHistory(d, siblingId);
     arr.push({
       date: entry.date || new Date().toISOString().slice(0, 10),
       day_milestone: entry.day_milestone || (arr.length + 1) * 30,
@@ -475,10 +511,96 @@
       target_cm_yr: Number(entry.target_cm_yr) || 5.8
     });
     var trimmed = arr.slice(-12);
-    try {
-      localStorage.setItem(key, JSON.stringify(trimmed));
-    } catch (_) {}
+    try { localStorage.setItem(key, JSON.stringify(trimmed)); } catch (_) {}
     return trimmed;
+  }
+
+  function computeLocalKfgCommentary(payload) {
+    var prevH = Number(payload.prev_height_cm) || (Number(payload.current_height_cm) - 0.5);
+    var curH = Number(payload.current_height_cm) || 137.7;
+    var age = Number(payload.child_age_years) || 9;
+    var isF = String(payload.child_sex || 'M').toUpperCase().charAt(0) === 'F';
+    var targetVel = age < 6 ? 6.6 : (age < 9 ? 5.7 : (age < 11.5 ? (isF ? 7.4 : 5.5) : (age < 14 ? (isF ? 5.6 : 8.2) : 3.6)));
+    var targetInYr = Math.round((targetVel / 2.54) * 10) / 10;
+    var delta = Math.round((curH - prevH) * 100) / 100;
+    var deltaIn = Math.round((delta / 2.54) * 100) / 100;
+    var annVel = Math.round(((delta / 30) * 365) * 10) / 10;
+    var annInYr = Math.round((annVel / 2.54) * 10) / 10;
+    var habits = [
+      { key: 'Deep Sleep Window (Pre-10 PM Routine)', score: Number(payload.sleep_score) || 3, tip: 'Shift lights-out 30 minutes earlier and turn off screens 45 minutes before bed to support consistent deep-sleep recovery.' },
+      { key: 'Protein + Calcium / Vit D3 / Zinc Balance', score: Number(payload.nutrition_score) || 3, tip: 'Pair dinner lean protein with Calcium, Vitamin D3, and Zinc-rich whole foods for balanced daily nutrition.' },
+      { key: 'Daily 20-Min Jump & Stretch Activity', score: Number(payload.exercise_score) || 3, tip: 'Add 15-20 minutes of jump-rope, hops, or evening spine-lengthening stretches daily.' },
+      { key: 'Desk Posture & Nasal Breathing Habit', score: Number(payload.posture_score) || 3, tip: 'Support upright desk posture and nighttime nasal breathing habits to maintain full standing stature.' }
+    ].sort(function (a, b) { return a.score - b.score; });
+    var verdict = delta <= 0
+      ? ('Height held steady at ' + (curH / 2.54).toFixed(1) + ' in (' + curH.toFixed(1) + ' cm) this 30-day cycle; childhood growth naturally happens in pulses. Keep morning wall measurements consistent.')
+      : ('30-day gain of +' + deltaIn.toFixed(2) + ' in (+' + delta.toFixed(2) + ' cm) — annualized pace of ~' + annInYr.toFixed(1) + ' in/yr (' + annVel.toFixed(1) + ' cm/yr) vs. US CDC age-' + age + ' reference of ' + targetInYr.toFixed(1) + ' in/yr.');
+    return {
+      ok: true,
+      prev_height_cm: prevH,
+      current_height_cm: curH,
+      delta_cm: delta,
+      delta_inches: deltaIn,
+      annualized_cm_yr: annVel,
+      annualized_in_yr: annInYr,
+      cdc_target_cm_yr: targetVel,
+      cdc_target_in_yr: targetInYr,
+      velocity_verdict: verdict,
+      strongest_habit: habits[habits.length - 1],
+      priority_bottleneck: habits[0]
+    };
+  }
+
+  function computeLocalKfkCommentary(payload) {
+    var prevH = Number(payload.prev_height_cm) || (Number(payload.current_height_cm) - 0.5);
+    var curH = Number(payload.current_height_cm) || 134.5;
+    var age = Number(payload.child_age_years) || 9;
+    var isF = String(payload.child_sex || 'M').toUpperCase().charAt(0) === 'F';
+    var targetVel = age < 6 ? 6.6 : (age < 9 ? 5.8 : (age < 11.5 ? (isF ? 7.5 : 5.6) : (age < 14 ? (isF ? 5.5 : 8.3) : 3.5)));
+    var delta = Math.round((curH - prevH) * 100) / 100;
+    var annVel = Math.round(((delta / 30) * 365) * 10) / 10;
+    var habits = [
+      {
+        key: '\uc218\uba74 \uace8\ub4e0\ud0c0\uc784 (22\uc2dc \uc774\uc804 \ucde8\uce68)',
+        score: Number(payload.sleep_score) || 3,
+        tip: '\ucde8\uce68 \uc2dc\uac04\uc744 30\ubd84 \uc55e\ub2f9\uae30\uace0 \uc7a0\ub4e4\uae30 45\ubd84 \uc804 \uc2a4\ub9c8\ud2b8\ud3f0\u00b7TV \ud654\uba74\uc744 \ub044\uba74 \uc131\uc7a5\ud638\ub974\ubaac \ubd84\ube44 \ud3ed\uc744 \uc548\uc815\uc801\uc73c\ub85c \uc9c0\ud0ac \uc218 \uc788\uc2b5\ub2c8\ub2e4.'
+      },
+      {
+        key: '\ub2e8\ubc31\uc9c8\u00b7\uce7c\uc298\u00b7\ube44\ud0c0\ubbfcD \uc2dd\ub2e8',
+        score: Number(payload.nutrition_score) || 3,
+        tip: '\uc800\ub141 \uc2dd\uc0ac\uc5d0 \uc0b4\ucf54\uae30\u00b7\uc0dd\uc120\u00b7\ub450\ubd80 \ub4f1 \uc591\uc9c8\uc758 \ub2e8\ubc31\uc9c8\uc744 \ucc59\uae30\uace0 \uc2dd\ud6c4 \uc57c\uc2dd\u00b7\ub2e8 \uc74c\ub8cc\ub97c \uc904\uc5ec \uace8\ubc00\ub3c4\uc640 \uc778\uc290\ub9b0 \ubc18\uc751\uc744 \ud568\uaed8 \uad00\ub9ac\ud558\uc138\uc694.'
+      },
+      {
+        key: '\uc218\uc9c1 \uc810\ud504\u00b7\ud558\uccb4 \uc2a4\ud2b8\ub808\uce6d (20\ubd84)',
+        score: Number(payload.exercise_score) || 3,
+        tip: '\uc904\ub118\uae30\u00b7\ub18d\uad6c\u00b7\uc81c\uc790\ub9ac \uc810\ud504 \ub4f1 \ud558\ub8e8 15~20\ubd84 \uc218\uc9c1 \uc790\uadf9 \uc6b4\ub3d9\uacfc \ucde8\uce68 \uc804 \ucc99\ucd94 \uc2a4\ud2b8\ub808\uce6d\uc744 \uafb8\uc900\ud788 \uc720\uc9c0\ud558\uc138\uc694.'
+      },
+      {
+        key: '\ubc14\ub978 \uc790\uc138\u00b7\ucf54\ud638\ud761 \uc2b5\uad00',
+        score: Number(payload.posture_score) || 3,
+        tip: '\ucc45\uc0c1 \uac70\ubd81\ubaa9 \uad50\uc815\uacfc \uc218\uba74 \uc911 \ucf54\ud638\ud761 \uc720\uc9c0\ub9cc\uc73c\ub85c\ub3c4 \uc228\uc5b4 \uc788\ub358 1.0~1.8cm\uc758 \uc2e0\uc7a5 \ud3ec\ud150\uc15c\uc744 \uc9c0\ud0ac \uc218 \uc788\uc2b5\ub2c8\ub2e4.'
+      }
+    ].sort(function (a, b) { return a.score - b.score; });
+
+    var paceNote = annVel >= targetVel
+      ? '\ub610\ub798 \ud3c9\uade0 \uc131\uc7a5\uc18d\ub3c4\ub97c \uc6c3\ub3c4\ub294 \uc591\ud638\ud55c \ud750\ub984\uc785\ub2c8\ub2e4.'
+      : '\ub610\ub798 \uae30\uc900 \uc18d\ub3c4\ubcf4\ub2e4 \uc57d\uac04 \uc644\ub9cc\ud558\ubbc0\ub85c \ucd5c\uc6b0\uc120 \ubcd1\ubaa9 \uc2b5\uad00 1\uac00\uc9c0\ubd80\ud130 \uc9d1\uc911 \ubcf4\uc644\ud574 \ubcf4\uc138\uc694.';
+
+    var verdict = delta <= 0
+      ? ('\uc774\ubc88 30\uc77c \uc8fc\uae30 \uce21\uc815\ud0a4\ub294 ' + curH.toFixed(1) + 'cm\ub85c \ubcf4\ud569 \uad6c\uac04\uc785\ub2c8\ub2e4. \uc18c\uc544 \uc131\uc7a5\uc740 \uacc4\ub2e8\uc2dd\uc73c\ub85c \ud06c\ubbc0\ub85c \ub9e4\uc6d4 \uac19\uc740 \uc544\uce68 \uc2dc\uac04 \uce21\uc815\uacfc 22\uc2dc \uc774\uc804 \ucde8\uce68\uc744 \uc720\uc9c0\ud574 \uc8fc\uc138\uc694.')
+      : ('30\uc77c \ub3d9\uc548 +' + delta.toFixed(2) + 'cm \uc131\uc7a5 (\uc5f0\uac04 \ud658\uc0b0 ' + annVel.toFixed(1) + 'cm/\ub144 vs \uc9c8\ubcd1\uad00\ub9ac\uccad \ub9cc ' + age + '\uc138 \uae30\uc900 ' + targetVel.toFixed(1) + 'cm/\ub144). ' + paceNote);
+
+    return {
+      ok: true,
+      prev_height_cm: prevH,
+      current_height_cm: curH,
+      delta_cm: delta,
+      annualized_cm_yr: annVel,
+      kdca_target_cm_yr: targetVel,
+      velocity_verdict: verdict,
+      strongest_habit: habits[habits.length - 1],
+      priority_bottleneck: habits[0]
+    };
   }
 
   function enrollKfgPaidVip(opts) {
@@ -487,22 +609,18 @@
       return Promise.resolve({ ok: false, error: 'INVALID_EMAIL' });
     }
     var payload = {
-      action: 'enroll_kfg_paid_vip',
       email: email,
       parent_name: String((opts && opts.parent_name) || 'Parent').trim(),
       child_name: String((opts && opts.child_name) || 'Your Child').trim(),
       child_sex: String((opts && opts.child_sex) || 'M').trim().toUpperCase(),
       child_age_years: Number((opts && opts.child_age_years) || 9),
-      baseline_height_cm: Number((opts && opts.baseline_height_cm) || 134),
+      baseline_height_cm: Number((opts && opts.baseline_height_cm) || 137.2),
       plan_tier: String((opts && opts.plan_tier) || '6-Month Growth Pass ($19.99)').trim(),
       months_remaining: Number((opts && opts.months_remaining) || 6),
       order_ref: String((opts && opts.order_ref) || 'POLAR-KFG-VIP').trim()
     };
-    try {
-      localStorage.setItem('dc_kfg_paid_vip', JSON.stringify(payload));
-    } catch (_) {}
-
-    deliverPaidMagicPack({
+    try { localStorage.setItem('dc_kfg_paid_vip', JSON.stringify(payload)); } catch (_) {}
+    return deliverPaidMagicPack({
       div: 'KFG',
       email: email,
       nickname: payload.parent_name,
@@ -510,83 +628,38 @@
       order_ref: payload.order_ref,
       hash_anchor: 'kfg-vip-monthly-checkin',
       profile_state: payload
+    }).then(function () {
+      return { ok: true, baseline_height_cm: payload.baseline_height_cm };
     });
-
-    return postWithLegacyFallback(payload, null).then(function (res) {
-      return res || { ok: true, baseline_height_cm: payload.baseline_height_cm };
-    });
-  }
-
-  function computeLocalKfgCommentary(payload) {
-    var prevH = Number(payload.prev_height_cm) || (Number(payload.current_height_cm) - 0.5);
-    var curH = Number(payload.current_height_cm) || 134.5;
-    var age = Number(payload.child_age_years) || 9;
-    var isF = String(payload.child_sex || 'M').toUpperCase().charAt(0) === 'F';
-    var targetVel = age < 6 ? 6.6 : (age < 9 ? 5.7 : (age < 11.5 ? (isF ? 7.4 : 5.5) : (age < 14 ? (isF ? 5.6 : 8.2) : 3.6)));
-    var delta = Math.round((curH - prevH) * 100) / 100;
-    var annVel = Math.round(((delta / 30) * 365) * 10) / 10;
-    var habits = [
-      { key: 'Deep Sleep Window (Pre-10 PM GH Pulse)', score: Number(payload.sleep_score) || 3, tip: 'Shift lights-out 30 minutes earlier and turn off screens 45 minutes before bed to protect peak Growth Hormone release.' },
-      { key: 'Protein + Calcium / Vit D3 / Zinc Intake', score: Number(payload.nutrition_score) || 3, tip: 'Pair dinner lean protein with bioavailable Calcium, Vitamin D3, and Zinc for healthy bone-plate mineralization.' },
-      { key: 'Daily 20-Min Vertical Impact & Stretch', score: Number(payload.exercise_score) || 3, tip: 'Add 15-20 minutes of jump-rope, hops, or evening spinal decompression stretches daily.' },
-      { key: 'Spinal Posture & Nasal Breathing', score: Number(payload.posture_score) || 3, tip: 'Correct forward-head desk posture and check nighttime nasal breathing to protect 1.0-1.8 cm of standing stature.' }
-    ].sort(function (a, b) { return a.score - b.score; });
-    var verdict = delta <= 0
-      ? ('Height held steady at ' + curH.toFixed(1) + ' cm this 30-day cycle; linear growth occurs in saltatory pulses - protect morning measurement consistency and pre-10 PM sleep.')
-      : ('30-day gain of +' + delta.toFixed(2) + ' cm (~' + annVel.toFixed(1) + ' cm/yr annualized pace vs. US CDC age-' + age + ' reference of ' + targetVel.toFixed(1) + ' cm/yr).');
-    return {
-      ok: true,
-      prev_height_cm: prevH,
-      current_height_cm: curH,
-      delta_cm: delta,
-      delta_inches: Math.round((delta / 2.54) * 100) / 100,
-      annualized_cm_yr: annVel,
-      annualized_in_yr: Math.round((annVel / 2.54) * 100) / 100,
-      cdc_target_cm_yr: targetVel,
-      velocity_verdict: verdict,
-      strongest_habit: habits[habits.length - 1],
-      priority_bottleneck: habits[0]
-    };
   }
 
   function submitKfgVipCheckin(opts) {
+    var siblingId = (opts && opts.sibling_id) || '';
     var payload = {
-      action: 'submit_kfg_vip_checkin',
       email: String((opts && opts.email) || '').trim().toLowerCase(),
-      vip_token: String((opts && opts.vip_token) || '').trim(),
-      paid_verified: Boolean(opts && opts.paid_verified),
-      order_ref: String((opts && opts.order_ref) || '').trim(),
       child_name: String((opts && opts.child_name) || 'Your Child').trim(),
       child_sex: String((opts && opts.child_sex) || 'M').trim().toUpperCase(),
       child_age_years: Number((opts && opts.child_age_years) || 9),
-      prev_height_cm: Number((opts && opts.prev_height_cm) || 0),
-      current_height_cm: Number((opts && opts.current_height_cm) || 0),
+      prev_height_cm: Number((opts && opts.prev_height_cm) || 137.2),
+      current_height_cm: Number((opts && opts.current_height_cm) || 137.7),
       sleep_score: Number((opts && opts.sleep_score) || 3),
       nutrition_score: Number((opts && opts.nutrition_score) || 3),
       exercise_score: Number((opts && opts.exercise_score) || 3),
       posture_score: Number((opts && opts.posture_score) || 3)
     };
-    var localFallback = computeLocalKfgCommentary(payload);
+    var localRes = computeLocalKfgCommentary(payload);
     var history = appendCheckinHistory('KFG', {
-      prev_height_cm: localFallback.prev_height_cm,
-      current_height_cm: localFallback.current_height_cm,
-      delta_cm: localFallback.delta_cm,
-      annualized_cm_yr: localFallback.annualized_cm_yr,
-      target_cm_yr: localFallback.cdc_target_cm_yr
-    });
-    localFallback.history = history;
-
-    return postWithLegacyFallback(payload, null).then(function (res) {
-      if (res && typeof res === 'object') {
-        var merged = {};
-        var k;
-        for (k in localFallback) { if (Object.prototype.hasOwnProperty.call(localFallback, k)) merged[k] = localFallback[k]; }
-        for (k in res) { if (Object.prototype.hasOwnProperty.call(res, k) && res[k] !== undefined && res[k] !== null) merged[k] = res[k]; }
-        merged.history = history;
-        return merged;
-      }
-      return localFallback;
-    });
+      prev_height_cm: localRes.prev_height_cm,
+      current_height_cm: localRes.current_height_cm,
+      delta_cm: localRes.delta_cm,
+      annualized_cm_yr: localRes.annualized_cm_yr,
+      target_cm_yr: localRes.cdc_target_cm_yr
+    }, siblingId);
+    localRes.history = history;
+    if (payload.email) {
+      trackFunnelEvent('KFG', 'vip_checkin_submit');
+    }
+    return Promise.resolve(localRes);
   }
 
   function enrollKfkPaidVip(opts) {
@@ -595,7 +668,6 @@
       return Promise.resolve({ ok: false, error: 'INVALID_EMAIL' });
     }
     var payload = {
-      action: 'enroll_kfk_paid_vip',
       email: email,
       parent_name: String((opts && opts.parent_name) || 'Parent').trim(),
       child_name: String((opts && opts.child_name) || 'Child').trim(),
@@ -604,12 +676,9 @@
       baseline_height_cm: Number((opts && opts.baseline_height_cm) || 134),
       plan_tier: String((opts && opts.plan_tier) || 'Latpeed Tier 2 (19,900 KRW)').trim(),
       months_remaining: Number((opts && opts.months_remaining) || 6),
-      order_ref: String((opts && opts.order_ref) || 'LATPEED-EMAIL-PASS').trim()
+      order_ref: String((opts && opts.order_ref) || 'LATPEED-VIP').trim()
     };
-    try {
-      localStorage.setItem('dc_kfk_paid_vip', JSON.stringify(payload));
-    } catch (_) {}
-
+    try { localStorage.setItem('dc_kfk_paid_vip', JSON.stringify(payload)); } catch (_) {}
     return deliverPaidMagicPack({
       div: 'KFK',
       email: email,
@@ -620,112 +689,85 @@
       hash_anchor: 'kfk-vip-monthly-checkin',
       profile_state: payload
     }).then(function (packRes) {
-      var fallback = {
-        action: 'register_member',
-        div: 'KFK',
-        email: email,
-        nickname: payload.parent_name,
-        segment: 'KFK_Paid_VIP',
-        notes: 'KFK_PAID_VIP|' + JSON.stringify({
-          child: payload.child_name,
-          sex: payload.child_sex,
-          age: payload.child_age_years,
-          h0: payload.baseline_height_cm,
-          tier: payload.plan_tier,
-          ref: payload.order_ref
-        })
+      return {
+        ok: true,
+        magic_restore_url: packRes.magic_restore_url,
+        refund_support_url: packRes.refund_support_url,
+        baseline_height_cm: payload.baseline_height_cm
       };
-      return postWithLegacyFallback(payload, fallback).then(function (res) {
-        return {
-          ok: true,
-          crm: res,
-          magic_restore_url: packRes.magic_restore_url,
-          refund_support_url: packRes.refund_support_url,
-          baseline_height_cm: payload.baseline_height_cm
-        };
-      });
     });
   }
 
   function submitKfkVipCheckin(opts) {
-    var curH = Number((opts && opts.current_height_cm) || 134.5);
-    var prevH = Number((opts && opts.prev_height_cm) || (curH - 0.5));
-    var age = Number((opts && opts.child_age_years) || 9);
-    var isF = String((opts && opts.child_sex) || 'M').toUpperCase().charAt(0) === 'F';
-    var targetVel = age < 6 ? 6.6 : (age < 9 ? 5.8 : (age < 11.5 ? (isF ? 7.5 : 5.6) : (age < 14 ? (isF ? 5.5 : 8.3) : 3.5)));
-    var delta = Math.round((curH - prevH) * 100) / 100;
-    var annVel = Math.round(((delta / 30) * 365) * 10) / 10;
-    var history = appendCheckinHistory('KFK', {
-      prev_height_cm: prevH,
-      current_height_cm: curH,
-      delta_cm: delta,
-      annualized_cm_yr: annVel,
-      target_cm_yr: targetVel
-    });
-
     var payload = {
-      action: 'submit_kfk_vip_checkin',
       email: String((opts && opts.email) || '').trim().toLowerCase(),
-      paid_verified: true,
-      order_ref: String((opts && opts.order_ref) || 'LATPEED-VIP').trim(),
       child_name: String((opts && opts.child_name) || 'Child').trim(),
-      child_sex: isF ? 'F' : 'M',
-      child_age_years: age,
-      prev_height_cm: prevH,
-      current_height_cm: curH,
+      child_sex: String((opts && opts.child_sex) || 'M').trim().toUpperCase(),
+      child_age_years: Number((opts && opts.child_age_years) || 9),
+      prev_height_cm: Number((opts && opts.prev_height_cm) || 134.0),
+      current_height_cm: Number((opts && opts.current_height_cm) || 134.5),
       sleep_score: Number((opts && opts.sleep_score) || 4),
       nutrition_score: Number((opts && opts.nutrition_score) || 4),
       exercise_score: Number((opts && opts.exercise_score) || 3),
       posture_score: Number((opts && opts.posture_score) || 4)
     };
-    var fallback = payload.email ? {
-      action: 'register_member',
-      div: 'KFK',
-      email: payload.email,
-      segment: 'KFK_Paid_VIP',
-      notes: 'KFK_CHECKIN|' + prevH + '->' + curH + '|vel=' + annVel + 'cm/yr'
-    } : null;
-
-    return postWithLegacyFallback(payload, fallback).then(function (res) {
-      return {
-        ok: true,
-        crm: res,
-        prev_height_cm: prevH,
-        current_height_cm: curH,
-        delta_cm: delta,
-        annualized_cm_yr: annVel,
-        kdca_target_cm_yr: targetVel,
-        history: history
-      };
+    var localRes = computeLocalKfkCommentary(payload);
+    var history = appendCheckinHistory('KFK', {
+      prev_height_cm: localRes.prev_height_cm,
+      current_height_cm: localRes.current_height_cm,
+      delta_cm: localRes.delta_cm,
+      annualized_cm_yr: localRes.annualized_cm_yr,
+      target_cm_yr: localRes.kdca_target_cm_yr
     });
+    localRes.history = history;
+    if (payload.email) {
+      trackFunnelEvent('KFK', 'vip_checkin_submit');
+    }
+    return Promise.resolve(localRes);
   }
 
   function flushPendingQueue() {
     var q = readQueue();
     if (!q.length) return;
-    resolveEndpointUrl().then(function (execUrl) {
-      if (!execUrl) return;
-      var remaining = [];
-      var chain = Promise.resolve();
-      q.forEach(function (item) {
-        chain = chain.then(function () {
-          return postToAppsScript(execUrl, item).catch(function () {
-            remaining.push(item);
-          });
-        });
+    var remaining = [];
+    var chain = Promise.resolve();
+    q.forEach(function (item) {
+      chain = chain.then(function () {
+        return postCloudJson('/api/crm/register', item).then(function (r) {
+          if (!r || !r.ok) remaining.push(item);
+        }).catch(function () { remaining.push(item); });
       });
-      chain.then(function () { writeQueue(remaining); });
     });
+    chain.then(function () { writeQueue(remaining); });
   }
 
+  // Auto-fire Stage 1 funnel `landing_view` + flush queue + auto-wire checkout_click on Whop/Polar/Latpeed links!
   if (global.addEventListener) {
     global.addEventListener('DOMContentLoaded', function () {
-      setTimeout(flushPendingQueue, 1800);
+      var div = detectDivFromHost();
+      captureUtmParams();
+      trackFunnelEvent(div, 'landing_view');
+      setTimeout(flushPendingQueue, 1500);
+      if (global.document && global.document.addEventListener) {
+        global.document.addEventListener('click', function (ev) {
+          var a = ev.target && ev.target.closest ? ev.target.closest('a,button') : null;
+          if (!a) return;
+          var href = String(a.getAttribute('href') || '');
+          if (/whop\.com|buy\.polar\.sh|latpeed\.com|cshop\.naver\.com|influencers\.coupang\.com/i.test(href)) {
+            trackFunnelEvent(div, 'checkout_click');
+          }
+        });
+      }
     });
   }
 
   global.DreamCompanyCRM = {
+    CLOUD_API_BASE: CLOUD_API_BASE,
     registerMember: registerMember,
+    verifyEntitlement: verifyEntitlement,
+    trackFunnelEvent: trackFunnelEvent,
+    fetchHeroVotes: fetchHeroVotes,
+    submitHeroVote: submitHeroVote,
     deliverPaidMagicPack: deliverPaidMagicPack,
     encodeMagicRestoreUrl: encodeMagicRestoreUrl,
     decodeMagicRestoreParam: decodeMagicRestoreParam,
@@ -734,6 +776,7 @@
     submitSatisfactionVote: submitSatisfactionVote,
     mountSatisfactionBar: mountSatisfactionBar,
     buildRefundSupportMailto: buildRefundSupportMailto,
+    getSupportEmail: getSupportEmail,
     enrollKfgPaidVip: enrollKfgPaidVip,
     submitKfgVipCheckin: submitKfgVipCheckin,
     enrollKfkPaidVip: enrollKfkPaidVip,

@@ -2,7 +2,7 @@
 
 > 日本の50代〜70代個人投資家・新NISA運用層のための公開市場データ可視化および資産配分計算ソフトウェア（Self-Directed Educational Calculator Software）。金融庁規定準拠『新NISA成長投資枠 適格（米国半導体 SMH × 米国ヘルスケア XLV 現物1倍2本柱）＋ 安全資産クッション（個人向け国債 変動10年 ／ 特定口座 SGOV）』対応。
 > 公式チャンネル: https://www.youtube.com/@GetBreakAI | https://www.instagram.com/getbreakai/
-> 最終更新日: 2026-11-20 (JST)
+> 最終更新日: 2026-11-21 (JST)
 
 ## 1. コア計算ツール（投資助言・売買推奨を行わない自己判断用教育計算ソフトウェア）
 - **4ステップ SMH × XLV ＋ 個人向け国債 比率設計シミュレーター**: 新NISA成長投資枠と安全資産クッションの初期ベース比率試算。

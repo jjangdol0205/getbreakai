@@ -1,42 +1,72 @@
 {
+<<<<<<< Updated upstream
   "updated_date": "2026-11-20",
   "market_bar_date": "2026-11-18",
   "updated_at_jst": "2026-11-20 11:03:20 JST",
   "usd_jpy": 159.26,
   "usdjpy": 159.26,
+=======
+  "updated_date": "2026-11-21",
+  "market_bar_date": "2026-11-20",
+  "updated_at_jst": "2026-11-21 06:31:30 JST",
+  "usd_jpy": 158.62,
+  "usdjpy": 158.62,
+>>>>>>> Stashed changes
   "yfinance_live_count": 31,
   "indices": {
     "^N225": {
       "symbol": "^N225",
       "name": "日経平均株価 (Nikkei 225)",
+<<<<<<< Updated upstream
       "price": 57034.79,
       "change_pct": -3.37,
+=======
+      "price": 59444.21,
+      "change_pct": 0.71,
+>>>>>>> Stashed changes
       "regime": "CONSOLIDATION",
       "regime_jp": "ボラティリティ警戒・防御優先局面",
       "donchian_20d_high": 65404.63,
       "is_breakout": false,
+<<<<<<< Updated upstream
       "wilder_rsi": 32.0,
       "pw_rsi": 91.2,
       "atr_14d": 1622.4,
+=======
+      "wilder_rsi": 39.2,
+      "pw_rsi": 91.2,
+      "atr_14d": 1513.9,
+>>>>>>> Stashed changes
       "momentum_score": 92.4,
       "status": "2.0x ATRリスク管理徹底ゾーン",
-      "updated_date": "2026-11-20"
+      "updated_date": "2026-11-21"
     },
     "^TOPX": {
       "symbol": "^TOPX",
       "name": "東証株価指数 (TOPIX)",
+<<<<<<< Updated upstream
       "price": 3763.34,
       "change_pct": -2.73,
+=======
+      "price": 3869.16,
+      "change_pct": 0.07,
+>>>>>>> Stashed changes
       "regime": "DEFENSIVE_VALUE",
       "regime_jp": "ディフェンシブ大型株選別局面",
       "donchian_20d_high": 4121.21,
       "is_breakout": false,
+<<<<<<< Updated upstream
       "wilder_rsi": 33.5,
       "pw_rsi": 88.6,
       "atr_14d": 74.5,
+=======
+      "wilder_rsi": 39.8,
+      "pw_rsi": 88.6,
+      "atr_14d": 71.4,
+>>>>>>> Stashed changes
       "momentum_score": 89.1,
       "status": "東証プライム押し目買いゾーン",
-      "updated_date": "2026-11-20"
+      "updated_date": "2026-11-21"
     }
   },
   "tickers": {
@@ -45,6 +75,7 @@
       "jp_name": "エヌビディア",
       "market": "US_TECH",
       "currency": "USD",
+<<<<<<< Updated upstream
       "entry": 150.96,
       "close": 150.96,
       "atr": 9.68,
@@ -63,12 +94,33 @@
       "catalyst_rating": "Blackwell増産8-K・Call 3.2倍GEX",
       "market_bar_date": "2026-11-18",
       "updated_date": "2026-11-20"
+=======
+      "entry": 125.53,
+      "close": 125.53,
+      "atr": 10.69,
+      "iv": 68,
+      "score": 93.5,
+      "stop_loss": 104.15,
+      "stop_dist": 21.38,
+      "target_25r": 178.98,
+      "exp_move_5d": 12.02,
+      "upper_gamma_wall": 137.55,
+      "gamma_flip": 116.44,
+      "donchian_20d_high": 219.99,
+      "wilder_rsi": 14.9,
+      "pw_rsi": 94.2,
+      "breakout_status": "ACCUMULATION",
+      "catalyst_rating": "Blackwell増産8-K・Call 3.2倍GEX",
+      "market_bar_date": "2026-11-20",
+      "updated_date": "2026-11-21"
+>>>>>>> Stashed changes
     },
     "PLTR": {
       "ticker": "PLTR",
       "jp_name": "パランティア",
       "market": "US_TECH",
       "currency": "USD",
+<<<<<<< Updated upstream
       "entry": 156.67,
       "close": 156.67,
       "atr": 8.57,
@@ -87,12 +139,33 @@
       "catalyst_rating": "国防AI大型契約(8-K)・DP機関買い64%",
       "market_bar_date": "2026-11-18",
       "updated_date": "2026-11-20"
+=======
+      "entry": 143.49,
+      "close": 143.49,
+      "atr": 9.13,
+      "iv": 74,
+      "score": 91.0,
+      "stop_loss": 125.23,
+      "stop_dist": 18.26,
+      "target_25r": 189.14,
+      "exp_move_5d": 14.96,
+      "upper_gamma_wall": 158.45,
+      "gamma_flip": 135.73,
+      "donchian_20d_high": 201.83,
+      "wilder_rsi": 26.0,
+      "pw_rsi": 92.5,
+      "breakout_status": "ACCUMULATION",
+      "catalyst_rating": "国防AI大型契約(8-K)・DP機関買い64%",
+      "market_bar_date": "2026-11-20",
+      "updated_date": "2026-11-21"
+>>>>>>> Stashed changes
     },
     "LLY": {
       "ticker": "LLY",
       "jp_name": "イーライリリー",
       "market": "US_TECH",
       "currency": "USD",
+<<<<<<< Updated upstream
       "entry": 1382.75,
       "close": 1382.75,
       "atr": 43.33,
@@ -106,17 +179,38 @@
       "gamma_flip": 1345.92,
       "donchian_20d_high": 1475.25,
       "wilder_rsi": 56.0,
+=======
+      "entry": 1347.11,
+      "close": 1347.11,
+      "atr": 42.28,
+      "iv": 42,
+      "score": 89.8,
+      "stop_loss": 1262.55,
+      "stop_dist": 84.56,
+      "target_25r": 1558.51,
+      "exp_move_5d": 79.7,
+      "upper_gamma_wall": 1426.81,
+      "gamma_flip": 1311.17,
+      "donchian_20d_high": 1475.25,
+      "wilder_rsi": 49.4,
+>>>>>>> Stashed changes
       "pw_rsi": 89.1,
       "breakout_status": "STANDARD_BREAKOUT",
       "catalyst_rating": "CEO/CFOら3名が自腹$4.8M市場内買い",
+<<<<<<< Updated upstream
       "market_bar_date": "2026-11-18",
       "updated_date": "2026-11-20"
+=======
+      "market_bar_date": "2026-11-20",
+      "updated_date": "2026-11-21"
+>>>>>>> Stashed changes
     },
     "TSLA": {
       "ticker": "TSLA",
       "jp_name": "テスラ",
       "market": "US_TECH",
       "currency": "USD",
+<<<<<<< Updated upstream
       "entry": 383.72,
       "close": 383.72,
       "atr": 15.67,
@@ -135,12 +229,33 @@
       "catalyst_rating": "Call 3.6倍スイープ流入・踏み上げ点火",
       "market_bar_date": "2026-11-18",
       "updated_date": "2026-11-20"
+=======
+      "entry": 345.82,
+      "close": 345.82,
+      "atr": 17.18,
+      "iv": 82,
+      "score": 89.7,
+      "stop_loss": 311.46,
+      "stop_dist": 34.36,
+      "target_25r": 431.72,
+      "exp_move_5d": 39.94,
+      "upper_gamma_wall": 385.76,
+      "gamma_flip": 331.22,
+      "donchian_20d_high": 414.23,
+      "wilder_rsi": 37.9,
+      "pw_rsi": 93.1,
+      "breakout_status": "ACCUMULATION",
+      "catalyst_rating": "Call 3.6倍スイープ流入・踏み上げ点火",
+      "market_bar_date": "2026-11-20",
+      "updated_date": "2026-11-21"
+>>>>>>> Stashed changes
     },
     "SMCI": {
       "ticker": "SMCI",
       "jp_name": "スーパー・マイクロ",
       "market": "US_TECH",
       "currency": "USD",
+<<<<<<< Updated upstream
       "entry": 24.37,
       "close": 24.37,
       "atr": 2.44,
@@ -159,12 +274,33 @@
       "catalyst_rating": "10-K会計監査リスク＆機関売り67%検知",
       "market_bar_date": "2026-11-18",
       "updated_date": "2026-11-20"
+=======
+      "entry": 21.65,
+      "close": 21.65,
+      "atr": 2.42,
+      "iv": 96,
+      "score": 28.5,
+      "stop_loss": 16.81,
+      "stop_dist": 4.84,
+      "target_25r": 33.75,
+      "exp_move_5d": 2.93,
+      "upper_gamma_wall": 24.58,
+      "gamma_flip": 19.59,
+      "donchian_20d_high": 36.4,
+      "wilder_rsi": 27.9,
+      "pw_rsi": 25.4,
+      "breakout_status": "AVOID_TRAP",
+      "catalyst_rating": "10-K会計監査リスク＆機関売り67%検知",
+      "market_bar_date": "2026-11-20",
+      "updated_date": "2026-11-21"
+>>>>>>> Stashed changes
     },
     "AVGO": {
       "ticker": "AVGO",
       "jp_name": "ブロードコム",
       "market": "US_TECH",
       "currency": "USD",
+<<<<<<< Updated upstream
       "entry": 354.05,
       "close": 354.05,
       "atr": 17.52,
@@ -178,17 +314,38 @@
       "gamma_flip": 339.16,
       "donchian_20d_high": 369.82,
       "wilder_rsi": 55.1,
+=======
+      "entry": 304.41,
+      "close": 304.41,
+      "atr": 19.98,
+      "iv": 58,
+      "score": 88.4,
+      "stop_loss": 264.45,
+      "stop_dist": 39.96,
+      "target_25r": 404.31,
+      "exp_move_5d": 24.87,
+      "upper_gamma_wall": 329.28,
+      "gamma_flip": 287.43,
+      "donchian_20d_high": 369.82,
+      "wilder_rsi": 40.8,
+>>>>>>> Stashed changes
       "pw_rsi": 89.2,
       "breakout_status": "STANDARD_BREAKOUT",
       "catalyst_rating": "カスタムAI半導体(ASIC)受注・DP 59%",
+<<<<<<< Updated upstream
       "market_bar_date": "2026-11-18",
       "updated_date": "2026-11-20"
+=======
+      "market_bar_date": "2026-11-20",
+      "updated_date": "2026-11-21"
+>>>>>>> Stashed changes
     },
     "AMD": {
       "ticker": "AMD",
       "jp_name": "アドバンスト・マイクロ・デバイセズ",
       "market": "US_TECH",
       "currency": "USD",
+<<<<<<< Updated upstream
       "entry": 530.14,
       "close": 530.14,
       "atr": 40.24,
@@ -207,12 +364,33 @@
       "catalyst_rating": "MI350 AI GPUシェア拡大・コール集積",
       "market_bar_date": "2026-11-18",
       "updated_date": "2026-11-20"
+=======
+      "entry": 424.39,
+      "close": 424.39,
+      "atr": 45.35,
+      "iv": 64,
+      "score": 86.2,
+      "stop_loss": 333.69,
+      "stop_dist": 90.7,
+      "target_25r": 651.14,
+      "exp_move_5d": 38.26,
+      "upper_gamma_wall": 462.65,
+      "gamma_flip": 385.84,
+      "donchian_20d_high": 594.0,
+      "wilder_rsi": 38.5,
+      "pw_rsi": 87.5,
+      "breakout_status": "ACCUMULATION",
+      "catalyst_rating": "MI350 AI GPUシェア拡大・コール集積",
+      "market_bar_date": "2026-11-20",
+      "updated_date": "2026-11-21"
+>>>>>>> Stashed changes
     },
     "META": {
       "ticker": "META",
       "jp_name": "メタ・プラットフォームズ",
       "market": "US_TECH",
       "currency": "USD",
+<<<<<<< Updated upstream
       "entry": 616.38,
       "close": 616.38,
       "atr": 21.26,
@@ -231,12 +409,33 @@
       "catalyst_rating": "AI広告単価上昇・自社株買い枠拡大8-K",
       "market_bar_date": "2026-11-18",
       "updated_date": "2026-11-20"
+=======
+      "entry": 560.84,
+      "close": 560.84,
+      "atr": 23.29,
+      "iv": 48,
+      "score": 87.9,
+      "stop_loss": 514.26,
+      "stop_dist": 46.58,
+      "target_25r": 677.29,
+      "exp_move_5d": 37.92,
+      "upper_gamma_wall": 598.76,
+      "gamma_flip": 541.04,
+      "donchian_20d_high": 648.45,
+      "wilder_rsi": 30.6,
+      "pw_rsi": 88.7,
+      "breakout_status": "ACCUMULATION",
+      "catalyst_rating": "AI広告単価上昇・自社株買い枠拡大8-K",
+      "market_bar_date": "2026-11-20",
+      "updated_date": "2026-11-21"
+>>>>>>> Stashed changes
     },
     "CRWD": {
       "ticker": "CRWD",
       "jp_name": "クラウドストライク",
       "market": "US_TECH",
       "currency": "USD",
+<<<<<<< Updated upstream
       "entry": 237.03,
       "close": 237.03,
       "atr": 14.22,
@@ -255,12 +454,33 @@
       "catalyst_rating": "FalconプラットフォームARR拡大・PEAD",
       "market_bar_date": "2026-11-18",
       "updated_date": "2026-11-20"
+=======
+      "entry": 229.44,
+      "close": 229.44,
+      "atr": 14.71,
+      "iv": 56,
+      "score": 86.5,
+      "stop_loss": 200.02,
+      "stop_dist": 29.42,
+      "target_25r": 302.99,
+      "exp_move_5d": 18.1,
+      "upper_gamma_wall": 247.54,
+      "gamma_flip": 216.94,
+      "donchian_20d_high": 272.29,
+      "wilder_rsi": 46.0,
+      "pw_rsi": 86.9,
+      "breakout_status": "ACCUMULATION",
+      "catalyst_rating": "FalconプラットフォームARR拡大・PEAD",
+      "market_bar_date": "2026-11-20",
+      "updated_date": "2026-11-21"
+>>>>>>> Stashed changes
     },
     "VRT": {
       "ticker": "VRT",
       "jp_name": "バーティブ・ホールディングス",
       "market": "US_TECH",
       "currency": "USD",
+<<<<<<< Updated upstream
       "entry": 194.48,
       "close": 194.48,
       "atr": 16.31,
@@ -279,12 +499,33 @@
       "catalyst_rating": "AIデータセンター液冷冷却装置受注急伸",
       "market_bar_date": "2026-11-18",
       "updated_date": "2026-11-20"
+=======
+      "entry": 166.24,
+      "close": 166.24,
+      "atr": 16.76,
+      "iv": 72,
+      "score": 88.1,
+      "stop_loss": 132.72,
+      "stop_dist": 33.52,
+      "target_25r": 250.04,
+      "exp_move_5d": 16.86,
+      "upper_gamma_wall": 183.1,
+      "gamma_flip": 151.99,
+      "donchian_20d_high": 254.73,
+      "wilder_rsi": 35.2,
+      "pw_rsi": 90.4,
+      "breakout_status": "ACCUMULATION",
+      "catalyst_rating": "AIデータセンター液冷冷却装置受注急伸",
+      "market_bar_date": "2026-11-20",
+      "updated_date": "2026-11-21"
+>>>>>>> Stashed changes
     },
     "CEG": {
       "ticker": "CEG",
       "jp_name": "コンステレーション・エナジー",
       "market": "US_TECH",
       "currency": "USD",
+<<<<<<< Updated upstream
       "entry": 262.74,
       "close": 262.74,
       "atr": 12.66,
@@ -303,12 +544,33 @@
       "catalyst_rating": "Microsoft原子力PPA契約・クリーン電力",
       "market_bar_date": "2026-11-18",
       "updated_date": "2026-11-20"
+=======
+      "entry": 237.41,
+      "close": 237.41,
+      "atr": 13.35,
+      "iv": 61,
+      "score": 87.0,
+      "stop_loss": 210.71,
+      "stop_dist": 26.7,
+      "target_25r": 304.16,
+      "exp_move_5d": 20.4,
+      "upper_gamma_wall": 257.81,
+      "gamma_flip": 226.06,
+      "donchian_20d_high": 284.97,
+      "wilder_rsi": 37.5,
+      "pw_rsi": 88.1,
+      "breakout_status": "ACCUMULATION",
+      "catalyst_rating": "Microsoft原子力PPA契約・クリーン電力",
+      "market_bar_date": "2026-11-20",
+      "updated_date": "2026-11-21"
+>>>>>>> Stashed changes
     },
     "MSTR": {
       "ticker": "MSTR",
       "jp_name": "マイクロストラテジー",
       "market": "US_TECH",
       "currency": "USD",
+<<<<<<< Updated upstream
       "entry": 90.32,
       "close": 90.32,
       "atr": 8.65,
@@ -327,12 +589,33 @@
       "catalyst_rating": "BTC追加取得債券発行・高ボラティリティ",
       "market_bar_date": "2026-11-18",
       "updated_date": "2026-11-20"
+=======
+      "entry": 77.8,
+      "close": 77.8,
+      "atr": 8.7,
+      "iv": 108,
+      "score": 85.4,
+      "stop_loss": 60.4,
+      "stop_dist": 17.4,
+      "target_25r": 121.3,
+      "exp_move_5d": 11.84,
+      "upper_gamma_wall": 89.64,
+      "gamma_flip": 70.41,
+      "donchian_20d_high": 152.21,
+      "wilder_rsi": 20.2,
+      "pw_rsi": 87.2,
+      "breakout_status": "ACCUMULATION",
+      "catalyst_rating": "BTC追加取得債券発行・高ボラティリティ",
+      "market_bar_date": "2026-11-20",
+      "updated_date": "2026-11-21"
+>>>>>>> Stashed changes
     },
     "ARM": {
       "ticker": "ARM",
       "jp_name": "アーム・ホールディングス",
       "market": "US_TECH",
       "currency": "USD",
+<<<<<<< Updated upstream
       "entry": 182.76,
       "close": 182.76,
       "atr": 15.43,
@@ -351,12 +634,33 @@
       "catalyst_rating": "Arm v9アーキテクチャロイヤルティ倍増",
       "market_bar_date": "2026-11-18",
       "updated_date": "2026-11-20"
+=======
+      "entry": 152.2,
+      "close": 152.2,
+      "atr": 16.15,
+      "iv": 76,
+      "score": 86.0,
+      "stop_loss": 119.9,
+      "stop_dist": 32.3,
+      "target_25r": 232.95,
+      "exp_move_5d": 16.29,
+      "upper_gamma_wall": 168.49,
+      "gamma_flip": 138.47,
+      "donchian_20d_high": 237.88,
+      "wilder_rsi": 31.9,
+      "pw_rsi": 88.0,
+      "breakout_status": "ACCUMULATION",
+      "catalyst_rating": "Arm v9アーキテクチャロイヤルティ倍増",
+      "market_bar_date": "2026-11-20",
+      "updated_date": "2026-11-21"
+>>>>>>> Stashed changes
     },
     "ASML": {
       "ticker": "ASML",
       "jp_name": "ASMLホールディング",
       "market": "US_TECH",
       "currency": "USD",
+<<<<<<< Updated upstream
       "entry": 1395.27,
       "close": 1395.27,
       "atr": 64.55,
@@ -375,12 +679,33 @@
       "catalyst_rating": "高NA EUV露光装置納入・次世代半導体",
       "market_bar_date": "2026-11-18",
       "updated_date": "2026-11-20"
+=======
+      "entry": 1266.22,
+      "close": 1266.22,
+      "atr": 68.57,
+      "iv": 49,
+      "score": 85.8,
+      "stop_loss": 1129.08,
+      "stop_dist": 137.14,
+      "target_25r": 1609.07,
+      "exp_move_5d": 87.4,
+      "upper_gamma_wall": 1353.62,
+      "gamma_flip": 1207.94,
+      "donchian_20d_high": 1690.1,
+      "wilder_rsi": 28.9,
+      "pw_rsi": 86.4,
+      "breakout_status": "ACCUMULATION",
+      "catalyst_rating": "高NA EUV露光装置納入・次世代半導体",
+      "market_bar_date": "2026-11-20",
+      "updated_date": "2026-11-21"
+>>>>>>> Stashed changes
     },
     "UNH": {
       "ticker": "UNH",
       "jp_name": "ユナイテッドヘルス",
       "market": "US_TECH",
       "currency": "USD",
+<<<<<<< Updated upstream
       "entry": 349.91,
       "close": 349.91,
       "atr": 14.17,
@@ -399,12 +724,33 @@
       "catalyst_rating": "メディケアアドバンテージMLR安定化",
       "market_bar_date": "2026-11-18",
       "updated_date": "2026-11-20"
+=======
+      "entry": 339.85,
+      "close": 339.85,
+      "atr": 15.38,
+      "iv": 34,
+      "score": 84.5,
+      "stop_loss": 309.09,
+      "stop_dist": 30.76,
+      "target_25r": 416.75,
+      "exp_move_5d": 16.28,
+      "upper_gamma_wall": 356.13,
+      "gamma_flip": 326.78,
+      "donchian_20d_high": 425.25,
+      "wilder_rsi": 29.7,
+      "pw_rsi": 85.0,
+      "breakout_status": "ACCUMULATION",
+      "catalyst_rating": "メディケアアドバンテージMLR安定化",
+      "market_bar_date": "2026-11-20",
+      "updated_date": "2026-11-21"
+>>>>>>> Stashed changes
     },
     "MSFT": {
       "ticker": "MSFT",
       "jp_name": "マイクロソフト",
       "market": "US_TECH",
       "currency": "USD",
+<<<<<<< Updated upstream
       "entry": 508.29,
       "close": 508.29,
       "atr": 14.94,
@@ -423,12 +769,33 @@
       "catalyst_rating": "Azure AI増収ガイダンス・機関コア保有",
       "market_bar_date": "2026-11-18",
       "updated_date": "2026-11-20"
+=======
+      "entry": 484.52,
+      "close": 484.52,
+      "atr": 16.38,
+      "iv": 32,
+      "score": 88.5,
+      "stop_loss": 451.76,
+      "stop_dist": 32.76,
+      "target_25r": 566.42,
+      "exp_move_5d": 21.84,
+      "upper_gamma_wall": 506.36,
+      "gamma_flip": 470.6,
+      "donchian_20d_high": 559.15,
+      "wilder_rsi": 34.4,
+      "pw_rsi": 88.2,
+      "breakout_status": "ACCUMULATION",
+      "catalyst_rating": "Azure AI増収ガイダンス・機関コア保有",
+      "market_bar_date": "2026-11-20",
+      "updated_date": "2026-11-21"
+>>>>>>> Stashed changes
     },
     "AAPL": {
       "ticker": "AAPL",
       "jp_name": "アップル",
       "market": "US_TECH",
       "currency": "USD",
+<<<<<<< Updated upstream
       "entry": 352.45,
       "close": 352.45,
       "atr": 7.68,
@@ -442,17 +809,38 @@
       "gamma_flip": 345.92,
       "donchian_20d_high": 360.83,
       "wilder_rsi": 56.8,
+=======
+      "entry": 342.56,
+      "close": 342.56,
+      "atr": 8.19,
+      "iv": 29,
+      "score": 86.8,
+      "stop_loss": 326.18,
+      "stop_dist": 16.38,
+      "target_25r": 383.51,
+      "exp_move_5d": 13.99,
+      "upper_gamma_wall": 356.55,
+      "gamma_flip": 335.6,
+      "donchian_20d_high": 360.83,
+      "wilder_rsi": 46.5,
+>>>>>>> Stashed changes
       "pw_rsi": 86.5,
       "breakout_status": "STANDARD_BREAKOUT",
       "catalyst_rating": "自社株買い8-K下値支持・GEX壁解析",
+<<<<<<< Updated upstream
       "market_bar_date": "2026-11-18",
       "updated_date": "2026-11-20"
+=======
+      "market_bar_date": "2026-11-20",
+      "updated_date": "2026-11-21"
+>>>>>>> Stashed changes
     },
     "AMZN": {
       "ticker": "AMZN",
       "jp_name": "アマゾン",
       "market": "US_TECH",
       "currency": "USD",
+<<<<<<< Updated upstream
       "entry": 267.74,
       "close": 267.74,
       "atr": 9.02,
@@ -466,17 +854,38 @@
       "gamma_flip": 260.07,
       "donchian_20d_high": 275.34,
       "wilder_rsi": 57.2,
+=======
+      "entry": 246.82,
+      "close": 246.82,
+      "atr": 9.95,
+      "iv": 36,
+      "score": 89.2,
+      "stop_loss": 226.92,
+      "stop_dist": 19.9,
+      "target_25r": 296.57,
+      "exp_move_5d": 12.52,
+      "upper_gamma_wall": 259.34,
+      "gamma_flip": 238.36,
+      "donchian_20d_high": 275.34,
+      "wilder_rsi": 42.0,
+>>>>>>> Stashed changes
       "pw_rsi": 89.0,
       "breakout_status": "STANDARD_BREAKOUT",
       "catalyst_rating": "AWS利益率サプライズ・PEAD機関買い",
+<<<<<<< Updated upstream
       "market_bar_date": "2026-11-18",
       "updated_date": "2026-11-20"
+=======
+      "market_bar_date": "2026-11-20",
+      "updated_date": "2026-11-21"
+>>>>>>> Stashed changes
     },
     "GOOGL": {
       "ticker": "GOOGL",
       "jp_name": "アルファベット",
       "market": "US_TECH",
       "currency": "USD",
+<<<<<<< Updated upstream
       "entry": 282.44,
       "close": 282.44,
       "atr": 9.77,
@@ -495,12 +904,33 @@
       "catalyst_rating": "Cloud利益急伸・バリュエーション見直し",
       "market_bar_date": "2026-11-18",
       "updated_date": "2026-11-20"
+=======
+      "entry": 265.29,
+      "close": 265.29,
+      "atr": 11.31,
+      "iv": 35,
+      "score": 87.4,
+      "stop_loss": 242.67,
+      "stop_dist": 22.62,
+      "target_25r": 321.84,
+      "exp_move_5d": 13.08,
+      "upper_gamma_wall": 278.37,
+      "gamma_flip": 255.68,
+      "donchian_20d_high": 326.41,
+      "wilder_rsi": 27.7,
+      "pw_rsi": 87.1,
+      "breakout_status": "ACCUMULATION",
+      "catalyst_rating": "Cloud利益急伸・バリュエーション見直し",
+      "market_bar_date": "2026-11-20",
+      "updated_date": "2026-11-21"
+>>>>>>> Stashed changes
     },
     "SOXL": {
       "ticker": "SOXL",
       "jp_name": "半導体ブル3倍ETF",
       "market": "US_TECH",
       "currency": "USD",
+<<<<<<< Updated upstream
       "entry": 49.26,
       "close": 49.26,
       "atr": 11.66,
@@ -519,6 +949,26 @@
       "catalyst_rating": "SOX指数サイクル連動・2.0x ATR厳格撤退",
       "market_bar_date": "2026-11-18",
       "updated_date": "2026-11-20"
+=======
+      "entry": 30.88,
+      "close": 30.88,
+      "atr": 11.91,
+      "iv": 98,
+      "score": 88.0,
+      "stop_loss": 7.06,
+      "stop_dist": 23.82,
+      "target_25r": 90.43,
+      "exp_move_5d": 4.26,
+      "upper_gamma_wall": 35.14,
+      "gamma_flip": 20.76,
+      "donchian_20d_high": 108.6,
+      "wilder_rsi": 28.5,
+      "pw_rsi": 84.0,
+      "breakout_status": "ACCUMULATION",
+      "catalyst_rating": "SOX指数サイクル連動・2.0x ATR厳格撤退",
+      "market_bar_date": "2026-11-20",
+      "updated_date": "2026-11-21"
+>>>>>>> Stashed changes
     },
     "8035.T": {
       "ticker": "8035.T",
@@ -526,6 +976,7 @@
       "jp_name": "東京エレクトロン",
       "market": "TSE_PRIME",
       "currency": "JPY",
+<<<<<<< Updated upstream
       "entry": 8391.0,
       "close": 8391.0,
       "atr": 600.0,
@@ -544,6 +995,26 @@
       "catalyst_rating": "先端半導体製造装置受注高・20日高値新高値ブレイク",
       "market_bar_date": "2026-11-18",
       "updated_date": "2026-11-20"
+=======
+      "entry": 8940.0,
+      "close": 8940.0,
+      "atr": 587.1,
+      "iv": 42,
+      "score": 94.2,
+      "stop_loss": 7765.8,
+      "stop_dist": 1174.2,
+      "target_25r": 11875.5,
+      "exp_move_5d": 528.9,
+      "upper_gamma_wall": 9468.9,
+      "gamma_flip": 8441.0,
+      "donchian_20d_high": 10425.0,
+      "wilder_rsi": 42.5,
+      "pw_rsi": 92.5,
+      "breakout_status": "ACCUMULATION",
+      "catalyst_rating": "先端半導体製造装置受注高・20日高値新高値ブレイク",
+      "market_bar_date": "2026-11-20",
+      "updated_date": "2026-11-21"
+>>>>>>> Stashed changes
     },
     "8035": {
       "ticker": "8035.T",
@@ -551,6 +1022,7 @@
       "jp_name": "東京エレクトロン",
       "market": "TSE_PRIME",
       "currency": "JPY",
+<<<<<<< Updated upstream
       "entry": 8391.0,
       "close": 8391.0,
       "atr": 600.0,
@@ -569,6 +1041,26 @@
       "catalyst_rating": "先端半導体製造装置受注高・20日高値新高値ブレイク",
       "market_bar_date": "2026-11-18",
       "updated_date": "2026-11-20"
+=======
+      "entry": 8940.0,
+      "close": 8940.0,
+      "atr": 587.1,
+      "iv": 42,
+      "score": 94.2,
+      "stop_loss": 7765.8,
+      "stop_dist": 1174.2,
+      "target_25r": 11875.5,
+      "exp_move_5d": 528.9,
+      "upper_gamma_wall": 9468.9,
+      "gamma_flip": 8441.0,
+      "donchian_20d_high": 10425.0,
+      "wilder_rsi": 42.5,
+      "pw_rsi": 92.5,
+      "breakout_status": "ACCUMULATION",
+      "catalyst_rating": "先端半導体製造装置受注高・20日高値新高値ブレイク",
+      "market_bar_date": "2026-11-20",
+      "updated_date": "2026-11-21"
+>>>>>>> Stashed changes
     },
     "6857.T": {
       "ticker": "6857.T",
@@ -576,6 +1068,7 @@
       "jp_name": "アドバンテスト",
       "market": "TSE_PRIME",
       "currency": "JPY",
+<<<<<<< Updated upstream
       "entry": 24395.0,
       "close": 24395.0,
       "atr": 2535.4,
@@ -594,6 +1087,26 @@
       "catalyst_rating": "SoC/HBMテスター需要急増・新高値ブレイク点火",
       "market_bar_date": "2026-11-18",
       "updated_date": "2026-11-20"
+=======
+      "entry": 27045.0,
+      "close": 27045.0,
+      "atr": 2472.4,
+      "iv": 48,
+      "score": 93.8,
+      "stop_loss": 22100.2,
+      "stop_dist": 4944.8,
+      "target_25r": 39407.0,
+      "exp_move_5d": 1828.6,
+      "upper_gamma_wall": 28873.6,
+      "gamma_flip": 24943.5,
+      "donchian_20d_high": 38120.0,
+      "wilder_rsi": 38.0,
+      "pw_rsi": 95.8,
+      "breakout_status": "ACCUMULATION",
+      "catalyst_rating": "SoC/HBMテスター需要急増・新高値ブレイク点火",
+      "market_bar_date": "2026-11-20",
+      "updated_date": "2026-11-21"
+>>>>>>> Stashed changes
     },
     "6857": {
       "ticker": "6857.T",
@@ -601,6 +1114,7 @@
       "jp_name": "アドバンテスト",
       "market": "TSE_PRIME",
       "currency": "JPY",
+<<<<<<< Updated upstream
       "entry": 24395.0,
       "close": 24395.0,
       "atr": 2535.4,
@@ -619,6 +1133,26 @@
       "catalyst_rating": "SoC/HBMテスター需要急増・新高値ブレイク点火",
       "market_bar_date": "2026-11-18",
       "updated_date": "2026-11-20"
+=======
+      "entry": 27045.0,
+      "close": 27045.0,
+      "atr": 2472.4,
+      "iv": 48,
+      "score": 93.8,
+      "stop_loss": 22100.2,
+      "stop_dist": 4944.8,
+      "target_25r": 39407.0,
+      "exp_move_5d": 1828.6,
+      "upper_gamma_wall": 28873.6,
+      "gamma_flip": 24943.5,
+      "donchian_20d_high": 38120.0,
+      "wilder_rsi": 38.0,
+      "pw_rsi": 95.8,
+      "breakout_status": "ACCUMULATION",
+      "catalyst_rating": "SoC/HBMテスター需要急増・新高値ブレイク点火",
+      "market_bar_date": "2026-11-20",
+      "updated_date": "2026-11-21"
+>>>>>>> Stashed changes
     },
     "9984.T": {
       "ticker": "9984.T",
@@ -626,6 +1160,7 @@
       "jp_name": "ソフトバンクグループ",
       "market": "TSE_PRIME",
       "currency": "JPY",
+<<<<<<< Updated upstream
       "entry": 3057.0,
       "close": 3057.0,
       "atr": 347.8,
@@ -644,6 +1179,26 @@
       "catalyst_rating": "Arm株含み益拡大・AIインフラ投資ハブ加速",
       "market_bar_date": "2026-11-18",
       "updated_date": "2026-11-20"
+=======
+      "entry": 3537.0,
+      "close": 3537.0,
+      "atr": 329.5,
+      "iv": 52,
+      "score": 91.5,
+      "stop_loss": 2878.0,
+      "stop_dist": 659.0,
+      "target_25r": 5184.5,
+      "exp_move_5d": 259.1,
+      "upper_gamma_wall": 3796.1,
+      "gamma_flip": 3256.9,
+      "donchian_20d_high": 4802.0,
+      "wilder_rsi": 36.2,
+      "pw_rsi": 90.2,
+      "breakout_status": "ACCUMULATION",
+      "catalyst_rating": "Arm株含み益拡大・AIインフラ投資ハブ加速",
+      "market_bar_date": "2026-11-20",
+      "updated_date": "2026-11-21"
+>>>>>>> Stashed changes
     },
     "9984": {
       "ticker": "9984.T",
@@ -651,6 +1206,7 @@
       "jp_name": "ソフトバンクグループ",
       "market": "TSE_PRIME",
       "currency": "JPY",
+<<<<<<< Updated upstream
       "entry": 3057.0,
       "close": 3057.0,
       "atr": 347.8,
@@ -669,6 +1225,26 @@
       "catalyst_rating": "Arm株含み益拡大・AIインフラ投資ハブ加速",
       "market_bar_date": "2026-11-18",
       "updated_date": "2026-11-20"
+=======
+      "entry": 3537.0,
+      "close": 3537.0,
+      "atr": 329.5,
+      "iv": 52,
+      "score": 91.5,
+      "stop_loss": 2878.0,
+      "stop_dist": 659.0,
+      "target_25r": 5184.5,
+      "exp_move_5d": 259.1,
+      "upper_gamma_wall": 3796.1,
+      "gamma_flip": 3256.9,
+      "donchian_20d_high": 4802.0,
+      "wilder_rsi": 36.2,
+      "pw_rsi": 90.2,
+      "breakout_status": "ACCUMULATION",
+      "catalyst_rating": "Arm株含み益拡大・AIインフラ投資ハブ加速",
+      "market_bar_date": "2026-11-20",
+      "updated_date": "2026-11-21"
+>>>>>>> Stashed changes
     },
     "7203.T": {
       "ticker": "7203.T",
@@ -676,6 +1252,7 @@
       "jp_name": "トヨタ自動車",
       "market": "TSE_PRIME",
       "currency": "JPY",
+<<<<<<< Updated upstream
       "entry": 3347.0,
       "close": 3347.0,
       "atr": 90.5,
@@ -694,6 +1271,26 @@
       "catalyst_rating": "自己株取得枠1兆円発表・HEV営業利益率更新",
       "market_bar_date": "2026-11-18",
       "updated_date": "2026-11-20"
+=======
+      "entry": 3378.0,
+      "close": 3378.0,
+      "atr": 93.1,
+      "iv": 28,
+      "score": 88.0,
+      "stop_loss": 3191.8,
+      "stop_dist": 186.2,
+      "target_25r": 3843.5,
+      "exp_move_5d": 133.2,
+      "upper_gamma_wall": 3511.2,
+      "gamma_flip": 3298.9,
+      "donchian_20d_high": 3533.0,
+      "wilder_rsi": 59.4,
+      "pw_rsi": 87.4,
+      "breakout_status": "STANDARD_BREAKOUT",
+      "catalyst_rating": "自己株取得枠1兆円発表・HEV営業利益率更新",
+      "market_bar_date": "2026-11-20",
+      "updated_date": "2026-11-21"
+>>>>>>> Stashed changes
     },
     "7203": {
       "ticker": "7203.T",
@@ -701,6 +1298,7 @@
       "jp_name": "トヨタ自動車",
       "market": "TSE_PRIME",
       "currency": "JPY",
+<<<<<<< Updated upstream
       "entry": 3347.0,
       "close": 3347.0,
       "atr": 90.5,
@@ -719,6 +1317,26 @@
       "catalyst_rating": "自己株取得枠1兆円発表・HEV営業利益率更新",
       "market_bar_date": "2026-11-18",
       "updated_date": "2026-11-20"
+=======
+      "entry": 3378.0,
+      "close": 3378.0,
+      "atr": 93.1,
+      "iv": 28,
+      "score": 88.0,
+      "stop_loss": 3191.8,
+      "stop_dist": 186.2,
+      "target_25r": 3843.5,
+      "exp_move_5d": 133.2,
+      "upper_gamma_wall": 3511.2,
+      "gamma_flip": 3298.9,
+      "donchian_20d_high": 3533.0,
+      "wilder_rsi": 59.4,
+      "pw_rsi": 87.4,
+      "breakout_status": "STANDARD_BREAKOUT",
+      "catalyst_rating": "自己株取得枠1兆円発表・HEV営業利益率更新",
+      "market_bar_date": "2026-11-20",
+      "updated_date": "2026-11-21"
+>>>>>>> Stashed changes
     },
     "6758.T": {
       "ticker": "6758.T",
@@ -726,6 +1344,7 @@
       "jp_name": "ソニーグループ",
       "market": "TSE_PRIME",
       "currency": "JPY",
+<<<<<<< Updated upstream
       "entry": 4344.0,
       "close": 4344.0,
       "atr": 124.2,
@@ -744,6 +1363,26 @@
       "catalyst_rating": "CMOSイメージセンサ増産・ゲームネットワーク増益",
       "market_bar_date": "2026-11-18",
       "updated_date": "2026-11-20"
+=======
+      "entry": 4365.0,
+      "close": 4365.0,
+      "atr": 129.1,
+      "iv": 34,
+      "score": 89.4,
+      "stop_loss": 4106.8,
+      "stop_dist": 258.2,
+      "target_25r": 5010.5,
+      "exp_move_5d": 209.0,
+      "upper_gamma_wall": 4574.0,
+      "gamma_flip": 4255.3,
+      "donchian_20d_high": 4450.0,
+      "wilder_rsi": 65.0,
+      "pw_rsi": 88.9,
+      "breakout_status": "STANDARD_BREAKOUT",
+      "catalyst_rating": "CMOSイメージセンサ増産・ゲームネットワーク増益",
+      "market_bar_date": "2026-11-20",
+      "updated_date": "2026-11-21"
+>>>>>>> Stashed changes
     },
     "6758": {
       "ticker": "6758.T",
@@ -751,6 +1390,7 @@
       "jp_name": "ソニーグループ",
       "market": "TSE_PRIME",
       "currency": "JPY",
+<<<<<<< Updated upstream
       "entry": 4344.0,
       "close": 4344.0,
       "atr": 124.2,
@@ -769,6 +1409,26 @@
       "catalyst_rating": "CMOSイメージセンサ増産・ゲームネットワーク増益",
       "market_bar_date": "2026-11-18",
       "updated_date": "2026-11-20"
+=======
+      "entry": 4365.0,
+      "close": 4365.0,
+      "atr": 129.1,
+      "iv": 34,
+      "score": 89.4,
+      "stop_loss": 4106.8,
+      "stop_dist": 258.2,
+      "target_25r": 5010.5,
+      "exp_move_5d": 209.0,
+      "upper_gamma_wall": 4574.0,
+      "gamma_flip": 4255.3,
+      "donchian_20d_high": 4450.0,
+      "wilder_rsi": 65.0,
+      "pw_rsi": 88.9,
+      "breakout_status": "STANDARD_BREAKOUT",
+      "catalyst_rating": "CMOSイメージセンサ増産・ゲームネットワーク増益",
+      "market_bar_date": "2026-11-20",
+      "updated_date": "2026-11-21"
+>>>>>>> Stashed changes
     },
     "8306.T": {
       "ticker": "8306.T",
@@ -776,6 +1436,7 @@
       "jp_name": "三菱UFJフィナンシャルG",
       "market": "TSE_PRIME",
       "currency": "JPY",
+<<<<<<< Updated upstream
       "entry": 3102.0,
       "close": 3102.0,
       "atr": 113.1,
@@ -794,6 +1455,26 @@
       "catalyst_rating": "日銀金利正常化恩恵・増配＆自己株買い",
       "market_bar_date": "2026-11-18",
       "updated_date": "2026-11-20"
+=======
+      "entry": 3197.0,
+      "close": 3197.0,
+      "atr": 112.3,
+      "iv": 29,
+      "score": 87.6,
+      "stop_loss": 2972.4,
+      "stop_dist": 224.6,
+      "target_25r": 3758.5,
+      "exp_move_5d": 130.6,
+      "upper_gamma_wall": 3327.6,
+      "gamma_flip": 3101.5,
+      "donchian_20d_high": 3531.0,
+      "wilder_rsi": 38.1,
+      "pw_rsi": 87.0,
+      "breakout_status": "ACCUMULATION",
+      "catalyst_rating": "日銀金利正常化恩恵・増配＆自己株買い",
+      "market_bar_date": "2026-11-20",
+      "updated_date": "2026-11-21"
+>>>>>>> Stashed changes
     },
     "8306": {
       "ticker": "8306.T",
@@ -801,6 +1482,7 @@
       "jp_name": "三菱UFJフィナンシャルG",
       "market": "TSE_PRIME",
       "currency": "JPY",
+<<<<<<< Updated upstream
       "entry": 3102.0,
       "close": 3102.0,
       "atr": 113.1,
@@ -819,6 +1501,26 @@
       "catalyst_rating": "日銀金利正常化恩恵・増配＆自己株買い",
       "market_bar_date": "2026-11-18",
       "updated_date": "2026-11-20"
+=======
+      "entry": 3197.0,
+      "close": 3197.0,
+      "atr": 112.3,
+      "iv": 29,
+      "score": 87.6,
+      "stop_loss": 2972.4,
+      "stop_dist": 224.6,
+      "target_25r": 3758.5,
+      "exp_move_5d": 130.6,
+      "upper_gamma_wall": 3327.6,
+      "gamma_flip": 3101.5,
+      "donchian_20d_high": 3531.0,
+      "wilder_rsi": 38.1,
+      "pw_rsi": 87.0,
+      "breakout_status": "ACCUMULATION",
+      "catalyst_rating": "日銀金利正常化恩恵・増配＆自己株買い",
+      "market_bar_date": "2026-11-20",
+      "updated_date": "2026-11-21"
+>>>>>>> Stashed changes
     },
     "8058.T": {
       "ticker": "8058.T",
@@ -826,6 +1528,7 @@
       "jp_name": "三菱商事",
       "market": "TSE_PRIME",
       "currency": "JPY",
+<<<<<<< Updated upstream
       "entry": 4909.0,
       "close": 4909.0,
       "atr": 163.5,
@@ -844,6 +1547,26 @@
       "catalyst_rating": "総合商社キャッシュ創出力・株主還元強化",
       "market_bar_date": "2026-11-18",
       "updated_date": "2026-11-20"
+=======
+      "entry": 4951.0,
+      "close": 4951.0,
+      "atr": 169.5,
+      "iv": 27,
+      "score": 86.9,
+      "stop_loss": 4612.0,
+      "stop_dist": 339.0,
+      "target_25r": 5798.5,
+      "exp_move_5d": 188.3,
+      "upper_gamma_wall": 5139.3,
+      "gamma_flip": 4806.9,
+      "donchian_20d_high": 5465.0,
+      "wilder_rsi": 47.3,
+      "pw_rsi": 86.2,
+      "breakout_status": "ACCUMULATION",
+      "catalyst_rating": "総合商社キャッシュ創出力・株主還元強化",
+      "market_bar_date": "2026-11-20",
+      "updated_date": "2026-11-21"
+>>>>>>> Stashed changes
     },
     "8058": {
       "ticker": "8058.T",
@@ -851,6 +1574,7 @@
       "jp_name": "三菱商事",
       "market": "TSE_PRIME",
       "currency": "JPY",
+<<<<<<< Updated upstream
       "entry": 4909.0,
       "close": 4909.0,
       "atr": 163.5,
@@ -869,6 +1593,26 @@
       "catalyst_rating": "総合商社キャッシュ創出力・株主還元強化",
       "market_bar_date": "2026-11-18",
       "updated_date": "2026-11-20"
+=======
+      "entry": 4951.0,
+      "close": 4951.0,
+      "atr": 169.5,
+      "iv": 27,
+      "score": 86.9,
+      "stop_loss": 4612.0,
+      "stop_dist": 339.0,
+      "target_25r": 5798.5,
+      "exp_move_5d": 188.3,
+      "upper_gamma_wall": 5139.3,
+      "gamma_flip": 4806.9,
+      "donchian_20d_high": 5465.0,
+      "wilder_rsi": 47.3,
+      "pw_rsi": 86.2,
+      "breakout_status": "ACCUMULATION",
+      "catalyst_rating": "総合商社キャッシュ創出力・株主還元強化",
+      "market_bar_date": "2026-11-20",
+      "updated_date": "2026-11-21"
+>>>>>>> Stashed changes
     },
     "7011.T": {
       "ticker": "7011.T",
@@ -876,6 +1620,7 @@
       "jp_name": "三菱重工業",
       "market": "TSE_PRIME",
       "currency": "JPY",
+<<<<<<< Updated upstream
       "entry": 2737.0,
       "close": 2737.0,
       "atr": 144.0,
@@ -894,6 +1639,26 @@
       "catalyst_rating": "防衛装備・ガスタービン受注残過去最高更新",
       "market_bar_date": "2026-11-18",
       "updated_date": "2026-11-20"
+=======
+      "entry": 2879.0,
+      "close": 2879.0,
+      "atr": 143.2,
+      "iv": 38,
+      "score": 90.8,
+      "stop_loss": 2592.6,
+      "stop_dist": 286.4,
+      "target_25r": 3595.0,
+      "exp_move_5d": 154.1,
+      "upper_gamma_wall": 3033.1,
+      "gamma_flip": 2757.3,
+      "donchian_20d_high": 3767.0,
+      "wilder_rsi": 27.7,
+      "pw_rsi": 90.5,
+      "breakout_status": "ACCUMULATION",
+      "catalyst_rating": "防衛装備・ガスタービン受注残過去最高更新",
+      "market_bar_date": "2026-11-20",
+      "updated_date": "2026-11-21"
+>>>>>>> Stashed changes
     },
     "7011": {
       "ticker": "7011.T",
@@ -901,6 +1666,7 @@
       "jp_name": "三菱重工業",
       "market": "TSE_PRIME",
       "currency": "JPY",
+<<<<<<< Updated upstream
       "entry": 2737.0,
       "close": 2737.0,
       "atr": 144.0,
@@ -919,6 +1685,26 @@
       "catalyst_rating": "防衛装備・ガスタービン受注残過去最高更新",
       "market_bar_date": "2026-11-18",
       "updated_date": "2026-11-20"
+=======
+      "entry": 2879.0,
+      "close": 2879.0,
+      "atr": 143.2,
+      "iv": 38,
+      "score": 90.8,
+      "stop_loss": 2592.6,
+      "stop_dist": 286.4,
+      "target_25r": 3595.0,
+      "exp_move_5d": 154.1,
+      "upper_gamma_wall": 3033.1,
+      "gamma_flip": 2757.3,
+      "donchian_20d_high": 3767.0,
+      "wilder_rsi": 27.7,
+      "pw_rsi": 90.5,
+      "breakout_status": "ACCUMULATION",
+      "catalyst_rating": "防衛装備・ガスタービン受注残過去最高更新",
+      "market_bar_date": "2026-11-20",
+      "updated_date": "2026-11-21"
+>>>>>>> Stashed changes
     }
   }
 }

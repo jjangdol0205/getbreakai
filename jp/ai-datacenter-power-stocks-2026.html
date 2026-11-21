@@ -30,8 +30,8 @@
       "@type": "Article",
       "headline": "AIデータセンター電力・冷却インフラ関連米国株（CEG・VRT・AVGO）の公開決算データ比較",
       "description": "【公開市場データ・基礎解説】電力供給契約（PPA）と冷却設備・半導体インフラを担う主要3社の米SEC公式決算開示（売上成長率・営業利益率・配当利回り）の客観比較。50〜70代の老後資産設計における基本原則（『新NISA成長投資枠（米国半導体 SMH × 米国ヘルスケア XLV 現物1倍 2本柱）＋ 安全資産クッション（個人向け国債 変動10年 ／ 特定口座 SGOV）』）に沿ってわかりやすく整理しています。",
-      "datePublished": "2026-11-21",
-      "dateModified": "2026-11-21",
+      "datePublished": "2026-11-22",
+      "dateModified": "2026-11-22",
       "inLanguage": "ja",
       "author": {
         "@type": "Organization",
@@ -87,7 +87,344 @@
   </script>
   <script src="/hq_member_crm_client.js"></script>
   <script async defer src="https://js.whop.com/static/checkout/loader.js"></script>
-  <script src="/assets/csp/inline_9317d2692ba5.js"></script>
+  <script>
+    window.PAYMENT_CONFIG = {
+      PROVIDER: 'whop',
+      DIVISION: 'GBA',
+      STORE_SLOT: 'FINANCE_STORE_SLOT',
+      STORE_LIVE_READY: true,
+      COMPANY_ID: 'biz_pZ7yTvBkO7QcZY',
+      STORE_NAME: 'GetBreakAI Japan Research',
+      WHOP_PLANS: {
+        starter: {
+          plan_id: 'plan_j2eaOW4jizw2M',
+          purchase_url: 'https://whop.com/checkout/plan_j2eaOW4jizw2M',
+          redirect_url: 'https://getbreakai.com/jp/?payment=success&provider=whop&plan=starter',
+          price_jpy: 1480,
+          label: '新NISA過去25年ワークブックPDF（¥1,480買い切り）'
+        },
+        monthly: {
+          plan_id: 'plan_UtG9mA9L5pZIS',
+          checkout_config_id: 'ch_4vZj2bl5sEBwlKT',
+          purchase_url: 'https://whop.com/checkout/plan_UtG9mA9L5pZIS',
+          redirect_url: 'https://getbreakai.com/jp/?payment=success&provider=whop&plan=monthly',
+          price_jpy: 4400,
+          label: '月額リサーチパス（¥4,400/月）'
+        },
+        annual: {
+          plan_id: 'plan_ahYIXbLDE0CsQ',
+          checkout_config_id: 'ch_92HRJLmQIuEHFKf',
+          purchase_url: 'https://whop.com/checkout/plan_ahYIXbLDE0CsQ',
+          redirect_url: 'https://getbreakai.com/jp/?payment=success&provider=whop&plan=annual',
+          price_jpy: 29800,
+          label: '年間リサーチパス（¥29,800/年）'
+        }
+      },
+      WHOP_CHECKOUT_URLS: {
+        monthly: 'https://whop.com/checkout/plan_UtG9mA9L5pZIS',
+        annual: 'https://whop.com/checkout/plan_ahYIXbLDE0CsQ'
+      },
+      WHOP_GBA_MONTHLY_URL: 'https://whop.com/checkout/plan_UtG9mA9L5pZIS',
+      WHOP_GBA_ANNUAL_URL: 'https://whop.com/checkout/plan_ahYIXbLDE0CsQ',
+      SUPPORT_EMAIL: 'support@getbreakai.com'
+    };
+    window.CHECKOUT_URLS = {
+      monthly: 'https://whop.com/checkout/plan_UtG9mA9L5pZIS',
+      annual: 'https://whop.com/checkout/plan_ahYIXbLDE0CsQ',
+      enterprise: 'mailto:support@getbreakai.com'
+    };
+    const CHECKOUT_URLS = window.CHECKOUT_URLS;
+    var COPY_MODE = (window.PAYMENT_CONFIG && window.PAYMENT_CONFIG.STORE_LIVE_READY) ? 'LIVE_SHARP' : 'UNDERWRITING_SAFE';
+    window.GBA_COPY_MODE = COPY_MODE;
+    window.getGbaCopyMode = function() {
+      return (window.PAYMENT_CONFIG && window.PAYMENT_CONFIG.STORE_LIVE_READY === true) ? 'LIVE_SHARP' : 'UNDERWRITING_SAFE';
+    };
+
+    (function() {
+      try {
+        if (typeof window === 'undefined') return;
+        var ns = 'gba_getbreakai';
+        var kst = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
+
+        window.isGbaInAppWebView = function() {
+          var ua = (typeof navigator !== 'undefined' && navigator.userAgent) ? navigator.userAgent : '';
+          return /Instagram|FBAN|FBAV|KAKAOTALK|Line/i.test(ua);
+        };
+
+        window.getGbaSavedMemberEmail = function() {
+          try {
+            var e1 = String(localStorage.getItem('gb_free_member_email') || localStorage.getItem('gba_jp_free_email') || localStorage.getItem('gb_vip_customer_email') || '').trim();
+            if (e1 && e1.indexOf('@') !== -1) return e1;
+            if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.getLocalMember === 'function') {
+              var m = window.DreamCompanyCRM.getLocalMember('GBA');
+              if (m && m.email && String(m.email).indexOf('@') !== -1) return String(m.email).trim();
+            }
+          } catch (_e) {}
+          return '';
+        };
+
+        window.resolveGbaWhopPlan = function(plan) {
+          var cfg = window.PAYMENT_CONFIG || {};
+          var plans = cfg.WHOP_PLANS || {};
+          return (String(plan || '').toLowerCase() === 'annual')
+            ? (plans.annual || {
+                plan_id: 'plan_ahYIXbLDE0CsQ',
+                checkout_config_id: 'ch_92HRJLmQIuEHFKf',
+                purchase_url: 'https://whop.com/checkout/plan_ahYIXbLDE0CsQ',
+                redirect_url: 'https://getbreakai.com/jp/?payment=success&provider=whop&plan=annual',
+                price_jpy: 29800,
+                label: '年間リサーチパス（¥29,800/年）'
+              })
+            : (plans.monthly || {
+                plan_id: 'plan_UtG9mA9L5pZIS',
+                checkout_config_id: 'ch_4vZj2bl5sEBwlKT',
+                purchase_url: 'https://whop.com/checkout/plan_UtG9mA9L5pZIS',
+                redirect_url: 'https://getbreakai.com/jp/?payment=success&provider=whop&plan=monthly',
+                price_jpy: 4400,
+                label: '月額リサーチパス（¥4,400/月）'
+              });
+        };
+
+        window.trackGbaFreeSignup = function(emailAddr) {
+          try {
+            fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/signup', { mode: 'cors', keepalive: true }).catch(function(){});
+            fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/signup_total', { mode: 'cors', keepalive: true }).catch(function(){});
+            if (localStorage.getItem('hq_signup_' + ns + '_' + kst) !== '1') {
+              localStorage.setItem('hq_signup_' + ns + '_' + kst, '1');
+              fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/signup_' + kst, { mode: 'cors', keepalive: true }).catch(function(){});
+            }
+          } catch (_e) {}
+        };
+
+        window.__gbaCopyEssayLink = function(btnEl) {
+          var url = (window.location && window.location.href) ? window.location.href : 'https://getbreakai.com/jp/';
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(url).then(function() {
+              if (btnEl) {
+                var orig = btnEl.getAttribute('data-orig') || btnEl.textContent;
+                btnEl.setAttribute('data-orig', orig);
+                btnEl.textContent = 'リンクをコピーしました';
+                setTimeout(function() { btnEl.textContent = orig; }, 2200);
+              }
+            }).catch(function(){});
+          }
+        };
+
+        window.__gbaSubmitSubstackSubscribe = function(ev, formEl, essaySlug) {
+          if (ev && ev.preventDefault) ev.preventDefault();
+          var input = formEl ? formEl.querySelector('input[type="email"]') : null;
+          var statusEl = formEl && formEl.parentNode ? formEl.parentNode.querySelector('.substack-sub-status') : null;
+          var btnEl = formEl ? formEl.querySelector('button[type="submit"]') : null;
+          var email = input ? String(input.value || '').trim().toLowerCase() : '';
+          if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+            if (statusEl) {
+              statusEl.style.display = 'block';
+              statusEl.style.color = '#991b1b';
+              statusEl.textContent = '有効なメールアドレスを入力してください。';
+            }
+            if (input && input.focus) input.focus();
+            return false;
+          }
+          if (btnEl) {
+            btnEl.disabled = true;
+            btnEl.textContent = '登録中...';
+          }
+          var noteCtx = 'site=getbreakai.com/jp/ | essay=' + String(essaySlug || (location && location.pathname) || 'jp_essay');
+          try {
+            localStorage.setItem('gba_jp_free_email', email);
+            localStorage.setItem('gb_free_member_email', email);
+            localStorage.setItem('gba_jp_free_since', kst);
+            localStorage.setItem('dc_member_GBA', JSON.stringify({
+              div: 'GBA',
+              email: email,
+              nickname: '',
+              segment: 'substack_essay_reader_jp',
+              notes: noteCtx,
+              joined_at: new Date().toISOString()
+            }));
+          } catch (_e) {}
+          window.trackGbaFreeSignup(email);
+
+          var finishSub = function() {
+            if (btnEl) {
+              btnEl.disabled = false;
+              btnEl.textContent = '購読登録済み';
+            }
+            if (statusEl) {
+              statusEl.style.display = 'block';
+              statusEl.style.color = '#065f46';
+              statusEl.innerHTML = 'ご登録ありがとうございます。次回の朝刊リサーチノートを <strong>' + email.replace(/[<>&"]/g, '') + '</strong> 宛に静かにお届けします（パスワード不要・いつでも1クリック解除OK）。';
+            }
+            document.querySelectorAll('.substack-inline-form input[type="email"], .gba-jp-signup-form input[type="email"]').forEach(function(inp) {
+              inp.value = email;
+            });
+          };
+
+          if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.registerMember === 'function') {
+            window.DreamCompanyCRM.registerMember({
+              div: 'GBA',
+              email: email,
+              nickname: '',
+              segment: 'substack_essay_reader_jp',
+              lang: 'ja-JP',
+              notes: noteCtx,
+              message: noteCtx
+            }).then(finishSub).catch(finishSub);
+          } else {
+            finishSub();
+          }
+          return false;
+        };
+
+        window.__gbaSubmitJpSignup = function(ev, formEl, tickerLabel) {
+          if (ev && ev.preventDefault) ev.preventDefault();
+          var input = formEl ? formEl.querySelector('input[type="email"]') : null;
+          var email = input ? String(input.value || '').trim().toLowerCase() : '';
+          if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+            if (input && input.focus) input.focus();
+            return false;
+          }
+          try {
+            localStorage.setItem('gba_jp_free_email', email);
+            localStorage.setItem('gb_free_member_email', email);
+            localStorage.setItem('gba_jp_free_since', kst);
+          } catch (_e) {}
+          window.trackGbaFreeSignup(email);
+          var noteCtx = 'site=getbreakai.com | source=' + String(tickerLabel || (location && location.pathname) || 'jp_subpage');
+          if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.registerMember === 'function') {
+            window.DreamCompanyCRM.registerMember({
+              div: 'GBA',
+              email: email,
+              segment: 'nisa_wealth_defense',
+              lang: 'ja-JP',
+              notes: noteCtx
+            }).catch(function(){});
+          }
+          document.querySelectorAll('.gba-jp-signup-status').forEach(function(el) {
+            el.style.display = 'block';
+            el.innerHTML = '<strong>無料朝刊リサーチノートへのご登録が完了しました。</strong>毎朝8時の公開市場温度データ要約を <strong>' + email.replace(/[<>&"]/g, '') + '</strong> 宛にお届けいたします。';
+          });
+          document.querySelectorAll('.gba-jp-signup-form input[type="email"]').forEach(function(inp) { inp.value = email; });
+          return false;
+        };
+
+        // Handle ?payment=success&provider=whop return safely (NEVER grant client-only unlock without server verification!)
+        try {
+          var qParams = new URLSearchParams((window.location && window.location.search) || '');
+          if (qParams.get('payment') === 'success' || qParams.get('checkout_status') === 'succeeded') {
+            var retPlan = String(qParams.get('plan') || 'monthly').toLowerCase() === 'annual' ? 'annual' : 'monthly';
+            window.addEventListener('DOMContentLoaded', function() {
+              if (document.getElementById('gbaWhopReturnBanner')) return;
+              var banner = document.createElement('div');
+              banner.id = 'gbaWhopReturnBanner';
+              banner.setAttribute('role', 'status');
+              banner.style.cssText = 'background:#ecfdf5;border-bottom:1.5px solid #059669;color:#065f46;padding:12px 18px;text-align:center;font-size:0.92rem;font-weight:700;line-height:1.6;';
+              var planTitle = retPlan === 'annual' ? '年間リサーチパス（¥29,800/年）' : '月額リサーチパス（¥4,400/月）';
+              banner.textContent = 'Whop決済のお手続きありがとうございます（' + planTitle + '）。60秒以内に届く認証コードメールをご確認のうえ、会員復元ボタンよりサーバー認証を完了してください。';
+              if (document.body && document.body.firstChild) {
+                document.body.insertBefore(banner, document.body.firstChild);
+              }
+            });
+          }
+        } catch (_pe) {}
+
+        if (!window.__GBA_PAID_CLICK_BOUND_V2__) {
+          window.__GBA_PAID_CLICK_BOUND_V2__ = true;
+          window.addEventListener('click', function(e) {
+            var btn = e.target && e.target.closest
+              ? e.target.closest('[data-gba-paid-plan], .whop-checkout-button, a[href*="whop.com/checkout/plan_"]')
+              : null;
+            if (!btn) return;
+            if (btn.getAttribute('data-whop-direct-tab') === '1') {
+              fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_click_' + kst, { mode: 'cors', keepalive: true }).catch(function(){});
+              fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_click_total', { mode: 'cors', keepalive: true }).catch(function(){});
+              return;
+            }
+            var href = String(btn.getAttribute('href') || '');
+            var planAttr = String(btn.getAttribute('data-gba-paid-plan') || btn.getAttribute('data-whop-plan') || '').toLowerCase();
+            var selectedPlan = (planAttr === 'annual' || href.indexOf('plan_ahYIXbLDE0CsQ') !== -1 || href.indexOf('annual') !== -1)
+              ? 'annual'
+              : 'monthly';
+
+            fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_click_' + kst, { mode: 'cors', keepalive: true }).catch(function(){});
+            fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_click_total', { mode: 'cors', keepalive: true }).catch(function(){});
+            fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_click', { mode: 'cors', keepalive: true }).catch(function(){});
+
+            if (!e.ctrlKey && !e.shiftKey && !e.metaKey) {
+              e.preventDefault();
+              e.stopImmediatePropagation();
+              if (typeof window.openGbaWhopCheckoutModal === 'function') {
+                window.openGbaWhopCheckoutModal(selectedPlan);
+              } else {
+                var pObj = window.resolveGbaWhopPlan(selectedPlan);
+                window.location.href = pObj.purchase_url;
+              }
+              return false;
+            }
+          }, true);
+        }
+
+        if (!window.__GBA_READ_COMPLETE_BOUND_V1__) {
+          window.__GBA_READ_COMPLETE_BOUND_V1__ = true;
+          var ssKey = 'gba_read_complete_v1';
+          if (typeof sessionStorage !== 'undefined' && sessionStorage.getItem(ssKey) !== '1') {
+            var scrolled70 = false;
+            var dwelled15 = false;
+            var firedRead = false;
+            var tryFireReadComplete = function() {
+              if (firedRead || !scrolled70 || !dwelled15) return;
+              firedRead = true;
+              try { sessionStorage.setItem(ssKey, '1'); } catch (_e) {}
+              fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/read_complete', { mode: 'cors', keepalive: true }).catch(function(){});
+            };
+            var checkScrollDepth = function() {
+              if (scrolled70) return;
+              var doc = document.documentElement;
+              var body = document.body;
+              var scrollTop = window.pageYOffset || (doc && doc.scrollTop) || (body && body.scrollTop) || 0;
+              var viewH = window.innerHeight || (doc && doc.clientHeight) || 0;
+              var fullH = Math.max(
+                body ? body.scrollHeight : 0,
+                doc ? doc.scrollHeight : 0,
+                body ? body.offsetHeight : 0,
+                doc ? doc.offsetHeight : 0
+              );
+              if (fullH <= 0 || ((scrollTop + viewH) / fullH) >= 0.70) {
+                scrolled70 = true;
+                window.removeEventListener('scroll', checkScrollDepth);
+                tryFireReadComplete();
+              }
+            };
+            window.addEventListener('scroll', checkScrollDepth, { passive: true });
+            setTimeout(function() {
+              dwelled15 = true;
+              checkScrollDepth();
+              tryFireReadComplete();
+            }, 15000);
+            window.addEventListener('DOMContentLoaded', checkScrollDepth);
+          }
+        }
+
+        if (!window.__HQ_KPI_GBA__) {
+          window.__HQ_KPI_GBA__ = true;
+          var ua = (typeof navigator !== 'undefined' && navigator.userAgent) ? navigator.userAgent : '';
+          var host = (location && location.hostname) || '';
+          if (!navigator.webdriver && !/bot|crawl|spider|slurp|headless|lighthouse|gtmetrix|pingdom|uptimerobot|python|curl|node|axios/i.test(ua) && host && host !== 'localhost' && host !== '127.0.0.1') {
+            fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/pv_' + kst, { mode: 'cors', keepalive: true }).catch(function(){});
+            fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/pv_total', { mode: 'cors', keepalive: true }).catch(function(){});
+            if (localStorage.getItem('hq_uv_' + ns + '_' + kst) !== '1') {
+              localStorage.setItem('hq_uv_' + ns + '_' + kst, '1');
+              fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/uv_' + kst, { mode: 'cors', keepalive: true }).catch(function(){});
+            }
+            if (localStorage.getItem('hq_uv_ever_' + ns) !== '1') {
+              localStorage.setItem('hq_uv_ever_' + ns, '1');
+              fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/uv_total', { mode: 'cors', keepalive: true }).catch(function(){});
+            }
+          }
+        }
+      } catch (_err) {}
+    })();
+  </script>
   <style>
     :root {
       --paper-bg: #fcfcfa;
@@ -382,7 +719,6 @@
       body.printing-gba-manual #gbaStarterManualModal { display: block !important; position: static !important; background: #ffffff !important; padding: 0 !important; }
     }
 </style>
-  <script src="/assets/csp/csp-events.js"></script>
 </head>
 <body>
   <header class="essay-topbar">
@@ -391,7 +727,7 @@
       <nav class="essay-top-nav" aria-label="記事ナビゲーション">
         <a href="/jp/nisa-quiet-barbell-essay.html">代表エッセイ</a>
         <a href="/jp/#gba-retirement-architect-jp">セクター過去統計エクスプローラー</a>
-        <button type="button" data-csp-click="h_6ea2c43e5ef9">¥0 基本マニュアル</button>
+        <button type="button" onclick="openGbaStarterManualModal()">¥0 基本マニュアル</button>
       </nav>
     </div>
   </header>
@@ -406,10 +742,10 @@
         <span class="byline-avatar" aria-hidden="true">佐藤</span>
         <div>
           <div class="byline-name">佐藤 健一</div>
-          <div class="byline-meta">資産設計エッセイ・公開データ研究 ・ 2026-11-21</div>
+          <div class="byline-meta">資産設計エッセイ・公開データ研究 ・ 2026-11-22</div>
         </div>
       </div>
-      <button type="button" class="share-copy-btn" data-csp-click="h_db5960dc9cd8">リンクをコピー</button>
+      <button type="button" class="share-copy-btn" onclick="window.__gbaCopyEssayLink(this)">リンクをコピー</button>
     </div>
 
     <article>
@@ -490,7 +826,7 @@
       <p class="substack-sub-desc">
         AI半導体の成長（SMH）と医療の守り（XLV）、そして新NISAと老後資産の穏やかな設計について、広告のない静かな朝刊ノートをお届けします（無料・パスワード不要・1クリック解除OK）。
       </p>
-      <form class="substack-inline-form" data-csp-submit="h_b9effdb3a1d3" novalidate>
+      <form class="substack-inline-form" onsubmit="return window.__gbaSubmitSubstackSubscribe(event, this, 'ai-datacenter-power-stocks-2026.html');" novalidate>
         <label for="substackEmailJp_ai-datacenter-po" class="sr-only">メールアドレス</label>
         <input id="substackEmailJp_ai-datacenter-po" type="email" required autocomplete="email" placeholder="メールアドレスを入力..." />
         <button type="submit">無料で購読する</button>
@@ -501,7 +837,7 @@
     <aside class="editorial-postscript" aria-label="編集後記・独立系教育リサーチ出版">
       <div class="ps-label">編集後記 ・ 新NISA・資産リサーチ研究室（教育目的）</div>
       <p>
-        <strong>SMH × XLV</strong> の過去26年間（2000–2025年）の統計推移は、<a href="/jp/#gba-retirement-architect-jp"><strong>セクター過去統計エクスプローラー（2000–2025年統計比較）</strong></a>（<button type="button" data-csp-click="h_6ea2c43e5ef9" style="background:none;border:none;color:#1d4ed8;text-decoration:underline;font-weight:700;cursor:pointer;font-size:inherit;padding:0;">¥0 楽天・SBI証券 新NISA口座区分マニュアル</button> 同梱）で登録不要・無料でお確かめいただけます。「教育目的の市場データニュースレター ＋ 2000–2025年 過去統計ワークブック（投資助言・個別推奨は一切行わない独立系リサーチ出版）」の購読パスは <a href="https://whop.com/checkout/plan_UtG9mA9L5pZIS" data-gba-paid-plan="monthly" class="whop-checkout-button">月額リサーチパス（¥4,400/月）</a> ・ <a href="https://whop.com/checkout/plan_ahYIXbLDE0CsQ" data-gba-paid-plan="annual" class="whop-checkout-button">年間リサーチパス（¥29,800/年）</a>（決済管理：Whop.com（Global Card / JCB / Visa / Mastercard / Apple Pay / Google Pay））にてご提供しています。
+        <strong>SMH × XLV</strong> の過去26年間（2000–2025年）の統計推移は、<a href="/jp/#gba-retirement-architect-jp"><strong>セクター過去統計エクスプローラー（2000–2025年統計比較）</strong></a>（<button type="button" onclick="openGbaStarterManualModal()" style="background:none;border:none;color:#1d4ed8;text-decoration:underline;font-weight:700;cursor:pointer;font-size:inherit;padding:0;">¥0 楽天・SBI証券 新NISA口座区分マニュアル</button> 同梱）で登録不要・無料でお確かめいただけます。「教育目的の市場データニュースレター ＋ 2000–2025年 過去統計ワークブック（投資助言・個別推奨は一切行わない独立系リサーチ出版）」の購読パスは <a href="https://whop.com/checkout/plan_UtG9mA9L5pZIS" data-gba-paid-plan="monthly" class="whop-checkout-button">月額リサーチパス（¥4,400/月）</a> ・ <a href="https://whop.com/checkout/plan_ahYIXbLDE0CsQ" data-gba-paid-plan="annual" class="whop-checkout-button">年間リサーチパス（¥29,800/年）</a>（決済管理：Whop.com（Global Card / JCB / Visa / Mastercard / Apple Pay / Google Pay））にてご提供しています。
       </p>
       <div class="gba-mandatory-fiea-disclaimer" role="note" style="margin-top:14px; padding:13px 16px; border-radius:10px; background:#fffbeb; border:1.5px solid #f59e0b; color:#78350f; font-size:0.94rem; font-weight:700; line-height:1.68; text-align:left;">
         免責事項：当サイトは公開市場データの可視化および数学的シミュレーションツール（教育・情報提供目的）であり、金融商品取引法上の投資助言・代理業や個別銘柄の売買推奨を行うものではありません。
@@ -555,8 +891,8 @@
           <h2 class="gba-manual-modal-title" id="gbaStarterManualModalTitle">はじめての新NISA＆証券アプリ基本マニュアル</h2>
         </div>
         <div class="gba-manual-modal-actions">
-          <button type="button" class="gba-manual-action-btn btn-print" id="btnPrintOrMailGbaManual" data-csp-click="h_18c6b3a28f54">印刷・PDF保存</button>
-          <button type="button" class="gba-manual-action-btn" id="btnCloseGbaStarterManual" data-csp-click="h_d41f4814cedb">閉じる</button>
+          <button type="button" class="gba-manual-action-btn btn-print" id="btnPrintOrMailGbaManual" onclick="printGbaStarterManual()">印刷・PDF保存</button>
+          <button type="button" class="gba-manual-action-btn" id="btnCloseGbaStarterManual" onclick="closeGbaStarterManualModal()">閉じる</button>
         </div>
       </div>
 
@@ -568,7 +904,7 @@
         <div style="font-size:1rem; font-weight:900; color:#0b1f3a; margin-bottom:8px;">
           このマニュアルをメールで受け取る（無料倶楽部登録）
         </div>
-        <form id="gbaManualEmailDeliveryForm" data-csp-submit="h_d59ddd6c3629" style="display:flex; flex-wrap:wrap; gap:8px;">
+        <form id="gbaManualEmailDeliveryForm" onsubmit="return window.submitGbaManualEmailDelivery(event);" style="display:flex; flex-wrap:wrap; gap:8px;">
           <label for="gbaManualDeliveryEmail" style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0);">メールアドレス</label>
           <input type="email" id="gbaManualDeliveryEmail" required autocomplete="email" placeholder="メールアドレスを入力（例: taro@example.jp）" style="flex:1 1 230px; min-height:48px; padding:8px 13px; border-radius:10px; border:2px solid #64748b; background:#ffffff; color:#0f172a; font-size:0.98rem; font-weight:700;">
           <button type="submit" id="btnSubmitGbaManualMail" style="min-height:48px; padding:8px 18px; border-radius:10px; border:none; background:#059669; color:#ffffff; font-size:0.95rem; font-weight:900; cursor:pointer;">このマニュアルをメールで受け取る（無料倶楽部登録） &rarr;</button>
@@ -577,9 +913,9 @@
       </div>
 
       <nav class="gba-manual-nav-pills" aria-label="マニュアル目次">
-        <button type="button" class="gba-manual-jump-pill" data-csp-click="h_95ce131f658e">第1章：指値注文の買い方</button>
-        <button type="button" class="gba-manual-jump-pill" data-csp-click="h_abbebf6083fa">第2章：新NISA適格&times;特定口座の使い分け</button>
-        <button type="button" class="gba-manual-jump-pill" data-csp-click="h_6e0c29b0e748">第3章：待機資金（国債・預金連携）</button>
+        <button type="button" class="gba-manual-jump-pill" onclick="scrollToGbaManualChapter('gbaManualChap1')">第1章：指値注文の買い方</button>
+        <button type="button" class="gba-manual-jump-pill" onclick="scrollToGbaManualChapter('gbaManualChap2')">第2章：新NISA適格&times;特定口座の使い分け</button>
+        <button type="button" class="gba-manual-jump-pill" onclick="scrollToGbaManualChapter('gbaManualChap3')">第3章：待機資金（国債・預金連携）</button>
       </nav>
 
       <div class="gba-manual-modal-body">
@@ -666,7 +1002,7 @@
             当サイトのセクター過去統計エクスプローラーと毎朝の公開市場データ要約を活用し、ご自身のペースで年2〜4回の穏やかな統計点検にお役立てください。
           </p>
           <div class="gba-manual-cta-row" style="margin-bottom:10px;">
-            <button type="button" class="gba-manual-open-btn" data-csp-click="h_d7c2713e63d1">
+            <button type="button" class="gba-manual-open-btn" onclick="jumpFromManualToJpMail()">
               無料登録して朝刊リサーチノートを受け取る
             </button>
           </div>
@@ -679,7 +1015,115 @@
     </div>
   </div>
 
-  <script src="/assets/csp/inline_7d675062158a.js"></script>
+  <script>
+    (function() {
+      window.scrollToGbaManualChapter = function(chapId) {
+        var el = chapId ? document.getElementById(chapId) : null;
+        if (el && el.scrollIntoView) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      };
+
+      window.openGbaStarterManualModal = function(chapId) {
+        var modal = document.getElementById('gbaStarterManualModal');
+        if (!modal) return;
+        modal.classList.add('is-open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        if (typeof window.isGbaInAppWebView === 'function' && window.isGbaInAppWebView()) {
+          var notice = document.getElementById('gbaManualWebViewNotice');
+          var pBtn = document.getElementById('btnPrintOrMailGbaManual');
+          if (notice) notice.style.display = 'block';
+          if (pBtn) pBtn.innerText = 'このマニュアルをメールで受け取る';
+        }
+        try {
+          var saved = localStorage.getItem('gb_free_member_email') || localStorage.getItem('gba_jp_free_email') || '';
+          var mInp = document.getElementById('gbaManualDeliveryEmail');
+          if (mInp && saved && !mInp.value) mInp.value = saved;
+        } catch (_e) {}
+        if (chapId) {
+          setTimeout(function() { window.scrollToGbaManualChapter(chapId); }, 60);
+        } else {
+          modal.scrollTop = 0;
+        }
+      };
+
+      window.closeGbaStarterManualModal = function() {
+        var modal = document.getElementById('gbaStarterManualModal');
+        if (!modal) return;
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('printing-gba-manual');
+        document.body.style.overflow = '';
+      };
+
+      window.printGbaStarterManual = function() {
+        var modal = document.getElementById('gbaStarterManualModal');
+        if (modal && !modal.classList.contains('is-open')) {
+          window.openGbaStarterManualModal();
+        }
+        if (typeof window.isGbaInAppWebView === 'function' && window.isGbaInAppWebView()) {
+          var notice = document.getElementById('gbaManualWebViewNotice');
+          if (notice) notice.style.display = 'block';
+          var box = document.getElementById('gbaManualWebViewMailBox');
+          if (box && box.scrollIntoView) box.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          var inp = document.getElementById('gbaManualDeliveryEmail');
+          setTimeout(function() { if (inp && inp.focus) inp.focus(); }, 120);
+          return false;
+        }
+        document.body.classList.add('printing-gba-manual');
+        setTimeout(function() {
+          try { window.print(); } catch (_e) {}
+          setTimeout(function() { document.body.classList.remove('printing-gba-manual'); }, 400);
+        }, 80);
+        return false;
+      };
+
+      window.submitGbaManualEmailDelivery = function(ev) {
+        if (ev && ev.preventDefault) ev.preventDefault();
+        var inp = document.getElementById('gbaManualDeliveryEmail');
+        var st = document.getElementById('gbaManualDeliveryStatus');
+        var email = String(inp ? inp.value : '').trim().toLowerCase();
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+          if (inp && inp.focus) inp.focus();
+          return false;
+        }
+        try {
+          localStorage.setItem('gb_free_member_email', email);
+          localStorage.setItem('gba_jp_free_email', email);
+        } catch (_e) {}
+        if (typeof window.trackGbaFreeSignup === 'function') {
+          window.trackGbaFreeSignup(email);
+        }
+        if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.registerMember === 'function') {
+          window.DreamCompanyCRM.registerMember({
+            div: 'GBA',
+            email: email,
+            segment: 'nisa_wealth_defense',
+            lang: 'ja-JP',
+            notes: 'site=getbreakai.com | manual_email_delivery'
+          }).catch(function(){});
+        }
+        if (st) {
+          st.style.display = 'block';
+          st.innerHTML = '<strong>ご登録ありがとうございます。</strong>保存版マニュアルと毎朝8時の「朝刊リサーチノート」を <strong>' + email.replace(/[<>&"]/g, '') + '</strong> 宛にお届けいたします。';
+        }
+        return false;
+      };
+
+      window.addEventListener('DOMContentLoaded', function() {
+        if (typeof window.isGbaInAppWebView === 'function' && window.isGbaInAppWebView()) {
+          var pBtn = document.getElementById('btnPrintOrMailGbaManual');
+          var notice = document.getElementById('gbaManualWebViewNotice');
+          if (pBtn) pBtn.innerText = 'このマニュアルをメールで受け取る';
+          if (notice) notice.style.display = 'block';
+          document.querySelectorAll('.gba-manual-sub-badge').forEach(function(b) {
+            b.innerText = 'メール保存・画面閲覧対応 ／ 楽天証券・SBI証券 対応';
+          });
+        }
+      });
+    })();
+  </script>
 
   <style>
     .gba-whop-modal-backdrop {
@@ -831,7 +1275,7 @@
     <div class="gba-whop-modal-dialog">
       <div class="gba-whop-top">
         <span class="gba-whop-badge">WHOP SECURE CHECKOUT &middot; 公式リサーチ購読</span>
-        <button type="button" class="gba-whop-close" data-csp-click="h_2ce522bc47f5">閉じる</button>
+        <button type="button" class="gba-whop-close" onclick="window.closeGbaWhopCheckoutModal()">閉じる</button>
       </div>
       <h2 class="gba-whop-title" id="gbaWhopModalTitle">新NISA・資産リサーチ研究室（教育目的）— リサーチパス購読手続き</h2>
       <p class="gba-whop-desc">
@@ -839,10 +1283,10 @@
       </p>
 
       <div class="gba-whop-plans" role="group" aria-label="リサーチパス選択">
-        <button type="button" class="gba-whop-pbtn is-active" data-gba-whop-tab="monthly" data-csp-click="h_1209f6b7c348">
+        <button type="button" class="gba-whop-pbtn is-active" data-gba-whop-tab="monthly" onclick="window.selectGbaWhopPlan('monthly')">
           月額リサーチパス（¥4,400/月）<br><small style="font-weight:600; color:#475569;">毎朝 SMH &times; XLV 市場温度ニュースレター ＋ 過去統計比較ノート</small>
         </button>
-        <button type="button" class="gba-whop-pbtn" data-gba-whop-tab="annual" data-csp-click="h_70918a57365b">
+        <button type="button" class="gba-whop-pbtn" data-gba-whop-tab="annual" onclick="window.selectGbaWhopPlan('annual')">
           年間リサーチパス（¥29,800/年）<br><small style="font-weight:600; color:#065f46;">月額比 約44%割引 ・ 2000–2025年 過去統計ワークブック完全版同梱</small>
         </button>
       </div>
@@ -866,8 +1310,124 @@
     </div>
   </div>
 
-  <script src="/assets/csp/inline_ead77b9a187b.js"></script>
+  <script>
+    (function() {
+      var activeWhopPlan = 'monthly';
 
-  <script src="/assets/csp/inline_806b0b3d3397.js"></script>
+      function ensureWhopLoaderScript() {
+        if (document.querySelector('script[src*="js.whop.com/static/checkout/loader.js"]')) return;
+        var s = document.createElement('script');
+        s.src = 'https://js.whop.com/static/checkout/loader.js';
+        s.async = true;
+        s.defer = true;
+        document.head.appendChild(s);
+      }
+
+      function mountGbaWhopEmbed(planKey) {
+        var mount = document.getElementById('gbaWhopEmbedMount');
+        var directBtn = document.getElementById('gbaWhopDirectTabBtn');
+        var planObj = (typeof window.resolveGbaWhopPlan === 'function')
+          ? window.resolveGbaWhopPlan(planKey)
+          : {
+              plan_id: planKey === 'annual' ? 'plan_ahYIXbLDE0CsQ' : 'plan_UtG9mA9L5pZIS',
+              purchase_url: planKey === 'annual' ? 'https://whop.com/checkout/plan_ahYIXbLDE0CsQ' : 'https://whop.com/checkout/plan_UtG9mA9L5pZIS',
+              redirect_url: planKey === 'annual' ? 'https://getbreakai.com/jp/?payment=success&provider=whop&plan=annual' : 'https://getbreakai.com/jp/?payment=success&provider=whop&plan=monthly'
+            };
+        if (directBtn && planObj.purchase_url) {
+          directBtn.setAttribute('href', planObj.purchase_url);
+        }
+        if (!mount) return;
+        ensureWhopLoaderScript();
+        mount.innerHTML = '';
+        var embedDiv = document.createElement('div');
+        embedDiv.className = 'whop-checkout-embed';
+        embedDiv.setAttribute('data-whop-checkout-plan-id', planObj.plan_id);
+        embedDiv.setAttribute('data-whop-checkout-return-url', planObj.redirect_url);
+        embedDiv.setAttribute('data-whop-checkout-redirect-url', planObj.redirect_url);
+        embedDiv.setAttribute('data-whop-checkout-theme', 'light');
+        embedDiv.setAttribute('data-whop-checkout-locale', 'ja');
+        var savedEmail = (typeof window.getGbaSavedMemberEmail === 'function') ? window.getGbaSavedMemberEmail() : '';
+        if (savedEmail && savedEmail.indexOf('@') !== -1) {
+          embedDiv.setAttribute('data-whop-checkout-prefill-email', savedEmail);
+        }
+        mount.appendChild(embedDiv);
+      }
+
+      window.selectGbaWhopPlan = function(plan) {
+        activeWhopPlan = (String(plan || '').toLowerCase() === 'annual') ? 'annual' : 'monthly';
+        document.querySelectorAll('[data-gba-whop-tab]').forEach(function(btn) {
+          var isAct = btn.getAttribute('data-gba-whop-tab') === activeWhopPlan;
+          btn.classList.toggle('is-active', isAct);
+          btn.setAttribute('aria-pressed', isAct ? 'true' : 'false');
+        });
+        var modal = document.getElementById('gbaWhopCheckoutModal');
+        if (modal && modal.classList.contains('is-open')) {
+          mountGbaWhopEmbed(activeWhopPlan);
+        }
+      };
+
+      window.openGbaWhopCheckoutModal = function(plan) {
+        activeWhopPlan = (String(plan || '').toLowerCase() === 'annual') ? 'annual' : 'monthly';
+        var modal = document.getElementById('gbaWhopCheckoutModal');
+        if (!modal) {
+          var fallbackPlan = window.resolveGbaWhopPlan ? window.resolveGbaWhopPlan(activeWhopPlan) : null;
+          if (fallbackPlan && fallbackPlan.purchase_url) window.location.href = fallbackPlan.purchase_url;
+          return;
+        }
+        modal.classList.add('is-open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.querySelectorAll('[data-gba-whop-tab]').forEach(function(btn) {
+          var isAct = btn.getAttribute('data-gba-whop-tab') === activeWhopPlan;
+          btn.classList.toggle('is-active', isAct);
+          btn.setAttribute('aria-pressed', isAct ? 'true' : 'false');
+        });
+        mountGbaWhopEmbed(activeWhopPlan);
+      };
+
+      window.closeGbaWhopCheckoutModal = function() {
+        var modal = document.getElementById('gbaWhopCheckoutModal');
+        if (!modal) return;
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden', 'true');
+      };
+
+      // Backward-compatible aliases
+      window.openGbaVipWaitlistModal = window.openGbaWhopCheckoutModal;
+      window.closeGbaVipWaitlistModal = window.closeGbaWhopCheckoutModal;
+
+      document.addEventListener('click', function(ev) {
+        var modal = document.getElementById('gbaWhopCheckoutModal');
+        if (modal && modal.classList.contains('is-open') && ev.target === modal) {
+          window.closeGbaWhopCheckoutModal();
+        }
+      });
+      document.addEventListener('keydown', function(ev) {
+        if (ev.key === 'Escape') {
+          window.closeGbaWhopCheckoutModal();
+        }
+      });
+    })();
+  </script>
+
+  <script>
+    function jumpFromManualToJpMail() {
+      if (typeof window.closeGbaStarterManualModal === 'function') window.closeGbaStarterManualModal();
+      const subBox = document.getElementById('gba-substack-subscribe');
+      if (subBox && subBox.scrollIntoView) subBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      setTimeout(function() {
+        const inp = subBox ? subBox.querySelector('input[type="email"]') : null;
+        if (inp && inp.focus) inp.focus();
+      }, 350);
+    }
+
+    window.addEventListener('DOMContentLoaded', function() {
+      try {
+        const saved = localStorage.getItem('gb_free_member_email') || localStorage.getItem('gba_jp_free_email');
+        if (saved) {
+          document.querySelectorAll('.substack-inline-form input[type="email"]').forEach(function(inp) { inp.value = saved; });
+        }
+      } catch (_e) {}
+    });
+  </script>
 </body>
 </html>

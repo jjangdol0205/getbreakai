@@ -318,10 +318,11 @@ onGbaManYenInput()
     },
     "kfk-open-latpeed": function (el) {
       var tier = (el && el.getAttribute("data-csp-arg")) || "tier1";
+      var isNativeAnchor = Boolean(el && el.tagName === "A" && el.getAttribute("href"));
       if (window.KfkAtelierApp && window.KfkAtelierApp.openKfkLatpeedCheckout) {
-        window.KfkAtelierApp.openKfkLatpeedCheckout(tier);
+        window.KfkAtelierApp.openKfkLatpeedCheckout(tier, { skipWindowOpen: isNativeAnchor });
       } else if (window.openKfkLatpeedCheckout) {
-        window.openKfkLatpeedCheckout(tier);
+        window.openKfkLatpeedCheckout(tier, { skipWindowOpen: isNativeAnchor });
       }
     },
     "gba-whop-tab": function (el) {

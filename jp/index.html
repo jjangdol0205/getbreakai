@@ -830,7 +830,7 @@
   
     .pw-btn-primary { word-break: keep-all; overflow-wrap: anywhere; }
   </style>
-  <script src="/assets/csp/csp-events.js?v=20261122aarrr2"></script>
+  <script src="/assets/csp/csp-events.js?v=20261122sprint"></script>
 </head>
 <body>
   <main id="gba-retirement-architect-jp" class="pw-shell">
@@ -1034,6 +1034,15 @@
           <button type="button" class="pw-inline-link" data-csp-click="h_e4c3d0685321">比較条件を変更する</button>
         </div>
 
+        <!-- 結果画面最上部・1タップ共有バー（LINE / リンクコピー ?ref=<vid>） -->
+        <div id="gba-top-share-bar-jp" style="margin:0 0 16px;padding:12px 14px;background:#F8FAFC;border:1.5px solid #065F46;border-radius:10px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;">
+          <span style="font-size:0.88rem;color:#0F172A;line-height:1.45;"><strong>ご家族やご友人と新NISA配分を共有しませんか？</strong>（無料4問診断）</span>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <button type="button" id="btn-gba-share-line" class="pw-btn-primary" style="background:#06C755;color:#FFFFFF;border:none;padding:8px 15px;min-height:42px;font-size:0.85rem;font-weight:700;" data-csp-act="dc-share-site" data-share-div="GBA" data-share-mode="line" data-share-url="https://getbreakai.com/jp/" data-share-title="GetBreakAI 日本 — 新NISA 2000-2025 過去統計シミュレーター">LINEで共有する &rarr;</button>
+            <button type="button" id="btn-gba-share-copy" class="pw-btn-primary" style="background:#FFFFFF;color:#0F2C22;border:1.5px solid #0F2C22;padding:8px 14px;min-height:42px;font-size:0.85rem;font-weight:700;" data-csp-act="dc-share-site" data-share-div="GBA" data-share-mode="copy" data-share-url="https://getbreakai.com/jp/" data-share-title="GetBreakAI 日本 — 新NISA 2000-2025 過去統計シミュレーター">リンクをコピー</button>
+          </div>
+        </div>
+
         <!-- Immediately Revealed Free Historical Baseline Study Summary -->
         <div id="pwFreeBaselineSummaryJp">
           <div class="pw-kicker">FREE HISTORICAL STUDY SUMMARY &middot; セクター過去統計エクスプローラー（2000–2025年統計比較）</div>
@@ -1074,14 +1083,6 @@
           </div>
         </div>
 
-        <div style="margin:14px 0 0;padding:12px 14px;background:#F8FAFC;border:1px solid #CBD5E1;border-radius:8px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;">
-          <span style="font-size:0.88rem;color:#334155;"><strong>ご家族やご友人と新NISA配分を確認しませんか？</strong> 無料4問診断を共有できます：</span>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;">
-            <button type="button" class="pw-btn-primary" style="background:#06C755;color:#FFFFFF;border:none;padding:8px 14px;min-height:42px;font-size:0.85rem;" data-csp-act="dc-share-site" data-share-div="GBA" data-share-mode="line" data-share-url="https://getbreakai.com/jp/">LINEで共有する &rarr;</button>
-            <button type="button" class="pw-btn-primary" style="background:#FFFFFF;color:#0F2C22;border:1.5px solid #0F2C22;padding:8px 14px;min-height:42px;font-size:0.85rem;" data-csp-act="dc-share-site" data-share-div="GBA" data-share-url="https://getbreakai.com/jp/">リンクをコピー</button>
-          </div>
-        </div>
-
         <!-- Frictionless 1-Line Passwordless Email Box Directly Below Free Summary -->
         <div id="gba-jp-passwordless-signup" style="margin-top:24px; padding-top:20px; border-top:1px solid var(--pw-border);">
           <div class="pw-kicker" style="margin-bottom:6px;">FREE MORNING RESEARCH NOTES &middot; パスワード不要・1クリック解除OK</div>
@@ -1115,6 +1116,49 @@
         <div style="padding:6px 8px;border-radius:6px;background:#FFFFFF;border:1px solid #CBD5E1;color:#0F172A;"><strong>2. 低価格入門（¥1,480）</strong><br>12p完全版PDF買い切り</div>
         <div style="padding:6px 8px;border-radius:6px;background:#FFFFFF;border:1px solid #CBD5E1;color:#0F172A;"><strong>3. コア月額（¥4,400/月）</strong><br>毎朝市場温度＋月次成績表</div>
         <div style="padding:6px 8px;border-radius:6px;background:#FEFCE8;border:1px solid #FCD34D;color:#92400E;"><strong>4. プレミアム（¥29,800/年）</strong><br>44%割引・12ヶ月完全版</div>
+      </div>
+
+      <!-- PDF 1ページ目 ブラー視覚プレビューカード（A4ワークブック見本） -->
+      <div id="gba-blurred-pdf-preview-jp" aria-label="12ページ完全版PDF 1ページ目視覚プレビュー" style="position:relative;margin:0 0 18px;background:#FFFFFF;border:1.5px solid #CBD5E1;border-radius:12px;padding:18px 18px 16px;box-shadow:0 10px 26px rgba(15,23,42,0.08);overflow:hidden;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;padding-bottom:10px;border-bottom:2px solid #0F2C22;margin-bottom:12px;">
+          <div>
+            <div style="font-size:0.72rem;font-weight:800;letter-spacing:0.06em;color:#065F46;">PAGE 1 / 12 &middot; 新NISA 2000&ndash;2025 過去統計ワークブック完全版PDF</div>
+            <div style="font-size:1.02rem;font-weight:800;color:#0F172A;margin-top:2px;">円建て1対1カスタム計算シート ＆ 楽天・SBI証券 指値注文図解ガイド</div>
+          </div>
+          <span style="font-size:0.74rem;font-weight:700;padding:3px 10px;border-radius:999px;background:#FEF3C7;color:#92400E;border:1px solid #FCD34D;">1ページ目プレビュー</span>
+        </div>
+
+        <div style="position:relative;min-height:210px;">
+          <div aria-hidden="true" style="filter:blur(4.5px);-webkit-filter:blur(4.5px);user-select:none;pointer-events:none;padding:4px 0 6px;">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(88px,1fr));gap:8px;margin-bottom:10px;">
+              <div style="padding:10px;background:#F8FAFC;border:1px solid #CBD5E1;border-radius:8px;">
+                <div style="font-size:11px;color:#475569;">新NISA成長枠（SMH）</div>
+                <div style="font-size:17px;font-weight:800;color:#0F172A;">990万円（55%）</div>
+              </div>
+              <div style="padding:10px;background:#F8FAFC;border:1px solid #CBD5E1;border-radius:8px;">
+                <div style="font-size:11px;color:#475569;">新NISA防衛枠（XLV）</div>
+                <div style="font-size:17px;font-weight:800;color:#065F46;">630万円（35%）</div>
+              </div>
+              <div style="padding:10px;background:#F8FAFC;border:1px solid #CBD5E1;border-radius:8px;">
+                <div style="font-size:11px;color:#475569;">個人向け国債クッション</div>
+                <div style="font-size:17px;font-weight:800;color:#1D4ED8;">180万円（10%）</div>
+              </div>
+            </div>
+            <div style="padding:10px 12px;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;font-size:12.5px;line-height:1.68;color:#334155;">
+              <div><strong>1. 3大危機ストレステスト（2000・2008・2022）：</strong>SMH単独 -74.6% に対し、2本柱バランス最大下落 -24.5%（回復約18ヶ月）。</div>
+              <div><strong>2. 口座区分チェックリスト：</strong>成長投資枠1,200万円上限管理・為替変動時の年1回リバランス手順（Page 6）。</div>
+              <div><strong>3. 証券アプリ図解（Page 9&ndash;12）：</strong>楽天証券iSPEED・SBI証券 米国ETF外貨決済＆指値注文ステップ。</div>
+            </div>
+          </div>
+
+          <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:12px;background:rgba(248,250,252,0.55);text-align:center;">
+            <span style="display:inline-block;padding:6px 14px;border-radius:999px;background:#0F2C22;color:#FFFFFF;font-size:0.8rem;font-weight:800;box-shadow:0 4px 12px rgba(15,44,34,0.24);">詳細計算表・証券手順図解は完全版PDFで即時開放</span>
+            <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;">
+              <a href="https://whop.com/checkout/plan_j2eaOW4jizw2M" data-gba-paid-plan="starter" data-whop-plan="starter" class="pw-btn-primary whop-checkout-button" style="min-height:42px;padding:8px 14px;font-size:0.84rem;text-decoration:none;display:inline-flex;align-items:center;">¥1,480 買い切りPDFを開放 &rarr;</a>
+              <a href="/jp/downloads/gba_jp_sample_2p.pdf" target="_blank" rel="noopener" class="pw-btn-primary" style="min-height:42px;padding:8px 14px;font-size:0.84rem;background:#FFFFFF;color:#0F2C22;border:1.5px solid #0F2C22;text-decoration:none;display:inline-flex;align-items:center;">無料2pサンプルを見る &rarr;</a>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div style="margin:0 0 16px;padding:12px 14px;background:#FFFFFF;border:1px solid #CBD5E1;border-radius:8px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;">
@@ -1554,7 +1598,14 @@
       border-radius: 8px;
       background: #ffffff;
       padding: 6px;
-      overflow: hidden;
+      overflow: visible;
+    }
+    #gbaWhopEmbedMount iframe {
+      width: 100% !important;
+      min-height: 468px !important;
+      border: 0 !important;
+      background: #ffffff !important;
+      border-radius: 8px;
     }
     @media (max-width: 600px) {
       .gba-whop-plans { grid-template-columns: 1fr; }
@@ -1584,16 +1635,16 @@
         </button>
       </div>
 
-      <div class="gba-whop-embed-wrap" id="gbaWhopEmbedMount" style="margin-bottom:10px;background:#ffffff;min-height:420px;border-radius:10px;">
+      <div class="gba-whop-direct-bar" style="margin-bottom:10px;">
+        <a id="gbaWhopDirectTabBtn" data-whop-direct-tab="1" href="https://whop.com/checkout/plan_UtG9mA9L5pZIS" target="_blank" rel="noopener noreferrer" class="gba-whop-direct-link">
+          スマホ最速：Apple Pay・Google Pay・カード全画面決済を開く &rarr;
+        </a>
+      </div>
+
+      <div class="gba-whop-embed-wrap" id="gbaWhopEmbedMount" style="margin-bottom:10px;background:#ffffff;min-height:480px;border-radius:10px;">
         <div style="padding:24px 16px; text-align:center; font-size:0.9rem; color:#475569;">
           安全な Whop 決済フォームを読み込んでいます...
         </div>
-      </div>
-
-      <div class="gba-whop-direct-bar" style="margin-bottom:8px;">
-        <a id="gbaWhopDirectTabBtn" data-whop-direct-tab="1" href="https://whop.com/checkout/plan_UtG9mA9L5pZIS" target="_blank" rel="noopener noreferrer" class="gba-whop-direct-link">
-          別タブで安全なWhop決済画面を開く &rarr;
-        </a>
       </div>
 
       <div style="margin-top:12px; font-size:0.8rem; color:#475569; line-height:1.58;">

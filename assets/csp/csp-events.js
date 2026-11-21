@@ -293,6 +293,7 @@ onGbaManYenInput()
   var CLICK_ACTIONS = {
     "dc-share-site": function (el) {
       var div = (el && el.getAttribute("data-share-div")) || "TOM";
+      var mode = String((el && el.getAttribute("data-share-mode")) || "native_or_copy").toLowerCase();
       var rawUrl = (el && el.getAttribute("data-share-url")) || (window.location ? window.location.origin + window.location.pathname : "");
       var url = (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.buildReferralShareUrl === "function")
         ? window.DreamCompanyCRM.buildReferralShareUrl(rawUrl)
@@ -303,24 +304,88 @@ onGbaManYenInput()
         ? window.DreamCompanyCRM.getOrCreateVisitorProfile().visitor_id
         : "";
       if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.trackFunnelEvent === "function") {
-        try { window.DreamCompanyCRM.trackFunnelEvent(div, "share_click", { ref_code: ownVid, event_meta: (el && el.getAttribute("data-share-mode")) || "native_or_copy" }); } catch (_) {}
+        try { window.DreamCompanyCRM.trackFunnelEvent(div, "share_click", { ref_code: ownVid, event_meta: mode }); } catch (_) {}
       }
-      if (div === "GBA" && el && el.getAttribute("data-share-mode") === "line") {
+      function flashLabel(msg) {
+        if (!el) return;
+        var orig = el.getAttribute("data-orig-label") || el.textContent;
+        el.setAttribute("data-orig-label", orig);
+        el.textContent = msg;
+        setTimeout(function () { el.textContent = orig; }, 2200);
+      }
+      function copyUrl(doneMsg) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(url).then(function () { flashLabel(doneMsg); }).catch(function () {
+            try {
+              var ta = document.createElement("textarea");
+              ta.value = url;
+              ta.setAttribute("readonly", "");
+              ta.style.position = "fixed";
+              ta.style.opacity = "0";
+              document.body.appendChild(ta);
+              ta.select();
+              document.execCommand("copy");
+              document.body.removeChild(ta);
+              flashLabel(doneMsg);
+            } catch (_) {}
+          });
+        } else {
+          try {
+            var ta2 = document.createElement("textarea");
+            ta2.value = url;
+            ta2.setAttribute("readonly", "");
+            ta2.style.position = "fixed";
+            ta2.style.opacity = "0";
+            document.body.appendChild(ta2);
+            ta2.select();
+            document.execCommand("copy");
+            document.body.removeChild(ta2);
+            flashLabel(doneMsg);
+          } catch (_) {}
+        }
+      }
+      var copiedDefault = div === "GBA"
+        ? "\u30ea\u30f3\u30af\u3092\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f \u2713"
+        : ((div === "KFK" || div === "HERO")
+          ? "\ub9c1\ud06c\uac00 \ubcf5\uc0ac\ub418\uc5c8\uc2b5\ub2c8\ub2e4 \u2713"
+          : "Link Copied \u2014 Ready to Share \u2713");
+      if (mode === "line") {
         var lineUrl = "https://social-plugins.line.me/lineit/share?url=" + encodeURIComponent(url);
         window.open(lineUrl, "_blank", "noopener,noreferrer");
+        return;
+      }
+      if (mode === "whatsapp") {
+        var waUrl = "https://wa.me/?text=" + encodeURIComponent((text ? text + " " : "") + url);
+        window.open(waUrl, "_blank", "noopener,noreferrer");
+        return;
+      }
+      if (mode === "sms") {
+        var body = encodeURIComponent((text ? text + " " : "") + url);
+        var isIos = /iPad|iPhone|iPod/i.test((navigator && navigator.userAgent) || "");
+        var smsHref = isIos ? ("sms:&body=" + body) : ("sms:?body=" + body);
+        copyUrl("SMS Ready \u2713");
+        try { window.location.href = smsHref; } catch (_) {}
+        return;
+      }
+      if (mode === "copy") {
+        copyUrl(copiedDefault);
+        return;
+      }
+      if (mode === "kakao") {
+        if (navigator.share) {
+          navigator.share({ title: title, text: text, url: url }).catch(function () {
+            copyUrl("\uce74\ud1a1 \uacf5\uc720 \ub9c1\ud06c \ubcf5\uc0ac\ub428 \u2713");
+          });
+          return;
+        }
+        copyUrl("\uce74\ud1a1 \uacf5\uc720 \ub9c1\ud06c \ubcf5\uc0ac\ub428 \u2713");
         return;
       }
       if (navigator.share) {
         navigator.share({ title: title, text: text, url: url }).catch(function () {});
         return;
       }
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(url).then(function () {
-          var orig = el.textContent;
-          el.textContent = div === "GBA" ? "リンクをコピーしました ✓" : (div === "KFK" || div === "HERO" ? "링크가 복사되었습니다 ✓" : "Link Copied — Ready to Share ✓");
-          setTimeout(function () { el.textContent = orig; }, 2200);
-        }).catch(function () {});
-      }
+      copyUrl(copiedDefault);
     },
     "kfk-open-latpeed": function (el) {
       var tier = (el && el.getAttribute("data-csp-arg")) || "tier1";

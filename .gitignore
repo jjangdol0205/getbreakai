@@ -9,3 +9,15 @@ flow_shorts_studio/**/*.png
 assets/fonts/
 __pycache__/
 *.pyc
+
+# Security Hardening: never track private paid PDFs or local secrets
+products/*.pdf
+data/telegram_config.json
+data/master_hq_bridge_state.json
+.youtube_studio_chrome_profile/
+
+.wrangler/
+cf_dist/
+flow_shorts_studio/
+*.zip
+*.mp4

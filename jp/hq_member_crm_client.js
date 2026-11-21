@@ -277,32 +277,112 @@
     });
   }
 
+  function escapeHtml(raw) {
+    return String(raw === undefined || raw === null ? '' : raw)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  var ALLOWED_CHECKOUT_HOSTS = {
+    'whop.com': true,
+    'www.whop.com': true,
+    'buy.polar.sh': true,
+    'polar.sh': true,
+    'www.latpeed.com': true,
+    'latpeed.com': true,
+    'cshop.naver.com': true,
+    'influencers.coupang.com': true,
+    'api.truthofmarket.com': true
+  };
+
+  function isAllowedExternalUrl(rawUrl) {
+    try {
+      var u = new URL(String(rawUrl || '').trim());
+      if (u.protocol !== 'https:') return false;
+      var h = u.hostname.toLowerCase();
+      return Boolean(ALLOWED_CHECKOUT_HOSTS[h] || h.endsWith('.whop.com'));
+    } catch (_) {
+      return false;
+    }
+  }
+
+  function saveSignedDownloads(div, downloads, ttlSec) {
+    var d = String(div || '').toUpperCase();
+    if (!d || !downloads || typeof downloads !== 'object') return;
+    var rec = {
+      downloads: downloads,
+      expires_at: Date.now() + Math.max(60, Number(ttlSec || 900) - 60) * 1000
+    };
+    try {
+      if (global.sessionStorage) global.sessionStorage.setItem('dc_signed_dl_' + d, JSON.stringify(rec));
+    } catch (_) {}
+  }
+
+  function getSignedDownloadUrl(div, docKey) {
+    var d = String(div || '').toUpperCase();
+    try {
+      if (!global.sessionStorage) return '';
+      var raw = global.sessionStorage.getItem('dc_signed_dl_' + d);
+      if (!raw) return '';
+      var rec = JSON.parse(raw);
+      if (!rec || !rec.downloads || Date.now() >= Number(rec.expires_at || 0)) return '';
+      return String(rec.downloads[docKey] || '');
+    } catch (_) {
+      return '';
+    }
+  }
+
   /* ==========================================================================
-   * 2. Server-Side Entitlement Verification (Blocks unauthenticated bypass!)
+   * 2. Server-Side Entitlement Verification & 6-Digit OTP (Zero-Bypass!)
    * ========================================================================== */
+  function requestAuthOtp(opts) {
+    var div = String((opts && (opts.div || opts.div_code)) || detectDivFromHost()).trim().toUpperCase();
+    var email = String((opts && opts.email) || '').trim().toLowerCase();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+      return Promise.resolve({ ok: false, error: 'INVALID_EMAIL' });
+    }
+    return postCloudJson('/api/auth/request-otp', {
+      div_code: div,
+      email: email
+    }).catch(function () {
+      return { ok: false, error: 'NETWORK_ERROR' };
+    });
+  }
+
   function verifyEntitlement(opts) {
     var div = String((opts && (opts.div || opts.div_code)) || detectDivFromHost()).trim().toUpperCase();
     var email = String((opts && opts.email) || '').trim().toLowerCase();
     var code = String((opts && (opts.access_code || opts.code || opts.order_ref)) || '').trim().toUpperCase();
+    var otp = String((opts && opts.otp) || '').replace(/\D/g, '').trim();
     var tier = String((opts && opts.tier) || '').trim().toLowerCase();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
       return Promise.resolve({ ok: false, authorized: false, error: 'INVALID_EMAIL' });
+    }
+    if (!code && otp.length !== 6) {
+      return Promise.resolve({ ok: true, authorized: false, requires_code_or_otp: true, reason: 'verification_credential_required' });
     }
     return postCloudJson('/api/verify-entitlement', {
       div_code: div,
       email: email,
       access_code: code,
+      otp: otp,
       tier: tier,
       magic_restore: Boolean(opts && opts.magic_restore)
     }).then(function (res) {
       if (res && res.authorized) {
         trackFunnelEvent(div, 'paid_success');
+        if (res.downloads) {
+          saveSignedDownloads(div, res.downloads, res.download_ttl_sec || 900);
+        }
         savePaidVault(div, {
           div: div,
           email: email,
           tier: res.tier || 'tier1',
           tier2_unlocked: Boolean(res.tier2_unlocked),
-          access_code: res.access_code || code,
+          access_code: code || '',
           verified_at: new Date().toISOString()
         });
       }
@@ -310,6 +390,38 @@
     }).catch(function () {
       return { ok: false, authorized: false, reason: 'network_error' };
     });
+  }
+
+  function openProtectedPdfDownload(div, docKey, onNeedsReauth) {
+    var d = String(div || detectDivFromHost()).trim().toUpperCase();
+    var triggerNav = function (signedUrl) {
+      if (!signedUrl || !isAllowedExternalUrl(signedUrl)) return false;
+      trackFunnelEvent(d, 'pdf_download');
+      var w = null;
+      try { w = global.open(signedUrl, '_blank', 'noopener,noreferrer'); } catch (_) {}
+      if (!w && global.location) global.location.href = signedUrl;
+      return true;
+    };
+
+    var cached = getSignedDownloadUrl(d, docKey);
+    if (cached && triggerNav(cached)) {
+      return Promise.resolve({ ok: true, cached: true });
+    }
+
+    var vault = getPaidVault(d);
+    if (vault && vault.email && vault.access_code) {
+      return verifyEntitlement({ div: d, email: vault.email, access_code: vault.access_code }).then(function (vres) {
+        var fresh = (vres && vres.authorized && vres.downloads && vres.downloads[docKey]) ? vres.downloads[docKey] : '';
+        if (fresh && triggerNav(fresh)) {
+          return { ok: true, refreshed: true };
+        }
+        if (typeof onNeedsReauth === 'function') onNeedsReauth(vres);
+        return { ok: false, reason: 'reauth_required' };
+      });
+    }
+
+    if (typeof onNeedsReauth === 'function') onNeedsReauth({ authorized: false, reason: 'reauth_required' });
+    return Promise.resolve({ ok: false, reason: 'reauth_required' });
   }
 
   /* ==========================================================================
@@ -764,7 +876,12 @@
   global.DreamCompanyCRM = {
     CLOUD_API_BASE: CLOUD_API_BASE,
     registerMember: registerMember,
+    requestAuthOtp: requestAuthOtp,
     verifyEntitlement: verifyEntitlement,
+    openProtectedPdfDownload: openProtectedPdfDownload,
+    getSignedDownloadUrl: getSignedDownloadUrl,
+    escapeHtml: escapeHtml,
+    isAllowedExternalUrl: isAllowedExternalUrl,
     trackFunnelEvent: trackFunnelEvent,
     fetchHeroVotes: fetchHeroVotes,
     submitHeroVote: submitHeroVote,

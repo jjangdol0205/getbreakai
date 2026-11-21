@@ -293,11 +293,17 @@ onGbaManYenInput()
   var CLICK_ACTIONS = {
     "dc-share-site": function (el) {
       var div = (el && el.getAttribute("data-share-div")) || "TOM";
-      var url = (el && el.getAttribute("data-share-url")) || (window.location ? window.location.origin + window.location.pathname : "");
+      var rawUrl = (el && el.getAttribute("data-share-url")) || (window.location ? window.location.origin + window.location.pathname : "");
+      var url = (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.buildReferralShareUrl === "function")
+        ? window.DreamCompanyCRM.buildReferralShareUrl(rawUrl)
+        : rawUrl;
       var title = (el && el.getAttribute("data-share-title")) || document.title || "";
       var text = (el && el.getAttribute("data-share-text")) || title;
+      var ownVid = (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.getOrCreateVisitorProfile === "function")
+        ? window.DreamCompanyCRM.getOrCreateVisitorProfile().visitor_id
+        : "";
       if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.trackFunnelEvent === "function") {
-        try { window.DreamCompanyCRM.trackFunnelEvent(div, "share_click"); } catch (_) {}
+        try { window.DreamCompanyCRM.trackFunnelEvent(div, "share_click", { ref_code: ownVid, event_meta: (el && el.getAttribute("data-share-mode")) || "native_or_copy" }); } catch (_) {}
       }
       if (div === "GBA" && el && el.getAttribute("data-share-mode") === "line") {
         var lineUrl = "https://social-plugins.line.me/lineit/share?url=" + encodeURIComponent(url);

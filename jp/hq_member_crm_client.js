@@ -20,11 +20,11 @@
     global.fetch = function (input, init) {
       try {
         var reqUrl = typeof input === 'string' ? input : (input && input.url ? String(input.url) : '');
-        if (reqUrl.indexOf('abacus.jasoncameron.dev') >= 0) {
+        if (reqUrl.indexOf('abacus.jasoncameron.dev') >= 0 || reqUrl.indexOf('script.google.com/macros/s/') >= 0) {
           if (typeof Response === 'function') {
-            return Promise.resolve(new Response('{"value":0}', { status: 200, headers: { 'Content-Type': 'application/json' } }));
+            return Promise.resolve(new Response('{"ok":true,"value":0}', { status: 200, headers: { 'Content-Type': 'application/json' } }));
           }
-          return Promise.resolve({ ok: true, status: 200, json: function () { return Promise.resolve({ value: 0 }); } });
+          return Promise.resolve({ ok: true, status: 200, json: function () { return Promise.resolve({ ok: true, value: 0 }); } });
         }
       } catch (_e) {}
       return _origFetch(input, init);
@@ -124,24 +124,118 @@
   }
 
   /* ==========================================================================
-   * UTM Capture & 4-Stage Funnel Analytics (`landing_view -> quiz_complete -> checkout_click -> paid_success`)
+   * AARRR Growth Engine v6: Anonymous Cohort Visitor ID, D1/D7/D30 Retention,
+   * Closed-Loop ?ref= Referral Attribution & Micro-Funnel Tracking (100% ASCII)
    * ========================================================================== */
+  function detectIsQaOrBot() {
+    try {
+      var ua = String((global.navigator && global.navigator.userAgent) || '');
+      if (global.navigator && global.navigator.webdriver) return true;
+      if (/HeadlessChrome|bot|crawl|spider|slurp|lighthouse|pingdom|uptimerobot|watchdog/i.test(ua)) return true;
+      var qs = String((global.location && global.location.search) || '');
+      if (/[?&](watchdog|qa=1|nocache=vl_|nocache=aarrr_qa)/i.test(qs)) return true;
+    } catch (_) {}
+    return false;
+  }
+
+  function getOrCreateVisitorProfile() {
+    var nowMs = Date.now();
+    var vid = '';
+    var firstSeenMs = nowMs;
+    var referredBy = '';
+    try {
+      vid = String(localStorage.getItem('dc_vid_v1') || '').replace(/[^A-Za-z0-9_\-]/g, '').slice(0, 32);
+      if (!vid) {
+        var rnd = Math.random().toString(36).slice(2, 10) + nowMs.toString(36).slice(-4);
+        vid = 'v_' + rnd.slice(0, 12);
+        localStorage.setItem('dc_vid_v1', vid);
+      }
+      var rawFs = localStorage.getItem('dc_first_seen_v1');
+      if (rawFs && Number(rawFs) > 1700000000000) {
+        firstSeenMs = Number(rawFs);
+      } else {
+        localStorage.setItem('dc_first_seen_v1', String(nowMs));
+      }
+      var sp = new URLSearchParams((global.location && global.location.search) || '');
+      var urlRef = String(sp.get('ref') || '').replace(/[^A-Za-z0-9_\-]/g, '').slice(0, 32);
+      var savedRef = String(localStorage.getItem('dc_ref_by_v1') || '').replace(/[^A-Za-z0-9_\-]/g, '').slice(0, 32);
+      if (urlRef && urlRef !== vid && !savedRef) {
+        localStorage.setItem('dc_ref_by_v1', urlRef);
+        referredBy = urlRef;
+      } else {
+        referredBy = savedRef || (urlRef && urlRef !== vid ? urlRef : '');
+      }
+    } catch (_) {
+      vid = vid || ('v_' + nowMs.toString(36));
+    }
+    var daysSinceFirst = Math.max(0, Math.floor((nowMs - firstSeenMs) / 86400000));
+    return {
+      visitor_id: vid,
+      first_seen_ms: firstSeenMs,
+      days_since_first: daysSinceFirst,
+      referred_by: referredBy
+    };
+  }
+
+  function getReferrerHost() {
+    try {
+      var ref = String((global.document && global.document.referrer) || '');
+      if (!ref) return '';
+      var u = new URL(ref);
+      var curHost = String((global.location && global.location.hostname) || '').toLowerCase();
+      if (u.hostname.toLowerCase() === curHost) return '';
+      return u.hostname.toLowerCase().slice(0, 100);
+    } catch (_) {
+      return '';
+    }
+  }
+
+  function buildReferralShareUrl(rawUrl) {
+    try {
+      var base = String(rawUrl || (global.location ? (global.location.origin + global.location.pathname) : '')).trim();
+      var prof = getOrCreateVisitorProfile();
+      var u = new URL(base);
+      if (prof.visitor_id) u.searchParams.set('ref', prof.visitor_id);
+      if (!u.searchParams.get('utm_source')) u.searchParams.set('utm_source', 'referral');
+      if (!u.searchParams.get('utm_medium')) u.searchParams.set('utm_medium', 'share');
+      return u.toString();
+    } catch (_) {
+      return String(rawUrl || '');
+    }
+  }
+
+  function classifyCheckoutStepFromHref(href, el) {
+    var h = String(href || '').toLowerCase();
+    var pAttr = el ? String(el.getAttribute('data-whop-plan') || el.getAttribute('data-kfg-paid-plan') || el.getAttribute('data-csp-arg') || el.getAttribute('data-tom-paid-plan') || el.getAttribute('data-gba-paid-plan') || '').toLowerCase() : '';
+    if (pAttr === 'starter' || pAttr === 'single' || pAttr === 'tier1' || h.indexOf('plan_xiplzfnr8slmz') >= 0 || h.indexOf('plan_j2eaow4jizw2m') >= 0 || h.indexOf('polar_cl_v2pl') >= 0 || h.indexOf('/products/damap') >= 0) {
+      return 'step2_low';
+    }
+    if (pAttr === 'annual' || pAttr === 'premium' || pAttr === 'tier3' || h.indexOf('plan_9sdgfi753ucxq') >= 0 || h.indexOf('plan_ahyixblde0csq') >= 0 || h.indexOf('polar_cl_icvf') >= 0 || h.indexOf('/products/88dyn') >= 0) {
+      return 'step4_premium';
+    }
+    if (pAttr === 'monthly' || pAttr === 'pass' || pAttr === 'sixmonth' || pAttr === 'tier2' || h.indexOf('plan_xvjenwyrdef8t') >= 0 || h.indexOf('plan_utg9ma9l5pzis') >= 0 || h.indexOf('polar_cl_p8da') >= 0 || h.indexOf('/products/_5nq4') >= 0) {
+      return 'step3_core';
+    }
+    return '';
+  }
+
   function captureUtmParams() {
     try {
       var sp = new URLSearchParams((global.location && global.location.search) || '');
       var utm = {
         utm_source: sp.get('utm_source') || '',
         utm_medium: sp.get('utm_medium') || '',
-        utm_campaign: sp.get('utm_campaign') || ''
+        utm_campaign: sp.get('utm_campaign') || '',
+        utm_content: sp.get('utm_content') || ''
       };
-      if (utm.utm_source || utm.utm_medium || utm.utm_campaign) {
+      if (utm.utm_source || utm.utm_medium || utm.utm_campaign || utm.utm_content) {
         sessionStorage.setItem('dc_utm_params', JSON.stringify(utm));
         return utm;
       }
       var saved = sessionStorage.getItem('dc_utm_params');
       return saved ? JSON.parse(saved) : utm;
     } catch (_) {
-      return { utm_source: '', utm_medium: '', utm_campaign: '' };
+      return { utm_source: '', utm_medium: '', utm_campaign: '', utm_content: '' };
     }
   }
 
@@ -149,21 +243,54 @@
     try {
       var d = String(div || detectDivFromHost()).toUpperCase();
       var utm = captureUtmParams();
+      var prof = getOrCreateVisitorProfile();
+      var isQa = (extra && typeof extra.is_qa !== 'undefined') ? Boolean(extra.is_qa) : detectIsQaOrBot();
       var payload = {
         div_code: d,
         event_name: String(eventName || 'landing_view'),
         utm_source: utm.utm_source || (extra && extra.utm_source) || '',
         utm_medium: utm.utm_medium || (extra && extra.utm_medium) || '',
         utm_campaign: utm.utm_campaign || (extra && extra.utm_campaign) || '',
-        page_path: (global.location && global.location.pathname) ? global.location.pathname : '/'
+        utm_content: utm.utm_content || (extra && extra.utm_content) || '',
+        page_path: (global.location && global.location.pathname) ? global.location.pathname : '/',
+        visitor_id: prof.visitor_id,
+        ref_code: (extra && extra.ref_code) || prof.referred_by || '',
+        referrer_host: getReferrerHost(),
+        days_since_first: prof.days_since_first,
+        event_meta: (extra && extra.event_meta) ? String(extra.event_meta).slice(0, 120) : '',
+        is_qa: isQa ? 1 : 0
       };
       if (typeof global.gtag === 'function') {
-        try { global.gtag('event', payload.event_name, { division: d, utm_source: payload.utm_source, utm_campaign: payload.utm_campaign }); } catch (_) {}
+        try { global.gtag('event', payload.event_name, { division: d, utm_source: payload.utm_source, utm_campaign: payload.utm_campaign, event_meta: payload.event_meta }); } catch (_) {}
       }
       return postCloudJson('/api/analytics/event', payload).catch(function () { return { ok: false }; });
     } catch (_) {
       return Promise.resolve({ ok: false });
     }
+  }
+
+  function mountReturningVisitorBanner(div, daysSinceFirst) {
+    try {
+      if (daysSinceFirst < 1 || !global.document || !global.document.body) return;
+      if (global.document.getElementById('dc-returning-banner')) return;
+      if (div === 'HERO') return;
+      var msg = '';
+      if (div === 'GBA') {
+        msg = '\u304a\u304b\u3048\u308a\u306a\u3055\u3044\uff08\u521d\u56de\u8a2a\u554f\u304b\u3089 ' + daysSinceFirst + '\u65e5\u76ee\uff09\u2014 \u4eca\u65e5\u306e\u65b0NISA\u7d71\u8a08\u30d0\u30e9\u30f3\u30b9\u3084\u4fdd\u5b58\u6e08\u307f\u30ec\u30dd\u30fc\u30c8\u3092\u3059\u3050\u306b\u78ba\u8a8d\u3067\u304d\u307e\u3059\u3002';
+      } else if (div === 'KFK') {
+        msg = '\ub2e4\uc2dc \ubc29\ubb38\ud574 \uc8fc\uc154\uc11c \uac10\uc0ac\ud569\ub2c8\ub2e4 (\uccab \ubc29\ubb38 ' + daysSinceFirst + '\uc77c\ucc28) \u2014 \uc624\ub298 \uc6b0\ub9ac \uc544\uc774 \uc131\uc7a5 \uc2dc\uacc4 \ud750\ub984\uacfc \uc6d4\uac04 \uae30\ub85d\uc744 \ubc14\ub85c \ud655\uc778\ud574 \ubcf4\uc138\uc694.';
+      } else if (div === 'KFG') {
+        msg = 'Welcome back (Day ' + daysSinceFirst + ' since your first check) \u2014 re-check your child\'s US CDC growth pace or reopen your saved report anytime.';
+      } else {
+        msg = 'Welcome back (Day ' + daysSinceFirst + ' since your first visit) \u2014 re-check today\'s SMH \u00d7 XLV + SGOV calm balance or reopen your saved workbook.';
+      }
+      var bar = global.document.createElement('div');
+      bar.id = 'dc-returning-banner';
+      bar.setAttribute('role', 'status');
+      bar.style.cssText = 'background:#ECFDF5;border-bottom:1px solid #A7F3D0;color:#065F46;padding:8px 14px;text-align:center;font-size:13px;font-weight:600;line-height:1.45;';
+      bar.textContent = msg;
+      global.document.body.insertBefore(bar, global.document.body.firstChild);
+    } catch (_) {}
   }
 
   /* ==========================================================================
@@ -269,16 +396,25 @@
     }
 
     var nowIso = new Date().toISOString();
+    var _vp = getOrCreateVisitorProfile();
+    var _qa = detectIsQaOrBot();
     var payload = {
       div_code: div,
       div: div,
       email: email,
       nickname: nickname,
       segment: segment,
+      visitor_id: _vp.visitor_id,
+      ref_code: _vp.referred_by,
+      is_qa: _qa ? 1 : 0,
       metadata: {
         message: message,
         lang: lang,
         utm: captureUtmParams(),
+        visitor_id: _vp.visitor_id,
+        referred_by: _vp.referred_by,
+        referrer_host: getReferrerHost(),
+        is_qa: _qa ? 1 : 0,
         source_url: (global.location && global.location.href) ? global.location.href : '',
         client_ts: nowIso
       }
@@ -887,22 +1023,79 @@
     chain.then(function () { writeQueue(remaining); });
   }
 
-  // Auto-fire Stage 1 funnel `landing_view` + flush queue + auto-wire checkout_click on Whop/Polar/Latpeed links!
+  // Auto-fire AARRR v6: Acquisition (landing_view + referral_visit), Retention (return_d1/d7/d30 + welcome bar),
+  // Activation (quiz_start + sample_pdf_click), and Revenue (tier-tagged checkout_click + affiliate_click)!
   if (global.addEventListener) {
     global.addEventListener('DOMContentLoaded', function () {
       var div = detectDivFromHost();
-      captureUtmParams();
+      var utm = captureUtmParams();
+      var prof = getOrCreateVisitorProfile();
       trackFunnelEvent(div, 'landing_view');
+
+      // Closed-loop Referral Visit attribution (?ref=v_...)
+      try {
+        var sp = new URLSearchParams((global.location && global.location.search) || '');
+        var urlRef = String(sp.get('ref') || '').replace(/[^A-Za-z0-9_\-]/g, '').slice(0, 32);
+        if (urlRef && urlRef !== prof.visitor_id && sessionStorage.getItem('dc_ref_tracked_' + urlRef) !== '1') {
+          sessionStorage.setItem('dc_ref_tracked_' + urlRef, '1');
+          trackFunnelEvent(div, 'referral_visit', { ref_code: urlRef, event_meta: 'ref:' + urlRef });
+        }
+      } catch (_) {}
+
+      // D1 / D7 / D30 Cohort Retention tracking (max 1x per calendar day) + Returning Welcome Strip
+      try {
+        var todayKey = new Date().toISOString().slice(0, 10);
+        var isD7DripReturn = String(utm.utm_campaign || '').toLowerCase().indexOf('d7') >= 0;
+        if (prof.days_since_first >= 30 && localStorage.getItem('dc_ret_d30_' + todayKey) !== '1') {
+          localStorage.setItem('dc_ret_d30_' + todayKey, '1');
+          trackFunnelEvent(div, 'return_d30', { event_meta: 'day_' + prof.days_since_first });
+        } else if ((prof.days_since_first >= 7 || isD7DripReturn) && localStorage.getItem('dc_ret_d7_' + todayKey) !== '1') {
+          localStorage.setItem('dc_ret_d7_' + todayKey, '1');
+          trackFunnelEvent(div, 'return_d7', { event_meta: isD7DripReturn ? 'drip_d7' : ('day_' + prof.days_since_first) });
+        } else if (prof.days_since_first >= 1 && localStorage.getItem('dc_ret_d1_' + todayKey) !== '1') {
+          localStorage.setItem('dc_ret_d1_' + todayKey, '1');
+          trackFunnelEvent(div, 'return_d1', { event_meta: 'day_' + prof.days_since_first });
+        }
+        if (prof.days_since_first >= 1 || isD7DripReturn) {
+          mountReturningVisitorBanner(div, Math.max(1, prof.days_since_first));
+        }
+      } catch (_) {}
+
       setTimeout(flushPendingQueue, 1500);
+
       if (global.document && global.document.addEventListener) {
         global.document.addEventListener('click', function (ev) {
           var a = ev.target && ev.target.closest ? ev.target.closest('a,button') : null;
           if (!a) return;
           var href = String(a.getAttribute('href') || '');
-          if (/whop\.com|buy\.polar\.sh|latpeed\.com|cshop\.naver\.com|influencers\.coupang\.com/i.test(href)) {
-            trackFunnelEvent(div, 'checkout_click');
+          var id = String(a.id || '');
+
+          // 1. Sample 2p PDF Inspection (Activation signal)
+          if (/_sample_2p\.pdf/i.test(href)) {
+            trackFunnelEvent(div, 'sample_pdf_click', { event_meta: href.split('/').pop() });
+            return;
           }
-        });
+          // 2. Quiz / Interactive Tool Start (Micro-Activation signal, 1x/session)
+          if (id === 'btnPwStartStepUp' || id === 'btn-kfg-begin-atelier-top' || id === 'btn-kfk-begin-atelier' || id === 'btnPwStartStepUpJp' || a.getAttribute('data-csp-act') === 'kfg-begin-atelier') {
+            try {
+              if (sessionStorage.getItem('dc_quiz_start_' + div) !== '1') {
+                sessionStorage.setItem('dc_quiz_start_' + div, '1');
+                trackFunnelEvent(div, 'quiz_start', { event_meta: id || 'start_btn' });
+              }
+            } catch (_) {}
+            return;
+          }
+          // 3. HERO Affiliate Store Click (distinct Revenue event)
+          if (/cshop\.naver\.com|coupang\.com/i.test(href)) {
+            trackFunnelEvent(div, 'affiliate_click', { event_meta: /naver/i.test(href) ? 'naver_cshop' : 'coupang' });
+            return;
+          }
+          // 4. Paid PG Checkout Click with Value-Ladder step tag (step2_low / step3_core / step4_premium)
+          if (/whop\.com|buy\.polar\.sh|latpeed\.com/i.test(href)) {
+            var stepTag = classifyCheckoutStepFromHref(href, a);
+            trackFunnelEvent(div, 'checkout_click', { event_meta: stepTag || 'pg_click' });
+          }
+        }, true);
       }
     });
   }
@@ -917,6 +1110,9 @@
     escapeHtml: escapeHtml,
     isAllowedExternalUrl: isAllowedExternalUrl,
     trackFunnelEvent: trackFunnelEvent,
+    getOrCreateVisitorProfile: getOrCreateVisitorProfile,
+    buildReferralShareUrl: buildReferralShareUrl,
+    detectIsQaOrBot: detectIsQaOrBot,
     fetchHeroVotes: fetchHeroVotes,
     submitHeroVote: submitHeroVote,
     deliverPaidMagicPack: deliverPaidMagicPack,

@@ -6,6 +6,13 @@ window.PAYMENT_CONFIG = {
       COMPANY_ID: 'biz_pZ7yTvBkO7QcZY',
       STORE_NAME: 'GetBreakAI Japan Research',
       WHOP_PLANS: {
+        starter: {
+          plan_id: 'plan_j2eaOW4jizw2M',
+          purchase_url: 'https://whop.com/checkout/plan_j2eaOW4jizw2M',
+          redirect_url: 'https://getbreakai.com/jp/?payment=success&provider=whop&plan=starter',
+          price_jpy: 1480,
+          label: '新NISA過去25年ワークブックPDF（¥1,480買い切り）'
+        },
         monthly: {
           plan_id: 'plan_UtG9mA9L5pZIS',
           checkout_config_id: 'ch_4vZj2bl5sEBwlKT',
@@ -24,6 +31,7 @@ window.PAYMENT_CONFIG = {
         }
       },
       WHOP_CHECKOUT_URLS: {
+        starter: 'https://whop.com/checkout/plan_j2eaOW4jizw2M',
         monthly: 'https://whop.com/checkout/plan_UtG9mA9L5pZIS',
         annual: 'https://whop.com/checkout/plan_ahYIXbLDE0CsQ'
       },
@@ -67,6 +75,7 @@ window.PAYMENT_CONFIG = {
         };
 
         window.resolveGbaWhopPlan = function(plan) {
+      if (String(plan || '').toLowerCase() === 'starter') { return { key: 'starter', plan_id: 'plan_j2eaOW4jizw2M', purchase_url: 'https://whop.com/checkout/plan_j2eaOW4jizw2M', redirect_url: 'https://getbreakai.com/jp/?payment=success&provider=whop&plan=starter' }; }
           var cfg = window.PAYMENT_CONFIG || {};
           var plans = cfg.WHOP_PLANS || {};
           return (String(plan || '').toLowerCase() === 'annual')
@@ -215,14 +224,14 @@ window.PAYMENT_CONFIG = {
         try {
           var qParams = new URLSearchParams((window.location && window.location.search) || '');
           if (qParams.get('payment') === 'success' || qParams.get('checkout_status') === 'succeeded') {
-            var retPlan = String(qParams.get('plan') || 'monthly').toLowerCase() === 'annual' ? 'annual' : 'monthly';
+            var rpRaw = String(qParams.get('plan') || 'monthly').toLowerCase(); var retPlan = (rpRaw === 'starter' || rpRaw === 'annual') ? rpRaw : 'monthly';
             window.addEventListener('DOMContentLoaded', function() {
               if (document.getElementById('gbaWhopReturnBanner')) return;
               var banner = document.createElement('div');
               banner.id = 'gbaWhopReturnBanner';
               banner.setAttribute('role', 'status');
               banner.style.cssText = 'background:#ecfdf5;border-bottom:1.5px solid #059669;color:#065f46;padding:12px 18px;text-align:center;font-size:0.92rem;font-weight:700;line-height:1.6;';
-              var planTitle = retPlan === 'annual' ? '年間リサーチパス（¥29,800/年）' : '月額リサーチパス（¥4,400/月）';
+              var planTitle = retPlan === 'starter' ? '過去25年ワークブックPDF（¥1,480買い切り）' : (retPlan === 'annual' ? '年間リサーチパス（¥29,800/年）' : '月額リサーチパス（¥4,400/月）');
               banner.textContent = 'Whop決済のお手続きありがとうございます（' + planTitle + '）。60秒以内に届く認証コードメールをご確認のうえ、会員復元ボタンよりサーバー認証を完了してください。';
               if (document.body && document.body.firstChild) {
                 document.body.insertBefore(banner, document.body.firstChild);
@@ -245,9 +254,12 @@ window.PAYMENT_CONFIG = {
             }
             var href = String(btn.getAttribute('href') || '');
             var planAttr = String(btn.getAttribute('data-gba-paid-plan') || btn.getAttribute('data-whop-plan') || '').toLowerCase();
-            var selectedPlan = (planAttr === 'annual' || href.indexOf('plan_ahYIXbLDE0CsQ') !== -1 || href.indexOf('annual') !== -1)
-              ? 'annual'
-              : 'monthly';
+            var selectedPlan = (planAttr === 'starter' || href.indexOf('plan_j2eaOW4jizw2M') !== -1 || href.indexOf('starter') !== -1)
+              ? 'starter'
+              : ((planAttr === 'annual' || href.indexOf('plan_ahYIXbLDE0CsQ') !== -1 || href.indexOf('annual') !== -1)
+                ? 'annual'
+                : 'monthly');
+            try { if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.trackFunnelEvent === 'function') { window.DreamCompanyCRM.trackFunnelEvent('GBA', 'checkout_click'); } } catch (_ce) {}
 
             (function(){return Promise.resolve();})('https://abacus.disabled/hit/' + ns + '/paid_click_' + kst, { mode: 'cors', keepalive: true }).catch(function(){});
             (function(){return Promise.resolve();})('https://abacus.disabled/hit/' + ns + '/paid_click_total', { mode: 'cors', keepalive: true }).catch(function(){});

@@ -291,6 +291,43 @@ onGbaManYenInput()
   };
 
   var CLICK_ACTIONS = {
+    "dc-share-site": function (el) {
+      var div = (el && el.getAttribute("data-share-div")) || "TOM";
+      var url = (el && el.getAttribute("data-share-url")) || (window.location ? window.location.origin + window.location.pathname : "");
+      var title = (el && el.getAttribute("data-share-title")) || document.title || "";
+      var text = (el && el.getAttribute("data-share-text")) || title;
+      if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.trackFunnelEvent === "function") {
+        try { window.DreamCompanyCRM.trackFunnelEvent(div, "share_click"); } catch (_) {}
+      }
+      if (div === "GBA" && el && el.getAttribute("data-share-mode") === "line") {
+        var lineUrl = "https://social-plugins.line.me/lineit/share?url=" + encodeURIComponent(url);
+        window.open(lineUrl, "_blank", "noopener,noreferrer");
+        return;
+      }
+      if (navigator.share) {
+        navigator.share({ title: title, text: text, url: url }).catch(function () {});
+        return;
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(function () {
+          var orig = el.textContent;
+          el.textContent = div === "GBA" ? "リンクをコピーしました ✓" : (div === "KFK" || div === "HERO" ? "링크가 복사되었습니다 ✓" : "Link Copied — Ready to Share ✓");
+          setTimeout(function () { el.textContent = orig; }, 2200);
+        }).catch(function () {});
+      }
+    },
+    "kfk-open-latpeed": function (el) {
+      var tier = (el && el.getAttribute("data-csp-arg")) || "tier1";
+      if (window.KfkAtelierApp && window.KfkAtelierApp.openKfkLatpeedCheckout) {
+        window.KfkAtelierApp.openKfkLatpeedCheckout(tier);
+      } else if (window.openKfkLatpeedCheckout) {
+        window.openKfkLatpeedCheckout(tier);
+      }
+    },
+    "gba-whop-tab": function (el) {
+      var plan = (el && el.getAttribute("data-csp-arg")) || "monthly";
+      if (window.selectGbaWhopPlan) window.selectGbaWhopPlan(plan);
+    },
     "remove-parent": function (el) {
       if (el && el.parentNode) el.parentNode.remove();
     },

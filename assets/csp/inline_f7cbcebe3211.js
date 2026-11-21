@@ -15,7 +15,7 @@ let pwCurrentScreenJp = 0;
     }
 
     let gbaLiveTempScoreJp = 11;
-    let gbaLiveTempDateJp = '2026-11-18';
+    let gbaLiveTempDateJp = '2026-11-20';
 
     function hydrateGbaLiveTempBadgeJp() {
       const txtEl = document.getElementById('gbaLiveTempTextJp');

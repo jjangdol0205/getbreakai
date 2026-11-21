@@ -16,9 +16,9 @@
         var planObj = (typeof window.resolveGbaWhopPlan === 'function')
           ? window.resolveGbaWhopPlan(planKey)
           : {
-              plan_id: planKey === 'annual' ? 'plan_ahYIXbLDE0CsQ' : 'plan_UtG9mA9L5pZIS',
-              purchase_url: planKey === 'annual' ? 'https://whop.com/checkout/plan_ahYIXbLDE0CsQ' : 'https://whop.com/checkout/plan_UtG9mA9L5pZIS',
-              redirect_url: planKey === 'annual' ? 'https://getbreakai.com/jp/?payment=success&provider=whop&plan=annual' : 'https://getbreakai.com/jp/?payment=success&provider=whop&plan=monthly'
+              plan_id: planKey === 'starter' ? 'plan_j2eaOW4jizw2M' : (planKey === 'annual' ? 'plan_ahYIXbLDE0CsQ' : 'plan_UtG9mA9L5pZIS'),
+              purchase_url: planKey === 'starter' ? 'https://whop.com/checkout/plan_j2eaOW4jizw2M' : (planKey === 'annual' ? 'https://whop.com/checkout/plan_ahYIXbLDE0CsQ' : 'https://whop.com/checkout/plan_UtG9mA9L5pZIS'),
+              redirect_url: planKey === 'starter' ? 'https://getbreakai.com/jp/?payment=success&provider=whop&plan=starter' : (planKey === 'annual' ? 'https://getbreakai.com/jp/?payment=success&provider=whop&plan=annual' : 'https://getbreakai.com/jp/?payment=success&provider=whop&plan=monthly')
             };
         if (directBtn && planObj.purchase_url) {
           directBtn.setAttribute('href', planObj.purchase_url);
@@ -41,7 +41,7 @@
       }
 
       window.selectGbaWhopPlan = function(plan) {
-        activeWhopPlan = (String(plan || '').toLowerCase() === 'annual') ? 'annual' : 'monthly';
+        var pLow = String(plan || '').toLowerCase(); activeWhopPlan = (pLow === 'starter' || pLow === 'annual') ? pLow : 'monthly';
         document.querySelectorAll('[data-gba-whop-tab]').forEach(function(btn) {
           var isAct = btn.getAttribute('data-gba-whop-tab') === activeWhopPlan;
           btn.classList.toggle('is-active', isAct);
@@ -54,7 +54,7 @@
       };
 
       window.openGbaWhopCheckoutModal = function(plan) {
-        activeWhopPlan = (String(plan || '').toLowerCase() === 'annual') ? 'annual' : 'monthly';
+        var pLow = String(plan || '').toLowerCase(); activeWhopPlan = (pLow === 'starter' || pLow === 'annual') ? pLow : 'monthly';
         var modal = document.getElementById('gbaWhopCheckoutModal');
         if (!modal) {
           var fallbackPlan = window.resolveGbaWhopPlan ? window.resolveGbaWhopPlan(activeWhopPlan) : null;

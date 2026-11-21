@@ -827,6 +827,8 @@
       body.printing-gba-manual > *:not(#gbaStarterManualModal) { display: none !important; }
       body.printing-gba-manual #gbaStarterManualModal { display: block !important; position: static !important; background: #ffffff !important; padding: 0 !important; }
     }
+  
+    .pw-btn-primary { word-break: keep-all; overflow-wrap: anywhere; }
   </style>
   <script src="/assets/csp/csp-events.js"></script>
 </head>
@@ -847,12 +849,12 @@
 
       <div class="pw-live-temp-pill" id="gbaLiveTempBadgeJp" role="status" aria-live="polite">
         <span class="pw-live-dot" aria-hidden="true"></span>
-        <span id="gbaLiveTempTextJp">最新データ基準日：2026-11-18 ・ 市場温度指数：11 / 100（極度の恐怖圏）</span>
+        <span id="gbaLiveTempTextJp">最新データ基準日：2026-11-20 ・ 市場温度指数：11 / 100（極度の恐怖圏）</span>
       </div>
 
       <div class="pw-primary-cta-wrap pw-above-fold-cta">
         <button type="button" class="pw-btn-primary pw-btn-emerald" id="btnStartPwStepUpJp" data-csp-click="h_77205abe7285">
-          過去25年の統計バランスを確認する（無料・4問） &rarr;
+          過去25年の統計バランスを確認（無料・4問） &rarr;
         </button>
         <span class="pw-cta-caption">セクター過去統計エクスプローラー（2000–2025年統計比較） ・ メール壁なしで即時開示</span>
       </div>
@@ -931,7 +933,7 @@
 
       <div class="pw-primary-cta-wrap">
         <button type="button" class="pw-btn-primary pw-btn-emerald" data-csp-click="h_77205abe7285">
-          過去25年の統計バランスを確認する（無料・4問） &rarr;
+          過去25年の統計バランスを確認（無料・4問） &rarr;
         </button>
         <span class="pw-cta-caption">全4問（1問ずつ進行） ・ 登録不要で即時表示 ・ 証券口座ログイン不要</span>
       </div>
@@ -1017,7 +1019,7 @@
           </div>
           <div style="margin-top:24px;">
             <button type="button" class="pw-btn-primary pw-btn-emerald" id="btnSubmitPwAssessmentJp" style="width:100%;" data-csp-click="h_7c349717b9e2">
-              過去25年の統計比較要約を表示する（無料） &rarr;
+              過去25年の統計比較要約を表示（無料） &rarr;
             </button>
           </div>
         </div>
@@ -1072,6 +1074,14 @@
           </div>
         </div>
 
+        <div style="margin:14px 0 0;padding:12px 14px;background:#F8FAFC;border:1px solid #CBD5E1;border-radius:8px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;">
+          <span style="font-size:0.88rem;color:#334155;"><strong>ご家族やご友人と新NISA配分を確認しませんか？</strong> 無料4問診断を共有できます：</span>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <button type="button" class="pw-btn-primary" style="background:#06C755;color:#FFFFFF;border:none;padding:8px 14px;min-height:42px;font-size:0.85rem;" data-csp-act="dc-share-site" data-share-div="GBA" data-share-mode="line" data-share-url="https://getbreakai.com/jp/">LINEで共有する &rarr;</button>
+            <button type="button" class="pw-btn-primary" style="background:#FFFFFF;color:#0F2C22;border:1.5px solid #0F2C22;padding:8px 14px;min-height:42px;font-size:0.85rem;" data-csp-act="dc-share-site" data-share-div="GBA" data-share-url="https://getbreakai.com/jp/">リンクをコピー</button>
+          </div>
+        </div>
+
         <!-- Frictionless 1-Line Passwordless Email Box Directly Below Free Summary -->
         <div id="gba-jp-passwordless-signup" style="margin-top:24px; padding-top:20px; border-top:1px solid var(--pw-border);">
           <div class="pw-kicker" style="margin-bottom:6px;">FREE MORNING RESEARCH NOTES &middot; パスワード不要・1クリック解除OK</div>
@@ -1094,64 +1104,83 @@
     <!-- Screen 3: 2-Tier Whop Research Pass (#pricing — @whop/checkout Modal + Direct Tab Fallback) -->
     <section id="pricing" class="pw-tiers-section" data-pw-screen="3" style="display:none;">
       <span id="vip-vault" style="display:block;height:0;overflow:hidden;" aria-hidden="true"></span>
-      <div class="pw-kicker">INDEPENDENT RESEARCH PASS &middot; 新NISA・資産リサーチ研究室（教育目的）</div>
-      <h2 class="pw-serif-h2" id="pwPricingHeadlineJp">教育目的の市場データニュースレター ＋ 2000–2025年 過去統計ワークブック</h2>
-      <p style="margin:0;color:var(--pw-body);font-size:0.92rem;">
-        投資助言・個別推奨は一切行わない独立系リサーチ出版として、毎朝の公開市場温度データニュースレターと過去26年間の統計ワークブックをお届けします。
+      <div class="pw-kicker">4段階バリューラダー &middot; 無料から始め、ご納得の深さだけ選択</div>
+      <h2 class="pw-serif-h2" id="pwPricingHeadlineJp">まずは ¥1,480 買い切りPDFから、毎朝リサーチ・年間パスまで</h2>
+      <p style="margin:0 0 12px;color:var(--pw-body);font-size:0.92rem;">
+        投資助言・個別推奨は一切行わない独立系リサーチ出版です。定期課金が不要な「¥1,480 買い切り完全版PDF」から安心してお試しいただけます。
       </p>
 
-      <div class="pw-tier-grid">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:8px;margin:0 0 14px;padding:12px;background:#F8FAFC;border:1px solid #CBD5E1;border-radius:8px;font-size:0.82rem;">
+        <div style="padding:6px 8px;border-radius:6px;background:#ECFDF5;border:1px solid #6EE7B7;color:#065F46;"><strong>1. 無料資料（¥0）</strong><br>4問統計要約・2pサンプル ✓</div>
+        <div style="padding:6px 8px;border-radius:6px;background:#FFFFFF;border:1px solid #CBD5E1;color:#0F172A;"><strong>2. 低価格入門（¥1,480）</strong><br>12p完全版PDF買い切り</div>
+        <div style="padding:6px 8px;border-radius:6px;background:#FFFFFF;border:1px solid #CBD5E1;color:#0F172A;"><strong>3. コア月額（¥4,400/月）</strong><br>毎朝市場温度＋月次成績表</div>
+        <div style="padding:6px 8px;border-radius:6px;background:#FEFCE8;border:1px solid #FCD34D;color:#92400E;"><strong>4. プレミアム（¥29,800/年）</strong><br>44%割引・12ヶ月完全版</div>
+      </div>
+
+      <div style="margin:0 0 16px;padding:12px 14px;background:#FFFFFF;border:1px solid #CBD5E1;border-radius:8px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;">
+        <span style="font-size:0.88rem;color:#334155;"><strong style="color:#0F172A;">ご購入前の事前確認：</strong> 2000&ndash;2025年危機比較と楽天・SBI手順ダイジェスト（無料2pサンプル）</span>
+        <a href="/jp/downloads/gba_jp_sample_2p.pdf" target="_blank" rel="noopener" class="pw-btn-primary" style="background:#FFFFFF;color:#0F2C22;border:1.5px solid #0F2C22;padding:8px 14px;font-size:0.88rem;text-decoration:none;">
+          無料2pサンプルPDFを見る &rarr;
+        </a>
+      </div>
+
+      <div class="pw-tier-grid" style="grid-template-columns:repeat(auto-fit,minmax(225px,1fr));">
         <div class="pw-tier-card">
           <div>
-            <div class="pw-tier-kicker">TIER I &middot; MONTHLY RESEARCH PASS</div>
-            <h3 class="pw-tier-name">月額リサーチパス（¥4,400/月）</h3>
-            <div class="pw-tier-price">¥4,400 <span style="font-size:0.86rem;font-weight:500;color:var(--pw-muted);">/ 月（税込）</span></div>
+            <div class="pw-tier-kicker" style="color:#0369A1;">STEP 2 &middot; 低価格入門（買い切り）</div>
+            <h3 class="pw-tier-name">新NISA 過去25年統計ワークブック</h3>
+            <div class="pw-tier-price">¥1,480 <span style="font-size:0.84rem;font-weight:500;color:var(--pw-muted);">買い切り（税込）</span></div>
+            <div class="pw-tier-saving">自動更新なし・1回限りの永久保存版PDF</div>
+            <ul class="pw-tier-list">
+              <li><strong>12p 過去25年統計ワークブック完全版PDF</strong>（ITバブル・リーマン・2022年危機のSMH &times; XLV比較）</li>
+              <li><strong>円建て1対1カスタム計算シート</strong>（新NISA 1,800万円＋個人向け国債の区分表）</li>
+              <li><strong>楽天証券（iSPEED）・SBI証券 指値注文図解ガイド</strong></li>
+            </ul>
+          </div>
+          <a href="https://whop.com/checkout/plan_j2eaOW4jizw2M" data-gba-paid-plan="starter" data-whop-plan="starter" class="pw-btn-primary whop-checkout-button" style="width:100%;background:#FFFFFF;color:#0F2C22;border:1.5px solid #0F2C22;">
+            ¥1,480 買い切りPDFを購入 &rarr;
+          </a>
+        </div>
+
+        <div class="pw-tier-card">
+          <div>
+            <div class="pw-tier-kicker">STEP 3 &middot; コア月額パス</div>
+            <h3 class="pw-tier-name">月額リサーチパス</h3>
+            <div class="pw-tier-price">¥4,400 <span style="font-size:0.84rem;font-weight:500;color:var(--pw-muted);">/ 月（税込）</span></div>
             <div class="pw-tier-saving">1ヶ月単位でいつでも1クリック解約可能</div>
             <ul class="pw-tier-list">
-              <li><strong>教育目的の市場データニュースレター（毎朝8時配信）</strong>：日米市場温度指数（0〜100）と SMH &times; XLV 過去統計比率の推移記録</li>
-              <li><strong>局面別セクター過去統計リファレンス表</strong>（2000〜2025年の過熱・中立・恐怖局面ごとの歴史的統計ウェイト）</li>
-              <li><strong>新NISA成長投資枠・個人向け国債／特定口座 制度区分データノート</strong></li>
+              <li><strong>Step 2（¥1,480 ワークブック完全版）の全内容</strong>を即時開放</li>
+              <li><strong>毎朝8時・市場データニュースレター</strong>（日米市場温度指数0〜100＋SMH &times; XLV推移）</li>
+              <li><strong>毎月1日の『月次あんしん成績表』</strong>＆局面別リファレンス表</li>
             </ul>
           </div>
           <a href="https://whop.com/checkout/plan_UtG9mA9L5pZIS" data-gba-paid-plan="monthly" data-whop-plan="monthly" class="pw-btn-primary whop-checkout-button" style="width:100%;">
-            月額リサーチパス（¥4,400/月） を購読する &rarr;
+            月額パス（¥4,400/月）を購読 &rarr;
           </a>
         </div>
 
         <div class="pw-tier-card is-annual">
           <div>
-            <div class="pw-tier-kicker">TIER II &middot; ANNUAL RESEARCH PASS &middot; 44% OFF</div>
-            <h3 class="pw-tier-name">年間リサーチパス（¥29,800/年）</h3>
-            <div class="pw-tier-price">¥29,800 <span style="font-size:0.86rem;font-weight:500;color:var(--pw-muted);">/ 年（税込）</span></div>
+            <div class="pw-tier-kicker">STEP 4 &middot; プレミアム年間 &middot; 44% OFF</div>
+            <h3 class="pw-tier-name">年間プレミアムパス</h3>
+            <div class="pw-tier-price">¥29,800 <span style="font-size:0.84rem;font-weight:500;color:var(--pw-muted);">/ 年（税込）</span></div>
             <div class="pw-tier-saving">月額換算 約2,483円（月額比 約44%割引）</div>
             <ul class="pw-tier-list">
-              <li><strong>月額リサーチパスの全内容（12ヶ月間の毎朝市場データニュースレター配信）</strong></li>
-              <li><strong>2000–2025年 過去統計ワークブック完全版（随時更新PDF）</strong>：ITバブル・リーマン危機・2022年利上げ局面の SMH &times; XLV ＋ 安全資産 統計比較集</li>
-              <li><strong>新NISA成長投資枠・個人向け国債（変動10年）・特定口座SGOV 長期管理ガイドブック</strong></li>
+              <li><strong>12ヶ月間の毎朝市場データニュースレター</strong>＆月次あんしん成績表</li>
+              <li><strong>12p完全版ワークブック随時更新</strong>＋四半期リバランス＆-35%暴落ストレステスト</li>
+              <li><strong>永久マルチ端末マジックリンク復元</strong>（スマホ・PC共通）</li>
             </ul>
           </div>
           <a href="https://whop.com/checkout/plan_ahYIXbLDE0CsQ" data-gba-paid-plan="annual" data-whop-plan="annual" class="pw-btn-primary pw-btn-emerald whop-checkout-button" style="width:100%;">
-            年間リサーチパス（¥29,800/年） を購読する &rarr;
+            年間パス（¥29,800/年）を購読 &rarr;
           </a>
         </div>
       </div>
 
-      <div style="margin-top:18px;padding:16px 18px;background:#F8FAFC;border:1px solid #CBD5E1;border-radius:10px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;">
-        <div style="font-size:0.9rem;color:#334155;max-width:600px;line-height:1.65;">
-          <strong style="color:#0F172A;">ご購入前の事前確認：</strong> 2000&ndash;2025年危機別比較表と楽天iSPEED・SBI証券の買い付け手順ダイジェストを収めた無料2ページ・サンプルPDFを先にご確認いただけます。
-        </div>
-        <a href="/jp/downloads/gba_jp_sample_2p.pdf" target="_blank" rel="noopener" class="pw-btn-primary" style="background:#FFFFFF;color:#0F2C22;border:1.5px solid #0F2C22;padding:10px 18px;font-size:0.92rem;text-decoration:none;">
-          無料2pサンプルPDFを見る &rarr;
-        </a>
-      </div>
       <p class="pw-mor-note" style="line-height:1.72;">
-        <strong>デジタルコンテンツ標準返金・解約ポリシー：</strong> ①未閲覧・未ダウンロード時は決済後7日以内100%全額返金 ②デジタルPDF・コンテンツ閲覧／ダウンロード開始後の自己都合返金不可（上記無料2pサンプルを必ず事前にご確認ください） ③ファイル不具合・システム障害・重複決済時は100%返金 ④定期購読は違約金なし・いつでも1クリックで次回決済停止可能。<br>
-        公式決済基盤：Whop.com（Global Card / JCB / Visa / Mastercard / Apple Pay / Google Pay）（日本円 JPY 建て請求：月額 ¥4,400 / 年額 ¥29,800） ・ お問い合わせ：<a href="mailto:support@getbreakai.com" style="color:inherit;text-decoration:underline;">support@getbreakai.com</a> ・ <a href="/jp/archive.html" style="color:inherit;text-decoration:underline;">月次あんしんレポート・アーカイブ</a><br>
-        提供区分：「教育目的の市場データニュースレター ＋ 2000–2025年 過去統計ワークブック（投資助言・個別推奨は一切行わない独立系リサーチ出版）」
+        <strong>デジタルコンテンツ標準返金・解約ポリシー：</strong> ①未閲覧・未ダウンロード時は決済後7日以内100%全額返金 ②閲覧・ダウンロード開始後の自己都合返金不可（上記2p無料サンプルをご確認ください） ③不具合・重複決済時は100%返金 ④定期購読はいつでも1クリック解約可能。<br>
+        公式決済基盤：Whop.com（JCB / Visa / Mastercard / Apple Pay / Google Pay・日本円JPY請求） ・ <a href="mailto:support@getbreakai.com" style="color:inherit;text-decoration:underline;">support@getbreakai.com</a> ・ <a href="/jp/archive.html" style="color:inherit;text-decoration:underline;">月次レポート・アーカイブ</a>
       </p>
-      <div style="margin-top:18px;padding:16px 18px;background:#FFFFFF;border:1px solid #E2E8F0;border-radius:10px;font-size:0.88rem;color:#475569;">
-        <strong style="color:#0F172A;">初期読者レビュー募集：</strong> 無料サンプルPDFや新NISA 1,800万円ワークブックをご覧になったご感想をぜひお寄せください。<a href="mailto:support@getbreakai.com?subject=GetBreakAI%20Reader%20Review" style="color:#065F46;font-weight:700;text-decoration:underline;margin-left:6px;">2行レビューを送る &rarr;</a>
-      </div>
     </section>
 
     <!-- Screen 4: Paid Research Vault JP (円建て SMH x XLV + 個人向け国債/SGOV PDF・-35%ストレステスト・新NISA 1,800万円非課税ロードマップ・楽天/SBI 5分図解・月次あんしん成績表) -->
@@ -1196,6 +1225,9 @@
           </div>
         </div>
 
+        <div id="gbaScreen4UpgradeCardJp" style="padding:14px 16px;background:#FEFCE8;border:1px solid #FCD34D;border-radius:8px;margin-bottom:14px;font-size:0.9rem;color:#78350F;">
+          <strong>次のステップへ進む：</strong> ¥1,480買い切り版をご利用の方は <a href="https://whop.com/checkout/plan_UtG9mA9L5pZIS" data-gba-paid-plan="monthly" class="whop-checkout-button" style="color:#065F46;font-weight:800;text-decoration:underline;">月額リサーチパス（¥4,400/月）</a>、または月額比44%お得な <a href="https://whop.com/checkout/plan_ahYIXbLDE0CsQ" data-gba-paid-plan="annual" class="whop-checkout-button" style="color:#065F46;font-weight:800;text-decoration:underline;">年間プレミアムパス（¥29,800/年） &rarr;</a> へいつでも切替できます。
+        </div>
         <div id="gbaSatisfactionMount"></div>
       </div>
     </section>
@@ -1537,29 +1569,31 @@
       </div>
       <h2 class="gba-whop-title" id="gbaWhopModalTitle">新NISA・資産リサーチ研究室（教育目的）— リサーチパス購読手続き</h2>
       <p class="gba-whop-desc">
-        提供区分：<strong>「教育目的の市場データニュースレター ＋ 2000–2025年 過去統計ワークブック（投資助言・個別推奨は一切行わない独立系リサーチ出版）」</strong>（JCB・Visa・Mastercard・Apple Pay・Google Pay対応 ／ 未閲覧7日全額返金・1クリック解約・いつでも1クリック解約可能）
+        提供区分：<strong>「教育目的の市場データニュースレター ＋ 2000–2025年 過去統計ワークブック（投資助言・個別推奨は一切行わない独立系リサーチ出版）」</strong>（JCB・Visa・Mastercard・Apple Pay・Google Pay対応 ／ 未閲覧7日全額返金・いつでも1クリック解約可能）
       </p>
 
-      <div class="gba-whop-plans" role="group" aria-label="リサーチパス選択">
-        <button type="button" class="gba-whop-pbtn is-active" data-gba-whop-tab="monthly" data-csp-click="h_1209f6b7c348">
-          月額リサーチパス（¥4,400/月）<br><small style="font-weight:600; color:#475569;">毎朝 SMH &times; XLV 市場温度ニュースレター ＋ 過去統計比較ノート</small>
+      <div class="gba-whop-plans" role="group" aria-label="リサーチパス選択" style="grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0;">
+        <button type="button" class="gba-whop-pbtn" data-gba-whop-tab="starter" data-csp-act="gba-whop-tab" data-csp-arg="starter" style="padding:8px 10px;font-size:0.84rem;">
+          ¥1,480 買い切り<br><small style="font-weight:600;color:#0369a1;">12p完全版PDF</small>
         </button>
-        <button type="button" class="gba-whop-pbtn" data-gba-whop-tab="annual" data-csp-click="h_70918a57365b">
-          年間リサーチパス（¥29,800/年）<br><small style="font-weight:600; color:#065f46;">月額比 約44%割引 ・ 2000–2025年 過去統計ワークブック完全版同梱</small>
+        <button type="button" class="gba-whop-pbtn is-active" data-gba-whop-tab="monthly" data-csp-act="gba-whop-tab" data-csp-arg="monthly" style="padding:8px 10px;font-size:0.84rem;">
+          ¥4,400 / 月<br><small style="font-weight:600;color:#475569;">毎朝ニュースレター</small>
+        </button>
+        <button type="button" class="gba-whop-pbtn" data-gba-whop-tab="annual" data-csp-act="gba-whop-tab" data-csp-arg="annual" style="padding:8px 10px;font-size:0.84rem;">
+          ¥29,800 / 年<br><small style="font-weight:600;color:#065f46;">44%OFF 完全版</small>
         </button>
       </div>
 
-      <div class="gba-whop-direct-bar">
-        <span style="font-size:0.82rem; color:#475569;">アプリ内ブラウザや広告ブロッカー環境でも1タップで決済を完了できます：</span>
-        <a id="gbaWhopDirectTabBtn" data-whop-direct-tab="1" href="https://whop.com/checkout/plan_UtG9mA9L5pZIS" target="_blank" rel="noopener noreferrer" class="gba-whop-direct-link">
-          別タブで安全なWhop決済画面を開く（Open Secure Whop Checkout in New Tab） &rarr;
-        </a>
-      </div>
-
-      <div class="gba-whop-embed-wrap" id="gbaWhopEmbedMount">
-        <div style="padding:28px 16px; text-align:center; font-size:0.9rem; color:#475569;">
-          安全な Whop 決済フォームを読み込んでいます... 表示されない場合は上の「別タブで安全なWhop決済画面を開く」を押してください。
+      <div class="gba-whop-embed-wrap" id="gbaWhopEmbedMount" style="margin-bottom:10px;">
+        <div style="padding:24px 16px; text-align:center; font-size:0.9rem; color:#475569;">
+          安全な Whop 決済フォームを読み込んでいます...
         </div>
+      </div>
+
+      <div class="gba-whop-direct-bar" style="margin-bottom:8px;">
+        <a id="gbaWhopDirectTabBtn" data-whop-direct-tab="1" href="https://whop.com/checkout/plan_UtG9mA9L5pZIS" target="_blank" rel="noopener noreferrer" class="gba-whop-direct-link">
+          別タブで安全なWhop決済画面を開く &rarr;
+        </a>
       </div>
 
       <div style="margin-top:12px; font-size:0.8rem; color:#475569; line-height:1.58;">

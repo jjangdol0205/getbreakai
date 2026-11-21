@@ -14,6 +14,10 @@ MOR_LABEL_EN_JP = "Whop.com（Global Card / JCB / Visa / Mastercard / Apple Pay 
 WHOP_COMPANY_ID = "biz_pZ7yTvBkO7QcZY"
 WHOP_STORE_NAME = "GetBreakAI Japan Research"
 
+WHOP_STARTER_PLAN_ID = "plan_j2eaOW4jizw2M"
+WHOP_STARTER_CTA_HREF = "https://whop.com/checkout/plan_j2eaOW4jizw2M"
+WHOP_STARTER_RETURN_URL = "https://getbreakai.com/jp/?payment=success&provider=whop&plan=starter"
+
 WHOP_MONTHLY_PLAN_ID = "plan_UtG9mA9L5pZIS"
 WHOP_MONTHLY_CONFIG_ID = "ch_4vZj2bl5sEBwlKT"
 WHOP_MONTHLY_CTA_HREF = "https://whop.com/checkout/plan_UtG9mA9L5pZIS"
@@ -87,6 +91,13 @@ def build_payment_and_kpi_head_html() -> str:
       COMPANY_ID: 'biz_pZ7yTvBkO7QcZY',
       STORE_NAME: 'GetBreakAI Japan Research',
       WHOP_PLANS: {
+        starter: {
+          plan_id: 'plan_j2eaOW4jizw2M',
+          purchase_url: 'https://whop.com/checkout/plan_j2eaOW4jizw2M',
+          redirect_url: 'https://getbreakai.com/jp/?payment=success&provider=whop&plan=starter',
+          price_jpy: 1480,
+          label: '新NISA過去25年ワークブックPDF（¥1,480買い切り）'
+        },
         monthly: {
           plan_id: 'plan_UtG9mA9L5pZIS',
           checkout_config_id: 'ch_4vZj2bl5sEBwlKT',

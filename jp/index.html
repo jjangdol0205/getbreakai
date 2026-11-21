@@ -340,7 +340,7 @@
       min-height: 56px;
       padding: 14px 28px;
       background: #0F172A;
-      color: #FFFFFF !important;
+      color: #FFFFFF;
       border: 1px solid #0F172A;
       border-radius: 4px;
       font-family: inherit;
@@ -352,6 +352,10 @@
     }
     .pw-btn-primary:hover {
       background: #1E293B;
+    }
+    .pw-btn-primary[style*="background:#FFFFFF"]:hover {
+      background: #ECFDF5 !important;
+      color: #0F2C22 !important;
     }
     .pw-btn-emerald {
       background: #065F46;

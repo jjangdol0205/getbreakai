@@ -1076,7 +1076,7 @@
             return;
           }
           // 2. Quiz / Interactive Tool Start (Micro-Activation signal, 1x/session)
-          if (id === 'btnPwStartStepUp' || id === 'btn-kfg-begin-atelier-top' || id === 'btn-kfk-begin-atelier' || id === 'btnPwStartStepUpJp' || a.getAttribute('data-csp-act') === 'kfg-begin-atelier') {
+          if (id === 'btnStartPwStepUp' || id === 'btnPwStartStepUp' || id === 'btn-kfg-begin-atelier-top' || id === 'btn-kfg-begin-atelier' || id === 'btnStartPwStepUpJp' || id === 'btnPwStartStepUpJp' || id === 'btn-start-atelier-hero' || id === 'btn-start-atelier-stepup' || id === 'btn-kfk-begin-atelier' || a.getAttribute('data-csp-act') === 'kfg-begin-atelier') {
             try {
               if (sessionStorage.getItem('dc_quiz_start_' + div) !== '1') {
                 sessionStorage.setItem('dc_quiz_start_' + div, '1');

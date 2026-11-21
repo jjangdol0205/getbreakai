@@ -1,4 +1,30 @@
 User-agent: *
 Allow: /
+Disallow: /.git/
+Disallow: /.env
+Disallow: /api/
+Disallow: /products/
+Disallow: /assets/downloads/*master*
+Disallow: /assets/downloads/*full*
+Disallow: /assets/downloads/*guide*
+Disallow: /jp/downloads/*full*
+
+# AI Crawler Boundary Governance (OWASP A06:2025)
+User-agent: CCBot
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: GPTBot
+Allow: /
+Disallow: /products/
+Disallow: /api/
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
 
 Sitemap: https://getbreakai.com/sitemap.xml

@@ -3,7 +3,7 @@
 本日の高維持率 V4 シネマ・クオンツ動画3選（タイトル・概要欄・固定コメント・IGリール本文）：
 
 ---
-## 🎬 動画 1: 東京エレクトロン・アドバンテスト (8035) (`D:\드림컴퍼니\3사업부\flow_shorts_studio\viral_jp_v4\VP04_NVDA_9AM_TSE_Yoriten.mp4`)
+## 🎬 動画 1: 東京エレクトロン・アドバンテスト (8035) (`VP04_NVDA_9AM_TSE_Yoriten.mp4`)
 ### ① YouTube ショート タイトル（コピー用）
 ```text
 【朝9時の罠】エヌビディア爆上げの翌朝、東京エレクトロンやアドバンテストを成行買いする人が毎回負ける理由 #半導体株 #日本株 #東京エレクトロン #Shorts
@@ -39,7 +39,7 @@ https://getbreakai.com/jp/?ticker=8035
 ```
 
 ---
-## 🎬 動画 2: ドル円・米国株リスク (NVDA) (`D:\드림컴퍼니\3사업부\flow_shorts_studio\viral_jp_v4\VP05_USDJPY_155_to_135_Shock.mp4`)
+## 🎬 動画 2: ドル円・米国株リスク (NVDA) (`VP05_USDJPY_155_to_135_Shock.mp4`)
 ### ① YouTube ショート タイトル（コピー用）
 ```text
 【円高ショック試算】もしドル円が155円→135円に急変したら、あなたの米国株300万円はいくら消えるのか？ #ドル円 #米国株 #S&P500 #新NISA #Shorts
@@ -75,7 +75,7 @@ https://getbreakai.com/jp/
 ```
 
 ---
-## 🎬 動画 3: SOXL (半導体3倍ブル) (SOXL) (`D:\드림컴퍼니\3사업부\flow_shorts_studio\viral_jp_v4\VP06_SOXL_3xBull_Decay_Math.mp4`)
+## 🎬 動画 3: SOXL (半導体3倍ブル) (SOXL) (`VP06_SOXL_3xBull_Decay_Math.mp4`)
 ### ① YouTube ショート タイトル（コピー用）
 ```text
 【SOXLの恐怖】半導体3倍ブルを「下がってもガチホすれば戻る」と信じた100万円の末路…減価の正体を完全可視化 #SOXL #半導体株 #米国株 #Shorts

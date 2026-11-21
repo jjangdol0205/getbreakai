@@ -224,40 +224,11 @@
           return false;
         };
 
-        // Support ?payment=success&provider=whop&plan=monthly|annual return from Whop checkout on any GBA page
+        // Handle ?payment=success&provider=whop return safely (NEVER grant client-only unlock without server verification!)
         try {
           var qParams = new URLSearchParams((window.location && window.location.search) || '');
           if (qParams.get('payment') === 'success' || qParams.get('checkout_status') === 'succeeded') {
             var retPlan = String(qParams.get('plan') || 'monthly').toLowerCase() === 'annual' ? 'annual' : 'monthly';
-            var pKey = String(qParams.get('receipt_id') || qParams.get('license_key') || qParams.get('checkout_id') || qParams.get('order_id') || ('WHOP-VERIFIED-SESSION-' + retPlan.toUpperCase() + '-' + kst)).trim();
-            var pEmail = String(qParams.get('customer_email') || qParams.get('email') || '').trim();
-            localStorage.setItem('gb_vip_unlocked', 'true');
-            localStorage.setItem('gb_vip_plan', retPlan);
-            localStorage.setItem('gb_vip_license_key', pKey);
-            localStorage.setItem('gb_vip_key', pKey);
-            if (pEmail && pEmail.indexOf('@') !== -1) {
-              localStorage.setItem('gb_vip_customer_email', pEmail);
-            }
-            try {
-              var savedAnsJp = JSON.parse(localStorage.getItem('gba_pw_stepup_answers_v1') || '{}') || {};
-              var crmEmail = pEmail || localStorage.getItem('gba_jp_free_email') || '';
-              if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.deliverPaidMagicPack === 'function') {
-                window.DreamCompanyCRM.deliverPaidMagicPack({
-                  div: 'GBA',
-                  email: crmEmail,
-                  plan_tier: retPlan === 'annual' ? '年間リサーチパス（¥29,800/年）' : '月額リサーチパス（¥4,400/月）',
-                  order_ref: pKey,
-                  base_url: 'https://getbreakai.com/jp/',
-                  hash_anchor: 'gbaPaidScreen4VaultJp',
-                  profile_state: savedAnsJp
-                });
-              }
-            } catch (_crmErr) {}
-            if (typeof sessionStorage !== 'undefined' && sessionStorage.getItem('gba_whop_paid_hit') !== '1') {
-              sessionStorage.setItem('gba_whop_paid_hit', '1');
-              fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_success_' + kst, { mode: 'cors', keepalive: true }).catch(function(){});
-              fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_success_total', { mode: 'cors', keepalive: true }).catch(function(){});
-            }
             window.addEventListener('DOMContentLoaded', function() {
               if (document.getElementById('gbaWhopReturnBanner')) return;
               var banner = document.createElement('div');
@@ -265,7 +236,7 @@
               banner.setAttribute('role', 'status');
               banner.style.cssText = 'background:#ecfdf5;border-bottom:1.5px solid #059669;color:#065f46;padding:12px 18px;text-align:center;font-size:0.92rem;font-weight:700;line-height:1.6;';
               var planTitle = retPlan === 'annual' ? '年間リサーチパス（¥29,800/年）' : '月額リサーチパス（¥4,400/月）';
-              banner.textContent = 'Whop公式決済が完了しました — ' + planTitle + ' の購読ステータスが有効化されました。ご登録メール宛の領収書もあわせてご確認ください。';
+              banner.textContent = 'Whop決済のお手続きありがとうございます（' + planTitle + '）。60秒以内に届く認証コードメールをご確認のうえ、会員復元ボタンよりサーバー認証を完了してください。';
               if (document.body && document.body.firstChild) {
                 document.body.insertBefore(banner, document.body.firstChild);
               }

@@ -286,40 +286,11 @@
           return false;
         };
 
-        // Support ?payment=success&provider=whop&plan=monthly|annual return from Whop checkout on any GBA page
+        // Handle ?payment=success&provider=whop return safely (NEVER grant client-only unlock without server verification!)
         try {
           var qParams = new URLSearchParams((window.location && window.location.search) || '');
           if (qParams.get('payment') === 'success' || qParams.get('checkout_status') === 'succeeded') {
             var retPlan = String(qParams.get('plan') || 'monthly').toLowerCase() === 'annual' ? 'annual' : 'monthly';
-            var pKey = String(qParams.get('receipt_id') || qParams.get('license_key') || qParams.get('checkout_id') || qParams.get('order_id') || ('WHOP-VERIFIED-SESSION-' + retPlan.toUpperCase() + '-' + kst)).trim();
-            var pEmail = String(qParams.get('customer_email') || qParams.get('email') || '').trim();
-            localStorage.setItem('gb_vip_unlocked', 'true');
-            localStorage.setItem('gb_vip_plan', retPlan);
-            localStorage.setItem('gb_vip_license_key', pKey);
-            localStorage.setItem('gb_vip_key', pKey);
-            if (pEmail && pEmail.indexOf('@') !== -1) {
-              localStorage.setItem('gb_vip_customer_email', pEmail);
-            }
-            try {
-              var savedAnsJp = JSON.parse(localStorage.getItem('gba_pw_stepup_answers_v1') || '{}') || {};
-              var crmEmail = pEmail || localStorage.getItem('gba_jp_free_email') || '';
-              if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.deliverPaidMagicPack === 'function') {
-                window.DreamCompanyCRM.deliverPaidMagicPack({
-                  div: 'GBA',
-                  email: crmEmail,
-                  plan_tier: retPlan === 'annual' ? '年間リサーチパス（¥29,800/年）' : '月額リサーチパス（¥4,400/月）',
-                  order_ref: pKey,
-                  base_url: 'https://getbreakai.com/jp/',
-                  hash_anchor: 'gbaPaidScreen4VaultJp',
-                  profile_state: savedAnsJp
-                });
-              }
-            } catch (_crmErr) {}
-            if (typeof sessionStorage !== 'undefined' && sessionStorage.getItem('gba_whop_paid_hit') !== '1') {
-              sessionStorage.setItem('gba_whop_paid_hit', '1');
-              fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_success_' + kst, { mode: 'cors', keepalive: true }).catch(function(){});
-              fetch('https://abacus.jasoncameron.dev/hit/' + ns + '/paid_success_total', { mode: 'cors', keepalive: true }).catch(function(){});
-            }
             window.addEventListener('DOMContentLoaded', function() {
               if (document.getElementById('gbaWhopReturnBanner')) return;
               var banner = document.createElement('div');
@@ -327,7 +298,7 @@
               banner.setAttribute('role', 'status');
               banner.style.cssText = 'background:#ecfdf5;border-bottom:1.5px solid #059669;color:#065f46;padding:12px 18px;text-align:center;font-size:0.92rem;font-weight:700;line-height:1.6;';
               var planTitle = retPlan === 'annual' ? '年間リサーチパス（¥29,800/年）' : '月額リサーチパス（¥4,400/月）';
-              banner.textContent = 'Whop公式決済が完了しました — ' + planTitle + ' の購読ステータスが有効化されました。ご登録メール宛の領収書もあわせてご確認ください。';
+              banner.textContent = 'Whop決済のお手続きありがとうございます（' + planTitle + '）。60秒以内に届く認証コードメールをご確認のうえ、会員復元ボタンよりサーバー認証を完了してください。';
               if (document.body && document.body.firstChild) {
                 document.body.insertBefore(banner, document.body.firstChild);
               }
@@ -1525,9 +1496,9 @@
         <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:14px 16px;background:#F8FAFC;border:1px solid #CBD5E1;border-radius:8px;margin-bottom:18px;">
           <label for="gbaCustomManYenInput" style="font-weight:700;font-size:0.98rem;color:#0F172A;">世帯想定規模（単位：万円）：</label>
           <input type="number" id="gbaCustomManYenInput" min="100" max="100000" step="100" value="1800" oninput="onGbaManYenInput()" style="padding:10px 14px;border:1px solid #94A3B8;border-radius:6px;font-size:1.05rem;font-weight:700;width:160px;font-variant-numeric:tabular-nums;">
-          <a href="/jp/downloads/gba_jp_nisa_workbook_full.pdf" download class="pw-btn-primary pw-btn-emerald" id="btnDownloadGbaMaster12pPdf" style="text-decoration:none;">
+          <button type="button" class="pw-btn-primary pw-btn-emerald" id="btnDownloadGbaMaster12pPdf" onclick="downloadProtectedGbaPdfJp()">
             12p 新NISA完全版ワークブックPDFをダウンロード &rarr;
-          </a>
+          </button>
           <button type="button" class="pw-btn-primary" id="btnDownloadGbaCustomPdf" onclick="openGbaCustomPdfWindowJp()" style="background:#FFFFFF;color:#0F2C22;border:1.5px solid #0F2C22;">
             カスタム金額シートを印刷 &rarr;
           </button>
@@ -1595,9 +1566,12 @@
         ご登録メールアドレスを入力して保存済みの過去統計比較要約を再表示するか、Whop.com 決済完了メール記載の領収書番号をご入力ください。
       </p>
       <form onsubmit="return submitPwRestoreJp(event)" novalidate style="display:flex;flex-direction:column;gap:12px;">
-        <input type="email" id="pwRestoreEmailJp" class="pw-email-input" placeholder="ご登録メールアドレス" autocomplete="email">
-        <input type="text" id="jpHubLicenseInput" class="pw-email-input" placeholder="任意：Whop 領収書番号 / メンバーシップID" autocomplete="off">
-        <button type="submit" class="pw-btn-primary pw-btn-emerald" style="width:100%;">セッションを復元する &rarr;</button>
+        <input type="email" id="pwRestoreEmailJp" class="pw-email-input" placeholder="Whop決済時のメールアドレス" autocomplete="email">
+        <input type="text" id="jpHubLicenseInput" class="pw-email-input" placeholder="アクセスコード・領収書ID・または6桁認証コード" autocomplete="one-time-code">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button type="submit" class="pw-btn-primary pw-btn-emerald" style="flex:1;min-width:170px;">認証して開く &rarr;</button>
+          <button type="button" onclick="requestGbaOtpJp()" class="pw-btn-primary" style="background:#FFFFFF;color:#0F2C22;border:1.5px solid #0F2C22;">6桁コードを送信</button>
+        </div>
       </form>
       <div id="jpHubVipStatus" role="status" aria-live="polite" style="display:none;margin-top:12px;font-size:0.88rem;color:#065F46;"></div>
     </div>
@@ -2597,38 +2571,48 @@
       if (m) m.classList.remove('is-open');
     }
 
-    function syncStoredVipKeysOnHub() {
-      try {
-        const k1 = String(localStorage.getItem('gb_vip_license_key') || '').trim();
-        const k2 = String(localStorage.getItem('gb_vip_key') || '').trim();
-        const key = k1 || k2;
-        if (key && key.length >= 12 && !/^(DEMO-|FAKE-|TEMP-)/i.test(key)) {
-          localStorage.setItem('gb_vip_unlocked', 'true');
-          localStorage.setItem('gb_vip_license_key', key);
-          localStorage.setItem('gb_vip_key', key);
-        }
-      } catch (_) {}
+    function downloadProtectedGbaPdfJp() {
+      if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.openProtectedPdfDownload === 'function') {
+        return window.DreamCompanyCRM.openProtectedPdfDownload('GBA', 'gba_jp_nisa_12p', function() {
+          openPwRestoreModalJp();
+        });
+      }
+      openPwRestoreModalJp();
+      return false;
     }
 
-    async function unlockJpHubVipVault() {
-      const inp = document.getElementById('jpHubLicenseInput');
-      const statusEl = document.getElementById('jpHubVipStatus');
-      const key = String(inp ? inp.value : '').trim();
-      if (key && key.length >= 12 && !/^(DEMO-|FAKE-|TEMP-)/i.test(key)) {
-        try {
-          localStorage.setItem('gb_vip_unlocked', 'true');
-          localStorage.setItem('gb_vip_license_key', key);
-          localStorage.setItem('gb_vip_key', key);
-        } catch (_) {}
-        syncStoredVipKeysOnHub();
-        if (statusEl) {
-          statusEl.style.display = 'block';
-          statusEl.textContent = '購読パスを確認しました。';
+    function requestGbaOtpJp() {
+      const emInp = document.getElementById('pwRestoreEmailJp');
+      const st = document.getElementById('jpHubVipStatus');
+      const em = String(emInp ? emInp.value : '').trim().toLowerCase();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em)) {
+        if (st) {
+          st.style.display = 'block';
+          st.style.color = '#991B1B';
+          st.textContent = '先にWhop決済時のメールアドレスをご入力ください。';
         }
-        setTimeout(function() { window.location.href = '/jp/?unlock=1#vip-vault'; }, 600);
-        return true;
+        return false;
+      }
+      if (st) {
+        st.style.display = 'block';
+        st.style.color = '#334155';
+        st.textContent = '6桁ワンタイム認証コードを送信しています...';
+      }
+      if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.requestAuthOtp === 'function') {
+        window.DreamCompanyCRM.requestAuthOtp({ div: 'GBA', email: em }).then(function() {
+          if (st) {
+            st.style.display = 'block';
+            st.style.color = '#065F46';
+            st.textContent = '有効なご購入履歴が確認された場合、6桁認証コードをメール送信しました（10分間有効）。上の欄へ入力して認証してください。';
+          }
+        });
       }
       return false;
+    }
+
+    function syncStoredVipKeysOnHub() {
+      // Client-only key length checks disabled for Zero-Bypass security; active sessions verify server-side.
+      return;
     }
 
     function submitPwRestoreJp(ev) {
@@ -2647,13 +2631,25 @@
         }
         return false;
       }
+      const isSixDigitOtp = /^\d{6}$/.test(lic);
+      if (!lic || (!isSixDigitOtp && lic.length < 6)) {
+        if (st) {
+          st.style.display = 'block';
+          st.style.color = '#991B1B';
+          st.textContent = 'アクセスコード・領収書IDを入力するか、「6桁コードを送信」ボタンを押してください。';
+        }
+        return false;
+      }
       if (st) {
         st.style.display = 'block';
         st.style.color = '#334155';
         st.textContent = 'サーバーでWhop会員権限を照合しています...';
       }
+      const reqPayload = isSixDigitOtp
+        ? { div: 'GBA', email: em, otp: lic }
+        : { div: 'GBA', email: em, access_code: lic };
       const vp = (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.verifyEntitlement === 'function')
-        ? window.DreamCompanyCRM.verifyEntitlement({ div: 'GBA', email: em, access_code: lic })
+        ? window.DreamCompanyCRM.verifyEntitlement(reqPayload)
         : Promise.resolve({ authorized: false });
       vp.then(function(vres) {
         try {
@@ -2663,8 +2659,8 @@
         if (vres && vres.authorized) {
           try {
             localStorage.setItem('gb_vip_unlocked', 'true');
-            localStorage.setItem('gb_vip_license_key', vres.access_code || lic || 'WHOP-VERIFIED');
-            localStorage.setItem('gb_vip_key', vres.access_code || lic || 'WHOP-VERIFIED');
+            localStorage.setItem('gb_vip_license_key', isSixDigitOtp ? 'OTP-VERIFIED' : lic);
+            localStorage.setItem('gb_vip_key', isSixDigitOtp ? 'OTP-VERIFIED' : lic);
           } catch (_) {}
           if (st) {
             st.style.display = 'block';
@@ -2677,34 +2673,10 @@
           if (st) {
             st.style.display = 'block';
             st.style.color = '#991B1B';
-            st.textContent = '有効なWhop決済履歴が確認できませんでした。無料診断要約を表示します（決済直後の場合は30秒後に再試行するか support@getbreakai.com へご連絡ください）。';
+            st.textContent = '有効なWhop決済履歴が確認できませんでした。「6桁コードを送信」をお試しいただくか support@getbreakai.com へご連絡ください。';
           }
-          setTimeout(function() { closePwRestoreModalJp(); showPwScreenJp(2); }, 950);
         }
       });
-      return false;
-    }
-        return false;
-      }
-      if (/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em)) {
-        try {
-          localStorage.setItem('gba_jp_free_email', em);
-          localStorage.setItem('gb_free_member_email', em);
-        } catch (_) {}
-      }
-      if (lic.length >= 12) {
-        unlockJpHubVipVault();
-        return false;
-      }
-      if (st) {
-        st.style.display = 'block';
-        st.style.color = '#065F46';
-        st.textContent = '保存済みセッションを復元しました。';
-      }
-      setTimeout(function() {
-        closePwRestoreModalJp();
-        showPwScreenJp(2);
-      }, 400);
       return false;
     }
 
@@ -2713,15 +2685,13 @@
       window.__jpHubWhopMsgBound = true;
       window.addEventListener('message', function(msgEvt) {
         try {
-          if (!msgEvt || !String(msgEvt.origin || '').includes('whop.com')) return;
+          if (!msgEvt || !msgEvt.origin) return;
+          const origHost = new URL(String(msgEvt.origin)).hostname.toLowerCase();
+          if (origHost !== 'whop.com' && !origHost.endsWith('.whop.com')) return;
           const payload = typeof msgEvt.data === 'string' ? JSON.parse(msgEvt.data) : msgEvt.data;
           if (payload && (payload.event === 'checkout.complete' || payload.type === 'checkout.succeeded' || payload.status === 'succeeded')) {
-            const orderKey = (payload.data && (payload.data.id || payload.data.receipt_id)) || payload.receipt_id || 'WHOP-VERIFIED-CHECKOUT-SESSION-2026';
-            localStorage.setItem('gb_vip_unlocked', 'true');
-            localStorage.setItem('gb_vip_license_key', orderKey);
-            localStorage.setItem('gb_vip_key', orderKey);
             if (typeof window.closeGbaWhopCheckoutModal === 'function') window.closeGbaWhopCheckoutModal();
-            window.location.href = '/jp/?payment=success&provider=whop&plan=monthly#vip-vault';
+            openPwRestoreModalJp();
           }
         } catch (_) {}
       });
@@ -2745,30 +2715,33 @@
       try {
         if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.decodeMagicRestoreParam === 'function') {
           const mObj = window.DreamCompanyCRM.decodeMagicRestoreParam(window.location.search || '');
-          if (mObj && typeof mObj === 'object') {
+          if (mObj && typeof mObj === 'object' && mObj.email && mObj.access_code && typeof window.DreamCompanyCRM.verifyEntitlement === 'function') {
             if (mObj.objective) pwAnswersJp.objective = mObj.objective;
             if (mObj.scale) pwAnswersJp.scale = Number(mObj.scale) || 1800;
             if (mObj.comfort) pwAnswersJp.comfort = mObj.comfort;
             if (mObj.techMix) pwAnswersJp.techMix = mObj.techMix;
-            localStorage.setItem('gb_vip_unlocked', 'true');
             localStorage.setItem('gba_pw_stepup_answers_v1', JSON.stringify(pwAnswersJp));
-            if (mObj.email) localStorage.setItem('gba_jp_free_email', String(mObj.email).toLowerCase());
+            localStorage.setItem('gba_jp_free_email', String(mObj.email).toLowerCase());
+            window.DreamCompanyCRM.verifyEntitlement({
+              div: 'GBA',
+              email: mObj.email,
+              access_code: mObj.access_code,
+              magic_restore: true
+            }).then(function(vr) {
+              if (vr && vr.authorized) {
+                localStorage.setItem('gb_vip_unlocked', 'true');
+                showPwScreenJp(4);
+              } else {
+                openPwRestoreModalJp();
+              }
+            });
+            return;
           }
         }
         const params = new URLSearchParams(window.location.search || '');
         const h = (window.location.hash || '').toLowerCase();
-        if (params.get('payment') === 'success' || params.get('checkout_status') === 'succeeded' || params.get('paid_restore') === '1' || params.get('magic_restore') || h === '#gbapaidscreen4vaultjp') {
-          const autoKey = String(params.get('receipt_id') || params.get('license_key') || params.get('checkout_id') || params.get('order_id') || 'WHOP-VERIFIED-CHECKOUT-SESSION-2026').trim();
-          localStorage.setItem('gb_vip_unlocked', 'true');
-          localStorage.setItem('gb_vip_license_key', autoKey);
-          localStorage.setItem('gb_vip_key', autoKey);
-          showPwScreenJp(4);
-          setTimeout(function() {
-            const v4 = document.getElementById('gbaPaidScreen4VaultJp');
-            if (v4 && v4.scrollIntoView) v4.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }, 150);
-        } else if (h === '#vip-vault' || params.get('unlock') === '1') {
-          showPwScreenJp(4);
+        if (params.get('payment') === 'success' || params.get('checkout_status') === 'succeeded') {
+          openPwRestoreModalJp();
         } else if (h === '#pricing' || h === '#gbamorningclubjp') {
           showPwScreenJp(2);
         }

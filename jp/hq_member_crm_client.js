@@ -13,6 +13,40 @@
 (function (global) {
   'use strict';
 
+  // Neutralize flaky deprecated third-party hit counter (replaced by Cloudflare D1 funnel_events)
+  if (typeof global.fetch === 'function' && !global.__dcAbacusFetchGuarded) {
+    global.__dcAbacusFetchGuarded = true;
+    var _origFetch = global.fetch.bind(global);
+    global.fetch = function (input, init) {
+      try {
+        var reqUrl = typeof input === 'string' ? input : (input && input.url ? String(input.url) : '');
+        if (reqUrl.indexOf('abacus.jasoncameron.dev') >= 0) {
+          if (typeof Response === 'function') {
+            return Promise.resolve(new Response('{"value":0}', { status: 200, headers: { 'Content-Type': 'application/json' } }));
+          }
+          return Promise.resolve({ ok: true, status: 200, json: function () { return Promise.resolve({ value: 0 }); } });
+        }
+      } catch (_e) {}
+      return _origFetch(input, init);
+    };
+  }
+
+  // Purge any legacy PWA Service Worker caches cleanly so returning browsers always load fresh Cloudflare Pages builds
+  try {
+    if (global.navigator && global.navigator.serviceWorker && typeof global.navigator.serviceWorker.getRegistrations === 'function') {
+      global.navigator.serviceWorker.getRegistrations().then(function (regs) {
+        if (regs && regs.length) {
+          regs.forEach(function (reg) { try { reg.unregister(); } catch (_e) {} });
+          if (global.caches && typeof global.caches.keys === 'function') {
+            global.caches.keys().then(function (keys) {
+              keys.forEach(function (k) { try { global.caches.delete(k); } catch (_e) {} });
+            }).catch(function () {});
+          }
+        }
+      }).catch(function () {});
+    }
+  } catch (_e) {}
+
   var CLOUD_API_BASE = global.DC_CLOUD_API_BASE || 'https://api.truthofmarket.com';
   var QUEUE_KEY = 'dc_crm_sync_queue_v2';
 

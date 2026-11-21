@@ -14,7 +14,7 @@ let pwCurrentScreenJp = 0;
       try { localStorage.setItem('gb_jp_theme', next); } catch (_) {}
     }
 
-    let gbaLiveTempScoreJp = 11;
+    let gbaLiveTempScoreJp = 5;
     let gbaLiveTempDateJp = '2026-11-20';
 
     function hydrateGbaLiveTempBadgeJp() {

@@ -15,6 +15,7 @@
     pre { background:#070a12; border:1px solid #334155; border-radius:10px; padding:18px; white-space:pre-wrap; font-family:Consolas,monospace; font-size:13.5px; color:#e2e8f0; line-height:1.65; max-height:480px; overflow-y:auto; }
     .toast { position:fixed; bottom:24px; right:24px; background:#10b981; color:#04130d; font-weight:800; padding:12px 22px; border-radius:10px; display:none; z-index:9999; }
   </style>
+  <script src="/assets/csp/csp-events.js"></script>
 </head>
 <body>
   <div class="wrap">
@@ -24,15 +25,15 @@
         • Batch 1 (1–24) and Batch 2 (25–48) share the exact same <strong>25-year-old Japanese financial anchor visual appearance, hair, and navy blazer styling</strong>.<br/>
         • Prompts are separated by <strong>blank lines</strong> for instant 24-clip batch paste into Google Flow.
       </p>
-      <button class="btn" onclick="copyById('batch-1', 'Batch 1 (1-24)')">📋 Copy Batch 1 (1–24)</button>
-      <button class="btn btn-gold" onclick="copyById('batch-2', 'Batch 2 (25-48)')" style="margin-left:8px;">📋 Copy Batch 2 (25–48)</button>
+      <button class="btn" data-csp-click="h_7a2397c6fadf">📋 Copy Batch 1 (1–24)</button>
+      <button class="btn btn-gold" data-csp-click="h_f4a69df9e4d9" style="margin-left:8px;">📋 Copy Batch 2 (25–48)</button>
       <a class="btn btn-blue" href="https://labs.google/fx/tools/flow" target="_blank" style="margin-left:8px;">🚀 Open Google Flow ↗</a>
     </div>
 
     <div class="card">
       <div class="card-head">
         <h2 style="margin:0;font-size:18px;color:#facc15;">🌟 Batch 2 (EP07–EP12 × 4 Cuts = Clips 25–48)</h2>
-        <button class="btn btn-gold" onclick="copyById('batch-2', 'Batch 2 (25-48)')">📋 1-Click Copy Batch 2 (25–48)</button>
+        <button class="btn btn-gold" data-csp-click="h_f4a69df9e4d9">📋 1-Click Copy Batch 2 (25–48)</button>
       </div>
       <pre id="batch-2">Vertical 9:16 photorealistic 8k cinematic video, 24fps. A stunningly beautiful 25-year-old Japanese female financial actress with silky dark-brown shoulder-length layered hair, soft see-through bangs, expressive almond eyes, and flawless porcelain skin, wearing a tailored navy-blue blazer over a white silk blouse and delicate pearl stud earrings. She stands in a futuristic Tokyo semiconductor market broadcast room at night with glowing chip wafer graphics behind her, looking straight into the camera with a poised, captivating smile, shallow depth of field.
 
@@ -86,7 +87,7 @@ Vertical 9:16 photorealistic 8k cinematic video, 24fps. The same stunningly beau
     <div class="card">
       <div class="card-head">
         <h2 style="margin:0;font-size:18px;color:#38bdf8;">✨ Batch 1 (EP01–EP06 × 4 Cuts = Clips 1–24)</h2>
-        <button class="btn" onclick="copyById('batch-1', 'Batch 1 (1-24)')">📋 1-Click Copy Batch 1 (1–24)</button>
+        <button class="btn" data-csp-click="h_7a2397c6fadf">📋 1-Click Copy Batch 1 (1–24)</button>
       </div>
       <pre id="batch-1">Vertical 9:16 photorealistic 8k cinematic video, 24fps. A stunningly beautiful 25-year-old Japanese female financial actress with silky dark-brown shoulder-length layered hair, soft see-through bangs, expressive almond eyes, and flawless porcelain skin, wearing a tailored navy-blue blazer over a white silk blouse and delicate pearl stud earrings. She stands in a sleek Tokyo Marunouchi skyscraper studio at night with blurred stock monitors behind her, looking directly into the camera with a captivating confident smile and gesturing toward the viewer, warm rim lighting, shallow depth of field.
 
@@ -138,16 +139,6 @@ Vertical 9:16 photorealistic 8k cinematic video, 24fps. The same stunningly beau
     </div>
   </div>
   <div class="toast" id="toast">✅ Copied to clipboard!</div>
-  <script>
-    function copyById(id, label) {
-      const text = document.getElementById(id).innerText;
-      navigator.clipboard.writeText(text).then(() => {
-        const t = document.getElementById('toast');
-        t.innerText = '✅ ' + label + ' — all 24 prompts copied!';
-        t.style.display = 'block';
-        setTimeout(() => { t.style.display = 'none'; }, 2200);
-      });
-    }
-  </script>
+  <script src="/assets/csp/inline_12777455c763.js"></script>
 </body>
 </html>

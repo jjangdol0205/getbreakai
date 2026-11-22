@@ -113,6 +113,7 @@
       z-index: 9999;
     }
   </style>
+  <script src="/assets/csp/csp-events.js"></script>
 </head>
 <body>
   <div class="container">
@@ -151,7 +152,7 @@
         <div class="field">
           <div class="field-label">
             <span>① Channel Name</span>
-            <button class="btn" onclick="copyText('yt-name')">📋 1-Click Copy</button>
+            <button class="btn" data-csp-click="h_43d70786e3ac">📋 1-Click Copy</button>
           </div>
           <div class="copy-box" id="yt-name">GetBreakAI | 米国株・新NISAクオンツ</div>
         </div>
@@ -159,7 +160,7 @@
         <div class="field">
           <div class="field-label">
             <span>② Handle (Fallback: GetBreakAI_JP)</span>
-            <button class="btn" onclick="copyText('yt-handle')">📋 1-Click Copy</button>
+            <button class="btn" data-csp-click="h_8618e4631f2d">📋 1-Click Copy</button>
           </div>
           <div class="copy-box" id="yt-handle">GetBreakAI</div>
         </div>
@@ -167,7 +168,7 @@
         <div class="field">
           <div class="field-label">
             <span>③ Channel Description (JP & US Quant + Shin-NISA)</span>
-            <button class="btn" onclick="copyText('yt-desc')">📋 1-Click Copy</button>
+            <button class="btn" data-csp-click="h_ed57b36ddda6">📋 1-Click Copy</button>
           </div>
           <div class="copy-box" id="yt-desc">📊 ウォール街の機関投資家が使う「3大一次情報＋2.0x ATR資金管理」を完全日本語化！
 米国株（NVDA・PLTR・TSLA・SOXL）＆東証プライム主力株（東京エレクトロン・アドバンテスト・ソフトバンクG・トヨタ・ソニー）の機関ブレイクアウトシグナルを毎晩20:30配信。
@@ -192,7 +193,7 @@ https://getbreakai.com/#vip-vault
         <div class="field">
           <div class="field-label">
             <span>④ External Link 1 (Title / URL)</span>
-            <button class="btn" onclick="copyText('yt-link1')">📋 Copy URL</button>
+            <button class="btn" data-csp-click="h_1ab66468f0d1">📋 Copy URL</button>
           </div>
           <div class="copy-box">Title: 無料AI株数・損切り計算機 (GetBreakAI)
 URL: <span id="yt-link1">https://getbreakai.com</span></div>
@@ -201,7 +202,7 @@ URL: <span id="yt-link1">https://getbreakai.com</span></div>
         <div class="field">
           <div class="field-label">
             <span>⑤ External Link 2 (Title / URL)</span>
-            <button class="btn" onclick="copyText('yt-link2')">📋 Copy URL</button>
+            <button class="btn" data-csp-click="h_de7095180ffa">📋 Copy URL</button>
           </div>
           <div class="copy-box">Title: 米国株・新NISA 30銘柄AIリサーチ
 URL: <span id="yt-link2">https://getbreakai.com/jp/</span></div>
@@ -210,7 +211,7 @@ URL: <span id="yt-link2">https://getbreakai.com/jp/</span></div>
         <div class="field">
           <div class="field-label">
             <span>⑥ Settings → Channel → Basic Info → Keywords</span>
-            <button class="btn" onclick="copyText('yt-kw')">📋 1-Click Copy</button>
+            <button class="btn" data-csp-click="h_63823093f81e">📋 1-Click Copy</button>
           </div>
           <div class="copy-box" id="yt-kw">米国株, 新NISA, エヌビディア, NVDA, パランティア, PLTR, テスラ, TSLA, SOXL, 半導体株, 東京エレクトロン, アドバンテスト, 株式投資, スイングトレード, 損切り, ATR, クオンツ投資, GetBreakAI</div>
         </div>
@@ -226,7 +227,7 @@ URL: <span id="yt-link2">https://getbreakai.com/jp/</span></div>
         <div class="field">
           <div class="field-label">
             <span>① Instagram Name</span>
-            <button class="btn" onclick="copyText('ig-name')">📋 1-Click Copy</button>
+            <button class="btn" data-csp-click="h_39b3367e168d">📋 1-Click Copy</button>
           </div>
           <div class="copy-box" id="ig-name">GetBreakAI | 米国株・新NISA クオンツAI📊</div>
         </div>
@@ -234,7 +235,7 @@ URL: <span id="yt-link2">https://getbreakai.com/jp/</span></div>
         <div class="field">
           <div class="field-label">
             <span>② Username</span>
-            <button class="btn" onclick="copyText('ig-user')">📋 1-Click Copy</button>
+            <button class="btn" data-csp-click="h_6b18e58fc7e6">📋 1-Click Copy</button>
           </div>
           <div class="copy-box" id="ig-user">getbreakai.jp</div>
         </div>
@@ -242,7 +243,7 @@ URL: <span id="yt-link2">https://getbreakai.com/jp/</span></div>
         <div class="field">
           <div class="field-label">
             <span>③ Bio (Under 150 chars)</span>
-            <button class="btn" onclick="copyText('ig-bio')">📋 1-Click Copy</button>
+            <button class="btn" data-csp-click="h_d39c57ed8c3d">📋 1-Click Copy</button>
           </div>
           <div class="copy-box" id="ig-bio">📊 米国株・東証プライムの機関投資家ブレイクアウトAI
 🔥 SEC開示・Gamma壁・20日高値突破を毎日速報
@@ -253,7 +254,7 @@ URL: <span id="yt-link2">https://getbreakai.com/jp/</span></div>
         <div class="field">
           <div class="field-label">
             <span>④ Website Link in Bio</span>
-            <button class="btn" onclick="copyText('ig-url')">📋 1-Click Copy</button>
+            <button class="btn" data-csp-click="h_cf680af690bf">📋 1-Click Copy</button>
           </div>
           <div class="copy-box" id="ig-url">https://getbreakai.com</div>
         </div>
@@ -270,14 +271,14 @@ URL: <span id="yt-link2">https://getbreakai.com/jp/</span></div>
         <div class="field">
           <div class="field-label">
             <span>Shorts #1 Title (YouTube Shorts Title)</span>
-            <button class="btn" onclick="copyText('s1-title')">📋 Copy Title</button>
+            <button class="btn" data-csp-click="h_8565d8ea1960">📋 Copy Title</button>
           </div>
           <div class="copy-box" id="s1-title">【エヌビディア株】どこで利確・損切り？機関のGamma壁とATR計算 #米国株 #新NISA #NVDA</div>
         </div>
         <div class="field">
           <div class="field-label">
             <span>Shorts #1 Description & Instagram Reels Caption</span>
-            <button class="btn" onclick="copyText('s1-cap')">📋 Copy Caption</button>
+            <button class="btn" data-csp-click="h_9f86110604e0">📋 Copy Caption</button>
           </div>
           <div class="copy-box" id="s1-cap">🔥 エヌビディア($NVDA)を「なんとなく」で売買していませんか？
 
@@ -295,15 +296,6 @@ URL: <span id="yt-link2">https://getbreakai.com/jp/</span></div>
   </div>
 
   <div class="toast" id="toast">✅ Copied to clipboard!</div>
-  <script>
-    function copyText(id) {
-      const text = document.getElementById(id).innerText;
-      navigator.clipboard.writeText(text).then(() => {
-        const t = document.getElementById('toast');
-        t.style.display = 'block';
-        setTimeout(() => { t.style.display = 'none'; }, 1800);
-      });
-    }
-  </script>
+  <script src="/assets/csp/inline_6399c0d0d8c1.js"></script>
 </body>
 </html>

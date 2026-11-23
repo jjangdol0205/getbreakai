@@ -39,6 +39,7 @@ jobs:
       - name: Step 1 - Sync Live US Market Prices & 14-Day ATR
         run: |
           python scripts/sync_getbreakai_live_data.py
+          python scripts/build_smh_fear_greed_data.py || true
 
       - name: Step 2 - Rebuild 30 Japanese Static SEO Pages, Daily NISA Column, Sitemap & Ping IndexNow
         run: |
@@ -66,7 +67,7 @@ jobs:
         run: |
           git config user.name "GetBreakAI Autopilot Bot"
           git config user.email "autopilot@getbreakai.com"
-          git add index.html llms.txt sitemap.xml data/live_market_snapshot.json static_api/ jp/ dist/ "marketing_outbox_jp/**/*.md" "marketing_outbox_jp/**/*.json"
+          git add index.html llms.txt sitemap.xml data/live_market_snapshot.json data/smh_fg_latest.json cf_dist/data/smh_fg_latest.json static_api/ jp/ dist/ "marketing_outbox_jp/**/*.md" "marketing_outbox_jp/**/*.json"
           if git diff --staged --quiet; then
             echo "No changes to commit."
           else

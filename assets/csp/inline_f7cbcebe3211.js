@@ -464,14 +464,33 @@ let pwCurrentScreenJp = 0;
     }
 
     function downloadProtectedGbaPdfJp() {
+      var btn = document.getElementById('btnDownloadGbaMaster12pPdf');
+      if (btn) { btn.dataset.origLabel = btn.dataset.origLabel || btn.textContent; btn.textContent = '12p PDFをダウンロード準備中...'; btn.disabled = true; }
+      var resetBtn = function(msg) {
+        if (!btn) return;
+        btn.disabled = false;
+        btn.textContent = msg || btn.dataset.origLabel || '12p 新NISA完全版ワークブックPDFをダウンロード →';
+        if (msg) setTimeout(function() { btn.textContent = btn.dataset.origLabel || '12p 新NISA完全版ワークブックPDFをダウンロード →'; }, 3500);
+      };
       if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.openProtectedPdfDownload === 'function') {
-        return window.DreamCompanyCRM.openProtectedPdfDownload('GBA', 'gba_jp_nisa_12p', function() {
+        return Promise.resolve(window.DreamCompanyCRM.openProtectedPdfDownload('GBA', 'gba_jp_nisa_12p', function() {
+          resetBtn();
           openPwRestoreModalJp();
+        })).then(function(res) {
+          if (res && res.ok) resetBtn('✓ 12p 完全版PDFのダウンロードを開始しました');
+          else resetBtn();
+          return res;
+        }).catch(function() {
+          resetBtn();
+          openPwRestoreModalJp();
+          return false;
         });
       }
+      resetBtn();
       openPwRestoreModalJp();
       return false;
     }
+    window.downloadProtectedGbaPdfJp = downloadProtectedGbaPdfJp;
 
     function requestGbaOtpJp() {
       const emInp = document.getElementById('pwRestoreEmailJp');

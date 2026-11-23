@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>米国半導体（SMH）恐怖と強欲指数（毎日自動更新・無料7指標）| GetBreakAI 日本</title>
+  <meta name="description" content="ログイン不要・完全無料の米国半導体ETF（SMH）恐怖と強欲指数（0〜100）。125日モメンタム・52週下落幅・SMH/XLV防御回転・14日RSI・実現ボラティリティ・QQQ相対強度・90日比率ドリフトの7指標を毎日自動更新。教育・過去統計参考専用。" />
+  <link rel="canonical" href="https://getbreakai.com/jp/smh-fear-greed" />
+  <style>
+    :root { --bg:#FAF7F2; --surface:#FFFFFF; --ink:#111827; --muted:#4B5563; --brand:#0F2C22; --line:#E5E0D5; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--ink); font-family:'Hiragino Sans','Yu Gothic','Meiryo',sans-serif; line-height:1.78; }
+    .fg-header { background:var(--surface); border-bottom:1px solid var(--line); padding:14px 20px; position:sticky; top:0; z-index:40; }
+    .fg-header-in { max-width:1040px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; }
+    .fg-brand { font-size:1.15rem; font-weight:800; color:var(--brand); text-decoration:none; }
+    .fg-nav { display:flex; gap:16px; align-items:center; flex-wrap:wrap; font-size:0.92rem; }
+    .fg-nav a { color:var(--muted); text-decoration:none; font-weight:700; }
+    .fg-nav a:hover { color:var(--brand); }
+    .fg-nav .fg-nav-cta { background:var(--brand); color:#FFFFFF; padding:8px 14px; border-radius:8px; }
+    .fg-wrap { max-width:1040px; margin:0 auto; padding:32px 20px 64px; }
+    .fg-eyebrow { display:inline-block; font-size:0.8rem; font-weight:700; color:var(--brand); background:#ECFDF5; border:1px solid #A7F3D0; padding:4px 12px; border-radius:999px; margin-bottom:12px; }
+    h1 { font-size:clamp(1.7rem,3.8vw,2.45rem); line-height:1.3; margin:0 0 10px; color:var(--brand); }
+    .fg-lead { font-size:1.02rem; color:var(--muted); max-width:760px; margin:0 0 24px; }
+    .fg-hero-card { background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:28px 24px; box-shadow:0 8px 28px rgba(15,44,34,0.05); margin-bottom:28px; text-align:center; }
+    .fg-zone-pill { display:inline-block; margin-top:10px; padding:8px 20px; border-radius:999px; border:1.5px solid var(--brand); font-weight:800; font-size:1.08rem; font-variant-numeric:tabular-nums; }
+    .fg-asof { margin-top:8px; font-size:0.88rem; color:var(--muted); }
+    .fg-compare-row { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:12px; margin-top:22px; }
+    .fg-stat-pill { background:#FAF7F2; border:1px solid var(--line); border-radius:10px; padding:12px; }
+    .fg-stat-k { display:block; font-size:0.8rem; color:var(--muted); font-weight:700; }
+    .fg-stat-v { display:block; font-size:1.15rem; font-weight:800; color:var(--ink); margin-top:3px; font-variant-numeric:tabular-nums; }
+    .fg-section-title { font-size:1.4rem; color:var(--brand); margin:34px 0 8px; }
+    .fg-section-sub { color:var(--muted); font-size:0.94rem; margin:0 0 16px; }
+    .fg-factors-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:14px; }
+    .fg-factor-card { background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:16px 18px; }
+    .fg-factor-head { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+    .fg-factor-num { width:24px; height:24px; border-radius:50%; background:#F1F5F9; color:var(--brand); font-weight:800; font-size:0.8rem; display:inline-flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .fg-factor-head h3 { font-size:0.96rem; margin:0; flex:1; color:var(--ink); }
+    .fg-factor-score { font-size:0.9rem; font-weight:800; padding:3px 9px; border-radius:999px; font-variant-numeric:tabular-nums; }
+    .fg-bar-track { height:7px; background:#EDE8DD; border-radius:999px; overflow:hidden; margin-bottom:8px; }
+    .fg-bar-fill { height:100%; border-radius:999px; }
+    .fg-factor-raw { font-size:0.86rem; font-weight:700; color:var(--brand); margin-bottom:5px; font-variant-numeric:tabular-nums; }
+    .fg-factor-desc { font-size:0.85rem; color:var(--muted); margin:0; }
+    .fg-card { background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:22px; margin-top:16px; overflow-x:auto; }
+    table { width:100%; border-collapse:collapse; font-size:0.9rem; }
+    th, td { text-align:left; padding:10px 12px; border-bottom:1px solid var(--line); }
+    th { background:#FAF7F2; color:var(--brand); font-weight:700; }
+    td.num { font-variant-numeric:tabular-nums; font-weight:700; white-space:nowrap; }
+    .fg-bridge { background:#0F2C22; color:#FFFFFF; border-radius:16px; padding:28px 24px; margin-top:34px; }
+    .fg-bridge h2 { font-size:1.45rem; margin:0 0 10px; color:#FFFFFF; }
+    .fg-bridge p { color:#D1FAE5; margin:0 0 18px; max-width:740px; }
+    .fg-alert-form { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:16px; }
+    .fg-alert-form input { flex:1 1 260px; padding:13px 14px; border-radius:8px; border:1px solid #34D399; font-size:1rem; background:#FFFFFF; color:#111827; }
+    .fg-alert-form button { padding:13px 22px; border-radius:8px; border:none; background:#F59E0B; color:#111827; font-weight:800; font-size:0.98rem; cursor:pointer; }
+    .fg-bridge-actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:16px; padding-top:16px; border-top:1px solid rgba(255,255,255,0.18); }
+    .fg-btn-light { display:inline-block; padding:12px 18px; border-radius:8px; background:#FFFFFF; color:#0F2C22; font-weight:800; text-decoration:none; font-size:0.95rem; }
+    .fg-btn-outline { display:inline-block; padding:12px 18px; border-radius:8px; border:1.5px solid #A7F3D0; color:#ECFDF5; font-weight:700; text-decoration:none; font-size:0.95rem; }
+    .fg-disclaimer { margin-top:28px; font-size:0.82rem; color:var(--muted); border-top:1px solid var(--line); padding-top:16px; }
+  </style>
+</head>
+<body>
+  <header class="fg-header">
+    <div class="fg-header-in">
+      <a class="fg-brand" href="/jp/">GetBreakAI 日本</a>
+      <nav class="fg-nav" aria-label="メインメニュー">
+        <a href="/jp/">新NISA 4ステップ診断</a>
+        <a href="/jp/smh-fear-greed" style="color:#0F2C22;text-decoration:underline;">SMH恐怖と強欲指数</a>
+        <a href="/jp/downloads/gba_jp_sample_2p.pdf" target="_blank" rel="noopener">無料2pサンプルPDF</a>
+        <a class="fg-nav-cta" href="/jp/?utm_source=smh_fg&amp;utm_medium=nav">無料で新NISA統計診断 &rarr;</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="fg-wrap" id="smhFgApp" data-lang="ja" data-json="/data/smh_fg_latest.json">
+    <span class="fg-eyebrow">ログイン不要・完全無料 毎日更新ゲージ（教育・過去統計参考）</span>
+    <h1>米国半導体（SMH）恐怖と強欲指数</h1>
+    <p class="fg-lead">
+      毎営業日の米国市場引け後に、公開ETF（SMH・XLV・QQQ）の7つの客観的な市場構造指標を0〜100で自動集計します。
+      登録不要・売買シグナル勧誘ゼロで、相場の温度感を静かに確認できます。
+    </p>
+
+    <section class="fg-hero-card" aria-label="本日のSMH恐怖と強欲スコア">
+      <div id="smhFgGaugeMount"></div>
+      <div id="smhFgZoneBadge" class="fg-zone-pill">最新の米国市場終値を読み込み中...</div>
+      <div id="smhFgAsOf" class="fg-asof"></div>
+      <div id="smhFgCompareRow" class="fg-compare-row"></div>
+    </section>
+
+    <h2 class="fg-section-title">7つの公開市場構造ファクター</h2>
+    <p class="fg-section-sub">7指標の均等平均で、0（極度の恐怖）から100（極度の強欲）までを中立に算出しています。</p>
+    <section id="smhFgFactorsGrid" class="fg-factors-grid" aria-label="7ファクター内訳"></section>
+
+    <h2 class="fg-section-title">直近180営業日の推移チャート</h2>
+    <p class="fg-section-sub">上端の緑帯が「極度の強欲（75〜100）」、下端の赤帯が「極度の恐怖（0〜25）」の過去統計帯域です。</p>
+    <section class="fg-card">
+      <div id="smhFgHistoryMount"></div>
+    </section>
+
+    <h2 class="fg-section-title">2000〜2025年 帯域別の過去統計データ（教育参考）</h2>
+    <p class="fg-section-sub">過去の恐怖・強欲帯域において、SMH単独とSMH&times;XLV＋短期国債バランス型がどのような下落幅を示したかの参考統計です。</p>
+    <section class="fg-card">
+      <table>
+        <thead>
+          <tr>
+            <th>指数帯域</th>
+            <th>滞在比率</th>
+            <th>SMH単独 中央下落幅</th>
+            <th>バランス型 中央下落幅</th>
+            <th>過去統計の背景解説</th>
+          </tr>
+        </thead>
+        <tbody id="smhFgRegimeTableBody"></tbody>
+      </table>
+    </section>
+
+    <section class="fg-bridge" aria-label="極端水準の無料メール通知と新NISA診断">
+      <h2>「極度の恐怖（20以下）」または「極度の強欲（80以上）」到達時だけ無料メール通知</h2>
+      <p>
+        毎朝ニュースに振り回される必要はありません。極端な帯域に入った日だけ静かにお知らせします。また、新NISA 1,800万円枠（成長投資枠1,200万円上限）と過去25年統計を確認できる無料4ステップ診断・買い切り完全版（¥1,480 / 月額¥4,400 / 年間¥29,800）も下からそのままご利用いただけます。
+      </p>
+      <form id="smhFgAlertForm" class="fg-alert-form">
+        <input type="email" id="smhFgAlertEmail" required placeholder="無料通知を受け取るメールアドレス..." aria-label="メールアドレス" />
+        <button type="submit">極端水準だけ無料通知を受け取る &rarr;</button>
+      </form>
+      <div id="smhFgAlertStatus" role="status" aria-live="polite" style="display:none;background:#FFFFFF;padding:10px 14px;border-radius:8px;font-weight:700;font-size:0.92rem;"></div>
+
+      <div class="fg-bridge-actions">
+        <a class="fg-btn-light" href="/jp/?utm_source=smh_fg&amp;utm_medium=bridge&amp;utm_campaign=gba_fg">無料4ステップ・新NISA統計診断へ進む &rarr;</a>
+        <a class="fg-btn-outline" href="/jp/downloads/gba_jp_sample_2p.pdf" target="_blank" rel="noopener">無料2pサンプルPDF（2000〜2025年）を見る &rarr;</a>
+      </div>
+    </section>
+
+    <footer class="fg-disclaimer">
+      <strong>免責・独立系教育出版のご案内：</strong>GetBreakAI 日本は公開米国ETFの過去統計データを一般的な教育・情報提供目的で掲載しており、特定の金融商品の売買推奨・投資助言・代理運用は一切行いません。
+      &middot; <a href="/jp/tokushoho">特定商取引法に基づく表記</a> &middot; <a href="/jp/refund.html">返金ポリシー</a> &middot; <a href="/jp/privacy.html">プライバシーポリシー</a> &middot; <a href="mailto:support@getbreakai.com">support@getbreakai.com</a>
+    </footer>
+  </main>
+
+  <script defer src="/hq_member_crm_client.js"></script>
+  <script defer src="/assets/smh-fear-greed.js?v=20261123"></script>
+</body>
+</html>

@@ -552,7 +552,9 @@
           email: email,
           tier: res.tier || 'tier1',
           tier2_unlocked: Boolean(res.tier2_unlocked),
-          access_code: code || '',
+          tier3_unlocked: Boolean(res.tier3_unlocked),
+          access_code: res.access_code || code || '',
+          order_ref: res.order_ref || '',
           verified_at: new Date().toISOString()
         });
       }
@@ -562,28 +564,78 @@
     });
   }
 
+  function triggerReliablePdfDownload(signedUrl, docKey) {
+    if (!signedUrl || !isAllowedExternalUrl(signedUrl)) return Promise.resolve(false);
+    var fnameMap = {
+      tom_master_14p: 'TruthOfMarket_Master_Workbook_2000_2025_14p.pdf',
+      kfg_cdc_guide_8p: 'KISFIT_Studio_US_CDC_Growth_Guide_8p.pdf',
+      gba_jp_nisa_12p: 'GetBreakAI_JP_ShinNISA_Workbook_12p.pdf',
+      kfk_tier1_masterbook: 'KidsFit_GoldenTime_Masterbook_17p.pdf',
+      kfk_tier2_fullpackage: 'KidsFit_6Month_Tracker_FullPackage_20p.pdf'
+    };
+    var fallbackName = fnameMap[docKey] || (String(docKey || 'document') + '.pdf');
+    if (typeof global.fetch === 'function' && global.URL && typeof global.URL.createObjectURL === 'function' && global.document && global.document.body) {
+      return global.fetch(signedUrl, { method: 'GET', mode: 'cors', credentials: 'omit' })
+        .then(function (resp) {
+          if (!resp || !resp.ok) throw new Error('HTTP_' + (resp ? resp.status : 0));
+          return resp.blob();
+        })
+        .then(function (blob) {
+          var objUrl = global.URL.createObjectURL(blob);
+          var a = global.document.createElement('a');
+          a.href = objUrl;
+          a.download = fallbackName;
+          a.rel = 'noopener';
+          a.style.display = 'none';
+          global.document.body.appendChild(a);
+          a.click();
+          setTimeout(function () {
+            try { global.URL.revokeObjectURL(objUrl); if (a.parentNode) a.parentNode.removeChild(a); } catch (_) {}
+          }, 8000);
+          return true;
+        })
+        .catch(function () {
+          try {
+            var a2 = global.document.createElement('a');
+            a2.href = signedUrl;
+            a2.download = fallbackName;
+            a2.rel = 'noopener';
+            a2.style.display = 'none';
+            global.document.body.appendChild(a2);
+            a2.click();
+            setTimeout(function () { try { if (a2.parentNode) a2.parentNode.removeChild(a2); } catch (_) {} }, 4000);
+            return true;
+          } catch (_) {
+            if (global.location) global.location.assign(signedUrl);
+            return true;
+          }
+        });
+    }
+    if (global.location) global.location.assign(signedUrl);
+    return Promise.resolve(true);
+  }
+
   function openProtectedPdfDownload(div, docKey, onNeedsReauth) {
     var d = String(div || detectDivFromHost()).trim().toUpperCase();
-    var triggerNav = function (signedUrl) {
-      if (!signedUrl || !isAllowedExternalUrl(signedUrl)) return false;
-      trackFunnelEvent(d, 'pdf_download');
-      var w = null;
-      try { w = global.open(signedUrl, '_blank', 'noopener,noreferrer'); } catch (_) {}
-      if (!w && global.location) global.location.href = signedUrl;
-      return true;
-    };
-
     var cached = getSignedDownloadUrl(d, docKey);
-    if (cached && triggerNav(cached)) {
-      return Promise.resolve({ ok: true, cached: true });
+    if (cached && isAllowedExternalUrl(cached)) {
+      trackFunnelEvent(d, 'pdf_download');
+      return triggerReliablePdfDownload(cached, docKey).then(function (ok) {
+        if (ok) return { ok: true, cached: true };
+        if (typeof onNeedsReauth === 'function') onNeedsReauth({ authorized: false, reason: 'download_failed' });
+        return { ok: false, reason: 'download_failed' };
+      });
     }
 
     var vault = getPaidVault(d);
-    if (vault && vault.email && vault.access_code) {
-      return verifyEntitlement({ div: d, email: vault.email, access_code: vault.access_code }).then(function (vres) {
+    if (vault && vault.email && (vault.access_code || vault.order_ref)) {
+      return verifyEntitlement({ div: d, email: vault.email, access_code: vault.access_code || vault.order_ref }).then(function (vres) {
         var fresh = (vres && vres.authorized && vres.downloads && vres.downloads[docKey]) ? vres.downloads[docKey] : '';
-        if (fresh && triggerNav(fresh)) {
-          return { ok: true, refreshed: true };
+        if (fresh && isAllowedExternalUrl(fresh)) {
+          trackFunnelEvent(d, 'pdf_download');
+          return triggerReliablePdfDownload(fresh, docKey).then(function (ok) {
+            return ok ? { ok: true, refreshed: true } : { ok: false, reason: 'download_failed' };
+          });
         }
         if (typeof onNeedsReauth === 'function') onNeedsReauth(vres);
         return { ok: false, reason: 'reauth_required' };
@@ -679,6 +731,29 @@
   /* ==========================================================================
    * 5. 1-Second Satisfaction Vote (`[+ / = / -]`)
    * ========================================================================== */
+  function fetchVerifiedReviews(div) {
+    var d = String(div || detectDivFromHost()).trim().toUpperCase();
+    return getCloudJson('/api/reviews?div=' + encodeURIComponent(d)).catch(function () {
+      return { ok: false, div: d, count: 0, threshold: 3, visible: false, reviews: [] };
+    });
+  }
+  function fetchHeroStories() {
+    return getCloudJson('/api/hero/stories').catch(function () { return { ok: false, stories: [], cheers: {} }; });
+  }
+  function submitHeroStory(payload) {
+    return postCloudJson('/api/hero/stories', payload || {});
+  }
+  function cheerHeroStory(storyId, voterId) {
+    var vid = voterId;
+    if (!vid) {
+      try {
+        vid = localStorage.getItem('dc_hero_voter_id');
+        if (!vid) { vid = 'v_' + Math.random().toString(36).slice(2) + '_' + Date.now().toString(36); localStorage.setItem('dc_hero_voter_id', vid); }
+      } catch (_) { vid = 'v_anon_' + Date.now(); }
+    }
+    return postCloudJson('/api/hero/story-cheer', { story_id: String(storyId || ''), voter_id: vid });
+  }
+
   function submitSatisfactionVote(opts) {
     var div = String((opts && opts.div) || detectDivFromHost()).trim().toUpperCase();
     var vote = String((opts && opts.vote) || 'up').trim().toLowerCase();
@@ -687,8 +762,14 @@
     try {
       localStorage.setItem('dc_sat_vote_' + div + '_' + contextKey, JSON.stringify(voteRec));
     } catch (_) {}
-    return trackFunnelEvent(div, 'sat_vote_' + vote).then(function () {
-      return { ok: true, div: div, vote: vote };
+    var vault = getPaidVault(div);
+    var fbEmail = String((opts && opts.email) || (vault && vault.email) || '').trim().toLowerCase();
+    var fbComment = String((opts && opts.comment) || '').trim().slice(0, 240);
+    var fbNick = String((opts && (opts.display_name || opts.nickname)) || '').trim().slice(0, 32);
+    return postCloudJson('/api/feedback', {
+      div_code: div, rating: vote, email: fbEmail, comment: fbComment, display_name: fbNick
+    }).catch(function () {
+      return trackFunnelEvent(div, 'sat_vote_' + vote).then(function () { return { ok: true, div: div, vote: vote }; });
     });
   }
 
@@ -757,7 +838,24 @@
           var v = btn.getAttribute('data-dc-vote') || 'up';
           submitSatisfactionVote({ div: div, vote: v, context: contextKey, email: opts && opts.email });
           var wrap = el.querySelector('.dc-sat-vote-bar');
-          if (wrap) wrap.innerHTML = '<span style="font-weight:600;">' + labels.thanks + '</span>';
+          if (v === 'up' && !isHero && wrap) {
+            var askTxt = div === 'KFK' ? '\ub3c4\uc6c0\uc774 \ub418\uc168\ub2e4\uba74 \ud55c \uc904 \uc18c\uac10\uc744 \ub0a8\uaca8 \uc8fc\uc138\uc694 (\uc120\ud0dd · \uc775\uba85/\ub2c9\ub124\uc784):' : (div === 'GBA' ? 'よろしければ一言ご感想をお聞かせください（任意・匿名可）：' : 'Optional: share a 1-line voluntary reflection (verified members only):');
+            var btnLbl = div === 'KFK' ? '\uc18c\uac10 \uc800\uc7a5' : (div === 'GBA' ? '送信' : 'Save Note');
+            wrap.innerHTML = '<div style="width:100%;"><div style="font-weight:700;margin-bottom:6px;">' + askTxt + '</div><div style="display:flex;flex-wrap:wrap;gap:6px;"><input type="text" class="dc-sat-nick" maxlength="32" placeholder="Nickname" style="flex:0 1 130px;padding:7px 9px;border:1px solid #CBD5E1;border-radius:6px;font-size:13px;"><input type="text" class="dc-sat-comment-box" maxlength="220" placeholder="..." style="flex:1 1 200px;padding:7px 9px;border:1px solid #CBD5E1;border-radius:6px;font-size:13px;"><button type="button" class="dc-sat-send-btn" style="padding:7px 14px;border-radius:6px;border:none;background:#0F2C22;color:#FFF;font-weight:700;cursor:pointer;">' + btnLbl + '</button></div></div>';
+            var sBtn = wrap.querySelector('.dc-sat-send-btn');
+            if (sBtn) sBtn.addEventListener('click', function () {
+              var nEl = wrap.querySelector('.dc-sat-nick');
+              var cEl = wrap.querySelector('.dc-sat-comment-box');
+              var cVal = String(cEl ? cEl.value : '').trim();
+              if (cVal.length < 5) { if (cEl) cEl.focus(); return; }
+              sBtn.disabled = true;
+              submitSatisfactionVote({ div: div, vote: 'up', context: contextKey, email: opts && opts.email, display_name: String(nEl ? nEl.value : '').trim(), comment: cVal }).then(function () {
+                wrap.innerHTML = '<span style="font-weight:600;">' + labels.thanks + '</span>';
+              });
+            });
+          } else if (wrap) {
+            wrap.innerHTML = '<span style="font-weight:600;">' + labels.thanks + '</span>';
+          }
         });
       })(btns[i]);
     }
@@ -1115,6 +1213,10 @@
     detectIsQaOrBot: detectIsQaOrBot,
     fetchHeroVotes: fetchHeroVotes,
     submitHeroVote: submitHeroVote,
+    fetchHeroStories: fetchHeroStories,
+    submitHeroStory: submitHeroStory,
+    cheerHeroStory: cheerHeroStory,
+    fetchVerifiedReviews: fetchVerifiedReviews,
     deliverPaidMagicPack: deliverPaidMagicPack,
     encodeMagicRestoreUrl: encodeMagicRestoreUrl,
     decodeMagicRestoreParam: decodeMagicRestoreParam,

@@ -40,7 +40,6 @@ jobs:
         run: |
           python scripts/sync_getbreakai_live_data.py
           python scripts/build_smh_fear_greed_data.py || true
-          mkdir -p cf_dist/data && cp -f data/smh_fg_latest.json cf_dist/data/smh_fg_latest.json || true
 
       - name: Step 2 - Rebuild 30 Japanese Static SEO Pages, Daily NISA Column, Sitemap & Ping IndexNow
         run: |
@@ -68,10 +67,18 @@ jobs:
         run: |
           git config user.name "GetBreakAI Autopilot Bot"
           git config user.email "autopilot@getbreakai.com"
-          git add index.html llms.txt sitemap.xml data/live_market_snapshot.json data/smh_fg_latest.json cf_dist/data/smh_fg_latest.json static_api/ jp/ dist/ "marketing_outbox_jp/**/*.md" "marketing_outbox_jp/**/*.json"
+          for p in index.html llms.txt sitemap.xml data/live_market_snapshot.json data/smh_fg_latest.json static_api/ jp/ dist/; do
+            if [ -e "$p" ]; then
+              git add "$p" || true
+            fi
+          done
+          if [ -d "marketing_outbox_jp" ]; then
+            find marketing_outbox_jp -type f \( -name "*.md" -o -name "*.json" \) -print0 | xargs -0 -r git add || true
+          fi
           if git diff --staged --quiet; then
             echo "No changes to commit."
           else
             git commit -m "chore(autopilot): daily US market EOD sync, 30 JP SEO pages & X/Shorts outbox [skip render]"
+            git pull --rebase --autostash origin main || true
             git push origin HEAD:main
           fi

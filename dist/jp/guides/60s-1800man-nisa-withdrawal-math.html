@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>60代・1,800万円取り崩し期の下落順序リスク（2000–2025統計） | GetBreakAI 日本</title>
+  <meta name="description" content="取り崩しを始めた直後に50%下落すると、同じ年率平均でも資産寿命が急激に縮む『収益率配列リスク』が発生します。">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://getbreakai.com/jp/guides/60s-1800man-nisa-withdrawal-math.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="GetBreakAI 日本">
+  <meta property="og:title" content="60代・1,800万円取り崩し期の下落順序リスク（2000–2025統計）">
+  <meta property="og:description" content="取り崩しを始めた直後に50%下落すると、同じ年率平均でも資産寿命が急激に縮む『収益率配列リスク』が発生します。">
+  <meta property="og:url" content="https://getbreakai.com/jp/guides/60s-1800man-nisa-withdrawal-math.html">
+  <meta property="og:image" content="https://getbreakai.com/assets/og/pseo/gba_60s-1800man-nisa-withdrawal-math.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="60代・1,800万円取り崩し期の下落順序リスク（2000–2025統計）">
+  <meta name="twitter:description" content="取り崩しを始めた直後に50%下落すると、同じ年率平均でも資産寿命が急激に縮む『収益率配列リスク』が発生します。">
+  <meta name="twitter:image" content="https://getbreakai.com/assets/og/pseo/gba_60s-1800man-nisa-withdrawal-math.png">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "60代・1,800万円取り崩し期の下落順序リスク（2000–2025統計）", "url": "https://getbreakai.com/jp/guides/60s-1800man-nisa-withdrawal-math.html", "applicationCategory": "EducationalApplication", "operatingSystem": "Web", "inLanguage": "ja", "publisher": {"@type": "Organization", "name": "GetBreakAI 日本", "url": "https://getbreakai.com"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "1,800万円を一度にまとめて動かす前提の統計ですか？", "acceptedAnswer": {"@type": "Answer", "text": "いいえ。過去25年の公開データにおける構成比率の振れ幅を比較する教育統計であり、実際の積立期間や現金比率はご家庭の生活費計画に合わせてご判断ください。"}}, {"@type": "Question", "name": "無料2pサンプルPDFでは何が確認できますか？", "acceptedAnswer": {"@type": "Answer", "text": "2000・2008・2022年の3大危機比較表と、楽天証券・SBI証券での指値確認ステップのダイジェストをメール登録不要でそのまま閲覧できます。"}}]}]}</script>
+  <style>
+:root{--bg:#FAF7F2;--surface:#FFFFFF;--ink:#111827;--body:#374151;--muted:#6B7280;--brand:#0F2C22;--accent:#B45309;--line:#E5E0D5;}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter','Noto Sans JP','Pretendard',-apple-system,BlinkMacSystemFont,'Malgun Gothic',sans-serif;font-size:17px;line-height:1.75;font-variant-numeric:tabular-nums;}
+.pg-hdr{background:var(--surface);border-bottom:1px solid var(--line);padding:14px 20px;position:sticky;top:0;z-index:30;}
+.pg-hdr-in{max-width:860px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+.pg-brand{font-weight:800;font-size:1.05rem;color:var(--brand);text-decoration:none;letter-spacing:0.02em;}
+.pg-nav{display:flex;gap:14px;align-items:center;flex-wrap:wrap;font-size:0.88rem;}
+.pg-nav a{color:var(--body);text-decoration:none;font-weight:600;}
+.pg-nav a:hover{color:var(--brand);text-decoration:underline;}
+.pg-nav .pg-cta{background:var(--brand);color:#FAF7F2;padding:7px 13px;border-radius:8px;text-decoration:none;}
+.pg-main{max-width:860px;margin:0 auto;padding:30px 20px 64px;}
+.pg-crumb{font-size:0.82rem;color:var(--muted);margin-bottom:14px;}
+.pg-crumb a{color:var(--brand);text-decoration:none;font-weight:600;}
+.pg-kicker{display:inline-block;font-size:0.75rem;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;color:var(--brand);background:#ECFDF5;border:1px solid #A7F3D0;padding:4px 10px;border-radius:999px;margin-bottom:10px;}
+h1{font-family:Georgia,'Shippori Mincho','Nanum Myeongjo',serif;font-size:clamp(1.6rem,3.6vw,2.25rem);line-height:1.3;color:var(--brand);margin:0 0 14px;}
+.pg-summary{background:#ECFDF5;border-left:4px solid var(--brand);border-radius:10px;padding:15px 18px;margin:0 0 24px;font-size:0.98rem;font-weight:600;color:#064E3B;}
+.pg-card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px;margin:0 0 24px;overflow-x:auto;}
+.pg-card h2{font-size:1.22rem;color:var(--brand);margin:0 0 12px;}
+table{width:100%;border-collapse:collapse;font-size:0.92rem;}
+th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;}
+th{background:#FAF7F2;color:var(--brand);font-weight:700;white-space:nowrap;}
+tr:last-child td{border-bottom:none;}
+.pg-calc-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px;}
+.pg-calc-input{flex:1 1 180px;min-height:46px;padding:10px 14px;border:1.5px solid #CBD5E1;border-radius:8px;font-size:1rem;font-weight:700;font-variant-numeric:tabular-nums;}
+.pg-btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:10px 18px;border-radius:8px;border:none;background:var(--brand);color:#FAF7F2;font-weight:700;font-size:0.94rem;cursor:pointer;text-decoration:none;}
+.pg-btn-out{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:10px 18px;border-radius:8px;border:1.5px solid var(--brand);background:#FFFFFF;color:var(--brand);font-weight:700;font-size:0.94rem;cursor:pointer;text-decoration:none;}
+.pg-calc-out{display:none;background:#FAF7F2;border:1px solid #D6CEC3;border-radius:10px;padding:14px 16px;font-size:0.93rem;line-height:1.68;color:var(--ink);margin-top:8px;}
+.pg-prose p{margin:0 0 16px;color:var(--body);}
+.pg-faq-item{border-top:1px solid var(--line);padding:12px 0;}
+.pg-faq-item:first-of-type{border-top:none;padding-top:2px;}
+.pg-faq-item summary{cursor:pointer;font-weight:700;color:var(--brand);list-style:none;display:flex;justify-content:space-between;gap:10px;}
+.pg-faq-item summary::-webkit-details-marker{display:none;}
+.pg-faq-item p{margin:8px 0 0;font-size:0.93rem;color:var(--body);}
+.pg-cta-band{background:var(--brand);color:#FAF7F2;border-radius:14px;padding:24px;margin:24px 0;display:flex;flex-direction:column;gap:12px;}
+.pg-cta-band h2{margin:0;color:#FAF7F2;font-size:1.3rem;}
+.pg-cta-band p{margin:0;color:#D1FAE5;font-size:0.94rem;}
+.pg-cta-actions{display:flex;flex-wrap:wrap;gap:10px;}
+.pg-cta-light{display:inline-flex;align-items:center;min-height:46px;padding:10px 18px;border-radius:8px;background:#FAF7F2;color:var(--brand);font-weight:800;text-decoration:none;font-size:0.94rem;}
+.pg-cta-ghost{display:inline-flex;align-items:center;min-height:46px;padding:10px 18px;border-radius:8px;border:1.5px solid #A7F3D0;color:#ECFDF5;font-weight:700;text-decoration:none;font-size:0.94rem;}
+.pg-related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:12px;}
+.pg-related-card{display:block;background:#FAF7F2;border:1px solid var(--line);border-radius:10px;padding:14px;text-decoration:none;color:var(--ink);font-weight:700;font-size:0.92rem;line-height:1.45;}
+.pg-related-card:hover{border-color:var(--brand);background:#ECFDF5;}
+.pg-hub-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:16px;}
+.pg-hub-card{display:block;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;text-decoration:none;color:var(--ink);}
+.pg-hub-card:hover{border-color:var(--brand);}
+.pg-hub-card h3{margin:6px 0;font-size:1rem;color:var(--brand);line-height:1.4;}
+.pg-hub-card p{margin:0;font-size:0.86rem;color:var(--muted);line-height:1.55;}
+.pg-ftr{max-width:860px;margin:0 auto;padding:20px 20px 44px;border-top:1px solid var(--line);font-size:0.82rem;color:var(--muted);}
+</style>
+</head>
+<body>
+  <header class="pg-hdr">
+    <div class="pg-hdr-in">
+      <a class="pg-brand" href="/jp/">GetBreakAI 日本</a>
+      <nav class="pg-nav" aria-label="Guide Navigation">
+        <a href="/jp/guides/">新NISA・SMH×XLV 過去25年統計ガイド一覧</a>
+        <a href="/jp/smh-fear-greed">SMH恐怖と強欲指数</a>
+        <a class="pg-cta" href="/jp/">無料で4問統計バランスを確認 &rarr;</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="pg-main">
+    <div class="pg-crumb"><a href="/jp/">GetBreakAI 日本</a> &rsaquo; <a href="/jp/guides/">jp/guides</a></div>
+    <span class="pg-kicker">年代・資産規模別 過去統計モデル（1,800万円）</span>
+    <h1>60代・1,800万円取り崩し期の下落順序リスク（2000–2025統計）</h1>
+
+    <div class="pg-summary" role="note">取り崩しを始めた直後に50%下落すると、同じ年率平均でも資産寿命が急激に縮む『収益率配列リスク』が発生します。</div>
+
+    <section class="pg-card" aria-label="Public Reference Table">
+      <h2>60代・1,800万円：取り崩し初期の暴落耐性（回復17〜19ヶ月目安）</h2>
+      <table>
+        <thead><tr><th>1,800万円 比較ケース</th><th>最大下落率（過去25年）</th><th>下落額目安</th><th>高値回復目安</th></tr></thead>
+        <tbody><tr><td>SMH 100% 単独</td><td>-74.6%</td><td>-1,343万円</td><td>89ヶ月</td></tr><tr><td>S&amp;P 500 単独</td><td>-50.9%</td><td>-916万円</td><td>56ヶ月</td></tr><tr><td>伝統的 60/40 分散</td><td>-32.3%</td><td>-581万円</td><td>31ヶ月</td></tr><tr><td>SMH × XLV＋安全クッション</td><td>-27.8%</td><td>-500万円</td><td>17〜19ヶ月</td></tr></tbody>
+      </table>
+    </section>
+
+    <section class="pg-card" data-pseo-calc="gba" aria-label="Interactive Quick Calculator">
+      <h2>新NISA・想定資産規模 簡易試算ツール（万円）</h2>
+      <div class="pg-calc-row">
+        <label style="font-weight:700;font-size:0.9rem;">ご世帯の想定規模（万円）：</label>
+        <input type="number" class="pg-calc-input" data-calc-input="manyen" min="100" max="50000" step="100" value="1800" aria-label="ご世帯の想定規模（万円）：">
+        <button type="button" class="pg-btn" data-calc-run="1">過去下落幅と口座区分を試算</button>
+      </div>
+      <div class="pg-calc-out" data-calc-out="1" role="status" aria-live="polite"></div>
+    </section>
+
+    <article class="pg-card pg-prose">
+      <p>取り崩しを始めた直後に50%下落すると、同じ年率平均でも資産寿命が急激に縮む『収益率配列リスク』が発生します。</p>
+      <p>仮に1,800万円の想定規模で2000〜2025年の過去データを当てはめると、半導体単独では最大約-1,343万円、S&amp;P500単独でも約-916万円の含み損局面を通過しました。一方、SMHと医療（XLV）に安全資産クッションを組み合わせた統計ケースでは最大下落幅が約-500万円に収まっています。</p>
+      <p>口座区分の目安としては、成長投資枠（上限1,200万円）に約1,170万円、個人向け国債（変動10年）等の安全クッションに約360万円、残る約270万円をつみたて枠・特定口座へ整理する形が制度ルールと整合します（個別助言ではなく教育用の試算枠組みです）。</p>
+    </article>
+
+    <section class="pg-cta-band" aria-label="Primary Tool and Sample PDF">
+      <h2>登録不要・4問でご世帯の25年統計比較比率を確認（無料）</h2>
+      <p>メール壁なしで基本比較をすぐ表示。無料2pサンプルPDFもそのまま閲覧できます。</p>
+      <div class="pg-cta-actions">
+        <a class="pg-cta-light" href="/jp/">無料で4問統計バランスを確認 &rarr;</a>
+        <a class="pg-cta-ghost" href="/jp/downloads/gba_jp_sample_2p.pdf" target="_blank" rel="noopener">無料2pサンプルPDF &rarr;</a>
+      </div>
+    </section>
+
+    <section class="pg-card" aria-label="Frequently Asked Questions">
+      <h2>よくあるご質問</h2>
+      <details class="pg-faq-item"><summary>1,800万円を一度にまとめて動かす前提の統計ですか？</summary><p>いいえ。過去25年の公開データにおける構成比率の振れ幅を比較する教育統計であり、実際の積立期間や現金比率はご家庭の生活費計画に合わせてご判断ください。</p></details>
+      <details class="pg-faq-item"><summary>無料2pサンプルPDFでは何が確認できますか？</summary><p>2000・2008・2022年の3大危機比較表と、楽天証券・SBI証券での指値確認ステップのダイジェストをメール登録不要でそのまま閲覧できます。</p></details>
+    </section>
+
+    <section class="pg-card" aria-label="Related Guides">
+      <h2>関連する新NISA・過去統計ガイド</h2>
+      <div class="pg-related-grid">
+        <a class="pg-related-card" href="/jp/guides/60s-3000man-nisa-tokutei-split.html">60代・3,000万円世帯の新NISA 1,800万円と特定口座1,200万円分離表 &rarr;</a>
+        <a class="pg-related-card" href="/jp/guides/70s-3000man-jgb-variable10-compare.html">70代・3,000万円の個人向け国債（変動10年）と現物ETF2本柱の安定比較 &rarr;</a>
+        <a class="pg-related-card" href="/jp/guides/smh-fear-greed-index-history-jp.html">米国半導体（SMH）恐怖と強欲指数 20以下の歴史的統計データ &rarr;</a>
+      </div>
+      <p style="margin:14px 0 0;font-size:0.88rem;"><a href="/jp/guides/" style="color:#0F2C22;font-weight:700;">&larr; 新NISA・SMH×XLV 過去25年統計ガイド一覧</a></p>
+    </section>
+  </main>
+
+  <footer class="pg-ftr">
+    <p style="margin:0 0 6px;">GetBreakAI日本は公開市場データの過去統計を整理する独立系教育出版であり、金融商品取引法上の投資助言・個別銘柄の推奨は一切行いません。</p>
+    <p style="margin:0;">Updated 2026-11-25 &middot; <a href="/jp/" style="color:#0F2C22;">https://getbreakai.com</a></p>
+  </footer>
+  <script defer src="/assets/pseo-mini-calc.js?v=20261125"></script>
+</body>
+</html>

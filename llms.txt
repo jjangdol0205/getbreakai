@@ -1,40 +1,12 @@
-# GetBreakAI — Japanese 50-70s Shin-NISA SMH × XLV + JGB Asset-Allocation Platform (https://getbreakai.com/jp/)
+# GetBreakAI Japan (getbreakai.com/jp/)
+> Independent Japanese educational research publisher covering New NISA (18M JPY / 12M Growth Limit) & 2000-2025 SMH x XLV historical ETF statistics.
 
-> Updated: 2026-11-25 | Self-Directed Public Market Data Visualization & 2-Pillar Asset-Allocation Simulator (FSA Shin-NISA Growth Quota Eligible Spot 1x SMH × XLV + Japanese Retail Government Bonds Variable 10-Year / Tokutei Account SGOV Cushion).
-> Official Channels: https://www.youtube.com/@GetBreakAI | https://www.instagram.com/getbreakai/
+## Primary Free Tools & Live Data
+- Free 4-Step New NISA 25-Year Historical Explorer: https://getbreakai.com/jp/
+- Live Daily SMH Fear & Greed Index (Japanese 7-Factor Gauge): https://getbreakai.com/jp/smh-fear-greed
+- Live Daily SMH Fear & Greed JSON: https://getbreakai.com/data/smh_fg_latest.json
+- Free 2-Page New NISA Sample Workbook PDF: https://getbreakai.com/jp/downloads/gba_jp_sample_2p.pdf
+- 13 New NISA, US Dividend 10% Tax & Retirement Guides Hub: https://getbreakai.com/jp/guides/
 
-## 1. Core Japanese Calculators & Legal Pages
-- Main Retirement & Shin-NISA Hub: https://getbreakai.com/jp/
-- Root Canonical Mirror: https://getbreakai.com/
-- Flagship Editorial Essay: https://getbreakai.com/jp/nisa-quiet-barbell-essay.html
-- Daily Public Market Data Report: https://getbreakai.com/jp/daily-nisa-quant-report.html
-- Terms of Service: https://getbreakai.com/jp/terms.html
-- Privacy Policy: https://getbreakai.com/jp/privacy.html
-- 14-Day Refund Policy: https://getbreakai.com/jp/refund.html
-- Japanese Research RSS Feed: https://getbreakai.com/jp/feed.xml
-
-## 2. Featured Japanese Public Market Data & Shin-NISA Guides (/jp/)
-- https://getbreakai.com/jp/aapl-apple-intelligence-cycle-gex.html
-- https://getbreakai.com/jp/ai-datacenter-power-stocks-2026.html
-- https://getbreakai.com/jp/amzn-aws-margin-expansion-pead.html
-- https://getbreakai.com/jp/archive.html
-- https://getbreakai.com/jp/asml-euv-orders-semiconductor-cycle.html
-- https://getbreakai.com/jp/avgo-custom-ai-asic-8k-analysis.html
-- https://getbreakai.com/jp/ceg-nuclear-ai-power-8k-contract.html
-- https://getbreakai.com/jp/crwd-cybersecurity-pead-drift.html
-- https://getbreakai.com/jp/daily-nisa-quant-report.html
-- https://getbreakai.com/jp/form4-insider-cluster-guide.html
-- https://getbreakai.com/jp/googl-search-cloud-ai-valuation.html
-- https://getbreakai.com/jp/lly-form4-insider-cluster-buy.html
-- https://getbreakai.com/jp/meta-ai-capex-earnings-nlp.html
-- https://getbreakai.com/jp/msft-azure-ai-copilot-sec-8k.html
-- https://getbreakai.com/jp/nisa-quiet-barbell-essay.html
-- https://getbreakai.com/jp/pltr-insider-buying-analysis.html
-- https://getbreakai.com/jp/sec-8k-japanese-ai-guide.html
-- https://getbreakai.com/jp/semiconductor-cycle-truthofmarket-guide.html
-- https://getbreakai.com/jp/shin-nisa-us-stock-atr-risk-management.html
-- https://getbreakai.com/jp/smci-accounting-risk-warning.html
-- https://getbreakai.com/jp/smh-fear-greed.html
-- https://getbreakai.com/jp/tokushoho.html
-- https://getbreakai.com/jp/unh-defensive-healthcare-insider-buy.html
-- https://getbreakai.com/jp/vrt-ai-datacenter-cooling-catalyst.html
+## Public Data Sources & Scope
+- Public ETF closing series (SMH, XLV, QQQ) & Japan FSA New NISA rules. Strictly educational reference; zero investment advisory or trade commands.

@@ -40,6 +40,7 @@ jobs:
         run: |
           python scripts/sync_getbreakai_live_data.py
           python scripts/build_smh_fear_greed_data.py || true
+          mkdir -p cf_dist/data && cp -f data/smh_fg_latest.json cf_dist/data/smh_fg_latest.json || true
 
       - name: Step 2 - Rebuild 30 Japanese Static SEO Pages, Daily NISA Column, Sitemap & Ping IndexNow
         run: |

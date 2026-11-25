@@ -265,10 +265,10 @@ let pwCurrentScreenJp = 0;
       const w = window.open('', '_blank');
       if (!w) { window.print(); return; }
       w.document.write(
-        '<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8"><title>GetBreakAI 1対1カスタム統計ワークブックPDF</title>' +
+        '<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8"><title>GetBreakAI セルフサービス自動計算統計ワークブックPDF</title>' +
         '<style>body{font-family:"Hiragino Kaku Gothic ProN",Meiryo,sans-serif;max-width:780px;margin:24px auto;padding:0 20px;color:#0f172a;font-size:16px;line-height:1.72;}table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px;}th,td{border:1px solid #cbd5e1;padding:9px 10px;text-align:left;}th{background:#f1f5f9;}.page-break{page-break-before:always;margin-top:26px;padding-top:18px;border-top:2px solid #0f172a;}@media print{.no-print{display:none;}}</style></head><body>' +
         '<div class="no-print" style="padding:12px;background:#ecfdf5;border:1px solid #059669;border-radius:8px;margin-bottom:18px;"><strong>PDF保存の準備が完了しました：</strong> 印刷画面で「PDFに保存」を選択してください。 <button onclick="window.print()" style="margin-left:12px;padding:8px 16px;background:#065f46;color:#fff;border:none;border-radius:6px;font-weight:700;cursor:pointer;">PDFとして保存・印刷</button></div>' +
-        '<h1>GetBreakAI — 新NISA・SMH &times; XLV ＋ 安全資産 1対1カスタム統計ワークブック</h1>' +
+        '<h1>GetBreakAI — 新NISA・SMH &times; XLV ＋ 安全資産 セルフサービス自動計算統計ワークブック</h1>' +
         '<p style="font-size:13px;color:#475569;">独立系リサーチ出版（教育目的データ・投資助言非該当 ・ お問い合わせ: support@getbreakai.com）</p>' +
         '<div>' + s1 + '</div><div style="margin-top:18px;">' + s2 + '</div>' +
         '<div class="page-break">' + s3 + '</div><div class="page-break">' + s4 + '</div><div class="page-break">' + s5 + '</div>' +
@@ -464,14 +464,33 @@ let pwCurrentScreenJp = 0;
     }
 
     function downloadProtectedGbaPdfJp() {
+      var btn = document.getElementById('btnDownloadGbaMaster12pPdf');
+      if (btn) { btn.dataset.origLabel = btn.dataset.origLabel || btn.textContent; btn.textContent = '12p PDFをダウンロード準備中...'; btn.disabled = true; }
+      var resetBtn = function(msg) {
+        if (!btn) return;
+        btn.disabled = false;
+        btn.textContent = msg || btn.dataset.origLabel || '12p 新NISA完全版ワークブックPDFをダウンロード →';
+        if (msg) setTimeout(function() { btn.textContent = btn.dataset.origLabel || '12p 新NISA完全版ワークブックPDFをダウンロード →'; }, 3500);
+      };
       if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.openProtectedPdfDownload === 'function') {
-        return window.DreamCompanyCRM.openProtectedPdfDownload('GBA', 'gba_jp_nisa_12p', function() {
+        return Promise.resolve(window.DreamCompanyCRM.openProtectedPdfDownload('GBA', 'gba_jp_nisa_12p', function() {
+          resetBtn();
           openPwRestoreModalJp();
+        })).then(function(res) {
+          if (res && res.ok) resetBtn('✓ 12p 完全版PDFのダウンロードを開始しました');
+          else resetBtn();
+          return res;
+        }).catch(function() {
+          resetBtn();
+          openPwRestoreModalJp();
+          return false;
         });
       }
+      resetBtn();
       openPwRestoreModalJp();
       return false;
     }
+    window.downloadProtectedGbaPdfJp = downloadProtectedGbaPdfJp;
 
     function requestGbaOtpJp() {
       const emInp = document.getElementById('pwRestoreEmailJp');

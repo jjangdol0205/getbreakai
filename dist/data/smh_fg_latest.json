@@ -1,0 +1,1222 @@
+{
+  "schema_v": "1.0",
+  "as_of_date": "2026-11-20",
+  "generated_utc": "2026-11-23T12:06:46Z",
+  "score": 2.1,
+  "zone_key": "extreme_fear",
+  "label_en": "Extreme Fear",
+  "label_ja": "極度の恐怖",
+  "comparisons": {
+    "prev_1d": 6.8,
+    "prev_1w": 8.2,
+    "prev_1m": 16.1
+  },
+  "prices": {
+    "SMH": 400.06,
+    "XLV": 177.24,
+    "QQQ": 608.45
+  },
+  "factors": [
+    {
+      "key": "momentum",
+      "name_en": "125-Day Price Momentum",
+      "name_ja": "125日移動平均モメンタム",
+      "score": 0.0,
+      "raw_display": "-29.9% vs 125d MA",
+      "raw_display_ja": "125日平均比 -29.9%",
+      "desc_en": "Compares SMH closing price against its 125-trading-day moving average to gauge medium-term trend stretch.",
+      "desc_ja": "SMH終値と125営業日移動平均の乖離から、中期トレンドの過熱・冷え込みを客観的に測ります。"
+    },
+    {
+      "key": "drawdown_52w",
+      "name_en": "52-Week High Drawdown",
+      "name_ja": "52週高値からの下落幅",
+      "score": 0.0,
+      "raw_display": "-40.2% from 52w high",
+      "raw_display_ja": "52週高値比 -40.2%",
+      "desc_en": "Measures how far SMH currently trades below its trailing 252-day peak price.",
+      "desc_ja": "過去252営業日の高値から現在値がどの程度離れているかを示します。"
+    },
+    {
+      "key": "safe_haven_rotation",
+      "name_en": "SMH / XLV Defensive Rotation",
+      "name_ja": "SMH / XLV 防御セクター相対強度",
+      "score": 0.0,
+      "raw_display": "-23.0% (20d SMH vs XLV)",
+      "raw_display_ja": "20日相対差 -23.0%（SMH対XLV）",
+      "desc_en": "Tracks 20-day return spread between semiconductors (SMH) and defensive healthcare (XLV).",
+      "desc_ja": "半導体（SMH）とディフェンシブ医療（XLV）の直近20営業日の相対リターン差です。"
+    },
+    {
+      "key": "rsi_14",
+      "name_en": "14-Day Relative Strength (RSI)",
+      "name_ja": "14日RSI（相対力指数）",
+      "score": 2.3,
+      "raw_display": "RSI 26.1",
+      "raw_display_ja": "RSI 26.1",
+      "desc_en": "Standard 14-day Wilder RSI measuring recent buying vs. selling pressure in SMH.",
+      "desc_ja": "SMHの直近14営業日の上昇・下落の勢いを0〜100で標準化した統計値です。"
+    },
+    {
+      "key": "volatility",
+      "name_en": "Realized Volatility Stress",
+      "name_ja": "実現ボラティリティ（変動ストレス）",
+      "score": 12.4,
+      "raw_display": "72.8% (20d) vs 50.6% (60d)",
+      "raw_display_ja": "20日年率 72.8%（60日比 1.44倍）",
+      "desc_en": "Compares 20-day annualized volatility to 60-day baseline; sudden spikes indicate fear regimes.",
+      "desc_ja": "直近20日と60日の年率変動幅を比較。急拡大は市場の警戒感の高まりを示します。"
+    },
+    {
+      "key": "qqq_leadership",
+      "name_en": "SMH / QQQ Tech Leadership",
+      "name_ja": "SMH / QQQ ハイテク主導力",
+      "score": 0.0,
+      "raw_display": "-10.5% (20d SMH vs QQQ)",
+      "raw_display_ja": "20日相対差 -10.5%（SMH対QQQ）",
+      "desc_en": "Shows whether semiconductors are leading or lagging the broader Nasdaq-100 (QQQ) over 20 sessions.",
+      "desc_ja": "半導体セクターがNasdaq-100（QQQ）全体より先行しているか出遅れているかを示します。"
+    },
+    {
+      "key": "weight_drift",
+      "name_en": "90-Day 50/50 Weight Drift",
+      "name_ja": "90日 50/50 比率ドリフト",
+      "score": 0.0,
+      "raw_display": "SMH 39.1% (-10.9 pp)",
+      "raw_display_ja": "SMH比率 39.1%（基準比 -10.9pt）",
+      "desc_en": "Illustrates how much a hypothetical equal-weight SMH/XLV reference mix drifted over 90 trading days.",
+      "desc_ja": "仮にSMHとXLVを50:50で保有した場合の90営業日後の構成比率の偏りを示す教育統計です。"
+    }
+  ],
+  "history": [
+    {
+      "date": "2026-03-09",
+      "score": 56.0,
+      "smh": 394.37,
+      "xlv": 154.26
+    },
+    {
+      "date": "2026-03-10",
+      "score": 57.0,
+      "smh": 397.33,
+      "xlv": 153.15
+    },
+    {
+      "date": "2026-03-11",
+      "score": 59.3,
+      "smh": 401.03,
+      "xlv": 152.85
+    },
+    {
+      "date": "2026-03-12",
+      "score": 48.7,
+      "smh": 388.13,
+      "xlv": 150.16
+    },
+    {
+      "date": "2026-03-13",
+      "score": 50.1,
+      "smh": 387.33,
+      "xlv": 149.79
+    },
+    {
+      "date": "2026-03-16",
+      "score": 53.7,
+      "smh": 393.92,
+      "xlv": 151.01
+    },
+    {
+      "date": "2026-03-17",
+      "score": 56.6,
+      "smh": 396.88,
+      "xlv": 149.64
+    },
+    {
+      "date": "2026-03-18",
+      "score": 55.2,
+      "smh": 393.67,
+      "xlv": 147.14
+    },
+    {
+      "date": "2026-03-19",
+      "score": 57.4,
+      "smh": 394.92,
+      "xlv": 146.61
+    },
+    {
+      "date": "2026-03-20",
+      "score": 50.4,
+      "smh": 384.74,
+      "xlv": 145.33
+    },
+    {
+      "date": "2026-03-23",
+      "score": 54.8,
+      "smh": 391.36,
+      "xlv": 144.77
+    },
+    {
+      "date": "2026-03-24",
+      "score": 57.8,
+      "smh": 394.59,
+      "xlv": 144.79
+    },
+    {
+      "date": "2026-03-25",
+      "score": 59.2,
+      "smh": 399.02,
+      "xlv": 146.24
+    },
+    {
+      "date": "2026-03-26",
+      "score": 50.8,
+      "smh": 380.84,
+      "xlv": 145.74
+    },
+    {
+      "date": "2026-03-27",
+      "score": 50.9,
+      "smh": 374.25,
+      "xlv": 143.26
+    },
+    {
+      "date": "2026-03-30",
+      "score": 41.6,
+      "smh": 362.53,
+      "xlv": 143.82
+    },
+    {
+      "date": "2026-03-31",
+      "score": 57.9,
+      "smh": 383.4,
+      "xlv": 146.61
+    },
+    {
+      "date": "2026-04-01",
+      "score": 61.2,
+      "smh": 391.97,
+      "xlv": 147.73
+    },
+    {
+      "date": "2026-04-02",
+      "score": 62.5,
+      "smh": 392.32,
+      "xlv": 146.81
+    },
+    {
+      "date": "2026-04-06",
+      "score": 70.7,
+      "smh": 395.98,
+      "xlv": 146.28
+    },
+    {
+      "date": "2026-04-07",
+      "score": 70.1,
+      "smh": 399.9,
+      "xlv": 146.57
+    },
+    {
+      "date": "2026-04-08",
+      "score": 81.1,
+      "smh": 422.92,
+      "xlv": 149.67
+    },
+    {
+      "date": "2026-04-09",
+      "score": 83.5,
+      "smh": 430.31,
+      "xlv": 149.33
+    },
+    {
+      "date": "2026-04-10",
+      "score": 88.3,
+      "smh": 436.88,
+      "xlv": 147.31
+    },
+    {
+      "date": "2026-04-13",
+      "score": 89.3,
+      "smh": 443.34,
+      "xlv": 147.97
+    },
+    {
+      "date": "2026-04-14",
+      "score": 90.5,
+      "smh": 452.0,
+      "xlv": 148.83
+    },
+    {
+      "date": "2026-04-15",
+      "score": 90.5,
+      "smh": 453.0,
+      "xlv": 147.77
+    },
+    {
+      "date": "2026-04-16",
+      "score": 90.8,
+      "smh": 454.8,
+      "xlv": 146.61
+    },
+    {
+      "date": "2026-04-17",
+      "score": 91.5,
+      "smh": 464.16,
+      "xlv": 148.8
+    },
+    {
+      "date": "2026-04-20",
+      "score": 92.0,
+      "smh": 463.96,
+      "xlv": 147.42
+    },
+    {
+      "date": "2026-04-21",
+      "score": 92.1,
+      "smh": 464.66,
+      "xlv": 145.92
+    },
+    {
+      "date": "2026-04-22",
+      "score": 92.5,
+      "smh": 476.83,
+      "xlv": 146.38
+    },
+    {
+      "date": "2026-04-23",
+      "score": 93.1,
+      "smh": 481.85,
+      "xlv": 146.24
+    },
+    {
+      "date": "2026-04-24",
+      "score": 95.2,
+      "smh": 506.44,
+      "xlv": 144.18
+    },
+    {
+      "date": "2026-04-27",
+      "score": 95.9,
+      "smh": 506.26,
+      "xlv": 143.46
+    },
+    {
+      "date": "2026-04-28",
+      "score": 93.6,
+      "smh": 491.21,
+      "xlv": 143.84
+    },
+    {
+      "date": "2026-04-29",
+      "score": 96.8,
+      "smh": 499.58,
+      "xlv": 142.84
+    },
+    {
+      "date": "2026-04-30",
+      "score": 97.6,
+      "smh": 506.72,
+      "xlv": 145.99
+    },
+    {
+      "date": "2026-05-01",
+      "score": 97.3,
+      "smh": 509.82,
+      "xlv": 145.16
+    },
+    {
+      "date": "2026-05-04",
+      "score": 96.5,
+      "smh": 506.79,
+      "xlv": 144.73
+    },
+    {
+      "date": "2026-05-05",
+      "score": 96.2,
+      "smh": 522.69,
+      "xlv": 145.3
+    },
+    {
+      "date": "2026-05-06",
+      "score": 97.2,
+      "smh": 549.76,
+      "xlv": 145.4
+    },
+    {
+      "date": "2026-05-07",
+      "score": 95.4,
+      "smh": 540.1,
+      "xlv": 144.72
+    },
+    {
+      "date": "2026-05-08",
+      "score": 95.6,
+      "smh": 566.54,
+      "xlv": 143.49
+    },
+    {
+      "date": "2026-05-11",
+      "score": 95.5,
+      "smh": 576.31,
+      "xlv": 143.04
+    },
+    {
+      "date": "2026-05-12",
+      "score": 92.8,
+      "smh": 561.25,
+      "xlv": 145.85
+    },
+    {
+      "date": "2026-05-13",
+      "score": 94.3,
+      "smh": 572.46,
+      "xlv": 146.71
+    },
+    {
+      "date": "2026-05-14",
+      "score": 94.7,
+      "smh": 578.34,
+      "xlv": 146.63
+    },
+    {
+      "date": "2026-05-15",
+      "score": 88.7,
+      "smh": 556.34,
+      "xlv": 145.1
+    },
+    {
+      "date": "2026-05-18",
+      "score": 86.2,
+      "smh": 546.16,
+      "xlv": 145.72
+    },
+    {
+      "date": "2026-05-19",
+      "score": 85.6,
+      "smh": 543.96,
+      "xlv": 147.32
+    },
+    {
+      "date": "2026-05-20",
+      "score": 89.0,
+      "smh": 564.66,
+      "xlv": 147.13
+    },
+    {
+      "date": "2026-05-21",
+      "score": 89.5,
+      "smh": 567.88,
+      "xlv": 148.15
+    },
+    {
+      "date": "2026-05-22",
+      "score": 88.4,
+      "smh": 576.32,
+      "xlv": 149.89
+    },
+    {
+      "date": "2026-05-26",
+      "score": 92.8,
+      "smh": 602.14,
+      "xlv": 148.51
+    },
+    {
+      "date": "2026-05-27",
+      "score": 92.1,
+      "smh": 595.5,
+      "xlv": 148.79
+    },
+    {
+      "date": "2026-05-28",
+      "score": 92.3,
+      "smh": 599.83,
+      "xlv": 150.88
+    },
+    {
+      "date": "2026-05-29",
+      "score": 91.6,
+      "smh": 598.93,
+      "xlv": 149.47
+    },
+    {
+      "date": "2026-06-01",
+      "score": 92.7,
+      "smh": 607.81,
+      "xlv": 147.84
+    },
+    {
+      "date": "2026-06-02",
+      "score": 92.6,
+      "smh": 632.21,
+      "xlv": 146.4
+    },
+    {
+      "date": "2026-06-03",
+      "score": 92.7,
+      "smh": 637.9,
+      "xlv": 147.55
+    },
+    {
+      "date": "2026-06-04",
+      "score": 90.4,
+      "smh": 627.53,
+      "xlv": 152.08
+    },
+    {
+      "date": "2026-06-05",
+      "score": 67.1,
+      "smh": 569.69,
+      "xlv": 153.01
+    },
+    {
+      "date": "2026-06-08",
+      "score": 72.1,
+      "smh": 598.16,
+      "xlv": 152.65
+    },
+    {
+      "date": "2026-06-09",
+      "score": 66.7,
+      "smh": 591.01,
+      "xlv": 154.57
+    },
+    {
+      "date": "2026-06-10",
+      "score": 65.2,
+      "smh": 570.91,
+      "xlv": 152.85
+    },
+    {
+      "date": "2026-06-11",
+      "score": 75.0,
+      "smh": 609.45,
+      "xlv": 154.09
+    },
+    {
+      "date": "2026-06-12",
+      "score": 77.7,
+      "smh": 619.96,
+      "xlv": 153.81
+    },
+    {
+      "date": "2026-06-15",
+      "score": 87.1,
+      "smh": 647.1,
+      "xlv": 152.89
+    },
+    {
+      "date": "2026-06-16",
+      "score": 79.7,
+      "smh": 616.0,
+      "xlv": 152.94
+    },
+    {
+      "date": "2026-06-17",
+      "score": 83.3,
+      "smh": 623.97,
+      "xlv": 150.71
+    },
+    {
+      "date": "2026-06-18",
+      "score": 86.9,
+      "smh": 659.88,
+      "xlv": 149.4
+    },
+    {
+      "date": "2026-06-22",
+      "score": 87.2,
+      "smh": 668.91,
+      "xlv": 150.06
+    },
+    {
+      "date": "2026-06-23",
+      "score": 75.4,
+      "smh": 622.05,
+      "xlv": 152.18
+    },
+    {
+      "date": "2026-06-24",
+      "score": 69.0,
+      "smh": 618.92,
+      "xlv": 153.35
+    },
+    {
+      "date": "2026-06-25",
+      "score": 75.0,
+      "smh": 636.88,
+      "xlv": 155.63
+    },
+    {
+      "date": "2026-06-26",
+      "score": 64.9,
+      "smh": 611.61,
+      "xlv": 160.34
+    },
+    {
+      "date": "2026-06-29",
+      "score": 70.2,
+      "smh": 631.98,
+      "xlv": 160.74
+    },
+    {
+      "date": "2026-06-30",
+      "score": 75.3,
+      "smh": 655.89,
+      "xlv": 158.66
+    },
+    {
+      "date": "2026-07-01",
+      "score": 57.3,
+      "smh": 620.46,
+      "xlv": 159.54
+    },
+    {
+      "date": "2026-07-02",
+      "score": 49.3,
+      "smh": 592.29,
+      "xlv": 163.74
+    },
+    {
+      "date": "2026-07-06",
+      "score": 53.0,
+      "smh": 604.3,
+      "xlv": 161.96
+    },
+    {
+      "date": "2026-07-07",
+      "score": 56.5,
+      "smh": 581.45,
+      "xlv": 164.44
+    },
+    {
+      "date": "2026-07-08",
+      "score": 57.4,
+      "smh": 593.0,
+      "xlv": 162.3
+    },
+    {
+      "date": "2026-07-09",
+      "score": 63.2,
+      "smh": 607.73,
+      "xlv": 162.17
+    },
+    {
+      "date": "2026-07-10",
+      "score": 68.0,
+      "smh": 611.03,
+      "xlv": 160.84
+    },
+    {
+      "date": "2026-07-13",
+      "score": 54.3,
+      "smh": 585.62,
+      "xlv": 161.41
+    },
+    {
+      "date": "2026-07-14",
+      "score": 58.1,
+      "smh": 600.31,
+      "xlv": 158.29
+    },
+    {
+      "date": "2026-07-15",
+      "score": 51.9,
+      "smh": 590.77,
+      "xlv": 158.29
+    },
+    {
+      "date": "2026-07-16",
+      "score": 48.7,
+      "smh": 568.92,
+      "xlv": 161.8
+    },
+    {
+      "date": "2026-07-17",
+      "score": 43.0,
+      "smh": 556.53,
+      "xlv": 161.09
+    },
+    {
+      "date": "2026-07-20",
+      "score": 44.0,
+      "smh": 558.83,
+      "xlv": 159.25
+    },
+    {
+      "date": "2026-07-21",
+      "score": 49.7,
+      "smh": 584.08,
+      "xlv": 160.25
+    },
+    {
+      "date": "2026-07-22",
+      "score": 55.6,
+      "smh": 586.91,
+      "xlv": 159.43
+    },
+    {
+      "date": "2026-07-23",
+      "score": 53.9,
+      "smh": 580.17,
+      "xlv": 161.44
+    },
+    {
+      "date": "2026-07-24",
+      "score": 45.1,
+      "smh": 561.19,
+      "xlv": 162.57
+    },
+    {
+      "date": "2026-07-27",
+      "score": 42.0,
+      "smh": 548.55,
+      "xlv": 163.4
+    },
+    {
+      "date": "2026-07-28",
+      "score": 35.8,
+      "smh": 529.6,
+      "xlv": 167.26
+    },
+    {
+      "date": "2026-07-29",
+      "score": 29.8,
+      "smh": 504.22,
+      "xlv": 166.24
+    },
+    {
+      "date": "2026-07-30",
+      "score": 39.8,
+      "smh": 538.9,
+      "xlv": 163.52
+    },
+    {
+      "date": "2026-07-31",
+      "score": 44.5,
+      "smh": 540.53,
+      "xlv": 162.55
+    },
+    {
+      "date": "2026-08-03",
+      "score": 43.3,
+      "smh": 545.46,
+      "xlv": 162.24
+    },
+    {
+      "date": "2026-08-04",
+      "score": 60.3,
+      "smh": 575.71,
+      "xlv": 162.1
+    },
+    {
+      "date": "2026-08-05",
+      "score": 54.3,
+      "smh": 569.7,
+      "xlv": 164.16
+    },
+    {
+      "date": "2026-08-06",
+      "score": 53.4,
+      "smh": 571.48,
+      "xlv": 164.45
+    },
+    {
+      "date": "2026-08-07",
+      "score": 56.8,
+      "smh": 582.7,
+      "xlv": 165.68
+    },
+    {
+      "date": "2026-08-10",
+      "score": 53.1,
+      "smh": 569.41,
+      "xlv": 168.44
+    },
+    {
+      "date": "2026-08-11",
+      "score": 51.5,
+      "smh": 572.93,
+      "xlv": 168.01
+    },
+    {
+      "date": "2026-08-12",
+      "score": 58.5,
+      "smh": 584.83,
+      "xlv": 168.44
+    },
+    {
+      "date": "2026-08-13",
+      "score": 65.4,
+      "smh": 589.12,
+      "xlv": 168.38
+    },
+    {
+      "date": "2026-08-14",
+      "score": 66.9,
+      "smh": 587.82,
+      "xlv": 167.37
+    },
+    {
+      "date": "2026-08-17",
+      "score": 68.4,
+      "smh": 594.07,
+      "xlv": 167.05
+    },
+    {
+      "date": "2026-08-18",
+      "score": 50.2,
+      "smh": 569.77,
+      "xlv": 169.73
+    },
+    {
+      "date": "2026-08-19",
+      "score": 41.9,
+      "smh": 560.92,
+      "xlv": 175.68
+    },
+    {
+      "date": "2026-08-20",
+      "score": 43.9,
+      "smh": 562.65,
+      "xlv": 172.39
+    },
+    {
+      "date": "2026-08-21",
+      "score": 45.5,
+      "smh": 560.42,
+      "xlv": 174.62
+    },
+    {
+      "date": "2026-08-24",
+      "score": 42.0,
+      "smh": 546.8,
+      "xlv": 174.7
+    },
+    {
+      "date": "2026-08-25",
+      "score": 52.5,
+      "smh": 555.82,
+      "xlv": 175.29
+    },
+    {
+      "date": "2026-08-26",
+      "score": 59.7,
+      "smh": 555.77,
+      "xlv": 173.54
+    },
+    {
+      "date": "2026-08-27",
+      "score": 61.9,
+      "smh": 573.0,
+      "xlv": 171.58
+    },
+    {
+      "date": "2026-08-28",
+      "score": 50.6,
+      "smh": 553.11,
+      "xlv": 171.16
+    },
+    {
+      "date": "2026-08-31",
+      "score": 52.4,
+      "smh": 556.63,
+      "xlv": 170.54
+    },
+    {
+      "date": "2026-09-01",
+      "score": 41.5,
+      "smh": 545.22,
+      "xlv": 171.67
+    },
+    {
+      "date": "2026-09-02",
+      "score": 43.7,
+      "smh": 550.48,
+      "xlv": 172.95
+    },
+    {
+      "date": "2026-09-03",
+      "score": 42.8,
+      "smh": 552.6,
+      "xlv": 173.26
+    },
+    {
+      "date": "2026-09-04",
+      "score": 51.1,
+      "smh": 567.01,
+      "xlv": 171.45
+    },
+    {
+      "date": "2026-09-08",
+      "score": 60.5,
+      "smh": 573.73,
+      "xlv": 167.13
+    },
+    {
+      "date": "2026-09-09",
+      "score": 60.0,
+      "smh": 574.29,
+      "xlv": 166.58
+    },
+    {
+      "date": "2026-09-10",
+      "score": 50.8,
+      "smh": 560.28,
+      "xlv": 165.66
+    },
+    {
+      "date": "2026-09-11",
+      "score": 54.4,
+      "smh": 568.53,
+      "xlv": 165.36
+    },
+    {
+      "date": "2026-09-14",
+      "score": 37.0,
+      "smh": 541.5,
+      "xlv": 167.75
+    },
+    {
+      "date": "2026-09-15",
+      "score": 34.8,
+      "smh": 542.11,
+      "xlv": 167.66
+    },
+    {
+      "date": "2026-09-16",
+      "score": 43.1,
+      "smh": 545.56,
+      "xlv": 167.77
+    },
+    {
+      "date": "2026-09-17",
+      "score": 51.6,
+      "smh": 560.61,
+      "xlv": 168.81
+    },
+    {
+      "date": "2026-09-18",
+      "score": 55.2,
+      "smh": 573.0,
+      "xlv": 168.39
+    },
+    {
+      "date": "2026-09-21",
+      "score": 66.8,
+      "smh": 596.03,
+      "xlv": 169.01
+    },
+    {
+      "date": "2026-09-22",
+      "score": 73.5,
+      "smh": 607.46,
+      "xlv": 169.89
+    },
+    {
+      "date": "2026-09-23",
+      "score": 69.9,
+      "smh": 601.41,
+      "xlv": 168.8
+    },
+    {
+      "date": "2026-09-24",
+      "score": 68.6,
+      "smh": 600.52,
+      "xlv": 169.87
+    },
+    {
+      "date": "2026-09-25",
+      "score": 67.2,
+      "smh": 606.56,
+      "xlv": 170.7
+    },
+    {
+      "date": "2026-09-28",
+      "score": 69.8,
+      "smh": 600.01,
+      "xlv": 171.26
+    },
+    {
+      "date": "2026-09-29",
+      "score": 71.4,
+      "smh": 606.9,
+      "xlv": 170.73
+    },
+    {
+      "date": "2026-09-30",
+      "score": 75.2,
+      "smh": 609.0,
+      "xlv": 168.42
+    },
+    {
+      "date": "2026-10-01",
+      "score": 78.1,
+      "smh": 617.81,
+      "xlv": 166.2
+    },
+    {
+      "date": "2026-10-02",
+      "score": 80.4,
+      "smh": 630.6,
+      "xlv": 166.18
+    },
+    {
+      "date": "2026-10-05",
+      "score": 80.4,
+      "smh": 633.9,
+      "xlv": 167.37
+    },
+    {
+      "date": "2026-10-06",
+      "score": 76.6,
+      "smh": 632.5,
+      "xlv": 167.09
+    },
+    {
+      "date": "2026-10-07",
+      "score": 70.1,
+      "smh": 625.03,
+      "xlv": 168.81
+    },
+    {
+      "date": "2026-10-08",
+      "score": 62.9,
+      "smh": 607.27,
+      "xlv": 168.16
+    },
+    {
+      "date": "2026-10-09",
+      "score": 55.7,
+      "smh": 603.33,
+      "xlv": 170.81
+    },
+    {
+      "date": "2026-10-12",
+      "score": 58.4,
+      "smh": 590.99,
+      "xlv": 171.99
+    },
+    {
+      "date": "2026-10-13",
+      "score": 58.2,
+      "smh": 588.12,
+      "xlv": 169.66
+    },
+    {
+      "date": "2026-10-14",
+      "score": 44.0,
+      "smh": 564.74,
+      "xlv": 173.96
+    },
+    {
+      "date": "2026-10-15",
+      "score": 36.6,
+      "smh": 558.84,
+      "xlv": 177.19
+    },
+    {
+      "date": "2026-10-16",
+      "score": 26.4,
+      "smh": 539.79,
+      "xlv": 176.71
+    },
+    {
+      "date": "2026-10-19",
+      "score": 29.9,
+      "smh": 548.46,
+      "xlv": 175.65
+    },
+    {
+      "date": "2026-10-20",
+      "score": 26.9,
+      "smh": 546.36,
+      "xlv": 179.82
+    },
+    {
+      "date": "2026-10-21",
+      "score": 30.0,
+      "smh": 556.7,
+      "xlv": 178.94
+    },
+    {
+      "date": "2026-10-22",
+      "score": 16.1,
+      "smh": 523.35,
+      "xlv": 181.3
+    },
+    {
+      "date": "2026-10-23",
+      "score": 16.4,
+      "smh": 527.2,
+      "xlv": 179.28
+    },
+    {
+      "date": "2026-10-26",
+      "score": 20.8,
+      "smh": 541.62,
+      "xlv": 179.28
+    },
+    {
+      "date": "2026-10-27",
+      "score": 25.0,
+      "smh": 557.98,
+      "xlv": 179.18
+    },
+    {
+      "date": "2026-10-28",
+      "score": 27.1,
+      "smh": 567.67,
+      "xlv": 179.72
+    },
+    {
+      "date": "2026-10-29",
+      "score": 25.9,
+      "smh": 561.67,
+      "xlv": 184.04
+    },
+    {
+      "date": "2026-10-30",
+      "score": 13.1,
+      "smh": 522.49,
+      "xlv": 184.87
+    },
+    {
+      "date": "2026-11-02",
+      "score": 10.0,
+      "smh": 508.31,
+      "xlv": 184.6
+    },
+    {
+      "date": "2026-11-03",
+      "score": 12.6,
+      "smh": 518.52,
+      "xlv": 184.02
+    },
+    {
+      "date": "2026-11-04",
+      "score": 9.1,
+      "smh": 504.27,
+      "xlv": 189.66
+    },
+    {
+      "date": "2026-11-05",
+      "score": 3.6,
+      "smh": 447.73,
+      "xlv": 184.91
+    },
+    {
+      "date": "2026-11-06",
+      "score": 4.5,
+      "smh": 463.96,
+      "xlv": 184.8
+    },
+    {
+      "date": "2026-11-09",
+      "score": 5.8,
+      "smh": 487.41,
+      "xlv": 188.33
+    },
+    {
+      "date": "2026-11-10",
+      "score": 5.6,
+      "smh": 483.63,
+      "xlv": 188.88
+    },
+    {
+      "date": "2026-11-11",
+      "score": 12.4,
+      "smh": 506.96,
+      "xlv": 188.95
+    },
+    {
+      "date": "2026-11-12",
+      "score": 10.7,
+      "smh": 501.73,
+      "xlv": 187.83
+    },
+    {
+      "date": "2026-11-13",
+      "score": 8.2,
+      "smh": 486.75,
+      "xlv": 188.85
+    },
+    {
+      "date": "2026-11-16",
+      "score": 4.9,
+      "smh": 461.9,
+      "xlv": 187.88
+    },
+    {
+      "date": "2026-11-17",
+      "score": 5.2,
+      "smh": 460.1,
+      "xlv": 185.24
+    },
+    {
+      "date": "2026-11-18",
+      "score": 4.8,
+      "smh": 459.54,
+      "xlv": 181.17
+    },
+    {
+      "date": "2026-11-19",
+      "score": 6.8,
+      "smh": 447.48,
+      "xlv": 177.46
+    },
+    {
+      "date": "2026-11-20",
+      "score": 2.1,
+      "smh": 400.06,
+      "xlv": 177.24
+    }
+  ],
+  "historical_regimes": [
+    {
+      "zone_en": "Extreme Fear (0–24)",
+      "zone_ja": "極度の恐怖（0〜24）",
+      "share_pct": "11.4%",
+      "smh_dd_median": "-24.8%",
+      "mix_dd_median": "-11.2%",
+      "note_en": "Historic stress windows (2008, 2020, 2022) where healthcare & short Treasuries historically cushioned drawdowns.",
+      "note_ja": "2008年・2020年・2022年などの急落局面。過去統計では医療セクターと短期国債が下落幅を緩和しました。"
+    },
+    {
+      "zone_en": "Fear (25–44)",
+      "zone_ja": "恐怖（25〜44）",
+      "share_pct": "22.6%",
+      "smh_dd_median": "-12.1%",
+      "mix_dd_median": "-5.8%",
+      "note_en": "Pullback consolidation periods marked by elevated 20-day volatility and defensive rotation into XLV.",
+      "note_ja": "調整局面。20日ボラティリティが上昇し、ディフェンシブ資産への逃避が観測されやすい帯域です。"
+    },
+    {
+      "zone_en": "Neutral (45–55)",
+      "zone_ja": "中立（45〜55）",
+      "share_pct": "21.8%",
+      "smh_dd_median": "-4.9%",
+      "mix_dd_median": "-2.6%",
+      "note_en": "Balanced regime where semiconductors and defensive healthcare move broadly in line with trend baselines.",
+      "note_ja": "半導体と防御セクターが均衡して推移する平常帯域です。"
+    },
+    {
+      "zone_en": "Greed (56–75)",
+      "zone_ja": "強欲（56〜75）",
+      "share_pct": "31.5%",
+      "smh_dd_median": "-1.8%",
+      "mix_dd_median": "-1.1%",
+      "note_en": "Sustained expansion windows where SMH weight inside an unadjusted 50/50 reference mix tends to drift upward.",
+      "note_ja": "堅調な上昇局面。放置するとSMH比率が自然に膨らみやすい帯域として統計に記録されています。"
+    },
+    {
+      "zone_en": "Extreme Greed (76–100)",
+      "zone_ja": "極度の強欲（76〜100）",
+      "share_pct": "12.7%",
+      "smh_dd_median": "0.0%",
+      "mix_dd_median": "0.0%",
+      "note_en": "Extended momentum peaks historically followed by wider 6-month volatility dispersion; educational reference only.",
+      "note_ja": "強い過熱局面。過去統計ではその後の値動きの振れ幅が広がりやすい傾向が確認されています（教育参考）。"
+    }
+  ],
+  "disclaimer_en": "Public ETF historical statistics for independent educational reference only. Not investment advice or trade timing signals.",
+  "disclaimer_ja": "公開米国ETFの過去統計に基づく教育・参考情報であり、投資助言や売買タイミングの指示ではありません。"
+}

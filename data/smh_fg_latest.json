@@ -1,20 +1,20 @@
 {
   "schema_v": "1.0",
-  "as_of_date": "2026-11-20",
-  "generated_utc": "2026-11-23T12:06:46Z",
-  "score": 2.1,
+  "as_of_date": "2026-11-24",
+  "generated_utc": "2026-11-25T12:34:48Z",
+  "score": 3.8,
   "zone_key": "extreme_fear",
   "label_en": "Extreme Fear",
   "label_ja": "極度の恐怖",
   "comparisons": {
-    "prev_1d": 6.8,
-    "prev_1w": 8.2,
-    "prev_1m": 16.1
+    "prev_1d": 6.9,
+    "prev_1w": 5.2,
+    "prev_1m": 20.8
   },
   "prices": {
-    "SMH": 400.06,
-    "XLV": 177.24,
-    "QQQ": 608.45
+    "SMH": 426.75,
+    "XLV": 184.72,
+    "QQQ": 638.1
   },
   "factors": [
     {
@@ -22,8 +22,8 @@
       "name_en": "125-Day Price Momentum",
       "name_ja": "125日移動平均モメンタム",
       "score": 0.0,
-      "raw_display": "-29.9% vs 125d MA",
-      "raw_display_ja": "125日平均比 -29.9%",
+      "raw_display": "-24.9% vs 125d MA",
+      "raw_display_ja": "125日平均比 -24.9%",
       "desc_en": "Compares SMH closing price against its 125-trading-day moving average to gauge medium-term trend stretch.",
       "desc_ja": "SMH終値と125営業日移動平均の乖離から、中期トレンドの過熱・冷え込みを客観的に測ります。"
     },
@@ -32,8 +32,8 @@
       "name_en": "52-Week High Drawdown",
       "name_ja": "52週高値からの下落幅",
       "score": 0.0,
-      "raw_display": "-40.2% from 52w high",
-      "raw_display_ja": "52週高値比 -40.2%",
+      "raw_display": "-36.2% from 52w high",
+      "raw_display_ja": "52週高値比 -36.2%",
       "desc_en": "Measures how far SMH currently trades below its trailing 252-day peak price.",
       "desc_ja": "過去252営業日の高値から現在値がどの程度離れているかを示します。"
     },
@@ -42,8 +42,8 @@
       "name_en": "SMH / XLV Defensive Rotation",
       "name_ja": "SMH / XLV 防御セクター相対強度",
       "score": 0.0,
-      "raw_display": "-23.0% (20d SMH vs XLV)",
-      "raw_display_ja": "20日相対差 -23.0%（SMH対XLV）",
+      "raw_display": "-26.6% (20d SMH vs XLV)",
+      "raw_display_ja": "20日相対差 -26.6%（SMH対XLV）",
       "desc_en": "Tracks 20-day return spread between semiconductors (SMH) and defensive healthcare (XLV).",
       "desc_ja": "半導体（SMH）とディフェンシブ医療（XLV）の直近20営業日の相対リターン差です。"
     },
@@ -51,9 +51,9 @@
       "key": "rsi_14",
       "name_en": "14-Day Relative Strength (RSI)",
       "name_ja": "14日RSI（相対力指数）",
-      "score": 2.3,
-      "raw_display": "RSI 26.1",
-      "raw_display_ja": "RSI 26.1",
+      "score": 25.1,
+      "raw_display": "RSI 37.5",
+      "raw_display_ja": "RSI 37.5",
       "desc_en": "Standard 14-day Wilder RSI measuring recent buying vs. selling pressure in SMH.",
       "desc_ja": "SMHの直近14営業日の上昇・下落の勢いを0〜100で標準化した統計値です。"
     },
@@ -61,9 +61,9 @@
       "key": "volatility",
       "name_en": "Realized Volatility Stress",
       "name_ja": "実現ボラティリティ（変動ストレス）",
-      "score": 12.4,
-      "raw_display": "72.8% (20d) vs 50.6% (60d)",
-      "raw_display_ja": "20日年率 72.8%（60日比 1.44倍）",
+      "score": 1.4,
+      "raw_display": "94.0% (20d) vs 61.2% (60d)",
+      "raw_display_ja": "20日年率 94.0%（60日比 1.54倍）",
       "desc_en": "Compares 20-day annualized volatility to 60-day baseline; sudden spikes indicate fear regimes.",
       "desc_ja": "直近20日と60日の年率変動幅を比較。急拡大は市場の警戒感の高まりを示します。"
     },
@@ -72,8 +72,8 @@
       "name_en": "SMH / QQQ Tech Leadership",
       "name_ja": "SMH / QQQ ハイテク主導力",
       "score": 0.0,
-      "raw_display": "-10.5% (20d SMH vs QQQ)",
-      "raw_display_ja": "20日相対差 -10.5%（SMH対QQQ）",
+      "raw_display": "-12.0% (20d SMH vs QQQ)",
+      "raw_display_ja": "20日相対差 -12.0%（SMH対QQQ）",
       "desc_en": "Shows whether semiconductors are leading or lagging the broader Nasdaq-100 (QQQ) over 20 sessions.",
       "desc_ja": "半導体セクターがNasdaq-100（QQQ）全体より先行しているか出遅れているかを示します。"
     },
@@ -82,25 +82,13 @@
       "name_en": "90-Day 50/50 Weight Drift",
       "name_ja": "90日 50/50 比率ドリフト",
       "score": 0.0,
-      "raw_display": "SMH 39.1% (-10.9 pp)",
-      "raw_display_ja": "SMH比率 39.1%（基準比 -10.9pt）",
+      "raw_display": "SMH 39.7% (-10.3 pp)",
+      "raw_display_ja": "SMH比率 39.7%（基準比 -10.3pt）",
       "desc_en": "Illustrates how much a hypothetical equal-weight SMH/XLV reference mix drifted over 90 trading days.",
       "desc_ja": "仮にSMHとXLVを50:50で保有した場合の90営業日後の構成比率の偏りを示す教育統計です。"
     }
   ],
   "history": [
-    {
-      "date": "2026-03-09",
-      "score": 56.0,
-      "smh": 394.37,
-      "xlv": 154.26
-    },
-    {
-      "date": "2026-03-10",
-      "score": 57.0,
-      "smh": 397.33,
-      "xlv": 153.15
-    },
     {
       "date": "2026-03-11",
       "score": 59.3,
@@ -1168,6 +1156,18 @@
       "score": 2.1,
       "smh": 400.06,
       "xlv": 177.24
+    },
+    {
+      "date": "2026-11-23",
+      "score": 6.9,
+      "smh": 460.18,
+      "xlv": 179.42
+    },
+    {
+      "date": "2026-11-24",
+      "score": 3.8,
+      "smh": 426.75,
+      "xlv": 184.72
     }
   ],
   "historical_regimes": [

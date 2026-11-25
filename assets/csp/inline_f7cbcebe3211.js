@@ -14,8 +14,8 @@ let pwCurrentScreenJp = 0;
       try { localStorage.setItem('gb_jp_theme', next); } catch (_) {}
     }
 
-    let gbaLiveTempScoreJp = 5;
-    let gbaLiveTempDateJp = '2026-11-20';
+    let gbaLiveTempScoreJp = 3.8;
+    let gbaLiveTempDateJp = '2026-11-24';
 
     function hydrateGbaLiveTempBadgeJp() {
       const txtEl = document.getElementById('gbaLiveTempTextJp');
@@ -26,7 +26,7 @@ let pwCurrentScreenJp = 0;
         const rawSc = (ov.fg_score !== undefined) ? ov.fg_score : ((ov.fear_greed_score !== undefined) ? ov.fear_greed_score : ov.score);
         const numSc = Number(rawSc);
         if (!dt || isNaN(numSc)) return;
-        const sc = Math.round(numSc);
+        const sc = Math.round(numSc * 10) / 10;
         gbaLiveTempScoreJp = sc;
         gbaLiveTempDateJp = dt;
         let reg = '中立圏';
@@ -35,10 +35,10 @@ let pwCurrentScreenJp = 0;
         else if (sc <= 55) reg = '中立圏';
         else if (sc <= 75) reg = '強気圏';
         else reg = '過熱注意圏';
-        txtEl.textContent = '最新データ基準日：' + dt + ' ・ 市場温度指数：' + sc + ' / 100（' + reg + '）';
+        txtEl.textContent = '最新データ基準日：' + dt + ' ・ SMH恐怖と強欲指数：' + Number(sc).toFixed(1) + ' / 100（' + reg + '） →';
         renderGbaScreen4VaultJp();
       };
-      fetch('/data/semi_overview.json', { cache: 'no-cache' })
+      fetch('/data/smh_fg_latest.json?v=' + Math.floor(Date.now() / 300000), { cache: 'no-cache' })
         .then(function(r) { return r.ok ? r.json() : Promise.reject(); })
         .then(applyData)
         .catch(function() {

@@ -1,17 +1,18 @@
-/* Dream Company Lightweight Conversion UX Add-ons (Strict CSP — Zero Inline Handlers)
+/* Dream Company Conversion UX Add-ons v20261125 (Strict CSP — Zero Inline Handlers, Zero Raw Hangul)
  * Preserves existing layout, design, auth, and checkout 100%.
  * Includes:
- *  ① Bottom Floating Pill CTA Bar (1~5 div, appears after hero scroll, auto-hides over forms/checkout/footer/audio)
- *  ② Pre-Purchase Doubt-Clearing FAQ Accordion (4-5 Qs) + Verified Review Policy (3 lines) + Auto-Hidden Public Reviews (>=3 only)
- *  ③ Concrete 3-Card Deliverables Spec near 2p Sample / Checkout
- *  ④ Lightweight 1-Line Protection Ribbon inside Paid Vault
- *  #3 1-Second Intuitive 3-Stage Status Badges (Divisions 2, 3, 5 ONLY — excluded on Div 1)
+ *  1) Bottom Floating Pill CTA Bar (Divisions 1-5, scroll > 360, auto-hides over forms/checkout/footer/audio)
+ *  2) Concrete 3-Card Deliverables Spec + Pre-Purchase FAQ (4 Qs) + Transparent 3-Line Review Policy (>=3 auto-show)
+ *     - Always visible right above paid CTAs (never buried inside collapsed <details> accordions)
+ *     - Also surfaced cleanly on Screen 0 opening editorial spread for immediate visitor trust
+ *  3) #3 1-Second Intuitive 3-Stage Status Badges (Divisions 2 KFG, 3 GBA, 5 KFK ONLY — excluded on Div 1 TOM)
+ *  4) Lightweight 1-Line Protection Ribbon inside Paid Vaults (TOM, KFG, GBA, KFK)
  */
 (function initDreamCompanyUxAddons() {
   'use strict';
   if (typeof window === 'undefined' || typeof document === 'undefined') return;
-  if (window.__DC_UX_ADDONS_V1__) return;
-  window.__DC_UX_ADDONS_V1__ = true;
+  if (window.__DC_UX_ADDONS_V2__) return;
+  window.__DC_UX_ADDONS_V2__ = true;
 
   function detectDiv() {
     var host = String((window.location && window.location.hostname) || '').toLowerCase();
@@ -26,7 +27,6 @@
 
   var DIV = detectDiv();
   var PATH = String((window.location && window.location.pathname) || '/').toLowerCase();
-  // Keep dedicated legal / F&G / QnA pages uncluttered — run full add-ons on main landing pages, and floating pill on main pages
   var IS_MAIN =
     PATH === '/' ||
     PATH === '/index.html' ||
@@ -53,36 +53,38 @@
       '.dc-pill-primary{background:#FAF7F2;color:#0F2C22;}' +
       '.dc-pill-secondary{background:transparent;color:#ECFDF5;border:1px solid rgba(236,253,245,0.45);}' +
       '.dc-pill-bar.is-hero{bottom:74px;padding:10px 14px;}' +
-      '.dc-pill-bar.is-hero .dc-pill-btn{font-size:1.08rem;padding:12px 18px;min-height:48px;}' +
+      '.dc-pill-bar.is-hero .dc-pill-btn{font-size:1.06rem;padding:12px 18px;min-height:48px;}' +
       '.dc-addon-box{background:#FFFFFF;border:1px solid #E5E0D5;border-radius:14px;padding:20px;margin:20px 0;color:#111827;text-align:left;}' +
-      '.dc-addon-kicker{font-size:0.75rem;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;color:#0F2C22;margin-bottom:6px;}' +
-      '.dc-addon-title{font-size:1.12rem;font-weight:800;color:#0F2C22;margin:0 0 12px;}' +
+      '.dc-addon-box.is-opening{margin-top:30px;background:#FFFEFC;}' +
+      '.dc-addon-kicker{font-size:0.74rem;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;color:#0F2C22;margin-bottom:6px;}' +
+      '.dc-addon-title{font-size:1.08rem;font-weight:800;color:#0F2C22;margin:0 0 12px;line-height:1.4;}' +
       '.dc-deliv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;}' +
       '.dc-deliv-card{background:#FAF7F2;border:1px solid #E5E0D5;border-radius:10px;padding:13px 14px;}' +
       '.dc-deliv-num{display:inline-block;font-size:0.74rem;font-weight:800;color:#0F2C22;background:#DCFCE7;padding:2px 8px;border-radius:999px;margin-bottom:6px;}' +
-      '.dc-deliv-h{font-size:0.93rem;font-weight:800;color:#111827;margin:0 0 4px;}' +
+      '.dc-deliv-h{font-size:0.93rem;font-weight:800;color:#111827;margin:0 0 4px;line-height:1.4;}' +
       '.dc-deliv-p{font-size:0.84rem;color:#4B5563;margin:0;line-height:1.55;}' +
+      '.dc-faq-wrap{margin-top:18px;padding-top:16px;border-top:1px solid #ECE7DC;}' +
       '.dc-faq-item{border-top:1px solid #ECE7DC;padding:10px 0;}' +
       '.dc-faq-item:first-of-type{border-top:none;padding-top:2px;}' +
-      '.dc-faq-item summary{cursor:pointer;font-weight:700;font-size:0.93rem;color:#0F2C22;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:10px;}' +
+      '.dc-faq-item summary{cursor:pointer;font-weight:700;font-size:0.92rem;color:#0F2C22;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:10px;}' +
       '.dc-faq-item summary::-webkit-details-marker{display:none;}' +
       '.dc-faq-item summary::after{content:"+";font-weight:800;font-size:1.1rem;color:#0F2C22;flex-shrink:0;}' +
       '.dc-faq-item[open] summary::after{content:"-";}' +
-      '.dc-faq-a{font-size:0.87rem;color:#374151;margin:8px 0 2px;line-height:1.65;}' +
+      '.dc-faq-a{font-size:0.86rem;color:#374151;margin:8px 0 2px;line-height:1.65;}' +
       '.dc-policy-box{margin-top:14px;padding:12px 14px;border-radius:10px;background:#F8FAFC;border:1px solid #E2E8F0;font-size:0.82rem;color:#334155;line-height:1.6;}' +
       '.dc-review-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:12px;}' +
       '.dc-review-card{background:#FAF7F2;border:1px solid #E5E0D5;border-radius:10px;padding:12px;font-size:0.86rem;color:#1F2937;}' +
       '.dc-vault-ribbon{background:#FEF3C7;border:1px solid #F59E0B;color:#78350F;border-radius:8px;padding:8px 14px;font-size:0.82rem;font-weight:700;margin-bottom:14px;display:flex;align-items:center;justify-content:center;text-align:center;}' +
-      '.dc-stage3-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 13px;border-radius:999px;font-size:0.84rem;font-weight:800;border:1.5px solid currentColor;margin:8px 0 4px;line-height:1.35;}' +
+      '.dc-stage3-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 13px;border-radius:999px;font-size:0.84rem;font-weight:800;border:1.5px solid currentColor;margin:8px 0 6px;line-height:1.35;}' +
       '.dc-stage3-green{color:#065F46;background:#ECFDF5;}' +
       '.dc-stage3-amber{color:#92400E;background:#FFFBEB;}' +
       '.dc-stage3-terra{color:#9A3412;background:#FFF7ED;}' +
-      '@media(max-width:560px){.dc-pill-btn{font-size:0.8rem;padding:8px 12px;}}';
+      '@media(max-width:560px){.dc-pill-btn{font-size:0.78rem;padding:8px 12px;}.dc-addon-box{padding:15px 14px;}}';
     document.head.appendChild(st);
   }
 
   /* =========================================================================
-   * Add-on ①: Bottom Floating Pill CTA Bar (1~5 ALL Divisions)
+   * 1) Bottom Floating Pill CTA Bar (Divisions 1-5 ALL)
    * ========================================================================= */
   function mountFloatingPill() {
     if (!IS_MAIN) return;
@@ -158,13 +160,13 @@
       var ae = document.activeElement;
       if (ae && (ae.tagName === 'INPUT' || ae.tagName === 'TEXTAREA' || ae.tagName === 'SELECT')) return true;
       var vh = window.innerHeight || 800;
-      var sel = 'footer, form, .whop-checkout-button, [data-tom-paid-plan], #btn-one-tap-premium-suite, #btn-one-tap-pass, a[href*="latpeed.com"], a[href*="buy.polar.sh"], a[href*="whop.com/checkout"], audio, #sticky-radio-player.is-playing';
+      var sel = 'footer, .whop-checkout-button, [data-tom-paid-plan], #btn-one-tap-premium-suite, #btn-one-tap-six-month-pass, a[href*="latpeed.com"], a[href*="buy.polar.sh"], a[href*="whop.com/checkout"], #sticky-radio-player.is-playing';
       var nodes = document.querySelectorAll(sel);
       for (var i = 0; i < nodes.length; i++) {
         var el = nodes[i];
         if (!el || el.offsetParent === null) continue;
         var r = el.getBoundingClientRect();
-        if (r.height > 10 && r.bottom > vh - 120 && r.top < vh) {
+        if (r.height > 10 && r.bottom > vh - 96 && r.top < vh) {
           return true;
         }
       }
@@ -173,7 +175,7 @@
 
     function updateBarVisibility() {
       var y = window.pageYOffset || document.documentElement.scrollTop || 0;
-      var show = y > 420 && !isAnyObstructedElementInView();
+      var show = y > 360 && !isAnyObstructedElementInView();
       bar.classList.toggle('is-visible', show);
     }
 
@@ -181,32 +183,32 @@
     window.addEventListener('resize', updateBarVisibility, { passive: true });
     document.addEventListener('focusin', updateBarVisibility, true);
     document.addEventListener('focusout', updateBarVisibility, true);
-    setTimeout(updateBarVisibility, 900);
+    setTimeout(updateBarVisibility, 700);
   }
 
   /* =========================================================================
-   * Add-on ② + ③: Concrete 3-Card Deliverables + Pre-Purchase FAQ + Review Policy
+   * 2) Copy Table (Zero AI Clichés, Zero Forbidden Polar/Whop/KFK Terms)
    * ========================================================================= */
   var COPY = {
     TOM: {
       delivKicker: 'WHAT YOU RECEIVE IMMEDIATELY',
       delivTitle: '3 Concrete Reference Deliverables Included',
       deliv: [
-        { n: '01', h: '14-Page 2000-2025 Crisis Workbook PDF', p: 'Verified historical drawdowns & recovery months across Dot-Com, 2008, and 2022 for SMH x XLV + SGOV.' },
-        { n: '02', h: 'Self-Serve Custom Dollar Worksheet', p: 'Printable allocation sheet scaled to your exact portfolio band and 24-month Treasury reserve.' },
-        { n: '03', h: '401(k) / IRA Tax-Location Study Table', p: 'Plain-English educational reference comparing taxable vs. tax-deferred account placement (non-advisory).' }
+        { n: '01', h: '14-Page 2000-2025 Crisis Workbook PDF', p: 'Verified historical drawdowns and recovery months across Dot-Com, 2008, and 2022 for SMH x XLV + SGOV.' },
+        { n: '02', h: 'Self-Serve Custom Dollar Worksheet', p: 'Printable allocation sheet scaled to your chosen household dollar band and 24-month Treasury reserve.' },
+        { n: '03', h: '401(k) / IRA Tax-Location Study Table', p: 'Plain-English educational reference comparing taxable and tax-deferred account placement (non-advisory).' }
       ],
       faqKicker: 'BEFORE YOU DECIDE',
-      faqTitle: 'Quick Answers Before Unlocking',
+      faqTitle: 'Quick Answers Before Continuing',
       faqs: [
         { q: 'Can I inspect the actual data quality before paying?', a: 'Yes. Open our free 2-page 2000-2025 Sample PDF right now with zero email wall or card required.' },
-        { q: 'Is this investment advice or buy/sell trade signals?', a: 'No. Truth of Market is strictly an independent educational research publisher presenting public historical ETF statistics.' },
-        { q: 'How fast do I receive my PDF after checkout?', a: 'Instantly after Whop checkout, plus an automatic backup email with your verified 6-digit OTP restore access.' },
-        { q: 'What is the refund & cancellation policy?', a: '7-day full refund if unopened/undownloaded; 100% refund for any file or billing issue; optional recurring passes cancel anytime in 1 click.' }
+        { q: 'Is this investment advice or trade timing signals?', a: 'No. Truth of Market is strictly an independent educational research publisher presenting public historical ETF statistics.' },
+        { q: 'How fast do I receive my PDF after checkout?', a: 'Right after Whop checkout, plus an automatic backup email with your verified 6-digit OTP restore access.' },
+        { q: 'What is the refund and cancellation policy?', a: '7-day full refund if unopened/undownloaded; 100% refund for any file or billing issue; optional recurring passes cancel anytime in 1 click.' }
       ],
       policyTitle: 'Verified Reader Review Policy (Zero Fake or Incentivized Reviews)',
       policyLines: [
-        '1. Only verified paying members who authenticated their purchase can leave 1 reflection.',
+        '1. Only verified paying members who authenticated their purchase can leave 1 voluntary reflection.',
         '2. Zero beta giveaways, zero sponsored posts, and zero paid or edited testimonials.',
         '3. Verified reflections appear automatically once 3 or more genuine member notes accumulate.'
       ],
@@ -216,14 +218,14 @@
       delivKicker: 'CONCRETE PARENT DELIVERABLES',
       delivTitle: '3 Printable Reference Artifacts You Hold in Hand',
       deliv: [
-        { n: '01', h: '4-Page Personalized US CDC Reference PDF', p: 'Time-adjusted bone-age math, US ft/in & lbs growth curves, and estimated adult range.' },
-        { n: '02', h: '30-Day Printable Refrigerator Checklist', p: 'Calm bedtime, dinner protein, and posture habits designed for busy evenings — zero supplement ads.' },
-        { n: '03', h: 'Pediatrician Visit Prep Sheet & Sibling Archive', p: 'Structured checkup questions plus up to 4 sibling profiles & monthly velocity tracking (Pass/Suite).' }
+        { n: '01', h: '4-Page Personalized US CDC Reference PDF', p: 'Time-adjusted bone-age math, US ft/in and lbs growth curves, and estimated adult height band.' },
+        { n: '02', h: '30-Day Printable Refrigerator Checklist', p: 'Calm bedtime, dinner protein, and posture habits designed for busy weeknights — zero supplement ads.' },
+        { n: '03', h: 'Pediatrician Visit Prep Sheet & Sibling Archive', p: 'Structured checkup questions plus up to 4 sibling profiles and monthly velocity tracking (Pass/Suite).' }
       ],
       faqKicker: 'PARENT PEACE-OF-MIND FAQ',
-      faqTitle: 'Questions Parents Ask Before Unlocking',
+      faqTitle: 'Questions Parents Ask Before Continuing',
       faqs: [
-        { q: 'Can I preview the report before buying?', a: 'Yes. Open our free 2-page US CDC Sample PDF immediately — zero email wall, zero supplement pitches.' },
+        { q: 'Can I preview the report before paying?', a: 'Yes. Open our free 2-page US CDC Sample PDF immediately — zero email wall, zero supplement pitches.' },
         { q: 'Is this medical advice or a doctor replacement?', a: 'No. KISFIT Studio is a 100% automated, non-medical educational reference tool for adult parents (18+) built on public US CDC 2000 tables.' },
         { q: 'Does one Pass cover multiple children?', a: 'Yes. Both the 6-Month Pass ($19.99) and 12-Month Suite ($49) support up to 4 siblings under one family account.' },
         { q: 'What is your refund policy?', a: '7-day full refund if unopened/undownloaded; 100% refund for any file error or duplicate charge; zero recurring auto-billing on one-time passes.' }
@@ -286,10 +288,10 @@
     }
   };
 
-  function buildDeliverablesAndFaqEl(c) {
+  function buildDeliverablesAndFaqEl(c, id, extraClass) {
     var wrap = document.createElement('section');
-    wrap.id = 'dcPreCheckoutAddons';
-    wrap.className = 'dc-addon-box';
+    wrap.id = id;
+    wrap.className = 'dc-addon-box' + (extraClass ? (' ' + extraClass) : '');
     wrap.setAttribute('aria-label', 'Deliverables and FAQ');
 
     var delivHtml =
@@ -308,7 +310,7 @@
       '</div>';
 
     var faqHtml =
-      '<div style="margin-top:20px;padding-top:16px;border-top:1px solid #ECE7DC;">' +
+      '<div class="dc-faq-wrap">' +
       '<div class="dc-addon-kicker">' + esc(c.faqKicker) + '</div>' +
       '<h3 class="dc-addon-title">' + esc(c.faqTitle) + '</h3>' +
       c.faqs.map(function (f) {
@@ -323,7 +325,7 @@
       '<div class="dc-policy-box">' +
       '<strong>' + esc(c.policyTitle) + '</strong><br>' +
       c.policyLines.map(esc).join('<br>') +
-      '<div id="dcVerifiedReviewsMount" style="display:none;margin-top:10px;"></div>' +
+      '<div class="dc-verified-reviews-mount" style="display:none;margin-top:10px;"></div>' +
       '</div>';
 
     wrap.innerHTML = delivHtml + faqHtml + policyHtml;
@@ -339,14 +341,16 @@
     return wrap;
   }
 
-  function hydrateVerifiedReviews() {
-    var mount = document.getElementById('dcVerifiedReviewsMount');
-    if (!mount) return;
-    if (!window.DreamCompanyCRM || typeof window.DreamCompanyCRM.fetchVerifiedReviews !== 'function') return;
-    window.DreamCompanyCRM.fetchVerifiedReviews(DIV).then(function (res) {
+  var __reviewsFetched = false;
+  var __cachedReviewsRes = null;
+
+  function applyReviewsToMounts(res) {
+    var mounts = document.querySelectorAll('.dc-verified-reviews-mount');
+    for (var i = 0; i < mounts.length; i++) {
+      var mount = mounts[i];
       if (!res || !res.visible || !Array.isArray(res.reviews) || res.reviews.length < 3) {
         mount.style.display = 'none';
-        return;
+        continue;
       }
       mount.style.display = 'block';
       mount.innerHTML =
@@ -360,7 +364,20 @@
           );
         }).join('') +
         '</div>';
-    });
+    }
+  }
+
+  function hydrateVerifiedReviews() {
+    if (__reviewsFetched) {
+      applyReviewsToMounts(__cachedReviewsRes);
+      return;
+    }
+    if (!window.DreamCompanyCRM || typeof window.DreamCompanyCRM.fetchVerifiedReviews !== 'function') return;
+    __reviewsFetched = true;
+    window.DreamCompanyCRM.fetchVerifiedReviews(DIV).then(function (res) {
+      __cachedReviewsRes = res;
+      applyReviewsToMounts(res);
+    }).catch(function () {});
   }
 
   function mountDiv1235Addons() {
@@ -368,20 +385,20 @@
     var c = COPY[DIV];
     if (!c) return;
 
-    // ② + ③ Inject Deliverables + FAQ + Review Policy above Paid CTA section
+    // A) Always-visible Deliverables + FAQ + Review Policy directly above Paid CTAs (NEVER inside collapsed <details>)
     function tryAttachPreCheckout() {
       if (document.getElementById('dcPreCheckoutAddons')) return true;
       var anchorSelectors = {
-        TOM: ['#tomValueLadderCards', '.pw-tier-grid', '#pwScreen3 .pw-card', '#pwScreen3'],
-        KFG: ['#kfg-paywall-section', '#kfg-tier-cards', '#kfg-result-screen .kfg-card', '#kfg-screen-3'],
-        GBA: ['#gbaValueLadderCardsJp', '.pw-tier-grid', '#pwScreen3Jp .pw-card', '#pwScreen3Jp'],
-        KFK: ['#kfk-paywall-section', '#kfk-tier-cards', '#kfk-screen-3', '#kfk-result-screen']
+        TOM: ['#pricing .pw-tier-grid', '.pw-tier-grid'],
+        KFG: ['#kfg-proactive-growth-edge .kfg-tier-grid', '.kfg-tier-grid'],
+        GBA: ['#pricing .pw-tier-grid', '.pw-tier-grid'],
+        KFK: ['#kfk-latpeed-ebook-slot .pass-grid-2col', '.pass-grid-2col']
       };
       var list = anchorSelectors[DIV] || [];
       for (var i = 0; i < list.length; i++) {
         var target = document.querySelector(list[i]);
-        if (target && target.parentNode) {
-          var box = buildDeliverablesAndFaqEl(c);
+        if (target && target.parentNode && !target.closest('details')) {
+          var box = buildDeliverablesAndFaqEl(c, 'dcPreCheckoutAddons', '');
           target.parentNode.insertBefore(box, target);
           hydrateVerifiedReviews();
           return true;
@@ -390,20 +407,36 @@
       return false;
     }
 
-    // ④ Lightweight 1-line Protection Ribbon + Voluntary 1-Second Satisfaction Bar inside Paid Vault
+    // B) Opening Screen 0 Deliverables + FAQ + Review Policy so fresh visitors immediately verify concrete value
+    function tryAttachOpeningTrust() {
+      if (document.getElementById('dcOpeningTrustAddons')) return true;
+      var openingSelectors = {
+        TOM: '#pwScreen0',
+        KFG: '#kfg-screen-0-letter',
+        GBA: '#pwScreen0Jp',
+        KFK: '#kfk-peer-growth-editorial'
+      };
+      var hostEl = document.querySelector(openingSelectors[DIV]);
+      if (hostEl) {
+        var box = buildDeliverablesAndFaqEl(c, 'dcOpeningTrustAddons', 'is-opening');
+        hostEl.appendChild(box);
+        hydrateVerifiedReviews();
+        return true;
+      }
+      return false;
+    }
+
+    // C) Lightweight 1-Line Protection Ribbon inside Paid Vault (EXACT live IDs!)
     function tryAttachVaultRibbon() {
-      var vaultSelectors = [
-        '#tomPaidScreen4Vault',
-        '#pwScreen4',
-        '#kfg-paid-vault',
-        '#kfg-screen-4',
-        '#gbaPaidScreen4VaultJp',
-        '#pwScreen4Jp',
-        '#kfk-paid-vault',
-        '#kfk-screen-4'
-      ];
-      for (var i = 0; i < vaultSelectors.length; i++) {
-        var v = document.querySelector(vaultSelectors[i]);
+      var vaultSelectors = {
+        TOM: ['#tomPaidScreen4Vault'],
+        KFG: ['#kfg-screen-3-unlocked-dossier', '#kfg-unlocked-dossier-content'],
+        GBA: ['#gbaPaidScreen4VaultJp'],
+        KFK: ['#kfk-full-unlocked-report']
+      };
+      var list = vaultSelectors[DIV] || [];
+      for (var i = 0; i < list.length; i++) {
+        var v = document.querySelector(list[i]);
         if (!v) continue;
         if (!v.querySelector('.dc-vault-ribbon')) {
           var rib = document.createElement('div');
@@ -411,22 +444,23 @@
           rib.textContent = c.vaultRibbon;
           v.insertBefore(rib, v.firstChild);
         }
-        if (!v.querySelector('#dc-verified-feedback') && window.DreamCompanyCRM && typeof window.DreamCompanyCRM.mountSatisfactionBar === 'function') {
-          var fbSlot = document.createElement('div');
-          fbSlot.id = 'dcVaultFeedbackSlot';
-          v.appendChild(fbSlot);
-          window.DreamCompanyCRM.mountSatisfactionBar(fbSlot, { div: DIV, context: 'paid_vault' });
-        }
+        break;
       }
     }
 
-    // #3 1-Second Intuitive 3-Stage Status Badges (Divisions 2, 3, 5 ONLY — explicitly excluded on TOM!)
+    // D) #3 1-Second Intuitive 3-Stage Status Badges (KFG, GBA, KFK ONLY — strictly excluded on TOM!)
     function tryAttachStage3Badge() {
       if (DIV === 'TOM') return;
+
       if (DIV === 'KFG') {
-        var pctEl = document.getElementById('kfg-res-percentile') || document.querySelector('[data-kfg-percentile]');
-        if (!pctEl || !pctEl.parentNode) return;
-        var rawTxt = String(pctEl.textContent || '');
+        var partialWrap = document.getElementById('kfg-partial-baseline-summary');
+        if (!partialWrap || String(partialWrap.textContent || '').trim().length < 20) return;
+        var pctEl =
+          document.getElementById('kfg-res-percentile') ||
+          partialWrap.querySelector('[data-kfg-percentile]') ||
+          partialWrap.querySelector('.kfg-baseline-metrics .kfg-metric-tile:nth-child(2) .kfg-metric-value');
+        var rawAttr = pctEl && pctEl.getAttribute ? pctEl.getAttribute('data-kfg-percentile') : '';
+        var rawTxt = rawAttr || (pctEl ? String(pctEl.textContent || '') : String(partialWrap.textContent || ''));
         var m = rawTxt.match(/(\d+(?:\.\d+)?)/);
         var pct = m ? parseFloat(m[1]) : 50;
         var cls = pct >= 40 ? 'dc-stage3-green' : pct >= 18 ? 'dc-stage3-amber' : 'dc-stage3-terra';
@@ -440,13 +474,16 @@
         if (!b) {
           b = document.createElement('div');
           b.id = 'dcKfgStage3Badge';
-          pctEl.parentNode.appendChild(b);
+          var h3 = partialWrap.querySelector('h3');
+          if (h3 && h3.parentNode) h3.parentNode.insertBefore(b, h3.nextSibling);
+          else partialWrap.insertBefore(b, partialWrap.firstChild);
         }
         b.className = 'dc-stage3-badge ' + cls;
         b.textContent = label;
       } else if (DIV === 'KFK') {
-        var kPctEl = document.getElementById('kfk-res-percentile') || document.querySelector('.kfk-pct-val, [data-kfk-percentile]');
-        if (!kPctEl || !kPctEl.parentNode) return;
+        var kPctEl = document.getElementById('result-free-percentile') || document.getElementById('kfk-res-percentile');
+        var kCard = document.getElementById('kfk-free-summary-card');
+        if (!kPctEl || !kCard) return;
         var kTxt = String(kPctEl.textContent || '');
         var km = kTxt.match(/(\d+(?:\.\d+)?)/);
         var kPct = km ? parseFloat(km[1]) : 50;
@@ -461,18 +498,25 @@
         if (!kb) {
           kb = document.createElement('div');
           kb.id = 'dcKfkStage3Badge';
-          kPctEl.parentNode.appendChild(kb);
+          var kh2 = document.getElementById('result-child-headline') || kCard.querySelector('h2');
+          if (kh2 && kh2.parentNode) kh2.parentNode.insertBefore(kb, kh2.nextSibling);
+          else kPctEl.parentNode.appendChild(kb);
         }
         kb.className = 'dc-stage3-badge ' + kCls;
         kb.textContent = kLabel;
       } else if (DIV === 'GBA') {
-        var gRes = document.getElementById('pwScreen3Jp') || document.getElementById('gbaResultAllocationJp');
+        var gRes = document.getElementById('pwFreeBaselineSummaryJp') || document.getElementById('gbaMorningClubJp');
         if (!gRes) return;
         var scaleVal = 1800;
         try {
           var saved = JSON.parse(localStorage.getItem('gba_jp_stepup_answers_v1') || '{}');
           if (saved && saved.scale) scaleVal = Number(saved.scale) || 1800;
         } catch (_) {}
+        var profEl = document.getElementById('pwProfileSummaryJp');
+        if (profEl) {
+          var pm = String(profEl.textContent || '').replace(/,/g, '').match(/(\d+)\s*万円/);
+          if (pm) scaleVal = Number(pm[1]) || scaleVal;
+        }
         var gCls = scaleVal <= 1200 ? 'dc-stage3-green' : scaleVal <= 1800 ? 'dc-stage3-amber' : 'dc-stage3-terra';
         var gLabel =
           scaleVal <= 1200
@@ -484,7 +528,7 @@
         if (!gb) {
           gb = document.createElement('div');
           gb.id = 'dcGbaStage3Badge';
-          var hTarget = gRes.querySelector('h2, h3, .pw-res-headline') || gRes.firstElementChild;
+          var hTarget = document.getElementById('pwUnlockedRatioHeadlineJp') || gRes.querySelector('h2');
           if (hTarget && hTarget.parentNode) {
             hTarget.parentNode.insertBefore(gb, hTarget.nextSibling);
           } else {
@@ -497,22 +541,22 @@
     }
 
     function runAll() {
+      tryAttachOpeningTrust();
       tryAttachPreCheckout();
       tryAttachVaultRibbon();
       tryAttachStage3Badge();
     }
 
     runAll();
-    // Lightweight observer for SPA screen transitions (TOM React/JS, KFG/KFK/GBA step-up transitions)
     var timer = null;
     var obs = new MutationObserver(function () {
       if (timer) return;
       timer = setTimeout(function () {
         timer = null;
         runAll();
-      }, 260);
+      }, 180);
     });
-    obs.observe(document.body, { childList: true, subtree: true });
+    obs.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['style', 'class'] });
   }
 
   function boot() {

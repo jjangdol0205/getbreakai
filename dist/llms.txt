@@ -1,6 +1,6 @@
 # GetBreakAI — Japanese 50-70s Shin-NISA SMH × XLV + JGB Asset-Allocation Platform (https://getbreakai.com/jp/)
 
-> Updated: 2026-11-26 | Self-Directed Public Market Data Visualization & 2-Pillar Asset-Allocation Simulator (FSA Shin-NISA Growth Quota Eligible Spot 1x SMH × XLV + Japanese Retail Government Bonds Variable 10-Year / Tokutei Account SGOV Cushion).
+> Updated: 2026-11-27 | Self-Directed Public Market Data Visualization & 2-Pillar Asset-Allocation Simulator (FSA Shin-NISA Growth Quota Eligible Spot 1x SMH × XLV + Japanese Retail Government Bonds Variable 10-Year / Tokutei Account SGOV Cushion).
 > Official Channels: https://www.youtube.com/@GetBreakAI | https://www.instagram.com/getbreakai/
 
 ## 1. Core Japanese Calculators & Legal Pages

@@ -13,21 +13,56 @@
 (function (global) {
   'use strict';
 
-  // Neutralize flaky deprecated third-party hit counter (replaced by Cloudflare D1 funnel_events)
+  // Universal Internal QA / Playwright / Bot Traffic Guard (Zero-Pollution Client Gate)
+  function isInternalOrBotTraffic() {
+    try {
+      var sp = new URLSearchParams((global.location && global.location.search) || '');
+      if (sp.get('internal_test') === '1') {
+        try { if (global.sessionStorage) global.sessionStorage.setItem('dc_internal_test', '1'); } catch (_s1) {}
+        return true;
+      }
+      try {
+        if (global.sessionStorage && global.sessionStorage.getItem('dc_internal_test') === '1') return true;
+      } catch (_s2) {}
+      if (global.navigator && global.navigator.webdriver === true) return true;
+      var ua = String((global.navigator && global.navigator.userAgent) || '');
+      if (/HeadlessChrome|Playwright|Puppeteer|Selenium/i.test(ua)) return true;
+    } catch (_g) {}
+    return false;
+  }
+  global.__dcIsInternalOrBot = isInternalOrBotTraffic;
+
+  // Neutralize deprecated third-party hit counter & block internal/bot analytics before network dispatch
   if (typeof global.fetch === 'function' && !global.__dcAbacusFetchGuarded) {
     global.__dcAbacusFetchGuarded = true;
     var _origFetch = global.fetch.bind(global);
     global.fetch = function (input, init) {
       try {
         var reqUrl = typeof input === 'string' ? input : (input && input.url ? String(input.url) : '');
-        if (reqUrl.indexOf('abacus.jasoncameron.dev') >= 0 || reqUrl.indexOf('script.google.com/macros/s/') >= 0) {
+        var isAbacus = reqUrl.indexOf('abacus.jasoncameron.dev') >= 0 || reqUrl.indexOf('script.google.com/macros/s/') >= 0;
+        var isInternalAnalytics = isInternalOrBotTraffic() && (reqUrl.indexOf('/api/analytics/event') >= 0 || reqUrl.indexOf('/hit/') >= 0);
+        if (isAbacus || isInternalAnalytics) {
+          var bodyTxt = isInternalAnalytics ? '{"ok":true,"skipped":"internal_test"}' : '{"ok":true,"value":0}';
           if (typeof Response === 'function') {
-            return Promise.resolve(new Response('{"ok":true,"value":0}', { status: 200, headers: { 'Content-Type': 'application/json' } }));
+            return Promise.resolve(new Response(bodyTxt, { status: 200, headers: { 'Content-Type': 'application/json' } }));
           }
-          return Promise.resolve({ ok: true, status: 200, json: function () { return Promise.resolve({ ok: true, value: 0 }); } });
+          return Promise.resolve({ ok: true, status: 200, json: function () { return Promise.resolve({ ok: true, skipped: isInternalAnalytics ? 'internal_test' : 'abacus' }); } });
         }
       } catch (_e) {}
       return _origFetch(input, init);
+    };
+  }
+
+  if (global.navigator && typeof global.navigator.sendBeacon === 'function' && !global.__dcBeaconGuarded) {
+    global.__dcBeaconGuarded = true;
+    var _origBeacon = global.navigator.sendBeacon.bind(global.navigator);
+    global.navigator.sendBeacon = function (url, data) {
+      try {
+        var u = String(url || '');
+        if (u.indexOf('abacus.jasoncameron.dev') >= 0) return true;
+        if (isInternalOrBotTraffic() && (u.indexOf('/api/analytics/event') >= 0 || u.indexOf('/hit/') >= 0)) return true;
+      } catch (_b) {}
+      return _origBeacon(url, data);
     };
   }
 
@@ -128,6 +163,7 @@
    * Closed-Loop ?ref= Referral Attribution & Micro-Funnel Tracking (100% ASCII)
    * ========================================================================== */
   function detectIsQaOrBot() {
+    if (isInternalOrBotTraffic()) return true;
     try {
       var ua = String((global.navigator && global.navigator.userAgent) || '');
       if (global.navigator && global.navigator.webdriver) return true;
@@ -240,6 +276,7 @@
   }
 
   function trackFunnelEvent(div, eventName, extra) {
+    if (isInternalOrBotTraffic()) return Promise.resolve({ ok: true, skipped: 'internal_test' });
     try {
       var d = String(div || detectDivFromHost()).toUpperCase();
       var utm = captureUtmParams();

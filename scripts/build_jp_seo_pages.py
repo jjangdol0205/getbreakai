@@ -407,7 +407,8 @@ def build_page_html(item, date_str, all_specs):
     notional_usd = round(shares * entry)
     notional_jpy_man = round(notional_usd * 150 / 10000, 1)
 
-    canonical_url = f"https://getbreakai.com/jp/{slug}"
+    clean_slug = slug[:-5] if slug.endswith(".html") else slug
+    canonical_url = f"https://getbreakai.com/jp/{clean_slug}"
 
     if is_leveraged_warning:
         verdict_banner = (
@@ -1150,7 +1151,8 @@ def _build_substack_end_box_jp(slug: str, disclaimer_box: str) -> str:
 
 def build_flagship_essay_jp_html(date_str: str) -> str:
     slug = "nisa-quiet-barbell-essay.html"
-    canonical_url = f"https://getbreakai.com/jp/{slug}"
+    clean_slug = slug[:-5] if slug.endswith(".html") else slug
+    canonical_url = f"https://getbreakai.com/jp/{clean_slug}"
     title = "騒がしい強気相場よりも、静かな「2つの柱」が最後まで残る理由"
     subtitle = "夜の食卓で証券アプリを開くとき、100%ハイテク集中が奪う「眠りの質」と、半導体（SMH）×医療（XLV）が26年間の嵐をどう乗り越えたか。"
     desc = "佐藤健一による資産設計エッセイ。新NISA成長投資枠で保有できる半導体（SMH）とヘルスケア（XLV）、個人向け国債・特定口座クッションを組み合わせた穏やかな長期資産設計を26年の公開データから紐解きます。"
@@ -3284,21 +3286,27 @@ def main():
             print(f"[WARN] Could not merge live snapshot into SEO specs: {e}")
 
     urls = [
-        "https://getbreakai.com/",
         "https://getbreakai.com/jp/",
-        "https://getbreakai.com/jp/nisa-quiet-barbell-essay.html",
-        "https://getbreakai.com/jp/daily-nisa-quant-report.html",
-        "https://getbreakai.com/jp/terms.html",
-        "https://getbreakai.com/jp/privacy.html",
-        "https://getbreakai.com/jp/refund.html",
-        "https://getbreakai.com/jp/tokushoho.html",
-        "https://getbreakai.com/jp/contact.html",
-        "https://getbreakai.com/terms.html",
-        "https://getbreakai.com/privacy.html",
-        "https://getbreakai.com/refund.html",
-        "https://getbreakai.com/tokushoho.html",
-        "https://getbreakai.com/contact.html",
+        "https://getbreakai.com/jp/smh-fear-greed",
+        "https://getbreakai.com/jp/nisa-quiet-barbell-essay",
+        "https://getbreakai.com/jp/daily-nisa-quant-report",
+        "https://getbreakai.com/jp/terms",
+        "https://getbreakai.com/jp/privacy",
+        "https://getbreakai.com/jp/refund",
+        "https://getbreakai.com/jp/tokushoho",
+        "https://getbreakai.com/jp/contact",
+        "https://getbreakai.com/terms",
+        "https://getbreakai.com/privacy",
+        "https://getbreakai.com/refund",
+        "https://getbreakai.com/tokushoho",
+        "https://getbreakai.com/contact",
     ]
+    jp_guides_dir = os.path.join(JP_DIR, "guides")
+    if os.path.isdir(jp_guides_dir):
+        urls.append("https://getbreakai.com/jp/guides/")
+        for fn in sorted(os.listdir(jp_guides_dir)):
+            if fn.endswith(".html") and fn != "index.html":
+                urls.append(f"https://getbreakai.com/jp/guides/{fn[:-5]}")
     flagship_html = build_flagship_essay_jp_html(date_str)
     with open(os.path.join(JP_DIR, "nisa-quiet-barbell-essay.html"), "w", encoding="utf-8") as ef:
         ef.write(flagship_html)
@@ -3314,7 +3322,8 @@ def main():
         text_len = len(text_only.strip())
         min_chars = min(min_chars, text_len)
         if not spec.get("noindex"):
-            urls.append(f"https://getbreakai.com/jp/{spec['slug']}")
+            clean_s = spec["slug"][:-5] if spec["slug"].endswith(".html") else spec["slug"]
+            urls.append(f"https://getbreakai.com/jp/{clean_s}")
 
     if "--detail-only" not in sys.argv:
         jp_hub_html = build_hub_html(date_str, SEO_PAGES_SPEC, is_root=False)

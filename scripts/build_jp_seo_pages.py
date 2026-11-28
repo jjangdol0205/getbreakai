@@ -2178,6 +2178,10 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
       body.printing-gba-manual > *:not(#gbaStarterManualModal) {{ display: none !important; }}
       body.printing-gba-manual #gbaStarterManualModal {{ display: block !important; position: static !important; background: #ffffff !important; padding: 0 !important; }}
     }}
+    body[data-cro-density="cro-pad-compact"] .pw-shell {{ padding: 24px 20px 36px; }}
+    body[data-cro-density="cro-pad-compact"] .pw-masthead {{ margin-bottom: 24px; padding-bottom: 14px; }}
+    body[data-cro-density="cro-pad-airy"] .pw-shell {{ padding: 48px 28px 60px; }}
+    body[data-cro-density="cro-pad-airy"] .pw-masthead {{ margin-bottom: 52px; padding-bottom: 24px; }}
   </style>
 </head>
 <body>

@@ -348,7 +348,16 @@
         ref_code: (extra && extra.ref_code) || prof.referred_by || '',
         referrer_host: getReferrerHost(),
         days_since_first: prof.days_since_first,
-        event_meta: (extra && extra.event_meta) ? String(extra.event_meta).slice(0, 120) : '',
+        event_meta: (function () {
+          var baseM = (extra && extra.event_meta) ? String(extra.event_meta) : '';
+          var croExp = '';
+          try {
+            var mEl = global.document && global.document.querySelector ? global.document.querySelector('meta[name="dc-cro-exp"]') : null;
+            if (mEl) croExp = String(mEl.getAttribute('content') || '').replace(/[^A-Za-z0-9_,\-]/g, '').slice(0, 64);
+          } catch (_) {}
+          var combinedM = croExp ? (baseM ? (baseM + ';cro=' + croExp) : ('cro=' + croExp)) : baseM;
+          return combinedM.slice(0, 120);
+        })(),
         is_qa: isQa ? 1 : 0
       };
       if (typeof global.gtag === 'function') {

@@ -19,6 +19,14 @@ const BLOCKED_EXACT = new Set([
   '/.env',
   '/.npmrc',
   '/.yarnrc.yml',
+  '/flow_24_prompts_studio',
+  '/flow_24_prompts_studio.html',
+  '/yt_ig_setup_studio',
+  '/yt_ig_setup_studio.html',
+  '/data/jp_telegraph_account.json',
+  '/data/shorts-state.json',
+  '/assets/youtube/youtube_insta_channel_config.json',
+  '/static_api/stocks_free.json',
 ]);
 
 const BLOCKED_PREFIXES = [

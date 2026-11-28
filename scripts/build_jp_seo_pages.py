@@ -2195,16 +2195,16 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
       <div class="pw-kicker">新NISA・資産リサーチ研究室（教育目的） &middot; セクター過去統計エクスプローラー（2000–2025年統計比較）</div>
       <h1 class="pw-serif-h1">騒がしい銘柄探しを手放し、二つの柱で老後資産を守り抜くために。</h1>
 
-      <div class="pw-live-temp-pill" id="gbaLiveTempBadgeJp" role="status" aria-live="polite">
+      <a href="/jp/smh-fear-greed" class="pw-live-temp-pill" id="gbaLiveTempBadgeJp" role="status" aria-live="polite" style="text-decoration:none;cursor:pointer;">
         <span class="pw-live-dot" aria-hidden="true"></span>
         <span id="gbaLiveTempTextJp">{live_temp_text_jp}</span>
-      </div>
+      </a>
 
       <div class="pw-primary-cta-wrap pw-above-fold-cta">
         <button type="button" class="pw-btn-primary pw-btn-emerald" id="btnStartPwStepUpJp" onclick="startPwStepUpJp()">
-          過去25年の統計バランスを確認する（無料・4問） &rarr;
+          新NISA 米国配当10%課税・暴落耐性を30秒無料確認 &rarr;
         </button>
-        <span class="pw-cta-caption">セクター過去統計エクスプローラー（2000–2025年統計比較） ・ メール壁なしで即時開示</span>
+        <span class="pw-cta-caption">日本語・証券口座ログイン不要 ・ 2000–2025年統計比較をメール壁なしで即時開示</span>
       </div>
 
       <figure class="pw-editorial-figure">
@@ -2280,8 +2280,8 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
       </div>
 
       <div class="pw-primary-cta-wrap">
-        <button type="button" class="pw-btn-primary pw-btn-emerald" onclick="startPwStepUpJp()">
-          過去25年の統計バランスを確認する（無料・4問） &rarr;
+        <button type="button" class="pw-btn-primary pw-btn-emerald" id="btnPwStartStepUpJp" onclick="startPwStepUpJp()">
+          新NISA 米国配当10%課税・暴落耐性を30秒無料確認 &rarr;
         </button>
         <span class="pw-cta-caption">全4問（1問ずつ進行） ・ 登録不要で即時表示 ・ 証券口座ログイン不要</span>
       </div>
@@ -2422,6 +2422,16 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
           </div>
         </div>
 
+        <!-- Screen 2 無料2pサンプルPDF（無料統計結果の直下に上方配置・Screen 0離脱防止） -->
+        <div id="gbaScreen2SamplePdfBox" style="margin-top:18px;padding:14px 16px;background:#F3F8F5;border:1.5px solid #065F46;border-radius:8px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;">
+          <div style="font-size:0.88rem;color:#0F172A;line-height:1.55;max-width:490px;">
+            <strong>無料2ページ・サンプルPDFを先に確認：</strong> 2000&ndash;2025年危機別比較表と楽天・SBI証券の口座区分ダイジェスト（登録不要・無料）
+          </div>
+          <a href="/jp/downloads/gba_jp_sample_2p.pdf" target="_blank" rel="noopener" id="btnGbaScreen2SamplePdf" class="pw-btn-primary" style="background:#FFFFFF;color:#065F46;border:1.5px solid #065F46;padding:10px 16px;min-height:46px;font-size:0.88rem;text-decoration:none;">
+            無料2pサンプルPDFを見る &rarr;
+          </a>
+        </div>
+
         <!-- Frictionless 1-Line Passwordless Email Box Directly Below Free Summary -->
         <div id="gba-jp-passwordless-signup" style="margin-top:24px; padding-top:20px; border-top:1px solid var(--pw-border);">
           <div class="pw-kicker" style="margin-bottom:6px;">FREE MORNING RESEARCH NOTES &middot; パスワード不要・1クリック解除OK</div>
@@ -2508,7 +2518,7 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
     <section id="gbaPaidScreen4VaultJp" class="pw-tiers-section" data-pw-screen="4" style="display:none;margin-top:28px;">
       <div class="pw-gate-card" style="border:1.5px solid #065F46;background:#FFFFFF;">
         <div class="pw-kicker" style="color:#065F46;">PAID RESEARCH VAULT &middot; スマホ・PC共通 永久復元エディション</div>
-        <h2 class="pw-serif-h2" id="gbaScreen4HeadlineJp">円建て SMH &times; XLV ＋ 個人向け国債／SGOV 1対1カスタム統計ワークブック</h2>
+        <h2 class="pw-serif-h2" id="gbaScreen4HeadlineJp">円建て SMH &times; XLV ＋ 個人向け国債／SGOV セルフサービス自動計算統計ワークブック</h2>
         <p style="margin:0 0 16px;color:#475569;font-size:0.95rem;">
           ご自身の世帯想定規模（万円）を入力すると、円建て金額シミュレーション、-35%暴落耐性ストレステスト、新NISA 1,800万円（成長240万＋つみたて120万）非課税ロードマップ、楽天証券・SBI証券の大きな文字5分注文図解、毎月1日の『月次あんしん成績表』が即座に更新されます。
         </p>
@@ -2868,10 +2878,10 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
       const w = window.open('', '_blank');
       if (!w) {{ window.print(); return; }}
       w.document.write(
-        '<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8"><title>GetBreakAI 1対1カスタム統計ワークブックPDF</title>' +
+        '<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8"><title>GetBreakAI セルフサービス自動計算統計ワークブックPDF</title>' +
         '<style>body{{font-family:"Hiragino Kaku Gothic ProN",Meiryo,sans-serif;max-width:780px;margin:24px auto;padding:0 20px;color:#0f172a;font-size:16px;line-height:1.72;}}table{{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px;}}th,td{{border:1px solid #cbd5e1;padding:9px 10px;text-align:left;}}th{{background:#f1f5f9;}}.page-break{{page-break-before:always;margin-top:26px;padding-top:18px;border-top:2px solid #0f172a;}}@media print{{.no-print{{display:none;}}}}</style></head><body>' +
         '<div class="no-print" style="padding:12px;background:#ecfdf5;border:1px solid #059669;border-radius:8px;margin-bottom:18px;"><strong>PDF保存の準備が完了しました：</strong> 印刷画面で「PDFに保存」を選択してください。 <button onclick="window.print()" style="margin-left:12px;padding:8px 16px;background:#065f46;color:#fff;border:none;border-radius:6px;font-weight:700;cursor:pointer;">PDFとして保存・印刷</button></div>' +
-        '<h1>GetBreakAI — 新NISA・SMH &times; XLV ＋ 安全資産 1対1カスタム統計ワークブック</h1>' +
+        '<h1>GetBreakAI — 新NISA・SMH &times; XLV ＋ 安全資産 セルフサービス自動計算統計ワークブック</h1>' +
         '<p style="font-size:13px;color:#475569;">独立系リサーチ出版（教育目的データ・投資助言非該当 ・ お問い合わせ: support@getbreakai.com）</p>' +
         '<div>' + s1 + '</div><div style="margin-top:18px;">' + s2 + '</div>' +
         '<div class="page-break">' + s3 + '</div><div class="page-break">' + s4 + '</div><div class="page-break">' + s5 + '</div>' +

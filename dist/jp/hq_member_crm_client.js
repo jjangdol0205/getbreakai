@@ -137,13 +137,38 @@
     }
   }
 
-  function postCloudJson(path, payload) {
-    return fetch(CLOUD_API_BASE + path, {
+  function postCloudJson(path, payload, opts) {
+    var isAnalytics = String(path || '').indexOf('/api/analytics/event') >= 0;
+    if (isAnalytics && isInternalOrBotTraffic()) {
+      return Promise.resolve({ ok: true, skipped: 'internal_test' });
+    }
+    var bodyStr = JSON.stringify(payload || {});
+    var fullUrl = CLOUD_API_BASE + path;
+    var tryBeaconFallback = function () {
+      try {
+        if (isAnalytics && isInternalOrBotTraffic()) return false;
+        if (global.navigator && typeof global.navigator.sendBeacon === 'function' && typeof Blob === 'function') {
+          return global.navigator.sendBeacon(fullUrl, new Blob([bodyStr], { type: 'text/plain;charset=UTF-8' }));
+        }
+      } catch (_be) {}
+      return false;
+    };
+    if (opts && opts.beaconOnly) {
+      var sentOnly = tryBeaconFallback();
+      if (sentOnly) return Promise.resolve({ ok: true, transport: 'beacon' });
+    }
+    return fetch(fullUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload || {})
+      body: bodyStr,
+      keepalive: true
     }).then(function (res) {
       return res.json().catch(function () { return { ok: res.ok, status: res.status }; });
+    }).catch(function (err) {
+      if (isAnalytics && tryBeaconFallback()) {
+        return { ok: true, transport: 'beacon_fallback' };
+      }
+      throw err;
     });
   }
 
@@ -713,7 +738,7 @@
   }
 
   /* ==========================================================================
-   * 3. Standard Digital Refund & Support Link (Replaces legacy 14-Day copy!)
+   * 3. Standard Digital Refund & Support Link (Replaces legacy 7-Day copy!)
    * ========================================================================== */
   function buildRefundSupportMailto(div, email, orderRef) {
     var d = String(div || detectDivFromHost()).toUpperCase();
@@ -1240,18 +1265,19 @@
             return;
           }
           // 2. Quiz / Interactive Tool Start (Micro-Activation signal, 1x/session)
-          if (id === 'btnStartPwStepUp' || id === 'btnPwStartStepUp' || id === 'btn-kfg-begin-atelier-top' || id === 'btn-kfg-begin-atelier' || id === 'btnStartPwStepUpJp' || id === 'btnPwStartStepUpJp' || id === 'btn-start-atelier-hero' || id === 'btn-start-atelier-stepup' || id === 'btn-kfk-begin-atelier' || a.getAttribute('data-csp-act') === 'kfg-begin-atelier') {
+          if (id === 'btnStartPwStepUp' || id === 'btnStartPwStepUpBottom' || id === 'btnPwStartStepUp' || id === 'btn-kfg-begin-atelier-top' || id === 'btn-kfg-begin-atelier' || id === 'btnStartPwStepUpJp' || id === 'btnPwStartStepUpJp' || id === 'btn-start-atelier-hero' || id === 'btn-start-atelier-stepup' || id === 'btn-kfk-begin-atelier' || a.getAttribute('data-csp-act') === 'kfg-begin-atelier' || a.getAttribute('data-pw-start-stepup') === '1' || a.hasAttribute('data-kfk-age-chip') || a.hasAttribute('data-kfg-mini-start') || a.hasAttribute('data-tom-stress-btn')) {
             try {
               if (sessionStorage.getItem('dc_quiz_start_' + div) !== '1') {
                 sessionStorage.setItem('dc_quiz_start_' + div, '1');
-                trackFunnelEvent(div, 'quiz_start', { event_meta: id || 'start_btn' });
+                trackFunnelEvent(div, 'quiz_start', { event_meta: id || a.getAttribute('data-kfk-age-chip') || a.getAttribute('data-tom-stress-btn') || 'start_btn' });
               }
             } catch (_) {}
             return;
           }
-          // 3. HERO Affiliate Store Click (distinct Revenue event)
-          if (/cshop\.naver\.com|coupang\.com/i.test(href)) {
-            trackFunnelEvent(div, 'affiliate_click', { event_meta: /naver/i.test(href) ? 'naver_cshop' : 'coupang' });
+          // 3. HERO Affiliate Store Click (distinct Revenue event — covers Naver CShop, BrandConnect & Coupang)
+          if (/cshop\.naver\.com|brandconnect\.naver\.com|coupang\.com/i.test(href)) {
+            var affMeta = /brandconnect\.naver\.com/i.test(href) ? 'naver_brandconnect' : (/naver/i.test(href) ? 'naver_cshop' : 'coupang');
+            trackFunnelEvent(div, 'affiliate_click', { event_meta: affMeta });
             return;
           }
           // 4. Paid PG Checkout Click with Value-Ladder step tag (step2_low / step3_core / step4_premium)

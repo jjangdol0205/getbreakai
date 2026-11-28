@@ -840,7 +840,7 @@
       "donchian_20d_high": 5465.0,
       "wilder_rsi": 51.5,
       "pw_rsi": 86.2,
-      "breakout_status": "ACCUMULATION",
+      "breakout_status": "STANDARD_BREAKOUT",
       "catalyst_rating": "総合商社キャッシュ創出力・株主還元強化",
       "market_bar_date": "2026-11-27",
       "updated_date": "2026-11-28"
@@ -865,7 +865,7 @@
       "donchian_20d_high": 5465.0,
       "wilder_rsi": 51.5,
       "pw_rsi": 86.2,
-      "breakout_status": "ACCUMULATION",
+      "breakout_status": "STANDARD_BREAKOUT",
       "catalyst_rating": "総合商社キャッシュ創出力・株主還元強化",
       "market_bar_date": "2026-11-27",
       "updated_date": "2026-11-28"

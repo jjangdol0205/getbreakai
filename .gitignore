@@ -1,4 +1,6 @@
 .env
+.env.*
+*.bak_*
 .yt-ig-browser-profile/
 flow_shorts_studio/*.zip
 flow_shorts_studio/_tts_cache*/

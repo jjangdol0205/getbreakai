@@ -14,6 +14,36 @@
   if (window.__DC_UX_ADDONS_V2__) return;
   window.__DC_UX_ADDONS_V2__ = true;
 
+  function isInternalOrBotTraffic() {
+    try {
+      if (typeof window.__dcIsInternalOrBot === 'function' && window.__dcIsInternalOrBot()) return true;
+      var sp = new URLSearchParams((window.location && window.location.search) || '');
+      var isHttps = !!(window.location && window.location.protocol === 'https:');
+      var ic = sp.get('internal_check');
+      var od = sp.get('owner_device');
+      if (ic === '0' || od === '0') {
+        try { window.localStorage && window.localStorage.removeItem('dc_internal_exclude'); } catch (_r1) {}
+        try { document.cookie = 'dc_internal_exclude=; Max-Age=0; Path=/; SameSite=Lax' + (isHttps ? '; Secure' : ''); } catch (_r2) {}
+      } else if (ic === '1' || od === '1') {
+        try { window.localStorage && window.localStorage.setItem('dc_internal_exclude', '1'); } catch (_w1) {}
+        try { document.cookie = 'dc_internal_exclude=1; Max-Age=31536000; Path=/; SameSite=Lax' + (isHttps ? '; Secure' : ''); } catch (_w2) {}
+        return true;
+      }
+      try { if (window.localStorage && window.localStorage.getItem('dc_internal_exclude') === '1') return true; } catch (_l1) {}
+      try { if (/(?:^|;\s*)dc_internal_exclude=1(?:;|$)/.test(document.cookie || '')) return true; } catch (_c1) {}
+      if (sp.get('internal_test') === '1' || sp.get('smoke_test') === '1') {
+        try { window.sessionStorage && window.sessionStorage.setItem('dc_internal_test', '1'); } catch (_s1) {}
+        return true;
+      }
+      try { if (window.sessionStorage && window.sessionStorage.getItem('dc_internal_test') === '1') return true; } catch (_s2) {}
+      if (window.navigator && window.navigator.webdriver === true) return true;
+      if (/HeadlessChrome|Playwright|Puppeteer|Selenium|LiveAudit|Watchdog|GitHub-Actions/i.test(String((window.navigator && window.navigator.userAgent) || ''))) return true;
+    } catch (_g) {}
+    return false;
+  }
+  isInternalOrBotTraffic();
+
+
   function detectDiv() {
     var host = String((window.location && window.location.hostname) || '').toLowerCase();
     var path = String((window.location && window.location.pathname) || '').toLowerCase();
@@ -144,13 +174,13 @@
       pBtn.addEventListener('click', function (ev) {
         ev.preventDefault();
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.trackFunnelEvent === 'function') {
+        if (!isInternalOrBotTraffic() && window.DreamCompanyCRM && typeof window.DreamCompanyCRM.trackFunnelEvent === 'function') {
           window.DreamCompanyCRM.trackFunnelEvent(DIV, 'floating_cta_click');
         }
       });
     } else if (pBtn) {
       pBtn.addEventListener('click', function () {
-        if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.trackFunnelEvent === 'function') {
+        if (!isInternalOrBotTraffic() && window.DreamCompanyCRM && typeof window.DreamCompanyCRM.trackFunnelEvent === 'function') {
           window.DreamCompanyCRM.trackFunnelEvent(DIV, 'floating_cta_click');
         }
       });
@@ -333,7 +363,7 @@
     var details = wrap.querySelectorAll('details');
     for (var i = 0; i < details.length; i++) {
       details[i].addEventListener('toggle', function () {
-        if (this.open && window.DreamCompanyCRM && typeof window.DreamCompanyCRM.trackFunnelEvent === 'function') {
+        if (this.open && !isInternalOrBotTraffic() && window.DreamCompanyCRM && typeof window.DreamCompanyCRM.trackFunnelEvent === 'function') {
           window.DreamCompanyCRM.trackFunnelEvent(DIV, 'faq_open');
         }
       });
@@ -545,6 +575,7 @@
       tryAttachPreCheckout();
       tryAttachVaultRibbon();
       tryAttachStage3Badge();
+      mountOneTouchShareCard();
     }
 
     runAll();
@@ -559,10 +590,175 @@
     obs.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['style', 'class'] });
   }
 
+
+
+  /* =========================================================================
+   * 5) Universal Result-Screen Top 1-Touch Share OG Card (?ref= + strip owner flags + share_click)
+   * ========================================================================= */
+  function buildCleanShareUrl(rawUrl, extraParams) {
+    try {
+      var base = String(rawUrl || (window.location ? (window.location.origin + window.location.pathname) : '')).trim();
+      var u = new URL(base);
+      ['internal_check', 'owner_device', 'internal_test', 'smoke_test', 'nocache'].forEach(function (k) {
+        u.searchParams.delete(k);
+      });
+      if (extraParams && typeof extraParams === 'object') {
+        Object.keys(extraParams).forEach(function (k) {
+          if (extraParams[k] !== undefined && extraParams[k] !== null && extraParams[k] !== '') {
+            u.searchParams.set(k, String(extraParams[k]));
+          }
+        });
+      }
+      var vid = '';
+      try {
+        if (window.DreamCompanyCRM && typeof window.DreamCompanyCRM.getOrCreateVisitorProfile === 'function') {
+          vid = window.DreamCompanyCRM.getOrCreateVisitorProfile().visitor_id || '';
+        } else {
+          vid = window.localStorage.getItem('dc_visitor_id') || '';
+          if (!vid) {
+            vid = 'v_' + Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-4);
+            window.localStorage.setItem('dc_visitor_id', vid);
+          }
+        }
+      } catch (_v) {}
+      if (vid) u.searchParams.set('ref', vid);
+      if (!u.searchParams.get('utm_source')) u.searchParams.set('utm_source', 'referral');
+      if (!u.searchParams.get('utm_medium')) u.searchParams.set('utm_medium', 'share');
+      return u.toString();
+    } catch (_e) {
+      return String(rawUrl || '');
+    }
+  }
+  window.__dcBuildCleanShareUrl = buildCleanShareUrl;
+
+  function mountOneTouchShareCard() {
+    if (document.getElementById('dcOneTouchShareCard')) return;
+    if (document.getElementById('dcSeasonalToolApp') || document.getElementById('dcWinterCardsApp')) return;
+
+    var SHARE_CFG = {
+      TOM: {
+        anchors: ['#pwScreen3', '#smhFgApp .fg-hero-card'],
+        title: "Share Today's SMH Fear & Greed Snapshot Card",
+        sub: 'Send a clean 1-tap snapshot link to your spouse or family (zero login wall).',
+        btn: 'Share Snapshot Card',
+        copied: 'Snapshot referral link copied! Share via text or email.',
+        url: 'https://truthofmarket.com/smh-fear-greed',
+        shareTitle: 'SMH Fear & Greed Snapshot | Truth of Market',
+        shareText: 'Check today\'s live SMH Semiconductor Fear & Greed Index and 24-month Treasury crash study:'
+      },
+      KFG: {
+        anchors: ['#kfg-partial-baseline-summary', '#kfg-screen-3-result', '#kfg-result-screen'],
+        title: 'Share Result Card with Partner',
+        sub: 'Send our US CDC height percentile & bone-age summary link to your co-parent in 1 tap.',
+        btn: 'Share Result Card with Partner',
+        copied: 'Clean partner share link copied! Paste in Messages or email.',
+        url: 'https://kisfitglobal.com/',
+        shareTitle: 'US CDC Bone-Age & Adult Height Check | KISFIT Studio',
+        shareText: 'Let\'s review our child\'s US CDC height percentile and growth window together:'
+      },
+      GBA: {
+        anchors: ['#pwFreeBaselineSummaryJp', '#smhFgApp .fg-hero-card', '#gbaMorningClubJp'],
+        title: '\u672c\u65e5\u306eSMH\u6050\u6016\u6307\u6570\u30b9\u30ca\u30c3\u30d7\u30b7\u30e7\u30c3\u30c8\u3092\u5171\u6709',
+        sub: 'LINE\u3084\u30e1\u30fc\u30eb\u3067\u3054\u5bb6\u65cf\u306b1\u30bf\u30c3\u30d7\u5171\u6709\u3067\u304d\u307e\u3059\uff08\u767b\u9332\u4e0d\u8981\uff09\u3002',
+        btn: 'SMH\u6050\u6016\u6307\u6570\u30ab\u30fc\u30c9\u3092\u5171\u6709',
+        copied: '\u5171\u6709\u30ea\u30f3\u30af\u3092\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f\uff01LINE\u3084\u30e1\u30fc\u30eb\u306b\u8cbc\u308a\u4ed8\u3051\u3066\u9001\u308c\u307e\u3059\u3002',
+        url: 'https://getbreakai.com/jp/smh-fear-greed',
+        shareTitle: '\u7c73\u56fd\u534a\u5c0e\u4f53SMH \u6050\u6016\u3068\u5f37\u6b32\u6307\u6570 | GetBreakAI',
+        shareText: '\u672c\u65e5\u306eSMH\u6050\u6016\u6307\u6570\u3068\u65b0NISA 25\u5e74\u7d71\u8a08\u3092\u3054\u78ba\u8a8d\u304f\u3060\u3055\u3044\uff1a'
+      },
+      HERO: {
+        anchors: ['#hero-radio-section', '#main-content .highlight-card', '#main-content'],
+        title: '\uce74\uce74\uc624\ud1a1\u00b7\ubb38\uc790\ub85c \ub178\ub798\uc640 \uaf43\uce74\ub4dc \ud568\uaed8 \ubcf4\ub0b4\uae30',
+        sub: '\ubc1b\ub294 \ubd84\uc774 \ub9c1\ud06c\ub97c \ub204\ub974\uba74 \uac00\uc0c1 \ud2b8\ub85c\ud2b8 \uac00\uc218 \ubc31\uc6b4\ud638 \ub178\ub798 \ud50c\ub808\uc774\uc5b4\uc640 \uaca8\uc6b8 \uaf43\uce74\ub4dc\uac00 \ubc14\ub85c \uc5f4\ub9bd\ub2c8\ub2e4.',
+        btn: '\uce74\uce74\uc624\ud1a1\u00b7\ubb38\uc790\ub85c \ub178\ub798\uc640 \uaf43\uce74\ub4dc \ud568\uaed8 \ubcf4\ub0b4\uae30',
+        copied: '\ub178\ub798+\uaf43\uce74\ub4dc \ub9c1\ud06c\uac00 \ubcf5\uc0ac\ub418\uc5c8\uc2b5\ub2c8\ub2e4! \uce74\uce74\uc624\ud1a1\uc774\ub098 \ubb38\uc790\uc5d0 \ubd99\uc5ec\ub123\uc5b4 \ubcf4\ub0b4\uc138\uc694.',
+        url: 'https://paradise-hero.com/winter-cards?card=dongji&play=1',
+        shareTitle: '\ubc31\uc6b4\ud638 \ub178\ub798\uc640 \uaca8\uc6b8 \uc548\ubd80 \uaf43\uce74\ub4dc | \uae40\uc324\uc758\uc601\uc6c5\ub77c\ub514\uc624',
+        shareText: '\ub530\ub73b\ud55c \uaca8\uc6b8 \uaf43\uce74\ub4dc\uc640 \ubc31\uc6b4\ud638 \ubb34\ub8cc \ub178\ub798\ub97c \ubcf4\ub0b4\ub4dc\ub9bd\ub2c8\ub2e4:',
+        isHero: true
+      },
+      KFK: {
+        anchors: ['#kfk-free-summary-card', '#kfk-result-screen', '#result-screen'],
+        title: '\uc544\uc774 \uc544\ube60\u00b7\uc5c4\ub9c8\uc5d0\uac8c \uc608\uc0c1\ud0a4 \uacb0\uacfc \uce74\ub4dc \ubcf4\ub0b4\uae30',
+        sub: '\ubf08\ub098\uc774 \uc2dc\ucc28(\u0394t) \ubcf4\uc815 \uacb0\uacfc\uc640 \ub610\ub798 \ubc31\ubd84\uc704 \ub9c1\ud06c\ub97c \ubc30\uc6b0\uc790\uc5d0\uac8c 1\ud130\uce58\ub85c \uacf5\uc720\ud558\uc138\uc694.',
+        btn: '\uc544\ube60\u00b7\uc5c4\ub9c8\uc5d0\uac8c \uacb0\uacfc \uce74\ub4dc \ubcf4\ub0b4\uae30',
+        copied: '\uc608\uc0c1\ud0a4 \uacb0\uacfc \uacf5\uc720 \ub9c1\ud06c\uac00 \ubcf5\uc0ac\ub418\uc5c8\uc2b5\ub2c8\ub2e4! \uce74\ud1a1\uc5d0 \ubc14\ub85c \ubd99\uc5ec\ub123\uc5b4 \ubcf4\ub0b4\uc138\uc694.',
+        url: 'https://kidsfit.co.kr/',
+        shareTitle: '\ud0a4\uc988\ud54f \uc608\uc0c1\ud0a4 \uacb0\uacfc \uce74\ub4dc | KDCA 2017 \uc18c\uc544\uc131\uc7a5',
+        shareText: '\uc6b0\ub9ac \uc544\uc774 KDCA \ud0a4 \ubc31\ubd84\uc704\uc640 \ubf08\ub098\uc774 \uc2dc\ucc28 \uc810\uac80 \uacb0\uacfc\ub97c \ud568\uaed8 \ud655\uc778\ud574 \ubd10\uc694:'
+      }
+    };
+
+    var sc = SHARE_CFG[DIV];
+    if (!sc) return;
+    var host = null;
+    for (var i = 0; i < sc.anchors.length; i++) {
+      var cand = document.querySelector(sc.anchors[i]);
+      if (cand) { host = cand; break; }
+    }
+    if (!host) return;
+
+    var card = document.createElement('div');
+    card.id = 'dcOneTouchShareCard';
+    card.style.cssText = sc.isHero
+      ? 'background:#0E2820;color:#FFFFFF;border:3px solid #D4AF37;border-radius:16px;padding:18px 20px;margin:0 0 18px;text-align:left;'
+      : 'background:#0F2C22;color:#FFFFFF;border:1px solid #1E4638;border-radius:14px;padding:16px 18px;margin:0 0 18px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;text-align:left;';
+
+    var titleStyle = sc.isHero ? 'font-size:22px;font-weight:900;color:#FDE68A;margin:0 0 6px;' : 'font-size:1rem;font-weight:800;color:#FAF7F2;margin:0 0 4px;';
+    var subStyle = sc.isHero ? 'font-size:19px;color:#ECFDF5;margin:0 0 14px;line-height:1.55;' : 'font-size:0.84rem;color:#D1FAE5;margin:0;';
+    var btnStyle = sc.isHero
+      ? 'width:100%;min-height:62px;font-size:21px;font-weight:900;background:#FDE68A;color:#0E2820;border:none;border-radius:12px;cursor:pointer;padding:12px 18px;'
+      : 'min-height:46px;font-size:0.92rem;font-weight:800;background:#F59E0B;color:#111827;border:none;border-radius:10px;cursor:pointer;padding:10px 18px;white-space:nowrap;';
+
+    card.innerHTML =
+      '<div style="flex:1 1 240px;">' +
+        '<div style="' + titleStyle + '">' + esc(sc.title) + '</div>' +
+        '<p style="' + subStyle + '">' + esc(sc.sub) + '</p>' +
+      '</div>' +
+      '<button type="button" id="dcOneTouchShareBtn" style="' + btnStyle + '">' + esc(sc.btn) + '</button>' +
+      '<div id="dcShareToast" role="status" aria-live="polite" style="display:none;width:100%;margin-top:8px;padding:10px 12px;border-radius:8px;background:#ECFDF5;color:#065F46;font-weight:700;font-size:' + (sc.isHero ? '19px' : '0.86rem') + ';"></div>';
+
+    host.insertBefore(card, host.firstChild);
+
+    var shareBtn = card.querySelector('#dcOneTouchShareBtn');
+    var toastEl = card.querySelector('#dcShareToast');
+    if (shareBtn) {
+      shareBtn.addEventListener('click', function () {
+        var cleanUrl = buildCleanShareUrl(sc.url);
+        shareBtn.setAttribute('data-last-share-url', cleanUrl);
+        if (!isInternalOrBotTraffic() && window.DreamCompanyCRM && typeof window.DreamCompanyCRM.trackFunnelEvent === 'function') {
+          window.DreamCompanyCRM.trackFunnelEvent(DIV, 'share_click', { event_meta: 'result_og_share_card' });
+        }
+        function showToast(msg) {
+          if (!toastEl) return;
+          toastEl.textContent = msg;
+          toastEl.style.display = 'block';
+        }
+        if (navigator.share) {
+          navigator.share({ title: sc.shareTitle, text: sc.shareText, url: cleanUrl }).then(function () {
+            showToast(sc.copied);
+          }).catch(function () {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              navigator.clipboard.writeText(cleanUrl).then(function () { showToast(sc.copied); }).catch(function () { showToast(cleanUrl); });
+            } else {
+              showToast(cleanUrl);
+            }
+          });
+        } else if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(cleanUrl).then(function () { showToast(sc.copied); }).catch(function () { showToast(cleanUrl); });
+        } else {
+          showToast(cleanUrl);
+        }
+      });
+    }
+  }
+
   function boot() {
     injectStyles();
     mountFloatingPill();
     mountDiv1235Addons();
+    mountOneTouchShareCard();
+    setTimeout(mountOneTouchShareCard, 900);
   }
 
   if (document.readyState === 'loading') {

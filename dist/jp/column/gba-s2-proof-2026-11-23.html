@@ -121,6 +121,7 @@
   <script>
     (function(){
       try{
+        var _sp0=new URLSearchParams(location.search||'');var _ic=_sp0.get('internal_check'),_od=_sp0.get('owner_device'),_hs=(location.protocol==='https:'?'; Secure':'');if(_ic==='0'||_od==='0'){try{localStorage.removeItem('dc_internal_exclude');}catch(_r){}try{document.cookie='dc_internal_exclude=; Max-Age=0; Path=/; SameSite=Lax'+_hs;}catch(_r){}}else if(_ic==='1'||_od==='1'){try{localStorage.setItem('dc_internal_exclude','1');}catch(_w){}try{document.cookie='dc_internal_exclude=1; Max-Age=31536000; Path=/; SameSite=Lax'+_hs;}catch(_w){}return;}try{if(localStorage.getItem('dc_internal_exclude')==='1')return;}catch(_l){}try{if(/(?:^|;\s*)dc_internal_exclude=1(?:;|$)/.test(document.cookie||''))return;}catch(_c){}if(_sp0.get('internal_test')==='1'||_sp0.get('smoke_test')==='1'){try{sessionStorage.setItem('dc_internal_test','1');}catch(_s){}return;}try{if(sessionStorage.getItem('dc_internal_test')==='1')return;}catch(_s){}if(navigator.webdriver===true||/HeadlessChrome|Playwright|Puppeteer|Selenium|LiveAudit|Watchdog|GitHub-Actions/i.test(navigator.userAgent||''))return;
         var sp=new URLSearchParams(location.search);
         var uc=sp.get('utm_content')||'GBA_S2_PROOF_vA';
         fetch('https://api.truthofmarket.com/api/analytics/event',{

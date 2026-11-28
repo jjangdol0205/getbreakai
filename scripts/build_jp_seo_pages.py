@@ -1398,6 +1398,7 @@ def build_hub_html(date_str: str, all_specs: list, is_root: bool = False) -> str
   <meta name="google-site-verification" content="lM2Bf7R0XRTUDg-IZvGV9i06u2Q5rz6HJ8-IwoLFcgo">
   <meta name="google-site-verification" content="nAGlJMEUUPifbzSd8X4PCaBIyr3DtTwaa1a-q9zkbBc">
   <meta name="google-site-verification" content="G99bl17UU6iKgNm5ndGcSWp0dHFpJ0MjJqBBp0Exfx0">
+  <meta name="naver-site-verification" content="3427958718d8f3404b04d803e4b60e773ef4e2df" data-slot="naver-search-advisor">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GetBreakAI Japan — 新NISA・資産リサーチ研究室（教育目的）｜SMH × XLV 過去25年統計比較</title>
   <meta name="description" content="騒がしい銘柄探しを手放し、二つの柱で老後資産を守り抜くために。教育目的の市場データニュースレター ＋ 2000–2025年 過去統計ワークブック（投資助言・個別推奨は一切行わない独立系リサーチ出版）。">

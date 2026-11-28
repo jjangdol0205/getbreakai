@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2026年 新NISA 年末残余枠・2027年1月簿価復活計算機（無料） | GetBreakAI</title>
+  <meta name="description" content="金融庁の新NISA制度（年間360万円：つみたて120万＋成長240万、生涯1,800万円）対応。2026年末の残余非課税枠と2027年1月1日の売却簿価枠復活を10秒で計算する無料シミュレーター。" />
+  <link rel="canonical" href="https://getbreakai.com/jp/tools/nisa-year-end" />
+  <link rel="alternate" type="application/rss+xml" title="GetBreakAI 新NISA統計リサーチ RSS" href="https://getbreakai.com/jp/rss.xml" />
+  <meta name="naver-site-verification" content="" data-slot="naver-search-advisor" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="2026年 新NISA 年末残余枠＆2027年簿価復活計算機 | GetBreakAI" />
+  <meta property="og:description" content="年間360万円の残余枠と、売却時に時価ではなく「簿価」で翌年1月1日に復活する生涯枠を10秒確認。" />
+  <meta property="og:url" content="https://getbreakai.com/jp/tools/nisa-year-end" />
+  <meta property="og:image" content="https://getbreakai.com/assets/og/og-tool-nisa-yearend.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://getbreakai.com/assets/og/og-tool-nisa-yearend.png" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "2026年 新NISA 年末残余非課税枠＆2027年1月簿価復活計算機", "url": "https://getbreakai.com/jp/tools/nisa-year-end", "applicationCategory": "FinanceApplication", "operatingSystem": "Web", "inLanguage": "ja", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "JPY"}, "description": "金融庁の新NISA制度（年間360万円・生涯1,800万円・簿価残高方式）に基づき、2026年末の残余非課税枠と2027年1月1日に復活する売却簿価枠を即時試算する無料教育ツール。"}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "新NISAで売却した非課税枠はいつ・いくら復活しますか？", "acceptedAnswer": {"@type": "Answer", "text": "金融庁の新NISA制度では、売却した商品の「売却時の時価」ではなく「購入時の取得原価（簿価）」分が、翌年1月1日に生涯非課税保有限度額（1,800万円）として再利用可能になります。ただし年間投資上限（360万円）は増えません。"}}, {"@type": "Question", "name": "2026年の新NISA非課税枠が余った場合、翌年に繰り越せますか？", "acceptedAnswer": {"@type": "Answer", "text": "年間投資枠（つみたて120万円・成長240万円）の未使用分は翌年へ繰り越せませんが、生涯非課税保有限度額1,800万円自体に期限はないため、翌年以降に落ち着いたペースで活用できます。"}}]}]}</script>
+  <style>
+    :root { --bg:#FAF7F2; --card:#FFFFFF; --ink:#111827; --muted:#4B5563; --brand:#0F2C22; --line:#E5E0D5; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--ink); font-family:'Hiragino Sans','Yu Gothic',sans-serif; line-height:1.7; }
+    header { background:#FFF; border-bottom:1px solid var(--line); padding:14px 20px; }
+    .hd-in { max-width:960px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+    .brand { font-size:1.15rem; font-weight:800; color:var(--brand); text-decoration:none; }
+    .nav { display:flex; gap:14px; flex-wrap:wrap; align-items:center; font-size:0.9rem; }
+    .nav a { color:var(--muted); text-decoration:none; font-weight:700; }
+    .nav .cta { background:var(--brand); color:#FFF; padding:8px 14px; border-radius:8px; }
+    main { max-width:960px; margin:0 auto; padding:30px 20px 64px; }
+    .eyebrow { display:inline-block; background:#ECFDF5; color:#065F46; padding:4px 12px; border-radius:999px; font-size:0.8rem; font-weight:800; }
+    h1 { font-size:clamp(1.6rem,3.6vw,2.2rem); color:var(--brand); margin:12px 0 10px; line-height:1.35; }
+    .answer-box { background:#F3F7F5; border-left:4px solid var(--brand); border-radius:10px; padding:16px 18px; margin:18px 0; }
+    .card { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:24px; margin:20px 0; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:14px; }
+    label { display:block; font-weight:700; font-size:0.86rem; color:var(--brand); margin-bottom:6px; }
+    input { width:100%; padding:12px; font-size:1rem; border:1.5px solid #CBD5E1; border-radius:10px; font-variant-numeric:tabular-nums; }
+    .kpi-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:12px; margin-top:20px; }
+    .kpi { background:#FAF7F2; border:1px solid var(--line); border-radius:12px; padding:14px; }
+    .kpi-l { font-size:0.78rem; color:var(--muted); font-weight:700; }
+    .kpi-v { font-size:1.25rem; font-weight:800; color:var(--brand); margin-top:4px; font-variant-numeric:tabular-nums; }
+    .share-bar { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; background:#0F2C22; color:#FFF; border-radius:14px; padding:16px 20px; margin-bottom:18px; }
+    .btn-share { background:#F59E0B; color:#111827; border:none; border-radius:10px; padding:12px 20px; font-weight:800; font-size:0.95rem; cursor:pointer; min-height:48px; }
+    .btn-primary { display:inline-block; background:#0F2C22; color:#FFF; text-decoration:none; padding:14px 22px; border-radius:10px; font-weight:800; }
+    .btn-secondary { display:inline-block; background:#FFF; color:#0F2C22; border:2px solid #0F2C22; text-decoration:none; padding:12px 20px; border-radius:10px; font-weight:800; }
+    .toast { display:none; margin-top:10px; padding:10px 14px; background:#ECFDF5; color:#065F46; border-radius:8px; font-weight:700; font-size:0.9rem; }
+    .disc { font-size:0.83rem; color:var(--muted); border-top:1px solid var(--line); padding-top:16px; margin-top:28px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="hd-in">
+      <a class="brand" href="/jp/">GetBreakAI 新NISA統計</a>
+      <nav class="nav">
+        <a href="/jp/">4ステップ設計</a>
+        <a href="/jp/smh-fear-greed">SMH恐怖と強欲指数</a>
+        <a href="/jp/guides/">教育ガイド一覧</a>
+        <a class="cta" href="/jp/?utm_source=nisa_tool&amp;utm_medium=nav">30秒無料診断へ &rarr;</a>
+      </nav>
+    </div>
+  </header>
+  <main id="dcSeasonalToolApp" data-div="GBA">
+    <span class="eyebrow">金融庁 新NISA公式制度対応 &middot; 2026年末チェック</span>
+    <h1>2026年 新NISA 年末残余非課税枠 ＆ 2027年1月 簿価枠復活計算機</h1>
+    <section class="answer-box">
+      <h2 style="margin:0 0 6px;font-size:1.08rem;color:#0F2C22;">新NISAで売却した枠は翌年いくら復活しますか？</h2>
+      <p style="margin:0;"><strong>新NISAの生涯非課税枠（1,800万円・うち成長投資枠1,200万円）は「簿価（取得原価）」管理です。2026年内に売却した商品は、売却時価ではなく購入時の簿価分が2027年1月1日に復活します（年間投資上限360万円は変わりません）。</strong></p>
+    </section>
+
+    <div class="share-bar">
+      <div>
+        <div style="font-weight:800;font-size:1.02rem;">2026年末 新NISA残余枠シミュレーターを共有</div>
+        <div style="font-size:0.85rem;color:#D1FAE5;">LINEやメールでご家族の年末整理メモとして1タップ共有できます。</div>
+      </div>
+      <button type="button" id="btnGbaSeasonalShare" class="btn-share">計算機リンクを1タップ共有 &rarr;</button>
+    </div>
+    <div id="gbaSeasonalShareToast" class="toast" role="status" aria-live="polite"></div>
+
+    <section class="card" aria-label="新NISA入力フォーム">
+      <div class="grid">
+        <div>
+          <label for="nisaTsuUsed">2026年 つみたて投資枠 使用済（万円 / 上限120）</label>
+          <input id="nisaTsuUsed" type="number" min="0" max="120" step="10" value="80" />
+        </div>
+        <div>
+          <label for="nisaGroUsed">2026年 成長投資枠 使用済（万円 / 上限240）</label>
+          <input id="nisaGroUsed" type="number" min="0" max="240" step="10" value="160" />
+        </div>
+        <div>
+          <label for="nisaLifeUsed">累計 生涯枠 使用済簿価（万円 / 上限1,800）</label>
+          <input id="nisaLifeUsed" type="number" min="0" max="1800" step="10" value="600" />
+        </div>
+        <div>
+          <label for="nisaSellCost">2026年内 売却予定の取得原価・簿価（万円）</label>
+          <input id="nisaSellCost" type="number" min="0" max="1800" step="10" value="100" />
+        </div>
+        <div>
+          <label for="nisaSellMkt">2026年内 売却予定の時価（万円・参考）</label>
+          <input id="nisaSellMkt" type="number" min="0" max="5000" step="10" value="135" />
+        </div>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi"><div class="kpi-l">2026年 残余つみたて枠</div><div class="kpi-v" id="gbaOutRemTsu">40万円</div></div>
+        <div class="kpi"><div class="kpi-l">2026年 残余成長枠</div><div class="kpi-v" id="gbaOutRemGro">80万円</div></div>
+        <div class="kpi"><div class="kpi-l">2026年末まで利用可能合計</div><div class="kpi-v" id="gbaOutRemTotal">120万円</div></div>
+        <div class="kpi"><div class="kpi-l">2027年1月1日 復活枠</div><div class="kpi-v" id="gbaOutRevive">100万円（簿価）</div></div>
+        <div class="kpi"><div class="kpi-l">2027年時点 生涯残余枠</div><div class="kpi-v" id="gbaOutLife2027">1,300万円</div></div>
+        <div class="kpi"><div class="kpi-l">2027年 年間投資上限</div><div class="kpi-v" id="gbaOutNextCap">360万円</div></div>
+      </div>
+      <p id="gbaOutNote" style="margin:16px 0 0;padding:12px 14px;background:#F8FAFC;border-radius:10px;font-weight:600;color:#0F2C22;"></p>
+
+      <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:20px;">
+        <a class="btn-primary" href="/jp/?utm_source=nisa_tool&amp;utm_medium=cta#gba-retirement-architect-jp">SMH&times;XLV 25年統計4ステップ無料診断へ &rarr;</a>
+        <a class="btn-secondary" href="/jp/smh-fear-greed">本日のSMH恐怖と強欲指数を見る &rarr;</a>
+      </div>
+    </section>
+
+    <p class="disc">
+      <strong>免責事項（教育・統計参考専用）:</strong> 本計算機は金融庁公表の新NISA制度枠に基づく一般的なセルフサービス試算ツールであり、個別銘柄の売買指示や投資助言・税務助言ではありません。受渡日の締切日はご利用の証券会社（楽天・SBI等）の最新案内をご確認ください。 &middot; <a href="/jp/tokushoho">特定商取引法に基づく表記</a> &middot; <a href="/jp/privacy">プライバシーポリシー</a>
+    </p>
+  </main>
+  <script defer src="/hq_member_crm_client.js?v=20261128ta"></script>
+  <script defer src="/assets/dc-nisa-yearend-tool.js?v=20261128ta"></script>
+</body>
+</html>
